@@ -1,0 +1,6 @@
+{
+"require": {
+"phpunit/phpunit": "*",
+"phpunit/phpunit-selenium": "*"
+}
+}
