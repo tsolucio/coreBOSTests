@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit 
+	convertNoticesToExceptions="false"
+	convertWarningsToExceptions="false"
+	backupGlobals="false">
+	<testsuites>
+		<testsuite name="QGTest">
+			<directory>./include/QueryGenerator</directory>
+		</testsuite>
+		<testsuite name="WSTest">
+			<directory>./include/Webservices</directory>
+		</testsuite>
+		<testsuite name="WFTest">
+			<directory>./modules/com_vtiger_workflow</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
