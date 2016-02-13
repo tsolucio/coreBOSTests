@@ -32,8 +32,7 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		global $current_user,$adb;
 		$cnacc=$adb->getColumnNames('vtiger_accountscf');
 		if (empty($cnacc) or count($cnacc)<=1) {
-			// no custom fields so we return true
-			$this->assertTrue(true);
+			$this->markTestSkipped('no custom fields');
 		} else {
 			$cf = $cnacc[1];
 			$queryGenerator = new QueryGenerator('Accounts', $current_user);
