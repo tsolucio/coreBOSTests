@@ -5,7 +5,7 @@ coreBOS Tests
 
 Set of functional, unit and integrations tests and performance benchmarking scripts for the [coreBOS Project](http://corebos.org/).
 
-The goal of the project is to create a set of automatic validations, more oriented towards [Behaviour-Driven Development](http://en.wikipedia.org/wiki/Behavior_driven_development) than unit tests, because unit tests would be overkill and extremely difficult at this stage for such a complex project. We will prefer and create functional and integration tests over unit tests although some unit tests will make it into the mix.
+The goal of the project is to create a set of automatic validations, more oriented towards [Behavior-Driven Development](http://en.wikipedia.org/wiki/Behavior_driven_development) than unit tests, because unit tests would be overkill and extremely difficult at this stage for such a complex project. We will prefer and create functional and integration tests over unit tests although some unit tests will make it into the mix.
 
 ##Installation
 
@@ -25,7 +25,7 @@ You should be able to run the different tests now.
 
 ##Test Execution
 
-To launch the **functional/behaviour tests**, go into the root coreBOS directory and launch this command:
+To launch the **functional/behavior tests**, go into the root coreBOS directory and launch this command:
 
 ```build/coreBOSTests/phpunit -c build/coreBOSTests/phpunit.xml```
 
@@ -39,10 +39,10 @@ If you want to execute the **integration tests**, you will need a selenium serve
 
 ###Test browser
 
-By default the integration tests are executed in firefox and chrome browsers, which are the two coreBOS officially supported browsers. So your selenium server must have the chrome driver loaded. You can find a driver for linux 64bit in build/coreBOSTests/vendor/webdriver/. You can add other browsers by adding the corresponding webdriver in your selenium server and changing the base integration test class which can be found at build/coreBOSTests/integration/cbIntegrationTest.php
+By default, the integration tests are executed in firefox and chrome browsers, which are the two coreBOS officially supported browsers. So your selenium server must have the chrome driver loaded. You can find a driver for linux 64bit in build/coreBOSTests/vendor/webdriver/. You can add other browsers by adding the corresponding webdriver in your selenium server and changing the base integration test class which can be found at build/coreBOSTests/integration/cbIntegrationTest.php
 
 ###Individual tests suites
-In the files build/coreBOSTests/phpunit.xml and build/coreBOSTests/integration.xml you will find definitions of the different test suites that can be launched indicidually if needed.
+In the files build/coreBOSTests/phpunit.xml and build/coreBOSTests/integration.xml you will find definitions of the different test suites that can be launched individually if needed.
 
 ##Developing Tests
 
@@ -50,7 +50,7 @@ For functional and unit tests just follow phpunit good practices by creating tes
 
 Then edit the test suites accordingly if necessary.
 
-For integration tests the same rules apply except that the base class for tests is the one that coreBOSTests uses, so all our integration tests inherit the two browser testing. The integration tests are launched in **http://localhost/coreBOSTest** so the coreBOS test installation **MUST** live there. You can look at the existing tests for examples, but it basically means something like this:
+For integration tests the same rules apply except that the base class for tests is the one that coreBOSTests uses, so all our integration tests inherit the two browser testing. The integration tests are launched in **http://localhost/coreBOSTest** so the coreBOS test installation **MUST** live there (you can change that in the integration/cbIntegrationTest.php file). You can look at the existing tests for examples, but it basically means something like this:
 
 ```
 <?php
