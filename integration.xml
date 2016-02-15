@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit 
+	convertNoticesToExceptions="false"
+	convertWarningsToExceptions="false"
+	backupGlobals="false">
+	<testsuites>
+		<testsuite name="Access">
+			<directory>./integration/Access</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>
