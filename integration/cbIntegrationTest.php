@@ -26,7 +26,7 @@ class cbIntegrationTest extends PHPUnit_Extensions_Selenium2TestCase
 			'host' => 'localhost',
 			'port' => 4444,
 			'timeout' => 30000,
-			'sessionStrategy' => 'shared'
+			'sessionStrategy' => 'isolated'
 		),
 		array(
 			'name' => 'Chrome',
@@ -34,7 +34,7 @@ class cbIntegrationTest extends PHPUnit_Extensions_Selenium2TestCase
 			'host' => 'localhost',
 			'port' => 4444,
 			'timeout' => 30000,
-			'sessionStrategy' => 'shared'
+			'sessionStrategy' => 'isolated'
 		),
 		//array('browserName' => 'internet explorer'),
 	);
@@ -46,7 +46,15 @@ class cbIntegrationTest extends PHPUnit_Extensions_Selenium2TestCase
 		// $this->setBrowser('chrome');
 		// $this->setHost('127.0.0.1');
 		// $this->setPort(4444);
-		$this->setBrowserUrl('https://localhost/coreBOSTest');
+		$this->setBrowserUrl('http://localhost/coreBOSTest');
 	}
 
+	public function waitForcoreBOSFooter($seconds=8) {
+		for ($second = 0;$second < $seconds; $second++) {
+			try {
+				if (substr($this->byCssSelector("td.small > span")->text(),0,18)=="Powered by coreBOS") break;
+			} catch (Exception $e) {}
+			sleep(1);
+		}
+	}
 }
