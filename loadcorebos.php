@@ -30,11 +30,33 @@ require_once('modules/com_vtiger_workflow/include.inc');
 require_once('modules/com_vtiger_workflow/tasks/VTEntityMethodTask.inc');
 require_once('modules/com_vtiger_workflow/VTEntityMethodManager.inc');
 require_once('include/events/include.inc');
+require_once 'include/Webservices/Utils.php';
+require_once("modules/Users/Users.php");
+require_once("include/Webservices/State.php");
+require_once("include/Webservices/OperationManager.php");
+require_once("include/Webservices/SessionManager.php");
+require_once("include/Zend/Json.php");
+require_once 'include/Webservices/WebserviceField.php';
+require_once 'include/Webservices/EntityMeta.php';
+require_once 'include/Webservices/VtigerWebserviceObject.php';
+require_once("include/Webservices/VtigerCRMObject.php");
+require_once("include/Webservices/VtigerCRMObjectMeta.php");
+require_once("include/Webservices/DataTransform.php");
+require_once("include/Webservices/WebServiceError.php");
+require_once 'include/utils/UserInfoUtil.php';
+require_once 'include/Webservices/ModuleTypes.php';
+require_once 'include/utils/VtlibUtils.php';
+require_once 'include/Webservices/WebserviceEntityOperation.php';
+require_once 'include/Webservices/Retrieve.php';
+require_once('modules/Emails/mail.php');
+require_once('modules/com_vtiger_workflow/VTSimpleTemplate.inc');
+require_once 'modules/com_vtiger_workflow/VTEntityCache.inc';
+require_once('modules/com_vtiger_workflow/VTWorkflowUtils.php');
+require_once 'modules/com_vtiger_workflow/include.inc';
+require_once('modules/com_vtiger_workflow/expression_engine/include.inc');
 global $current_user,$adb,$app_strings;
 
-if (empty($current_user) or !is_admin($current_user)) {
-	$current_user = Users::getActiveAdminUser();
-}
+$current_user = Users::getActiveAdminUser();
 if (empty($current_language)) {
 	if(isset($_SESSION['authenticated_user_language']) && $_SESSION['authenticated_user_language'] != '') {
 		$current_language = $_SESSION['authenticated_user_language'];
