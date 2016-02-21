@@ -202,6 +202,36 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_emaildetails.from_email FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid INNER JOIN vtiger_emaildetails ON vtiger_activity.activityid = vtiger_emaildetails.emailid LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_emaildetails.idlists and vtiger_crmentity.smownerid=1  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+
+		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator->setFields(array('id','subject','activitytype','accountname'));
+		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.accountname as accountsaccountname FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+
+		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator->setFields(array('id','subject','activitytype','Accounts.phone'));
+		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+
+		$queryGenerator = new QueryGenerator('Events', $current_user);
+		$queryGenerator->setFields(array('id','subject','activitytype')); //,'Contacts.firstname'));
+		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'contact_id', 'id', '33', 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_cntactivityrel ON vtiger_cntactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_cntactivityrel.contactid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscontact_id.contactid = '33')  AND vtiger_activity.activityid > 0");
+
+		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator->setFields(array('id','subject','activitytype','Accounts.phone'));
+		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'id', '22', 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountid = '22')  AND vtiger_activity.activityid > 0",'Calendar-Account');
+
+		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator->setFields(array('id','HelpDesk.ticket_title'));  // include link field to force join
+		$queryGenerator->addReferenceModuleFieldCondition('HelpDesk', 'parent_id', 'id', '8953', 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_troubleticketsparent_id.title as helpdesktitle FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_troubletickets AS vtiger_troubleticketsparent_id ON vtiger_troubleticketsparent_id.ticketid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_troubleticketsparent_id.ticketid = '8953')  AND vtiger_activity.activityid > 0",'Calendar-HelpDesk');
 	}
 
 	public function testQueryUsers() {
@@ -275,6 +305,18 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'parent_id', 'homephone', '902886938', 'e');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_cobropago.cobropagoid, vtiger_crmentity.smownerid, vtiger_contactdetailsparent_id.firstname as contactsfirstname, vtiger_cobropago.amount, vtiger_cobropago.paid FROM vtiger_cobropago  INNER JOIN vtiger_crmentity ON vtiger_cobropago.cobropagoid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_contactsubdetails AS vtiger_contactsubdetailsparent_id ON vtiger_contactsubdetailsparent_id.contactsubscriptionid=vtiger_cobropago.parent_id LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailsparent_id ON vtiger_contactdetailsparent_id.contactid=vtiger_cobropago.parent_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactsubdetailsparent_id.homephone = '902886938')  AND vtiger_cobropago.cobropagoid > 0");
+
+		$queryGenerator = new QueryGenerator('CobroPago', $current_user);
+		$queryGenerator->setFields(array('id','HelpDesk.ticket_title'));  // include link field to force join
+		$queryGenerator->addReferenceModuleFieldCondition('HelpDesk', 'related_id', 'id', '8953', 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_cobropago.cobropagoid, vtiger_troubleticketsrelated_id.title as helpdesktitle FROM vtiger_cobropago  INNER JOIN vtiger_crmentity ON vtiger_cobropago.cobropagoid = vtiger_crmentity.crmid LEFT JOIN vtiger_troubletickets AS vtiger_troubleticketsrelated_id ON vtiger_troubleticketsrelated_id.ticketid=vtiger_cobropago.related_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_troubleticketsrelated_id.ticketid = '8953')  AND vtiger_cobropago.cobropagoid > 0",'CobroPago-HelpDesk');
+
+		$queryGenerator = new QueryGenerator('CobroPago', $current_user);
+		$queryGenerator->setFields(array('id'));
+		$queryGenerator->addReferenceModuleFieldCondition('HelpDesk', 'related_id', 'id', '8953', 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_cobropago.cobropagoid FROM vtiger_cobropago  INNER JOIN vtiger_crmentity ON vtiger_cobropago.cobropagoid = vtiger_crmentity.crmid LEFT JOIN vtiger_troubletickets AS vtiger_troubleticketsrelated_id ON vtiger_troubleticketsrelated_id.ticketid=vtiger_cobropago.related_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_troubleticketsrelated_id.ticketid = '8953')  AND vtiger_cobropago.cobropagoid > 0",'CobroPago-HelpDesk');
 	}
 
 	public function testQueryDocuments() {
