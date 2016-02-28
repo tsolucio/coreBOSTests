@@ -24,7 +24,7 @@ ini_set('memory_limit','1024M');
 error_reporting(E_ERROR);ini_set("display_errors", "on");
 
 require_once 'include/utils/utils.php';
-include_once('vtlib/Vtiger/Module.php');
+require_once('vtlib/Vtiger/Module.php');
 require_once('vtlib/Vtiger/Package.php');
 require_once('modules/com_vtiger_workflow/include.inc');
 require_once('modules/com_vtiger_workflow/tasks/VTEntityMethodTask.inc');
@@ -48,6 +48,8 @@ require_once 'include/Webservices/ModuleTypes.php';
 require_once 'include/utils/VtlibUtils.php';
 require_once 'include/Webservices/WebserviceEntityOperation.php';
 require_once 'include/Webservices/Retrieve.php';
+require_once 'include/Webservices/Create.php';
+require_once 'include/Webservices/Update.php';
 require_once('modules/Emails/mail.php');
 require_once('modules/com_vtiger_workflow/VTSimpleTemplate.inc');
 require_once 'modules/com_vtiger_workflow/VTEntityCache.inc';
