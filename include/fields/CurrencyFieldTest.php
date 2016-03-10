@@ -187,6 +187,86 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Method testconvertToUserFormatNegative
+	 * @test
+	 */
+	public function testconvertToUserFormatNegative() {
+		$user = new Users();
+		$testcurrency = -42654016.022589;
+		$currencyField = new CurrencyField($testcurrency);
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$this->assertEquals('-42654016.02', $formattedCurrencyValue,'getDisplayValue Negative usrdota0x');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals('&euro;-42654016.02', $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrdota0x');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals('-42654016.02', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrdota0x');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrency, $formattedCurrencyValue,'convertToUserFormat skip Negative usrdota0x');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
+		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrdota0x');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
+		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrdota0x');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$this->assertEquals('-42654016,02', $formattedCurrencyValue,'getDisplayValue Negative usrcomd0x');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals('-42654016,02&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals('-42654016,02', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals('-42654016,022589', $formattedCurrencyValue,'convertToUserFormat skip Negative usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
+		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
+		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrcomd0x');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$this->assertEquals('-42,654,016.02', $formattedCurrencyValue,'getDisplayValue Negative usrdotd3com');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals('-42,654,016.02&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals('-42,654,016.02', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals('-42,654,016.022589', $formattedCurrencyValue,'convertToUserFormat skip Negative usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
+		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
+		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrdotd3com');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$this->assertEquals('-42.654.016,02', $formattedCurrencyValue,'getDisplayValue Negative usrcoma3dot');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals('&euro;-42.654.016,02', $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals('-42.654.016,02', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals('-42.654.016,022589', $formattedCurrencyValue,'convertToUserFormat skip Negative usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
+		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
+		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrcoma3dot');
+		/////////////////
+		$converted2Dollar = $testcurrency * 1.1; // 46919417.6248479
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$this->assertEquals('-46,919,417.62', $formattedCurrencyValue,'getDisplayValue Negative usrdota3comdollar');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals('$-46,919,417.62', $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals('-46,919,417.62', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals('-42,654,016.022589', $formattedCurrencyValue,'convertToUserFormat skip Negative usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
+		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
+		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrdota3comdollar');
+	}
+
+	/**
 	 * Method testconvertToDBFormat
 	 * @test
 	 */
@@ -260,6 +340,82 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$currencyField = new CurrencyField('$46,919,417.624848');
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
 		$this->assertEquals(0, $formattedCurrencyValue,'getDBInsertedValue noskip usrdota3comdollar WITH SYMBOL');
+	}
+
+	/**
+	 * Method testconvertToDBFormatNegative
+	 * @test
+	 */
+	public function testconvertToDBFormatNegative() {
+		$user = new Users();
+		$testcurrency = -42654016.022589;
+		$currencyField = new CurrencyField($testcurrency);
+		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrdota0x');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue skip Negative usrdota0x');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip Negative usrdota0x');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat skip Negative usrdota0x');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
+		$testcurrency = '-42654016,022589';
+		$currencyField = new CurrencyField($testcurrency);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrcomd0x');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue skip Negative usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip Negative usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat skip Negative usrcomd0x');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
+		$testcurrency = '-42,654,016.022589';
+		$currencyField = new CurrencyField($testcurrency);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrdotd3com');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue skip Negative usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip Negative usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat skip Negative usrdotd3com');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$testcurrency = '-42.654.016,022589';
+		$currencyField = new CurrencyField($testcurrency);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrcoma3dot');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue skip Negative usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip Negative usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat skip Negative usrcoma3dot');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
+		$testcurrency = -42654016.022589;
+		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
+		$converted2Dollar = $testcurrency * 1.1; // 46919417,624848
+		$converted2DollarRounded = round($converted2Dollar,$currencyField->numberOfDecimal);
+		$currencyField = new CurrencyField('-46,919,417.624848');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrdota3comdollar');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($converted2DollarRounded, $formattedCurrencyValue,'getDBInsertedValue skip Negative usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($converted2Dollar, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip Negative usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($converted2Dollar, $user, true);
+		$this->assertEquals($converted2DollarRounded, $formattedCurrencyValue,'convertToDBFormat skip Negative usrdota3comdollar');
+		/////////////////
+		// currency symbol not supported as input
+		$currencyField = new CurrencyField('$-46,919,417.624848');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals(0, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrdota3comdollar WITH SYMBOL');
 	}
 
 }
