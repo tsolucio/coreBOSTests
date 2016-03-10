@@ -49,6 +49,10 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(6, $currencyField->numberOfDecimal, 'set numberOfDecimal');
 		$currencyField->numberOfDecimal = 4;
 		$this->assertEquals(4, $currencyField->numberOfDecimal, 'assign numberOfDecimal');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
+		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol in front');
+		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
+		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol in back');
 		/////////////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
@@ -123,10 +127,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('42654016.02', $formattedCurrencyValue,'convertToUserFormat noskip usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrency, $formattedCurrencyValue,'convertToUserFormat skip usrdota0x');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol usrdota0x');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol usrdota0x');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -137,10 +137,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('42654016,02', $formattedCurrencyValue,'convertToUserFormat noskip usrcomd0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals('42654016,022589', $formattedCurrencyValue,'convertToUserFormat skip usrcomd0x');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol usrcomd0x');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol usrcomd0x');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -151,10 +147,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('42,654,016.02', $formattedCurrencyValue,'convertToUserFormat noskip usrdotd3com');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals('42,654,016.022589', $formattedCurrencyValue,'convertToUserFormat skip usrdotd3com');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol usrdotd3com');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol usrdotd3com');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -165,10 +157,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('42.654.016,02', $formattedCurrencyValue,'convertToUserFormat noskip usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals('42.654.016,022589', $formattedCurrencyValue,'convertToUserFormat skip usrcoma3dot');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol usrcoma3dot');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol usrcoma3dot');
 		/////////////////
 		$converted2Dollar = $testcurrency * 1.1; // 46919417.6248479
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
@@ -180,10 +168,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('46,919,417.62', $formattedCurrencyValue,'convertToUserFormat noskip usrdota3comdollar');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals('42,654,016.022589', $formattedCurrencyValue,'convertToUserFormat skip usrdota3comdollar');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol usrdota3comdollar');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol usrdota3comdollar');
 	}
 
 	/**
@@ -203,10 +187,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('-42654016.02', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrency, $formattedCurrencyValue,'convertToUserFormat skip Negative usrdota0x');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrdota0x');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrdota0x');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -217,10 +197,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('-42654016,02', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrcomd0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals('-42654016,022589', $formattedCurrencyValue,'convertToUserFormat skip Negative usrcomd0x');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrcomd0x');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrcomd0x');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -231,10 +207,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('-42,654,016.02', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrdotd3com');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals('-42,654,016.022589', $formattedCurrencyValue,'convertToUserFormat skip Negative usrdotd3com');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrdotd3com');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrdotd3com');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -245,10 +217,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('-42.654.016,02', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals('-42.654.016,022589', $formattedCurrencyValue,'convertToUserFormat skip Negative usrcoma3dot');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrcoma3dot');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrcoma3dot');
 		/////////////////
 		$converted2Dollar = $testcurrency * 1.1; // 46919417.6248479
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
@@ -260,10 +228,6 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('-46,919,417.62', $formattedCurrencyValue,'convertToUserFormat noskip Negative usrdota3comdollar');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals('-42,654,016.022589', $formattedCurrencyValue,'convertToUserFormat skip Negative usrdota3comdollar');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
-		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol Negative usrdota3comdollar');
-		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
-		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol Negative usrdota3comdollar');
 	}
 
 	/**
