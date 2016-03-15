@@ -1173,7 +1173,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$adminUser = Users::getActiveAdminUser();
 		$entityId = '11x74';
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
-		$testexpression = "if accountname == 'Chemex Labs Ltd' then 'accountname' else if bill_city == 'Koorlong' then 'bill_city' else if ship_country == 'Australia' then 'ship_country' else 'none' end";
+		$testexpression = "if accountname == 'Chemex Labs Ltd' then 'accountname' else if bill_city == 'Els Poblets' then 'bill_city' else if ship_country == 'Spain' then 'ship_country' else 'none' end";
 		$expectedresult = array(
 			0 => 'VTExpressionSymbol Object
 (
@@ -1232,7 +1232,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                                             [value] => bill_city
                                         )
 
-                                    [2] => Koorlong
+                                    [2] => Els Poblets
                                 )
 
                         )
@@ -1261,7 +1261,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                                                             [value] => ship_country
                                                         )
 
-                                                    [2] => Australia
+                                                    [2] => Spain
                                                 )
 
                                         )
@@ -1288,7 +1288,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('accountname', $exprEvaluation);
 		////////////////////////
-		$testexpression = "if accountname != 'Chemex Labs Ltd' then 'accountname' else if bill_city == 'Koorlong' then 'bill_city' else if ship_country == 'Australia' then 'ship_country' else 'none' end";
+		$testexpression = "if accountname != 'Chemex Labs Ltd' then 'accountname' else if bill_city == 'Els Poblets' then 'bill_city' else if ship_country == 'Spain' then 'ship_country' else 'none' end";
 		$expectedresult = array(
 			0 => 'VTExpressionSymbol Object
 (
@@ -1347,7 +1347,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                                             [value] => bill_city
                                         )
 
-                                    [2] => Koorlong
+                                    [2] => Els Poblets
                                 )
 
                         )
@@ -1376,7 +1376,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                                                             [value] => ship_country
                                                         )
 
-                                                    [2] => Australia
+                                                    [2] => Spain
                                                 )
 
                                         )
@@ -1399,11 +1399,11 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
     [value] => bill_city
 )
 ',
-			6 => 'Koorlong',
+			6 => 'Els Poblets',
 			7 => 'Array
 (
-    [0] => Koorlong
-    [1] => Koorlong
+    [0] => Els Poblets
+    [1] => Els Poblets
 )
 ',
 			8 => 'Array
@@ -1422,7 +1422,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                             [value] => bill_city
                         )
 
-                    [2] => Koorlong
+                    [2] => Els Poblets
                 )
 
         )
@@ -1451,7 +1451,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                                             [value] => ship_country
                                         )
 
-                                    [2] => Australia
+                                    [2] => Spain
                                 )
 
                         )
@@ -1474,7 +1474,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('bill_city', $exprEvaluation);
 		////////////////////////
-		$testexpression = "if accountname != 'Chemex Labs Ltd' then 'accountname' else if bill_city != 'Koorlong' then 'bill_city' else if ship_country == 'Australia' then 'ship_country' else 'none' end";
+		$testexpression = "if accountname != 'Chemex Labs Ltd' then 'accountname' else if bill_city != 'Els Poblets' then 'bill_city' else if ship_country == 'Spain' then 'ship_country' else 'none' end";
 		$expectedresult = array(
 			0 => 'VTExpressionSymbol Object
 (
@@ -1533,7 +1533,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                                             [value] => bill_city
                                         )
 
-                                    [2] => Koorlong
+                                    [2] => Els Poblets
                                 )
 
                         )
@@ -1562,7 +1562,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                                                             [value] => ship_country
                                                         )
 
-                                                    [2] => Australia
+                                                    [2] => Spain
                                                 )
 
                                         )
@@ -1585,11 +1585,11 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
     [value] => bill_city
 )
 ',
-			6 => 'Koorlong',
+			6 => 'Els Poblets',
 			7 => 'Array
 (
-    [0] => Koorlong
-    [1] => Koorlong
+    [0] => Els Poblets
+    [1] => Els Poblets
 )
 ',
 			8 => 'Array
@@ -1608,7 +1608,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                             [value] => bill_city
                         )
 
-                    [2] => Koorlong
+                    [2] => Els Poblets
                 )
 
         )
@@ -1637,7 +1637,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                                             [value] => ship_country
                                         )
 
-                                    [2] => Australia
+                                    [2] => Spain
                                 )
 
                         )
@@ -1656,11 +1656,11 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
     [value] => ship_country
 )
 ',
-			11 => 'Australia',
+			11 => 'Spain',
 			12 => 'Array
 (
-    [0] => Australia
-    [1] => Australia
+    [0] => Spain
+    [1] => Spain
 )
 ',
 			13 => 'Array
@@ -1679,7 +1679,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
                             [value] => ship_country
                         )
 
-                    [2] => Australia
+                    [2] => Spain
                 )
 
         )
