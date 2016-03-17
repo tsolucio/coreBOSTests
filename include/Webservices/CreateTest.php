@@ -20,6 +20,236 @@
 
 class WSCreateTest extends PHPUnit_Framework_TestCase {
 
+	/****
+	 * TEST Users decimal configuration
+	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
+	 ****/
+	var $usrdota0x = 5; // testdmy
+	var $usrcomd0x = 6; // testmdy
+	var $usrdotd3com = 7; // testymd
+	var $usrcoma3dot = 10; // testtz
+	var $usrdota3comdollar = 12; // testmcurrency
+
+	/**
+	 * Method testCreateWithCurrencyCorrect
+	 * @test
+	 */
+	public function testCreateWithCurrencyCorrect() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$testcurrency = 12345.6743218;
+		$currencyField = new CurrencyField($testcurrency);
+		///////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy
+		$current_user = $user;
+		$Module = 'Campaigns';
+		$cbUserID = '19x'.$current_user->id;
+		$ObjectValues = array(
+			'campaignname'=>'wfcpg-usrdota0x',
+			'campaigntype' => 'Referral Program',
+			'product_id'=>'14x2618',
+			'campaignstatus' => 'Planning',
+			'closingdate'=>'25-12-2015',
+			'assigned_user_id' => $cbUserID,
+			'numsent'=>'2015',
+			'sponsor' => 'Trade Show',
+			'targetaudience' => 'Visitors',
+			'targetsize' => '2200',
+			'expectedresponse' => 'Good',
+			'expectedrevenue'=>$testcurrency,
+			'budgetcost'=>$testcurrency,
+			'actualcost'=>$testcurrency,
+			'actualroi'=>$testcurrency,
+			'expectedroi'=>$testcurrency,
+			'expectedresponsecount'=>'1234',
+			'expectedsalescount'=>'234',
+			'actualresponsecount'=>'2123',
+			'actualsalescount'=>'1674',
+			'modifiedby' => $cbUserID,
+			'description' => 'áçèñtös',
+		);
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$ObjectValues['campaign_no'] = $actual['campaign_no'];
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['closingdate'] = '2015-12-25';
+		$ObjectValues['expectedrevenue'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$this->assertEquals($ObjectValues, $actual,'Test currency usrdota0x Correct');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot); // testtz
+		$current_user = $user;
+		$Module = 'Campaigns';
+		$cbUserID = '19x'.$current_user->id;
+		$ObjectValues = array(
+			'campaignname'=>'wfcpg-usrdota0x',
+			'campaigntype' => 'Referral Program',
+			'product_id'=>'14x2618',
+			'campaignstatus' => 'Planning',
+			'closingdate'=>'2015-12-25',
+			'assigned_user_id' => $cbUserID,
+			'numsent'=>'2015',
+			'sponsor' => 'Trade Show',
+			'targetaudience' => 'Visitors',
+			'targetsize' => '2200',
+			'expectedresponse' => 'Good',
+			'expectedrevenue'=>'12.345,6743218',
+			'budgetcost'=>'12.345,6743218',
+			'actualcost'=>'12.345,6743218',
+			'actualroi'=>'12.345,6743218',
+			'expectedroi'=>'12.345,6743218',
+			'expectedresponsecount'=>'1234',
+			'expectedsalescount'=>'234',
+			'actualresponsecount'=>'2123',
+			'actualsalescount'=>'1674',
+			'modifiedby' => $cbUserID,
+			'description' => 'áçèñtös',
+		);
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$ObjectValues['campaign_no'] = $actual['campaign_no'];
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['closingdate'] = '2015-12-25';
+		$ObjectValues['expectedrevenue'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$this->assertEquals($ObjectValues, $actual,'Test currency usrcoma3dot Correct');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
+		$current_user = $user;
+		$Module = 'Campaigns';
+		$cbUserID = '19x'.$current_user->id;
+		$ObjectValues = array(
+			'campaignname'=>'wfcpg-usrdota0x',
+			'campaigntype' => 'Referral Program',
+			'product_id'=>'14x2618',
+			'campaignstatus' => 'Planning',
+			'closingdate'=>'12-25-2015',
+			'assigned_user_id' => $cbUserID,
+			'numsent'=>'2015',
+			'sponsor' => 'Trade Show',
+			'targetaudience' => 'Visitors',
+			'targetsize' => '2200',
+			'expectedresponse' => 'Good',
+			'expectedrevenue'=>'12345,6743218',
+			'budgetcost'=>'12345,6743218',
+			'actualcost'=>'12345,6743218',
+			'actualroi'=>'12345,6743218',
+			'expectedroi'=>'12345,6743218',
+			'expectedresponsecount'=>'1234',
+			'expectedsalescount'=>'234',
+			'actualresponsecount'=>'2123',
+			'actualsalescount'=>'1674',
+			'modifiedby' => $cbUserID,
+			'description' => 'áçèñtös',
+		);
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$ObjectValues['campaign_no'] = $actual['campaign_no'];
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['closingdate'] = '2015-12-25';
+		$ObjectValues['expectedrevenue'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$this->assertEquals($ObjectValues, $actual,'Test currency usrcomd0x Correct');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
+		$current_user = $user;
+		$Module = 'Campaigns';
+		$cbUserID = '19x'.$current_user->id;
+		$ObjectValues = array(
+			'campaignname'=>'wfcpg-usrdota0x',
+			'campaigntype' => 'Referral Program',
+			'product_id'=>'14x2618',
+			'campaignstatus' => 'Planning',
+			'closingdate'=>'2015-12-25',
+			'assigned_user_id' => $cbUserID,
+			'numsent'=>'2015',
+			'sponsor' => 'Trade Show',
+			'targetaudience' => 'Visitors',
+			'targetsize' => '2200',
+			'expectedresponse' => 'Good',
+			'expectedrevenue'=>'12,345.6743218',
+			'budgetcost'=>'12,345.6743218',
+			'actualcost'=>'12,345.6743218',
+			'actualroi'=>'12,345.6743218',
+			'expectedroi'=>'12,345.6743218',
+			'expectedresponsecount'=>'1234',
+			'expectedsalescount'=>'234',
+			'actualresponsecount'=>'2123',
+			'actualsalescount'=>'1674',
+			'modifiedby' => $cbUserID,
+			'description' => 'áçèñtös',
+		);
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$ObjectValues['campaign_no'] = $actual['campaign_no'];
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['closingdate'] = '2015-12-25';
+		$ObjectValues['expectedrevenue'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$this->assertEquals($ObjectValues, $actual,'Test currency usrdotd3com Correct');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar); // testmcurrency
+		$current_user = $user;
+		$Module = 'Campaigns';
+		$cbUserID = '19x'.$current_user->id;
+		$ObjectValues = array(
+			'campaignname'=>'wfcpg-usrdota0x',
+			'campaigntype' => 'Referral Program',
+			'product_id'=>'14x2618',
+			'campaignstatus' => 'Planning',
+			'closingdate'=>'12-25-2015',
+			'assigned_user_id' => $cbUserID,
+			'numsent'=>'2015',
+			'sponsor' => 'Trade Show',
+			'targetaudience' => 'Visitors',
+			'targetsize' => '2200',
+			'expectedresponse' => 'Good',
+			'expectedrevenue'=>'13,580.24175398', // dollars at 1.1 conversion rate
+			'budgetcost'=>'13,580.24175398',
+			'actualcost'=>'13,580.24175398',
+			'actualroi'=>'13,580.24175398',
+			'expectedroi'=>'13,580.24175398',
+			'expectedresponsecount'=>'1234',
+			'expectedsalescount'=>'234',
+			'actualresponsecount'=>'2123',
+			'actualsalescount'=>'1674',
+			'modifiedby' => $cbUserID,
+			'description' => 'áçèñtös',
+		);
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$ObjectValues['campaign_no'] = $actual['campaign_no'];
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['closingdate'] = '2015-12-25';
+		$ObjectValues['expectedrevenue'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$this->assertEquals($ObjectValues, $actual,'Test currency usrdota3comdollar Correct');
+		/// end
+		$current_user = $holduser;
+	}
+
+
 	/**
 	 * Method testCreateWithDatesCorrect
 	 * @test
