@@ -24,11 +24,11 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 	 * TEST Users decimal configuration
 	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
 	 ****/
-	var $usrdota0x = 5; // testdmy
-	var $usrcomd0x = 6; // testmdy
-	var $usrdotd3com = 7; // testymd
-	var $usrcoma3dot = 10; // testtz
-	var $usrdota3comdollar = 12; // testmcurrency
+	var $usrdota0x = 5; // testdmy 2 decimal places
+	var $usrcomd0x = 6; // testmdy 3 decimal places
+	var $usrdotd3com = 7; // testymd 4 decimal places
+	var $usrcoma3dot = 10; // testtz 5 decimal places
+	var $usrdota3comdollar = 12; // testmcurrency 6 decimal places
 
 	/**
 	 * Method testgetCurrencyInformation
@@ -36,14 +36,18 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 	 */
 	public function testgetCurrencyInformation() {
 		$testcurrency = 42654016.022589;
+		$currencyField = new CurrencyField($testcurrency);
 		$converted2Dollar = $testcurrency * 1.1; // 46919417.6248479
 		$converted = convertToDollar(46919417.6248479, 1.1);
-		$this->assertEquals(round(42654016.022589,6), round($converted,6), 'convertToDollar');
+		$this->assertEquals(round(42654016.022589,6), round($converted,6), 'convertToDollar UTILS');
 		$converted = convertFromDollar(42654016.022589, 1.1);
-		$this->assertEquals(round(46919417.6248479,2), $converted, 'convertFromDollar');
+		$this->assertEquals(round(46919417.6248479,2), $converted, 'convertFromDollar UTILS');
+		$converted = CurrencyField::convertToDollar(46919417.6248479, 1.1);
+		$this->assertEquals(round(42654016.022589,CurrencyField::$maxNumberOfDecimals), round($converted,CurrencyField::$maxNumberOfDecimals), 'convertToDollar CLASS');
+		$converted = CurrencyField::convertFromDollar(42654016.022589, 1.1);
+		$this->assertEquals(round(46919417.6248479,CurrencyField::$maxNumberOfDecimals), $converted, 'convertFromDollar CLASS');
 		$dbCurrency = CurrencyField::getDBCurrencyId();
 		$this->assertEquals(1, $dbCurrency, 'getDBCurrencyId');
-		$currencyField = new CurrencyField($testcurrency);
 		$this->assertEquals(3, $currencyField->numberOfDecimal, 'numberOfDecimal');
 		$currencyField->setNumberofDecimals(6);
 		$this->assertEquals(6, $currencyField->numberOfDecimal, 'set numberOfDecimal');
@@ -64,6 +68,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('&euro;', $currencyField->currencySymbol, 'currencySymbol usrdota0x');
 		$this->assertEquals(1, $currencyField->conversionRate, 'conversionRate usrdota0x');
 		$this->assertEquals('$1.0', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrdota0x');
+		$this->assertEquals(2, $currencyField->numberOfDecimal, 'numberOfDecimal usrdota0x');
 		
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$currencyField->initialize($user);
@@ -74,6 +79,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('&euro;', $currencyField->currencySymbol, 'currencySymbol usrcomd0x');
 		$this->assertEquals(1, $currencyField->conversionRate, 'conversionRate usrcomd0x');
 		$this->assertEquals('1.0$', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrcomd0x');
+		$this->assertEquals(3, $currencyField->numberOfDecimal, 'numberOfDecimal usrcomd0x');
 
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
 		$currencyField->initialize($user);
@@ -84,6 +90,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('&euro;', $currencyField->currencySymbol, 'currencySymbol usrdotd3com');
 		$this->assertEquals(1, $currencyField->conversionRate, 'conversionRate usrdotd3com');
 		$this->assertEquals('1.0$', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrdotd3com');
+		$this->assertEquals(4, $currencyField->numberOfDecimal, 'numberOfDecimal usrdotd3com');
 
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$currencyField->initialize($user);
@@ -96,6 +103,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('&euro;', $currencySymbol, 'currencySymbol usrcoma3dot method');
 		$this->assertEquals(1, $currencyField->conversionRate, 'conversionRate usrcoma3dot');
 		$this->assertEquals('$1.0', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrcoma3dot');
+		$this->assertEquals(5, $currencyField->numberOfDecimal, 'numberOfDecimal usrcoma3dot');
 
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
 		$currencyField->initialize($user);
@@ -108,6 +116,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('$', $currencySymbol, 'currencySymbol usrdota3comdollar method');
 		$this->assertEquals(1.1, $currencyField->conversionRate, 'conversionRate usrdota3comdollar');
 		$this->assertEquals('$1.0', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrdota3comdollar');
+		$this->assertEquals(6, $currencyField->numberOfDecimal, 'numberOfDecimal usrdota3comdollar');
 	}
 
 	/**
@@ -131,6 +140,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
 		$testcurrencyrounded = str_replace('.', ',', $testcurrencyrounded);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue usrcomd0x');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
@@ -197,6 +207,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
 		$testcurrencyrounded = str_replace('.', ',', $testcurrencyrounded);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue Negative usrcomd0x');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
@@ -250,7 +261,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$user = new Users();
 		$testcurrency = 42654016.022589;
 		$currencyField = new CurrencyField($testcurrency);
-		$testcurrencyrounded = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$testcurrencyrounded = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip usrdota0x');
@@ -301,11 +312,11 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$testcurrency = 42654016.022589;
 		$currencyField = new CurrencyField('46,919,417.624848');
 		$currencyField->initialize($user);
-		$testcurrencyrounded = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$testcurrencyrounded = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
 		$converted2Dollar = $testcurrency * $currencyField->conversionRate; // 46919417,624848
-		$converted2DollarRounded = round($converted2Dollar,$currencyField->maxNumberOfDecimals);
+		$converted2DollarRounded = round($converted2Dollar,CurrencyField::$maxNumberOfDecimals);
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
-		$numdec = pow(10, $currencyField->maxNumberOfDecimals);
+		$numdec = pow(10, CurrencyField::$maxNumberOfDecimals);
 		$truncexpected = floor($testcurrencyrounded * $numdec) / $numdec;
 		$truncactual = floor($formattedCurrencyValue * $numdec) / $numdec;
 		$this->assertEquals($truncexpected, $truncactual,'getDBInsertedValue noskip usrdota3comdollar');
@@ -332,7 +343,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$user = new Users();
 		$testcurrency = -42654016.022589;
 		$currencyField = new CurrencyField($testcurrency);
-		$testcurrencyrounded = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$testcurrencyrounded = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrdota0x');
@@ -383,11 +394,11 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$testcurrency = -42654016.022589;
 		$currencyField = new CurrencyField('-46,919,417.624848');
 		$currencyField->initialize($user);
-		$testcurrencyrounded = round($testcurrency,$currencyField->maxNumberOfDecimals);
+		$testcurrencyrounded = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
 		$converted2Dollar = $testcurrency * $currencyField->conversionRate; // 46919417,624848
-		$converted2DollarRounded = round($converted2Dollar,$currencyField->maxNumberOfDecimals);
+		$converted2DollarRounded = round($converted2Dollar,CurrencyField::$maxNumberOfDecimals);
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
-		$numdec = pow(10, $currencyField->maxNumberOfDecimals);
+		$numdec = pow(10, CurrencyField::$maxNumberOfDecimals);
 		$truncexpected = -42654016.02259; // floor($testcurrencyrounded * $numdec) / $numdec;
 		$truncactual = floor($formattedCurrencyValue * $numdec) / $numdec;
 		$this->assertEquals($truncexpected, $truncactual,'getDBInsertedValue noskip Negative usrdota3comdollar');
