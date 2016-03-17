@@ -35,6 +35,9 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function testgetCurrencyInformation() {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
 		$testcurrency = 42654016.022589;
 		$currencyField = new CurrencyField($testcurrency);
 		$converted2Dollar = $testcurrency * 1.1; // 46919417.6248479
@@ -53,12 +56,13 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(6, $currencyField->numberOfDecimal, 'set numberOfDecimal');
 		$currencyField->numberOfDecimal = 4;
 		$this->assertEquals(4, $currencyField->numberOfDecimal, 'assign numberOfDecimal');
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // symbol in front
+		$current_user = $user;
 		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S');
 		$this->assertEquals("S$testcurrency", $formattedCurrencyValue,'appendCurrencySymbol in front');
 		$formattedCurrencyValue = CurrencyField::appendCurrencySymbol($testcurrency, 'S','1.0$');
 		$this->assertEquals($testcurrency.'S', $formattedCurrencyValue,'appendCurrencySymbol in back');
 		/////////////////
-		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
 		$currencyField->initialize($user);
 		$this->assertEquals('123456789', $currencyField->currencyFormat, 'currencyFormat usrdota0x');
@@ -117,6 +121,8 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(1.1, $currencyField->conversionRate, 'conversionRate usrdota3comdollar');
 		$this->assertEquals('$1.0', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrdota3comdollar');
 		$this->assertEquals(6, $currencyField->numberOfDecimal, 'numberOfDecimal usrdota3comdollar');
+		// End
+		$current_user = $hold_user;
 	}
 
 	/**
