@@ -110,11 +110,22 @@ A profiling register will be made for approximately every 10 accesses to the app
 If you want to force a registration in any part of the code you have to take these steps:
 
 * include the coreBOSxhguiWorker class
- ```include_once('build/coreBOSTests/cbxhgui.php');```
+
+ ```
+ include_once('build/coreBOSTests/cbxhgui.php');
+ ```
+ 
 * enable the profile at the start of the code you want to analyze
-```coreBOSxhguiWorker::enable_cbprofile();```
+
+```
+coreBOSxhguiWorker::enable_cbprofile();
+```
+
 * disable the profile at the end of the code you want to analyze
-```coreBOSxhguiWorker::disable_cbprofile();```
+
+```
+coreBOSxhguiWorker::disable_cbprofile();
+```
 
 For example, to analyze List View calls you would apply this patch:
 
