@@ -160,7 +160,7 @@ This setup is based on the work described in engineyard.com blog post [**Profili
 License
 -------
 
-[MIT](https://github.com/tsolucio/coreBOSTests/blob/master/LICENSE.txt)
+[MIT](https://github.com/tsolucio/coreBOSTests/blob/master/LICENSE.md)
 
 **Thank you** very much for your help and contribution.
 
