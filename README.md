@@ -105,14 +105,14 @@ That is all that is needed. As you work with the application, profiling informat
 http://localhost/your_corebos/build/coreBOSTests/xhgui/webroot/
 ```
 
-A profiling register will be made for approximately every 10 accesses to the application.
+**A profiling register will be made for approximately every 10 accesses to the application.**
 
-If you want to force a registration in any part of the code you have to take these steps:
+If you want to **force a registration** in any part of the code you have to take these steps:
 
 * include the coreBOSxhguiWorker class
 
- ```
- include_once('build/coreBOSTests/cbxhgui.php');
+```
+include_once('build/coreBOSTests/cbxhgui.php');
  ```
  
 * enable the profile at the start of the code you want to analyze
