@@ -1,11 +1,11 @@
 coreBOS Tests
 =======
 
-**core Business Operating System Tests**
+**core Business Operating System Tests and Profiles**
 
 Set of functional, unit and integrations tests, and performance benchmarking scripts for the [coreBOS Project](http://corebos.org/).
 
-The goal of the project is to create a set of automatic validations, more oriented towards [Behavior-Driven Development](http://en.wikipedia.org/wiki/Behavior_driven_development) than unit tests, because unit tests would be overkill and extremely difficult at this stage for such a complex project. We will prefer and create functional and integration tests over unit tests although some unit tests will make it into the mix.
+The goal of the project is to create a set of automatic validations, more oriented towards [Behavior-Driven Development](http://en.wikipedia.org/wiki/Behavior_driven_development) than unit tests, because unit tests would be overkill and extremely difficult at this stage for such a complex project. We will prefer and create functional and integration tests over unit tests although some unit tests will make it into the mix (curiously unit tests have been the first to make it into the project :-) ).
 
 Installation
 -------
@@ -83,10 +83,73 @@ class YourIntegrationTest extends cbIntegrationTest
 ...
 ```
 
+Profiling
+-------
+This project also caters the needs of profiling the application. To accomplish this, we use the XHProf PHP extension and the visual user interface [XHGUI](https://github.com/perftools/xhgui.git).
+
+To get profiling working you need to:
+* install the XHProf PHP extension in your PHP
+* install mongodb
+* get the latest code of the coreBOSTest project (see above)
+* register the profiling calls:
+```
+cd {coreBOSTests Project directory}
+cp build/coreBOSTests/registerxhgui.php .
+php registerxhgui.php
+rm registerxhgui.php
+```
+
+That is all that is needed. As you work with the application, profiling information will be dumped into the mongodb database and you will be able to view it accessing the XHGUI site at (**localhost!**):
+
+```
+http://localhost/your_corebos/build/coreBOSTests/xhgui/webroot/
+```
+
+A profiling register will be made for approximately every 10 accesses to the application.
+
+If you want to force a registration in any part of the code you have to take these steps:
+
+* include the coreBOSxhguiWorker class
+ ```include_once('build/coreBOSTests/cbxhgui.php');```
+* enable the profile at the start of the code you want to analyze
+```coreBOSxhguiWorker::enable_cbprofile();```
+* disable the profile at the end of the code you want to analyze
+```coreBOSxhguiWorker::disable_cbprofile();```
+
+For example, to analyze List View calls you would apply this patch:
+
+```
+diff --git a/modules/Vtiger/ListView.php b/modules/Vtiger/ListView.php
+index 1bc9257..c5f5dce 100644
+--- a/modules/Vtiger/ListView.php
++++ b/modules/Vtiger/ListView.php
+@@ -8,7 +8,8 @@
+  * All Rights Reserved.
+  ************************************************************************************/
+ global $app_strings, $mod_strings, $current_language, $currentModule, $theme, $list_max_entries_per_page;
+-
++include_once('build/coreBOSTests/cbxhgui.php');
++coreBOSxhguiWorker::enable_cbprofile();
+ require_once('Smarty_setup.php');
+ require_once('include/ListView/ListView.php');
+ require_once('modules/CustomView/CustomView.php');
+@@ -231,5 +232,5 @@ if(isset($_REQUEST['ajax']) && $_REQUEST['ajax'] != '')
+        $smarty->display("ListViewEntries.tpl");
+ else
+        $smarty->display('ListView.tpl');
+-
++coreBOSxhguiWorker::disable_cbprofile();
+ ?>
+```
+
+This setup is based on the work described in engineyard.com blog post [**Profiling PHP with Xhprof & Xhgui**](https://blog.engineyard.com/2014/profiling-with-xhprof-xhgui-part-1) which is a recommended read along with the article [Profiling PHP Applications with XHGui](https://inviqa-production.squarespace.com/blog/2013/10/01/profiling-php-applications-with-xhgui)
+
+
+
 License
 -------
 
-MIT
+[MIT](https://github.com/tsolucio/coreBOSTests/blob/master/LICENSE.txt)
 
 **Thank you** very much for your help and contribution.
 
