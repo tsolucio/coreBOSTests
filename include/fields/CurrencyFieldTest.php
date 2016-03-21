@@ -193,6 +193,73 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Method testconvertToUserFormatZero
+	 * @test
+	 */
+	public function testconvertToUserFormatZero() {
+		$user = new Users();
+		$testcurrency = 0.022589;
+		$currencyField = new CurrencyField($testcurrency);
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue zero usrdota0x');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals("&euro;$testcurrencyrounded", $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrdota0x');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip zero usrdota0x');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip zero usrdota0x');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
+		$testcurrencyrounded = str_replace('.', ',', $testcurrencyrounded);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue zero usrcomd0x');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip zero usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip zero usrcomd0x');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$testcurrencyrounded = number_format($testcurrency,$currencyField->numberOfDecimal,'.',',');
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue uzero srdotd3com');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip zero usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip zero usrdotd3com');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$testcurrencyrounded = number_format($testcurrency,$currencyField->numberOfDecimal,',','.');
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue zero usrcoma3dot');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals('&euro;'.$testcurrencyrounded, $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip zero usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip zero usrcoma3dot');
+		/////////////////
+		$converted2Dollar = $testcurrency * 1.1;
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
+		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
+		$testcurrencyrounded = number_format($converted2Dollar,$currencyField->numberOfDecimal,'.',',');
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue zero usrdota3comdollar');
+		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
+		$this->assertEquals('$'.$testcurrencyrounded, $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip zero usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
+		$testcurrencyrounded = number_format($testcurrency,$currencyField->numberOfDecimal,'.',',');
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip zero usrdota3comdollar');
+	}
+
+	/**
 	 * Method testconvertToUserFormatNegative
 	 * @test
 	 */
@@ -339,6 +406,85 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$currencyField = new CurrencyField('$46,919,417.624848');
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
 		$this->assertEquals(0, $formattedCurrencyValue,'getDBInsertedValue noskip usrdota3comdollar WITH SYMBOL');
+	}
+
+
+	/**
+	 * Method testconvertToDBFormatZero
+	 * @test
+	 */
+	public function testconvertToDBFormatZero() {
+		$user = new Users();
+		$testcurrency = 0.022589;
+		$currencyField = new CurrencyField($testcurrency);
+		$testcurrencyrounded = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip zero usrdota0x');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue skip zero usrdota0x');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip zero usrdota0x');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat skip zero usrdota0x');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
+		$testcurrency = '0,022589';
+		$currencyField = new CurrencyField($testcurrency);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip zero usrcomd0x');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue skip zero usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip zero usrcomd0x');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat skip zero usrcomd0x');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
+		$testcurrency = '0.022589';
+		$currencyField = new CurrencyField($testcurrency);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip zero usrdotd3com');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue skip zero usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip zero usrdotd3com');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat skip zero usrdotd3com');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$testcurrency = '0,022589';
+		$currencyField = new CurrencyField($testcurrency);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue noskip zero usrcoma3dot');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDBInsertedValue skip zero usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, false);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat noskip zero usrcoma3dot');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToDBFormat skip zero usrcoma3dot');
+		/////////////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
+		$testcurrency = 0.022589;
+		$currencyField = new CurrencyField('0.0248479');
+		$currencyField->initialize($user);
+		$testcurrencyrounded = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
+		$converted2Dollar = $testcurrency * $currencyField->conversionRate;
+		$converted2DollarRounded = round($converted2Dollar,CurrencyField::$maxNumberOfDecimals);
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$numdec = pow(10, CurrencyField::$maxNumberOfDecimals);
+		$truncexpected = floor($testcurrencyrounded * $numdec) / $numdec;
+		$truncactual = floor($formattedCurrencyValue * $numdec) / $numdec;
+		$this->assertEquals("$truncexpected", $formattedCurrencyValue,'getDBInsertedValue noskip zero usrdota3comdollar');
+		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
+		$formattedCurrencyValuerounded = round($formattedCurrencyValue,CurrencyField::$maxNumberOfDecimals);
+		$this->assertEquals("$converted2DollarRounded", $formattedCurrencyValuerounded,'getDBInsertedValue skip zero usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($converted2Dollar, $user, false);
+		$truncexpected = floor($testcurrencyrounded * $numdec) / $numdec;
+		$truncactual = floor($formattedCurrencyValue * $numdec) / $numdec;
+		$this->assertEquals("$truncexpected", $formattedCurrencyValue,'convertToDBFormat noskip zero usrdota3comdollar');
+		$formattedCurrencyValue = CurrencyField::convertToDBFormat($converted2Dollar, $user, true);
+		$this->assertEquals("$converted2DollarRounded", $formattedCurrencyValuerounded,'convertToDBFormat skip zero usrdota3comdollar');
 	}
 
 	/**
