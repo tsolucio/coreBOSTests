@@ -86,7 +86,7 @@ class WSCreateTest extends PHPUnit_Framework_TestCase {
 		$Module = 'Campaigns';
 		$cbUserID = '19x'.$current_user->id;
 		$ObjectValues = array(
-			'campaignname'=>'wfcpg-usrdota0x',
+			'campaignname'=>'wfcpg-usrcoma3dot',
 			'campaigntype' => 'Referral Program',
 			'product_id'=>'14x2618',
 			'campaignstatus' => 'Planning',
@@ -127,7 +127,7 @@ class WSCreateTest extends PHPUnit_Framework_TestCase {
 		$Module = 'Campaigns';
 		$cbUserID = '19x'.$current_user->id;
 		$ObjectValues = array(
-			'campaignname'=>'wfcpg-usrdota0x',
+			'campaignname'=>'wfcpg-usrcomd0x',
 			'campaigntype' => 'Referral Program',
 			'product_id'=>'14x2618',
 			'campaignstatus' => 'Planning',
@@ -168,7 +168,7 @@ class WSCreateTest extends PHPUnit_Framework_TestCase {
 		$Module = 'Campaigns';
 		$cbUserID = '19x'.$current_user->id;
 		$ObjectValues = array(
-			'campaignname'=>'wfcpg-usrdota0x',
+			'campaignname'=>'wfcpg-usrdotd3com',
 			'campaigntype' => 'Referral Program',
 			'product_id'=>'14x2618',
 			'campaignstatus' => 'Planning',
@@ -209,7 +209,7 @@ class WSCreateTest extends PHPUnit_Framework_TestCase {
 		$Module = 'Campaigns';
 		$cbUserID = '19x'.$current_user->id;
 		$ObjectValues = array(
-			'campaignname'=>'wfcpg-usrdota0x',
+			'campaignname'=>'wfcpg-usrdota3comdollar',
 			'campaigntype' => 'Referral Program',
 			'product_id'=>'14x2618',
 			'campaignstatus' => 'Planning',
