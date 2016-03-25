@@ -146,7 +146,7 @@ register_shutdown_function(
         $data['meta'] = array(
             'url' => $uri,
             'SERVER' => $_SERVER,
-            'get' => $_GET,
+            'get' => $_REQUEST,
             'env' => $_ENV,
             'simple_url' => Xhgui_Util::simpleUrl($uri),
             'request_ts' => $requestTs,

@@ -45,7 +45,7 @@ class coreBOSxhguiWorker {
 		$data = array();
 		$data['profile'] = xhprof_disable();
 		ignore_user_abort(true);
-		flush();
+		//flush();
 
 		if (!defined('XHGUI_ROOT_DIR')) {
 			require dirname(dirname(__FILE__)) . '/coreBOSTests/xhgui/src/bootstrap.php';
@@ -71,7 +71,16 @@ class coreBOSxhguiWorker {
 			$requestTsMicro = new MongoDate($requestTimeFloat[0], $requestTimeFloat[1]);
 		}
 
-		$data['meta'] = array('url' => $uri, 'SERVER' => $_SERVER, 'get' => $_GET, 'env' => $_ENV, 'simple_url' => Xhgui_Util::simpleUrl($uri), 'request_ts' => $requestTs, 'request_ts_micro' => $requestTsMicro, 'request_date' => date('Y-m-d', $time), );
+		$data['meta'] = array(
+			'url' => $uri,
+			'SERVER' => $_SERVER,
+			'get' => $_REQUEST,
+			'env' => $_ENV,
+			'simple_url' => Xhgui_Util::simpleUrl($uri),
+			'request_ts' => $requestTs,
+			'request_ts_micro' => $requestTsMicro,
+			'request_date' => date('Y-m-d', $time),
+		);
 
 		try {
 			$config = Xhgui_Config::all();
