@@ -569,5 +569,93 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(0, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrdota3comdollar WITH SYMBOL');
 	}
 
+	/**
+	 * Method getDecimalsFromTypeOfDataProvider
+	 * params
+	 */
+	public function getDecimalsFromTypeOfDataProvider() {
+		return array(
+			array('NN~O',$this->usrdota0x,2,'usrdota0x - 2'),
+			array('NN~O',$this->usrcomd0x,3,'usrcomd0x - 3'),
+			array('NN~O',$this->usrdotd3com,4,'usrdotd3com - 4'),
+			array('NN~O',$this->usrcoma3dot,5,'usrcoma3dot - 5'),
+			array('NN~O',$this->usrdota3comdollar,6,'usrdota3comdollar - 6'),
+			array('N~O',$this->usrdota0x,2,'usrdota0x - 2'),
+			array('N~O',$this->usrcomd0x,3,'usrcomd0x - 3'),
+			array('N~O',$this->usrdotd3com,4,'usrdotd3com - 4'),
+			array('N~O',$this->usrcoma3dot,5,'usrcoma3dot - 5'),
+			array('N~O',$this->usrdota3comdollar,6,'usrdota3comdollar - 6'),
+
+			array('N~O~',$this->usrdota0x,2,'usrdota0x - 2'),
+			array('N~O~',$this->usrcomd0x,3,'usrcomd0x - 3'),
+			array('N~O~',$this->usrdotd3com,4,'usrdotd3com - 4'),
+			array('N~O~',$this->usrcoma3dot,5,'usrcoma3dot - 5'),
+			array('N~O~',$this->usrdota3comdollar,6,'usrdota3comdollar - 6'),
+			array('N~O~18',$this->usrdota0x,2,'usrdota0x - 2'),
+			array('N~O~18',$this->usrcomd0x,3,'usrcomd0x - 3'),
+			array('N~O~18',$this->usrdotd3com,4,'usrdotd3com - 4'),
+			array('N~O~18',$this->usrcoma3dot,5,'usrcoma3dot - 5'),
+			array('N~O~18',$this->usrdota3comdollar,6,'usrdota3comdollar - 6'),
+			array('N~O~18~',$this->usrdota0x,2,'usrdota0x - 2'),
+			array('N~O~18~',$this->usrcomd0x,3,'usrcomd0x - 3'),
+			array('N~O~18~',$this->usrdotd3com,4,'usrdotd3com - 4'),
+			array('N~O~18~',$this->usrcoma3dot,5,'usrcoma3dot - 5'),
+			array('N~O~18~',$this->usrdota3comdollar,6,'usrdota3comdollar - 6'),
+			array('N~O~18,',$this->usrdota0x,2,'usrdota0x - 2'),
+			array('N~O~18,',$this->usrcomd0x,3,'usrcomd0x - 3'),
+			array('N~O~18,',$this->usrdotd3com,4,'usrdotd3com - 4'),
+			array('N~O~18,',$this->usrcoma3dot,5,'usrcoma3dot - 5'),
+			array('N~O~18,',$this->usrdota3comdollar,6,'usrdota3comdollar - 6'),
+
+			array('NN~O~8,2',$this->usrdota0x,2,'usrdota0x - 2'),
+			array('NN~O~8,2',$this->usrcomd0x,2,'usrcomd0x - 3'),
+			array('NN~O~8,2',$this->usrdotd3com,2,'usrdotd3com - 4'),
+			array('NN~O~8,2',$this->usrcoma3dot,2,'usrcoma3dot - 5'),
+			array('NN~O~8,2',$this->usrdota3comdollar,2,'usrdota3comdollar - 6'),
+			array('N~O~8,4',$this->usrdota0x,4,'usrdota0x - 2'),
+			array('N~O~8,4',$this->usrcomd0x,4,'usrcomd0x - 3'),
+			array('N~O~8,4',$this->usrdotd3com,4,'usrdotd3com - 4'),
+			array('N~O~8,4',$this->usrcoma3dot,4,'usrcoma3dot - 5'),
+			array('N~O~8,4',$this->usrdota3comdollar,4,'usrdota3comdollar - 6'),
+			array('N~O~2~2',$this->usrdota0x,2,'usrdota0x - 2'),
+			array('N~O~2~2',$this->usrcomd0x,2,'usrcomd0x - 3'),
+			array('N~O~2~2',$this->usrdotd3com,2,'usrdotd3com - 4'),
+			array('N~O~2~2',$this->usrcoma3dot,2,'usrcoma3dot - 5'),
+			array('N~O~2~2',$this->usrdota3comdollar,2,'usrdota3comdollar - 6'),
+
+			array('I~M',$this->usrdota0x,0,'usrdota0x - 2'),
+			array('I~M',$this->usrcomd0x,0,'usrcomd0x - 3'),
+			array('I~M',$this->usrdotd3com,0,'usrdotd3com - 4'),
+			array('I~M',$this->usrcoma3dot,0,'usrcoma3dot - 5'),
+			array('I~M',$this->usrdota3comdollar,0,'usrdota3comdollar - 6'),
+			array('C~M',$this->usrdota0x,0,'usrdota0x - 2'),
+			array('C~M',$this->usrcomd0x,0,'usrcomd0x - 3'),
+			array('C~M',$this->usrdotd3com,0,'usrdotd3com - 4'),
+			array('C~M',$this->usrcoma3dot,0,'usrcoma3dot - 5'),
+			array('C~M',$this->usrdota3comdollar,0,'usrdota3comdollar - 6'),
+			array('V~O',$this->usrdota0x,0,'usrdota0x - 2'),
+			array('V~O',$this->usrcomd0x,0,'usrcomd0x - 3'),
+			array('V~O',$this->usrdotd3com,0,'usrdotd3com - 4'),
+			array('V~O',$this->usrcoma3dot,0,'usrcoma3dot - 5'),
+			array('V~O',$this->usrdota3comdollar,0,'usrdota3comdollar - 6'),
+		);
+	}
+
+	/**
+	 * Method testgetDecimalsFromTypeOfData
+	 * @test
+	 * @dataProvider getDecimalsFromTypeOfDataProvider
+	 */
+	public function testgetDecimalsFromTypeOfData($typeofdata,$userid,$expected,$userformat) {
+		global $current_user;
+		$huser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$actual = CurrencyField::getDecimalsFromTypeOfData($typeofdata);
+		$this->assertEquals($expected, $actual,"getDecimalsFromTypeOfData $typeofdata $userformat");
+		$current_user = $huser;
+	}
+
 }
 ?>
