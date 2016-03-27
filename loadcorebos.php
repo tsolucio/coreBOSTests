@@ -55,7 +55,6 @@ require_once('modules/Emails/mail.php');
 require_once('modules/com_vtiger_workflow/VTSimpleTemplate.inc');
 require_once 'modules/com_vtiger_workflow/VTEntityCache.inc';
 require_once('modules/com_vtiger_workflow/VTWorkflowUtils.php');
-require_once 'modules/com_vtiger_workflow/include.inc';
 require_once('modules/com_vtiger_workflow/expression_engine/include.inc');
 global $current_user,$adb,$app_strings;
 
