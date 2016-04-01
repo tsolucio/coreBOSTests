@@ -13,6 +13,9 @@
 		<testsuite name="incFields">
 			<directory>./include/fields</directory>
 		</testsuite>
+		<testsuite name="incUtils">
+			<directory>./include/utils</directory>
+		</testsuite>
 		<testsuite name="WFTest">
 			<directory>./modules/com_vtiger_workflow</directory>
 		</testsuite>
