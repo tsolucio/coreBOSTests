@@ -32,6 +32,7 @@ You should be able to log in with the user and password "admin".
 
 * go to coreBOS Updater, load and apply all changes (as always)
 * go to Settings > Access Privileges and "Recalculate"
+* go to Settings > Module Manager. Deactivate and Activate the Assets module (for example). We do this to generate and update the tabdata.php file.
 
 You should be able to run the different tests now.
 
