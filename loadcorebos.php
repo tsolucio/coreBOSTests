@@ -24,6 +24,7 @@ ini_set('memory_limit','1024M');
 error_reporting(E_ERROR);ini_set("display_errors", "on");
 
 require_once 'include/utils/utils.php';
+coreBOS_Session::init();
 require_once('vtlib/Vtiger/Module.php');
 require_once('vtlib/Vtiger/Package.php');
 require_once('modules/com_vtiger_workflow/include.inc');
