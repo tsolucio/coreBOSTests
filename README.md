@@ -91,7 +91,10 @@ This project also caters the needs of profiling the application. To accomplish t
 To get profiling working you need to:
 * install the XHProf PHP extension in your PHP
 * install mongodb
+* your apache must be configured to accept .htaccess directives because the build directory is protected from web access so we need to eliminate that restriction for the xhgui direcotry
+* your apache must have mod_rewrite loaded
 * get the latest code of the coreBOSTest project (see above)
+* inside the xhgui directory (build/coreBOSTests/xhgui) you have to download composer.phar and execute `composer update`
 * register the profiling calls:
 ```
 cd {coreBOSTests Project directory}
