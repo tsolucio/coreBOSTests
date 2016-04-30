@@ -61,6 +61,8 @@ class testSession extends PHPUnit_Framework_TestCase {
 		return array(
 			array('Normal string','Normalstring','normal string'),
 			array('Numbers 012-345,678.9','Numbers0123456789','Numbers 012-345,678.9'),
+			array('012-345,678.9','cb0123456789','Only Numbers 012-345,678.9'),
+			array('192.168.0.2:8080','cb192168028080','IP Address'),
 			array('Special character string áçèñtös ÑÇ','Specialcharacterstringts','Special character string with áçèñtös'),
 			array('!"·$%&/();,:.=?¿*_-|@#€','','special string with only symbols'),
 			array('',$expsiteurl,'empty string'),
