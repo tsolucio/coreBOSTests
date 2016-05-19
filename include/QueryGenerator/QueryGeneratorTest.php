@@ -160,6 +160,12 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addCondition('duedate', array(0=>'2006-01-01',1=>'2016-01-01'), 'bw',$queryGenerator::$AND);
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_salesorder.salesorderid, vtiger_salesorder.subject FROM vtiger_salesorder  INNER JOIN vtiger_crmentity ON vtiger_salesorder.salesorderid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_salesorder.duedate BETWEEN '2006-01-01' AND '2016-01-01')  AND vtiger_salesorder.salesorderid > 0");
+
+		$queryGenerator = new QueryGenerator('Invoice', $current_user);
+		$queryGenerator->setFields(array('id','account_id'));
+		$queryGenerator->addCondition('id','22','e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_invoice.invoiceid, vtiger_invoice.accountid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_invoice.invoiceid = '22')  AND vtiger_invoice.invoiceid > 0");
 	}
 
 	public function testQueryRelatedConditions() {
