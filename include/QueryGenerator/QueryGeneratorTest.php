@@ -416,31 +416,33 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 
 	public function testQueryCurrency() {
 		global $current_user;
-		$queryGenerator = new QueryGenerator('Products', $current_user);
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$queryGenerator = new QueryGenerator('Products', $user);
 		$queryGenerator->setFields(array('id','unit_price'));
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_products.productid, vtiger_products.unit_price FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_products.productid > 0");
-		$queryGenerator = new QueryGenerator('Campaigns', $current_user);
+		$queryGenerator = new QueryGenerator('Campaigns', $user);
 		$queryGenerator->setFields(array('id','expectedrevenue'));
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_campaign.campaignid, vtiger_campaign.expectedrevenue FROM vtiger_campaign  INNER JOIN vtiger_crmentity ON vtiger_campaign.campaignid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_campaign.campaignid > 0");
 		/////////
-		$queryGenerator = new QueryGenerator('Products', $current_user);
+		$queryGenerator = new QueryGenerator('Products', $user);
 		$queryGenerator->setFields(array('id','unit_price'));
 		$queryGenerator->addCondition('unit_price', '22125', 'g');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_products.productid, vtiger_products.unit_price FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_products.unit_price > 22125)  AND vtiger_products.productid > 0");
-		$queryGenerator = new QueryGenerator('Campaigns', $current_user);
+		$queryGenerator = new QueryGenerator('Campaigns', $user);
 		$queryGenerator->setFields(array('id','expectedrevenue'));
 		$queryGenerator->addCondition('expectedrevenue', '22125', 'g');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_campaign.campaignid, vtiger_campaign.expectedrevenue FROM vtiger_campaign  INNER JOIN vtiger_crmentity ON vtiger_campaign.campaignid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_campaign.expectedrevenue > 22125)  AND vtiger_campaign.campaignid > 0");
-		$queryGenerator = new QueryGenerator('Products', $current_user);
+		$queryGenerator = new QueryGenerator('Products', $user);
 		$queryGenerator->setFields(array('id','unit_price'));
 		$queryGenerator->addCondition('unit_price', '22125.25', 'g');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_products.productid, vtiger_products.unit_price FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_products.unit_price > 22125.25)  AND vtiger_products.productid > 0");
-		$queryGenerator = new QueryGenerator('Campaigns', $current_user);
+		$queryGenerator = new QueryGenerator('Campaigns', $user);
 		$queryGenerator->setFields(array('id','expectedrevenue'));
 		$queryGenerator->addCondition('expectedrevenue', '22125.25', 'g');
 		$query = $queryGenerator->getQuery();
