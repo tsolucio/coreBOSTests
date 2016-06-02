@@ -207,6 +207,34 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Method testconvertToDBFormatFirstDayOfMonth
+	 * @test
+	 */
+	public function testconvertToDBFormatFirstDayOfMonth() {
+		global $current_user;
+		$user = new Users();
+		$testdate = '2016-06-01';
+		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
+		$dt = new DateTimeField('01-06-2016');
+		$fmtdate = $dt->convertToDBFormat('01-06-2016',$user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertDateValue($user);
+		$this->assertEquals($testdate, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
+		$dt = new DateTimeField('06-01-2016');
+		$fmtdate = $dt->convertToDBFormat('06-01-2016',$user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertDateValue($user);
+		$this->assertEquals($testdate, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(7); // testymd
+		$dt = new DateTimeField('2016-06-01');
+		$fmtdate = $dt->convertToDBFormat('2016-06-01',$user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertDateValue($user);
+		$this->assertEquals($testdate, $fmtdate);
+	}
+
+	/**
 	 * Method testconvertToDBFormat
 	 * @test
 	 */
