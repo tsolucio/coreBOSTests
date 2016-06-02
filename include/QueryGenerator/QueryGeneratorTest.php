@@ -418,6 +418,18 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'account_id', 'accountname', 'EDFG Group Limited', 'exists');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_contactdetails.contactid, vtiger_accountaccount_id.accountname as accountsaccountname, vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid  WHERE vtiger_crmentity.deleted=0 AND (SELECT EXISTS(SELECT 1  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname = 'EDFG Group Limited')  AND vtiger_account.accountid > 0))  AND vtiger_contactdetails.contactid > 0");
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('id','phone','firstname'));
+		$queryGenerator->addCondition('phone', '', 'y');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.phone, vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_contactdetails.phone IS NULL OR vtiger_contactdetails.phone = '')  AND vtiger_contactdetails.contactid > 0",$query);
+
+		$queryGenerator = new QueryGenerator('Potentials', $current_user);
+		$queryGenerator->setFields(array('id','potentialname','Contacts.firstname'));
+		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'related_to', 'phone', '', 'y');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_potential.potentialid, vtiger_potential.potentialname, vtiger_contactdetailsrelated_to.firstname as contactsfirstname FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailsrelated_to ON vtiger_contactdetailsrelated_to.contactid=vtiger_potential.related_to  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailsrelated_to.phone IS NULL OR vtiger_contactdetailsrelated_to.phone = '')  AND vtiger_potential.potentialid > 0",$query);
 	}
 
 	public function testQueryCurrency() {
