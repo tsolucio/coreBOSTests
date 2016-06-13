@@ -64,13 +64,31 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		global $current_user,$adb;
 		$cnacc=$adb->getColumnNames('vtiger_accountscf');
 		if (empty($cnacc) or count($cnacc)<=1) {
-			$this->markTestSkipped('no custom fields');
+			$this->markTestSkipped('Accounts::no custom fields');
 		} else {
 			$cf = $cnacc[1];
 			$queryGenerator = new QueryGenerator('Accounts', $current_user);
 			$queryGenerator->setFields(array('id',$cf));
 			$query = $queryGenerator->getQuery();
 			$this->assertEquals($query,"SELECT vtiger_account.accountid, vtiger_accountscf.$cf FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0");
+		}
+		$cnqte=$adb->getColumnNames('vtiger_quotescf');
+		if (empty($cnqte) or count($cnqte)<=1) {
+			$this->markTestSkipped('Quotes::no custom fields');
+		} else {
+			$cf = $cnqte[1];
+			$queryGenerator = new QueryGenerator('Quotes', $current_user);
+			$queryGenerator->setFields(array('id',$cf));
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_quotes.quoteid, vtiger_quotescf.$cf FROM vtiger_quotes  INNER JOIN vtiger_crmentity ON vtiger_quotes.quoteid = vtiger_crmentity.crmid INNER JOIN vtiger_quotescf ON vtiger_quotes.quoteid = vtiger_quotescf.quoteid  WHERE vtiger_crmentity.deleted=0 AND vtiger_quotes.quoteid > 0");
+			$queryGenerator = new QueryGenerator('Quotes', $current_user);
+			$queryGenerator->setFields(array('id','Documents.filename'));
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_quotes.quoteid, vtiger_notescf_747.filename as documentsfilename FROM vtiger_quotes  INNER JOIN vtiger_crmentity ON vtiger_quotes.quoteid = vtiger_crmentity.crmid LEFT JOIN vtiger_quotescf ON vtiger_quotescf.quoteid=vtiger_quotes.quoteid LEFT JOIN vtiger_notes AS vtiger_notescf_747 ON vtiger_notescf_747.notesid=vtiger_quotescf.cf_747  WHERE vtiger_crmentity.deleted=0 AND vtiger_quotes.quoteid > 0");
+			$queryGenerator = new QueryGenerator('Quotes', $current_user);
+			$queryGenerator->setFields(array('id','Documents.filename','Documents.note_no'));
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_quotes.quoteid, vtiger_notescf_747.filename as documentsfilename, vtiger_notescf_747.note_no as documentsnote_no FROM vtiger_quotes  INNER JOIN vtiger_crmentity ON vtiger_quotes.quoteid = vtiger_crmentity.crmid LEFT JOIN vtiger_quotescf ON vtiger_quotescf.quoteid=vtiger_quotes.quoteid LEFT JOIN vtiger_notes AS vtiger_notescf_747 ON vtiger_notescf_747.notesid=vtiger_quotescf.cf_747  WHERE vtiger_crmentity.deleted=0 AND vtiger_quotes.quoteid > 0");
 		}
 	}
 
