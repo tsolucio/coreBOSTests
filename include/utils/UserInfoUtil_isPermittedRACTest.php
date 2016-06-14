@@ -19,9 +19,9 @@
  *************************************************************************************************/
 
 /**
- * Test the coreBOS Permission system via isPermitted function
+ * Test the coreBOS Permission system via isPermitted function and RAC Business Rules
  */
-class testUserInfoUtil_isPermittedTest extends PHPUnit_Framework_TestCase {
+class testUserInfoUtil_isPermittedRACTest extends PHPUnit_Framework_TestCase {
 
 	/****
 	 * TEST Users
@@ -87,6 +87,22 @@ class testUserInfoUtil_isPermittedTest extends PHPUnit_Framework_TestCase {
 		'PriceBooks' => array(16829)
 	);
 
+	public static function setUpBeforeClass() {
+		global $adb;
+		// activate RAC workflow
+		$adb->pquery('update com_vtiger_workflows
+			set test=REPLACE(test,\'"fieldname":"ticket_no","operation":"starts with","value":"NO","valuetype":"rawtext"\',\'"fieldname":"ticket_no","operation":"starts with","value":"TT","valuetype":"rawtext"\')
+			where module_name=? and summary=?', array('HelpDesk','RAC Tickets'));
+	}
+
+	public static function tearDownAfterClass() {
+		global $adb;
+		// deactivate RAC workflow
+		$adb->pquery('update com_vtiger_workflows
+			set test=REPLACE(test,\'"fieldname":"ticket_no","operation":"starts with","value":"TT","valuetype":"rawtext"\',\'"fieldname":"ticket_no","operation":"starts with","value":"NO","valuetype":"rawtext"\')
+			where module_name=? and summary=?', array('HelpDesk','RAC Tickets'));
+	}
+
 	/**
 	 * Method permittedActionsProvidor
 	 * params
@@ -150,11 +166,11 @@ class testUserInfoUtil_isPermittedTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Method testpermittedActions
+	 * Method testThatWeHaveNotBrokenAnything
 	 * @test
 	 * @dataProvider permittedActionsProvidor
 	 */
-	public function testpermittedActions($testuser,$actionname,$module,$crmid,$expected,$message) {
+	public function testThatWeHaveNotBrokenAnything($testuser,$actionname,$module,$crmid,$expected,$message) {
 		global $current_user;
 		$hold_user = $current_user;
 		$user = new Users();
@@ -166,6 +182,54 @@ class testUserInfoUtil_isPermittedTest extends PHPUnit_Framework_TestCase {
 			$actual = isPermitted($module, $actionname);
 		}
 		$this->assertEquals($expected, $actual, "testpermittedActions $message");
+		$current_user = $hold_user;
+	}
+
+	/**
+	 * Method testpermittedRAC
+	 * @test
+	 */
+	public function testpermittedRAC() {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+
+		// HelpDesk 2636
+		// > smownerid 'usrtestdmy' => 5
+		// > Product PRO2 => 2617
+		//   > smownerid 'usrtestes' => 8
+		// We have tested all other users in testThatWeHaveNotBrokenAnything, only usrtestdmy has access to HelpDesk 2636
+		// now we test the user testes who should have access if RAC is active because he has access to Product PRO2 => 2617
+		// Deactivate the RAC rule
+		self::tearDownAfterClass();
+		// test that user testes does not have access to help desk 2636
+		$user->retrieveCurrentUserInfoFromFile(8);
+		$current_user = $user;
+		$actual = isPermitted('HelpDesk', 'DetailView', 2636);
+		$this->assertEquals('no', $actual, "testpermittedRAC testes no access HelpDesk 2636");
+		// test that user testes has access to product 2617
+		$actual = isPermitted('Products', 'DetailView', 2617);
+		$this->assertEquals('yes', $actual, "testpermittedRAC testes access Products 2617");
+		// Activate the RAC rule
+		self::setUpBeforeClass();
+		// test that user testes has access to help desk 2636
+		$actual = isPermitted('HelpDesk', 'DetailView', 2636);
+		$this->assertEquals('yes', $actual, "testpermittedRAC testes RAC access HelpDesk 2636");
+		// test that user testes has access to product 2617
+		$actual = isPermitted('Products', 'DetailView', 2617);
+		$this->assertEquals('yes', $actual, "testpermittedRAC testes access Products 2617");
+		// test that other users still don't have access to HelpDesk 2636
+		foreach ($this->testusers as $uname => $uid) {
+			$user->retrieveCurrentUserInfoFromFile($uid);
+			$current_user = $user;
+			if ($this->testusers['usrtestdmy']==$uid) {
+				$expected = 'yes';
+			} else {
+				$expected = 'no';
+			}
+			$actual = isPermitted('HelpDesk', 'DetailView', 2636);
+			$this->assertEquals($expected, $actual, "testpermittedRAC $uname RAC no access HelpDesk 2636");
+		}
 		$current_user = $hold_user;
 	}
 
