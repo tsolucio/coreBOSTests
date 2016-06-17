@@ -57,6 +57,7 @@ require_once('modules/com_vtiger_workflow/VTSimpleTemplate.inc');
 require_once 'modules/com_vtiger_workflow/VTEntityCache.inc';
 require_once('modules/com_vtiger_workflow/VTWorkflowUtils.php');
 require_once('modules/com_vtiger_workflow/expression_engine/include.inc');
+require_once('modules/com_vtiger_workflow/WorkFlowScheduler.php');
 global $current_user,$adb,$app_strings;
 
 $current_user = Users::getActiveAdminUser();
