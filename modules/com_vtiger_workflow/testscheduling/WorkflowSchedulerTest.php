@@ -70,6 +70,7 @@ class WorkflowSchedulerTest extends PHPUnit_Framework_TestCase {
 				//echo 'date after five minutes: '.date("Y-m-d H:i:s", strtotime("+$currmininterval minutes", $currtime));
 				$this->assertEquals($ntt, $dateafter);
 			}
+			$wm->delete($workflowid_to_evaluate); // cleanup
 		}
 	}
 
