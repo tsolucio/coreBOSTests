@@ -102,6 +102,21 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$fmtdate = $dt->convertTimeZone($testdate,'UTC','Europe/Kiev');
 		$expectedDateTime = new DateTime('2016-02-25 22:30:00', new DateTimeZone('Europe/Kiev'));
 		$this->assertEquals($expectedDateTime, $fmtdate,'c');
+
+		$testdate = '2016-02-25 33:30:00';
+                $fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$expectedDateTime = new DateTime('2016-02-25 00:00:00', new DateTimeZone('UTC'));
+		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+
+		$testdate = '2016-02-25 19:30';
+                $fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$expectedDateTime = new DateTime('2016-02-25 19:30:00', new DateTimeZone('UTC'));
+		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+
+		$testdate = '3 Jun 2016';
+                $fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$expectedDateTime = new DateTime('2016-06-03 00:00:00', new DateTimeZone('UTC'));
+		$this->assertEquals($expectedDateTime, $fmtdate,'d');
 	}
 
 	/**
