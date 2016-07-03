@@ -322,6 +322,54 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals(119.9, $exprEvaluation);
+
+		$entityId = '11x74'; // employees = 131
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "employees * 0.5";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => employees
+)
+',
+			1 => '0.5',
+			2 => 'Array
+(
+    [0] => 131
+    [1] => 0.5
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(65.5, $exprEvaluation);
+
+		$entityId = '11x74'; // employees = 131
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "employees * .5";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => employees
+)
+',
+			1 => '0.5',
+			2 => 'Array
+(
+    [0] => 131
+    [1] => 0.5
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(65.5, $exprEvaluation);
 	}
 
 	/**
