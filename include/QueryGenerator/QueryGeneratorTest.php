@@ -58,6 +58,10 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->setFields(array('id'));
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,'SELECT vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0');
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id'));
+		$query = $queryGenerator->getQuery(true);
+		$this->assertEquals($query,'SELECT DISTINCT vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0');
 	}
 
 	public function testQueryWithCustomField() {
