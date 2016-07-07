@@ -46,6 +46,13 @@ class VtigerModuleOperation_QueryTest extends PHPUnit_Framework_TestCase {
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select accountname,nofield from Accounts;');
 	}
 
+	public function testParenthesis() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Leads where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01';");
+		$this->assertEquals("select vtiger_leaddetails.leadid, vtiger_leaddetails.leadid  FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (  (( vtiger_leaddetails.email = 'j@t.tld')  OR ( vtiger_leaddetails.secondaryemail = 'j@t.tld') ) AND ( vtiger_crmentity.createdtime >= '2016-01-01') ) AND vtiger_leaddetails.leadid > 0 ",$actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Leads where createdtime>='2016-01-01' and (email='j@t.tld' or secondaryemail='j@t.tld');");
+		$this->assertEquals("select vtiger_leaddetails.leadid, vtiger_leaddetails.leadid  FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (( vtiger_crmentity.createdtime >= '2016-01-01')  AND (( vtiger_leaddetails.email = 'j@t.tld')  OR ( vtiger_leaddetails.secondaryemail = 'j@t.tld') )) AND vtiger_leaddetails.leadid > 0 ",$actual);
+	}
+
 	public function testConditions() {
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select accountname,website from Accounts where website like '%vt%';");
 		$this->assertEquals("SELECT vtiger_account.accountname,vtiger_account.website,vtiger_account.accountid FROM vtiger_account LEFT JOIN vtiger_crmentity ON vtiger_account.accountid=vtiger_crmentity.crmid   WHERE (vtiger_account.website LIKE '%vt%') AND  vtiger_crmentity.deleted=0 LIMIT 100;",$actual);
