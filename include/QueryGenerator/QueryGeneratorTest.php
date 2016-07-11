@@ -269,6 +269,12 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_activity.date_start, vtiger_activity.time_start, vtiger_activity.due_date, vtiger_activity.time_end, vtiger_activity.status, CASE WHEN (vtiger_activity.status not like '') THEN vtiger_activity.status ELSE vtiger_activity.eventstatus END AS status FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_activity.activityid > 0");
 
+		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator->setFields(array('id','subject','activitytype','date_start','due_date','taskstatus'));
+		$queryGenerator->addCondition('date_start',array(0=>'2006-01-21',1=>'2016-01-11'),'bw');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_activity.date_start, vtiger_activity.time_start, vtiger_activity.due_date, vtiger_activity.time_end, vtiger_activity.status, CASE WHEN (vtiger_activity.status not like '') THEN vtiger_activity.status ELSE vtiger_activity.eventstatus END AS status FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_activity.date_start BETWEEN '2006-01-21' AND '2016-01-11')  AND vtiger_activity.activityid > 0");
+
 		$queryGenerator = new QueryGenerator('Events', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype'));
 		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'contact_id', 'firstname', 'Mary', 'c');
