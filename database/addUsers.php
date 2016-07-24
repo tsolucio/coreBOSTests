@@ -81,7 +81,7 @@ while ($u=$adb->fetch_array($usrs)) {
 	$focus->saveHomeStuffOrder($focus->id);
 	SaveTagCloudView($focus->id);
 	
-	//Para crear el confirm_password y el user_hash y ahora si encriptar el user_pass
+	//Para crear el confirm_password y ahora si encriptar el user_pass
 	$focus->change_password($new_pass, $new_pass);
 	
 	//Creating the Privileges Flat File
