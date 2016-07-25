@@ -44,6 +44,8 @@ class testVtlibUtils extends PHPUnit_Framework_TestCase {
 			array(' or (true);delete from table;',false,' or (true);delete from table;','XSS SQL'),
 			array('&amp;&aacute;&lt;&gt;&ntilde;',false,'&á&lt;&gt;ñ','HTML Codes'),
 			array(array('&amp;&aacute;&lt;&gt;&ntilde;','<script>...NEVER PUT UNTRUSTED DATA HERE...</script>'),false,array('&á&lt;&gt;ñ',''),'array test'),
+			array('<div onclick="alert(\'hi\')" />',false,'<div></div>','XSS div onclick attribute'),
+			array('<div onmousemove="alert(\'hi\')" />',false,'<div></div>','XSS div onmousemove attribute'),
 
 			array('Normal string (T)',true,'Normal string (T)','normal string (true)'),
 			array('Numbers 012-345,678.9 (T)',true,'Numbers 012-345,678.9 (T)','Numbers 012-345,678.9 (true)'),
@@ -63,6 +65,17 @@ class testVtlibUtils extends PHPUnit_Framework_TestCase {
 			array(' or (true);delete from table; (T)',true,' or (true);delete from table; (T)','XSS SQL (true)'),
 			array('&amp;&aacute;&lt;&gt;&ntilde; (T)',true,'&&aacute;&lt;&gt;&ntilde; (T)','HTML Codes (true)'),
 			array(array('&amp;&aacute;&lt;&gt;&ntilde; (T)','<script>...NEVER PUT UNTRUSTED DATA HERE (T)...</script>'),true,array('&&aacute;&lt;&gt;&ntilde; (T)','<script>...NEVER PUT UNTRUSTED DATA HERE (T)...</script>'),'array test (true)'),
+			array('<div onclick="alert(\'hi\')" />',true,'<div onclick="alert(\'hi\')" />','XSS div onclick attribute'),
+			array('<div onmousemove="alert(\'hi\')" />',true,'<div onmousemove="alert(\'hi\')" />','XSS div onmousemove attribute (true)'),
+
+			// test $ignore cache
+			array('> Greater > Lesser < ',false,'&gt; Greater &gt; Lesser &lt; ','> Greater Lesser <(space)'),
+			array('> Greater > Lesser < ',true,'> Greater > Lesser < ','> Greater Lesser <(space) (true)'),
+
+			// test ampersand on first call and cached
+			array('string has ampersand: &amp; & ',false,'string has ampersand: & & ','has ampersand'),
+			array('string has ampersand: &amp; & ',false,'string has ampersand: & & ','has ampersand (cached)'),
+
 		);
 	}
 
