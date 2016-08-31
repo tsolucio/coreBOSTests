@@ -657,5 +657,83 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$current_user = $huser;
 	}
 
+	/**
+	 * Method testgetDecimalsFromTypeOfData
+	 * @test
+	 */
+	public function testgetMultiCurrencyInfoFrom() {
+		include_once 'include/utils/InventoryUtils.php';
+		$actual = CurrencyField::getMultiCurrencyInfoFrom('Invoice',3446); // USD
+		$expected = array(
+			'currency_id' => '2',
+			'conversion_rate' => '1.100',
+			'currency_name' => 'USA, Dollars',
+			'currency_code' => 'USD',
+			'currency_symbol' => '$',
+			'currency_position' => '$1.0',
+		);
+		$this->assertEquals($expected, $actual,"getMultiCurrencyInfoFrom Invoice USD");
+		$actual = CurrencyField::getMultiCurrencyInfoFrom('Invoice',3419); // EUR
+		$expected = array(
+			'currency_id' => '1',
+			'conversion_rate' => '1.000',
+			'currency_name' => 'Euro',
+			'currency_code' => 'EUR',
+			'currency_symbol' => '&euro;',
+			'currency_position' => '1.0$',
+		);
+		$this->assertEquals($expected, $actual,"getMultiCurrencyInfoFrom Invoice EUR");
+		$actual = getInventoryCurrencyInfo('Invoice',3446); // USD
+		$expected = array(
+			'currency_id' => '2',
+			'conversion_rate' => '1.100',
+			'currency_name' => 'USA, Dollars',
+			'currency_code' => 'USD',
+			'currency_symbol' => '$',
+			'currency_position' => '$1.0',
+		);
+		$this->assertEquals($expected, $actual,"getInventoryCurrencyInfo Invoice USD");
+		$actual = getInventoryCurrencyInfo('Invoice',3419); // EUR
+		$expected = array(
+			'currency_id' => '1',
+			'conversion_rate' => '1.000',
+			'currency_name' => 'Euro',
+			'currency_code' => 'EUR',
+			'currency_symbol' => '&euro;',
+			'currency_position' => '1.0$',
+		);
+		$this->assertEquals($expected, $actual,"getInventoryCurrencyInfo Invoice EUR");
+		$actual = CurrencyField::getMultiCurrencyInfoFrom('SalesOrder',11172);
+		$expected = array(
+			'currency_id' => '1',
+			'conversion_rate' => '1.000',
+			'currency_name' => 'Euro',
+			'currency_code' => 'EUR',
+			'currency_symbol' => '&euro;',
+			'currency_position' => '1.0$',
+		);
+		$this->assertEquals($expected, $actual,"getMultiCurrencyInfoFrom SalesOrder");
+		$actual = CurrencyField::getMultiCurrencyInfoFrom('Quotes',12418);
+		$expected = array(
+			'currency_id' => '1',
+			'conversion_rate' => '1.000',
+			'currency_name' => 'Euro',
+			'currency_code' => 'EUR',
+			'currency_symbol' => '&euro;',
+			'currency_position' => '1.0$',
+		);
+		$this->assertEquals($expected, $actual,"getMultiCurrencyInfoFrom Quotes");
+		$actual = CurrencyField::getMultiCurrencyInfoFrom('PurchaseOrder',13656);
+		$expected = array(
+			'currency_id' => '1',
+			'conversion_rate' => '1.000',
+			'currency_name' => 'Euro',
+			'currency_code' => 'EUR',
+			'currency_symbol' => '&euro;',
+			'currency_position' => '1.0$',
+		);
+		$this->assertEquals($expected, $actual,"getMultiCurrencyInfoFrom PurchaseOrder");
+	}
+
 }
 ?>
