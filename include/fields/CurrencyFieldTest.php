@@ -71,7 +71,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(1, $currencyField->currencyId, 'currencyId usrdota0x');
 		$this->assertEquals('&euro;', $currencyField->currencySymbol, 'currencySymbol usrdota0x');
 		$this->assertEquals(1, $currencyField->conversionRate, 'conversionRate usrdota0x');
-		$this->assertEquals('$1.0', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrdota0x');
+		$this->assertEquals('1.0$', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrdota0x');
 		$this->assertEquals(2, $currencyField->numberOfDecimal, 'numberOfDecimal usrdota0x');
 		
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
@@ -106,7 +106,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$currencySymbol = $currencyField->getCurrencySymbol();
 		$this->assertEquals('&euro;', $currencySymbol, 'currencySymbol usrcoma3dot method');
 		$this->assertEquals(1, $currencyField->conversionRate, 'conversionRate usrcoma3dot');
-		$this->assertEquals('$1.0', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrcoma3dot');
+		$this->assertEquals('1.0$', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrcoma3dot');
 		$this->assertEquals(5, $currencyField->numberOfDecimal, 'numberOfDecimal usrcoma3dot');
 
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
@@ -138,7 +138,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue usrdota0x');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertEquals("&euro;$testcurrencyrounded", $formattedCurrencyValue,'getDisplayValueWithSymbol usrdota0x');
+		$this->assertEquals($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
@@ -172,7 +172,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$testcurrencyrounded = number_format($testcurrency,$currencyField->numberOfDecimal,',','.');
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue usrcoma3dot');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertEquals('&euro;'.$testcurrencyrounded, $formattedCurrencyValue,'getDisplayValueWithSymbol usrcoma3dot');
+		$this->assertEquals($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
@@ -205,7 +205,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue zero usrdota0x');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertEquals("&euro;$testcurrencyrounded", $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrdota0x');
+		$this->assertEquals($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip zero usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
@@ -239,7 +239,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$testcurrencyrounded = number_format($testcurrency,$currencyField->numberOfDecimal,',','.');
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue zero usrcoma3dot');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertEquals('&euro;'.$testcurrencyrounded, $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrcoma3dot');
+		$this->assertEquals($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol zero usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip zero usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
@@ -272,7 +272,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue Negative usrdota0x');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertEquals('&euro;'.$testcurrencyrounded, $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrdota0x');
+		$this->assertEquals($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip Negative usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
@@ -306,7 +306,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$testcurrencyrounded = number_format($testcurrency,$currencyField->numberOfDecimal,',','.');
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue Negative usrcoma3dot');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertEquals('&euro;'.$testcurrencyrounded, $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrcoma3dot');
+		$this->assertEquals($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol Negative usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip Negative usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
