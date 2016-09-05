@@ -19,5 +19,8 @@
 		<testsuite name="WFTest">
 			<directory>./modules/com_vtiger_workflow</directory>
 		</testsuite>
+		<testsuite name="PearDBTest">
+			<directory>./include/database</directory>
+		</testsuite>
 	</testsuites>
 </phpunit>
