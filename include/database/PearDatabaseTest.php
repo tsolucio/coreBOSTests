@@ -146,7 +146,7 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 		$fields_array = $adb->getFieldsArray($result);
 		$expected_array  = array('contactid','contact_no','accountid','salutation','firstname','lastname','email','phone','mobile',
 								  'title','department','fax','reportsto','training','otheremail','secondaryemail','donotcall','emailoptout',
-								  'imagename','reference','notify_owner');
+								  'imagename','reference','notify_owner','isconvertedfromlead','convertedfromlead');
 		$this->assertEquals($expected_array,$fields_array);
 	}
 
@@ -165,7 +165,7 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_num_fields($adb,$result) {
 		$num_fields = $adb->num_fields($result);
-		$this->assertEquals(21,$num_fields);
+		$this->assertEquals(23,$num_fields);
 	}
 
 	/**
@@ -474,7 +474,11 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 					19 => '0',
 					'reference' => '0',
 					20 => '0',
-					'notify_owner' => '0'
+					'notify_owner' => '0',
+					21 => null,
+					'isconvertedfromlead' => null,
+					22 => null,
+					'convertedfromlead' => null,
 				),
 			),
 		);
@@ -537,7 +541,11 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 					19 => '0',
 					'reference' => '0',
 					20 => '0',
-					'notify_owner' => '0'
+					'notify_owner' => '0',
+					21 => null,
+					'isconvertedfromlead' => null,
+					22 => null,
+					'convertedfromlead' => null,
 				)
 			),
 			array(1,
@@ -584,6 +592,10 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 	                'reference' => '0',
 	                20 => '0',
 	                'notify_owner' => '0',
+					21 => null,
+					'isconvertedfromlead' => null,
+					22 => null,
+					'convertedfromlead' => null,
 				),
 			),
 		);
@@ -613,8 +625,10 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 					'emailoptout' => '0',
 					'imagename' => '',
 					'reference' => '0',
-					'notify_owner' => '0'
-				)
+					'notify_owner' => '0',
+					'isconvertedfromlead' => '',
+					'convertedfromlead' => '',
+			)
 			),
 			array(1,
 				array(
@@ -639,6 +653,8 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 	                'imagename' => '',
 	                'reference' => '0',
 	                'notify_owner' => '0',
+					'isconvertedfromlead' => '',
+					'convertedfromlead' => '',
 				),
 			),
 			array(2,
@@ -663,7 +679,9 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 					'emailoptout' => '0',
 					'imagename' => '',
 					'reference' => '0',
-					'notify_owner' => '0'
+					'notify_owner' => '0',
+					'isconvertedfromlead' => '',
+					'convertedfromlead' => '',
 				),
 			),
 			array(3,
@@ -689,6 +707,8 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 					'imagename' => '',
 					'reference' => '0',
 					'notify_owner' => '0',
+					'isconvertedfromlead' => '',
+					'convertedfromlead' => '',
 				),
 			),
 			array(4,
@@ -714,6 +734,8 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 					'imagename' => '',
 					'reference' => '0',
 					'notify_owner' => '0',
+					'isconvertedfromlead' => '',
+					'convertedfromlead' => '',
 				),
 			)
 		);
