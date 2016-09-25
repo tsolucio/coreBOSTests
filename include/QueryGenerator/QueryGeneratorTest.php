@@ -502,8 +502,10 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 
 	public function testQueryCurrency() {
 		global $current_user;
+		$holdcuser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Products', $user);
 		$queryGenerator->setFields(array('id','unit_price'));
 		$query = $queryGenerator->getQuery();
@@ -536,6 +538,7 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		/////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
+		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Products', $user);
 		$queryGenerator->setFields(array('id','unit_price'));
 		$queryGenerator->addCondition('unit_price', '22125', 'g');
@@ -559,6 +562,7 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		/////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Products', $user);
 		$queryGenerator->setFields(array('id','unit_price'));
 		$queryGenerator->addCondition('unit_price', '22125', 'g');
@@ -582,6 +586,7 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		/////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
+		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Products', $user);
 		$queryGenerator->setFields(array('id','unit_price'));
 		$queryGenerator->addCondition('unit_price', '22125', 'g');
@@ -602,11 +607,15 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addCondition('expectedrevenue', '24,337.775', 'g');  // dollars to get 22125.25 euros
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_campaign.campaignid, vtiger_campaign.expectedrevenue FROM vtiger_campaign  INNER JOIN vtiger_crmentity ON vtiger_campaign.campaignid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_campaign.expectedrevenue > 22125.25)  AND vtiger_campaign.campaignid > 0","currency 71 usrdota3comdollar decimals");
+		$current_user = $holdcuser;
 	}
 
 	public function testQueryDate() {
+		global $current_user;
+		$holdcuser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy
+		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Project', $user);
 		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
 		$queryGenerator->addCondition('startdate','16-04-2015','b');
@@ -622,6 +631,7 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		/////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
+		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Project', $user);
 		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
 		$queryGenerator->addCondition('startdate','04-16-2015','b');
@@ -637,6 +647,7 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		/////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
+		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Project', $user);
 		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
 		$queryGenerator->addCondition('startdate','2015-04-16','b');
@@ -652,12 +663,14 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_crmentity.createdtime < '2015-04-16 10:00:00')  OR ( vtiger_crmentity.createdtime > '2015-06-16 08:00:00')  AND vtiger_project.projectid > 0","testtz");
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot); // testtz
+		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Project', $user);
 		$queryGenerator->setFields(array('id','projectname','createdtime'));
 		$queryGenerator->addCondition('createdtime','2015-04-16 10:00','b');
 		$queryGenerator->addCondition('createdtime','2015-06-16 08:00','a','OR');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_crmentity.createdtime < '2015-04-16 08:00:00')  OR ( vtiger_crmentity.createdtime > '2015-06-16 06:00:00')  AND vtiger_project.projectid > 0","testtz");
+		$current_user = $holdcuser;
 	}
 
 	public function testQueryBirthDate() {
