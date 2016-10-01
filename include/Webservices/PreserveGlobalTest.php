@@ -104,10 +104,9 @@ class PreserveGlobalTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Accounts', $return,'change currentModule to Accounts');
 		$this->assertEquals('Accounts', $currentModule,'currentModule is Accounts');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$expected = array('currentModule' => array(0 => null));
-		$this->assertEquals($expected, $data,'data array contains current module NULL');
+		$this->assertEquals(array(), $data,'data array is emtpy: no null values saved'); // array('currentModule' => array(0 => null));
 		$return = VTWS_PreserveGlobal::restore('currentModule');
-		$this->assertEquals(null, $currentModule,'current module is null again');
+		$this->assertEquals('Accounts', $currentModule,'current module stays assigned with last value'); // not sure this is correct but the application expects this
 		$data = VTWS_PreserveGlobal::getGlobalData();
 		$this->assertEquals(array(), $data,'data array is empty after restore');
 	}
