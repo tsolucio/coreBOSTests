@@ -350,10 +350,21 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 20:30:00',$user);
 		$expectedDateTime = new DateTime('2016-02-25 20:30:00', new DateTimeZone('UTC'));
 		$this->assertEquals($expectedDateTime, $fmtdate);
-		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd
+		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
 		$dt = new DateTimeField('2016-02-25 20:30:00');
 		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 20:30:00',$user);
 		$expectedDateTime = new DateTime('2016-02-25 19:30:00', new DateTimeZone('UTC'));
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
+		$dt = new DateTimeField('2016-02-25 00:30:00');
+		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 00:30:00',$user);
+		$expectedDateTime = new DateTime('2016-02-24 23:30:00', new DateTimeZone('UTC'));
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(13); // testtz-3  TimeZone Ymd -3 Buenos Aires
+		$dt = new DateTimeField('2016-02-25 23:30:00');
+		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 23:30:00',$user);
+		$expectedDateTime = new DateTime('2016-02-26 02:30:00', new DateTimeZone('UTC'));
+
 		$this->assertEquals($expectedDateTime, $fmtdate);
 		/// current user
 		switch ($current_user->date_format) {
