@@ -387,5 +387,42 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expectedDateTime, $fmtdate);
 	}
 
+	/**
+	 * Method testconvertToDBFormatISO
+	 * @test
+	 */
+	public function testconvertToDBFormatISO() {
+		global $current_user;
+		$user = new Users();
+		$testdate = '2016-02-25';
+		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
+		$dt = new DateTimeField($testdate);
+		$fmtdate = $dt->convertToDBFormat($testdate,$user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertDateValue($user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertTimeValue($user);
+		$this->assertEquals('00:00:00', $fmtdate);
+		$fmtdate = $dt->getDBInsertDateTimeValue($user);
+		$this->assertEquals($testdate.' 00:00:00', $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
+		$fmtdate = $dt->convertToDBFormat($testdate,$user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertDateValue($user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertTimeValue($user);
+		$this->assertEquals('00:00:00', $fmtdate);
+		$fmtdate = $dt->getDBInsertDateTimeValue($user);
+		$this->assertEquals($testdate.' 00:00:00', $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(7); // testymd
+		$fmtdate = $dt->convertToDBFormat($testdate,$user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertDateValue($user);
+		$this->assertEquals($testdate, $fmtdate);
+		$fmtdate = $dt->getDBInsertTimeValue($user);
+		$this->assertEquals('00:00:00', $fmtdate);
+		$fmtdate = $dt->getDBInsertDateTimeValue($user);
+		$this->assertEquals($testdate.' 00:00:00', $fmtdate);
+	}
 }
 ?>
