@@ -31,7 +31,7 @@ class testSession extends PHPUnit_Framework_TestCase {
 	public function testSessionExists() {
 		global $site_URL;
 		$purl = parse_url($site_URL);
-		$expsiteurl = preg_replace('/[^A-Za-z0-9\-]/', '', $purl['host'].$purl['path']);
+		$expsiteurl = preg_replace('/[^A-Za-z0-9\-]/', '', $purl['host'].$purl['path'].(isset($purl['port'])?$purl['port']:''));
 		$this->assertEquals($expsiteurl, session_name(),"testSessionExists");
 	}
 
@@ -57,7 +57,7 @@ class testSession extends PHPUnit_Framework_TestCase {
 	public function getSessionNameProvider() {
 		global $site_URL;
 		$purl = parse_url($site_URL);
-		$expsiteurl = preg_replace('/[^A-Za-z0-9\-]/', '', $purl['host'].$purl['path']);
+		$expsiteurl = preg_replace('/[^A-Za-z0-9\-]/', '', $purl['host'].$purl['path'].(isset($purl['port'])?$purl['port']:''));
 		return array(
 			array('Normal string','Normalstring','normal string'),
 			array('Numbers 012-345,678.9','Numbers0123456789','Numbers 012-345,678.9'),
