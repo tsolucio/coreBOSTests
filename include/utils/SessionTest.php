@@ -44,10 +44,13 @@ class testSession extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('default value', coreBOS_Session::get('cbtestSessionSavingRetrieving','default value'),"testSessionSavingRetrieving retrieve non existent > get default");
 		coreBOS_Session::set('cbtestSessionSavingRetrieving','testing');
 		$this->assertEquals('testing', coreBOS_Session::get('cbtestSessionSavingRetrieving','exists'),"testSessionSavingRetrieving retrieve existent");
+		$this->assertEquals('testing', $_SESSION['cbtestSessionSavingRetrieving'],"direct retrieve existent");
 		coreBOS_Session::set('cbtestSessionSavingRetrieving','testingupdate');
 		$this->assertEquals('testingupdate', coreBOS_Session::get('cbtestSessionSavingRetrieving','exists'),"testSessionSavingRetrieving retrieve existent update");
 		coreBOS_Session::delete('cbtestSessionSavingRetrieving');
 		$this->assertEquals(false, coreBOS_Session::has('cbtestSessionSavingRetrieving'),"testSessionSavingRetrieving search non existent after delete");
+		$_SESSION['directset1'] = 'directset1';
+		$this->assertEquals('directset1', coreBOS_Session::get('directset1','exists'),"directset1 retrieve existent");
 	}
 
 	/**
@@ -67,8 +70,10 @@ class testSession extends PHPUnit_Framework_TestCase {
 		coreBOS_Session::set('cbtest1^cbtest2','testing');
 		coreBOS_Session::set('cbtest1^cbtest3','testing3');
 		$this->assertEquals('testing3', coreBOS_Session::get('cbtest1^cbtest3','exists'),"testSessionCRUDArray retrieve existent update");
+		$this->assertEquals('testing3', $_SESSION['cbtest1']['cbtest3'],"array 3 direct retrieve existent");
 		coreBOS_Session::set('cbtest1^cbtest3^cbtest4','testing4');
 		$this->assertEquals('testing4', coreBOS_Session::get('cbtest1^cbtest3^cbtest4','exists'),"testSessionCRUDArray retrieve existent update");
+		$this->assertEquals('testing4', $_SESSION['cbtest1']['cbtest3']['cbtest4'],"array 4 direct retrieve existent");
 		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
 		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest3'),"testSessionCRUDArray search non existent after delete");
 		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
@@ -77,6 +82,8 @@ class testSession extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent after delete");
 		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3'),"testSessionCRUDArray search non existent after delete");
 		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
+		$_SESSION['directset1']['directset2'] = 'directset2';
+		$this->assertEquals('directset2', coreBOS_Session::get('directset1^directset2','exists'),"directset1 retrieve existent");
 	}
 
 	/**
