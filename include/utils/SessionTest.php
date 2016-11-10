@@ -51,6 +51,35 @@ class testSession extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Method testSessionCRUDArray
+	 * @test
+	 */
+	public function testSessionCRUDArray() {
+		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent");
+		$this->assertEquals('default value', coreBOS_Session::get('cbtest1^cbtest2','default value'),"testSessionCRUDArray retrieve non existent > get default");
+		coreBOS_Session::set('cbtest1^cbtest2','testing');
+		$this->assertEquals('testing', coreBOS_Session::get('cbtest1^cbtest2','exists'),"testSessionCRUDArray retrieve existent");
+		coreBOS_Session::set('cbtest1^cbtest2','testingupdate');
+		$this->assertEquals('testingupdate', coreBOS_Session::get('cbtest1^cbtest2','exists'),"testSessionCRUDArray retrieve existent update");
+		coreBOS_Session::delete('cbtest1^cbtest2');
+		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent after delete");
+		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
+		coreBOS_Session::set('cbtest1^cbtest2','testing');
+		coreBOS_Session::set('cbtest1^cbtest3','testing3');
+		$this->assertEquals('testing3', coreBOS_Session::get('cbtest1^cbtest3','exists'),"testSessionCRUDArray retrieve existent update");
+		coreBOS_Session::set('cbtest1^cbtest3^cbtest4','testing4');
+		$this->assertEquals('testing4', coreBOS_Session::get('cbtest1^cbtest3^cbtest4','exists'),"testSessionCRUDArray retrieve existent update");
+		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
+		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest3'),"testSessionCRUDArray search non existent after delete");
+		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
+		coreBOS_Session::delete('cbtest1^cbtest3');
+		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
+		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent after delete");
+		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3'),"testSessionCRUDArray search non existent after delete");
+		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
+	}
+
+	/**
 	 * Method getSessionNameProvider
 	 * params
 	 */
