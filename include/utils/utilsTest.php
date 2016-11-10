@@ -62,4 +62,42 @@ class testutils extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $actual,"testto_html $message");
 	}
 
+	/**
+	 * Method testisRecordExists
+	 * @test
+	 */
+	public function testisRecordExists() {
+		global $adb;
+		$accountWS = vtws_getEntityId('Accounts');
+		$userWS = vtws_getEntityId('Users');
+		// Not Deleted
+		$actual = isRecordExists(80);
+		$this->assertEquals(true, $actual,"testisRecordExists not deleted CRM record");
+		$actual = isRecordExists(5);
+		$this->assertEquals(true, $actual,"testisRecordExists not deleted User record");
+		$actual = isRecordExists($accountWS.'x80');
+		$this->assertEquals(true, $actual,"testisRecordExists deleted CRM record Webservice");
+		$actual = isRecordExists($userWS.'x5');
+		$this->assertEquals(true, $actual,"testisRecordExists deleted User record Webservice");
+		// Deleted Records
+		$adb->query('update vtiger_crmentity set deleted=1 where crmid=80');
+		$adb->query('update vtiger_users set deleted=1 where id=5');
+		$actual = isRecordExists(80);
+		$this->assertEquals(false, $actual,"testisRecordExists deleted CRM record");
+		$actual = isRecordExists(5);
+		// THIS ONE IS WRONG BECAUSE WE CANNOT DISTINGUISH A USER FROM A NORMAL CRM RECORD SO WE FIND cbupdater 5 and return true
+		$this->assertEquals(true, $actual,"testisRecordExists deleted User record");
+		$actual = isRecordExists(1);
+		// THIS ONE IS WRONG, IT RETURNS FALSE BECAUSE THERE IS NO RECORD 1 but there is a user 1
+		$this->assertEquals(false, $actual,"testisRecordExists deleted User record");
+		$actual = isRecordExists($accountWS.'x80');
+		$this->assertEquals(false, $actual,"testisRecordExists deleted CRM record Webservice");
+		$adb->query('update vtiger_users set deleted=1 where crmid=5');
+		$actual = isRecordExists($userWS.'x5');
+		$this->assertEquals(false, $actual,"testisRecordExists deleted User record Webservice");
+		// restore DB
+		$adb->query('update vtiger_crmentity set deleted=0 where crmid=80');
+		$adb->query('update vtiger_users set deleted=0 where id=5');
+	}
+
 }
