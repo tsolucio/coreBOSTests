@@ -108,7 +108,6 @@ class testSession extends PHPUnit_Framework_TestCase {
 				'cbtest2' => 'testing',
 			),
 			'cbtest3' => 'testing3',
-			'vtiger_version' => '5.5.0',
 		);
 		$this->assertEquals($expectedstart, $_SESSION,"testSessionMerge setting");
 		$values = array(
@@ -120,9 +119,10 @@ class testSession extends PHPUnit_Framework_TestCase {
 			'cbtest1' => 'no array',
 			'cbtest2' => 'na 2',
 			'cbtest3' => 'testing3',
-			'vtiger_version' => '5.5.0',
 		);
 		$this->assertEquals($expected, $_SESSION,"testSessionMerge overwrite");
+		$sn = coreBOS_Session::getSessionName();
+		session_name($sn);
 		@session_start();
 		$_SESSION = $expectedstart;
 		$values = array(
@@ -161,8 +161,18 @@ class testSession extends PHPUnit_Framework_TestCase {
 	 * @dataProvider getSessionNameProvider
 	 */
 	public function testgetSessionName($input,$expected,$message) {
-		$actual = coreBOS_Session::getSessionName($input);
+		$actual = coreBOS_Session::getSessionName($input,true);
 		$this->assertEquals($expected, $actual,"getSessionNameProvider $message");
+	}
+
+	/**
+	 * Method testgetSessionNameCache
+	 * @test
+	 */
+	public function testgetSessionNameCache() {
+		$actual = coreBOS_Session::getSessionName();
+		$expected = coreBOS_Session::getSessionName('anything');
+		$this->assertEquals($expected, $actual,"getSessionNameCache");
 	}
 
 }
