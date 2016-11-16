@@ -123,7 +123,7 @@ class testSession extends PHPUnit_Framework_TestCase {
 			'vtiger_version' => '5.5.0',
 		);
 		$this->assertEquals($expected, $_SESSION,"testSessionMerge overwrite");
-		session_start();
+		@session_start();
 		$_SESSION = $expectedstart;
 		$values = array(
 			'cbtest1' => 'no array',
