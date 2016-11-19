@@ -36,6 +36,8 @@ class testVtlibUtils extends PHPUnit_Framework_TestCase {
 			array('"\'',false,'"\'','special string with quotes'),
 			array('<b>Bold HTML</b>',false,'<b>Bold HTML</b>','Bold HTML'),
 			array('<td width="25%" align="right" class="dvtCellLabel"><input type="hidden" value="1" id="hdtxt_IsAdmin">Modified Time</td>',false,'Modified Time','HTML table cell'),
+			array('<table><tr><td width="25%" align="right" class="dvtCellLabel"><input type="hidden" value="1" id="hdtxt_IsAdmin">Modified Time</td></tr></table>',false,'<table><tr><td width="25%" align="right" class="dvtCellLabel">Modified Time</td></tr></table>','HTML table cell'),
+			array('<table><tr><td width="25%" align="right" class="dvtCellLabel"><form action="index.php" method="post"><input type="hidden" value="1" id="hdtxt_IsAdmin">Modified Time</form></td></tr></table>',false,'<table><tr><td width="25%" align="right" class="dvtCellLabel">Modified Time</td></tr></table>','HTML table cell'),
 			array('<script>...NEVER PUT UNTRUSTED DATA HERE...</script>',false,'','XSS direct'),
 			array('<!--...NEVER PUT UNTRUSTED DATA HERE...-->',false,'','XSS html comment'),
 			array('<div ...NEVER PUT UNTRUSTED DATA HERE...=test />',false,'<div></div>','XSS div attribute'),
