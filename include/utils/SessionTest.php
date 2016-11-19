@@ -162,7 +162,10 @@ class testSession extends PHPUnit_Framework_TestCase {
 	 */
 	public function testgetSessionName($input,$expected,$message) {
 		$actual = coreBOS_Session::getSessionName($input,true);
-		$this->assertEquals($expected, $actual,"getSessionNameProvider $message");
+		$this->assertEquals($expected, $actual,"testgetSessionName Normal $message");
+		coreBOS_Session::setSessionName('override');
+		$actual = coreBOS_Session::getSessionName($input);
+		$this->assertEquals('override', $actual,"testgetSessionName Override $message");
 	}
 
 	/**
