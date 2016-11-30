@@ -3,26 +3,22 @@ This package contains a Selenium2TestCase class that can be used to run end-to-e
 Installing
 ---
 
-Use [Composer](https://getcomposer.org) and add inside your composer.json file:
-
-```
-    "require": {
-        "phpunit/phpunit-selenium": "*",
-    }
-```
-
-then run `composer update`.
+Use [Composer](https://getcomposer.org) and run `composer require --dev phpunit/phpunit-selenium`.
 
 Requirements
 ---
 
 - PHPUnit 4.8, 5.x
 
-The current mainline of this package is 2.x. The old line 1.x is not maintained anymore, but will continue to be available for usage of `SeleniumTestCase`.
+The current mainline of this package is 3.x, which supports PHPUnit 5.x. This version is only compatible with PHP 5.6 and PHP 7.
+
+The second supported line is 2.x, which supports PHPUnit >= 4.8 instead.
+
+Both these supported lines only work with the Selenium 2 API, using the `Selenium2TestCase` class.
+
+The old line 1.x is not maintained anymore, but will continue to be available for usage of `SeleniumTestCase`.
 
 Please direct pull requests to [giorgiosironi/phpunit-selenium](https://github.com/giorgiosironi/phpunit-selenium) for automated testing upon merging. Pull requests should be feature branches containing all the commits you want to propose.
-
-Please direct pull requests to [giorgiosironi/phpunit-selenium](https://github.com/giorgiosironi/phpunit-selenium) for automated testing upon merging.
 
 Running the test suite
 ---
