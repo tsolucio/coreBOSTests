@@ -100,4 +100,33 @@ class testutils extends PHPUnit_Framework_TestCase {
 		$adb->query('update vtiger_users set deleted=0 where id=5');
 	}
 
+	/**
+	 * Method html2utf8Provider
+	 * params
+	 */
+	public function html2utf8Provider() {
+		return array(
+			array('Normal string','Normal string','normal string'),
+			array('Numbers 012-345,678.9','Numbers 012-345,678.9','Numbers 012-345,678.9'),
+			array('Special character string áçèñtös ÑÇ','Special character string áçèñtös ÑÇ','Special character string with áçèñtös'),
+			array('!"·$%&/();,:.=?¿*_-|@#€','!"·$%&/();,:.=?¿*_-|@#€','special string with symbols'),
+			array('Greater > Lesser < ','Greater > Lesser < ','Greater > Lesser <(space)'),
+			array('Greater > Lesser <','Greater > Lesser <','Greater > Lesser <'),
+			array('&quot;&#039;','&quot;&#039;','special string with quotes'),
+			array('<p>I will display &spades;</p>','<p>I will display &spades;</p>','<p>I will display &spades;</p>'),
+			array('<p>I will display &#9824;</p>','<p>I will display ♠</p>','<p>I will display &#9824;</p>'),
+			array('<p>I will display &#x2660;</p>','<p>I will display &#x2660;</p>','<p>I will display &#x2660;</p>'),
+		);
+	}
+
+	/**
+	 * Method testhtml_to_utf8
+	 * @test
+	 * @dataProvider html2utf8Provider
+	 */
+	public function testhtml_to_utf8($data,$expected,$message) {
+		$actual = html_to_utf8($data);
+		$this->assertEquals($expected, $actual,"testhtml_to_utf8 $message");
+	}
+
 }
