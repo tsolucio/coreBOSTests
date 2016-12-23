@@ -112,10 +112,6 @@ $default_charset = strtoupper($default_charset);  // DO NOT MODIFY THIS LINE, IT
 // default_language default value = en_us
 $default_language = 'en_us';
 
-// add the language pack name to every translation string in the display.
-// translation_string_prefix default value = false
-$translation_string_prefix = false;
-
 // Generating Unique Application Key
 $application_unique_key = '17565f92d80ec6d79c0d50bd4ce5b05f';
 
