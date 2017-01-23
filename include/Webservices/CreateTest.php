@@ -551,7 +551,7 @@ class WSCreateTest extends PHPUnit_Framework_TestCase {
 			'terms_conditions' => '',
 			'modifiedby' => $cbUserID,
 			'discount_type_final' => 'percentage',  //  zero/amount/percentage
-			'hdnDiscountAmount' => '20.000',  // only used if 'discount_type_final' == 'amount'
+			'hdnDiscountAmount' => '20.000000',  // only used if 'discount_type_final' == 'amount'
 			'hdnDiscountPercent' => '10.000',  // only used if 'discount_type_final' == 'percentage'
 			'shipping_handling_charge' => 15,
 			'shtax1' => 0,   // apply this tax, MUST exist in the application with this internal taxname
@@ -598,11 +598,12 @@ class WSCreateTest extends PHPUnit_Framework_TestCase {
 		unset($ObjectValues['pdoInformation']);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$ObjectValues['txtAdjustment'] = '40.000';
-		$ObjectValues['hdnGrandTotal'] = '90.030';
-		$ObjectValues['hdnSubTotal'] = '29.600';
+		$ObjectValues['txtAdjustment'] = '40.000000';
+		$ObjectValues['hdnGrandTotal'] = '90.030000';
+		$ObjectValues['hdnSubTotal'] = '29.600000';
 		$ObjectValues['hdnTaxType'] = 'group';
-		$ObjectValues['hdnS_H_Amount'] = '15.000';
+		$ObjectValues['hdnS_H_Amount'] = '15.000000';
+		$ObjectValues['tandc'] = '';
 		$this->assertEquals($ObjectValues, $actual,'Create salesorder');
 		/// end
 		$current_user = $holduser;

@@ -163,7 +163,7 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 			'binary' => 0,
 			'orgname' => 'name',
 			'orgtable' => 'marvel',
-			'db' => $filed_defs[0]['db'],
+			'db' => $filed_defs[0]->db,
 			'catalog' => 'def',
 			'length' => 600,
 			'charsetnr' => 33,
