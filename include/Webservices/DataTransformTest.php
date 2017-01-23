@@ -52,6 +52,7 @@ class DataTransformTest extends PHPUnit_Framework_TestCase {
 		$expected['invoiceid'] = '7x3882';
 		$expected['account'] = '11x142';
 		$expected['modifiedby'] = '19x1';
+		$expected['created_user_id'] = '19x1';
 		$actual = DataTransform::sanitizeReferences($focus->column_fields,$meta);
 		$this->assertEquals($expected, $actual,'sanitizeReferences Assets');
 		///////////////
@@ -69,6 +70,7 @@ class DataTransformTest extends PHPUnit_Framework_TestCase {
 		$expected = $focus->column_fields;
 		$expected['currency_id'] = '21x1';
 		$expected['modifiedby'] = '19x1';
+		$expected['created_user_id'] = '19x1';
 		$actual = DataTransform::sanitizeReferences($focus->column_fields,$meta);
 		$this->assertEquals($expected, $actual,'sanitizeReferences PriceBooks');
 	}
