@@ -106,27 +106,72 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 
 	/**
 	 * @depends testObjectType
+	 * here are the data types that correspond to the TYPE number returned by fetch_field.
+		numerics
+		-------------
+		BIT: 16
+		TINYINT: 1
+		BOOL: 1
+		SMALLINT: 2
+		MEDIUMINT: 9
+		INTEGER: 3
+		BIGINT: 8
+		SERIAL: 8
+		FLOAT: 4
+		DOUBLE: 5
+		DECIMAL: 246
+		NUMERIC: 246
+		FIXED: 246
+
+		dates
+		------------
+		DATE: 10
+		DATETIME: 12
+		TIMESTAMP: 7
+		TIME: 11
+		YEAR: 13
+
+		strings & binary
+		------------
+		CHAR: 254
+		VARCHAR: 253
+		ENUM: 254
+		SET: 254
+		BINARY: 254
+		VARBINARY: 253
+		TINYBLOB: 252
+		BLOB: 252
+		MEDIUMBLOB: 252
+		TINYTEXT: 252
+		TEXT: 252
+		MEDIUMTEXT: 252
+		LONGTEXT: 252
 	 */
 	public function test_getFieldsDefinition($adb) {
 		$sql = "SELECT * FROM marvel";
 		$result = $adb->pquery($sql);
 		$filed_defs = $adb->getFieldsDefinition($result);
 		$expected = array(
-			'name' => 'name','table' => 'marvel',
-        	'def' => '',
-        	'max_length' => 600,
-        	'not_null' => 1,
-        	'primary_key' => 0,
-        	'multiple_key' => 0,
-        	'unique_key' => 0,
-        	'numeric' => 0,
-        	'blob' => 0,
-        	'type' => 'string',
-        	'unsigned' => 0,
-        	'zerofill' => 0,
-        	'binary' => ''
-        );
-        $this->assertEquals($expected,(array)$filed_defs[0]);
+			'name' => 'name',
+			'table' => 'marvel',
+			'def' => '',
+			'max_length' => 54,
+			'not_null' => 1,
+			'primary_key' => 0,
+			'type' => 253,
+			'unsigned' => 0,
+			'binary' => 0,
+			'orgname' => 'name',
+			'orgtable' => 'marvel',
+			'db' => $filed_defs[0]['db'],
+			'catalog' => 'def',
+			'length' => 600,
+			'charsetnr' => 33,
+			'flags' => 4097,
+			'decimals' => 0,
+			'auto_increment' => 0,
+		);
+		$this->assertEquals($expected,(array)$filed_defs[0]);
 	}
 
 	/**
@@ -305,21 +350,25 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 		$field = $adb->field_name($result,1);
 		$expected = array(
 			'name' => 'contact_no',
-		    'table' => 'vtiger_contactdetails',
-		    'def' => '',
-		    'max_length' => 300,
-		    'not_null' => 1,
-		    'primary_key' => 0,
-		    'multiple_key' => 0,
-		    'unique_key' => 0,
-		    'numeric' => 0,
-		    'blob' => 0,
-		    'type' => 'string',
-		    'unsigned' => 0,
-		    'zerofill' => 0,
-		    'binary' => ''
-	    );
-	    $this->assertEquals($expected,(array)$field);
+			'table' => 'vtiger_contactdetails',
+			'def' => '',
+			'max_length' => 5,
+			'type' => 253,
+			'unsigned' => 0,
+			'not_null' => 1,
+			'primary_key' => 0,
+			'binary' => 0,
+			'length' => 300,
+			'orgname' => 'contact_no',
+			'orgtable' => 'vtiger_contactdetails',
+			'db' => $field->db,
+			'catalog' => 'def',
+			'charsetnr' => 33,
+			'flags' => 4097,
+			'decimals' => 0,
+			'auto_increment' => 0,
+		);
+		$this->assertEquals($expected,(array)$field);
 	}
 
 	/**
