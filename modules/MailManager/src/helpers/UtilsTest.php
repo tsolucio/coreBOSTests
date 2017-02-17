@@ -26,7 +26,7 @@ class testMailManager_Utils extends PHPUnit_Framework_TestCase {
 	 * Method testsafe_html_string
 	 * @test
 	 */
-	public function testsafe_html_string($input,$ignore,$exp,$message) {
+	public function testsafe_html_string() {
 		// this test is all about htmlpurifier which is redundant with vtlib_purify() test, so we don't repeat it here.
 		$this->assertTrue(true);
 	}
@@ -59,7 +59,7 @@ class testMailManager_Utils extends PHPUnit_Framework_TestCase {
 	 * Method testemitJSON
 	 * @test
 	 */
-	public function testemitJSON($input,$expected,$message) {
+	public function testemitJSON() {
 		// this test is all about php json encoding which is redundant with Webservice/OperationManagerEnDecode() test, so we don't repeat it here.
 		$this->assertTrue(true);
 	}

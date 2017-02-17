@@ -149,7 +149,7 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 	 */
 	public function test_getFieldsDefinition($adb) {
 		$sql = "SELECT * FROM marvel";
-		$result = $adb->pquery($sql);
+		$result = $adb->pquery($sql,array());
 		$filed_defs = $adb->getFieldsDefinition($result);
 		$expected = array(
 			'name' => 'name',
