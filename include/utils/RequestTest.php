@@ -42,6 +42,8 @@ class testRequest extends PHPUnit_Framework_TestCase {
 			'jsonobject' => '{"1":"one","2":"two","3":"three"}',
 			'notjson' => '[1],2,3',
 			'empty' => '',
+			'RETURN_EMPTY' => '',
+			'RETURN_ZERO' => 0,
 		);
 		$this->requeststrip = new Vtiger_Request($this->testdata,$this->testdata);
 		$this->requestnotstrip = new Vtiger_Request($this->testdata,$this->testdata,false);
@@ -80,6 +82,8 @@ class testRequest extends PHPUnit_Framework_TestCase {
 			'jsonobject' => array("1"=>"one","2"=>"two","3"=>"three"),
 			'notjson' => '[1],2,3',
 			'empty' => '',
+			'RETURN_EMPTY' => '',
+			'RETURN_ZERO' => 0,
 		);
 		$this->assertEquals($expected, $this->requeststrip->getAll(), "testGetInfo strip");
 		$expected['slashes'] = "slash: \\' ".' \\" \\\ ';
@@ -145,12 +149,17 @@ class testRequest extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function testDefault() {
-		$this->assertFalse($this->requeststrip->has('nothere'), "testhas false");
-		$this->assertSame('', $this->requeststrip->get('nothere'), "testGet empty");
-		$this->assertSame('default', $this->requeststrip->get('nothere','default'), "testGet empty direct default");
+		$this->assertFalse($this->requeststrip->has('nothere'), "testDefault false");
+		$this->assertSame('', $this->requeststrip->get('nothere'), "testDefault empty");
+		$this->assertSame('default', $this->requeststrip->get('nothere','default'), "testDefault empty direct default");
+		$all_before = $this->requeststrip->getAll();
 		$this->requeststrip->setDefault('nothere','setdefault');
-		$this->assertFalse($this->requeststrip->has('nothere'), "testhas false");
-		$this->assertSame('setdefault', $this->requeststrip->get('nothere'), "testGet setdefault");
+		$all_after = $this->requeststrip->getAll();
+		$this->assertFalse($this->requeststrip->has('nothere'), "testDefault has false");
+		$this->assertSame('setdefault', $this->requeststrip->get('nothere'), "testDefault setdefault");
+		$this->assertNotSame($all_before, $all_after, "testDefault GetAll setdefault different");
+		$all_before['nothere'] = 'setdefault';
+		$this->assertEquals($all_before, $all_after, "testDefault GetAll setdefault same");
 	}
 
 	/**
@@ -159,7 +168,7 @@ class testRequest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testReturnURL() {
 		$actual = $this->requeststrip->getReturnURL();
-		$this->assertSame("return_module=Accounts&return_view=7&return_action=Save&httpresponsesplit=first%0Asecond",$actual, "testGetReturnURL");
+		$this->assertSame("return_module=Accounts&return_view=7&return_action=Save&httpresponsesplit=first%0Asecond&return_empty=&return_zero=0",$actual, "testGetReturnURL");
 	}
 
 }
