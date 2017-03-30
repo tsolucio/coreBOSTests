@@ -35,10 +35,15 @@ class testcbSettings extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($actual,'testcbSettings exist');
 		$actual = coreBOS_Settings::getSetting('cbSettingsTest');
 		$this->assertEquals('testvalue',$actual,'testcbSettings get value');
+		// test cache
 		global $adb;
 		$adb->query("update cb_settings set setting_value='testcache' where setting_key='cbSettingsTest'");
 		$actual = coreBOS_Settings::getSetting('cbSettingsTest');
 		$this->assertEquals('testvalue',$actual,'testcbSettings get value from cache');
+		// update
+		$actual = coreBOS_Settings::setSetting('cbSettingsTest','testupdate');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest');
+		$this->assertEquals('testupdate',$actual,'testcbSettings get value after update');
 		// delete
 		$actual = coreBOS_Settings::delSetting('cbSettingsTest');
 		$actual = coreBOS_Settings::SettingExists('cbSettingsTest');
