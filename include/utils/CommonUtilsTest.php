@@ -56,4 +56,99 @@ class testCommonUtils extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $actual,"currency symrate 2");
 	}
 
+	/**
+	 * Method testgetBasic_Advance_SearchURL
+	 * @test
+	 */
+	public function testgetBasic_Advance_SearchURL() {
+		$actualRequest = $_REQUEST;
+		$_REQUEST = array (
+		  'module' => 'Home',
+		  'action' => 'HomeAjax',
+		  'file' => 'HomeWidgetBlockList',
+		  'widgetInfoList' => '[{"widgetId":14,"widgetType":"Default"},{"widgetId":15,"widgetType":"Tag Cloud"}]',
+		  'query' => 'true',
+		  'searchtype' => 'advance',
+		  'advft_criteria' => '[{"groupid":1,"columnname":"vtiger_faq:status:faqstatus:Faq_Status:V","comparator":"n","value":"Obsolete","columncondition":null}]',
+		  'advft_criteria_groups' => '{"1":{"groupcondition":null}}',
+		);
+		$actual = getBasic_Advance_SearchURL();
+		$expected = '&query=true&searchtype=advance';
+		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 1");
+		$_REQUEST = array (
+		  'search_field' => 'firstname',
+		  'searchtype' => 'BasicSearch',
+		  'search_text' => 'lina',
+		  'parenttab' => 'ptab',
+		  'query' => 'true',
+		  'file' => 'index',
+		  'module' => 'Contacts',
+		  'action' => 'ContactsAjax',
+		  'ajax' => 'true',
+		  'search' => 'true',
+		);
+		$actual = getBasic_Advance_SearchURL();
+		$expected = '&query=true&searchtype=BasicSearch&search_field=firstname&search_text=lina';
+		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 2");
+		$_REQUEST = array (
+		  'search_field' => 'account_id',
+		  'searchtype' => 'BasicSearch',
+		  'search_text' => '&',
+		  'parenttab' => 'ptab',
+		  'query' => 'true',
+		  'file' => 'index',
+		  'module' => 'Contacts',
+		  'action' => 'ContactsAjax',
+		  'ajax' => 'true',
+		  'search' => 'true',
+		);
+		$actual = getBasic_Advance_SearchURL();
+		$expected = '&query=true&searchtype=BasicSearch&search_field=account_id&search_text=&amp;';
+		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 3");
+		$_REQUEST = array (
+		  'advft_criteria' => '[{"groupid":"1","columnname":"vtiger_contactdetails:firstname:firstname:Contacts_First_Name:V","comparator":"c","value":"lina","columncondition":"and"},{"groupid":"1","columnname":"vtiger_contactdetails:accountid:account_id:Contacts_Account_Name:V","comparator":"c","value":"&","columncondition":""}]',
+		  'advft_criteria_groups' => '[null,{"groupcondition":""}]',
+		  'searchtype' => 'advance',
+		  'query' => 'true',
+		  'file' => 'index',
+		  'module' => 'Contacts',
+		  'action' => 'ContactsAjax',
+		  'ajax' => 'true',
+		  'search' => 'true',
+		);
+		$actual = getBasic_Advance_SearchURL();
+		$expected = '&query=true&searchtype=advance';
+		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 4");
+		$_REQUEST = array (
+		  'advft_criteria' => '[{"groupid":"1","columnname":"vtiger_accountscf:cf_722:cf_722:Accounts_Date:D","comparator":"e","value":"$","columncondition":""}]',
+		  'advft_criteria_groups' => '[null,{"groupcondition":""}]',
+		  'searchtype' => 'advance',
+		  'query' => 'true',
+		  'file' => 'index',
+		  'module' => 'Accounts',
+		  'action' => 'AccountsAjax',
+		  'ajax' => 'true',
+		  'search' => 'true',
+		);
+		$actual = getBasic_Advance_SearchURL();
+		$expected = '&query=true&searchtype=advance';
+		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 5");
+		$_REQUEST = array (
+		  'search_field' => 'account_id',
+		  'searchtype' => 'BasicSearch',
+		  'search_text' => '& li',
+		  'parenttab' => 'ptab',
+		  'query' => 'true',
+		  'file' => 'index',
+		  'module' => 'Contacts',
+		  'action' => 'ContactsAjax',
+		  'ajax' => 'true',
+		  'search' => 'true',
+		);
+		$actual = getBasic_Advance_SearchURL();
+		$expected = '&query=true&searchtype=BasicSearch&search_field=account_id&search_text=&amp; li';
+		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 6");
+		$_REQUEST = $actualRequest;
+	}
+
 }
