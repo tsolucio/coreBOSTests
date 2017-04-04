@@ -36,7 +36,8 @@ class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
 	public function testMessageQueue() {
 		global $adb;
 		$cbmq = coreBOS_MQTM::getInstance();
-		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', '1:M', 1, 30, 1, 'information');
+		$adb->query('TRUNCATE cb_messagequeue');
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', '1:M', 1, 30, 0, 1, 'information');
 
 		$rs = $adb->query('select count(*) from cb_messagequeue');
 		$nummsg = $adb->query_result($rs, 0, 0);
@@ -56,6 +57,7 @@ class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
 			'share' => '1:M',
 			'sequence' => '1',
 			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
 			'expires' => $actual['expires'],
 			'version' => $actual['version'],
 			'invalid' => 0,
@@ -65,7 +67,7 @@ class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertEquals($expected,$actual,"testMessageQueue send/get to DB");
 
-		$cbmq->rejectMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', '1:M', 1, $actual['senton'], $actual['expires'], 1, 'information', 'testreject');
+		$cbmq->rejectMessage($expected, 'testreject');
 
 		$rs = $adb->query('select count(*) from cb_messagequeue');
 		$nummsg = $adb->query_result($rs, 0, 0);
@@ -83,6 +85,7 @@ class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
 			'share' => '1:M',
 			'sequence' => '1',
 			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
 			'expires' => $actual['expires'],
 			'version' => $actual['version'],
 			'invalid' => 1,
@@ -131,7 +134,7 @@ class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertEquals($expected,$actual,"testSubscribe subscribe");
 
-		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', 'P:S', 1, 30, 1, 'information');
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', 'P:S', 1, 30, 0, 1, 'information');
 
 		$rs = $adb->query('select count(*) from cb_messagequeue');
 		$nummsg = $adb->query_result($rs, 0, 0);
@@ -169,7 +172,7 @@ class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
 		global $adb;
 		$cbmq = coreBOS_MQTM::getInstance();
 		$adb->query('TRUNCATE cb_messagequeue');
-		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', '1:M', 1, 1, 1, 'information');
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', '1:M', 1, 1, 0, 1, 'information');
 		sleep(2);
 		$cbmq->expireMessages();
 		$actual = $cbmq->getMessage('cbINVALID', 'phpunit', 'phpunit', '1');
@@ -184,6 +187,7 @@ class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
 			'share' => '1:M',
 			'sequence' => '1',
 			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
 			'expires' => $actual['expires'],
 			'version' => $actual['version'],
 			'invalid' => '1',
@@ -192,5 +196,24 @@ class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
 			'information' => 'information',
 		);
 		$this->assertEquals($expected,$actual,"testExpire expired/get to DB");
+	}
+
+	/**
+	 * Method testDeliverAfter
+	 * @test
+	 */
+	public function testDeliverAfter() {
+		global $adb;
+		$cbmq = coreBOS_MQTM::getInstance();
+		$adb->query('TRUNCATE cb_messagequeue');
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', '1:M', 1, 5, 5, 1, 'information'); // deliver after 5 seconds
+		$this->assertFalse($cbmq->isMessageWaiting('cbTestChannel', 'phpunit', 'phpunit', '1'),"testDeliverAfter no msg waiting");
+		sleep(6);
+		$this->assertTrue($cbmq->isMessageWaiting('cbTestChannel', 'phpunit', 'phpunit', '1'),"testDeliverAfter msg waiting");
+		sleep(6);
+		$cbmq->expireMessages();
+		$this->assertFalse($cbmq->isMessageWaiting('cbTestChannel', 'phpunit', 'phpunit', '1'),"testDeliverAfter no msg, it has been expired");
+		$this->assertTrue($cbmq->isMessageWaiting('cbINVALID', 'phpunit', 'phpunit', '1'),"testDeliverAfter msg expired");
+		$adb->query('TRUNCATE cb_messagequeue');
 	}
 }
