@@ -27,28 +27,28 @@ class testcbSettings extends PHPUnit_Framework_TestCase {
 	public function testcbSettingsAll() {
 		$actual = coreBOS_Settings::SettingExists('cbSettingsTest');
 		$this->assertFalse($actual,'testcbSettings not exist');
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null); // test default value
 		$this->assertNull($actual,'testcbSettings not exist so null returned');
 		// create
 		$actual = coreBOS_Settings::setSetting('cbSettingsTest','testvalue');
 		$actual = coreBOS_Settings::SettingExists('cbSettingsTest');
 		$this->assertTrue($actual,'testcbSettings exist');
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
 		$this->assertEquals('testvalue',$actual,'testcbSettings get value');
 		// test cache
 		global $adb;
 		$adb->query("update cb_settings set setting_value='testcache' where setting_key='cbSettingsTest'");
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
 		$this->assertEquals('testvalue',$actual,'testcbSettings get value from cache');
 		// update
 		$actual = coreBOS_Settings::setSetting('cbSettingsTest','testupdate');
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
 		$this->assertEquals('testupdate',$actual,'testcbSettings get value after update');
 		// delete
 		$actual = coreBOS_Settings::delSetting('cbSettingsTest');
 		$actual = coreBOS_Settings::SettingExists('cbSettingsTest');
 		$this->assertFalse($actual,'testcbSettings not exist after delete');
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
 		$this->assertNull($actual,'testcbSettings not exist so null returned after delete');
 	}
 
