@@ -86,11 +86,11 @@ class YourIntegrationTest extends cbIntegrationTest
 
 Profiling
 -------
-This project also caters the needs of profiling the application. To accomplish this, we use the XHProf PHP extension and the visual user interface [XHGUI](https://github.com/perftools/xhgui.git).
+This project also caters the needs of profiling the application. To accomplish this, we use the [XHProf PHP](http://pecl.php.net/package/xhprof) and [Tideways](https://tideways.io/) extensions and the visual user interface [XHGUI](https://github.com/perftools/xhgui.git).
 
 To get profiling working you need to:
-* install the XHProf PHP extension in your PHP
-* install mongodb
+* install the XHProf PHP or Tideways extension in your PHP (uprofiler has not been tested but should work also)
+* install mongodb and mongodb PHP libraries
 * your apache must be configured to accept .htaccess directives because the build directory is protected from web access so we need to eliminate that restriction for the xhgui direcotry
 * your apache must have mod_rewrite loaded
 * get the latest code of the coreBOSTest project (see above)
@@ -157,8 +157,43 @@ index 1bc9257..c5f5dce 100644
  ?>
 ```
 
-This setup is based on the work described in engineyard.com blog post [**Profiling PHP with Xhprof & Xhgui**](https://blog.engineyard.com/2014/profiling-with-xhprof-xhgui-part-1) which is a recommended read along with the article [Profiling PHP Applications with XHGui](https://inviqa-production.squarespace.com/blog/2013/10/01/profiling-php-applications-with-xhgui)
+This setup is based on the work described in engineyard.com blog post [**Profiling PHP with Xhprof & Xhgui**](https://blog.engineyard.com/2014/profiling-with-xhprof-xhgui-part-1) which is a recommended read along with the article [Profiling PHP Applications with XHGui](https://inviqa.com/blog/profiling-xhgui). Some other helpful links are:
 
+  * [Tideways PHP Profiler Extension](https://github.com/tideways/php-profiler-extension)
+  * [How To Set Up XHProf and XHGui for Profiling PHP Applications on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-xhprof-and-xhgui-for-profiling-php-applications-on-ubuntu-14-04#step-4-—-set-up-mongodb-indexes-(optional))
+  * [xhgui](https://github.com/perftools/xhgui)
+
+Tideways extension
+-------
+
+This is what my tideways extension settings look like on PHP7
+
+```
+; Configuration for Tideways Profiler Extension
+; priority=40
+extension=tideways.so
+tideways.load_library=0
+tideways.auto_prepend_library=0
+tideways.auto_start=0
+tideways.monitor=FULL
+tideways.collect=FULL
+tideways.monitor_cli=1
+
+; Tideways Application API-Key to configure when using just one application on
+; this php installation.
+;tideways.api_key=
+
+; Configure the profiling sample rate for this PHP server globally.  The given
+; number is an integer representing percent between 0 and 100
+tideways.sample_rate=100
+
+; Automatically detect transactions and exceptions of a given framework The
+; following frameworks are currently supported:
+;
+; symfony2, symfony2c, shopware, oxid, magento, zend1, zend2, laravel,
+; wordpress
+;tideways.framework=
+```
 
 
 License
