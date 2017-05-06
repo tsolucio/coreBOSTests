@@ -27,23 +27,31 @@ class coreBOSxhguiWorker {
 			Xhgui_Config::load($dir . '/config/config.php');
 		}
 		unset($dir);
-		if (!extension_loaded('mongo') && Xhgui_Config::read('save.handler') === 'mongodb') {
+		if (!(extension_loaded('mongo') || extension_loaded('mongodb')) && Xhgui_Config::read('save.handler') === 'mongodb') {
 			error_log('xhgui - extension mongo not loaded');
 			return;
 		}
 		if (!isset($_SERVER['REQUEST_TIME_FLOAT'])) {
 			$_SERVER['REQUEST_TIME_FLOAT'] = microtime(true);
 		}
-		if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 4) {
-			xhprof_enable(XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_NO_BUILTINS);
+		if (extension_loaded('tideways')) {
+			tideways_enable(TIDEWAYS_FLAGS_NO_SPANS + TIDEWAYS_FLAGS_CPU + TIDEWAYS_FLAGS_MEMORY);
 		} else {
-			xhprof_enable(XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY);
+			if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 4) {
+				xhprof_enable(XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_NO_BUILTINS);
+			} else {
+				xhprof_enable(XHPROF_FLAGS_CPU | XHPROF_FLAGS_MEMORY);
+			}
 		}
 	}
 
 	public static function disable_cbprofile() {
 		$data = array();
-		$data['profile'] = xhprof_disable();
+		if (extension_loaded('tideways')) {
+			$data['profile'] = tideways_disable();
+		} else {
+			$data['profile'] = xhprof_disable();
+		}
 		ignore_user_abort(true);
 		//flush();
 
