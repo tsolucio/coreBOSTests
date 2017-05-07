@@ -647,6 +647,7 @@ class WSCreateTest extends PHPUnit_Framework_TestCase {
 			'notecontent' => 'áçèñtös',
 			'modifiedby' => $cbUserID,
 		);
+		//$this->expectException('WebServiceException');
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		$ObjectValues['note_no'] = $actual['note_no'];
 		$ObjectValues['id'] = $actual['id'];
