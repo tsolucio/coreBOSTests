@@ -259,6 +259,7 @@ class testRecurringType extends PHPUnit_Framework_TestCase {
 	 *   sun_flag | mon_flag | tue_flag | wed_flag | thu_flag | fri_flag | sat_flag
 	 *   repeatMonth {month} | date | day
 	 *   repeatMonth_date  {date}
+	 *   repeatMonth_day: 1-6
 	 *   repeatMonth_daytype  first | second | third | last
 	 *   repeat_frequency [1-14]
 	 * return $recurObj - Object of class RecurringType
@@ -307,7 +308,8 @@ class testRecurringType extends PHPUnit_Framework_TestCase {
 			}
 			elseif ($recurring_data['repeatmonth_type'] == 'day') {
 				$recurring_data['repeatmonth_daytype'] = vtlib_purify($rtsetup['repeatMonth_daytype']);
-				switch ($rtsetup['repeatMonth_day']) {
+				$rdm = (isset($rtsetup['repeatMonth_day']) ? $rtsetup['repeatMonth_day'] : '');
+				switch ($rdm) {
 					case 0 :
 						$recurring_data['sun_flag'] = true;
 						break;
