@@ -752,5 +752,52 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($query,$sqlresult,"Birthday testmdy");
 		$current_user = $holdcuser;
 	}
+
+	public function testQueryStringWithCommas() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
+		$queryGenerator->addCondition('accountname','Hermar Inc','e');
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname = 'Hermar Inc')  AND vtiger_account.accountid > 0";
+		$this->assertEquals($sqlresult,$query,"String no commas");
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
+		$queryGenerator->addCondition('accountname','Hermar, Inc','e');
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
+		$this->assertEquals($sqlresult,$query,"String with commas");
+	}
+
+
+	public function testQueryHasConditions() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
+		$this->assertFalse($queryGenerator->hasWhereConditions(),'Does not have conditions');
+		$queryGenerator->addCondition('accountname','Hermar Inc','e');
+		$this->assertTrue($queryGenerator->hasWhereConditions(),'Has conditions');
+		$queryGenerator->addCondition('accountname','Hermar, Inc','e',QueryGenerator::$OR);
+		$this->assertTrue($queryGenerator->hasWhereConditions(),'Has conditions');
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname = 'Hermar Inc')  OR ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
+		$this->assertEquals($sqlresult,$query,"Query Has Conditions");
+	}
+
+	public function testQueryInitCustomView() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->initForCustomViewById(5); // Prospect Accounts
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.account_type = 'Prospect') )) AND vtiger_account.accountid > 0";
+		$this->assertEquals($sqlresult,$query,"Init CV Prospect Accounts (5)");
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->initForCustomViewById(5); // Prospect Accounts
+		$queryGenerator->addCondition('accountname','Hermar, Inc','e',QueryGenerator::$AND);
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.account_type = 'Prospect') )) AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
+		$this->assertEquals($sqlresult,$query,"Init CV Prospect Accounts (5)");
+	}
+
 }
 ?>
