@@ -61,7 +61,7 @@ class coreBOSxhguiWorker {
 
 		$uri = array_key_exists('REQUEST_URI', $_SERVER) ? $_SERVER['REQUEST_URI'] : null;
 		if (empty($uri) && isset($_SERVER['argv'])) {
-			$cmd = basename($_SERVER['argv'][0]);
+			$cmd = $_SERVER['PWD'] . basename($_SERVER['argv'][0]);
 			$uri = $cmd . ' ' . implode(' ', array_slice($_SERVER['argv'], 1));
 		}
 
