@@ -769,7 +769,6 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($sqlresult,$query,"String with commas");
 	}
 
-
 	public function testQueryHasConditions() {
 		global $current_user;
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
@@ -797,6 +796,18 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$query = $queryGenerator->getQuery();
 		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.account_type = 'Prospect') )) AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
 		$this->assertEquals($sqlresult,$query,"Init CV Prospect Accounts (5)");
+	}
+
+	public function testQueryJoinWithInitialGlue() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
+		$queryGenerator->startGroup($queryGenerator::$OR);
+		$queryGenerator->addCondition('accountname','Hermar Inc','e');
+		$queryGenerator->endGroup();
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_account.accountname = 'Hermar Inc') ) AND vtiger_account.accountid > 0";
+		$this->assertEquals($sqlresult,$query,"Query With Initial OR");
 	}
 
 }
