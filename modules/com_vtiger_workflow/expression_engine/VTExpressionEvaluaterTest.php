@@ -197,6 +197,34 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('fixedChemex Labs Ltd01-03', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "concat('fixed', accountname, $(assigned_user_id : (Users) email1))";
+		$expectedresult = array(
+			0 => 'fixed',
+			1 => 'VTExpressionSymbol Object
+(
+    [value] => accountname
+)
+',
+			2 => 'VTExpressionSymbol Object
+(
+    [value] => $(assigned_user_id : (Users) email1)
+)
+',
+			3 => 'Array
+(
+    [0] => fixed
+    [1] => Chemex Labs Ltd
+    [2] => noreply@tsolucio.com
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('fixedChemex Labs Ltdnoreply@tsolucio.com', $exprEvaluation);
 	}
 
 	/**
@@ -236,6 +264,21 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "$(assigned_user_id : (Users) email1)";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(assigned_user_id : (Users) email1)
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('noreply@tsolucio.com', $exprEvaluation);
 	}
 
 	/**
@@ -678,6 +721,106 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('then', $exprEvaluation);
+		/////////////////////////
+		// operator
+		$testexpression = "if $(assigned_user_id : (Users) email1) == 'noreply@tsolucio.com' then 'then' else 'else' end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(assigned_user_id : (Users) email1)
+)
+',
+			1 => 'noreply@tsolucio.com',
+			2 => 'Array
+(
+    [0] => noreply@tsolucio.com
+    [1] => noreply@tsolucio.com
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => $(assigned_user_id : (Users) email1)
+                        )
+
+                    [2] => noreply@tsolucio.com
+                )
+
+        )
+
+    [1] => then
+    [2] => else
+)
+',
+			4 => true,
+			5 => 'then'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('then', $exprEvaluation);
+		/////////////////////////
+		// operator
+		$testexpression = "if 'notthesame' == $(assigned_user_id : (Users) email1) then 'then' else 'else' end";
+		$expectedresult = array(
+			0 => 'notthesame',
+			1 => 'VTExpressionSymbol Object
+(
+    [value] => $(assigned_user_id : (Users) email1)
+)
+',
+			2 => 'Array
+(
+    [0] => notthesame
+    [1] => noreply@tsolucio.com
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                        )
+
+                    [1] => notthesame
+                    [2] => VTExpressionSymbol Object
+                        (
+                            [value] => $(assigned_user_id : (Users) email1)
+                        )
+
+                )
+
+        )
+
+    [1] => then
+    [2] => else
+)
+',
+			4 => false,
+			5 => 'else'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('else', $exprEvaluation);
 	}
 
 	/**
@@ -1959,6 +2102,57 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('+03-3608-5660', $exprEvaluation);
+	}
+
+	/**
+	 * Method testGetUserFunctions
+	 * @test
+	 */
+	public function testGetUserFunctions() {
+		$adminUser = Users::getActiveAdminUser();
+		$entityId = '11x74'; // employees = 131
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = 'getCurrentUserID()';
+		$expectedresult = array(
+			0 => 'Array
+(
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('19x1', $exprEvaluation);
+		$testexpression = 'getCurrentUserName()';
+		$expectedresult = array(
+			0 => 'Array
+(
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('admin', $exprEvaluation);
+		$testexpression = "getCurrentUserName('full')";
+		$expectedresult = array(
+			0 => 'full',
+			1 => 'Array
+(
+    [0] => full
+)
+',
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('Administrator', $exprEvaluation);
 	}
 
 }
