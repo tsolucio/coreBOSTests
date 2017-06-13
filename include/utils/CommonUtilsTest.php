@@ -151,4 +151,11 @@ class testCommonUtils extends PHPUnit_Framework_TestCase {
 		$_REQUEST = $actualRequest;
 	}
 
+	function testisInsideApplication() {
+		$this->assertTrue(isInsideApplication('modules'),"isInsideApplication modules");
+		$this->assertTrue(isInsideApplication('modules/cbupdater'),"isInsideApplication modules/cbupdater");
+		$this->assertTrue(isInsideApplication('modules/cbupdater/cbupdater.php'),"isInsideApplication modules/cbupdater/cbupdater.php");
+		$this->assertFalse(isInsideApplication('/etc'),"isInsideApplication /etc");
+		$this->assertFalse(isInsideApplication('..'),"isInsideApplication ..");
+	}
 }
