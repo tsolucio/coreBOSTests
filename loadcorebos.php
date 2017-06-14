@@ -53,6 +53,7 @@ require_once 'include/Webservices/WebserviceEntityOperation.php';
 require_once 'include/Webservices/Retrieve.php';
 require_once 'include/Webservices/Create.php';
 require_once 'include/Webservices/Update.php';
+require_once 'include/Webservices/Revise.php';
 require_once 'include/Webservices/RetrieveDocAttachment.php';
 require_once('modules/Emails/mail.php');
 require_once('modules/com_vtiger_workflow/VTSimpleTemplate.inc');
