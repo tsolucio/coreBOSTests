@@ -124,6 +124,15 @@ class VtigerModuleOperation_QueryTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("SELECT vtiger_contactdetails.firstname,vtiger_contactdetails.contactid FROM vtiger_contactdetails LEFT JOIN vtiger_crmentity ON vtiger_contactdetails.contactid=vtiger_crmentity.crmid   WHERE (vtiger_contactdetails.contactid IN (1084,1085)) AND  vtiger_crmentity.deleted=0 LIMIT 100;",$actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select firstname from Contacts where id not in ('12x1084','12x1085');",$meta,$queryRelatedModules);
 		$this->assertEquals("select vtiger_contactdetails.firstname, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_contactdetails.contactid  NOT IN ('1084','1085')) ) AND vtiger_contactdetails.contactid > 0 ",$actual);
+
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select Products.productname,assetname from Assets where assetname LIKE '%exy%';",$meta,$queryRelatedModules);
+		$this->assertEquals("select vtiger_productsproduct.productname as productsproductname, vtiger_assets.assetname, vtiger_assets.assetsid  FROM vtiger_assets  INNER JOIN vtiger_crmentity ON vtiger_assets.assetsid = vtiger_crmentity.crmid LEFT JOIN vtiger_products AS vtiger_productsproduct ON vtiger_productsproduct.productid=vtiger_assets.product   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_assets.assetname LIKE '%exy%') ) AND vtiger_assets.assetsid > 0 ",$actual);
+	}
+
+	public function testQueryOnManyRelation() {
+		// it is not supported so it eliminates all references to modules it cannot reach
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select productname,Assets.assetname from Products where Assets.assetname LIKE '%exy%';",$meta,$queryRelatedModules);
+		$this->assertEquals("select vtiger_products.productname, vtiger_products.productid  FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND vtiger_products.productid > 0 ",$actual);
 	}
 
 	public function testQueryCountNull() {
