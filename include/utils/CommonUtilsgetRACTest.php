@@ -34,7 +34,7 @@ class testCommonUtilsgetRAC extends PHPUnit_Framework_TestCase {
 		'26182' => '0',
 		'4681' => '0',
 		'27119' => '0',
-		'2636' => '74',
+		'2636' => '0',
 		'2817' => '123',
 		'2816' => '123',
 		'2206' => '0',
@@ -66,7 +66,7 @@ class testCommonUtilsgetRAC extends PHPUnit_Framework_TestCase {
 		'26182' => '0',
 		'4681' => '0',
 		'27119' => '0',
-		'2636' => '0',
+		'2636' => '1872',
 		'2817' => '1292',
 		'2816' => '1292',
 		'2206' => '0',
@@ -91,10 +91,10 @@ class testCommonUtilsgetRAC extends PHPUnit_Framework_TestCase {
 	 */
 	public function testgetRAC() {
 		global $adb;
-		$recs = $adb->query('SELECT min(vtiger_crmentity.crmid) as id, vtiger_crmentity.setype as setype
+		$recs = $adb->query("SELECT min(vtiger_crmentity.crmid) as id, vtiger_crmentity.setype as setype
 			FROM vtiger_crmentity
 			INNER JOIN vtiger_tab on vtiger_crmentity.setype = vtiger_tab.name
-			where deleted=0 and isentitytype=1 group by setype');
+			where deleted=0 and isentitytype=1 group by setype having setype!='Documents'");
 		while ($rec = $adb->fetch_row($recs)) {
 			$actual = getRelatedAccountContact($rec['id'],'Accounts');
 			$expected = $this->Accountsresults[$rec['id']];
