@@ -88,4 +88,45 @@ class VTSimpleTemplateTest extends PHPUnit_Framework_TestCase {
 		$util->revertUser();
 	}
 
+	/**
+	 * Method testFunctions
+	 * @test
+	 */
+	public function testFunctions() {
+		// Setup
+		$entityId = '12x1607';
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		// Contact first name uppercase
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ))');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, 'uppercase(firstname )');
+		// uppercase string
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."uppercase('firstname' ))");
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('FIRSTNAME', $actual,'uppercase string');
+		// Formatted date
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."format_date(get_date('today'),'Ymd'))");
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals(date('Ymd'), $actual,'Formatted date');
+		// concat related info
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) concat($(account_id : (Accounts) accountname),email ))');
+		$expected = 'Spieker Propertiescgrafenstein@gmail.com';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual,'concat related info');
+		// concat related info with space
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) concat($(account_id : (Accounts) accountname),'."' - ', email ))");
+		$expected = 'Spieker Properties - cgrafenstein@gmail.com';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual,'concat related info');
+		// concat related info with space
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."getCurrentUserName('full'))");
+		$expected = 'Administrator';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual,'get full user name');
+		// Teardown
+		$util->revertUser();
+	}
+
 }
