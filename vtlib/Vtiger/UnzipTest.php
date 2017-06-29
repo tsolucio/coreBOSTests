@@ -19,9 +19,9 @@
  *************************************************************************************************/
 class testVtlibUnzip extends PHPUnit_Framework_TestCase {
 	private static $zipFile = __DIR__ . '/cbLoginHistory.zip';
-	
+
 	/**
-	 * Method testConstructsetURLDisconnect
+	 * Method testgetList
 	 * @test
 	 */
 	public function testgetList() {
@@ -188,8 +188,75 @@ class testVtlibUnzip extends PHPUnit_Framework_TestCase {
 			),
 		);
 		$zipa = new Vtiger_Unzip(self::$zipFile);
-		$actualLisr = $zipa->getList();
-		$this->assertSame($expectedList, $actualLisr, 'unzip list info');
+		$actualList = $zipa->getList();
+		$this->assertSame($expectedList, $actualList, 'unzip list info');
+	}
+
+	/**
+	 * Method testunzipAllEx
+	 * @test
+	 */
+	public function testunzipAllEx() {
+		$cacheDir = 'cache/ziptest';
+		$expected = array (
+			0 => 'cache/ziptest',
+			1 => 'cache/ziptest/modules',
+			2 => 'cache/ziptest/modules/cbLoginHistory',
+			3 => 'cache/ziptest/modules/cbLoginHistory/language',
+			4 => 'cache/ziptest/modules/cbLoginHistory/language/modules',
+			5 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory',
+			6 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory/language',
+			7 => 'cache/ziptest/modules/cbLoginHistory/modules',
+			8 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+			9 => 'cache/ziptest/Smarty',
+			10 => 'cache/ziptest/Smarty/templates',
+			11 => 'cache/ziptest/Smarty/templates/modules',
+			12 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory',
+			13 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/templates',
+		);
+		$unzip = new Vtiger_Unzip(self::$zipFile);
+		mkdir($cacheDir);
+		// Unzip selectively
+		$unzip->unzipAllEx( $cacheDir,
+			Array(
+				// Include only file/folders that need to be extracted
+				'include' => Array('templates', "modules/cbLoginHistory", 'cron','manifest.xml'),
+				//'exclude' => Array('manifest.xml')
+				// NOTE: If excludes is not given then by those not mentioned in include are ignored.
+			),
+			// What files needs to be renamed?
+			Array(
+				// Templates folder
+				'templates' => "Smarty/templates/modules/cbLoginHistory",
+				// Cron folder
+				'cron' => "cron/modules/cbLoginHistory"
+			)
+		);
+		$fls = $cacheDir;
+		$iter = new RecursiveIteratorIterator(
+			new RecursiveDirectoryIterator($fls, RecursiveDirectoryIterator::SKIP_DOTS),
+			RecursiveIteratorIterator::SELF_FIRST,
+			RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
+		);
+		$actual = array($fls);
+		foreach ($iter as $path => $dir) {
+			if ($dir->isDir()) {
+				$actual[] = $path;
+			}
+		}
+		$this->assertEquals($expected, $actual, 'unzipAllEx directory list');
+		$this->recursiveRemoveDirectory($cacheDir);
+	}
+
+	private function recursiveRemoveDirectory($directory) {
+		foreach (glob("{$directory}/*") as $file) {
+			if (is_dir($file)) {
+				$this->recursiveRemoveDirectory($file);
+			} else {
+				unlink($file);
+			}
+		}
+		rmdir($directory);
 	}
 }
 ?>
