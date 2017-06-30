@@ -215,7 +215,7 @@ class testVtlibUnzip extends PHPUnit_Framework_TestCase {
 			13 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/templates',
 		);
 		$unzip = new Vtiger_Unzip(self::$zipFile);
-		mkdir($cacheDir);
+		@mkdir($cacheDir);
 		// Unzip selectively
 		$unzip->unzipAllEx( $cacheDir,
 			Array(
@@ -232,20 +232,143 @@ class testVtlibUnzip extends PHPUnit_Framework_TestCase {
 				'cron' => "cron/modules/cbLoginHistory"
 			)
 		);
-		$fls = $cacheDir;
+		$actual = $this->getDirectroyListing($cacheDir,true);
+		$this->assertEquals($expected, $actual, 'unzipAllEx directory list');
+		$this->recursiveRemoveDirectory($cacheDir);
+	}
+
+	/**
+	 * Method testunzip
+	 * @test
+	 */
+	public function testunzip() {
+		$cacheDir = 'cache/ziptest';
+		$unzip = new Vtiger_Unzip(self::$zipFile);
+		mkdir($cacheDir);
+		$fileName = 'manifest.xml';
+		$dirname = dirname($fileName);
+		$unzip->unzip($fileName, "$cacheDir/$dirname/".basename($fileName), 0664);
+		$actual = $this->getDirectroyListing($cacheDir);
+		$expected = array (
+			0 => 'cache/ziptest',
+			1 => 'cache/ziptest/manifest.xml',
+		);
+		$this->assertEquals($expected, $actual, "unzip $fileName");
+		$fileName = 'modules/cbLoginHistory/index.php';
+		$dirname = dirname($fileName);
+		$unzip->unzip($fileName, "$cacheDir/$dirname/".basename($fileName), 0664);
+		$actual = $this->getDirectroyListing($cacheDir);
+		$expected = array (
+			0 => 'cache/ziptest',
+			1 => 'cache/ziptest/manifest.xml',
+			2 => 'cache/ziptest/modules',
+			3 => 'cache/ziptest/modules/cbLoginHistory',
+			4 => 'cache/ziptest/modules/cbLoginHistory/index.php',
+			5 => 'cache/ziptest/modules/cbLoginHistory/modules',
+			6 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+		);
+		$this->assertEquals($expected, $actual, "unzip $fileName");
+		$fileName = 'modules/cbLoginHistory/language/de_de.lang.php';
+		$dirname = dirname($fileName);
+		$unzip->unzip($fileName, "$cacheDir/$dirname/".basename($fileName), 0664);
+		$actual = $this->getDirectroyListing($cacheDir);
+		$expected = array (
+			0 => 'cache/ziptest',
+			1 => 'cache/ziptest/manifest.xml',
+			2 => 'cache/ziptest/modules',
+			3 => 'cache/ziptest/modules/cbLoginHistory',
+			4 => 'cache/ziptest/modules/cbLoginHistory/index.php',
+			5 => 'cache/ziptest/modules/cbLoginHistory/language',
+			6 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
+			7 => 'cache/ziptest/modules/cbLoginHistory/language/modules',
+			8 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory',
+			9 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory/language',
+			10 => 'cache/ziptest/modules/cbLoginHistory/modules',
+			11 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+		);
+		$this->assertEquals($expected, $actual, "unzip $fileName");
+		$fileName = 'templates/index.tpl';
+		$dirname = dirname($fileName);
+		$unzip->unzip($fileName, "$cacheDir/Smarty/templates/modules/cbLoginHistory/".basename($fileName), 0664);
+		$actual = $this->getDirectroyListing($cacheDir);
+		$expected = array (
+			0 => 'cache/ziptest',
+			1 => 'cache/ziptest/manifest.xml',
+			2 => 'cache/ziptest/modules',
+			3 => 'cache/ziptest/modules/cbLoginHistory',
+			4 => 'cache/ziptest/modules/cbLoginHistory/index.php',
+			5 => 'cache/ziptest/modules/cbLoginHistory/language',
+			6 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
+			7 => 'cache/ziptest/modules/cbLoginHistory/language/modules',
+			8 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory',
+			9 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory/language',
+			10 => 'cache/ziptest/modules/cbLoginHistory/modules',
+			11 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+			12 => 'cache/ziptest/Smarty',
+			13 => 'cache/ziptest/Smarty/templates',
+			14 => 'cache/ziptest/Smarty/templates/modules',
+			15 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory',
+			16 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/templates',
+			17 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/index.tpl',
+		);
+		$this->assertEquals($expected, $actual, "unzip $fileName");
+		$this->recursiveRemoveDirectory($cacheDir);
+	}
+
+	/**
+	 * Method testunzipAll
+	 * @test
+	 */
+	public function testunzipAll() {
+		$cacheDir = 'cache/ziptest';
+		$unzip = new Vtiger_Unzip(self::$zipFile);
+		mkdir($cacheDir);
+		$unzip->unzipAll($cacheDir);
+		$actual = $this->getDirectroyListing($cacheDir);
+		$expected = array (
+			0 => 'cache/ziptest',
+			1 => 'cache/ziptest/manifest.xml',
+			2 => 'cache/ziptest/templates',
+			3 => 'cache/ziptest/templates/index.tpl',
+			4 => 'cache/ziptest/modules',
+			5 => 'cache/ziptest/modules/cbLoginHistory',
+			6 => 'cache/ziptest/modules/cbLoginHistory/index.php',
+			7 => 'cache/ziptest/modules/cbLoginHistory/manifest.xml',
+			8 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistoryAjax.php',
+			9 => 'cache/ziptest/modules/cbLoginHistory/language',
+			10 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
+			11 => 'cache/ziptest/modules/cbLoginHistory/language/it_it.lang.php',
+			12 => 'cache/ziptest/modules/cbLoginHistory/language/pt_br.lang.php',
+			13 => 'cache/ziptest/modules/cbLoginHistory/language/en_us.lang.php',
+			14 => 'cache/ziptest/modules/cbLoginHistory/language/en_gb.lang.php',
+			15 => 'cache/ziptest/modules/cbLoginHistory/language/hu_hu.lang.php',
+			16 => 'cache/ziptest/modules/cbLoginHistory/language/nl_nl.lang.php',
+			17 => 'cache/ziptest/modules/cbLoginHistory/language/fr_fr.lang.php',
+			18 => 'cache/ziptest/modules/cbLoginHistory/language/es_es.lang.php',
+			19 => 'cache/ziptest/modules/cbLoginHistory/language/es_mx.lang.php',
+			20 => 'cache/ziptest/modules/cbLoginHistory/ExportRecords.php',
+			21 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistory.js',
+			22 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistory.php',
+			23 => 'cache/ziptest/modules/cbLoginHistory/getJSON.php',
+			24 => 'cache/ziptest/modules/cbLoginHistory/ListView.php',
+		);
+		$this->assertEquals($expected, $actual, "unzipAll");
+		$this->recursiveRemoveDirectory($cacheDir);
+	}
+
+	private function getDirectroyListing($topdir,$onlydirectories=false) {
 		$iter = new RecursiveIteratorIterator(
-			new RecursiveDirectoryIterator($fls, RecursiveDirectoryIterator::SKIP_DOTS),
+		new RecursiveDirectoryIterator($topdir, RecursiveDirectoryIterator::SKIP_DOTS),
 			RecursiveIteratorIterator::SELF_FIRST,
 			RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
 		);
-		$actual = array($fls);
+		$actual = array($topdir);
 		foreach ($iter as $path => $dir) {
-			if ($dir->isDir()) {
+			if (!$onlydirectories or $dir->isDir()) {
 				$actual[] = $path;
 			}
 		}
-		$this->assertEquals($expected, $actual, 'unzipAllEx directory list');
-		$this->recursiveRemoveDirectory($cacheDir);
+		return $actual;
 	}
 
 	private function recursiveRemoveDirectory($directory) {
