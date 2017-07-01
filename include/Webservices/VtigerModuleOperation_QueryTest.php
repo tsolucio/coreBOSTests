@@ -76,6 +76,21 @@ class VtigerModuleOperation_QueryTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("SELECT vtiger_project.projectname,vtiger_crmentity.modifiedtime,vtiger_project.projectid FROM vtiger_project LEFT JOIN vtiger_crmentity ON vtiger_project.projectid=vtiger_crmentity.crmid   WHERE (vtiger_project.projectname LIKE '%o%' and vtiger_crmentity.modifiedtime > '2016-06-30 19:11:59') AND  vtiger_crmentity.deleted=0 LIMIT 100;",$actual);
 	}
 
+	public function testControlCharacters() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select	id
+ from Leads
+where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01';",$meta,$queryRelatedModules);
+		$this->assertEquals("select vtiger_leaddetails.leadid, vtiger_leaddetails.leadid  FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (  (( vtiger_leaddetails.email = 'j@t.tld')  OR ( vtiger_leaddetails.secondaryemail = 'j@t.tld') ) AND ( vtiger_crmentity.createdtime >= '2016-01-01') ) AND vtiger_leaddetails.leadid > 0 ",$actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select	projectname,modifiedtime
+ from project
+where (projectname like '%o%'  and modifiedtime>'2016-06-30 19:11:59');",$meta,$queryRelatedModules);
+		$this->assertEquals("select vtiger_project.projectname, vtiger_crmentity.modifiedtime, vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectname LIKE '%o%')  AND ( vtiger_crmentity.modifiedtime > '2016-06-30 19:11:59') )) AND vtiger_project.projectid > 0 ",$actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select	projectname,modifiedtime
+ from project
+where projectname like '%o%'  and modifiedtime>'2016-06-30 19:11:59';",$meta,$queryRelatedModules);
+		$this->assertEquals("SELECT vtiger_project.projectname,vtiger_crmentity.modifiedtime,vtiger_project.projectid FROM vtiger_project LEFT JOIN vtiger_crmentity ON vtiger_project.projectid=vtiger_crmentity.crmid   WHERE (vtiger_project.projectname LIKE '%o%' and vtiger_crmentity.modifiedtime > '2016-06-30 19:11:59') AND  vtiger_crmentity.deleted=0 LIMIT 100;",$actual);
+	}
+
 	public function testConditions() {
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select accountname,website from Accounts where website like '%vt%';",$meta,$queryRelatedModules);
 		$this->assertEquals("SELECT vtiger_account.accountname,vtiger_account.website,vtiger_account.accountid FROM vtiger_account LEFT JOIN vtiger_crmentity ON vtiger_account.accountid=vtiger_crmentity.crmid   WHERE (vtiger_account.website LIKE '%vt%') AND  vtiger_crmentity.deleted=0 LIMIT 100;",$actual);
