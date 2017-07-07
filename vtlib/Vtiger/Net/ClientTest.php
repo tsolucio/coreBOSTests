@@ -32,7 +32,7 @@ class testVtlibNetClient extends PHPUnit_Framework_TestCase {
 	 */
 	public function testConstructsetURLDisconnect() {
 		$client = new Vtiger_Net_Client(self::$netURL);
-		$this->assertSame($client->url, self::$netURL, $actual,"testConstruct URL");
+		$this->assertSame($client->url, self::$netURL, "testConstruct URL");
 		$this->assertFalse($client->response,"testConstruct response");
 		$this->assertInstanceOf('Vtiger_Net_Client', $client,"testConstruct client");
 		$this->assertInstanceOf('HTTP_Request2', $client->client,"testConstruct client");

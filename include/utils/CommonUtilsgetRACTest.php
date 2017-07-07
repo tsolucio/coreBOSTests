@@ -51,6 +51,8 @@ class testCommonUtilsgetRAC extends PHPUnit_Framework_TestCase {
 		'9760' => '949',
 		'9710' => '0',
 		'2216' => '0',
+		'29198' => '0',
+		'27187' => '0',
 	);
 	private $Contactsresults = array(
 		'74' => '0',
@@ -83,6 +85,8 @@ class testCommonUtilsgetRAC extends PHPUnit_Framework_TestCase {
 		'9760' => '0',
 		'9710' => '0',
 		'2216' => '0',
+		'29198' => '1655',
+		'27187' => '0',
 	);
 
 	/**

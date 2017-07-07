@@ -625,6 +625,7 @@ class PickListUtilsTest extends PHPUnit_Framework_TestCase {
 			'GlobalVariable' => 'GlobalVariable',
 			'cbMap' => 'cbMap',
 			'cbTermConditions' => 'cbTermConditions',
+			'cbCalendar' => 'cbCalendar',
 		);
 		$this->assertEquals($expected, $actual);
 	}

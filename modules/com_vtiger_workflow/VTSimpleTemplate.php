@@ -110,12 +110,7 @@ Admin</p>';
 	 */
 	public function testRenderCalendar() {
 		// Setup
-		$entityId = '41x27287';
-		$util = new VTWorkflowUtils();
-		$adminUser = $util->adminUser();
-		$entityCache = new VTEntityCache($adminUser);
-		// Constant string.
-		$ct = new VTSimpleTemplate('$(assigned_user_id : (Users) first_name) $(assigned_user_id : (Users) last_name),
+		$template = '$(assigned_user_id : (Users) first_name) $(assigned_user_id : (Users) last_name),
 Activity Notification Details:
 Subject : $subject
 Start date and time : $date_start $time_start ($(general : (__VtigerMeta__) dbtimezone))
@@ -124,17 +119,74 @@ Status : $eventstatus
 Priority : $taskpriority
 Related To : $(rel_id : (Leads) lastname)$(rel_id : (Leads) firstname)$(rel_id : (Accounts) accountname)$(rel_id : (Potentials) potentialname)$(rel_id : (HelpDesk) ticket_title)
 Contacts List : $(cto_id : (Contacts) lastname) $(cto_id : (Contacts) firstname)
-Location : $location');
-		$expected = ' Administrator,
+Location : $location';
+		$entityId = '39x29198';
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		// Constant string.
+		$ct = new VTSimpleTemplate($template);
+		$expected = 'cbTest testes,
 Activity Notification Details:
-Subject : test01m
-Start date and time : 2017-07-04 20:48:00 (UTC)
-End date and time : 2017-07-04 20:48:00 (UTC)
+Subject : Zheng Zu
+Start date and time : 07-07-2017 16:49:00 (UTC)
+End date and time : 07-07-2017 17:50:00 (UTC)
+Status : Planned
+Priority : Medium
+Related To : Ligula Inc.
+Contacts List : Handrick Ora
+Location : ';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual, 'Render cbCalendar email body');
+		$entityId = '39x29396';
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		// Constant string.
+		$expected = 'cbTest testymd,
+Activity Notification Details:
+Subject : Astrid Mordo
+Start date and time : 2015-05-01 03:16:00 (UTC)
+End date and time : 2015-05-01 10:38:00 (UTC)
 Status : Planned
 Priority : High
-Related To : Natoque Penatibus Associates
-Contacts List : Hirpara Felix
+Related To : Sherpa Corp
+Contacts List : Thro Coletta
 Location : ';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual, 'Render cbCalendar email body');
+		$entityId = '9x14737';
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		// Constant string.
+		$expected = 'cbTest testmdy,
+Activity Notification Details:
+Subject : Salamandra
+Start date and time : 03-31-2015 11:43:00 (UTC)
+End date and time : 03-31-2015 12:16:00 (UTC)
+Status : In Progress
+Priority : Low
+Related To : 
+Contacts List :  
+Location : Hamburg';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual, 'Render Calendar email body');
+		$entityId = '39x14737';
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		// Constant string.
+		$expected = 'cbTest testmdy,
+Activity Notification Details:
+Subject : Salamandra
+Start date and time : 03-31-2015 11:43:00 (UTC)
+End date and time : 03-31-2015 12:16:00 (UTC)
+Status : In Progress
+Priority : Low
+Related To : 
+Contacts List :  
+Location : Hamburg';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual, 'Render Calendar email body');
 		// Teardown
