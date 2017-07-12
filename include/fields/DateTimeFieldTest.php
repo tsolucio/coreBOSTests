@@ -87,6 +87,7 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 	 */
 	public function testconvertToUserTimeZone() {
 		global $current_user;
+		$holduser = $current_user;
 		$user = new Users();
 		$testdate = '2016-02-25 20:30:00';
 		$dt = new DateTimeField($testdate);
@@ -131,6 +132,11 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$testdate = '2016-02-25 190:30';
 		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
 		$expectedDateTime = new DateTime('2016-02-25 00:00:00', new DateTimeZone('UTC'));
+		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+
+		$testdate = '25-02-2016 20:30:00'; // works only because PHP knows how to transform it
+		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$expectedDateTime = new DateTime('2016-02-25 20:30:00', new DateTimeZone('UTC'));
 		$this->assertEquals($expectedDateTime, $fmtdate,'d');
 	}
 
@@ -203,6 +209,110 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('21:30:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDateTimeValue($user);
 		$this->assertEquals('2016-02-25 21:30:00', $fmtdate);
+	}
+
+	/**
+	 * Method testgetDisplayDateTimeValueComponents
+	 * @test
+	 */
+	public function testgetDisplayDateTimeValueComponents() {
+		global $current_user;
+		$holduser = $current_user;
+		$expectedDateTime = array(
+			'year' => '2016',
+			'month' => '02',
+			'day' => '25',
+			'hour' => '20',
+			'minute' => '30',
+			'second' => '00',
+		);
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
+		$dt = new DateTimeField('25-02-2016 20:30:00');
+		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
+		$current_user = $user;
+		$dt = new DateTimeField('02-25-2016 20:30:00');
+		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(7); // testymd
+		$dt = new DateTimeField('2016-02-25 20:30:00');
+		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
+		$dt = new DateTimeField('2016-02-25 20:30:00');
+		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
+		$expectedDateTime['hour'] = '21';
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
+		$dt = new DateTimeField('2016-02-25 00:30:00');
+		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
+		$expectedDateTime['hour'] = '01';
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(13); // testtz-3  TimeZone Ymd -3 Buenos Aires
+		$dt = new DateTimeField('2016-02-25 23:30:00');
+		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
+		$expectedDateTime['hour'] = '20';
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$dt = new DateTimeField('2016-02-26 02:30:00');
+		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
+		$expectedDateTime['hour'] = '23';
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$current_user = $holduser;
+	}
+
+	/**
+	 * Method testgetDBInsertDateTimeValueComponents
+	 * @test
+	 */
+	public function testgetDBInsertDateTimeValueComponents() {
+		global $current_user;
+		$holduser = $current_user;
+		$expectedDateTime = array(
+			'year' => '2016',
+			'month' => '02',
+			'day' => '25',
+			'hour' => '20',
+			'minute' => '30',
+			'second' => '00',
+		);
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
+		$dt = new DateTimeField('25-02-2016 20:30:00');
+		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
+		$current_user = $user;
+		$dt = new DateTimeField('02-25-2016 20:30:00');
+		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(7); // testymd
+		$dt = new DateTimeField('2016-02-25 20:30:00');
+		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
+		$dt = new DateTimeField('2016-02-25 20:30:00');
+		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
+		$expectedDateTime['hour'] = '19';
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
+		$dt = new DateTimeField('2016-02-25 00:30:00');
+		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
+		$expectedDateTime['hour'] = '23';
+		$expectedDateTime['day'] = '24';
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user->retrieveCurrentUserInfoFromFile(13); // testtz-3  TimeZone Ymd -3 Buenos Aires
+		$dt = new DateTimeField('2016-02-25 23:30:00');
+		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
+		$expectedDateTime['hour'] = '02';
+		$expectedDateTime['day'] = '26';
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$dt = new DateTimeField('2016-02-26 02:30:00');
+		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
+		$expectedDateTime['hour'] = '05';
+		$this->assertEquals($expectedDateTime, $fmtdate);
+		$current_user = $holduser;
 	}
 
 	/**
@@ -364,8 +474,8 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$dt = new DateTimeField('2016-02-25 23:30:00');
 		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 23:30:00',$user);
 		$expectedDateTime = new DateTime('2016-02-26 02:30:00', new DateTimeZone('UTC'));
-
 		$this->assertEquals($expectedDateTime, $fmtdate);
+
 		/// current user
 		switch ($current_user->date_format) {
 			case 'dd-mm-yyyy':
