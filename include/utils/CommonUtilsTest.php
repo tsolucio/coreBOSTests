@@ -20,6 +20,18 @@
 
 class testCommonUtils extends PHPUnit_Framework_TestCase {
 
+	/****
+	 * TEST Users
+	 ****/
+	var $testusers = array(
+		'usrtestdmy' => 5,
+		'usrtestmdy' => 6,
+		'usrtestymd' => 7,
+		'usrtesttz' => 10,
+		'usrnocreate' => 11,
+		'usrtestmcurrency' => 12
+	);
+
 	/**
 	 * Method testgetCurrencyName
 	 * @test
@@ -197,4 +209,47 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 		$this->assertEquals($expected, br2nl($input), $msg);
 	}
 
+	/**
+	 * Method testgetUserslist1
+	 * @test
+	 */
+	function testgetUserslist1() {
+		global $current_user, $module;
+		$module = 'Utilities';
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(1);
+		$current_user = $user;
+		$actual = getUserslist(true);
+		$expected = '<option value=1 selected> Administrator</option><option value=11 >nocreate cbTest</option><option value=5 >cbTest testdmy</option><option value=8 >cbTest testes</option><option value=12 >cbTest testmcurrency</option><option value=6 >cbTest testmdy</option><option value=10 >cbTest testtz</option><option value=13 >cbTest testtz-3</option><option value=7 >cbTest testymd</option>';
+		$this->assertEquals($expected, $actual, 'getUserslist admin true');
+		$actual = getUserslist(false);
+		$expected = '<option value=1> Administrator</option><option value=11>nocreate cbTest</option><option value=5>cbTest testdmy</option><option value=8>cbTest testes</option><option value=12>cbTest testmcurrency</option><option value=6>cbTest testmdy</option><option value=10>cbTest testtz</option><option value=13>cbTest testtz-3</option><option value=7>cbTest testymd</option>';
+		$this->assertEquals($expected, $actual, 'getUserslist admin false');
+		$actual = getUserslist(true,5);
+		$expected = '<option value=1 > Administrator</option><option value=11 >nocreate cbTest</option><option value=5 selected>cbTest testdmy</option><option value=8 >cbTest testes</option><option value=12 >cbTest testmcurrency</option><option value=6 >cbTest testmdy</option><option value=10 >cbTest testtz</option><option value=13 >cbTest testtz-3</option><option value=7 >cbTest testymd</option>';
+		$this->assertEquals($expected, $actual, 'getUserslist admin false');
+		$current_user = $hold_user;
+	}
+
+	/**
+	 * Method testgetUserslist5
+	 * @test
+	 */
+	function testgetUserslist2() {
+		// Cannot be executed together with testgetUserslist1 due to cache
+// 		global $current_user, $module;
+// 		$module = 'Utilities';
+// 		$hold_user = $current_user;
+// 		$user = new Users();
+// 		$user->retrieveCurrentUserInfoFromFile($this->testusers['usrtestdmy']);
+// 		$current_user = $user;
+// 		$actual = getUserslist(true);
+// 		$expected = '<option value=11 >nocreate cbTest</option><option value=5 selected>cbTest testdmy</option>';
+// 		$this->assertEquals($expected, $actual, 'getUserslist testdmy true');
+// 		$actual = getUserslist(false);
+// 		$expected = '<option value=11>nocreate cbTest</option><option value=5>cbTest testdmy</option>';
+// 		$this->assertEquals($expected, $actual, 'getUserslist testdmy false');
+// 		$current_user = $hold_user;
+	}
 }
