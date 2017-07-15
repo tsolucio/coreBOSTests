@@ -151,6 +151,10 @@ class testCommonUtils extends PHPUnit_Framework_TestCase {
 		$_REQUEST = $actualRequest;
 	}
 
+	/**
+	 * Method testisInsideApplication
+	 * @test
+	 */
 	function testisInsideApplication() {
 		$this->assertTrue(isInsideApplication('modules'),"isInsideApplication modules");
 		$this->assertTrue(isInsideApplication('modules/cbupdater'),"isInsideApplication modules/cbupdater");
@@ -158,4 +162,39 @@ class testCommonUtils extends PHPUnit_Framework_TestCase {
 		$this->assertFalse(isInsideApplication('/etc'),"isInsideApplication /etc");
 		$this->assertFalse(isInsideApplication('..'),"isInsideApplication ..");
 	}
+
+	/**
+	 * Method testbr2nlProvidor
+	 * params
+	 */
+	function testbr2nlProvidor() {
+		return array(
+			array('line1','line1','br2nl one line'),
+			array('line1<br>line2','line1<br>line2','br2nl two lines <br>'),
+			array('line1<br/>line2','line1<br/>line2','br2nl two lines <br/>'),
+			array('line1
+line2','line1\nline2','br2nl two lines nl'),
+			array('line1line2','line1\rline2','br2nl two lines cr'),
+			array('line2
+line2','line2\r\nline2','br2nl two lines crnl'),
+			array('line1
+line2','line1\n\rline2','br2nl two lines nlcr'),
+			array("line1\nline2",'line1\nline2','br2nl two lines nl'),
+			array("line1\rline2",'line1\rline2','br2nl two lines cr'),
+			array("line1\r\nline2",'line1\r\nline2','br2nl two lines crnl'),
+			array("line1\n\rline2",'line1\n\rline2','br2nl two lines nlcr'),
+			array("line1'line2",'line1 line2','br2nl two lines singlequote'),
+			array('line1"line2','line1 line2','br2nl two lines doublequote'),
+		);
+	}
+
+	/**
+	 * Method testbr2nl
+	 * @test
+	 * @dataProvider testbr2nlProvidor
+	 */
+	function testbr2nl($input, $expected, $msg) {
+		$this->assertEquals($expected, br2nl($input), $msg);
+	}
+
 }
