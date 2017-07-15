@@ -264,11 +264,16 @@ Location : Hamburg';
 		$expected = 'Spieker Properties - cgrafenstein@gmail.com';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual,'concat related info');
-		// concat related info with space
+		// Access current user name in full
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."getCurrentUserName('full') ) ");
 		$expected = 'Administrator';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual,'get full user name');
+		// Access current user email
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."getCurrentUserField('email1') ) ");
+		$expected = 'noreply@tsolucio.com';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual,'get user email');
 		// accountname Contact first name uppercase
 		$ct = new VTSimpleTemplate('$(account_id : (Accounts) accountname) $(general : (__WorkflowFunction__) uppercase(firstname ) ) ');
 		$actual = $ct->render($entityCache, $entityId);
