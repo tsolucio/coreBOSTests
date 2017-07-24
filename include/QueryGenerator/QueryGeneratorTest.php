@@ -810,5 +810,17 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($sqlresult,$query,"Query With Initial OR");
 	}
 
+	public function testQueryOnSeparateSpecialTables() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','bill_street','ship_country'));
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,'SELECT vtiger_account.accountid, vtiger_accountbillads.bill_street, vtiger_accountshipads.ship_country FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid INNER JOIN vtiger_accountshipads ON vtiger_account.accountid = vtiger_accountshipads.accountaddressid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0');
+		$queryGenerator = new QueryGenerator('Invoice', $current_user);
+		$queryGenerator->setFields(array('id','bill_street','ship_country'));
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,'SELECT vtiger_invoice.invoiceid, vtiger_invoicebillads.bill_street, vtiger_invoiceshipads.ship_country FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid INNER JOIN vtiger_invoicebillads ON vtiger_invoice.invoiceid = vtiger_invoicebillads.invoicebilladdressid INNER JOIN vtiger_invoiceshipads ON vtiger_invoice.invoiceid = vtiger_invoiceshipads.invoiceshipaddressid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0');
+	}
+
 }
 ?>
