@@ -252,4 +252,92 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 // 		$this->assertEquals($expected, $actual, 'getUserslist testdmy false');
 // 		$current_user = $hold_user;
 	}
+
+	/**
+	 * Method testgetMergedDescriptionProvidor
+	 * params
+	 */
+	function testgetMergedDescriptionProvidor() {
+		$lang = return_module_language('en_us', 'Reports');
+		$mes = date('m')-1;
+		return array(
+			array('Description $leads-firstname$',4260,'Leads','Description Timothy','Lead name alone'),
+			array('Description $users-user_name$',5,'Users','Description testdmy','User name alone'),
+			array('Description $leads-firstname$ $users-user_name$',4260,'Leads','Description Timothy $users-user_name$','Lead name + user name'),
+			array('Description $leads-firstname$ $users-user_name$',5,'Users','Description $leads-firstname$ testdmy','User name + lead name'),
+			array('Description $leads-firstname$ $users-user_name$',0,'Leads','Description $leads-firstname$ $users-user_name$','Empty ID'),
+			array('Description $leads-firstname$ $users-user_name$',5,'','Description $leads-firstname$ $users-user_name$','Empty Entity'),
+			array('$leads-firstname$  Firstname
+
+$leads-lastname$  Last Name
+
+$leads-email$
+
+Email',4260,'Leads','Timothy  Firstname
+
+Mulqueen  Last Name
+
+timothy_mulqueen@mulqueen.org
+
+Email','Multiple vars and lines'),
+			array('Dear 
+
+Thank you for your confidence in our ability to serve you. 
+We are glad to be given the chance to serve you.I look ',5,'Users','Dear 
+
+Thank you for your confidence in our ability to serve you. 
+We are glad to be given the chance to serve you.I look ','Just text'),
+			array('<table align="center" border="0" cellpadding="0" cellspacing="0" style="font-family: Arial,Helvetica,sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; background-color: rgb(122, 122, 254);" width="700">
+				<tr>
+					<td align="center" rowspan="4">$logo$</td>
+					<td align="center">&nbsp;</td>
+				</tr>
+				<td style="font-family: Arial,Helvetica,sans-serif; font-size: 14px; color: rgb(22, 72, 134); font-weight: bolder; line-height: 15px;">Dear $contact_name$,</td>
+				<tr>
+					<td><br />
+					User ID : <font color="#990000"><strong> $login_name$</strong></font></td>
+				</tr>
+				<tr>
+					<td>Password: <font color="#990000"><strong> $password$</strong></font></td>
+				</tr>
+				<tr>
+					<td align="center"><strong>$URL$</strong></td>
+				</tr>
+			</table>',1086,'Contacts','<table align="center" border="0" cellpadding="0" cellspacing="0" style="font-family: Arial,Helvetica,sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; background-color: rgb(122, 122, 254);" width="700">
+				<tr>
+					<td align="center" rowspan="4">$logo$</td>
+					<td align="center">&nbsp;</td>
+				</tr>
+				<td style="font-family: Arial,Helvetica,sans-serif; font-size: 14px; color: rgb(22, 72, 134); font-weight: bolder; line-height: 15px;">Dear $contact_name$,</td>
+				<tr>
+					<td><br />
+					User ID : <font color="#990000"><strong> $login_name$</strong></font></td>
+				</tr>
+				<tr>
+					<td>Password: <font color="#990000"><strong> $password$</strong></font></td>
+				</tr>
+				<tr>
+					<td align="center"><strong>$URL$</strong></td>
+				</tr>
+			</table>','HTML and inexistent variables'),
+			array('Contact name: $contacts-lastname$
+Contact Image: $contacts-imagename$
+Contact Image Field: $contacts-imagename_fullpath$',1086,'Contacts','Contact name: Hirpara
+Contact Image: 
+Contact Image Field: $contacts-imagename_fullpath$','Contact Image'),
+			array('Contact name: $contacts-lastname$
+Current Date: $custom-currentdate$',1086,'Contacts','Contact name: Hirpara
+Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
+		);
+	}
+
+	/**
+	 * Method testgetMergedDescription
+	 * @test
+	 * @dataProvider testgetMergedDescriptionProvidor
+	 */
+	function testgetMergedDescription($description, $id, $parent_type, $expected, $msg) {
+		$this->assertEquals($expected, getMergedDescription($description, $id, $parent_type), $msg);
+	}
+
 }
