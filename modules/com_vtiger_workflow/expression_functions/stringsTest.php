@@ -89,5 +89,28 @@ class workflowfunctionsstringsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('', $actual);
 	}
 
+	/**
+	 * Method testcoalesce
+	 * @test
+	 */
+	public function testcoalesce() {
+		$actual = __cb_coalesce(array('2017-06-20 11:30:30','2017-06-20 10:30:30'));
+		$this->assertEquals('2017-06-20 11:30:30', $actual);
+		$actual = __cb_coalesce(array('','2017-06-20 10:30:30','default'));
+		$this->assertEquals('2017-06-20 10:30:30', $actual);
+		$actual = __cb_coalesce(array(null,'2017-06-20 10:30:30','default'));
+		$this->assertEquals('2017-06-20 10:30:30', $actual);
+		$actual = __cb_coalesce(array(0,'2017-06-20 10:30:30','default'));
+		$this->assertEquals('2017-06-20 10:30:30', $actual);
+		$actual = __cb_coalesce(array('','','default'));
+		$this->assertEquals('default', $actual);
+		$actual = __cb_coalesce(array(null,'','default'));
+		$this->assertEquals('default', $actual);
+		$actual = __cb_coalesce(array('',null,'default'));
+		$this->assertEquals('default', $actual);
+		$actual = __cb_coalesce(array('0',null,'default'));
+		$this->assertEquals('default', $actual);
+	}
+
 }
 ?>
