@@ -2155,5 +2155,59 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Administrator', $exprEvaluation);
 	}
 
+	/**
+	 * Method testOwnerFields
+	 * @test
+	 */
+	public function testOwnerFields() {
+		$adminUser = Users::getActiveAdminUser();
+		$entityId = '28x14331'; // payment
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "assigned_user_id";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => assigned_user_id
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('cbTest testmdy', $exprEvaluation);
+		//////////////
+		$testexpression = "created_user_id";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => created_user_id
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(' Administrator', $exprEvaluation);
+		///////////////
+		$testexpression = "reports_to_id";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => reports_to_id
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('cbTest testymd', $exprEvaluation);
+	}
+
 }
 ?>

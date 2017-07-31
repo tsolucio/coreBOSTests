@@ -81,7 +81,7 @@ class VTSimpleTemplateOnDataOnDataTest extends PHPUnit_Framework_TestCase {
 		$entityCache = new VTEntityCache($adminUser);
 		// Detail View URL
 		$ct = new VTSimpleTemplateOnData('$(general : (__VtigerMeta__) crmdetailviewurl)');
-		$expected = $site_URL.'/index.php?action=DetailView&module=Accounts&record=';
+		$expected = $site_URL.'/index.php?action=DetailView&module=Accounts&record=0';
 		$actual = $ct->render($entityCache, 'Accounts',$data);
 		$this->assertEquals($expected, $actual, 'Detail View URL');
 		// Today
@@ -91,7 +91,7 @@ class VTSimpleTemplateOnDataOnDataTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $actual,'Today');
 		// Record ID
 		$ct = new VTSimpleTemplateOnData('$(general : (__VtigerMeta__) recordId)');
-		$expected = '';
+		$expected = '0';
 		$actual = $ct->render($entityCache, 'Accounts',$data);
 		$this->assertEquals($expected, $actual,'Record ID');
 		// Comments
@@ -101,6 +101,46 @@ class VTSimpleTemplateOnDataOnDataTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $actual,'Comments');
 		// Teardown
 		$util->revertUser();
+	}
+
+	/**
+	 * Method testOwnerFields
+	 * @test
+	 */
+	public function testOwnerFields() {
+		// Setup
+		$entityId = '28x14331'; // payment
+		$data = array(
+			'assigned_user_id' => '19x6',
+			'cyp_no' => 'PAY-0000038',
+			'reference' => 'Chip Martin',
+			'parent_id' => '11x144',
+			'related_id' => '7x3934',
+			'register' => '2016-01-08',
+			'duedate' => '2016-06-17',
+			'paymentdate' => '2016-06-17',
+			'paid' => '1',
+			'credit' => '1',
+			'paymentmode' => 'Cash',
+			'paymentcategory' => 'Sale',
+			'amount' => '443.00',
+			'cost' => '200.00',
+			'benefit' => '243.00',
+			'createdtime' => '2015-08-16 09:44:21',
+			'modifiedtime' => '2015-12-06 14:56:24',
+			'reports_to_id' => '19x7',
+			'description' => 'mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor, velit eget laoreet posuere, enim nisl elementum purus, accumsan interdum libero dui nec',
+			'created_user_id' => '19x1',
+			'record_id' => $entityId,
+			'record_module' => 'CobroPago',
+		);
+		$adminUser = Users::getActiveAdminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		// Constant string.
+		$ct = new VTSimpleTemplateOnData('The user assigned to this payment is $assigned_user_id and the user who will have a comission is $reports_to_id.');
+		$expected = 'The user assigned to this payment is 19x6 and the user who will have a comission is 19x7.';
+		$actual = $ct->render($entityCache, 'CobroPago',$data);
+		$this->assertEquals($expected, $actual, 'User variables');
 	}
 
 }
