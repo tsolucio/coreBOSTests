@@ -340,4 +340,53 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 		$this->assertEquals($expected, getMergedDescription($description, $id, $parent_type), $msg);
 	}
 
+	/**
+	 * Method testgetReturnPathProvidor
+	 * params
+	 */
+	function testgetReturnPathProvidor() {
+		$lang = return_module_language('en_us', 'Reports');
+		$mes = date('m')-1;
+		return array(
+			array('tsolucio.com','','info@tsolucio.com','normal'),
+			array('ispconfig.tsolucio.com','','info@tsolucio.com','superdomain'),
+			array('isp.ispconfig.tsolucio.com','','info@tsolucio.com','super superdomain'),
+			array('localhost','','','localhost'),
+			array('192.168.0.190','','info@[192.168.0.190]','ip'),
+			array('tsolucio.cloud','','info@tsolucio.cloud','tld idn'),
+			array('tld','','info@tld','only one'),
+			array('http://tld','','info@tld','http'),
+			array('tld:port','','info@tld','port'),
+			/////////////////
+			array('tsolucio.com','noreply@tsolucio.com','info@tsolucio.com','normal from'),
+			array('ispconfig.tsolucio.com','noreply@tsolucio.com','noreply@tsolucio.com','superdomain from'),
+			array('isp.ispconfig.tsolucio.com','noreply@tsolucio.com','noreply@tsolucio.com','super superdomain from'),
+			array('localhost','noreply@tsolucio.com','noreply@tsolucio.com','localhost from'),
+			array('192.168.0.190','noreply@tsolucio.com','info@[192.168.0.190]','ip from'),
+			array('tsolucio.cloud','noreply@tsolucio.com','info@tsolucio.cloud','tld idn from'),
+			array('tld','noreply@tsolucio.com','info@tld','only one from'),
+			array('http://tld','noreply@tsolucio.com','info@tld','http from'),
+			array('tld:port','noreply@tsolucio.com','info@tld','port from'),
+			/////////////////
+			array('tsolucio.com','ggg@tld','info@tsolucio.com','normal from tld'),
+			array('ispconfig.tsolucio.com','ggg@tld','info@tsolucio.com','superdomain from tld'),
+			array('isp.ispconfig.tsolucio.com','ggg@tld','info@tsolucio.com','super superdomain tld'),
+			array('localhost','ggg@tld','ggg@tld','localhost from tld'),
+			array('192.168.0.190','ggg@tld','info@[192.168.0.190]','ip from tld'),
+			array('tsolucio.cloud','ggg@tld','info@tsolucio.cloud','tld idn from tld'),
+			array('tld','ggg@tld','info@tld','only one from tld'),
+			array('http://tld','ggg@tld','info@tld','http from tld'),
+			array('tld:port','ggg@tld','info@tld','port from tld'),
+		);
+	}
+
+	/**
+	 * Method testgetReturnPath
+	 * @test
+	 * @dataProvider testgetReturnPathProvidor
+	 */
+	function testgetReturnPath($host, $from_email, $expected, $msg) {
+		$this->assertEquals($expected, getReturnPath($host, $from_email), $msg);
+	}
+
 }
