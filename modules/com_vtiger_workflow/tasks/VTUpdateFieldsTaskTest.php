@@ -48,5 +48,46 @@ class VTUpdateFieldsTaskTest extends PHPUnit_Framework_TestCase {
 		// Teardown
 		$util->revertUser();
 	}
+        
+        public function testCorrectUpdateAssignedTo() {
+		global $adb, $current_user;
 
+                $taskId = 28; //  Update Assigned to  task id
+                $HelpDeskWSID = '17x';
+                $lastcrmid='34042';// the id of the last HelpDesk Record partially created due to the error on the next wf
+                $adb->pquery('update vtiger_crmentity set smownerid=? where crmid=?',array('1',$lastcrmid));
+		$entityId = $HelpDeskWSID.$lastcrmid;
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$current_user = $adminUser;
+		$tm = new VTTaskManager($adb);
+		$task = $tm->retrieveTask($taskId);
+		$this->assertInstanceOf(VTUpdateFieldsTask::class,$task,"test retrieveTask");
+		list($moduleId, $crmId) = explode('x', $entityId);
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$task->doTask($entity);
+                $actual=$entity->get('assigned_user_id');
+		$expected = '19x8';
+		$this->assertEquals($expected, $actual,'Task update field assigned_user_id');
+                
+                //execute the wf task for HelpDesk_notifyOwnerOnTicketChange to test the value of assigned_user_id
+                $taskId = 9; 
+                
+                $util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$current_user = $adminUser;
+		$tm = new VTTaskManager($adb);
+		$task = $tm->retrieveTask($taskId);
+		$this->assertInstanceOf(VTEntityMethodTask::class,$task,"test retrieveTask");
+		list($moduleId, $crmId) = explode('x', $entityId);
+
+                $task->doTask($entity);
+                $actual=$entity->get('assigned_user_id');
+		$expected = '19x8';
+		$this->assertEquals($expected, $actual,'Task update field assigned_user_id');
+                
+		// Teardown
+                $util->revertUser();
+	}
+        
 }
