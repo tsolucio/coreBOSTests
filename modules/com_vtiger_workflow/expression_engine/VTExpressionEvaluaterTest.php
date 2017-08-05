@@ -1968,6 +1968,332 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('ship_country', $exprEvaluation);
+		////////////////////////
+		$testexpression = "if 681487 != 681487 then 4 else if 4 < 5 then 1 else 1 + 4 - 5 end";
+		$expectedresult = array(
+			0 => '681487',
+			1 => '681487',
+			2 => 'Array
+(
+    [0] => 681487
+    [1] => 681487
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => !=
+                        )
+
+                    [1] => 681487
+                    [2] => 681487
+                )
+
+        )
+
+    [1] => 4
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => if
+                        )
+
+                    [1] => VTExpressionTreeNode Object
+                        (
+                            [arr] => Array
+                                (
+                                    [0] => VTExpressionSymbol Object
+                                        (
+                                            [value] => <
+                                        )
+
+                                    [1] => 4
+                                    [2] => 5
+                                )
+
+                        )
+
+                    [2] => 1
+                    [3] => VTExpressionTreeNode Object
+                        (
+                            [arr] => Array
+                                (
+                                    [0] => VTExpressionSymbol Object
+                                        (
+                                            [value] => +
+                                        )
+
+                                    [1] => 1
+                                    [2] => VTExpressionTreeNode Object
+                                        (
+                                            [arr] => Array
+                                                (
+                                                    [0] => VTExpressionSymbol Object
+                                                        (
+                                                            [value] => -
+                                                        )
+
+                                                    [1] => 4
+                                                    [2] => 5
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+',
+			5 => '4',
+			6 => '5',
+			7 => 'Array
+(
+    [0] => 4
+    [1] => 5
+)
+',
+			8 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => <
+                        )
+
+                    [1] => 4
+                    [2] => 5
+                )
+
+        )
+
+    [1] => 1
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => +
+                        )
+
+                    [1] => 1
+                    [2] => VTExpressionTreeNode Object
+                        (
+                            [arr] => Array
+                                (
+                                    [0] => VTExpressionSymbol Object
+                                        (
+                                            [value] => -
+                                        )
+
+                                    [1] => 4
+                                    [2] => 5
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+',
+			9 => true,
+			10 => '1',
+			4 => false,
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('1', $exprEvaluation);
+		////////////////////////
+		$testexpression = "if 681487 != 681487 then 4 else if 4 > 5 then 1 else 1 + 4 - 5 end";
+		$expectedresult = array(
+			0 => '681487',
+			1 => '681487',
+			2 => 'Array
+(
+    [0] => 681487
+    [1] => 681487
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => !=
+                        )
+
+                    [1] => 681487
+                    [2] => 681487
+                )
+
+        )
+
+    [1] => 4
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => if
+                        )
+
+                    [1] => VTExpressionTreeNode Object
+                        (
+                            [arr] => Array
+                                (
+                                    [0] => VTExpressionSymbol Object
+                                        (
+                                            [value] => >
+                                        )
+
+                                    [1] => 4
+                                    [2] => 5
+                                )
+
+                        )
+
+                    [2] => 1
+                    [3] => VTExpressionTreeNode Object
+                        (
+                            [arr] => Array
+                                (
+                                    [0] => VTExpressionSymbol Object
+                                        (
+                                            [value] => +
+                                        )
+
+                                    [1] => 1
+                                    [2] => VTExpressionTreeNode Object
+                                        (
+                                            [arr] => Array
+                                                (
+                                                    [0] => VTExpressionSymbol Object
+                                                        (
+                                                            [value] => -
+                                                        )
+
+                                                    [1] => 4
+                                                    [2] => 5
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+',
+			5 => '4',
+			6 => '5',
+			7 => 'Array
+(
+    [0] => 4
+    [1] => 5
+)
+',
+			8 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => >
+                        )
+
+                    [1] => 4
+                    [2] => 5
+                )
+
+        )
+
+    [1] => 1
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => +
+                        )
+
+                    [1] => 1
+                    [2] => VTExpressionTreeNode Object
+                        (
+                            [arr] => Array
+                                (
+                                    [0] => VTExpressionSymbol Object
+                                        (
+                                            [value] => -
+                                        )
+
+                                    [1] => 4
+                                    [2] => 5
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
+',
+	9 => false,
+	10 => '1',
+	4 => false,
+	11 => '4',
+	12 => '5',
+	13 => 'Array
+(
+    [0] => 4
+    [1] => 5
+)
+',
+	14 => 'Array
+(
+    [0] => 1
+    [1] => -1
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('0', $exprEvaluation);
 	}
 
 	/**
