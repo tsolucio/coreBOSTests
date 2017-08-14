@@ -129,4 +129,71 @@ class testutils extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $actual,"testhtml_to_utf8 $message");
 	}
 
+	/**
+	 * Method getValidDBInsertDateValueProvider
+	 * params
+	 */
+	public function getValidDBInsertDateValueProvider() {
+		return array(
+			array(7,'2016-06-01','2016-06-01','Fdom testymd'),
+			array(7,'2016-06-15','2016-06-15','Mdom testymd'),
+			array(7,'2016-06-30','2016-06-30','Ldom testymd'),
+			array(5,'01-06-2016','2016-06-01','Fdom testdmy'),
+			array(5,'15-06-2016','2016-06-15','Mdom testdmy'),
+			array(5,'30-06-2016','2016-06-30','Ldom testdmy'),
+			array(6,'06-01-2016','2016-06-01','Fdom testmdy'),
+			array(6,'06-15-2016','2016-06-15','Mdom testmdy'),
+			array(6,'06-30-2016','2016-06-30','Ldom testmdy'),
+			array(7,'2016.06.01','2016-06-01','Fdom testymd'),
+			array(7,'2016.06.15','2016-06-15','Mdom testymd'),
+			array(7,'2016.06.30','2016-06-30','Ldom testymd'),
+			array(5,'01.06.2016','2016-06-01','Fdom testdmy'),
+			array(5,'15.06.2016','2016-06-15','Mdom testdmy'),
+			array(5,'30.06.2016','2016-06-30','Ldom testdmy'),
+			array(6,'06.01.2016','2016-06-01','Fdom testmdy'),
+			array(6,'06.15.2016','2016-06-15','Mdom testmdy'),
+			array(6,'06.30.2016','2016-06-30','Ldom testmdy'),
+			array(7,'2016/06/01','2016-06-01','Fdom testymd'),
+			array(7,'2016/06/15','2016-06-15','Mdom testymd'),
+			array(7,'2016/06/30','2016-06-30','Ldom testymd'),
+			array(5,'01/06/2016','2016-06-01','Fdom testdmy'),
+			array(5,'15/06/2016','2016-06-15','Mdom testdmy'),
+			array(5,'30/06/2016','2016-06-30','Ldom testdmy'),
+			array(6,'06/01/2016','2016-06-01','Fdom testmdy'),
+			array(6,'06/15/2016','2016-06-15','Mdom testmdy'),
+			array(6,'06/30/2016','2016-06-30','Ldom testmdy'),
+			array(7,'2016/06/1','2016-06-01','Fdom testymd'),
+			array(7,'2016/6/15','2016-06-15','Mdom testymd'),
+			array(5,'1/06/2016','2016-06-01','Fdom testdmy'),
+			array(5,'15/6/2016','2016-06-15','Mdom testdmy'),
+			array(6,'06/1/2016','2016-06-01','Fdom testmdy'),
+			array(6,'6/15/2016','2016-06-15','Mdom testmdy'),
+		);
+	}
+
+	/**
+	 * Method testgetValidDBInsertDateValue
+	 * @test
+	 * @dataProvider getValidDBInsertDateValueProvider
+	 */
+	public function testgetValidDBInsertDateValue($user,$data,$expected,$message) {
+		global $current_user;
+		$holduser = $current_user;
+		$dtuser = new Users();
+		$dtuser->retrieveCurrentUserInfoFromFile($user);
+		$current_user = $dtuser;
+		$actual = getValidDBInsertDateValue($data);
+		$this->assertEquals($expected, $actual,"getValidDBInsertDateValue $message");
+		$current_user = $holduser;
+	}
+
+	/**
+	 * Method testgetValidDBInsertDateTimeValue
+	 * @test
+	 */
+	public function testgetValidDBInsertDateTimeValue() {
+		// getValidDBInsertDateTimeValue is tested with the testgetValidDBInsertDateValue and DateTimeField class tests
+		$this->assertTrue(true);
+	}
+
 }

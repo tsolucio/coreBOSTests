@@ -653,6 +653,12 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addCondition('targetenddate','06-16-2015','a','OR');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-16-04')  OR ( vtiger_project.targetenddate > '2015-16-06')  AND vtiger_project.projectid > 0","testdmy WRONG");
+		$queryGenerator = new QueryGenerator('Project', $user);
+		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+		$queryGenerator->addCondition('startdate',array(0=>'16-04-2015',1=>'16-06-2015'), 'bw');
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2015-04-16' AND '2015-06-16')  AND vtiger_project.projectid > 0";
+		$this->assertEquals($sqlresult,$query,"date between testdmy");
 		/////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
@@ -669,6 +675,25 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addCondition('targetenddate','16-06-2015','a','OR');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-16-04')  OR ( vtiger_project.targetenddate > '2015-16-06')  AND vtiger_project.projectid > 0","testmdy WRONG");
+		$queryGenerator = new QueryGenerator('Project', $user);
+		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+		$queryGenerator->addCondition('startdate',array(0=>'04-16-2015',1=>'06-16-2015'), 'bw');
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2015-04-16' AND '2015-06-16')  AND vtiger_project.projectid > 0";
+		$this->assertEquals($sqlresult,$query,"date between testmdy");
+		/////////
+		$queryGenerator = new QueryGenerator('Project', $user);
+		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+		$queryGenerator->addCondition('startdate',array(0=>'04-21-2017',1=>'05-02-2017'), 'bw');
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2017-04-21' AND '2017-05-02')  AND vtiger_project.projectid > 0";
+		$this->assertEquals($sqlresult,$query,"date july between testmdy");
+		$queryGenerator = new QueryGenerator('Project', $user);
+		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+		$queryGenerator->addCondition('startdate',array(0=>'07-01-2017',1=>'07-31-2017'), 'bw');
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2017-07-01' AND '2017-07-31')  AND vtiger_project.projectid > 0";
+		$this->assertEquals($sqlresult,$query,"date july between testmdy");
 		/////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
@@ -679,6 +704,12 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addCondition('targetenddate','2015-06-16','a','OR');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testymd");
+		$queryGenerator = new QueryGenerator('Project', $user);
+		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+		$queryGenerator->addCondition('startdate',array(0=>'2015-04-16',1=>'2015-06-16'), 'bw');
+		$query = $queryGenerator->getQuery();
+		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2015-04-16' AND '2015-06-16')  AND vtiger_project.projectid > 0";
+		$this->assertEquals($sqlresult,$query,"date between testymd");
 		/////////
 		$queryGenerator = new QueryGenerator('Project', $user);
 		$queryGenerator->setFields(array('id','projectname','createdtime'));
