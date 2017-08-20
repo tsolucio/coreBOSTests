@@ -78,6 +78,10 @@ class testVtlibUtils extends PHPUnit_Framework_TestCase {
 			array('string has ampersand: &amp; & ',false,'string has ampersand: & & ','has ampersand'),
 			array('string has ampersand: &amp; & ',false,'string has ampersand: & & ','has ampersand (cached)'),
 
+			// test url
+			array('http://localhost',false,'http://localhost','url'),
+			array('https://corebos.org',false,'https://corebos.org','urls'),
+
 		);
 	}
 
