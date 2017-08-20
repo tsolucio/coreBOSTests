@@ -427,15 +427,25 @@ class PearDatabaseTest extends PHPUnit_Framework_TestCase
 	 * @depends testObjectType
 	 */
 	public function test_sql_escape_string($adb) {
+		$this->assertEquals('normal string',$adb->sql_escape_string('normal string'),'normal string');
 		$this->assertEquals("\' OR \'\'=\'",$adb->sql_escape_string("' OR ''='") );
+		$this->assertEquals("Alicia\'; DROP TABLE usuarios; SELECT * FROM datos WHERE nombre LIKE \'%",$adb->sql_escape_string("Alicia'; DROP TABLE usuarios; SELECT * FROM datos WHERE nombre LIKE '%"),'SQL Injection');
+		$this->assertEquals('',$adb->sql_escape_string(''),'empty string');
+		$this->assertEquals('',$adb->sql_escape_string(false),'false');
+		$this->assertEquals(1,$adb->sql_escape_string(true),'true');
+		$this->assertEquals(0,$adb->sql_escape_string(0),'zero');
+		$this->assertEquals(1,$adb->sql_escape_string(1),'one');
+		$this->assertEquals(123,$adb->sql_escape_string(123),'number');
+		$this->assertEquals(123.456,$adb->sql_escape_string(123.456),'decimal');
+		$this->assertEquals('NULL',$adb->sql_escape_string(null),'Null');
 	}
 
 	/**
 	 * @depends testObjectType
 	 */
 	public function test_CreteTable($adb) {
-	     if(empty( $adb->getColumnNames("vtiger_tmp") ))
-	   		$this->assertEquals(2,$adb->CreateTable('vtiger_tmp','id INTEGER, name VARCHAR(100), email VARCHAR(100), type VARCHAR(7)'));
+		if(empty( $adb->getColumnNames("vtiger_tmp") ))
+			$this->assertEquals(2,$adb->CreateTable('vtiger_tmp','id INTEGER, name VARCHAR(100), email VARCHAR(100), type VARCHAR(7)'));
 	}
 
 	/**
