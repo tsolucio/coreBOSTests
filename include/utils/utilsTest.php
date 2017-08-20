@@ -196,4 +196,40 @@ class testutils extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(true);
 	}
 
+	/**
+	 * Method testgetMailFields
+	 * @test
+	 */
+	public function testgetMailFields() {
+		$emailfields = array(
+			'tablename' => 'vtiger_account',
+			'fieldname' => 'email1',
+			'fieldlabel' => 'Email',
+		);
+		$this->assertEquals($emailfields,getMailFields(getTabid('Accounts')),'Account Email Field');
+		$emailfields = array(
+			'tablename' => 'vtiger_contactdetails',
+			'fieldname' => 'email',
+			'fieldlabel' => 'Email',
+		);
+		$this->assertEquals($emailfields,getMailFields(getTabid('Contacts')),'Contact Email Field');
+		$emailfields = array(
+			'tablename' => 'vtiger_users',
+			'fieldname' => 'email1',
+			'fieldlabel' => 'Email',
+		);
+		$this->assertEquals($emailfields,getMailFields(getTabid('Users')),'Users Email Field');
+		$this->assertEquals(array(),getMailFields(getTabid('Assets')),'Assets Email Fields');
+	}
+
+	/**
+	 * Method testgetModuleForField
+	 * @test
+	 */
+	public function testgetModuleForField() {
+		$this->assertEquals('Calendar',getModuleForField(254),'Calendar Field');
+		$this->assertEquals('Contacts',getModuleForField(100),'Contact Field');
+		$this->assertEquals('Users',getModuleForField(482),'Users Email Field');
+	}
+
 }
