@@ -16,11 +16,38 @@
 		<testsuite name="incUtils">
 			<directory>./include/utils</directory>
 		</testsuite>
+		<testsuite name="PearDBTest">
+			<directory>./include/database</directory>
+		</testsuite>
+		<testsuite name="cbMQTM">
+			<directory>./include/cbmqtm</directory>
+		</testsuite>
+		<testsuite name="incEvents">
+			<directory>./include/events</directory>
+		</testsuite>
 		<testsuite name="WFTest">
 			<directory>./modules/com_vtiger_workflow</directory>
 		</testsuite>
-		<testsuite name="PearDBTest">
-			<directory>./include/database</directory>
+		<testsuite name="cbMapTest">
+			<directory>./modules/cbMap</directory>
+		</testsuite>
+		<testsuite name="cbTranslation">
+			<directory>./modules/cbtranslation</directory>
+		</testsuite>
+		<testsuite name="LeadsTest">
+			<directory>./modules/Leads</directory>
+		</testsuite>
+		<testsuite name="MailManagerTest">
+			<directory>./modules/MailManager</directory>
+		</testsuite>
+		<testsuite name="Picklists">
+			<directory>./modules/Picklist</directory>
+		</testsuite>
+		<testsuite name="cbData">
+			<directory>./data</directory>
+		</testsuite>
+		<testsuite name="vtlib">
+			<directory>./vtlib</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
