@@ -28,9 +28,9 @@ class workflowfunctionsaggregationTest extends PHPUnit_Framework_TestCase {
 		$entityCache = new VTEntityCache($current_user);
 		$entityData = $entityCache->forId('11x74');
 		$actual = __cb_aggregation(array('sum','Invoice','hdnSubTotal','',$entityData));
-		$this->assertEquals(3855.260000, $actual);
+		$this->assertEquals(3854.100000, $actual);
 		$actual = __cb_aggregation(array('sum','Invoice','hdnGrandTotal','',$entityData));
-		$this->assertEquals(4895.870000, $actual);
+		$this->assertEquals(4894.710000, $actual);
 		////////////////
 		$actual = __cb_aggregation(array('avg','Potentials','amount','',$entityData));
 		$this->assertEquals(71117.0000000000, $actual,'avg');
