@@ -105,6 +105,16 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($query,'SELECT vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0');
 	}
 
+
+	public function testQueryWithIncompatibleOperations() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','employees'));
+		$queryGenerator->addCondition('employees',131,'s');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_account.accountid, vtiger_account.employees FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.employees LIKE '131%')  AND vtiger_account.accountid > 0", $query);
+	}
+
 	public function testQueryIndividualParts() {
 		global $current_user;
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
