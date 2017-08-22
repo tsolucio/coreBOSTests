@@ -25,13 +25,11 @@ function superDifficultDecision($decider1,$decider2) {
 class cbRuleTest extends PHPUnit_Framework_TestCase {
 
 	/**
-	 * Method testExceptionNotFound
+	 * Method testInvalidContext
 	 * @test
-	 * @expectedException WebServiceException
-	 * @expectedExceptionCode RECORD_NOT_FOUND
 	 */
-	public function testExceptionNotFound() {
-		$rule = coreBOS_Rule::evaluate(27078, '11x1');
+	public function testInvalidContext() {
+		$this->assertFalse(coreBOS_Rule::evaluate(27078, '11x1'));
 	}
 
 	/**
