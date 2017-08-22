@@ -184,7 +184,6 @@ class testUserInfoUtil extends PHPUnit_Framework_TestCase {
 			3 => '0',
 			16 => '0',
 			45 => '0',
-			46 => '0',
 			52 => '0',
 			59 => '0',
 			60 => '0',
@@ -194,7 +193,7 @@ class testUserInfoUtil extends PHPUnit_Framework_TestCase {
 			64 => '0',
 		);
 		$prof4 = $profiles;
-		$prof4[45] = $prof4[46] = $prof4[52] = '1';
+		$prof4[45] = $prof4[52] = '1';
 		$prof56 = $prof4;
 		unset($prof56[3]);
 		$expected = array(
