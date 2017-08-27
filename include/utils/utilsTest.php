@@ -232,4 +232,25 @@ class testutils extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Users',getModuleForField(482),'Users Email Field');
 	}
 
+	/**
+	 * Method testgetCurrentModule
+	 * @test
+	 */
+	public function testgetCurrentModule() {
+		global $currentModule;
+		$this->assertEquals($currentModule,getCurrentModule(),'getCurrentModule default');
+		$holdcurrentModule = $currentModule;
+		$currentModule = '';
+		$_REQUEST['module'] = 'doesnotexist';
+		$this->assertNull(getCurrentModule(),'getCurrentModule not exist');
+		$_REQUEST['module'] = '../../Accounts';
+		$this->assertNull(getCurrentModule(),'getCurrentModule incorrect');
+		$_REQUEST['module'] = 'Accounts';
+		$this->assertEquals('Accounts',getCurrentModule(),'getCurrentModule Accounts no set');
+		$this->assertEmpty($currentModule,'getCurrentModule accounts currentmodule not set');
+		$this->assertEquals('Accounts',getCurrentModule(true),'getCurrentModule Accounts set');
+		$this->assertEquals('Accounts',$currentModule,'getCurrentModule accounts currentmodule set');
+		$currentModule = $holdcurrentModule;
+	}
+
 }
