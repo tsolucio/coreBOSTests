@@ -737,6 +737,36 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_crmentity.createdtime < '2015-04-16 08:00:00')  OR ( vtiger_crmentity.createdtime > '2015-06-16 06:00:00')  AND vtiger_project.projectid > 0","testtz");
 		$current_user = $holdcuser;
+		$queryGenerator = new QueryGenerator('Project', $current_user);
+		$queryGenerator->setFields(array('id','projectname','createdtime'));
+		$queryGenerator->addCondition('startdate','2015-04-16','g');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '2015-04-16')  AND vtiger_project.projectid > 0",$query,"test incompatible fecha g Ymd");
+		$queryGenerator = new QueryGenerator('Project', $current_user);
+		$queryGenerator->setFields(array('id','projectname','createdtime'));
+		$queryGenerator->addCondition('startdate','1997-04-04','a');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '1997-04-04')  AND vtiger_project.projectid > 0",$query,"test old date ymd");
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$current_user = $user;
+		$queryGenerator = new QueryGenerator('Project', $user);
+		$queryGenerator->setFields(array('id','projectname','createdtime'));
+		$queryGenerator->addCondition('startdate','16-04-2015','g');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '2015-04-16')  AND vtiger_project.projectid > 0",$query,"test incompatible fecha g dmY");
+		$queryGenerator = new QueryGenerator('Project', $user);
+		$queryGenerator->setFields(array('id','projectname','createdtime'));
+		$queryGenerator->addCondition('startdate','16-04-2015','a');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '2015-04-16')  AND vtiger_project.projectid > 0",$query,"test incompatible fecha g dmY");
+		$queryGenerator = new QueryGenerator('Project', $user);
+		$queryGenerator->setFields(array('id','projectname','createdtime'));
+		$queryGenerator->addCondition('startdate','04-04-1997','a');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '1997-04-04')  AND vtiger_project.projectid > 0",$query,"test incompatible fecha g dmY");
+		$current_user = $holduser;
 	}
 
 	public function testQueryBirthDate() {
