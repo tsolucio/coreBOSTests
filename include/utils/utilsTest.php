@@ -144,6 +144,10 @@ class testutils extends PHPUnit_Framework_TestCase {
 			array(6,'06-01-2016','2016-06-01','Fdom testmdy'),
 			array(6,'06-15-2016','2016-06-15','Mdom testmdy'),
 			array(6,'06-30-2016','2016-06-30','Ldom testmdy'),
+			array(7,'1997-03-04','1997-03-04','F1997-03-04 testymd'),
+			array(5,'04-03-1997','1997-03-04','F04-03-1997 testdmy'),
+			array(6,'03-04-1997','1997-03-04','F03-04-1997 testmdy'),
+			///////////////////
 			array(7,'2016.06.01','2016-06-01','Fdom testymd'),
 			array(7,'2016.06.15','2016-06-15','Mdom testymd'),
 			array(7,'2016.06.30','2016-06-30','Ldom testymd'),
