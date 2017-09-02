@@ -562,5 +562,42 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$fmtdate = $dt->getDBInsertDateTimeValue($user);
 		$this->assertEquals($testdate.' 00:00:00', $fmtdate);
 	}
+
+	/**
+	 * Method testformatUserTimeString
+	 * @test
+	 */
+	public function testformatUserTimeString() {
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('01:15',24), 'normal string');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('1:15',24), 'normal string');
+		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('13:15',24), 'normal string');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('01:15',12), 'normal string');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('1:15',12), 'normal string');
+		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('13:15',12), 'normal string');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 01:15',24), 'normal string');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 1:15',24), 'normal string');
+		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('2017-09-02 13:15',24), 'normal string');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 01:15',12), 'normal string');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 1:15',12), 'normal string');
+		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('2017-09-02 13:15',12), 'normal string');
+		$this->assertEquals('01:05', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'),24), 'normal string array');
+		$this->assertEquals('01:05AM', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'),12), 'normal string array');
+		$this->assertEquals('01:05PM', DateTimeField::formatUserTimeString(array('hour'=>'13','minute'=>'5'),12), 'normal string array');
+	}
+
+	/**
+	 * Method testtwoDigit
+	 * @test
+	 */
+	public function testtwoDigit() {
+		$this->assertEquals('01', DateTimeField::twoDigit('1'), 'normal string');
+		$this->assertEquals('01', DateTimeField::twoDigit('01'), 'correct string');
+		$this->assertEquals('01', DateTimeField::twoDigit(1), 'normal num');
+		$this->assertEquals('0k', DateTimeField::twoDigit('k'), 'k');
+		$this->assertEquals('0k', DateTimeField::twoDigit(' k '), 'space k');
+		$this->assertEquals('kk', DateTimeField::twoDigit('kk'), 'kk');
+		$this->assertEquals('kk', DateTimeField::twoDigit('kkkk'), 'kkkk');
+	}
+
 }
 ?>
