@@ -568,21 +568,49 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function testformatUserTimeString() {
-		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('01:15',24), 'normal string');
-		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('1:15',24), 'normal string');
-		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('13:15',24), 'normal string');
-		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('01:15',12), 'normal string');
-		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('1:15',12), 'normal string');
-		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('13:15',12), 'normal string');
-		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 01:15',24), 'normal string');
-		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 1:15',24), 'normal string');
-		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('2017-09-02 13:15',24), 'normal string');
-		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 01:15',12), 'normal string');
-		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 1:15',12), 'normal string');
-		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('2017-09-02 13:15',12), 'normal string');
-		$this->assertEquals('01:05', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'),24), 'normal string array');
-		$this->assertEquals('01:05AM', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'),12), 'normal string array');
-		$this->assertEquals('01:05PM', DateTimeField::formatUserTimeString(array('hour'=>'13','minute'=>'5'),12), 'normal string array');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('01:15',24), 'normal 24 time lt 12');
+		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('13:15',24), 'normal 24 time gt 12');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('1:15',24), 'missing number 24 time');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('01:15',12), 'normal 12 time lt 12');
+		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('13:15',12), 'normal 12 time gt 12');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('1:15',12), 'missing number 12 time');
+		//////////////////
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 01:15',24), 'normal 24 time lt 12 with date');
+		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('2017-09-02 13:15',24), 'normal 24 time gt 12 with date');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 1:15',24), 'missing number 24 time with date');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 01:15',12), 'normal 12 time lt 12 with date');
+		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('2017-09-02 13:15',12), 'normal 12 time gt 12 with date');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 1:15',12), 'missing number 12 time with date');
+		//////////////////
+		$this->assertEquals('01:05', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'),24), 'missing number 24 time with array');
+		$this->assertEquals('01:05PM', DateTimeField::formatUserTimeString(array('hour'=>'13','minute'=>'5'),12), 'normal 24 time gt 12 with array');
+		$this->assertEquals('01:05AM', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'),12), 'missing number 12 time with array');
+	}
+
+	/**
+	 * Method testformatDatebaseTimeString
+	 * @test
+	 */
+	public function testformatDatebaseTimeString() {
+		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('01:15',24), 'normal 24 time lt 12');
+		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('1:15',24), 'missing number 24 time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('13:15',24), 'normal 24 time gt 12');
+		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('01:15','am'), 'normal am time');
+		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('1:15','am'), 'missing number am time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('01:15','pm'), 'normal pm time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('1:15','pm'), 'missing number pm time');
+		$this->assertEquals('00:15', DateTimeField::formatDatebaseTimeString('12:15','am'), 'normal am 12 time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('12:15','pm'), 'normal pm 12 time');
+		//////////////////
+		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15',24), 'normal 24 time lt 12');
+		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15',24), 'missing number 24 time');
+		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 13:15',24), 'normal 24 time gt 12');
+		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15','am'), 'normal am time');
+		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15','am'), 'missing number am time');
+		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15','pm'), 'normal pm time');
+		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15','pm'), 'missing number pm time');
+		$this->assertEquals('2017-09-02 00:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15','am'), 'normal am 12 time');
+		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15','pm'), 'normal pm 12 time');
 	}
 
 	/**
