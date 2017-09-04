@@ -305,6 +305,68 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('131', $exprEvaluation);
+		/////////////////////////
+		$entityId = '28x14335'; // Payment
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "get_nextdate(duedate , $(parent_id : (Accounts) cf_719),' ',1)";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => duedate
+)
+',
+			1 => 'VTExpressionSymbol Object
+(
+    [value] => $(parent_id : (Accounts) cf_719)
+)
+',
+			2 => ' ',
+			3 => '1',
+			4 => 'Array
+(
+    [0] => 2016-05-22
+    [1] => 2
+    [2] =>  
+    [3] => 1
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('2016-06-02', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "get_nextdate(duedate , $(parent_id : (Accounts) cf_719),'',1)";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => duedate
+)
+',
+			1 => 'VTExpressionSymbol Object
+(
+    [value] => $(parent_id : (Accounts) cf_719)
+)
+',
+			2 => ' ',
+			3 => '1',
+			4 => 'Array
+(
+    [0] => 2016-05-22
+    [1] => 2
+    [2] =>  
+    [3] => 1
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('2016-06-02', $exprEvaluation);
 	}
 
 	/**
