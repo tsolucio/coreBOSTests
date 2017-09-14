@@ -221,5 +221,94 @@ class testUserInfoUtil extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $actual, "testgetAllTabsPermission $message");
 	}
 
+	/**
+	 * Method testgetDefaultSharingEditAction
+	 * @test
+	 */
+	public function testgetDefaultSharingEditAction() {
+		$actual = getDefaultSharingEditAction();
+		$expected = array(
+			2 => '2',
+			6 => '2',
+			7 => '2',
+			13 => '3',
+			20 => '2',
+			21 => '2',
+			22 => '2',
+			23 => '2',
+			26 => '2',
+			8 => '2',
+			14 => '3',
+			36 => '3',
+			37 => '2',
+			38 => '2',
+			41 => '3',
+			42 => '3',
+			43 => '2',
+			47 => '0',
+			48 => '2',
+			49 => '2',
+			50 => '2',
+			52 => '2',
+			55 => '2',
+			56 => '3',
+			57 => '2',
+			18 => '2',
+			58 => '3',
+			10 => '3',
+			60 => '2',
+			61 => '2',
+			62 => '2',
+			63 => '2',
+			64 => '3',
+		);
+		$this->assertEquals($expected, $actual, "DefaultSharingEditAction");
+	}
+
+	/**
+	 * Method testgetDefaultSharingAction
+	 * @test
+	 */
+	public function testgetDefaultSharingAction() {
+		$actual = getDefaultSharingAction();
+		$expected = array(
+			2 => '2',
+			6 => '2',
+			7 => '2',
+			13 => '3',
+			20 => '2',
+			21 => '2',
+			22 => '2',
+			23 => '2',
+			26 => '2',
+			8 => '2',
+			14 => '3',
+			36 => '3',
+			37 => '2',
+			38 => '2',
+			41 => '3',
+			42 => '3',
+			43 => '2',
+			47 => '0',
+			48 => '2',
+			49 => '2',
+			50 => '2',
+			52 => '2',
+			55 => '2',
+			56 => '3',
+			57 => '2',
+			18 => '2',
+			58 => '3',
+			10 => '3',
+			60 => '2',
+			61 => '2',
+			62 => '2',
+			63 => '2',
+			64 => '3',
+			9 => '3',
+		);
+		$this->assertEquals($expected, $actual, "DefaultSharingAction");
+	}
+
 }
 ?>
