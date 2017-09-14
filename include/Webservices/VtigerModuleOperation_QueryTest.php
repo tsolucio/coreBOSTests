@@ -144,6 +144,16 @@ where projectname like '%o%'  and modifiedtime>'2016-06-30 19:11:59';",$meta,$qu
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select firstname from Contacts where id not in ('12x1084','12x1085');",$meta,$queryRelatedModules);
 		$this->assertEquals("select vtiger_contactdetails.firstname, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_contactdetails.contactid  NOT IN ('1084','1085')) ) AND vtiger_contactdetails.contactid > 0 ",$actual);
 
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("SELECT accountname FROM Accounts WHERE id IN ('11x75');",$meta,$queryRelatedModules);
+		$this->assertEquals("SELECT vtiger_account.accountname,vtiger_account.accountid FROM vtiger_account LEFT JOIN vtiger_crmentity ON vtiger_account.accountid=vtiger_crmentity.crmid   WHERE (vtiger_account.accountid IN (75)) AND  vtiger_crmentity.deleted=0 LIMIT 100;",$actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("SELECT accountname FROM Accounts WHERE id NOT IN ('11x75');",$meta,$queryRelatedModules);
+		$this->assertEquals("select vtiger_account.accountname, vtiger_account.accountid  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_account.accountid  NOT IN ('75')) ) AND vtiger_account.accountid > 0 ",$actual);
+
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("SELECT accountname FROM Accounts WHERE id IN ('11x74','11x75');",$meta,$queryRelatedModules);
+		$this->assertEquals("SELECT vtiger_account.accountname,vtiger_account.accountid FROM vtiger_account LEFT JOIN vtiger_crmentity ON vtiger_account.accountid=vtiger_crmentity.crmid   WHERE (vtiger_account.accountid IN (74,75)) AND  vtiger_crmentity.deleted=0 LIMIT 100;",$actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("SELECT accountname FROM Accounts WHERE id NOT IN ('11x74','11x75');",$meta,$queryRelatedModules);
+		$this->assertEquals("select vtiger_account.accountname, vtiger_account.accountid  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_account.accountid  NOT IN ('74','75')) ) AND vtiger_account.accountid > 0 ",$actual);
+
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select Products.productname,assetname from Assets where assetname LIKE '%exy%';",$meta,$queryRelatedModules);
 		$this->assertEquals("select vtiger_productsproduct.productname as productsproductname, vtiger_assets.assetname, vtiger_assets.assetsid  FROM vtiger_assets  INNER JOIN vtiger_crmentity ON vtiger_assets.assetsid = vtiger_crmentity.crmid LEFT JOIN vtiger_products AS vtiger_productsproduct ON vtiger_productsproduct.productid=vtiger_assets.product   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_assets.assetname LIKE '%exy%') ) AND vtiger_assets.assetsid > 0 ",$actual);
 	}
