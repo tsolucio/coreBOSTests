@@ -389,4 +389,118 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 		$this->assertEquals($expected, getReturnPath($host, $from_email), $msg);
 	}
 
+	/**
+	 * Method testgetrecurringObjValueProvidor
+	 * params
+	 */
+	function testgetrecurringObjValueProvidor() {
+		return array(
+		array(null,null,null,null,null,null,
+			null,null,null,null,null,null,null,null,null,
+			null,null,null,null,'no data'),
+		array('--None--',null,null,null,null,null,
+			null,null,null,null,null,null,null,null,null,
+			null,null,null,null,'no data --None--'),
+		////////////////////
+		array('Daily','2017-01-01','2017-01-10',null,'15:00','16:00',
+			null,null,null,null,null,null,null,null,null,
+			null,null,2,array('2017-01-01','2017-01-03','2017-01-05','2017-01-07','2017-01-09'),'every 2 days'),
+		array('Daily','2017-01-01','2017-01-10',null,'15:00','16:00',
+			null,null,null,null,null,null,null,null,null,
+			null,null,3,array('2017-01-01','2017-01-04','2017-01-07','2017-01-10'),'every 3 days'),
+		array('Yearly','2017-01-01','2021-01-10',null,'15:00','16:00',
+			null,null,null,null,null,null,null,null,null,
+			null,null,2,array('2017-01-01','2019-01-01','2021-01-01'),'every 2 years'),
+		array('Yearly','2017-01-01','2021-01-10',null,'15:00','16:00',
+			null,null,null,null,null,null,null,null,null,
+			null,null,3,array('2017-01-01','2020-01-01'),'every 3 years'),
+		////////////////////
+		array('Daily','2017-01-01',null,'2017-01-10','15:00','16:00',
+			null,null,null,null,null,null,null,null,null,
+			null,null,2,array('2017-01-01','2017-01-03','2017-01-05','2017-01-07','2017-01-09'),'every 2 days'),
+		array('Daily','2017-01-01',null,'2017-01-10','15:00','16:00',
+			null,null,null,null,null,null,null,null,null,
+			null,null,3,array('2017-01-01','2017-01-04','2017-01-07','2017-01-10'),'every 3 days'),
+		array('Yearly','2017-01-01',null,'2021-01-10','15:00','16:00',
+			null,null,null,null,null,null,null,null,null,
+			null,null,2,array('2017-01-01','2019-01-01','2021-01-01'),'every 2 years'),
+		array('Yearly','2017-01-01',null,'2021-01-10','15:00','16:00',
+			null,null,null,null,null,null,null,null,null,
+			null,null,3,array('2017-01-01','2020-01-01'),'every 3 years'),
+		////////////////////
+		array('Weekly','2017-01-01','2017-01-20',null,'15:00','16:00',
+			null,1,null,1,null,1,null,null,null,
+			null,null,1,array('2017-01-01','2017-01-02','2017-01-04','2017-01-06','2017-01-09','2017-01-11','2017-01-13'),'every M-X-V days'),
+		array('Weekly','2017-01-01','2017-01-20',null,'15:00','16:00',
+			null,1,null,1,null,1,null,null,null,
+			null,null,2,array('2017-01-01','2017-01-09','2017-01-11','2017-01-13'),'every 2 weeks M-X-V days'),
+		array('Weekly','2017-01-01','2017-01-20',null,'15:00','16:00',
+			null,1,null,1,null,1,null,null,null,
+			null,null,3,array('2017-01-01'),'every 3 weeks M-X-V days'),
+		array('Weekly','2017-01-01','2017-01-30',null,'15:00','16:00',
+			null,1,null,1,null,1,null,null,null,
+			null,null,3,array('2017-01-01','2017-01-16','2017-01-18','2017-01-20'),'every 3 weeks M-X-V days'),
+		////////////////////
+		array('Monthly','2017-01-01','2017-04-20',null,'15:00','16:00',
+			null,null,null,null,null,null,null,'date',null,
+			null,null,1,array('2017-01-01','2017-02-01','2017-03-01','2017-04-01'),'once a month'),
+		array('Monthly','2017-01-01','2017-04-20',null,'15:00','16:00',
+			null,null,null,null,null,null,null,'date',null,
+			null,null,2,array('2017-01-01','2017-03-01'),'once every two months'),
+		array('Monthly','2017-01-01','2017-04-20',null,'15:00','16:00',
+			null,null,null,null,null,null,null,'date',4,
+			null,null,1,array('2017-01-01','2017-01-04','2017-02-04','2017-03-04','2017-04-04'),'once a month on the fourth'),
+		array('Monthly','2017-01-01','2017-04-20',null,'15:00','16:00',
+			null,null,null,null,null,null,null,'date',4,
+			null,null,2,array('2017-01-01','2017-01-04','2017-03-04'),'once every two months on the fourth'),
+		////////////////////
+		array('Monthly','2017-01-01','2017-04-20',null,'15:00','16:00',
+			null,null,null,null,null,null,null,'day',null,
+			'second',3,1,array('2017-01-01','2017-01-11','2017-02-08','2017-03-08','2017-04-12'),'second X month'),
+		array('Monthly','2017-01-01','2017-04-20',null,'15:00','16:00',
+			null,null,null,null,null,null,null,'day',null,
+			'second',3,2,array('2017-01-01','2017-01-11','2017-03-08'),'second X every two months'),
+		array('Monthly','2017-01-01','2017-04-20',null,'15:00','16:00',
+			null,null,null,null,null,null,null,'day',null,
+			'second',2,1,array('2017-01-01','2017-01-10','2017-02-14','2017-03-14','2017-04-11'),'second T once a month'),
+		array('Monthly','2017-01-01','2017-04-20',null,'15:00','16:00',
+			null,null,null,null,null,null,null,'day',null,
+			'second',2,2,array('2017-01-01','2017-01-10','2017-03-14'),'second X once every two months'),
+		);
+	}
+
+	/**
+	 * Method testgetrecurringObjValue
+	 * @test
+	 * @dataProvider testgetrecurringObjValueProvidor
+	 */
+	function testgetrecurringObjValue($recurringtype,$date_start,$calendar_repeat_limit_date,$due_date,$time_start,$time_end,
+			$sun_flag,$mon_flag,$tue_flag,$wed_flag,$thu_flag,$fri_flag,$sat_flag,$repeatMonth,$repeatMonth_date,
+			$repeatmonth_daytype,$repeatMonth_day,$repeat_frequency,$expected,$msg) {
+		$_REQUEST['recurringtype'] = $recurringtype;
+		$_REQUEST['date_start'] = $date_start;
+		$_REQUEST['calendar_repeat_limit_date'] = $calendar_repeat_limit_date;
+		$_REQUEST['due_date'] = $due_date;
+		$_REQUEST['time_start'] = $time_start;
+		$_REQUEST['time_end'] = $time_end;
+		$_REQUEST['sun_flag'] = $sun_flag;
+		$_REQUEST['mon_flag'] = $mon_flag;
+		$_REQUEST['tue_flag'] = $tue_flag;
+		$_REQUEST['wed_flag'] = $wed_flag;
+		$_REQUEST['thu_flag'] = $thu_flag;
+		$_REQUEST['fri_flag'] = $fri_flag;
+		$_REQUEST['sat_flag'] = $sat_flag;
+		$_REQUEST['repeatMonth'] = $repeatMonth;
+		$_REQUEST['repeatMonth_date'] = $repeatMonth_date;
+		$_REQUEST['repeatMonth_daytype'] = $repeatmonth_daytype;
+		$_REQUEST['repeatMonth_day'] = $repeatMonth_day;
+		$_REQUEST['repeat_frequency'] = $repeat_frequency;
+		$actual = getrecurringObjValue();
+		if (!is_null($expected)) {
+			$this->assertEquals($expected, $actual->recurringdates, $msg);
+		} else {
+			$this->assertEquals($expected, $actual, $msg);
+		}
+	}
+
 }
