@@ -173,6 +173,21 @@ class testCommonUtils extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(isInsideApplication('modules/cbupdater/cbupdater.php'),"isInsideApplication modules/cbupdater/cbupdater.php");
 		$this->assertFalse(isInsideApplication('/etc'),"isInsideApplication /etc");
 		$this->assertFalse(isInsideApplication('..'),"isInsideApplication ..");
+		$this->assertFalse(isInsideApplication('&#046;&#046;'),"isInsideApplication encoded ..");
+		$this->assertFalse(isInsideApplication('modules\cbupdater\cbupdater.php'),"isInsideApplication modules\cbupdater\cbupdater.php");
+		$this->assertFalse(isInsideApplication('../modules/cbupdater/cbupdater.php'),"isInsideApplication ../modules/cbupdater/cbupdater.php");
+		$this->assertFalse(isInsideApplication('modules/../../../../etc'),"isInsideApplication modules/../../../../etc");
+		$this->assertFalse(isInsideApplication('\etc'),"isInsideApplication \etc");
+		$this->assertFalse(isInsideApplication('modules\\cbupdater\\cbupdater.php'),"isInsideApplication modules\\cbupdater\\cbupdater.php");
+		$this->assertFalse(isInsideApplication('modules\\\\cbupdater\\\\cbupdater.php'),'isFileAccessible modules\\\\cbupdater\\\\cbupdater.php');
+	}
+
+	/**
+	 * Method testisFileAccessible
+	 * @test
+	 */
+	function testisFileAccessible() {
+		$this->assertTrue(true,"isFileAccessible tested in testisInsideApplication");
 	}
 
 	/**
