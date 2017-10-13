@@ -350,13 +350,13 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
     [value] => $(parent_id : (Accounts) cf_719)
 )
 ',
-			2 => ' ',
+			2 => '',
 			3 => '1',
 			4 => 'Array
 (
     [0] => 2016-05-22
     [1] => 2
-    [2] =>  
+    [2] => 
     [3] => 1
 )
 '
@@ -1094,6 +1094,55 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('Chemex Labs Ltd', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "if accountname == '' then 0 else 1 end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => accountname
+)
+',
+			1 => '',
+			2 => 'Array
+(
+    [0] => Chemex Labs Ltd
+    [1] => 
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => accountname
+                        )
+
+                    [2] => 
+                )
+
+        )
+
+    [1] => 0
+    [2] => 1
+)
+',
+			4 => false,
+			5 => '1'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(1, $exprEvaluation);
 	}
 
 	/**
@@ -1295,6 +1344,680 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('2016-02-12', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "if accountname == '' then concat(accountname,'-',tickersymbol) else concat(tickersymbol,'-',accountname) end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => accountname
+)
+',
+			1 => '',
+			2 => 'Array
+(
+    [0] => Chemex Labs Ltd
+    [1] => 
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => accountname
+                        )
+
+                    [2] => 
+                )
+
+        )
+
+    [1] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => accountname
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => tickersymbol
+                        )
+
+                )
+
+        )
+
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => tickersymbol
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => accountname
+                        )
+
+                )
+
+        )
+
+)
+',
+			4 => false,
+			5 => 'VTExpressionSymbol Object
+(
+    [value] => tickersymbol
+)
+',
+			6 => '-',
+			7 => 'VTExpressionSymbol Object
+(
+    [value] => accountname
+)
+',
+			8 => 'Array
+(
+    [0] => 
+    [1] => -
+    [2] => Chemex Labs Ltd
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('-Chemex Labs Ltd', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "if accountname=='' then concat(accountname,'-',tickersymbol) else concat(tickersymbol,'-',accountname) end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => accountname
+)
+',
+			1 => '',
+			2 => 'Array
+(
+    [0] => Chemex Labs Ltd
+    [1] => 
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => accountname
+                        )
+
+                    [2] => 
+                )
+
+        )
+
+    [1] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => accountname
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => tickersymbol
+                        )
+
+                )
+
+        )
+
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => tickersymbol
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => accountname
+                        )
+
+                )
+
+        )
+
+)
+',
+			4 => false,
+			5 => 'VTExpressionSymbol Object
+(
+    [value] => tickersymbol
+)
+',
+			6 => '-',
+			7 => 'VTExpressionSymbol Object
+(
+    [value] => accountname
+)
+',
+			8 => 'Array
+(
+    [0] => 
+    [1] => -
+    [2] => Chemex Labs Ltd
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('-Chemex Labs Ltd', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "if cf_718 == '' then concat(cf_718,'-',cf_725) else concat(cf_725,'-',cf_718) end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => cf_718
+)
+',
+			1 => '',
+			2 => 'Array
+(
+    [0] => 
+    [1] => 
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                    [2] => 
+                )
+
+        )
+
+    [1] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_725
+                        )
+
+                )
+
+        )
+
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_725
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                )
+
+        )
+
+)
+',
+			4 => true,
+			5 => 'VTExpressionSymbol Object
+(
+    [value] => cf_718
+)
+',
+			6 => '-',
+			7 => 'VTExpressionSymbol Object
+(
+    [value] => cf_725
+)
+',
+			8 => 'Array
+(
+    [0] => 
+    [1] => -
+    [2] => 
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('-', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "if cf_718=='' then concat(cf_718,'-',cf_725) else concat(cf_725,'-',cf_718) end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => cf_718
+)
+',
+			1 => '',
+			2 => 'Array
+(
+    [0] => 
+    [1] => 
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                    [2] => 
+                )
+
+        )
+
+    [1] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_725
+                        )
+
+                )
+
+        )
+
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_725
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                )
+
+        )
+
+)
+',
+			4 => true,
+			5 => 'VTExpressionSymbol Object
+(
+    [value] => cf_718
+)
+',
+			6 => '-',
+			7 => 'VTExpressionSymbol Object
+(
+    [value] => cf_725
+)
+',
+			8 => 'Array
+(
+    [0] => 
+    [1] => -
+    [2] => 
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('-', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "if cf_718 != '' then concat(cf_718,'-',cf_725) else concat(cf_725,'-',cf_718) end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => cf_718
+)
+',
+			1 => '',
+			2 => 'Array
+(
+    [0] => 
+    [1] => 
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => !=
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                    [2] => 
+                )
+
+        )
+
+    [1] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_725
+                        )
+
+                )
+
+        )
+
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_725
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                )
+
+        )
+
+)
+',
+			4 => false,
+			5 => 'VTExpressionSymbol Object
+(
+    [value] => cf_725
+)
+',
+			6 => '-',
+			7 => 'VTExpressionSymbol Object
+(
+    [value] => cf_718
+)
+',
+			8 => 'Array
+(
+    [0] => 
+    [1] => -
+    [2] => 
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('-', $exprEvaluation);
+		/////////////////////////
+		$entityId = '11x79';
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "if cf_718=='' then concat(cf_718,'-',cf_725) else concat(cf_725,'-',cf_718) end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => cf_718
+)
+',
+			1 => '',
+			2 => 'Array
+(
+    [0] => 
+    [1] => 
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                    [2] => 
+                )
+
+        )
+
+    [1] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_725
+                        )
+
+                )
+
+        )
+
+    [2] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => concat
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_725
+                        )
+
+                    [2] => -
+                    [3] => VTExpressionSymbol Object
+                        (
+                            [value] => cf_718
+                        )
+
+                )
+
+        )
+
+)
+',
+			4 => true,
+			5 => 'VTExpressionSymbol Object
+(
+    [value] => cf_718
+)
+',
+			6 => '-',
+			7 => 'VTExpressionSymbol Object
+(
+    [value] => cf_725
+)
+',
+			8 => 'Array
+(
+    [0] => 
+    [1] => -
+    [2] => 
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('-', $exprEvaluation);
 	}
 
 	/**
