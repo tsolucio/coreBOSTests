@@ -133,6 +133,9 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$user = new Users();
 		$testcurrency = 42654016.022589;
 		$currencyField = new CurrencyField($testcurrency);
+		//Without decimals
+		$testcurrencyNoDecimals = 42654016;
+		$currencyFieldNoDecimals = new CurrencyField($testcurrencyNoDecimals);
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
 		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
@@ -155,6 +158,8 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip usrcomd0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip usrcomd0x');
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user);
+		$this->assertEquals('42654016,000', $formattedCurrencyValueNoDecimals,'getDisplayValue usrcomd0x for value without decimals');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -166,6 +171,8 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip usrdotd3com');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip usrdotd3com');
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user);
+		$this->assertEquals('42,654,016.0000', $formattedCurrencyValueNoDecimals,'getDisplayValue usrdotd3com for value without decimals');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -177,6 +184,8 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip usrcoma3dot');
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user);
+		$this->assertEquals('42.654.016,00000', $formattedCurrencyValueNoDecimals,'getDisplayValue usrcoma3dot for value without decimals');
 		/////////////////
 		$converted2Dollar = $testcurrency * 1.1; // 46919417.6248479
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
@@ -377,6 +386,9 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$user = new Users();
 		$testcurrency = -42654016.022589;
 		$currencyField = new CurrencyField($testcurrency);
+		//Without decimals
+		$testcurrencyNoDecimals = -42654016;
+		$currencyFieldNoDecimals = new CurrencyField($testcurrencyNoDecimals);
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
 		$testcurrencyrounded = round($testcurrency,$currencyField->numberOfDecimal);
@@ -399,6 +411,8 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip Negative usrcomd0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip Negative usrcomd0x');
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user);
+		$this->assertEquals('-42654016,000', $formattedCurrencyValueNoDecimals,'getDisplayValue Negative usrcomd0x for value without decimals');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -410,6 +424,8 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip Negative usrdotd3com');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip Negative usrdotd3com');
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user);
+		$this->assertEquals('-42,654,016.0000', $formattedCurrencyValueNoDecimals,'getDisplayValue Negative usrdotd3com for value without decimals');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
@@ -421,6 +437,8 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip Negative usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip Negative usrcoma3dot');
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user);
+		$this->assertEquals('-42.654.016,00000', $formattedCurrencyValueNoDecimals,'getDisplayValue Negative usrcoma3dot for value without decimals');
 		/////////////////
 		$converted2Dollar = $testcurrency * 1.1; // 46919417.6248479
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
