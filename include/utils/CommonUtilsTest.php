@@ -518,4 +518,14 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 		}
 	}
 
+	/**
+	 * Method testgetSalesEntityType
+	 * @test
+	 */
+	function testgetSalesEntityType() {
+		$this->assertEquals('Accounts', getSalesEntityType('74'), 'Accounts setype');
+		$this->assertEquals('CobroPago', getSalesEntityType('14335'), 'Payment setype');
+		$this->assertEquals('Contacts', getSalesEntityType('1090'), 'Contacts setype');
+	}
+
 }
