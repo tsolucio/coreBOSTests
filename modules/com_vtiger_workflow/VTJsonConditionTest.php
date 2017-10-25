@@ -21,6 +21,89 @@
 class VTJsonConditionTest extends PHPUnit_Framework_TestCase {
 
 	/**
+	 * Method testRelatedEmptyConditions
+	 * @test
+	 */
+	public function testRelatedEmptyConditions() {
+		$adminUser = Users::getActiveAdminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		$entityId = '13x5140'; // potential related to contact
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$cs = new VTJsonCondition();
+		/////////////////////////
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		/////////////////////////
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is","value":"M D & W Railway","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is","value":"FALSEM D & W Railway","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is","value":"Conquest","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is","value":"FALSEConquest","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		/////////////////////////
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is not empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is not empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		/////////////////////////
+		/////////////////////////
+		$entityId = '13x5141'; // potential related to account
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$cs = new VTJsonCondition();
+		/////////////////////////
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		/////////////////////////
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is","value":"M D & W Railway","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is","value":"FALSEM D & W Railway","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is","value":"Conquest","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is","value":"FALSEConquest","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		/////////////////////////
+		$testexpression = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is not empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is not empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+	}
+
+	/**
 	 * Method testPicklistConditions
 	 * @test
 	 */
