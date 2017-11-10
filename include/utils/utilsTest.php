@@ -234,6 +234,7 @@ class testutils extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Calendar',getModuleForField(254),'Calendar Field');
 		$this->assertEquals('Contacts',getModuleForField(100),'Contact Field');
 		$this->assertEquals('Users',getModuleForField(482),'Users Email Field');
+		$this->assertEquals('Users',getModuleForField(-1),'Users Email Address specification');
 	}
 
 	/**
