@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -64,6 +64,21 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($query,'SELECT DISTINCT vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0');
 	}
 
+	public function testMyOwnerId() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Project', $current_user);
+		$denorm=$queryGenerator->denormalized;
+		if ($denorm) {
+			$queryGenerator->setFields(array('assigned_user_id'));
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,'SELECT vtiger_project.myownerid FROM vtiger_project  LEFT JOIN vtiger_users ON vtiger_project.myownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_project.myownerid = vtiger_groups.groupid WHERE vtiger_project.mydeleted=0 AND vtiger_project.projectid > 0');
+			$queryGenerator = new QueryGenerator('Project', $current_user);
+			$queryGenerator->setFields(array('assigned_user_id'));
+			$query = $queryGenerator->getQuery(true);
+			$this->assertEquals($query,'SELECT DISTINCT vtiger_project.myownerid FROM vtiger_project  LEFT JOIN vtiger_users ON vtiger_project.myownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_project.myownerid = vtiger_groups.groupid WHERE vtiger_project.mydeleted=0 AND vtiger_project.projectid > 0');
+		}
+	}
+
 	public function testQueryWithCustomField() {
 		global $current_user,$adb;
 		$cnacc=$adb->getColumnNames('vtiger_accountscf');
@@ -105,14 +120,16 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($query,'SELECT vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0');
 	}
 
-
-	public function testQueryWithIncompatibleOperations() {
+	public function testQueryWithInvalidFieldDenorm() {
 		global $current_user;
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','employees'));
-		$queryGenerator->addCondition('employees',131,'s');
+		$cf = 'cf_91'; // there will never be a custom field with such a low number
+		$queryGenerator = new QueryGenerator('Project', $current_user);
+		$denorm=$queryGenerator->denormalized;
+		$queryGenerator->setFields(array('id',$cf));
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals("SELECT vtiger_account.accountid, vtiger_account.employees FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.employees LIKE '131%')  AND vtiger_account.accountid > 0", $query);
+		if ($denorm) {
+			$this->assertEquals($query,'SELECT vtiger_project.projectid FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND vtiger_project.projectid > 0');
+		}
 	}
 
 	public function testQueryIndividualParts() {
@@ -125,6 +142,21 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($queryGenerator->getFromClause(),' FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid ');
 		$this->assertEquals($queryGenerator->getWhereClause(),' WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0');
 	}
+
+	public function testQueryIndividualPartsDenorm() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Project', $current_user);
+		$denorm=$queryGenerator->denormalized;
+		$queryGenerator->setFields(array('projectname','createdtime'));
+		$query = $queryGenerator->getQuery();
+		if ($denorm) {
+			$this->assertEquals($query,'SELECT vtiger_project.projectname, vtiger_project.mycreatedtime FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND vtiger_project.projectid > 0');
+			$this->assertEquals($queryGenerator->getSelectClauseColumnSQL(),'vtiger_project.projectname, vtiger_project.mycreatedtime');
+			$this->assertEquals($queryGenerator->getFromClause(),' FROM vtiger_project  ');
+			$this->assertEquals($queryGenerator->getWhereClause(),'WHERE vtiger_project.mydeleted=0 AND vtiger_project.projectid > 0');
+		}
+	}
+
 
 	public function testQueryConditions() {
 		global $current_user;
@@ -158,7 +190,12 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addCondition('startdate','2015-04-16','b');
 		$queryGenerator->addCondition('targetenddate','2015-06-16','a','OR');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0");
+		$denorm= $queryGenerator->denormalized;
+		if ($denorm) {
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0");
+		} else {
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0");
+		}
 
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
 		$queryGenerator->setFields(array('id','accountname'));
@@ -272,31 +309,6 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($query,"SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_contactdetailscontact_id.firstname as contactsfirstname, vtiger_contactdetailscontact_id.lastname as contactslastname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_contactdetails.reportsto  WHERE vtiger_crmentity.deleted=0 AND vtiger_contactdetails.contactid > 0");
 	}
 
-	public function testQueryRelatedCustomFieldsConditions() {
-		global $current_user;
-		$queryGenerator = new QueryGenerator('Services', $current_user);
-		$queryGenerator->setFields(array('servicename'));
-		$queryGenerator->addReferenceModuleFieldCondition('Products', 'cf_802', 'productcategory', 'Hardware', 'e');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_service.servicename FROM vtiger_service  INNER JOIN vtiger_crmentity ON vtiger_service.serviceid = vtiger_crmentity.crmid LEFT JOIN vtiger_servicecf ON vtiger_servicecf.serviceid=vtiger_service.serviceid  LEFT JOIN vtiger_products AS vtiger_productscf_802 ON vtiger_productscf_802.productid=vtiger_servicecf.cf_802  WHERE vtiger_crmentity.deleted=0 AND (vtiger_productscf_802.productcategory = 'Hardware')  AND vtiger_service.serviceid > 0");
-
-		$queryGenerator = new QueryGenerator('Services', $current_user);
-		$queryGenerator->setFields(array('servicename','Products.productname'));
-		$queryGenerator->addReferenceModuleFieldCondition('Products', 'cf_802', 'productcategory', 'Hardware', 'e');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_service.servicename, vtiger_productscf_802.productname as productsproductname FROM vtiger_service  INNER JOIN vtiger_crmentity ON vtiger_service.serviceid = vtiger_crmentity.crmid LEFT JOIN vtiger_servicecf ON vtiger_servicecf.serviceid=vtiger_service.serviceid  LEFT JOIN vtiger_products AS vtiger_productscf_802 ON vtiger_productscf_802.productid=vtiger_servicecf.cf_802  WHERE vtiger_crmentity.deleted=0 AND (vtiger_productscf_802.productcategory = 'Hardware')  AND vtiger_service.serviceid > 0");
-
-		$queryGenerator = new QueryGenerator('Services', $current_user);
-		$queryGenerator->setFields(array('servicename','Products.productname'));
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_service.servicename, vtiger_productscf_802.productname as productsproductname FROM vtiger_service  INNER JOIN vtiger_crmentity ON vtiger_service.serviceid = vtiger_crmentity.crmid LEFT JOIN vtiger_servicecf ON vtiger_servicecf.serviceid=vtiger_service.serviceid LEFT JOIN vtiger_products AS vtiger_productscf_802 ON vtiger_productscf_802.productid=vtiger_servicecf.cf_802  WHERE vtiger_crmentity.deleted=0 AND vtiger_service.serviceid > 0");
-
-		$queryGenerator = new QueryGenerator('Services', $current_user);
-		$queryGenerator->setFields(array('servicename','productname'));
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_service.servicename, vtiger_productscf_802.productname as productsproductname FROM vtiger_service  INNER JOIN vtiger_crmentity ON vtiger_service.serviceid = vtiger_crmentity.crmid LEFT JOIN vtiger_servicecf ON vtiger_servicecf.serviceid=vtiger_service.serviceid LEFT JOIN vtiger_products AS vtiger_productscf_802 ON vtiger_productscf_802.productid=vtiger_servicecf.cf_802  WHERE vtiger_crmentity.deleted=0 AND vtiger_service.serviceid > 0");
-}
-
 	public function testQueryCalendarEmail() {
 		global $current_user;
 		$queryGenerator = new QueryGenerator('Calendar', $current_user);
@@ -314,13 +326,13 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->setFields(array('id','subject','activitytype'));
 		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'contact_id', 'firstname', 'Mary', 'c');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_cntactivityrel ON vtiger_cntactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_cntactivityrel.contactid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscontact_id.firstname LIKE '%Mary%')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_cntactivityrel ON vtiger_cntactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_cntactivityrel.contactid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscontact_id.firstname LIKE '%Mary%')  AND vtiger_activity.activityid > 0");
 
 		$queryGenerator = new QueryGenerator('Emails', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype'));
 		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid INNER JOIN vtiger_emaildetails ON vtiger_emaildetails.emailid=vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_emaildetails.idlists  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid INNER JOIN vtiger_emaildetails ON vtiger_activity.activityid = vtiger_emaildetails.emailid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_emaildetails.idlists  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
 
 		$queryGenerator = new QueryGenerator('Emails', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype','from_email'));
@@ -332,31 +344,31 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->setFields(array('id','subject','activitytype','accountname'));
 		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.accountname as accountsaccountname FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.accountname as accountsaccountname FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
 
 		$queryGenerator = new QueryGenerator('Calendar', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype','Accounts.phone'));
 		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
 
 		$queryGenerator = new QueryGenerator('Events', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype')); //,'Contacts.firstname'));
 		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'contact_id', 'id', '33', 'e');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_cntactivityrel ON vtiger_cntactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_cntactivityrel.contactid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscontact_id.contactid = '33')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_cntactivityrel ON vtiger_cntactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_cntactivityrel.contactid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscontact_id.contactid = '33')  AND vtiger_activity.activityid > 0");
 
 		$queryGenerator = new QueryGenerator('Calendar', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype','Accounts.phone'));
 		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'id', '22', 'e');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountid = '22')  AND vtiger_activity.activityid > 0",'Calendar-Account');
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountid = '22')  AND vtiger_activity.activityid > 0",'Calendar-Account');
 
 		$queryGenerator = new QueryGenerator('Calendar', $current_user);
 		$queryGenerator->setFields(array('id','HelpDesk.ticket_title'));  // include link field to force join
 		$queryGenerator->addReferenceModuleFieldCondition('HelpDesk', 'parent_id', 'id', '8953', 'e');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_troubleticketsparent_id.title as helpdesktitle FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_troubletickets AS vtiger_troubleticketsparent_id ON vtiger_troubleticketsparent_id.ticketid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_troubleticketsparent_id.ticketid = '8953')  AND vtiger_activity.activityid > 0",'Calendar-HelpDesk');
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_troubleticketsparent_id.title as helpdesktitle FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid = vtiger_activity.activityid  LEFT JOIN vtiger_troubletickets AS vtiger_troubleticketsparent_id ON vtiger_troubleticketsparent_id.ticketid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_troubleticketsparent_id.ticketid = '8953')  AND vtiger_activity.activityid > 0",'Calendar-HelpDesk');
 
 		$holduser = $current_user;
 		$user = new Users();
@@ -365,7 +377,7 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->setFields(array('id','subject','activitytype'));
 		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid INNER JOIN vtiger_emaildetails ON vtiger_emaildetails.emailid=vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_emaildetails.idlists INNER JOIN vt_tmp_u5 vt_tmp_u5 ON vt_tmp_u5.id = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query,"SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid INNER JOIN vtiger_emaildetails ON vtiger_activity.activityid = vtiger_emaildetails.emailid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_emaildetails.idlists INNER JOIN vt_tmp_u5 vt_tmp_u5 ON vt_tmp_u5.id = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
 
 		$queryGenerator = new QueryGenerator('Emails', $user);
 		$queryGenerator->setFields(array('id','subject','activitytype','from_email'));
@@ -535,67 +547,6 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("SELECT vtiger_potential.potentialid, vtiger_potential.potentialname, vtiger_contactdetailsrelated_to.firstname as contactsfirstname FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailsrelated_to ON vtiger_contactdetailsrelated_to.contactid=vtiger_potential.related_to  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailsrelated_to.phone IS NULL OR vtiger_contactdetailsrelated_to.phone = '')  AND vtiger_potential.potentialid > 0",$query);
 	}
 
-	public function testMultiValueQueryConditions() {
-		global $current_user;
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','accountname'));
-		$queryGenerator->addCondition('employees', '133,144', 'e',$queryGenerator::$AND); // THIS IS AN INCORRECT CONDITION
-		$query = $queryGenerator->getQuery();
-		// THIS IS INCORRECT SQL DUE TO AN INCORRECT CONDITION
-		$this->assertEquals($query,"SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.employees = 133,144)  AND vtiger_account.accountid > 0");
-
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','accountname'));
-		$queryGenerator->addCondition('employees', '133.144', 'e',$queryGenerator::$AND);
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.employees = 133.144)  AND vtiger_account.accountid > 0");
-
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','accountname'));
-		$queryGenerator->addCondition('accountname', '133,144', 'c',$queryGenerator::$AND);
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname LIKE '%133%' OR vtiger_account.accountname LIKE '%144%')  AND vtiger_account.accountid > 0");
-
-		$queryGenerator = new QueryGenerator('Contacts', $current_user);
-		$queryGenerator->setFields(array('id','firstname'));
-		$queryGenerator->addCondition('firstname', 'joe', 'e');
-		$queryGenerator->addCondition('leadsource', '133,144', 'k', $queryGenerator::$AND);
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid INNER JOIN vtiger_contactsubdetails ON vtiger_contactdetails.contactid = vtiger_contactsubdetails.contactsubscriptionid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_contactdetails.firstname = 'joe')  AND ( vtiger_contactsubdetails.leadsource NOT LIKE '%133%' AND vtiger_contactsubdetails.leadsource NOT LIKE '%144%')  AND vtiger_contactdetails.contactid > 0");
-
-		$queryGenerator = new QueryGenerator('Contacts', $current_user);
-		$queryGenerator->setFields(array('id','firstname'));
-		$queryGenerator->addCondition('firstname', 'joe', 'e');
-		$queryGenerator->addCondition('leadsource', '133,144', 'n', $queryGenerator::$AND);
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid INNER JOIN vtiger_contactsubdetails ON vtiger_contactdetails.contactid = vtiger_contactsubdetails.contactsubscriptionid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_contactdetails.firstname = 'joe')  AND ( vtiger_contactsubdetails.leadsource <> '133' AND vtiger_contactsubdetails.leadsource <> '144')  AND vtiger_contactdetails.contactid > 0");
-
-		$queryGenerator = new QueryGenerator('accounts', $current_user);
-		$queryGenerator->setFields(array('id','account_no','accountname','accounts.accountname'));
-		$queryGenerator->addCondition('assigned_user_id','20x21199,20x1234','c');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) LIKE '%20x21199%' or vtiger_groups.groupname LIKE '%20x21199%') OR (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) LIKE '%20x1234%' or vtiger_groups.groupname LIKE '%20x1234%'))  AND vtiger_account.accountid > 0");
-
-		$queryGenerator = new QueryGenerator('accounts', $current_user);
-		$queryGenerator->setFields(array('id','account_no','accountname','accounts.accountname'));
-		$queryGenerator->addCondition('assigned_user_id','20x21199,20x1234','n');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) <> '20x21199' or vtiger_groups.groupname <> '20x21199') AND (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) <> '20x1234' or vtiger_groups.groupname <> '20x1234'))  AND vtiger_account.accountid > 0");
-
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','accountname'));
-		$queryGenerator->addCondition('accountname', '133,144', 'k',$queryGenerator::$AND);
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname NOT LIKE '%133%' AND vtiger_account.accountname NOT LIKE '%144%')  AND vtiger_account.accountid > 0");
-
-		$queryGenerator = new QueryGenerator('Contacts', $current_user);
-		$queryGenerator->setFields(array('id','firstname'));
-		$queryGenerator->addCondition('firstname', 'joe', 'e');
-		$queryGenerator->addCondition('lastname', '133,144', 'n', $queryGenerator::$AND);
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_contactdetails.firstname = 'joe')  AND ( vtiger_contactdetails.lastname <> '133' AND vtiger_contactdetails.lastname <> '144')  AND vtiger_contactdetails.contactid > 0");
-	}
-
 	public function testQueryCurrency() {
 		global $current_user;
 		$holdcuser = $current_user;
@@ -716,118 +667,112 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
 		$queryGenerator->addCondition('startdate','16-04-2015','b');
 		$queryGenerator->addCondition('targetenddate','16-06-2015','a','OR');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testdmy");
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate','04-16-2015','b');
-		$queryGenerator->addCondition('targetenddate','06-16-2015','a','OR');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-16-04')  OR ( vtiger_project.targetenddate > '2015-16-06')  AND vtiger_project.projectid > 0","testdmy WRONG");
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate',array(0=>'16-04-2015',1=>'16-06-2015'), 'bw');
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2015-04-16' AND '2015-06-16')  AND vtiger_project.projectid > 0";
-		$this->assertEquals($sqlresult,$query,"date between testdmy");
-		/////////
-		$user = new Users();
-		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
-		$current_user = $user;
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate','04-16-2015','b');
-		$queryGenerator->addCondition('targetenddate','06-16-2015','a','OR');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testmdy");
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate','16-04-2015','b');
-		$queryGenerator->addCondition('targetenddate','16-06-2015','a','OR');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-16-04')  OR ( vtiger_project.targetenddate > '2015-16-06')  AND vtiger_project.projectid > 0","testmdy WRONG");
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate',array(0=>'04-16-2015',1=>'06-16-2015'), 'bw');
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2015-04-16' AND '2015-06-16')  AND vtiger_project.projectid > 0";
-		$this->assertEquals($sqlresult,$query,"date between testmdy");
-		/////////
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate',array(0=>'04-21-2017',1=>'05-02-2017'), 'bw');
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2017-04-21' AND '2017-05-02')  AND vtiger_project.projectid > 0";
-		$this->assertEquals($sqlresult,$query,"date july between testmdy");
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate',array(0=>'07-01-2017',1=>'07-31-2017'), 'bw');
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2017-07-01' AND '2017-07-31')  AND vtiger_project.projectid > 0";
-		$this->assertEquals($sqlresult,$query,"date july between testmdy");
-		/////////
-		$user = new Users();
-		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
-		$current_user = $user;
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate','2015-04-16','b');
-		$queryGenerator->addCondition('targetenddate','2015-06-16','a','OR');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testymd");
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
-		$queryGenerator->addCondition('startdate',array(0=>'2015-04-16',1=>'2015-06-16'), 'bw');
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate BETWEEN '2015-04-16' AND '2015-06-16')  AND vtiger_project.projectid > 0";
-		$this->assertEquals($sqlresult,$query,"date between testymd");
-		/////////
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','createdtime'));
-		$queryGenerator->addCondition('createdtime','2015-04-16 10:00','b');
-		$queryGenerator->addCondition('createdtime','2015-06-16 08:00','a','OR');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_crmentity.createdtime < '2015-04-16 10:00:00')  OR ( vtiger_crmentity.createdtime > '2015-06-16 08:00:00')  AND vtiger_project.projectid > 0","testtz");
-		$user = new Users();
-		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot); // testtz
-		$current_user = $user;
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','createdtime'));
-		$queryGenerator->addCondition('createdtime','2015-04-16 10:00','b');
-		$queryGenerator->addCondition('createdtime','2015-06-16 08:00','a','OR');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_crmentity.createdtime < '2015-04-16 08:00:00')  OR ( vtiger_crmentity.createdtime > '2015-06-16 06:00:00')  AND vtiger_project.projectid > 0","testtz");
-		$current_user = $holdcuser;
-		$queryGenerator = new QueryGenerator('Project', $current_user);
-		$queryGenerator->setFields(array('id','projectname','createdtime'));
-		$queryGenerator->addCondition('startdate','2015-04-16','g');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '2015-04-16')  AND vtiger_project.projectid > 0",$query,"test incompatible fecha g Ymd");
-		$queryGenerator = new QueryGenerator('Project', $current_user);
-		$queryGenerator->setFields(array('id','projectname','createdtime'));
-		$queryGenerator->addCondition('startdate','1997-04-04','a');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '1997-04-04')  AND vtiger_project.projectid > 0",$query,"test old date ymd");
-		$holduser = $current_user;
-		$user = new Users();
-		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
-		$current_user = $user;
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','createdtime'));
-		$queryGenerator->addCondition('startdate','16-04-2015','g');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '2015-04-16')  AND vtiger_project.projectid > 0",$query,"test incompatible fecha g dmY");
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','createdtime'));
-		$queryGenerator->addCondition('startdate','16-04-2015','a');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '2015-04-16')  AND vtiger_project.projectid > 0",$query,"test incompatible fecha g dmY");
-		$queryGenerator = new QueryGenerator('Project', $user);
-		$queryGenerator->setFields(array('id','projectname','createdtime'));
-		$queryGenerator->addCondition('startdate','04-04-1997','a');
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '1997-04-04')  AND vtiger_project.projectid > 0",$query,"test incompatible fecha g dmY");
-		$current_user = $holduser;
+		$denorm=$queryGenerator->denormalized;
+		if ($denorm) {
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testdmy");
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+			$queryGenerator->addCondition('startdate','04-16-2015','b');
+			$queryGenerator->addCondition('targetenddate','06-16-2015','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND ( vtiger_project.startdate < '2015-16-04')  OR ( vtiger_project.targetenddate > '2015-16-06')  AND vtiger_project.projectid > 0","testdmy WRONG");
+			/////////
+			$user = new Users();
+			$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
+			$current_user = $user;
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+			$queryGenerator->addCondition('startdate','04-16-2015','b');
+			$queryGenerator->addCondition('targetenddate','06-16-2015','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testmdy");
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+			$queryGenerator->addCondition('startdate','16-04-2015','b');
+			$queryGenerator->addCondition('targetenddate','16-06-2015','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND ( vtiger_project.startdate < '2015-16-04')  OR ( vtiger_project.targetenddate > '2015-16-06')  AND vtiger_project.projectid > 0","testmdy WRONG");
+			/////////
+			$user = new Users();
+			$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
+			$current_user = $user;
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+			$queryGenerator->addCondition('startdate','2015-04-16','b');
+			$queryGenerator->addCondition('targetenddate','2015-06-16','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testymd");
+			/////////
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','createdtime'));
+			$queryGenerator->addCondition('createdtime','2015-04-16 10:00','b');
+			$queryGenerator->addCondition('createdtime','2015-06-16 08:00','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.mycreatedtime FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND ( vtiger_project.mycreatedtime < '2015-04-16 10:00:00')  OR ( vtiger_project.mycreatedtime > '2015-06-16 08:00:00')  AND vtiger_project.projectid > 0","testtz");
+			$user = new Users();
+			$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot); // testtz
+			$current_user = $user;
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','createdtime'));
+			$queryGenerator->addCondition('createdtime','2015-04-16 10:00','b');
+			$queryGenerator->addCondition('createdtime','2015-06-16 08:00','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.mycreatedtime FROM vtiger_project  WHERE vtiger_project.mydeleted=0 AND ( vtiger_project.mycreatedtime < '2015-04-16 08:00:00')  OR ( vtiger_project.mycreatedtime > '2015-06-16 06:00:00')  AND vtiger_project.projectid > 0","testtz");
+			$current_user = $holdcuser;
+		} else {
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testdmy");
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+			$queryGenerator->addCondition('startdate','04-16-2015','b');
+			$queryGenerator->addCondition('targetenddate','06-16-2015','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-16-04')  OR ( vtiger_project.targetenddate > '2015-16-06')  AND vtiger_project.projectid > 0","testdmy WRONG");
+			/////////
+			$user = new Users();
+			$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
+			$current_user = $user;
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+			$queryGenerator->addCondition('startdate','04-16-2015','b');
+			$queryGenerator->addCondition('targetenddate','06-16-2015','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testmdy");
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+			$queryGenerator->addCondition('startdate','16-04-2015','b');
+			$queryGenerator->addCondition('targetenddate','16-06-2015','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-16-04')  OR ( vtiger_project.targetenddate > '2015-16-06')  AND vtiger_project.projectid > 0","testmdy WRONG");
+			/////////
+			$user = new Users();
+			$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
+			$current_user = $user;
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','startdate','targetenddate'));
+			$queryGenerator->addCondition('startdate','2015-04-16','b');
+			$queryGenerator->addCondition('targetenddate','2015-06-16','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_project.startdate, vtiger_project.targetenddate FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate < '2015-04-16')  OR ( vtiger_project.targetenddate > '2015-06-16')  AND vtiger_project.projectid > 0","testymd");
+			/////////
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','createdtime'));
+			$queryGenerator->addCondition('createdtime','2015-04-16 10:00','b');
+			$queryGenerator->addCondition('createdtime','2015-06-16 08:00','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_crmentity.createdtime < '2015-04-16 10:00:00')  OR ( vtiger_crmentity.createdtime > '2015-06-16 08:00:00')  AND vtiger_project.projectid > 0","testtz");
+			$user = new Users();
+			$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot); // testtz
+			$current_user = $user;
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname','createdtime'));
+			$queryGenerator->addCondition('createdtime','2015-04-16 10:00','b');
+			$queryGenerator->addCondition('createdtime','2015-06-16 08:00','a','OR');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals($query,"SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_crmentity.createdtime < '2015-04-16 08:00:00')  OR ( vtiger_crmentity.createdtime > '2015-06-16 06:00:00')  AND vtiger_project.projectid > 0","testtz");
+			$current_user = $holdcuser;
+		}
 	}
 
 	public function testQueryBirthDate() {
@@ -884,75 +829,5 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($query,$sqlresult,"Birthday testmdy");
 		$current_user = $holdcuser;
 	}
-
-	public function testQueryStringWithCommas() {
-		global $current_user;
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','accountname'));
-		$queryGenerator->addCondition('accountname','Hermar Inc','e');
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname = 'Hermar Inc')  AND vtiger_account.accountid > 0";
-		$this->assertEquals($sqlresult,$query,"String no commas");
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','accountname'));
-		$queryGenerator->addCondition('accountname','Hermar, Inc','e');
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
-		$this->assertEquals($sqlresult,$query,"String with commas");
-	}
-
-	public function testQueryHasConditions() {
-		global $current_user;
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','accountname'));
-		$this->assertFalse($queryGenerator->hasWhereConditions(),'Does not have conditions');
-		$queryGenerator->addCondition('accountname','Hermar Inc','e');
-		$this->assertTrue($queryGenerator->hasWhereConditions(),'Has conditions');
-		$queryGenerator->addCondition('accountname','Hermar, Inc','e',QueryGenerator::$OR);
-		$this->assertTrue($queryGenerator->hasWhereConditions(),'Has conditions');
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname = 'Hermar Inc')  OR ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
-		$this->assertEquals($sqlresult,$query,"Query Has Conditions");
-	}
-
-	public function testQueryInitCustomView() {
-		global $current_user;
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->initForCustomViewById(5); // Prospect Accounts
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.account_type = 'Prospect') )) AND vtiger_account.accountid > 0";
-		$this->assertEquals($sqlresult,$query,"Init CV Prospect Accounts (5)");
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->initForCustomViewById(5); // Prospect Accounts
-		$queryGenerator->addCondition('accountname','Hermar, Inc','e',QueryGenerator::$AND);
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.account_type = 'Prospect') )) AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
-		$this->assertEquals($sqlresult,$query,"Init CV Prospect Accounts (5)");
-	}
-
-	public function testQueryJoinWithInitialGlue() {
-		global $current_user;
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','accountname'));
-		$queryGenerator->startGroup($queryGenerator::$OR);
-		$queryGenerator->addCondition('accountname','Hermar Inc','e');
-		$queryGenerator->endGroup();
-		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_account.accountname = 'Hermar Inc') ) AND vtiger_account.accountid > 0";
-		$this->assertEquals($sqlresult,$query,"Query With Initial OR");
-	}
-
-	public function testQueryOnSeparateSpecialTables() {
-		global $current_user;
-		$queryGenerator = new QueryGenerator('Accounts', $current_user);
-		$queryGenerator->setFields(array('id','bill_street','ship_country'));
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,'SELECT vtiger_account.accountid, vtiger_accountbillads.bill_street, vtiger_accountshipads.ship_country FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid INNER JOIN vtiger_accountshipads ON vtiger_account.accountid = vtiger_accountshipads.accountaddressid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0');
-		$queryGenerator = new QueryGenerator('Invoice', $current_user);
-		$queryGenerator->setFields(array('id','bill_street','ship_country'));
-		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query,'SELECT vtiger_invoice.invoiceid, vtiger_invoicebillads.bill_street, vtiger_invoiceshipads.ship_country FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid INNER JOIN vtiger_invoicebillads ON vtiger_invoice.invoiceid = vtiger_invoicebillads.invoicebilladdressid INNER JOIN vtiger_invoiceshipads ON vtiger_invoice.invoiceid = vtiger_invoiceshipads.invoiceshipaddressid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0');
-	}
-
 }
 ?>
