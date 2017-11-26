@@ -360,8 +360,6 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 	 * params
 	 */
 	function testgetReturnPathProvidor() {
-		$lang = return_module_language('en_us', 'Reports');
-		$mes = date('m')-1;
 		return array(
 			array('tsolucio.com','','info@tsolucio.com','normal'),
 			array('ispconfig.tsolucio.com','','info@tsolucio.com','superdomain'),
