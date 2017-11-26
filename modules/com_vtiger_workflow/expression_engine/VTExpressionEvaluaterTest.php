@@ -325,7 +325,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 			4 => 'Array
 (
     [0] => 2016-05-22
-    [1] => 2
+    [1] => 2,00000
     [2] =>  
     [3] => 1
 )
@@ -355,7 +355,7 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 			4 => 'Array
 (
     [0] => 2016-05-22
-    [1] => 2
+    [1] => 2,00000
     [2] => 
     [3] => 1
 )
