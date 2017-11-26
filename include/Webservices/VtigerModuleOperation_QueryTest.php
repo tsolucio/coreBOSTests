@@ -55,21 +55,6 @@ class VtigerModuleOperation_QueryTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals("SELECT vtiger_invoice.subject,vtiger_invoice.salesorderid,vtiger_invoice.customerno,vtiger_invoice.contactid,vtiger_invoice.invoicedate,vtiger_invoice.duedate,vtiger_invoice.purchaseorder,vtiger_invoice.adjustment,vtiger_invoice.salescommission,vtiger_invoice.exciseduty,vtiger_invoice.subtotal,vtiger_invoice.total,vtiger_invoice.taxtype,vtiger_invoice.discount_percent,vtiger_invoice.discount_amount,vtiger_invoice.s_h_amount,vtiger_invoice.accountid,vtiger_invoice.invoicestatus,vtiger_crmentity.smownerid,vtiger_crmentity.createdtime,vtiger_crmentity.modifiedtime,vtiger_crmentity.modifiedby,vtiger_invoice.currency_id,vtiger_invoice.conversion_rate,vtiger_invoice.invoice_no,vtiger_crmentity.smcreatorid,vtiger_invoicebillads.bill_street,vtiger_invoiceshipads.ship_street,vtiger_invoicebillads.bill_city,vtiger_invoiceshipads.ship_city,vtiger_invoicebillads.bill_state,vtiger_invoiceshipads.ship_state,vtiger_invoicebillads.bill_code,vtiger_invoiceshipads.ship_code,vtiger_invoicebillads.bill_country,vtiger_invoiceshipads.ship_country,vtiger_invoicebillads.bill_pobox,vtiger_invoiceshipads.ship_pobox,vtiger_invoice.terms_conditions,vtiger_invoice.tandc,vtiger_crmentity.description,vtiger_invoice.invoiceid FROM vtiger_invoice LEFT JOIN vtiger_crmentity ON vtiger_invoice.invoiceid=vtiger_crmentity.crmid LEFT JOIN vtiger_invoicebillads ON vtiger_invoice.invoiceid=vtiger_invoicebillads.invoicebilladdressid LEFT JOIN vtiger_invoiceshipads ON vtiger_invoice.invoiceid=vtiger_invoiceshipads.invoiceshipaddressid   WHERE  vtiger_crmentity.deleted=0 LIMIT 100;",$actual);
 	}
 
-	public function testIncorrectModule() {
-		$this->expectException('WebServiceException');
-		$actual = self::$vtModuleOperation->wsVTQL2SQL('select nofield from NoModule;',$meta,$queryRelatedModules);
-	}
-
-	public function testIncorrectField() {
-		$this->expectException('WebServiceException');
-		$actual = self::$vtModuleOperation->wsVTQL2SQL('select accountname,nofield from Accounts;',$meta,$queryRelatedModules);
-	}
-
-	public function testIncorrectQuote() {
-		$this->expectException('Exception');
-		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id,firstname,lastname from Contacts where firstname LIKE "%ele%" LIMIT 0, 250;',$meta,$queryRelatedModules);
-	}
-
 	public function testParenthesis() {
 		global $current_user;
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Leads where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01';",$meta,$queryRelatedModules);
@@ -126,6 +111,12 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id,firstname,lastname from Contacts where firstname LIKE '%ele%' LIMIT 0, 250;",$meta,$queryRelatedModules);
 		$this->assertEquals("SELECT vtiger_contactdetails.contactid,vtiger_contactdetails.firstname,vtiger_contactdetails.lastname FROM vtiger_contactdetails LEFT JOIN vtiger_crmentity ON vtiger_contactdetails.contactid=vtiger_crmentity.crmid   WHERE (vtiger_contactdetails.firstname LIKE '%ele%') AND  vtiger_crmentity.deleted=0 LIMIT 0,250;",$actual);
+
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id,firstname,lastname from Contacts where (firstname LIKE '%''ele%');",$meta,$queryRelatedModules);
+		$this->assertEquals("select vtiger_contactdetails.contactid, vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_contactdetails.firstname LIKE '%\'ele%') )) AND vtiger_contactdetails.contactid > 0 ",$actual);
+
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id,firstname,lastname from Contacts where Contacts.firstname LIKE '%''ele%';",$meta,$queryRelatedModules);
+		$this->assertEquals("select vtiger_contactdetails.contactid, vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_contactdetails.reportsto   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_contactdetailscontact_id.firstname LIKE '%\'ele%') ) AND vtiger_contactdetails.contactid > 0 ",$actual);
 	}
 
 	public function testConditions() {
@@ -322,6 +313,21 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		$this->assertEquals("select vtiger_potential.potentialname, vtiger_campaigncampaignid.campaignname as campaignscampaignname, vtiger_potential.potentialid  FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountrelated_to ON vtiger_accountrelated_to.accountid=vtiger_potential.related_to LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailsrelated_to ON vtiger_contactdetailsrelated_to.contactid=vtiger_potential.related_to LEFT JOIN vtiger_campaign AS vtiger_campaigncampaignid ON vtiger_campaigncampaignid.campaignid=vtiger_potential.campaignid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_accountrelated_to.accountid = '75')  OR (vtiger_contactdetailsrelated_to.contactid = '1084') ) AND vtiger_potential.potentialid > 0 ",$actual);
 
 		$GetRelatedList_ReturnOnlyQuery = false;
+	}
+
+	public function testIncorrectModule() {
+		$this->expectException('WebServiceException');
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select nofield from NoModule;',$meta,$queryRelatedModules);
+	}
+
+	public function testIncorrectField() {
+		$this->expectException('WebServiceException');
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select accountname,nofield from Accounts;',$meta,$queryRelatedModules);
+	}
+
+	public function testIncorrectQuote() {
+		$this->expectException('Exception');
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id,firstname,lastname from Contacts where firstname LIKE "%ele%" LIMIT 0, 250;',$meta,$queryRelatedModules);
 	}
 }
 ?>
