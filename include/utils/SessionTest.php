@@ -88,6 +88,22 @@ class testSession extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Method testDeleteStartsWith
+	 * @test
+	 */
+	public function testDeleteStartsWith() {
+		$sessionAtStart = $_SESSION;
+		coreBOS_Session::set('ispt:cbtest1','testing');
+		coreBOS_Session::set('ispt:cbtest2','testing');
+		$expected = $sessionAtStart;
+		$expected['ispt:cbtest1'] = 'testing';
+		$expected['ispt:cbtest2'] = 'testing';
+		$this->assertEquals($expected, $_SESSION, "testDeleteStartsWith initial");
+		coreBOS_Session::deleteStartsWith('ispt:cbtest');
+		$this->assertEquals($sessionAtStart, $_SESSION, "testDeleteStartsWith deleted");
+	}
+
+	/**
 	 * Method testSessionMerge
 	 * @test
 	 */
