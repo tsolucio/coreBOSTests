@@ -168,6 +168,7 @@ class testCommonUtils extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	function testisInsideApplication() {
+		global $root_directory;
 		$this->assertTrue(isInsideApplication('modules'),"isInsideApplication modules");
 		$this->assertTrue(isInsideApplication('modules/cbupdater'),"isInsideApplication modules/cbupdater");
 		$this->assertTrue(isInsideApplication('modules/cbupdater/cbupdater.php'),"isInsideApplication modules/cbupdater/cbupdater.php");
@@ -180,6 +181,8 @@ class testCommonUtils extends PHPUnit_Framework_TestCase {
 		$this->assertFalse(isInsideApplication('\etc'),"isInsideApplication \etc");
 		$this->assertFalse(isInsideApplication('modules\\cbupdater\\cbupdater.php'),"isInsideApplication modules\\cbupdater\\cbupdater.php");
 		$this->assertFalse(isInsideApplication('modules\\\\cbupdater\\\\cbupdater.php'),'isInsideApplication modules\\\\cbupdater\\\\cbupdater.php');
+		$this->assertTrue(isInsideApplication($root_directory.'index.php'),'isInsideApplication $root_directory');
+		$this->assertFalse(isInsideApplication('\\etc'),'isInsideApplication \\etc');
 	}
 
 	/**
