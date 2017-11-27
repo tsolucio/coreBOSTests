@@ -84,6 +84,7 @@ class testSession extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
 		$_SESSION['directset1']['directset2'] = 'directset2';
 		$this->assertEquals('directset2', coreBOS_Session::get('directset1^directset2','exists'),"directset1 retrieve existent");
+		coreBOS_Session::delete('directset1');
 	}
 
 	/**
@@ -91,6 +92,7 @@ class testSession extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function testSessionMerge() {
+		$sessionAtStart = $_SESSION;
 		coreBOS_Session::set('cbtest1^cbtest1','testing');
 		coreBOS_Session::set('cbtest1^cbtest2','testingupdate');
 		coreBOS_Session::set('cbtest1^cbtest3^cbtest4','testing4');
@@ -109,7 +111,8 @@ class testSession extends PHPUnit_Framework_TestCase {
 			),
 			'cbtest3' => 'testing3',
 		);
-		$this->assertEquals($expectedstart, $_SESSION,"testSessionMerge setting");
+		$expectedstart = array_merge($sessionAtStart, $expectedstart);
+		$this->assertEquals($expectedstart, $_SESSION, "testSessionMerge setting");
 		$values = array(
 			'cbtest1' => 'no array',
 			'cbtest2' => 'na 2',
@@ -120,6 +123,7 @@ class testSession extends PHPUnit_Framework_TestCase {
 			'cbtest2' => 'na 2',
 			'cbtest3' => 'testing3',
 		);
+		$expected = array_merge($sessionAtStart, $expected);
 		$this->assertEquals($expected, $_SESSION,"testSessionMerge overwrite");
 		$sn = coreBOS_Session::getSessionName();
 		session_name($sn);

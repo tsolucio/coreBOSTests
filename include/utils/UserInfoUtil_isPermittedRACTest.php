@@ -210,6 +210,8 @@ class testUserInfoUtil_isPermittedRACTest extends PHPUnit_Framework_TestCase {
 		// test that user testes has access to product 2617
 		$actual = isPermitted('Products', 'DetailView', 2617);
 		$this->assertEquals('yes', $actual, "testpermittedRAC testes access Products 2617");
+		coreBOS_Session::delete('HelpDesk%DetailView%26368');
+		coreBOS_Session::delete('Products%DetailView%26178');
 		// Activate the RAC rule
 		self::setUpBeforeClass();
 		// test that user testes has access to help desk 2636
@@ -227,6 +229,7 @@ class testUserInfoUtil_isPermittedRACTest extends PHPUnit_Framework_TestCase {
 			} else {
 				$expected = 'no';
 			}
+			coreBOS_Session::delete('HelpDesk%DetailView%2636'.$uid);
 			$actual = isPermitted('HelpDesk', 'DetailView', 2636);
 			$this->assertEquals($expected, $actual, "testpermittedRAC $uname RAC no access HelpDesk 2636");
 		}

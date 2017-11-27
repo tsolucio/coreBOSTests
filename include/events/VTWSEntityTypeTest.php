@@ -27,6 +27,7 @@ class VTWSEntityTypeTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testVTWSEntityType() {
 		global $current_user, $adb;
+		$current_user = Users::getActiveAdminUser();
 		$setype = 'Potentials';
 		$et = new VTWSEntityType($setype,$current_user);
 		$this->assertInstanceOf(VTWSEntityType::class,$et,"testConstruct class VTWSEntityType");
