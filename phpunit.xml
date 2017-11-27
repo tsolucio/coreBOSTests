@@ -4,26 +4,29 @@
 	convertWarningsToExceptions="false"
 	backupGlobals="false">
 	<testsuites>
-		<testsuite name="QGTest">
-			<directory>./include/QueryGenerator</directory>
-		</testsuite>
-		<testsuite name="WSTest">
-			<directory>./include/Webservices</directory>
-		</testsuite>
-		<testsuite name="incFields">
-			<directory>./include/fields</directory>
-		</testsuite>
-		<testsuite name="incUtils">
-			<directory>./include/utils</directory>
+		<testsuite name="cbMQTM">
+			<directory>./include/cbmqtm</directory>
 		</testsuite>
 		<testsuite name="PearDBTest">
 			<directory>./include/database</directory>
 		</testsuite>
-		<testsuite name="cbMQTM">
-			<directory>./include/cbmqtm</directory>
+		<testsuite name="dbBackup">
+			<directory>./include/db_backup</directory>
 		</testsuite>
 		<testsuite name="incEvents">
 			<directory>./include/events</directory>
+		</testsuite>
+		<testsuite name="incFields">
+			<directory>./include/fields</directory>
+		</testsuite>
+		<testsuite name="QGTest">
+			<directory>./include/QueryGenerator</directory>
+		</testsuite>
+		<testsuite name="incUtils">
+			<directory>./include/utils</directory>
+		</testsuite>
+		<testsuite name="WSTest">
+			<directory>./include/Webservices</directory>
 		</testsuite>
 		<testsuite name="WFTest">
 			<directory>./modules/com_vtiger_workflow</directory>
