@@ -526,4 +526,16 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 		$this->assertEquals('Contacts', getSalesEntityType('1090'), 'Contacts setype');
 	}
 
+	/**
+	 * Method testUserCount
+	 * @test
+	 */
+	function testUserCount() {
+		$expected = array(
+			'user' => 10,
+			'admin' => 1,
+			'nonadmin' => 9,
+		);
+		$this->assertEquals($expected, UserCount(), 'User count');
+	}
 }
