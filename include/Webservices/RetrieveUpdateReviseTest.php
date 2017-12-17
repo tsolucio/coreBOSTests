@@ -62,7 +62,6 @@ class WSRetrieveUpdateReviseTest extends PHPUnit_Framework_TestCase {
 			'createdtime' => '2015-04-29 15:25:59',
 			'modifiedtime' => '2015-05-15 07:04:31',
 			'modifiedby' => '19x1',
-			'created_user_id' => '19x1',
 			'expectedresponse' => '--None--',
 			'expectedrevenue' => '7273.000000',
 			'budgetcost' => '8889.000000',
@@ -74,6 +73,7 @@ class WSRetrieveUpdateReviseTest extends PHPUnit_Framework_TestCase {
 			'actualsalescount' => '2024',
 			'actualroi' => '3274.000000',
 			'description' => 'Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur dictum. Phasellus in felis. Nulla tempor augue ac ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce',
+			'created_user_id' => '19x1',
 			'id' => '1x4973',
 		);
 		$this->assertSame($expected, $actual, 'retrieve campaign usrdota0x');
