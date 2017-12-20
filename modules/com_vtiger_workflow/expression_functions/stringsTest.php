@@ -70,6 +70,9 @@ class workflowfunctionsstringsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('', $actual);
 		$actual = __vt_concat(array(0));
 		$this->assertEquals(0, $actual);
+		/////////////////
+		$actual = __cb_num2str(array('2017.34','en'));
+		$this->assertEquals('TWO THOUSAND SEVENTEEN point THIRTY FOUR', $actual);
 	}
 
 	/**
