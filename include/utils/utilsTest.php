@@ -258,4 +258,17 @@ class testutils extends PHPUnit_Framework_TestCase {
 		$currentModule = $holdcurrentModule;
 	}
 
+	/**
+	 * Method testget_themes
+	 * @test
+	 */
+	public function testget_themes() {
+		$expected = array(
+			'alphagrey' => 'alphagrey',
+			'bluelagoon' => 'bluelagoon',
+			'softed' => 'softed',
+			'woodspice' => 'woodspice',
+		);
+		$this->assertEquals($expected, get_themes(),'get_themes');
+	}
 }

@@ -541,4 +541,13 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 		);
 		$this->assertEquals($expected, UserCount(), 'User count');
 	}
+
+	/**
+	 * Method testpicklistHasDependency
+	 * @test
+	 */
+	function testpicklistHasDependency() {
+		$this->assertTrue(picklistHasDependency('cf_729', 'Accounts'), 'picklist dependency on Accounts CF');
+		$this->assertFalse(picklistHasDependency('industry', 'Accounts'), 'picklist dependency on Accounts industry');
+	}
 }
