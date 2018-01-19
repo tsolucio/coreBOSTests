@@ -102,6 +102,7 @@ class WSReviseTest extends PHPUnit_Framework_TestCase {
 			'notify_owner' => '0',
 			'id' => '12x1150',
 		);
+		$_FILES = array();
 		$actual = vtws_revise($updateValues, $current_user);
 		$expected = $ObjectValues;
 		$expected['otherphone'] = '123456789';

@@ -86,7 +86,7 @@ Details of Potential are :<br />
 <br />
 Potential No:<b>POT5</b><br />
 Potential Name:<b>Non Magna Industries</b><br />
-Amount:<b>80.786</b><br />
+Amount:<b>80.786,00</b><br />
 Expected Close Date:<b>06-10-2016</b><br />
 Type:<b>--None--</b><br />
 <br />
@@ -115,6 +115,7 @@ Activity Notification Details:
 Subject : $subject
 Start date and time : $date_start $time_start ($(general : (__VtigerMeta__) dbtimezone))
 End date and time : $due_date $time_end ($(general : (__VtigerMeta__) dbtimezone))
+Follow up date: $followupdt
 Status : $eventstatus
 Priority : $taskpriority
 Related To : $(rel_id : (Leads) lastname)$(rel_id : (Leads) firstname)$(rel_id : (Accounts) accountname)$(rel_id : (Potentials) potentialname)$(rel_id : (HelpDesk) ticket_title)
@@ -131,6 +132,7 @@ Activity Notification Details:
 Subject : Zheng Zu
 Start date and time : 07-07-2017 16:49:00 (UTC)
 End date and time : 07-07-2017 17:50:00 (UTC)
+Follow up date: 
 Status : Planned
 Priority : Medium
 Related To : Ligula Inc.
@@ -148,6 +150,7 @@ Activity Notification Details:
 Subject : Astrid Mordo
 Start date and time : 2015-05-01 03:16:00 (UTC)
 End date and time : 2015-05-01 10:38:00 (UTC)
+Follow up date: 
 Status : Planned
 Priority : High
 Related To : Sherpa Corp
@@ -165,10 +168,11 @@ Activity Notification Details:
 Subject : Salamandra
 Start date and time : 03-31-2015 11:43:00 (UTC)
 End date and time : 03-31-2015 12:16:00 (UTC)
+Follow up date: 
 Status : In Progress
 Priority : Low
-Related To : 
-Contacts List :  
+Related To : JuveraNickolas
+Contacts List : Kloska Aaron
 Location : Hamburg';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual, 'Render Calendar email body');
@@ -182,10 +186,11 @@ Activity Notification Details:
 Subject : Salamandra
 Start date and time : 03-31-2015 11:43:00 (UTC)
 End date and time : 03-31-2015 12:16:00 (UTC)
+Follow up date: 
 Status : In Progress
 Priority : Low
-Related To : 
-Contacts List :  
+Related To : JuveraNickolas
+Contacts List : Kloska Aaron
 Location : Hamburg';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual, 'Render Calendar email body');

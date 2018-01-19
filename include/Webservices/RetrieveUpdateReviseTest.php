@@ -76,16 +76,16 @@ class WSRetrieveUpdateReviseTest extends PHPUnit_Framework_TestCase {
 			'created_user_id' => '19x1',
 			'id' => '1x4973',
 		);
-		$this->assertSame($expected, $actual, 'retrieve campaign usrdota0x');
+		$this->assertEquals($expected, $actual, 'retrieve campaign usrdota0x');
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$actual = vtws_retrieve($campaignID.'x4973', $user);
-		$this->assertSame($expected, $actual, 'retrieve campaign usrcomd0x');
+		$this->assertEquals($expected, $actual, 'retrieve campaign usrcomd0x');
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$actual = vtws_retrieve($campaignID.'x4973', $user);
-		$this->assertSame($expected, $actual, 'retrieve campaign usrcoma3dot');
+		$this->assertEquals($expected, $actual, 'retrieve campaign usrcoma3dot');
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
 		$actual = vtws_retrieve($campaignID.'x4973', $user);
-		$this->assertSame($expected, $actual, 'retrieve campaign usrdota3comdollar');
+		$this->assertEquals($expected, $actual, 'retrieve campaign usrdota3comdollar');
 		/// end
 		$current_user = $holduser;
 	}

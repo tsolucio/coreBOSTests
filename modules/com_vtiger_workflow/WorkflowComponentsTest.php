@@ -33,7 +33,7 @@ class WorkflowComponentsTest extends PHPUnit_Framework_TestCase {
 		ob_start();
 		vtJsonDependentModules($adb, array('modulename' => 'Invoice'));
 		$depmods_str = ob_get_clean();
-		$expected = '{"count":5,"entities":{"CobroPago":{"fieldname":"related_id","modulelabel":"Payment"},"Assets":{"fieldname":"invoiceid","modulelabel":"Assets"},"InventoryDetails":{"fieldname":"related_to","modulelabel":"Inventory Details"},"cbCalendar":{"fieldname":"rel_id","modulelabel":"To Dos"},"cbtranslation":{"fieldname":"translates","modulelabel":"Translations"}}}';
+		$expected = '{"count":5,"entities":{"CobroPago":{"fieldname":"related_id","modulelabel":"Payments"},"Assets":{"fieldname":"invoiceid","modulelabel":"Assets"},"InventoryDetails":{"fieldname":"related_to","modulelabel":"Inventory Details"},"cbCalendar":{"fieldname":"rel_id","modulelabel":"To Dos"},"cbtranslation":{"fieldname":"translates","modulelabel":"Translations"}}}';
 		$this->assertEquals($expected, $depmods_str, 'Invoice deps string');
 		$depmods_arr = json_decode($depmods_str, true);
 		$expected = array(
@@ -65,7 +65,7 @@ class WorkflowComponentsTest extends PHPUnit_Framework_TestCase {
 		ob_start();
 		vtJsonDependentModules($adb, array('modulename' => 'SalesOrder'));
 		$depmods_str = ob_get_clean();
-		$expected = '{"count":4,"entities":{"CobroPago":{"fieldname":"related_id","modulelabel":"Payment"},"InventoryDetails":{"fieldname":"related_to","modulelabel":"Inventory Details"},"cbCalendar":{"fieldname":"rel_id","modulelabel":"To Dos"},"cbtranslation":{"fieldname":"translates","modulelabel":"Translations"}}}';
+		$expected = '{"count":4,"entities":{"CobroPago":{"fieldname":"related_id","modulelabel":"Payments"},"InventoryDetails":{"fieldname":"related_to","modulelabel":"Inventory Details"},"cbCalendar":{"fieldname":"rel_id","modulelabel":"To Dos"},"cbtranslation":{"fieldname":"translates","modulelabel":"Translations"}}}';
 		$this->assertEquals($expected, $depmods_str, 'SalesOrder deps string');
 		$depmods_arr = json_decode($depmods_str, true);
 		$expected = array(
