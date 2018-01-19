@@ -271,4 +271,15 @@ class testutils extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertEquals($expected, get_themes(),'get_themes');
 	}
+
+	/**
+	 * Method testisValueInPicklist
+	 * @test
+	 */
+	public function testisValueInPicklist() {
+		$this->assertTrue(isValueInPicklist('Banking', 'industry'), 'isValueInPicklist 1');
+		$this->assertTrue(isValueInPicklist('In Service', 'assetstatus'), 'isValueInPicklist 1');
+		$this->assertFalse(isValueInPicklist('NOTINBanking', 'industry'), 'isValueInPicklist 1');
+		$this->assertFalse(isValueInPicklist('NOTInService', 'assetstatus'), 'isValueInPicklist 1');
+	}
 }
