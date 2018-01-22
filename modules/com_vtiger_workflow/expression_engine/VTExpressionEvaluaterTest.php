@@ -367,6 +367,56 @@ class VTExpressionEvaluaterTest extends PHPUnit_Framework_TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('2016-06-02', $exprEvaluation);
+		/////////////////////////
+		$entityId = '11x74'; // Account
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "stringposition(cf_732, ' |##| ')";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => cf_732
+)
+',
+			1 => ' |##| ',
+			2 => 'Array
+(
+    [0] => Adipose 3 |##| Chronos |##| Earth
+    [1] =>  |##| 
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(9, $exprEvaluation);
+		/////////////////////////
+		$entityId = '11x74'; // Account
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "stringreplace(' |##| ', ', ',cf_732 )";
+		$expectedresult = array(
+			0 => ' |##| ',
+			1 => ', ',
+			2 => 'VTExpressionSymbol Object
+(
+    [value] => cf_732
+)
+',
+			3 => 'Array
+(
+    [0] =>  |##| 
+    [1] => , 
+    [2] => Adipose 3 |##| Chronos |##| Earth
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('Adipose 3, Chronos, Earth', $exprEvaluation);
 	}
 
 	/**
