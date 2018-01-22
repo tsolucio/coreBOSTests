@@ -25,13 +25,13 @@ class testcbSettings extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	public function testcbSettingsAll() {
-		$actual = coreBOS_Settings::SettingExists('cbSettingsTest');
+		$actual = coreBOS_Settings::settingExists('cbSettingsTest');
 		$this->assertFalse($actual,'testcbSettings not exist');
 		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null); // test default value
 		$this->assertNull($actual,'testcbSettings not exist so null returned');
 		// create
 		$actual = coreBOS_Settings::setSetting('cbSettingsTest','testvalue');
-		$actual = coreBOS_Settings::SettingExists('cbSettingsTest');
+		$actual = coreBOS_Settings::settingExists('cbSettingsTest');
 		$this->assertTrue($actual,'testcbSettings exist');
 		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
 		$this->assertEquals('testvalue',$actual,'testcbSettings get value');
@@ -46,7 +46,7 @@ class testcbSettings extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('testupdate',$actual,'testcbSettings get value after update');
 		// delete
 		$actual = coreBOS_Settings::delSetting('cbSettingsTest');
-		$actual = coreBOS_Settings::SettingExists('cbSettingsTest');
+		$actual = coreBOS_Settings::settingExists('cbSettingsTest');
 		$this->assertFalse($actual,'testcbSettings not exist after delete');
 		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
 		$this->assertNull($actual,'testcbSettings not exist so null returned after delete');
