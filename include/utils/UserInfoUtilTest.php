@@ -310,5 +310,63 @@ class testUserInfoUtil extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($expected, $actual, "DefaultSharingAction");
 	}
 
+	/**
+	 * Method testgetRoleInformation
+	 * @test
+	 */
+	public function testgetRoleInformation() {
+		$actual = getRoleInformation('H1');
+		$expected = array('H1' => array('Organisation', 'H1', '0', null));
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleInformation('H2');
+		$expected = array('H2' => array('CEO', 'H1::H2', '1', 'H1'));
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleInformation('H3');
+		$expected = array('H3' => array('Vice President', 'H1::H2::H3', '2', 'H2'));
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleInformation('H4');
+		$expected = array('H4' => array('Sales Manager', 'H1::H2::H3::H4', '3', 'H3'));
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleInformation('H5');
+		$expected = array('H5' => array('Sales Man', 'H1::H2::H3::H4::H5', '4', 'H4'));
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleInformation('H6');
+		$expected = array('H6' => array('NoCreate', 'H1::H2::H3::H6', '3', 'H3'));
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * Method testgetAllRoleDetails
+	 * @test
+	 */
+	public function testgetAllRoleDetails() {
+		$actual = getAllRoleDetails();
+		$expected = array(
+			'H1' => array('Organisation', '0', 'H2'),
+			'H2' => array('CEO', '1', 'H3'),
+			'H3' => array('Vice President', '2', 'H4,H6'),
+			'H4' => array('Sales Manager', '3', 'H5'),
+			'H5' => array('Sales Man', '4', ''),
+			'H6' => array('NoCreate', '3', ''),
+		);
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * Method testgetAllProfileInfo
+	 * @test
+	 */
+	public function testgetAllProfileInfo() {
+		$actual = getAllProfileInfo();
+		$expected = array(
+			1 => 'Administrator',
+			2 => 'Sales Profile',
+			3 => 'Support Profile',
+			4 => 'Guest Profile',
+			5 => 'NoCreate',
+			6 => 'TestUserDefaultProfile',
+		);
+		$this->assertEquals($expected, $actual);
+	}
 }
 ?>
