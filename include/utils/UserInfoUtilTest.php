@@ -368,5 +368,46 @@ class testUserInfoUtil extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertEquals($expected, $actual);
 	}
+
+	/**
+	 * Method testgetRoleUsers
+	 * @test
+	 */
+	public function testgetRoleUsers() {
+		$actual = getRoleUsers('H1');
+		$expected = array();
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleUsers('H2');
+		$expected = array(1 => ' Administrator');
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleUsers('H3');
+		$expected = array(
+			5 => 'cbTest testdmy',
+			6 => 'cbTest testmdy',
+			7 => 'cbTest testymd',
+			8 => 'cbTest testes',
+			9 => 'cbTest testinactive',
+			10 => 'cbTest testtz',
+			12 => 'cbTest testmcurrency',
+			13 => 'cbTest testtz-3',
+		);
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * Method testgetRoleUserIds
+	 * @test
+	 */
+	public function testgetRoleUserIds() {
+		$actual = getRoleUserIds('H1');
+		$expected = array();
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleUserIds('H2');
+		$expected = array(1);
+		$this->assertEquals($expected, $actual);
+		$actual = getRoleUserIds('H3');
+		$expected = array(5,6,7,8,9,10,12,13,);
+		$this->assertEquals($expected, $actual);
+	}
 }
 ?>
