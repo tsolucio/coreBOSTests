@@ -550,4 +550,24 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 		$this->assertTrue(picklistHasDependency('cf_729', 'Accounts'), 'picklist dependency on Accounts CF');
 		$this->assertFalse(picklistHasDependency('industry', 'Accounts'), 'picklist dependency on Accounts industry');
 	}
+
+	/**
+	 * Method testgetView
+	 * @test
+	 */
+	function testgetView() {
+		$this->assertEquals(getView(''), 'create_view', 'get view empty');
+		$this->assertEquals(getView('edit'), 'edit_view', 'get view edit');
+		$this->assertEquals(getView('junk'), 'create_view', 'get view anything else');
+	}
+
+	/**
+	 * Method testgetBlockId
+	 * @test
+	 */
+	function testgetBlockId() {
+		$this->assertEquals(getBlockId(6, 'LBL_ACCOUNT_INFORMATION'), '9', 'getblockid accounts');
+		$this->assertEquals(getBlockId(4, 'LBL_CONTACT_INFORMATION'), '4', 'getblockid contacts');
+		$this->assertEquals(getBlockId(4, 'non-existent'), '', 'getblockid non-existent');
+	}
 }
