@@ -41,6 +41,29 @@ class workflowfunctionsdatetimeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Method testgetWeekdayDifference
+	 * @test
+	 */
+	public function testgetWeekdayDifference() {
+		$actual = __cb_getWeekdayDifference(array('2017-06-21','2017-06-20'));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_getWeekdayDifference(array('2017-06-20','2017-06-21'));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_getWeekdayDifference(array('2017-06-21','2017-06-21'));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_getWeekdayDifference(array('2017-06-24','2017-06-24'));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_getWeekdayDifference(array('2017-06-24','2017-06-25'));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_getWeekdayDifference(array('2017-06-25','2017-06-21'));
+		$this->assertEquals(3, $actual);
+		$actual = __cb_getWeekdayDifference(array('2017-06-21','2017-06-25'));
+		$this->assertEquals(3, $actual);
+		$actual = __cb_getWeekdayDifference(array('2017-07-01','2017-07-17'));
+		$this->assertEquals(10, $actual);
+	}
+
+	/**
 	 * Method testaddDays
 	 * @test
 	 */
