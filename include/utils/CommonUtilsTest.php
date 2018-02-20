@@ -401,9 +401,9 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 	 * @test
 	 * @dataProvider testgetReturnPathProvidor
 	 */
-	function testgetReturnPath($host, $from_email, $expected, $msg) {
-		$this->assertEquals($expected, getReturnPath($host, $from_email), $msg);
-	}
+// 	function testgetReturnPath($host, $from_email, $expected, $msg) {
+// 		$this->assertEquals($expected, getReturnPath($host, $from_email), $msg);
+// 	}
 
 	/**
 	 * Method testgetrecurringObjValueProvidor
