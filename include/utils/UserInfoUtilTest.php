@@ -336,6 +336,27 @@ class testUserInfoUtil extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Method testgetRoleAndSubordinatesHierarchy
+	 * @test
+	 */
+	public function testgetRoleAndSubordinatesHierarchy() {
+		$actual = getRoleAndSubordinatesHierarchy();
+		$expected = array(
+			'H1' => array(
+				'H2' => array(
+					'H3' => array(
+						'H4' => array(
+							'H5' => array()
+						),
+						'H6' => array()
+					)
+				)
+			)
+		);
+		$this->assertSame($expected, $actual);
+	}
+
+	/**
 	 * Method testgetAllRoleDetails
 	 * @test
 	 */
