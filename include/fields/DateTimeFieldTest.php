@@ -104,6 +104,11 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$expectedDateTime = new DateTime('2016-02-25 22:30:00', new DateTimeZone('Europe/Kiev'));
 		$this->assertEquals($expectedDateTime, $fmtdate,'c');
 
+		$testdate = '2018-02-05 09:00';
+		$fmtdate = $dt->convertTimeZone($testdate,'UTC','Europe/Amsterdam');
+		$expectedDateTime = new DateTime('2018-02-05 10:00:00', new DateTimeZone('Europe/Amsterdam'));
+		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+
 		$testdate = '2016-02-25 33:30:00';
 		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
 		$expectedDateTime = new DateTime('2016-02-25 00:00:00', new DateTimeZone('UTC'));
@@ -625,6 +630,31 @@ class tstDateTimeField extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('0k', DateTimeField::twoDigit(' k '), 'space k');
 		$this->assertEquals('kk', DateTimeField::twoDigit('kk'), 'kk');
 		$this->assertEquals('kk', DateTimeField::twoDigit('kkkk'), 'kkkk');
+	}
+
+	/**
+	 * Method testsanitizeTime
+	 * @test
+	 */
+	public function testsanitizeTime() {
+		$this->assertEquals('00:00:00', DateTimeField::sanitizeTime(''), 'empty');
+		$this->assertEquals('00:00:00', DateTimeField::sanitizeTime(0), 'empty 0');
+		$this->assertEquals('00:01:00', DateTimeField::sanitizeTime('1'), 'minutes bad');
+		$this->assertEquals('00:08:00', DateTimeField::sanitizeTime(8), 'minutes bad');
+		$this->assertEquals('00:01:00', DateTimeField::sanitizeTime('01'), 'minutes correct');
+		$this->assertEquals('01:00:00', DateTimeField::sanitizeTime('1:00'), 'hour bad');
+		$this->assertEquals('01:00:00', DateTimeField::sanitizeTime('01:00'), 'hour correct');
+		$this->assertEquals('01:00:00', DateTimeField::sanitizeTime('1:00:00'), 'seconds bad');
+		$this->assertEquals('01:00:00', DateTimeField::sanitizeTime('01:00:00'), 'seconds correct');
+		$this->assertEquals('01:01:00', DateTimeField::sanitizeTime('1:1'), 'hour/min bad');
+		$this->assertEquals('01:10:00', DateTimeField::sanitizeTime('01:10'), 'hour/min correct');
+		$this->assertEquals('01:01:00', DateTimeField::sanitizeTime('1:1:00'), 'seconds bad');
+		$this->assertEquals('01:10:00', DateTimeField::sanitizeTime('01:10:00'), 'seconds correct');
+		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('1:1:1'), 'hour/min bad');
+		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('01:01:1'), 'hour/min bad');
+		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('01:1:01'), 'hour/min bad');
+		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('01:1:1'), 'hour/min bad');
+		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('1:01:1'), 'hour/min bad');
 	}
 
 }
