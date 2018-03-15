@@ -1166,5 +1166,44 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals('SELECT vtiger_account.accountname, vtiger_account.account_no, vtiger_account.phone, vtiger_account.website, vtiger_account.fax, vtiger_account.tickersymbol, vtiger_account.otherphone, vtiger_account.parentid, vtiger_account.email1, vtiger_account.employees, vtiger_account.email2, vtiger_account.ownership, vtiger_account.rating, vtiger_account.industry, vtiger_account.siccode, vtiger_account.account_type, vtiger_account.annualrevenue, vtiger_account.emailoptout, vtiger_account.notify_owner, vtiger_crmentity.smownerid, vtiger_crmentity.createdtime, vtiger_crmentity.modifiedtime, vtiger_crmentity.modifiedby, vtiger_account.isconvertedfromlead, vtiger_account.convertedfromlead, vtiger_crmentity.smcreatorid, vtiger_accountscf.cf_718, vtiger_accountscf.cf_719, vtiger_accountscf.cf_720, vtiger_accountscf.cf_721, vtiger_accountscf.cf_722, vtiger_accountscf.cf_723, vtiger_accountscf.cf_724, vtiger_accountscf.cf_725, vtiger_accountscf.cf_726, vtiger_accountscf.cf_727, vtiger_accountscf.cf_728, vtiger_accountbillads.bill_street, vtiger_accountshipads.ship_street, vtiger_accountbillads.bill_city, vtiger_accountshipads.ship_city, vtiger_accountbillads.bill_state, vtiger_accountshipads.ship_state, vtiger_accountbillads.bill_code, vtiger_accountshipads.ship_code, vtiger_accountbillads.bill_country, vtiger_accountshipads.ship_country, vtiger_accountbillads.bill_pobox, vtiger_accountshipads.ship_pobox, vtiger_crmentity.description, vtiger_accountscf.cf_729, vtiger_accountscf.cf_730, vtiger_accountscf.cf_731, vtiger_accountscf.cf_732, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid INNER JOIN vtiger_accountshipads ON vtiger_account.accountid = vtiger_accountshipads.accountaddressid LEFT JOIN vtiger_users AS vtiger_usersmodifiedby  ON vtiger_crmentity.modifiedby = vtiger_usersmodifiedby.id LEFT JOIN vtiger_groups AS vtiger_groupsmodifiedby  ON vtiger_crmentity.modifiedby = vtiger_groupsmodifiedby.groupid LEFT JOIN vtiger_users AS vtiger_userscreated_user_id  ON vtiger_crmentity.smcreatorid = vtiger_userscreated_user_id.id LEFT JOIN vtiger_groups AS vtiger_groupscreated_user_id  ON vtiger_crmentity.smcreatorid = vtiger_groupscreated_user_id.groupid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0',$query);
 	}
+
+	public function testgetOrderByColumn() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','bill_street','ship_country'));
+		$queryOB = $queryGenerator->getOrderByColumn('bill_street');
+		$this->assertEquals($queryOB,'vtiger_accountbillads.bill_street');
+		$queryOB = $queryGenerator->getOrderByColumn('assigned_user_id');
+		$this->assertEquals($queryOB,'COALESCE(CONCAT(vtiger_users.first_name,vtiger_users.last_name),vtiger_groups.groupname)');
+		///////////////
+		$queryGenerator = new QueryGenerator('Documents', $current_user);
+		$queryGenerator->setFields(array('id','filename'));
+		$queryOB = $queryGenerator->getOrderByColumn('folderid');
+		$this->assertEquals($queryOB,'vtiger_attachmentsfolder.foldername');
+		///////////////
+		$queryGenerator = new QueryGenerator('Project', $current_user);
+		$queryGenerator->setFields(array('id','projectname','projectstatus'));
+		$queryOB = $queryGenerator->getOrderByColumn('projectstatus');
+		$this->assertEquals($queryOB,'vtiger_project.projectstatus');
+		$queryGenerator->addWhereField('linktoaccountscontacts');
+		$queryOB = $queryGenerator->getOrderByColumn('linktoaccountscontacts');
+		$this->assertEquals($queryOB,"COALESCE(vtiger_account.accountname,concat(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname))");
+		///////////////
+		$queryGenerator = new QueryGenerator('Invoice', $current_user);
+		$queryGenerator->setFields(array('id','bill_street','ship_country'));
+		$queryOB = $queryGenerator->getOrderByColumn('bill_street');
+		$this->assertEquals($queryOB,'vtiger_invoicebillads.bill_street');
+		$queryGenerator->addWhereField('currency_id');
+		$queryOB = $queryGenerator->getOrderByColumn('currency_id');
+		$this->assertEquals($queryOB,'vtiger_currency_info.currency_name');
+		$queryGenerator->addWhereField('account_id');
+		$queryOB = $queryGenerator->getOrderByColumn('account_id');
+		$this->assertEquals($queryOB,'vtiger_account.accountname');
+		///////////////
+		$queryOB = $queryGenerator->getOrderByColumn('smownerid');
+		$this->assertEquals($queryOB,'COALESCE(CONCAT(vtiger_users.first_name,vtiger_users.last_name),vtiger_groups.groupname)');
+		$queryOB = $queryGenerator->getOrderByColumn('smcreatorid');
+		$this->assertEquals($queryOB,"CONCAT(vtiger_userscreated_user_id.first_name,' ',vtiger_userscreated_user_id.last_name)");
+	}
 }
 ?>
