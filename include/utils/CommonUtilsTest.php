@@ -570,4 +570,61 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 		$this->assertEquals(getBlockId(4, 'LBL_CONTACT_INFORMATION'), '4', 'getblockid contacts');
 		$this->assertEquals(getBlockId(4, 'non-existent'), '', 'getblockid non-existent');
 	}
+
+	/**
+	 * Method testgetEntityField
+	 * @test
+	 */
+	function testgetEntityField() {
+		$expected = array(
+			'tablename' => 'vtiger_account',
+			'fieldname' => 'accountname',
+			'entityid' => 'accountid',
+		);
+		$this->assertEquals(getEntityField('Accounts'), $expected, 'getEntityField accounts');
+		$expected = array(
+			'tablename' => 'vtiger_contactdetails',
+			'fieldname' => "concat(firstname,' ',lastname)",
+			'entityid' => 'contactid',
+		);
+		$this->assertEquals(getEntityField('Contacts'), $expected, 'getEntityField contacts');
+		$expected = array(
+			'tablename' => 'vtiger_notes',
+			'fieldname' => 'title',
+			'entityid' => 'notesid',
+		);
+		$this->assertEquals(getEntityField('Documents'), $expected, 'getEntityField non-existent');
+		$expected = array(
+			'tablename' => '',
+			'fieldname' => '',
+			'entityid' => '',
+		);
+		$this->assertEquals(getEntityField('non-existent'), $expected, 'getEntityField non-existent');
+		$this->assertEquals(getEntityField(''), $expected, 'getEntityField empty');
+		///////////
+		$expected = array(
+			'tablename' => 'vtiger_account',
+			'fieldname' => 'vtiger_account.accountname',
+			'entityid' => 'accountid',
+		);
+		$this->assertEquals(getEntityField('Accounts', true), $expected, 'getEntityField accounts');
+		$expected = array(
+			'tablename' => 'vtiger_contactdetails',
+			'fieldname' => "concat(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)",
+			'entityid' => 'contactid',
+		);
+		$this->assertEquals(getEntityField('Contacts', true), $expected, 'getEntityField contacts');
+		$expected = array(
+			'tablename' => 'vtiger_notes',
+			'fieldname' => 'vtiger_notes.title',
+			'entityid' => 'notesid',
+		);
+		$this->assertEquals(getEntityField('Documents', true), $expected, 'getEntityField non-existent');
+		$expected = array(
+			'tablename' => '',
+			'fieldname' => '.',
+			'entityid' => '',
+		);
+		$this->assertEquals(getEntityField('non-existent', true), $expected, 'getEntityField non-existent');
+	}
 }
