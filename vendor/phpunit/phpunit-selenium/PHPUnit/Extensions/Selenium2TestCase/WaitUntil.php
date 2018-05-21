@@ -64,6 +64,19 @@ class PHPUnit_Extensions_Selenium2TestCase_WaitUntil
      */
     private $_testCase;
 
+    /**
+     * Default timeout, ms
+     *
+     * @var int
+     */
+    private $_defaultTimeout = 0;
+
+    /**
+     * The sleep interval between iterations, ms
+     *
+     * @var int
+     */
+    private $_defaultSleepInterval = 500;
 
     /**
      * @param PHPUnit_Extensions_Selenium2TestCase $testCase
@@ -75,13 +88,12 @@ class PHPUnit_Extensions_Selenium2TestCase_WaitUntil
 
     /**
      * @param $callback Callback to run until it returns not null or timeout occurs
-     * @param null|int $timeout
-     * @param null|int $sleepInterval the delay between 2 iterations of the callback
+     * @param null $timeout
      * @return mixed
      * @throws PHPUnit_Extensions_Selenium2TestCase_Exception
      * @throws PHPUnit_Extensions_Selenium2TestCase_WebDriverException
      */
-    public function run($callback, $timeout = NULL, $sleepInterval = NULL)
+    public function run($callback, $timeout = NULL)
     {
         if (!is_callable($callback)) {
             throw new PHPUnit_Extensions_Selenium2TestCase_Exception('The valid callback is expected');
@@ -93,15 +105,8 @@ class PHPUnit_Extensions_Selenium2TestCase_WaitUntil
             $this->_testCase->timeouts()->implicitWait(0);
         }
 
-        if(is_null($sleepInterval)){
-            $sleepInterval = PHPUnit_Extensions_Selenium2TestCase::defaultWaitUntilSleepInterval();
-        }
-
-        $sleepInterval *= 1000;
-
-
         if (is_null($timeout)) {
-            $timeout = PHPUnit_Extensions_Selenium2TestCase::defaultWaitUntilTimeout();
+            $timeout = $this->_defaultTimeout;
         }
 
         $timeout /= 1000;
@@ -112,7 +117,7 @@ class PHPUnit_Extensions_Selenium2TestCase_WaitUntil
 
         while (TRUE) {
             try {
-                $result = call_user_func($callback, $this->_testCase);
+                $result = $callback($this->_testCase);
 
                 if (!is_null($result)) {
                     if ($implicitWait) {
@@ -135,7 +140,7 @@ class PHPUnit_Extensions_Selenium2TestCase_WaitUntil
                     PHPUnit_Extensions_Selenium2TestCase_WebDriverException::Timeout, $lastException);
             }
 
-            usleep($sleepInterval);
+            usleep($this->_defaultSleepInterval * 1000);
         }
     }
 }

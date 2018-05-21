@@ -10,6 +10,7 @@
 
 namespace SebastianBergmann\ObjectEnumerator;
 
+use SebastianBergmann\ObjectReflector\ObjectReflector;
 use SebastianBergmann\RecursionContext\Context;
 
 /**
@@ -64,13 +65,10 @@ class Enumerator
             }
         } else {
             $objects[] = $variable;
-            $reflector = new \ReflectionObject($variable);
 
-            foreach ($reflector->getProperties() as $attribute) {
-                $attribute->setAccessible(true);
+            $reflector = new ObjectReflector;
 
-                $value = $attribute->getValue($variable);
-
+            foreach ($reflector->getAttributes($variable) as $value) {
                 if (!is_array($value) && !is_object($value)) {
                     continue;
                 }
