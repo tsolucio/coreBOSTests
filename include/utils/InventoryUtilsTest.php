@@ -81,18 +81,18 @@ class testInventoryUtils extends TestCase {
 		$this->assertEquals($expected, $actual);
 		$actual = getPricesForProducts(2, 9710, 'Services');
 		$expected = array(
-			9710 => 10.802000000000001
+			9710 => 108.02000000000001
 		);
 		$this->assertEquals($expected, $actual);
 		///// cost
 		$actual = getPricesForProducts(1, 2623, 'Products', false);
 		$expected = array(
-			2623 => 0.0
+			2623 => 111.66
 		);
 		$this->assertEquals($expected, $actual);
 		$actual = getPricesForProducts(1, 9710, 'Services', false);
 		$expected = array(
-			9710 => 0.00000000000000
+			9710 => 9.820000000000000
 		);
 		$this->assertEquals($expected, $actual);
 		$actual = getPricesForProducts(2, 2623, 'Products', false);

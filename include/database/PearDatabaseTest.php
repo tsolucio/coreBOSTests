@@ -250,8 +250,11 @@ class PearDatabaseTest extends TestCase
 	 */
 	public function test_result_get_next_record($count,$record,$adb,$result) {
 		$next_rec = $adb->result_get_next_record($result);
-		if($count == 2)
+		if ($count == 2) {
 			$this->assertEquals($record,$next_rec);
+		} else {
+			$this->assertTrue(true);
+		}
 	}
 
 	/**
@@ -339,8 +342,11 @@ class PearDatabaseTest extends TestCase
 	public function test_getNextRow($count,$record,$result,$adb) {
 		$data = $adb->raw_query_result_rowdata($result,0);
 		$next_row = $adb->getNextRow($result);
-		if($count == 1)
+		if ($count == 1) {
 			$this->assertEquals($record,$next_row);
+		} else {
+			$this->assertTrue(true);
+		}
 	}
 
 	/**
@@ -445,8 +451,10 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 */
 	public function test_CreteTable($adb) {
-		if(empty( $adb->getColumnNames("vtiger_tmp") ))
-			$this->assertEquals(2,$adb->CreateTable('vtiger_tmp','id INTEGER, name VARCHAR(100), email VARCHAR(100), type VARCHAR(7)'));
+		$adb->query('DROP TABLE vtiger_tmp;');
+		if (empty($adb->getColumnNames('vtiger_tmp'))) {
+			$this->assertEquals(2, $adb->CreateTable('vtiger_tmp','id INTEGER, name VARCHAR(100), email VARCHAR(100), type VARCHAR(7)'));
+		}
 	}
 
 	/**
@@ -473,7 +481,7 @@ class PearDatabaseTest extends TestCase
 	public function test_toggleCache($adb) {
 		$adb->toggleCache(true);
 		$cache = $adb->getCacheInstance();
-		print_r($cache);
+		$this->assertFalse($cache);
 	}
 
 	/**
@@ -481,10 +489,11 @@ class PearDatabaseTest extends TestCase
 	 * @depends test_pquery
 	 * @depends testConvert2Sql
 	 */
-	public function test_cacheInstance($adb,$result,$sql) {
-		$cache = new PearDatabaseCache($adb);
-		$cache->cacheResult($result,$sql);
-	}
+// 	public function test_cacheInstance($adb,$result,$sql) {
+// 		$cache = new PearDatabaseCache($adb);
+// 		$cache->cacheResult($result,$sql);
+// 		var_dump($cache);
+// 	}
 
 	/*********************************************************************
                                      DATA PROVIDERS

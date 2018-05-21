@@ -199,21 +199,22 @@ class testVtlibUnzip extends TestCase {
 	 */
 	public function testunzipAllEx() {
 		$cacheDir = 'cache/ziptest';
+		$this->recursiveRemoveDirectory($cacheDir);
 		$expected = array (
 			0 => 'cache/ziptest',
-			1 => 'cache/ziptest/modules',
-			2 => 'cache/ziptest/modules/cbLoginHistory',
-			3 => 'cache/ziptest/modules/cbLoginHistory/language',
-			4 => 'cache/ziptest/modules/cbLoginHistory/language/modules',
-			5 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory',
-			6 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory/language',
-			7 => 'cache/ziptest/modules/cbLoginHistory/modules',
-			8 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
-			9 => 'cache/ziptest/Smarty',
-			10 => 'cache/ziptest/Smarty/templates',
-			11 => 'cache/ziptest/Smarty/templates/modules',
-			12 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory',
-			13 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/templates',
+			1 => 'cache/ziptest/Smarty',
+			2 => 'cache/ziptest/Smarty/templates',
+			3 => 'cache/ziptest/Smarty/templates/modules',
+			4 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory',
+			5 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/templates',
+			6 => 'cache/ziptest/modules',
+			7 => 'cache/ziptest/modules/cbLoginHistory',
+			8 => 'cache/ziptest/modules/cbLoginHistory/modules',
+			9 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+			10 => 'cache/ziptest/modules/cbLoginHistory/language',
+			11 => 'cache/ziptest/modules/cbLoginHistory/language/modules',
+			12 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory',
+			13 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory/language',
 		);
 		$unzip = new Vtiger_Unzip(self::$zipFile);
 		@mkdir($cacheDir);
@@ -244,6 +245,7 @@ class testVtlibUnzip extends TestCase {
 	 */
 	public function testunzip() {
 		$cacheDir = 'cache/ziptest';
+		$this->recursiveRemoveDirectory($cacheDir);
 		$unzip = new Vtiger_Unzip(self::$zipFile);
 		@mkdir($cacheDir);
 		$fileName = 'manifest.xml';
@@ -261,12 +263,12 @@ class testVtlibUnzip extends TestCase {
 		$actual = $this->getDirectroyListing($cacheDir);
 		$expected = array (
 			0 => 'cache/ziptest',
-			1 => 'cache/ziptest/manifest.xml',
-			2 => 'cache/ziptest/modules',
-			3 => 'cache/ziptest/modules/cbLoginHistory',
-			4 => 'cache/ziptest/modules/cbLoginHistory/index.php',
-			5 => 'cache/ziptest/modules/cbLoginHistory/modules',
-			6 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+			1 => 'cache/ziptest/modules',
+			2 => 'cache/ziptest/modules/cbLoginHistory',
+			3 => 'cache/ziptest/modules/cbLoginHistory/index.php',
+			4 => 'cache/ziptest/modules/cbLoginHistory/modules',
+			5 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+			6 => 'cache/ziptest/manifest.xml',
 		);
 		$this->assertEquals($expected, $actual, "unzip $fileName");
 		$fileName = 'modules/cbLoginHistory/language/de_de.lang.php';
@@ -275,17 +277,17 @@ class testVtlibUnzip extends TestCase {
 		$actual = $this->getDirectroyListing($cacheDir);
 		$expected = array (
 			0 => 'cache/ziptest',
-			1 => 'cache/ziptest/manifest.xml',
-			2 => 'cache/ziptest/modules',
-			3 => 'cache/ziptest/modules/cbLoginHistory',
-			4 => 'cache/ziptest/modules/cbLoginHistory/index.php',
-			5 => 'cache/ziptest/modules/cbLoginHistory/language',
-			6 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
+			1 => 'cache/ziptest/modules',
+			2 => 'cache/ziptest/modules/cbLoginHistory',
+			3 => 'cache/ziptest/modules/cbLoginHistory/index.php',
+			4 => 'cache/ziptest/modules/cbLoginHistory/modules',
+			5 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+			6 => 'cache/ziptest/modules/cbLoginHistory/language',
 			7 => 'cache/ziptest/modules/cbLoginHistory/language/modules',
 			8 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory',
 			9 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory/language',
-			10 => 'cache/ziptest/modules/cbLoginHistory/modules',
-			11 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
+			10 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
+			11 => 'cache/ziptest/manifest.xml',
 		);
 		$this->assertEquals($expected, $actual, "unzip $fileName");
 		$fileName = 'templates/index.tpl';
@@ -294,23 +296,23 @@ class testVtlibUnzip extends TestCase {
 		$actual = $this->getDirectroyListing($cacheDir);
 		$expected = array (
 			0 => 'cache/ziptest',
-			1 => 'cache/ziptest/manifest.xml',
-			2 => 'cache/ziptest/modules',
-			3 => 'cache/ziptest/modules/cbLoginHistory',
-			4 => 'cache/ziptest/modules/cbLoginHistory/index.php',
-			5 => 'cache/ziptest/modules/cbLoginHistory/language',
-			6 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
-			7 => 'cache/ziptest/modules/cbLoginHistory/language/modules',
-			8 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory',
-			9 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory/language',
+			1 => 'cache/ziptest/Smarty',
+			2 => 'cache/ziptest/Smarty/templates',
+			3 => 'cache/ziptest/Smarty/templates/modules',
+			4 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory',
+			5 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/templates',
+			6 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/index.tpl',
+			7 => 'cache/ziptest/modules',
+			8 => 'cache/ziptest/modules/cbLoginHistory',
+			9 => 'cache/ziptest/modules/cbLoginHistory/index.php',
 			10 => 'cache/ziptest/modules/cbLoginHistory/modules',
 			11 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
-			12 => 'cache/ziptest/Smarty',
-			13 => 'cache/ziptest/Smarty/templates',
-			14 => 'cache/ziptest/Smarty/templates/modules',
-			15 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory',
-			16 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/templates',
-			17 => 'cache/ziptest/Smarty/templates/modules/cbLoginHistory/index.tpl',
+			12 => 'cache/ziptest/modules/cbLoginHistory/language',
+			13 => 'cache/ziptest/modules/cbLoginHistory/language/modules',
+			14 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory',
+			15 => 'cache/ziptest/modules/cbLoginHistory/language/modules/cbLoginHistory/language',
+			16 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
+			17 => 'cache/ziptest/manifest.xml',
 		);
 		$this->assertEquals($expected, $actual, "unzip $fileName");
 		$this->recursiveRemoveDirectory($cacheDir);
@@ -322,36 +324,37 @@ class testVtlibUnzip extends TestCase {
 	 */
 	public function testunzipAll() {
 		$cacheDir = 'cache/ziptest';
+		$this->recursiveRemoveDirectory($cacheDir);
 		$unzip = new Vtiger_Unzip(self::$zipFile);
 		@mkdir($cacheDir);
 		$unzip->unzipAll($cacheDir);
 		$actual = $this->getDirectroyListing($cacheDir);
 		$expected = array (
 			0 => 'cache/ziptest',
-			1 => 'cache/ziptest/manifest.xml',
-			2 => 'cache/ziptest/templates',
-			3 => 'cache/ziptest/templates/index.tpl',
-			4 => 'cache/ziptest/modules',
-			5 => 'cache/ziptest/modules/cbLoginHistory',
-			6 => 'cache/ziptest/modules/cbLoginHistory/index.php',
+			1 => 'cache/ziptest/modules',
+			2 => 'cache/ziptest/modules/cbLoginHistory',
+			3 => 'cache/ziptest/modules/cbLoginHistory/index.php',
+			4 => 'cache/ziptest/modules/cbLoginHistory/getJSON.php',
+			5 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistoryAjax.php',
+			6 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistory.php',
 			7 => 'cache/ziptest/modules/cbLoginHistory/manifest.xml',
-			8 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistoryAjax.php',
-			9 => 'cache/ziptest/modules/cbLoginHistory/language',
-			10 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
-			11 => 'cache/ziptest/modules/cbLoginHistory/language/it_it.lang.php',
+			8 => 'cache/ziptest/modules/cbLoginHistory/ExportRecords.php',
+			9 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistory.js',
+			10 => 'cache/ziptest/modules/cbLoginHistory/ListView.php',
+			11 => 'cache/ziptest/modules/cbLoginHistory/language',
 			12 => 'cache/ziptest/modules/cbLoginHistory/language/pt_br.lang.php',
-			13 => 'cache/ziptest/modules/cbLoginHistory/language/en_us.lang.php',
-			14 => 'cache/ziptest/modules/cbLoginHistory/language/en_gb.lang.php',
-			15 => 'cache/ziptest/modules/cbLoginHistory/language/hu_hu.lang.php',
-			16 => 'cache/ziptest/modules/cbLoginHistory/language/nl_nl.lang.php',
-			17 => 'cache/ziptest/modules/cbLoginHistory/language/fr_fr.lang.php',
+			13 => 'cache/ziptest/modules/cbLoginHistory/language/nl_nl.lang.php',
+			14 => 'cache/ziptest/modules/cbLoginHistory/language/it_it.lang.php',
+			15 => 'cache/ziptest/modules/cbLoginHistory/language/en_gb.lang.php',
+			16 => 'cache/ziptest/modules/cbLoginHistory/language/fr_fr.lang.php',
+			17 => 'cache/ziptest/modules/cbLoginHistory/language/hu_hu.lang.php',
 			18 => 'cache/ziptest/modules/cbLoginHistory/language/es_es.lang.php',
-			19 => 'cache/ziptest/modules/cbLoginHistory/language/es_mx.lang.php',
-			20 => 'cache/ziptest/modules/cbLoginHistory/ExportRecords.php',
-			21 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistory.js',
-			22 => 'cache/ziptest/modules/cbLoginHistory/cbLoginHistory.php',
-			23 => 'cache/ziptest/modules/cbLoginHistory/getJSON.php',
-			24 => 'cache/ziptest/modules/cbLoginHistory/ListView.php',
+			19 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
+			20 => 'cache/ziptest/modules/cbLoginHistory/language/en_us.lang.php',
+			21 => 'cache/ziptest/modules/cbLoginHistory/language/es_mx.lang.php',
+			22 => 'cache/ziptest/manifest.xml',
+			23 => 'cache/ziptest/templates',
+			24 => 'cache/ziptest/templates/index.tpl',
 		);
 		$this->assertEquals($expected, $actual, "unzipAll");
 		$this->recursiveRemoveDirectory($cacheDir);
@@ -380,7 +383,7 @@ class testVtlibUnzip extends TestCase {
 				unlink($file);
 			}
 		}
-		rmdir($directory);
+		@rmdir($directory);
 	}
 }
 ?>

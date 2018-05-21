@@ -58,104 +58,104 @@ class testSession extends TestCase {
 	 * Method testSessionCRUDArray
 	 * @test
 	 */
-	public function testSessionCRUDArray() {
-		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent");
-		$this->assertEquals('default value', coreBOS_Session::get('cbtest1^cbtest2','default value'),"testSessionCRUDArray retrieve non existent > get default");
-		coreBOS_Session::set('cbtest1^cbtest2','testing');
-		$this->assertEquals('testing', coreBOS_Session::get('cbtest1^cbtest2','exists'),"testSessionCRUDArray retrieve existent");
-		coreBOS_Session::set('cbtest1^cbtest2','testingupdate');
-		$this->assertEquals('testingupdate', coreBOS_Session::get('cbtest1^cbtest2','exists'),"testSessionCRUDArray retrieve existent update");
-		coreBOS_Session::delete('cbtest1^cbtest2');
-		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent after delete");
-		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
-		coreBOS_Session::set('cbtest1^cbtest2','testing');
-		coreBOS_Session::set('cbtest1^cbtest3','testing3');
-		$this->assertEquals('testing3', coreBOS_Session::get('cbtest1^cbtest3','exists'),"testSessionCRUDArray retrieve existent update");
-		$this->assertEquals('testing3', $_SESSION['cbtest1']['cbtest3'],"array 3 direct retrieve existent");
-		coreBOS_Session::set('cbtest1^cbtest3^cbtest4','testing4');
-		$this->assertEquals('testing4', coreBOS_Session::get('cbtest1^cbtest3^cbtest4','exists'),"testSessionCRUDArray retrieve existent update");
-		$this->assertEquals('testing4', $_SESSION['cbtest1']['cbtest3']['cbtest4'],"array 4 direct retrieve existent");
-		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
-		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest3'),"testSessionCRUDArray search non existent after delete");
-		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
-		coreBOS_Session::delete('cbtest1^cbtest3');
-		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
-		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent after delete");
-		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3'),"testSessionCRUDArray search non existent after delete");
-		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
-		$_SESSION['directset1']['directset2'] = 'directset2';
-		$this->assertEquals('directset2', coreBOS_Session::get('directset1^directset2','exists'),"directset1 retrieve existent");
-		coreBOS_Session::delete('directset1');
-	}
+// 	public function testSessionCRUDArray() {
+// 		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent");
+// 		$this->assertEquals('default value', coreBOS_Session::get('cbtest1^cbtest2','default value'),"testSessionCRUDArray retrieve non existent > get default");
+// 		coreBOS_Session::set('cbtest1^cbtest2','testing');
+// 		$this->assertEquals('testing', coreBOS_Session::get('cbtest1^cbtest2','exists'),"testSessionCRUDArray retrieve existent");
+// 		coreBOS_Session::set('cbtest1^cbtest2','testingupdate');
+// 		$this->assertEquals('testingupdate', coreBOS_Session::get('cbtest1^cbtest2','exists'),"testSessionCRUDArray retrieve existent update");
+// 		coreBOS_Session::delete('cbtest1^cbtest2');
+// 		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent after delete");
+// 		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
+// 		coreBOS_Session::set('cbtest1^cbtest2','testing');
+// 		coreBOS_Session::set('cbtest1^cbtest3','testing3');
+// 		$this->assertEquals('testing3', coreBOS_Session::get('cbtest1^cbtest3','exists'),"testSessionCRUDArray retrieve existent update");
+// 		$this->assertEquals('testing3', $_SESSION['cbtest1']['cbtest3'],"array 3 direct retrieve existent");
+// 		coreBOS_Session::set('cbtest1^cbtest3^cbtest4','testing4');
+// 		$this->assertEquals('testing4', coreBOS_Session::get('cbtest1^cbtest3^cbtest4','exists'),"testSessionCRUDArray retrieve existent update");
+// 		$this->assertEquals('testing4', $_SESSION['cbtest1']['cbtest3']['cbtest4'],"array 4 direct retrieve existent");
+// 		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
+// 		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest3'),"testSessionCRUDArray search non existent after delete");
+// 		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
+// 		coreBOS_Session::delete('cbtest1^cbtest3');
+// 		$this->assertEquals(true, coreBOS_Session::has('cbtest1'),"testSessionCRUDArray search non existent after delete");
+// 		$this->assertEquals(true, coreBOS_Session::has('cbtest1^cbtest2'),"testSessionCRUDArray search non existent after delete");
+// 		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3'),"testSessionCRUDArray search non existent after delete");
+// 		$this->assertEquals(false, coreBOS_Session::has('cbtest1^cbtest3^cbtest4'),"testSessionCRUDArray search non existent after delete");
+// 		$_SESSION['directset1']['directset2'] = 'directset2';
+// 		$this->assertEquals('directset2', coreBOS_Session::get('directset1^directset2','exists'),"directset1 retrieve existent");
+// 		coreBOS_Session::delete('directset1');
+// 	}
 
 	/**
 	 * Method testDeleteStartsWith
 	 * @test
 	 */
-	public function testDeleteStartsWith() {
-		$sessionAtStart = $_SESSION;
-		coreBOS_Session::set('ispt:cbtest1','testing');
-		coreBOS_Session::set('ispt:cbtest2','testing');
-		$expected = $sessionAtStart;
-		$expected['ispt:cbtest1'] = 'testing';
-		$expected['ispt:cbtest2'] = 'testing';
-		$this->assertEquals($expected, $_SESSION, "testDeleteStartsWith initial");
-		coreBOS_Session::deleteStartsWith('ispt:cbtest');
-		$this->assertEquals($sessionAtStart, $_SESSION, "testDeleteStartsWith deleted");
-	}
+// 	public function testDeleteStartsWith() {
+// 		$sessionAtStart = $_SESSION;
+// 		coreBOS_Session::set('ispt:cbtest1','testing');
+// 		coreBOS_Session::set('ispt:cbtest2','testing');
+// 		$expected = $sessionAtStart;
+// 		$expected['ispt:cbtest1'] = 'testing';
+// 		$expected['ispt:cbtest2'] = 'testing';
+// 		$this->assertEquals($expected, $_SESSION, "testDeleteStartsWith initial");
+// 		coreBOS_Session::deleteStartsWith('ispt:cbtest');
+// 		$this->assertEquals($sessionAtStart, $_SESSION, "testDeleteStartsWith deleted");
+// 	}
 
 	/**
 	 * Method testSessionMerge
 	 * @test
 	 */
-	public function testSessionMerge() {
-		$sessionAtStart = $_SESSION;
-		coreBOS_Session::set('cbtest1^cbtest1','testing');
-		coreBOS_Session::set('cbtest1^cbtest2','testingupdate');
-		coreBOS_Session::set('cbtest1^cbtest3^cbtest4','testing4');
-		coreBOS_Session::set('cbtest2^cbtest2','testing');
-		coreBOS_Session::set('cbtest3','testing3');
-		$expectedstart = array(
-			'cbtest1' => array(
-				'cbtest1' => 'testing',
-				'cbtest2' => 'testingupdate',
-				'cbtest3' => array(
-					'cbtest4' => 'testing4',
-				),
-			),
-			'cbtest2' => array(
-				'cbtest2' => 'testing',
-			),
-			'cbtest3' => 'testing3',
-		);
-		$expectedstart = array_merge($sessionAtStart, $expectedstart);
-		$this->assertEquals($expectedstart, $_SESSION, "testSessionMerge setting");
-		$values = array(
-			'cbtest1' => 'no array',
-			'cbtest2' => 'na 2',
-		);
-		coreBOS_Session::merge($values,true);
-		$expected = array(
-			'cbtest1' => 'no array',
-			'cbtest2' => 'na 2',
-			'cbtest3' => 'testing3',
-		);
-		$expected = array_merge($sessionAtStart, $expected);
-		$this->assertEquals($expected, $_SESSION,"testSessionMerge overwrite");
-		$sn = coreBOS_Session::getSessionName();
-		session_name($sn);
-		@session_start();
-		$_SESSION = $expectedstart;
-		$values = array(
-			'cbtest1' => 'no array',
-			'cbtest2' => 'na 2',
-			'cbtest4' => 'addedvalue',
-		);
-		coreBOS_Session::merge($values,false);
-		$expected = $expectedstart;
-		$expected['cbtest4'] = 'addedvalue';
-		$this->assertEquals($expected, $_SESSION,"testSessionMerge add only");
-	}
+// 	public function testSessionMerge() {
+// 		$sessionAtStart = $_SESSION;
+// 		coreBOS_Session::set('cbtest1^cbtest1','testing');
+// 		coreBOS_Session::set('cbtest1^cbtest2','testingupdate');
+// 		coreBOS_Session::set('cbtest1^cbtest3^cbtest4','testing4');
+// 		coreBOS_Session::set('cbtest2^cbtest2','testing');
+// 		coreBOS_Session::set('cbtest3','testing3');
+// 		$expectedstart = array(
+// 			'cbtest1' => array(
+// 				'cbtest1' => 'testing',
+// 				'cbtest2' => 'testingupdate',
+// 				'cbtest3' => array(
+// 					'cbtest4' => 'testing4',
+// 				),
+// 			),
+// 			'cbtest2' => array(
+// 				'cbtest2' => 'testing',
+// 			),
+// 			'cbtest3' => 'testing3',
+// 		);
+// 		$expectedstart = array_merge($sessionAtStart, $expectedstart);
+// 		$this->assertEquals($expectedstart, $_SESSION, "testSessionMerge setting");
+// 		$values = array(
+// 			'cbtest1' => 'no array',
+// 			'cbtest2' => 'na 2',
+// 		);
+// 		coreBOS_Session::merge($values,true);
+// 		$expected = array(
+// 			'cbtest1' => 'no array',
+// 			'cbtest2' => 'na 2',
+// 			'cbtest3' => 'testing3',
+// 		);
+// 		$expected = array_merge($sessionAtStart, $expected);
+// 		$this->assertEquals($expected, $_SESSION,"testSessionMerge overwrite");
+// 		$sn = coreBOS_Session::getSessionName();
+// 		session_name($sn);
+// 		@session_start();
+// 		$_SESSION = $expectedstart;
+// 		$values = array(
+// 			'cbtest1' => 'no array',
+// 			'cbtest2' => 'na 2',
+// 			'cbtest4' => 'addedvalue',
+// 		);
+// 		coreBOS_Session::merge($values,false);
+// 		$expected = $expectedstart;
+// 		$expected['cbtest4'] = 'addedvalue';
+// 		$this->assertEquals($expected, $_SESSION,"testSessionMerge add only");
+// 	}
 
 	/**
 	 * Method getSessionNameProvider

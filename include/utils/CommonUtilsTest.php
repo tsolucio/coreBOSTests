@@ -195,10 +195,10 @@ class testCommonUtils extends TestCase {
 	}
 
 	/**
-	 * Method testbr2nlProvidor
+	 * Method getbr2nlProvidor
 	 * params
 	 */
-	function testbr2nlProvidor() {
+	function getbr2nlProvidor() {
 		return array(
 			array('line1','line1','br2nl one line'),
 			array('line1<br>line2','line1<br>line2','br2nl two lines <br>'),
@@ -222,7 +222,7 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 	/**
 	 * Method testbr2nl
 	 * @test
-	 * @dataProvider testbr2nlProvidor
+	 * @dataProvider getbr2nlProvidor
 	 */
 	function testbr2nl($input, $expected, $msg) {
 		$this->assertEquals($expected, br2nl($input), $msg);
@@ -255,7 +255,7 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 	 * Method testgetUserslist5
 	 * @test
 	 */
-	function testgetUserslist2() {
+//	function testgetUserslist2() {
 		// Cannot be executed together with testgetUserslist1 due to cache
 // 		global $current_user, $module;
 // 		$module = 'Utilities';
@@ -270,13 +270,13 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 // 		$expected = '<option value=11>nocreate cbTest</option><option value=5>cbTest testdmy</option>';
 // 		$this->assertEquals($expected, $actual, 'getUserslist testdmy false');
 // 		$current_user = $hold_user;
-	}
+//	}
 
 	/**
-	 * Method testgetMergedDescriptionProvidor
+	 * Method getMergedDescriptionProvidor
 	 * params
 	 */
-	function testgetMergedDescriptionProvidor() {
+	function getMergedDescriptionProvidor() {
 		$lang = return_module_language('en_us', 'Reports');
 		$mes = date('m')-1;
 		return array(
@@ -353,7 +353,7 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 	/**
 	 * Method testgetMergedDescription
 	 * @test
-	 * @dataProvider testgetMergedDescriptionProvidor
+	 * @dataProvider getMergedDescriptionProvidor
 	 */
 	function testgetMergedDescription($description, $id, $parent_type, $expected, $msg) {
 		$this->assertEquals($expected, getMergedDescription($description, $id, $parent_type), $msg);
@@ -363,7 +363,7 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 	 * Method testgetReturnPathProvidor
 	 * params
 	 */
-	function testgetReturnPathProvidor() {
+	function getReturnPathProvidor() {
 		return array(
 			array('tsolucio.com','','info@tsolucio.com','normal'),
 			array('ispconfig.tsolucio.com','','info@tsolucio.com','superdomain'),
@@ -400,17 +400,17 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 	/**
 	 * Method testgetReturnPath
 	 * @test
-	 * @dataProvider testgetReturnPathProvidor
+	 * @dataProvider getReturnPathProvidor
 	 */
 // 	function testgetReturnPath($host, $from_email, $expected, $msg) {
 // 		$this->assertEquals($expected, getReturnPath($host, $from_email), $msg);
 // 	}
 
 	/**
-	 * Method testgetrecurringObjValueProvidor
+	 * Method getrecurringObjValueProvidor
 	 * params
 	 */
-	function testgetrecurringObjValueProvidor() {
+	function getrecurringObjValueProvidor() {
 		return array(
 		array(null,null,null,null,null,null,
 			null,null,null,null,null,null,null,null,null,
@@ -489,7 +489,7 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 	/**
 	 * Method testgetrecurringObjValue
 	 * @test
-	 * @dataProvider testgetrecurringObjValueProvidor
+	 * @dataProvider getrecurringObjValueProvidor
 	 */
 	function testgetrecurringObjValue($recurringtype,$date_start,$calendar_repeat_limit_date,$due_date,$time_start,$time_end,
 			$sun_flag,$mon_flag,$tue_flag,$wed_flag,$thu_flag,$fri_flag,$sat_flag,$repeatMonth,$repeatMonth_date,

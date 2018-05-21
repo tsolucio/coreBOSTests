@@ -606,6 +606,21 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['hdnTaxType'] = 'group';
 		$ObjectValues['hdnS_H_Amount'] = '15.000000';
 		$ObjectValues['tandc'] = '';
+		$ObjectValues['pl_gross_total'] = '30.000000';
+		$ObjectValues['pl_dto_line'] = '0.400000';
+		$ObjectValues['pl_dto_total'] = '3.360000';
+		$ObjectValues['pl_dto_global'] = '2.960000';
+		$ObjectValues['pl_net_total'] = '26.640000';
+		$ObjectValues['sum_nettotal'] = '29.600000';
+		$ObjectValues['sum_taxtotal'] = '7.192800';
+		$ObjectValues['sum_tax1'] = '1.198800';
+		$ObjectValues['sum_taxtotalretention'] = '0.000000';
+		$ObjectValues['sum_tax2'] = '2.664000';
+		$ObjectValues['pl_sh_total'] = '15.000000';
+		$ObjectValues['sum_tax3'] = '3.330000';
+		$ObjectValues['pl_sh_tax'] = '1.200000';
+		$ObjectValues['pl_grand_total'] = '90.030000';
+		$ObjectValues['pl_adjustment'] = '40.000000';
 		$this->assertEquals($ObjectValues, $actual,'Create salesorder');
 		/// end
 		$current_user = $holduser;

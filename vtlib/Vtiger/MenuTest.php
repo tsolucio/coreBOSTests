@@ -65,6 +65,8 @@ class vtlibMenuTest extends TestCase {
 	 */
 	public function testCreateRemove() {
 		global $adb;
+		$adb->query('DELETE FROM `vtiger_parenttabrel` WHERE `parenttabid`=1 and `tabid`=6');
+		$adb->query("DELETE FROM `vtiger_evvtmenu` WHERE `mparent`=1 and `mtype`='module' and mvalue='Accounts'");
 		$actual = Vtiger_Menu::getInstance('My Home Page');
 		$this->assertInstanceOf(Vtiger_Menu::class, $actual);
 		$homeexpected = array(
@@ -79,46 +81,40 @@ class vtlibMenuTest extends TestCase {
 		);
 		$this->assertEquals($homeexpected, $actual->allmenuinfo, "Home menu");
 		$rsmnu = $adb->query('select * from vtiger_parenttabrel where parenttabid=1 order by sequence');
-		$this->assertEquals(4, $adb->num_rows($rsmnu));
+		$this->assertEquals(3, $adb->num_rows($rsmnu));
 		$this->assertEquals('3', $adb->query_result($rsmnu,0,'tabid'));
 		$this->assertEquals('9', $adb->query_result($rsmnu,1,'tabid'));
-		$this->assertEquals('28', $adb->query_result($rsmnu,2,'tabid'));
-		$this->assertEquals('63', $adb->query_result($rsmnu,3,'tabid'));
+		$this->assertEquals('63', $adb->query_result($rsmnu,2,'tabid'));
 		$rsmnu = $adb->query('select * from vtiger_evvtmenu where mparent=1 order by mseq');
-		$this->assertEquals(4, $adb->num_rows($rsmnu));
+		$this->assertEquals(3, $adb->num_rows($rsmnu));
 		$this->assertEquals('Home', $adb->query_result($rsmnu,0,'mvalue'));
 		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu,1,'mvalue'));
-		$this->assertEquals('Webmails', $adb->query_result($rsmnu,2,'mvalue'));
-		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,3,'mvalue'));
+		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,2,'mvalue'));
 		$moduleInstance = Vtiger_Module::getInstance('Accounts');
 		$actual->addModule($moduleInstance);
 		$rsmnu = $adb->query('select * from vtiger_parenttabrel where parenttabid=1 order by sequence');
-		$this->assertEquals(5, $adb->num_rows($rsmnu));
+		$this->assertEquals(4, $adb->num_rows($rsmnu));
 		$this->assertEquals('3', $adb->query_result($rsmnu,0,'tabid'));
 		$this->assertEquals('9', $adb->query_result($rsmnu,1,'tabid'));
-		$this->assertEquals('28', $adb->query_result($rsmnu,2,'tabid'));
-		$this->assertEquals('63', $adb->query_result($rsmnu,3,'tabid'));
-		$this->assertEquals('6', $adb->query_result($rsmnu,4,'tabid'));
+		$this->assertEquals('63', $adb->query_result($rsmnu,2,'tabid'));
+		$this->assertEquals('6', $adb->query_result($rsmnu,3,'tabid'));
 		$rsmnu = $adb->query('select * from vtiger_evvtmenu where mparent=1 order by mseq');
-		$this->assertEquals(5, $adb->num_rows($rsmnu));
+		$this->assertEquals(4, $adb->num_rows($rsmnu));
 		$this->assertEquals('Home', $adb->query_result($rsmnu,0,'mvalue'));
 		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu,1,'mvalue'));
-		$this->assertEquals('Webmails', $adb->query_result($rsmnu,2,'mvalue'));
-		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,3,'mvalue'));
-		$this->assertEquals('Accounts', $adb->query_result($rsmnu,4,'mvalue'));
+		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,2,'mvalue'));
+		$this->assertEquals('Accounts', $adb->query_result($rsmnu,3,'mvalue'));
 		$actual->removeModule($moduleInstance);
 		$rsmnu = $adb->query('select * from vtiger_parenttabrel where parenttabid=1 order by sequence');
-		$this->assertEquals(4, $adb->num_rows($rsmnu));
+		$this->assertEquals(3, $adb->num_rows($rsmnu));
 		$this->assertEquals('3', $adb->query_result($rsmnu,0,'tabid'));
 		$this->assertEquals('9', $adb->query_result($rsmnu,1,'tabid'));
-		$this->assertEquals('28', $adb->query_result($rsmnu,2,'tabid'));
-		$this->assertEquals('63', $adb->query_result($rsmnu,3,'tabid'));
+		$this->assertEquals('63', $adb->query_result($rsmnu,2,'tabid'));
 		$rsmnu = $adb->query('select * from vtiger_evvtmenu where mparent=1 order by mseq');
-		$this->assertEquals(4, $adb->num_rows($rsmnu));
+		$this->assertEquals(3, $adb->num_rows($rsmnu));
 		$this->assertEquals('Home', $adb->query_result($rsmnu,0,'mvalue'));
 		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu,1,'mvalue'));
-		$this->assertEquals('Webmails', $adb->query_result($rsmnu,2,'mvalue'));
-		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,3,'mvalue'));
+		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,2,'mvalue'));
 	}
 
 }

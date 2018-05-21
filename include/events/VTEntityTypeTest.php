@@ -114,6 +114,21 @@ class VTEntityTypeTest extends TestCase {
 			38 => 'invoice_no',
 			39 => 'created_user_id',
 			40 => 'tandc',
+			41 => 'pl_gross_total',
+			42 => 'pl_dto_line',
+			43 => 'pl_dto_global',
+			44 => 'pl_dto_total',
+			45 => 'pl_net_total',
+			46 => 'pl_sh_total',
+			47 => 'pl_sh_tax',
+			48 => 'pl_adjustment',
+			49 => 'pl_grand_total',
+			50 => 'sum_nettotal',
+			51 => 'sum_tax1',
+			52 => 'sum_tax2',
+			53 => 'sum_tax3',
+			54 => 'sum_taxtotal',
+			55 => 'sum_taxtotalretention',
 		);
 		$this->assertEquals($fieldnames, $et->getFieldNames(), 'FieldNames');
 		$fieldtypes = array();
