@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 require_once 'modules/Leads/ConvertLeadUI.php';
-class ConvertLeadUITest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class ConvertLeadUITest extends TestCase {
 
 	/**
 	 * Method testgetMappedFieldValue

@@ -22,7 +22,8 @@ function superDifficultDecision($decider1,$decider2) {
 	return ($decider1 + $decider2 > 10);
 }
 
-class cbRuleTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class cbRuleTest extends TestCase {
 
 	/**
 	 * Method testInvalidContext

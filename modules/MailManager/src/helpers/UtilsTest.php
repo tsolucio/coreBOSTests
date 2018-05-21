@@ -20,7 +20,8 @@
 
 include_once 'modules/MailManager/src/helpers/Utils.php';
 
-class testMailManager_Utils extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testMailManager_Utils extends TestCase {
 
 	/**
 	 * Method testsafe_html_string

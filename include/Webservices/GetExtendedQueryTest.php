@@ -19,7 +19,8 @@
  *************************************************************************************************/
 include_once 'include/Webservices/GetExtendedQuery.php';
 
-class GetExtendedQueryTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class GetExtendedQueryTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

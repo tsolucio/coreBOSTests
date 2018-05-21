@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testCommonUtils extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testCommonUtils extends TestCase {
 
 	/****
 	 * TEST Users

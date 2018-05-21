@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 require_once 'modules/Settings/MailScanner/core/MailScanner.php';
-class MailScannerTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class MailScannerTest extends TestCase {
 
 	/**
 	 * Method toIntegerProvidor

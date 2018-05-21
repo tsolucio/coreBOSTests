@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class VTJsonConditionTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class VTJsonConditionTest extends TestCase {
 
 	/**
 	 * Method testRelatedEmptyConditions

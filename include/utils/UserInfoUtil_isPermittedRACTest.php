@@ -21,7 +21,8 @@
 /**
  * Test the coreBOS Permission system via isPermitted function and RAC Business Rules
  */
-class testUserInfoUtil_isPermittedRACTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testUserInfoUtil_isPermittedRACTest extends TestCase {
 
 	/****
 	 * TEST Users

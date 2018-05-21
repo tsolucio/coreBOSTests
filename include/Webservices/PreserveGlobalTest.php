@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class PreserveGlobalTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class PreserveGlobalTest extends TestCase {
 
 	/**
 	 * Method testpreserveGlobalOneVariable

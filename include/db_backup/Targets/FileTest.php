@@ -18,8 +18,9 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 require_once 'include/db_backup/Targets/File.php';
+use PHPUnit\Framework\TestCase;
 
-class testdbBackupTargetFile extends PHPUnit_Framework_TestCase {
+class testdbBackupTargetFile extends TestCase {
 
 	/**
 	 * Method testconstruct

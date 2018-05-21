@@ -17,7 +17,8 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-class PickListUtilsTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class PickListUtilsTest extends TestCase {
 
 	var $role_vicepresident = 'H3';
 	var $role_salesman = 'H5';

@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 require_once 'modules/cbtranslation/cbtranslation.php';
-class cbtranslationTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class cbtranslationTest extends TestCase {
 
 	var $usrtestes = 8;
 

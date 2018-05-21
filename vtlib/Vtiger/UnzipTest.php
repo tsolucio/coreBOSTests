@@ -17,7 +17,8 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-class testVtlibUnzip extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testVtlibUnzip extends TestCase {
 	private static $zipFile = __DIR__ . '/cbLoginHistory.zip';
 
 	/**
@@ -244,7 +245,7 @@ class testVtlibUnzip extends PHPUnit_Framework_TestCase {
 	public function testunzip() {
 		$cacheDir = 'cache/ziptest';
 		$unzip = new Vtiger_Unzip(self::$zipFile);
-		mkdir($cacheDir);
+		@mkdir($cacheDir);
 		$fileName = 'manifest.xml';
 		$dirname = dirname($fileName);
 		$unzip->unzip($fileName, "$cacheDir/$dirname/".basename($fileName), 0664);
@@ -322,7 +323,7 @@ class testVtlibUnzip extends PHPUnit_Framework_TestCase {
 	public function testunzipAll() {
 		$cacheDir = 'cache/ziptest';
 		$unzip = new Vtiger_Unzip(self::$zipFile);
-		mkdir($cacheDir);
+		@mkdir($cacheDir);
 		$unzip->unzipAll($cacheDir);
 		$actual = $this->getDirectroyListing($cacheDir);
 		$expected = array (

@@ -20,7 +20,8 @@
 
 include_once 'modules/com_vtiger_workflow/VTSimpleTemplateOnData.inc';
 
-class VTSimpleTemplateOnDataOnDataTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class VTSimpleTemplateOnDataOnDataTest extends TestCase {
 
 	/**
 	 * Method testRender

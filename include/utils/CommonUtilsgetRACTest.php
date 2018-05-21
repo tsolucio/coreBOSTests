@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testCommonUtilsgetRAC extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testCommonUtilsgetRAC extends TestCase {
 
 	private $Accountsresults = array(
 		'74' => '74',

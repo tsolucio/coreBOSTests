@@ -21,7 +21,8 @@
 /**
  * Test the coreBOS Permission system via isPermitted function
  */
-class testUserInfoUtil_isPermittedTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testUserInfoUtil_isPermittedTest extends TestCase {
 
 	/****
 	 * TEST Users

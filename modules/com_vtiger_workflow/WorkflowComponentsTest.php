@@ -22,7 +22,8 @@ $_REQUEST['mode'] = 'donothing';
 include_once 'modules/com_vtiger_workflow/WorkflowComponents.php';
 unset($_REQUEST['mode']);
 
-class WorkflowComponentsTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class WorkflowComponentsTest extends TestCase {
 
 	/**
 	 * Method testvtJsonDependentModules

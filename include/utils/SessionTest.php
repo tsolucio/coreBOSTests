@@ -22,7 +22,8 @@
  * NOTE: This class is really a wrapper for direct PHP functions so I won't test
  *   construct, init nor destroy
  */
-class testSession extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testSession extends TestCase {
 
 	/**
 	 * Method testSessionExists

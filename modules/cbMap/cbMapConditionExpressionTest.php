@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class cbMapConditionExpressionTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class cbMapConditionExpressionTest extends TestCase {
 
 	/**
 	 * Method testcbMapConditionExpression

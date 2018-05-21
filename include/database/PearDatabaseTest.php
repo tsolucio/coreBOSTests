@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class PearDatabaseTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+class PearDatabaseTest extends TestCase
 {
 	public function testObjectType() {
 		global $adb;

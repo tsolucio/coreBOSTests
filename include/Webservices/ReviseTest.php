@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class WSReviseTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class WSReviseTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

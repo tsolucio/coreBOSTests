@@ -23,7 +23,8 @@ REVISE is almost a stub for UPDATE so testing UPDATE validates both
 The only difference is that REVISE does not require the presence of mandatory fields, so we will test only that
 /////////////////////////////////////////////////////*/
 
-class WSRetrieveUpdateReviseTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class WSRetrieveUpdateReviseTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

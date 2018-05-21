@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testOperationManagerEnDecode extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testOperationManagerEnDecode extends TestCase {
 
 	protected static $omEDjson;
 

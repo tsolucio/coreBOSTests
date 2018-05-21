@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testWebservicesUtils extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testWebservicesUtils extends TestCase {
 
 	/**
 	 * Method vtws_getParameterProvider

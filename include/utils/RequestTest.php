@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testRequest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testRequest extends TestCase {
 
 	var $testdata = array();
 	var $requeststrip;

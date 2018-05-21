@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class VtigerCRMObjectTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class VtigerCRMObjectTest extends TestCase {
 
 	/**
 	 * Method testVtigerCRMObject

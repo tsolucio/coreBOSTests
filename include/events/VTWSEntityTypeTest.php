@@ -19,7 +19,8 @@
  *************************************************************************************************/
 require_once("include/events/VTWSEntityType.inc");
 
-class VTWSEntityTypeTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class VTWSEntityTypeTest extends TestCase {
 
 	/**
 	 * Method testVTWSEntityType

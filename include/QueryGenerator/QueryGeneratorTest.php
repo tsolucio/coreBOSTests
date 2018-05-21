@@ -40,7 +40,8 @@
     There is special support for empty fields and for the Birthday field
 */
 
-class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class QueryGeneratorTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

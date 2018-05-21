@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class VtigerModuleOperation_QueryTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class VtigerModuleOperation_QueryTest extends TestCase {
 
 	public static $vtModuleOperation = null;
 

@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 require_once 'modules/cbtranslation/number2string.php';
-class number2stringTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class number2stringTest extends TestCase {
 
 	/**
 	 * Method ConvertProvidor

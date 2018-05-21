@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testVtlibNetClient extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testVtlibNetClient extends TestCase {
 	private static $netURL = '';
 
 	public static function setUpBeforeClass() {

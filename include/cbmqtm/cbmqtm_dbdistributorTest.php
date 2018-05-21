@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testcbmqtm_dbdistributor extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testcbmqtm_dbdistributor extends TestCase {
 
 	/**
 	 * Method testgetInstance

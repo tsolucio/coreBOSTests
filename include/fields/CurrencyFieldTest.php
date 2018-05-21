@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testCurrencyField extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testCurrencyField extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
@@ -532,7 +533,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		/////////////////
 		// currency symbol not supported as input
 		$currencyField = new CurrencyField('$46,919,417.624848');
-		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$formattedCurrencyValue = @$currencyField->getDBInsertedValue($user, false);
 		$this->assertEquals(0, $formattedCurrencyValue,'getDBInsertedValue noskip usrdota3comdollar WITH SYMBOL');
 	}
 
@@ -692,7 +693,7 @@ class testCurrencyField extends PHPUnit_Framework_TestCase {
 		/////////////////
 		// currency symbol not supported as input
 		$currencyField = new CurrencyField('$-46,919,417.624848');
-		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
+		$formattedCurrencyValue = @$currencyField->getDBInsertedValue($user, false);
 		$this->assertEquals(0, $formattedCurrencyValue,'getDBInsertedValue noskip Negative usrdota3comdollar WITH SYMBOL');
 	}
 

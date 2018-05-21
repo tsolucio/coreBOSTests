@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class VTEntityTypeTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class VTEntityTypeTest extends TestCase {
 
 	/**
 	 * Method testVTEntityType

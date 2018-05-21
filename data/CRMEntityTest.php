@@ -17,8 +17,8 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
-class testCRMEntity extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testCRMEntity extends TestCase {
 
 	var $testrecords = array(
 		'Potentials' => array(5138),

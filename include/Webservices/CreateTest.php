@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class WSCreateTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class WSCreateTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

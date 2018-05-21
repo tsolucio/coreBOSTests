@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class testRecurringType extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class testRecurringType extends TestCase {
 
 	var $monday = 1;
 	var $tuesday = 2;

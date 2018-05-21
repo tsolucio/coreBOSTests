@@ -18,7 +18,8 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-class cbMapTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+class cbMapTest extends TestCase {
 
 	var $usrtestes = 8;
 
