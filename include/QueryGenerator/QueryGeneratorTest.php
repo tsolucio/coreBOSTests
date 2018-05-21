@@ -554,6 +554,12 @@ class QueryGeneratorTest extends PHPUnit_Framework_TestCase {
 		$queryGenerator->addCondition('filename','app','s');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,"SELECT vtiger_notes.notesid, vtiger_crmentity.smownerid, vtiger_notes.title, vtiger_notes.filename FROM vtiger_notes  INNER JOIN vtiger_crmentity ON vtiger_notes.notesid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_attachmentsfolder  ON vtiger_notes.folderid = vtiger_attachmentsfolder.folderid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_notes.filename LIKE 'app%')  AND vtiger_notes.notesid > 0");
+		$queryGenerator = new QueryGenerator('Documents', $current_user);
+		$queryGenerator->setFields(array('id','assigned_user_id', 'notes_title','filename'));
+		$queryGenerator->addReferenceModuleFieldCondition('Users', 'assigned_user_id', 'id', '20x21199', 'e');
+		$queryGenerator->addCondition('filename','app','s', QueryGenerator::$AND);
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query,"SELECT vtiger_notes.notesid, vtiger_crmentity.smownerid, vtiger_notes.title, vtiger_notes.filename FROM vtiger_notes  INNER JOIN vtiger_crmentity ON vtiger_notes.notesid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_attachmentsfolder  ON vtiger_notes.folderid = vtiger_attachmentsfolder.folderid LEFT JOIN vtiger_users AS vtiger_usersassigned_user_id ON vtiger_usersassigned_user_id.id=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_users.id = '20x21199' or vtiger_groups.groupid = '20x21199')  AND ( vtiger_notes.filename LIKE 'app%')  AND vtiger_notes.notesid > 0");
 	}
 
 	public function testQueryHelpDesk() {
