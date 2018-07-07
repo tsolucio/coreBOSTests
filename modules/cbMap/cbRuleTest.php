@@ -18,11 +18,12 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 
-function superDifficultDecision($decider1,$decider2) {
+function superDifficultDecision($decider1, $decider2) {
 	return ($decider1 + $decider2 > 10);
 }
 
 use PHPUnit\Framework\TestCase;
+
 class cbRuleTest extends TestCase {
 
 	/**
@@ -83,7 +84,7 @@ class cbRuleTest extends TestCase {
 	 * Method ConditionQueryProvidor
 	 * params
 	 */
-	function ConditionQueryProvidor() {
+	public function ConditionQueryProvidor() {
 		return array(
 			array(34038,'11x74','Chemex Labs Ltd','Accountname query'),
 			array(34039,'29x4062',array(
@@ -108,14 +109,16 @@ class cbRuleTest extends TestCase {
 	 * @dataProvider ConditionQueryProvidor
 	 */
 	public function testConditionQuery($conditionid, $contextid, $expected, $msg) {
-		$this->assertEquals($expected,coreBOS_Rule::evaluate($conditionid, $contextid), $msg);
+		global $current_user;
+		$current_user = Users::getActiveAdminUser();
+		$this->assertEquals($expected, coreBOS_Rule::evaluate($conditionid, $contextid), $msg);
 	}
 
 	/**
 	 * Method ConditionExpressionProvidor
 	 * params
 	 */
-	function ConditionExpressionProvidor() {
+	public function ConditionExpressionProvidor() {
 		return array(
 			array(27078,'17x2636','yes','RAC Ticket Depending on Products'),
 			array('Ticket Account','17x2637','Chemex Labs Ltd','Ticket account name'),
@@ -135,7 +138,8 @@ class cbRuleTest extends TestCase {
 	 * @dataProvider ConditionExpressionProvidor
 	 */
 	public function testConditionExpression($conditionid, $contextid, $expected, $msg) {
-		$this->assertEquals($expected,coreBOS_Rule::evaluate($conditionid, $contextid), $msg);
+		global $current_user;
+		$current_user = Users::getActiveAdminUser();
+		$this->assertEquals($expected, coreBOS_Rule::evaluate($conditionid, $contextid), $msg);
 	}
-
 }

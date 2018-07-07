@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,6 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class vtlibMenuTest extends TestCase {
 
 	/**
@@ -82,40 +83,43 @@ class vtlibMenuTest extends TestCase {
 		$this->assertEquals($homeexpected, $actual->allmenuinfo, "Home menu");
 		$rsmnu = $adb->query('select * from vtiger_parenttabrel where parenttabid=1 order by sequence');
 		$this->assertEquals(3, $adb->num_rows($rsmnu));
-		$this->assertEquals('3', $adb->query_result($rsmnu,0,'tabid'));
-		$this->assertEquals('9', $adb->query_result($rsmnu,1,'tabid'));
-		$this->assertEquals('63', $adb->query_result($rsmnu,2,'tabid'));
+		$this->assertEquals('3', $adb->query_result($rsmnu, 0, 'tabid'));
+		$this->assertEquals('9', $adb->query_result($rsmnu, 1, 'tabid'));
+		$this->assertEquals('63', $adb->query_result($rsmnu, 2, 'tabid'));
 		$rsmnu = $adb->query('select * from vtiger_evvtmenu where mparent=1 order by mseq');
 		$this->assertEquals(3, $adb->num_rows($rsmnu));
-		$this->assertEquals('Home', $adb->query_result($rsmnu,0,'mvalue'));
-		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu,1,'mvalue'));
-		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,2,'mvalue'));
+		$this->assertEquals('Home', $adb->query_result($rsmnu, 0, 'mvalue'));
+		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu, 1, 'mvalue'));
+		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu, 2, 'mvalue'));
 		$moduleInstance = Vtiger_Module::getInstance('Accounts');
+		ob_start();
 		$actual->addModule($moduleInstance);
+		ob_end_clean();
 		$rsmnu = $adb->query('select * from vtiger_parenttabrel where parenttabid=1 order by sequence');
 		$this->assertEquals(4, $adb->num_rows($rsmnu));
-		$this->assertEquals('3', $adb->query_result($rsmnu,0,'tabid'));
-		$this->assertEquals('9', $adb->query_result($rsmnu,1,'tabid'));
-		$this->assertEquals('63', $adb->query_result($rsmnu,2,'tabid'));
-		$this->assertEquals('6', $adb->query_result($rsmnu,3,'tabid'));
+		$this->assertEquals('3', $adb->query_result($rsmnu, 0, 'tabid'));
+		$this->assertEquals('9', $adb->query_result($rsmnu, 1, 'tabid'));
+		$this->assertEquals('63', $adb->query_result($rsmnu, 2, 'tabid'));
+		$this->assertEquals('6', $adb->query_result($rsmnu, 3, 'tabid'));
 		$rsmnu = $adb->query('select * from vtiger_evvtmenu where mparent=1 order by mseq');
 		$this->assertEquals(4, $adb->num_rows($rsmnu));
-		$this->assertEquals('Home', $adb->query_result($rsmnu,0,'mvalue'));
-		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu,1,'mvalue'));
-		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,2,'mvalue'));
-		$this->assertEquals('Accounts', $adb->query_result($rsmnu,3,'mvalue'));
+		$this->assertEquals('Home', $adb->query_result($rsmnu, 0, 'mvalue'));
+		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu, 1, 'mvalue'));
+		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu, 2, 'mvalue'));
+		$this->assertEquals('Accounts', $adb->query_result($rsmnu, 3, 'mvalue'));
+		ob_start();
 		$actual->removeModule($moduleInstance);
+		ob_end_clean();
 		$rsmnu = $adb->query('select * from vtiger_parenttabrel where parenttabid=1 order by sequence');
 		$this->assertEquals(3, $adb->num_rows($rsmnu));
-		$this->assertEquals('3', $adb->query_result($rsmnu,0,'tabid'));
-		$this->assertEquals('9', $adb->query_result($rsmnu,1,'tabid'));
-		$this->assertEquals('63', $adb->query_result($rsmnu,2,'tabid'));
+		$this->assertEquals('3', $adb->query_result($rsmnu, 0, 'tabid'));
+		$this->assertEquals('9', $adb->query_result($rsmnu, 1, 'tabid'));
+		$this->assertEquals('63', $adb->query_result($rsmnu, 2, 'tabid'));
 		$rsmnu = $adb->query('select * from vtiger_evvtmenu where mparent=1 order by mseq');
 		$this->assertEquals(3, $adb->num_rows($rsmnu));
-		$this->assertEquals('Home', $adb->query_result($rsmnu,0,'mvalue'));
-		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu,1,'mvalue'));
-		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu,2,'mvalue'));
+		$this->assertEquals('Home', $adb->query_result($rsmnu, 0, 'mvalue'));
+		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu, 1, 'mvalue'));
+		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu, 2, 'mvalue'));
 	}
-
 }
 ?>

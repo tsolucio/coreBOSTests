@@ -18,6 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class workflowfunctionsstringsTest extends TestCase {
 
 	/**
@@ -53,7 +54,7 @@ class workflowfunctionsstringsTest extends TestCase {
 		$this->assertEquals(0, $actual);
 		/////////////////
 		$actual = __vt_uppercasewords(array('2017 aBc DeF','not used'));
-		$this->assertEquals('2017 ABc DeF', $actual);
+		$this->assertEquals('2017 Abc Def', $actual);
 		$actual = __vt_uppercasewords(array(''));
 		$this->assertEquals('', $actual);
 		$actual = __vt_uppercasewords(array());

@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -22,12 +22,13 @@
  * Test the coreBOS Permission system via isPermitted function and RAC Business Rules
  */
 use PHPUnit\Framework\TestCase;
+
 class testUserInfoUtil_isPermittedRACTest extends TestCase {
 
 	/****
 	 * TEST Users
 	 ****/
-	var $testusers = array(
+	public $testusers = array(
 		'usrtestdmy' => 5,
 		'usrtestmdy' => 6,
 		'usrtestymd' => 7,
@@ -35,7 +36,7 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 		'usrnocreate' => 11,
 		'usrtestmcurrency' => 12
 	);
-	var $actionmappingWithRecord = array(
+	public $actionmappingWithRecord = array(
 	  'Save',
 	  'DetailViewAjax',
 	  'EditView',
@@ -43,7 +44,7 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 	  'DetailView',
 	  'ConvertLead',
 	);
-	var $actionmappingWithRecordSpecial = array(
+	public $actionmappingWithRecordSpecial = array(
 	  'SavePriceBook',
 	  'SaveVendor',
 	  'PriceBookEditView',
@@ -53,7 +54,7 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 	  'PriceBookDetailView',
 	  'VendorDetailView',
 	);
-	var $actionmappingWithoutRecord = array(
+	public $actionmappingWithoutRecord = array(
 	  'QuickCreate',
 	  'index',
 	  'Popup',
@@ -64,7 +65,7 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 	  'Merge',
 	  'DuplicatesHandling'
 	);
-	var $testmodules = array(
+	public $testmodules = array(
 		'Potentials',
 		'Accounts',
 		'Contacts',
@@ -76,7 +77,7 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 		'Quotes',
 		'PriceBooks'
 	);
-	var $testrecords = array(
+	public $testrecords = array(
 		'Potentials' => array(5138),
 		'Accounts' => array(74),
 		'Contacts' => array(1084),
@@ -114,18 +115,18 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 		foreach ($this->testusers as $uname => $uid) {
 			foreach ($this->testmodules as $mname) {
 				foreach ($this->actionmappingWithoutRecord as $action) {
-					if ($uname == 'usrnocreate' and in_array($action, array('QuickCreate','Export','Import','CreateView'))) {
+					if ($uname == 'usrnocreate' && in_array($action, array('QuickCreate','Export','Import','CreateView'))) {
 						$expected = 'no';
 					} else {
 						$expected = 'yes';
 					}
-					if ($uname == 'usrnocreate' and $action == 'Merge' and in_array($mname,array('Accounts','Contacts','Leads','HelpDesk'))) {
+					if ($uname == 'usrnocreate' && $action == 'Merge' && in_array($mname, array('Accounts','Contacts','Leads','HelpDesk'))) {
 						$expected = 'no';
 					}
-					if ($uname == 'usrnocreate' and in_array($action,array('Import','Export')) and in_array($mname,array('Quotes','PriceBooks'))) {
+					if ($uname == 'usrnocreate' && in_array($action, array('Import','Export')) && in_array($mname, array('Quotes','PriceBooks'))) {
 						$expected = 'yes';
 					}
-					if ($mname=='Documents' and $action=='Import') {
+					if ($mname=='Documents' && $action=='Import') {
 						$expected = 'no';
 					}
 					$test = array($uid,$action,$mname,'',$expected,$uname.' > '. $mname.' '.$action);
@@ -136,12 +137,12 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 		foreach ($this->testusers as $uname => $uid) {
 			foreach ($this->testrecords as $mname => $mrecords) {
 				foreach ($this->actionmappingWithRecord as $action) {
-					if ($action=='ConvertLead' and $mname != 'Leads') {
+					if ($action=='ConvertLead' && $mname != 'Leads') {
 						continue;
 					}
 					foreach ($mrecords as $crmid) {
-						if ($mname=='Products' or $mname=='HelpDesk') {
-							$ownerrs = $adb->pquery('select smownerid from vtiger_crmentity where crmid=?',array($crmid));
+						if ($mname=='Products' || $mname=='HelpDesk') {
+							$ownerrs = $adb->pquery('select smownerid from vtiger_crmentity where crmid=?', array($crmid));
 							$owner = $adb->query_result($ownerrs, 0, 0);
 							if ($owner==$uid) {
 								$expected = 'yes';
@@ -151,10 +152,10 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 						} else {
 							$expected = 'yes';
 						}
-						if ($action=='ConvertLead' and $uname != 'usrnocreate') {
+						if ($action=='ConvertLead' && $uname != 'usrnocreate') {
 							$expected = 'yes';
 						}
-						if ($uname == 'usrnocreate' and in_array($action,array('DetailViewAjax','EditView','Delete','Save'))) {
+						if ($uname == 'usrnocreate' && in_array($action, array('DetailViewAjax','EditView','Delete','Save'))) {
 							$expected = 'no';
 						}
 						$test = array($uid,$action,$mname,$crmid,$expected,$uname.' > '. $mname.' '.$action.' '.$crmid);
@@ -171,13 +172,13 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 	 * @test
 	 * @dataProvider permittedActionsProvidor
 	 */
-	public function testThatWeHaveNotBrokenAnything($testuser,$actionname,$module,$crmid,$expected,$message) {
+	public function testThatWeHaveNotBrokenAnything($testuser, $actionname, $module, $crmid, $expected, $message) {
 		global $current_user;
 		$hold_user = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($testuser);
 		$current_user = $user;
-		if (!empty($crmid) and is_numeric($crmid)) {
+		if (!empty($crmid) && is_numeric($crmid)) {
 			$actual = isPermitted($module, $actionname, $crmid);
 		} else {
 			$actual = isPermitted($module, $actionname);
@@ -236,6 +237,5 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 		}
 		$current_user = $hold_user;
 	}
-
 }
 ?>
