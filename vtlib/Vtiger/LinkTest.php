@@ -74,19 +74,44 @@ class vtlibLinkTest extends TestCase {
 	 * @test
 	 */
 	public function testaddLink(){
-		global $adb;
-		
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
-		$number_of_links = count($module_contacts->getLinks());
+		$expectedLinks = $module_contacts->getLinks();
 
-		$module_contacts->addLink('LISTVIEWBASIC', 'LBL_SELECT_ALL', 'toggleSelectAllEntries_ListView();');
+		// Link attributes
+		$linkid = Vtiger_Link::__getUniqueId();
+		$tabid = getTabid('Contacts');
+		$linktype = 'LISTVIEWBASIC';
+		$linklabel = 'LBL_SELECT_ALL';
+		$linkurl = 'toggleSelectAllEntries_ListView();';
+		$linkicon = '';
+		$sequence = '0';
+		$handler_path = '';
+		$handler_class = '';
+		$handler = '';
+		$onlyonmymodule = '0';
 
-		$result = $adb->pquery(
-			'SELECT linkid FROM vtiger_links WHERE tabid=? AND linktype=? AND linkurl=? AND linklabel=?',
-			array(4, 'LISTVIEWBASIC', 'toggleSelectAllEntries_ListView();', 'LBL_SELECT_ALL')
-		);
-		
-		$this->assertGreaterThan(0, $adb->num_rows($result));
+		// Adding link
+		$module_contacts->addLink($linktype, $linklabel, $linkurl);
+		$actualLinks = $module_contacts->getLinks();
+
+		// Link object
+		$link = new Vtiger_Link();
+		$link->tabid = $tabid;
+		$link->linkid = $linkid;
+		$link->linktype = $linktype;
+		$link->linklabel = $linklabel;
+		$link->linkurl = $linkurl;
+		$link->linkicon = $linkicon;
+		$link->sequence = $sequence;
+		$link->handler_path = $handler_path;
+		$link->handler_class = $handler_class;
+		$link->handler = $handler;
+		$link->onlyonmymodule = $onlyonmymodule;
+
+		// Adding link object to expectedLinks
+		$expectedLinks["LISTVIEWBASIC"] = $link;
+
+		$this->assertEquals($expectedLinks, $actualLinks);
 	}
 }
 ?>
