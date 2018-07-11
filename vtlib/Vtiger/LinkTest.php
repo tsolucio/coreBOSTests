@@ -78,7 +78,6 @@ class vtlibLinkTest extends TestCase {
 		$expectedLinks = $module_contacts->getLinks();
 
 		// Link attributes
-		$linkid = Vtiger_Link::__getUniqueId();
 		$tabid = getTabid('Contacts');
 		$linktype = 'LISTVIEWBASIC';
 		$linklabel = 'LBL_SELECT_ALL';
@@ -93,6 +92,11 @@ class vtlibLinkTest extends TestCase {
 		// Adding link
 		$module_contacts->addLink($linktype, $linklabel, $linkurl);
 		$actualLinks = $module_contacts->getLinks();
+
+		// Getting linkid
+		$lastLink = end($actualLinks);
+		reset($actualLinks);
+		$linkid = $lastLink->linkid;
 
 		// Link object
 		$link = new Vtiger_Link();
