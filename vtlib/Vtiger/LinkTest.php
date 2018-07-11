@@ -74,13 +74,19 @@ class vtlibLinkTest extends TestCase {
 	 * @test
 	 */
 	public function testaddLink(){
+		global $adb;
+		
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$number_of_links = count($module_contacts->getLinks());
 
 		$module_contacts->addLink('LISTVIEWBASIC', 'LBL_SELECT_ALL', 'toggleSelectAllEntries_ListView();');
+
+		$result = $adb->pquery(
+			'SELECT linkid FROM vtiger_links WHERE tabid=? AND linktype=? AND linkurl=? AND linklabel=?',
+			array(4, 'LISTVIEWBASIC', 'toggleSelectAllEntries_ListView();', 'LBL_SELECT_ALL')
+		);
 		
-		$resultGreaterThanMinimumValue = $number_of_links > count($module_contacts->getLinks());
-		$this->assertTrue($resultGreaterThanMinimumValue);
+		$this->assertGreaterThan(0, $adb->num_rows($result));
 	}
 }
 ?>
