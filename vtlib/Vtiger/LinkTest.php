@@ -69,5 +69,18 @@ class vtlibLinkTest extends TestCase {
 		$this->assertEquals($expected, $actual);
 	}
 
+	/**
+	 * Method testaddLink
+	 * @test
+	 */
+	public function testaddLink(){
+		$module_contacts = Vtiger_Module::getInstance('Contacts');
+		$number_of_links = count($module_contacts->getLinks());
+
+		$module_contacts->addLink('LISTVIEWBASIC', 'LBL_SELECT_ALL', 'toggleSelectAllEntries_ListView();');
+		
+		$resultGreaterThanMinimumValue = $number_of_links > count($module_contacts->getLinks());
+		$this->assertTrue($resultGreaterThanMinimumValue);
+	}
 }
 ?>
