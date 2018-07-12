@@ -151,29 +151,21 @@ class vtlibLinkTest extends TestCase {
 	 * @test
 	 */
 	public function testdeleteLink(){
-		global $adb;
-
 		// Module links
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
-		$links = $module_contacts->getLinks();
+		$actualLinks = $module_contacts->getLinks();
 
 		// Last link
-		$lastLink = end($links);
+		$lastLink = end($actualLinks);
 		reset($links);
 
 		// Delete last link
 		Vtiger_Link::deleteLink($lastLink->tabid, $lastLink->linktype, $lastLink->linklabel);
 
-		// Get the deleted link
-		$results = $adb->pquery(
-			'SELECT linkid FROM vtiger_links WHERE tabid=? AND linktype=? AND linkurl=? AND linklabel=?',
-			array($lastLink->tabid, $lastLink->linktype, $lastLink->linkurl, $lastLink->linklabel)
-		);
+		// Remained links
+		$expectedLinks = $module_contacts->getLinks();
 
-		$actualRows = $adb->num_rows($results);
-		$expectedRows = 0;
-
-		$this->assertEquals($expectedRows, $actualRows);
+		$this->assertNotEquals($expectedLinks, $actualLinks);
 	}
 }
 ?>
