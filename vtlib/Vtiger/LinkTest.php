@@ -115,6 +115,9 @@ class vtlibLinkTest extends TestCase {
 		// Adding link object to expectedLinks
 		$expectedLinks["LISTVIEWBASIC"] = $link;
 
+		// Delete created link
+		Vtiger_Link::deleteLink($tabid, $linktype, $linklabel);
+
 		$this->assertEquals($expectedLinks, $actualLinks);
 	}
 
@@ -143,6 +146,9 @@ class vtlibLinkTest extends TestCase {
 
 		$actualLinkLabel = $newLastLink->linklabel;
 
+		// Restore module link value
+		Vtiger_Link::updateLink($lastLink->tabid, $lastLink->linkid, array('linklabel' => $lastLink->linklabel));
+
 		$this->assertEquals($expectedLinkLabel, $actualLinkLabel);
 	}
 
@@ -157,7 +163,10 @@ class vtlibLinkTest extends TestCase {
 
 		// Last link
 		$lastLink = end($actualLinks);
-		reset($links);
+		reset($actualLinks);
+
+		// Remove last link
+		array_pop($actualLinks);
 
 		// Delete last link
 		Vtiger_Link::deleteLink($lastLink->tabid, $lastLink->linktype, $lastLink->linklabel);
@@ -165,7 +174,15 @@ class vtlibLinkTest extends TestCase {
 		// Remained links
 		$expectedLinks = $module_contacts->getLinks();
 
-		$this->assertNotEquals($expectedLinks, $actualLinks);
+		// Restore link
+		$handlerInfo = array();
+		$handlerInfo['path'] = $lastLink->handler_path;
+		$handlerInfo['class'] = $lastLink->handler_class;
+		$handlerInfo['method'] = $lastLink->handler;
+
+		$module_contacts->addLink($lastLink->linktype, $lastLink->linklabel, $lastLink->linkurl, $lastLink->icon, $lastLink->sequence, $handlerInfo, $lastLink->onlyonmymodule);
+
+		$this->assertEquals($expectedLinks, $actualLinks);
 	}
 
 	/**
@@ -181,6 +198,15 @@ class vtlibLinkTest extends TestCase {
 		Vtiger_Link::deleteAll(getTabid('Contacts'));
 
 		$expectedLinks = $module_contacts->getLinks();
+
+		// Restore module links
+		foreach($actualLinks as $link){
+			$handlerInfo['path'] = $link->handler_path;
+			$handlerInfo['class'] = $link->handler_class;
+			$handlerInfo['method'] = $link->handler;
+
+			$module_contacts->addLink($link->linktype, $link->linklabel, $link->linkurl, $link->icon, (int)$link->sequence, $handlerInfo, $link->onlyonmymodule);
+		}
 		
 		$this->assertEquals(0, count($expectedLinks));
 	}
