@@ -117,5 +117,33 @@ class vtlibLinkTest extends TestCase {
 
 		$this->assertEquals($expectedLinks, $actualLinks);
 	}
+
+	/**
+	 * Method testupdateLink
+	 * @test
+	 */
+	public function testupdateLink(){
+		// Module links
+		$module_contacts = Vtiger_Module::getInstance('Contacts');
+		$links = $module_contacts->getLinks();
+
+		// Last link
+		$lastLink = end($links);
+		reset($links);
+
+		$expectedLinkLabel = "Send Email";
+
+		// Update module last link
+		Vtiger_Link::updateLink($lastLink->tabid, $lastLink->linkid, array('linklabel' => $expectedLinkLabel));
+
+		// Updated module links
+		$newLinks =$module_contacts->getLinks();
+		$newLastLink = end($newLinks);
+		reset($newLinks);
+
+		$actualLinkLabel = $newLastLink->linklabel;
+
+		$this->assertEquals($expectedLinkLabel, $actualLinkLabel);
+	}
 }
 ?>
