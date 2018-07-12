@@ -167,5 +167,22 @@ class vtlibLinkTest extends TestCase {
 
 		$this->assertNotEquals($expectedLinks, $actualLinks);
 	}
+
+	/**
+	 * Method testdeleteAll
+	 * @test
+	 */
+	public function testdeleteAll(){
+		// Module links
+		$module_contacts = Vtiger_Module::getInstance('Contacts');
+		$actualLinks = $module_contacts->getLinks();
+
+		// Delete all module links
+		Vtiger_Link::deleteAll(getTabid('Contacts'));
+
+		$expectedLinks = $module_contacts->getLinks();
+		
+		$this->assertEquals(0, count($expectedLinks));
+	}
 }
 ?>
