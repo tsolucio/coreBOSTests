@@ -304,7 +304,7 @@ Location : Hamburg';
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."concat(format_date(cf_722, 'd'),'/',format_date(cf_722, 'F'),'/',format_date(cf_722, 'm')) )  $(account_id : (Accounts) accountname)");
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals('01/January/01 Spieker Properties', $actual, 'uppercase string');
-		// // uppercase string twice
+		// // __WorkflowFunction__ twice
 		// $ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."uppercase('firstname') )  $(general : (__WorkflowFunction__) uppercase('lastname') )  ");
 		// $actual = $ct->render($entityCache, $entityId);
 		// $this->assertEquals('FIRSTNAME Spieker Properties', $actual,'uppercase string');
