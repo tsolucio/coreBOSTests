@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,6 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class workflowfunctionsaggregationTest extends TestCase {
 
 	/**
@@ -59,12 +60,11 @@ class workflowfunctionsaggregationTest extends TestCase {
 		////////////////
 		$entityData = $entityCache->forId('29x4065'); // AST-000003 assets
 		$actual = __cb_aggregation(array('sum','Potentials','amount','',$entityData));
-		$this->assertEquals(0, $actual,' modules not related');
+		$this->assertEquals(0, $actual, ' modules not related');
 		$actual = __cb_aggregation(array('undefined','Potentials','amount','',$entityData));
-		$this->assertEquals(0, $actual,'unknown operation');
+		$this->assertEquals(0, $actual, 'unknown operation');
 		$actual = __cb_aggregation(array('sum','Potentials','inexistentfield','',$entityData));
-		$this->assertEquals(0, $actual,'unknown field');
+		$this->assertEquals(0, $actual, 'unknown field');
 	}
-
 }
 ?>
