@@ -76,5 +76,140 @@ class DataTransformTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'sanitizeReferences PriceBooks');
 	}
 
+	public function testsanitizeCurrencyFieldsForDB() {
+		global $current_user, $adb, $log;
+		$rowsql = array(
+			'inventorydetails_no' => 'InvDet-000000145',
+			'productid' => 2616,
+			'related_to' => 2973,
+			'account_id' => 2972,
+			'contact_id' => 1953,
+			'vendor_id' => 2419,
+			'sequence_no' => 1,
+			'lineitem_id' => 145,
+			'quantity' => 9.000,
+			'listprice' => '48.610000',
+			'tax_percent' => 0,
+			'extgross' => '437.490000',
+			'discount_percent' => 0,
+			'discount_amount' => 0,
+			'extnet' => '1437.490000',
+			'linetax' => 0,
+			'linetotal' => '437.490000',
+			'units_delivered_received' => 0,
+			'line_completed' => 0,
+			'assigned_user_id' => 1,
+			'createdtime' => '10-04-2015 05:09',
+			'modifiedtime' => '09-08-2015 16:12',
+			'description' => '',
+			'cost_price' => '22.330000',
+			'cost_gross' => 198,
+			'total_stock' => '',
+			'created_user_id' => 1,
+			'id_tax1_perc' => '4.500000',
+			'id_tax2_perc' => '10.000000',
+			'id_tax3_perc' => '12.500000',
+			'record_id' => 2978,
+			'record_module' => 'InventoryDetails',
+		);
+		$rowdota3com = array(
+			'inventorydetails_no' => 'InvDet-000000145',
+			'productid' => 2616,
+			'related_to' => 2973,
+			'account_id' => 2972,
+			'contact_id' => 1953,
+			'vendor_id' => 2419,
+			'sequence_no' => 1,
+			'lineitem_id' => 145,
+			'quantity' => 9.000,
+			'listprice' => '48.610000',
+			'tax_percent' => 0,
+			'extgross' => '437.490000',
+			'discount_percent' => 0,
+			'discount_amount' => 0,
+			'extnet' => '1,437.490000',
+			'linetax' => 0,
+			'linetotal' => '437.490000',
+			'units_delivered_received' => 0,
+			'line_completed' => 0,
+			'assigned_user_id' => 1,
+			'createdtime' => '10-04-2015 05:09',
+			'modifiedtime' => '09-08-2015 16:12',
+			'description' => '',
+			'cost_price' => '22.330000',
+			'cost_gross' => 198,
+			'total_stock' => '',
+			'created_user_id' => 1,
+			'id_tax1_perc' => '4.500000',
+			'id_tax2_perc' => '10.000000',
+			'id_tax3_perc' => '12.500000',
+			'record_id' => 2978,
+			'record_module' => 'InventoryDetails',
+		);
+		$rowcoma3dot = array(
+			'inventorydetails_no' => 'InvDet-000000145',
+			'productid' => 2616,
+			'related_to' => 2973,
+			'account_id' => 2972,
+			'contact_id' => 1953,
+			'vendor_id' => 2419,
+			'sequence_no' => 1,
+			'lineitem_id' => 145,
+			'quantity' => 9.000,
+			'listprice' => '48,610000',
+			'tax_percent' => 0,
+			'extgross' => '437,490000',
+			'discount_percent' => 0,
+			'discount_amount' => 0,
+			'extnet' => '1.437,490000',
+			'linetax' => 0,
+			'linetotal' => '437,490000',
+			'units_delivered_received' => 0,
+			'line_completed' => 0,
+			'assigned_user_id' => 1,
+			'createdtime' => '10-04-2015 05:09',
+			'modifiedtime' => '09-08-2015 16:12',
+			'description' => '',
+			'cost_price' => '22,330000',
+			'cost_gross' => 198,
+			'total_stock' => '',
+			'created_user_id' => 1,
+			'id_tax1_perc' => '4,500000',
+			'id_tax2_perc' => '10,000000',
+			'id_tax3_perc' => '12,500000',
+			'record_id' => 2978,
+			'record_module' => 'InventoryDetails',
+		);
+		$hcu = $current_user;
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+
+		$testmodule = 'InventoryDetails';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+
+		$actual = DataTransform::sanitizeCurrencyFieldsForDB($rowcoma3dot, $meta);
+		$this->assertEquals($rowsql, $actual, 'sanitizeCurrencyFieldsForDB InventoryDetails usrcoma3dot');
+
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
+
+		$testmodule = 'InventoryDetails';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+
+		$actual = DataTransform::sanitizeCurrencyFieldsForDB($rowdota3com, $meta);
+		$this->assertEquals($rowsql, $actual, 'sanitizeCurrencyFieldsForDB InventoryDetails usrdotd3com');
+
+		$current_user = $hcu;
+	}
 }
 ?>
