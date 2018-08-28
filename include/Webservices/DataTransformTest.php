@@ -17,19 +17,19 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class DataTransformTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
 	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
 	 ****/
-	var $usrdota0x = 5; // testdmy 2 decimal places
-	var $usrcomd0x = 6; // testmdy 3 decimal places
-	var $usrdotd3com = 7; // testymd 4 decimal places
-	var $usrcoma3dot = 10; // testtz 5 decimal places
-	var $usrdota3comdollar = 12; // testmcurrency 6 decimal places
+	private $usrdota0x = 5; // testdmy 2 decimal places
+	private $usrcomd0x = 6; // testmdy 3 decimal places
+	private $usrdotd3com = 7; // testymd 4 decimal places
+	private $usrcoma3dot = 10; // testtz 5 decimal places
+	private $usrdota3comdollar = 12; // testmcurrency 6 decimal places
 
 	/**
 	 * Method testsanitizeReferences
@@ -39,11 +39,11 @@ class DataTransformTest extends TestCase {
 		global $current_user, $adb,$log;
 		$testrecord = 4062;
 		$testmodule = 'Assets';
-		$webserviceObject = VtigerWebserviceObject::fromName($adb,$testmodule);
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
 		$handlerPath = $webserviceObject->getHandlerPath();
 		$handlerClass = $webserviceObject->getHandlerClass();
 		require_once $handlerPath;
-		$handler = new $handlerClass($webserviceObject,$current_user,$adb,$log);
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
 		$meta = $handler->getMeta();
 		$focus = CRMEntity::getInstance($testmodule);
 		$focus->id = $testrecord;
@@ -54,16 +54,16 @@ class DataTransformTest extends TestCase {
 		$expected['account'] = '11x142';
 		$expected['modifiedby'] = '19x1';
 		$expected['created_user_id'] = '19x1';
-		$actual = DataTransform::sanitizeReferences($focus->column_fields,$meta);
-		$this->assertEquals($expected, $actual,'sanitizeReferences Assets');
+		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferences Assets');
 		///////////////
 		$testrecord = 16829;
 		$testmodule = 'PriceBooks';
-		$webserviceObject = VtigerWebserviceObject::fromName($adb,$testmodule);
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
 		$handlerPath = $webserviceObject->getHandlerPath();
 		$handlerClass = $webserviceObject->getHandlerClass();
 		require_once $handlerPath;
-		$handler = new $handlerClass($webserviceObject,$current_user,$adb,$log);
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
 		$meta = $handler->getMeta();
 		$focus = CRMEntity::getInstance($testmodule);
 		$focus->id = $testrecord;
@@ -72,8 +72,8 @@ class DataTransformTest extends TestCase {
 		$expected['currency_id'] = '21x1';
 		$expected['modifiedby'] = '19x1';
 		$expected['created_user_id'] = '19x1';
-		$actual = DataTransform::sanitizeReferences($focus->column_fields,$meta);
-		$this->assertEquals($expected, $actual,'sanitizeReferences PriceBooks');
+		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferences PriceBooks');
 	}
 
 }
