@@ -33,11 +33,13 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$this->assertEquals(3854.100000, $actual);
 		$actual = __cb_aggregation(array('sum','Invoice','hdnGrandTotal','',$entityData));
 		$this->assertEquals(4894.710000, $actual);
+		$actual = __cb_aggregation(array('sum','Invoice','sum_nettotal','',$entityData));
+		$this->assertEquals(3854.100000, $actual);
 		////////////////
 		$actual = __cb_aggregation(array('avg','Potentials','amount','',$entityData));
-		$this->assertEquals(71117.0000000000, $actual,'avg');
+		$this->assertEquals(71117.0000000000, $actual, 'avg');
 		$actual = __cb_aggregation(array('std','Potentials','amount','',$entityData));
-		$this->assertEquals(983, $actual,'std');
+		$this->assertEquals(983, $actual, 'std');
 		////////////////
 		$actual = __cb_aggregation(array('sum','Potentials','amount','[sales_stage,e,Closed Lost,or]',$entityData));
 		$this->assertEquals(72100.000000, $actual);
@@ -46,9 +48,17 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$this->assertEquals(70134.000000, $actual);
 		////////////////
 		$actual = __cb_aggregation(array('sum','Potentials','amount','[amount,l,1000,or]',$entityData));
-		$this->assertEquals(0, $actual,'no values');
+		$this->assertEquals(0, $actual, 'no values');
 		$actual = __cb_aggregation(array('sum','Potentials','amount','[amount,l,71000,or],[sales_stage,e,Closed Lost,or]',$entityData));
-		$this->assertEquals(142234, $actual,'no values');
+		$this->assertEquals(142234, $actual, 'no values');
+		////////////////
+		$entityData = $entityCache->forId('6x11424'); // Sales Order
+		$actual = __cb_aggregation(array('sum','Invoice','hdnSubTotal','',$entityData));
+		$this->assertEquals(9030.970000, $actual);
+		$actual = __cb_aggregation(array('sum','Invoice','hdnGrandTotal','',$entityData));
+		$this->assertEquals(11469.330000, $actual);
+		$actual = __cb_aggregation(array('sum','Invoice','sum_nettotal','',$entityData));
+		$this->assertEquals(9030.970000, $actual);
 		////////////////
 		$entityData = $entityCache->forId('13x5900'); // Egestas Aliquam Fringilla Corp potential
 		$actual = __cb_aggregation(array('min','Potentials','amount','',$entityData));
