@@ -301,9 +301,13 @@ Location : Hamburg';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals('FIRSTNAME Spieker Properties', $actual,'uppercase string');
 		// functions inside functions
-		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."concat(format_date(cf_722, 'd'),'/',format_date(cf_722, 'F'),'/',format_date(cf_722, 'm')) )  $(account_id : (Accounts) accountname)");
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."concat(format_date(birthday, 'd'),'/',format_date(birthday, 'F'),'/',format_date(birthday, 'm')) )  $(account_id : (Accounts) accountname)");
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals('01/January/01 Spieker Properties', $actual, 'uppercase string');
+		$this->assertEquals('31/March/03 Spieker Properties', $actual, 'uppercase string');
+		// no date
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."concat(format_date(support_start_date, 'd'),'/',format_date(support_start_date, 'F'),'/',format_date(support_start_date, 'm')) )  $(account_id : (Accounts) accountname)");
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('// Spieker Properties', $actual, 'uppercase string');
 		// // __WorkflowFunction__ twice
 		// $ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."uppercase('firstname') )  $(general : (__WorkflowFunction__) uppercase('lastname') )  ");
 		// $actual = $ct->render($entityCache, $entityId);
@@ -312,4 +316,37 @@ Location : Hamburg';
 		$util->revertUser();
 	}
 
+	/**
+	 * Method testWorkflowFunctionClosingChar
+	 * @test
+	 */
+	public function testWorkflowFunctionClosingChar() {
+		// Setup
+		$entityId = '12x1607';
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		// Contact first name uppercase
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) ) ');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ space');
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) )&');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ &');
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) ).');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ .');
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) )}');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ }');
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) )>');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ >');
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) );');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ ;');
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) )-');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ -');
+	}
 }
