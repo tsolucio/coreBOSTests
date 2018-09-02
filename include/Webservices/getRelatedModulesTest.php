@@ -168,20 +168,20 @@ class getRelatedModulesTest extends TestCase {
 				'relationId' => '155',
 			),
 			'cbSurveyDone' => array(
-				'related_tabid' => '67',
+				'related_tabid' => '68',
 				'related_module' => 'cbSurveyDone',
 				'label' => 'cbSurveyDone',
 				'labeli18n' => 'Surveys Done',
 				'actions' => 'ADD',
-				'relationId' => '177',
+				'relationId' => '178',
 			),
 			'cbSurveyAnswer' => array(
-				'related_tabid' => '68',
+				'related_tabid' => '69',
 				'related_module' => 'cbSurveyAnswer',
 				'label' => 'cbSurveyAnswer',
 				'labeli18n' => 'Surveys Answer',
 				'actions' => 'ADD',
-				'relationId' => '181',
+				'relationId' => '182',
 			)
 		);
 		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get accounts');

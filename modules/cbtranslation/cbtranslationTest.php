@@ -109,7 +109,7 @@ class cbtranslationTest extends TestCase {
 	public function testgetPicklistValues() {
 		$expected = array('--None--','Acquired','Active','Market Failed','Project Cancelled','Shutdown',);
 		$this->assertEquals($expected, cbtranslation::getPicklistValues('en_us','Accounts','rating'), 'getPicklistValues en accounts rating');
-		$expected = array('Adquirido','Activo','Mercado Inmaduro','Cancelado','Suspendido',);
+		$expected = array('Adquirido','Activo','Mercado Inmaduro','Cancelado','Suspendido','-----');
 		$this->assertEquals($expected, cbtranslation::getPicklistValues('es_es','Accounts','rating'), 'getPicklistValues es accounts rating');
 	}
 

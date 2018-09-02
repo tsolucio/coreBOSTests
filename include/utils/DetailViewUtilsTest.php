@@ -117,6 +117,16 @@ class testDetailViewUtils extends TestCase {
 			  'relationId' => '155',
 			  'actions' => '',
 			),
+			'cbSurveyDone' => array (
+			  'related_tabid' => '68',
+			  'relationId' => '178',
+			  'actions' => 'ADD',
+			),
+			'cbSurveyAnswer' => array (
+			  'related_tabid' => '69',
+			  'relationId' => '182',
+			  'actions' => 'ADD',
+			),
 		);
 		$this->assertEquals($expected, $actual, 'testgetRelatedLists get accounts no restrictions');
 		$restrictedRelations = array(1,4,6);
