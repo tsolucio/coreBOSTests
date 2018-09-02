@@ -18,7 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 // Turn on debugging level
-$Vtiger_Utils_Log = true;
+$Vtiger_Utils_Log = false;
 set_time_limit(0);
 ini_set('memory_limit','1024M');
 error_reporting(E_ERROR);ini_set("display_errors", "on");

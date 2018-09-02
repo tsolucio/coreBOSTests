@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,6 +18,10 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
+global$Vtiger_Utils_Log;
+$Vtiger_Utils_Log = false;
+
 class vtlibLinkTest extends TestCase {
 
 	/**
@@ -73,7 +77,7 @@ class vtlibLinkTest extends TestCase {
 	 * Method testaddLink
 	 * @test
 	 */
-	public function testaddLink(){
+	public function testaddLink() {
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$expectedLinks = $module_contacts->getLinks();
 
@@ -125,7 +129,7 @@ class vtlibLinkTest extends TestCase {
 	 * Method testupdateLink
 	 * @test
 	 */
-	public function testupdateLink(){
+	public function testupdateLink() {
 		// Module links
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$links = $module_contacts->getLinks();
@@ -156,7 +160,7 @@ class vtlibLinkTest extends TestCase {
 	 * Method testdeleteLink
 	 * @test
 	 */
-	public function testdeleteLink(){
+	public function testdeleteLink() {
 		// Module links
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$actualLinks = $module_contacts->getLinks();
@@ -180,7 +184,7 @@ class vtlibLinkTest extends TestCase {
 		$handlerInfo['class'] = $lastLink->handler_class;
 		$handlerInfo['method'] = $lastLink->handler;
 
-		$module_contacts->addLink($lastLink->linktype, $lastLink->linklabel, $lastLink->linkurl, $lastLink->icon, $lastLink->sequence, $handlerInfo, $lastLink->onlyonmymodule);
+		$module_contacts->addLink($lastLink->linktype, $lastLink->linklabel, $lastLink->linkurl, $lastLink->linkicon, $lastLink->sequence, $handlerInfo, $lastLink->onlyonmymodule);
 
 		$this->assertEquals($expectedLinks, $actualLinks);
 	}
@@ -189,7 +193,7 @@ class vtlibLinkTest extends TestCase {
 	 * Method testdeleteAll
 	 * @test
 	 */
-	public function testdeleteAll(){
+	public function testdeleteAll() {
 		// Module links
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$actualLinks = $module_contacts->getLinks();
@@ -200,14 +204,13 @@ class vtlibLinkTest extends TestCase {
 		$expectedLinks = $module_contacts->getLinks();
 
 		// Restore module links
-		foreach($actualLinks as $link){
+		foreach ($actualLinks as $link) {
 			$handlerInfo['path'] = $link->handler_path;
 			$handlerInfo['class'] = $link->handler_class;
 			$handlerInfo['method'] = $link->handler;
-
-			$module_contacts->addLink($link->linktype, $link->linklabel, $link->linkurl, $link->icon, (int)$link->sequence, $handlerInfo, $link->onlyonmymodule);
+			$module_contacts->addLink($link->linktype, $link->linklabel, $link->linkurl, $link->linkicon, (int)$link->sequence, $handlerInfo, $link->onlyonmymodule);
 		}
-		
+
 		$this->assertEquals(0, count($expectedLinks));
 	}
 }
