@@ -154,6 +154,9 @@ class workflowfunctionsdatetimeTest extends TestCase {
 		$this->assertEquals('20-06-2017 22:30:33', $actual);
 		$actual = __cb_format_date(array('2017-06-20 22:30:33','M H:i:s'));
 		$this->assertEquals('Jun 22:30:33', $actual);
+		// empty date
+		$actual = __cb_format_date(array('','d-m-Y H:i:s'));
+		$this->assertEquals('', $actual);
 	}
 
 	/**
