@@ -52,6 +52,9 @@
 		<testsuite name="Settings">
 			<directory>./modules/Settings</directory>
 		</testsuite>
+		<testsuite name="CustomView">
+			<directory>./modules/CustomView</directory>
+		</testsuite>
 		<testsuite name="cbData">
 			<directory>./data</directory>
 		</testsuite>
