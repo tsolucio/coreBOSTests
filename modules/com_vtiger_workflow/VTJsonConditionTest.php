@@ -102,6 +102,14 @@ class VTJsonConditionTest extends TestCase {
 		$testexpression = '[{"fieldname":"related_to : (Contacts) lastname","operation":"is not empty","value":"","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
 		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
 		$this->assertFalse($actual);
+		/////////////////////////
+		/////////////////////////
+		$entityId = '7x43268'; // Invoice related to SO
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$cs = new VTJsonCondition();
+		$testexpression = '[{"fieldname":"salesorder_id : (SalesOrder) pl_grand_total","operation":"greater than or equal to","value":"$(salesorder_id : (SalesOrder) pl_net_total) ","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
 	}
 
 	/**
