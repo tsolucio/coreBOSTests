@@ -110,6 +110,10 @@ class VTJsonConditionTest extends TestCase {
 		$testexpression = '[{"fieldname":"salesorder_id : (SalesOrder) pl_grand_total","operation":"greater than or equal to","value":"$(salesorder_id : (SalesOrder) pl_net_total) ","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
 		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
 		$this->assertTrue($actual);
+		$cs = new VTJsonCondition();
+		$testexpression = '[{"fieldname":"salesorder_id : (SalesOrder) recurring_frequency","operation":"is not","value":"$(salesorder_id : (SalesOrder) sostatus) ","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
 	}
 
 	/**
