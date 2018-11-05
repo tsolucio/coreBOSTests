@@ -283,4 +283,93 @@ class testutils extends TestCase {
 		$this->assertFalse(isValueInPicklist('NOTINBanking', 'industry'), 'isValueInPicklist 1');
 		$this->assertFalse(isValueInPicklist('NOTInService', 'assetstatus'), 'isValueInPicklist 1');
 	}
+
+	/**
+	 * Method getDuplicateQueryProvider
+	 * params
+	 */
+	public function getDuplicateQueryProvider() {
+		return array(
+			array(
+				'cbtranslation',
+				'vtiger_cbtranslation.i18n.i18n,vtiger_cbtranslation.locale.locale',
+				array('i18n'=> '19', 'locale'=> '32'),
+				"SELECT vtiger_cbtranslation.cbtranslationid AS recordid, vtiger_users_last_import.deleted,vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid = vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_cbtranslation.cbtranslationid INNER JOIN (SELECT vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale  FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid = vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_cbtranslation.i18n,'null') = ifnull(temp.i18n,'null') and  ifnull(vtiger_cbtranslation.locale,'null') = ifnull(temp.locale,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale,vtiger_cbtranslation.cbtranslationid ASC",
+			),
+			array(
+				'Assets',
+				'vtiger_assets.product.product,vtiger_assets.serialnumber.serialnumber',
+				array('product'=> '10', 'serialnumber'=> '1'),
+				"SELECT vtiger_assets.assetsid AS recordid, vtiger_users_last_import.deleted,vtiger_assets.product,vtiger_assets.serialnumber FROM vtiger_assets INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_assets.assetsid INNER JOIN vtiger_assetscf ON vtiger_assetscf.assetsid = vtiger_assets.assetsid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_assets.assetsid INNER JOIN (SELECT vtiger_assets.product,vtiger_assets.serialnumber  FROM vtiger_assets INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_assets.assetsid INNER JOIN vtiger_assetscf ON vtiger_assetscf.assetsid = vtiger_assets.assetsid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_assets.product,vtiger_assets.serialnumber HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_assets.product,'null') = ifnull(temp.product,'null') and  ifnull(vtiger_assets.serialnumber,'null') = ifnull(temp.serialnumber,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_assets.product,vtiger_assets.serialnumber,vtiger_assets.assetsid ASC",
+			),
+			array(
+				'Contacts',
+				'vtiger_contactdetails.firstname.firstname,vtiger_contactsubdetails.email2.email2',
+				array('firstname'=> '1', 'email2'=> '13'),
+"SELECT vtiger_contactdetails.contactid AS recordid,
+				vtiger_users_last_import.deleted,vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2
+				FROM vtiger_contactdetails
+				INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid=vtiger_contactdetails.contactid
+				INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid
+				INNER JOIN vtiger_contactsubdetails ON vtiger_contactaddress.contactaddressid = vtiger_contactsubdetails.contactsubscriptionid
+				LEFT JOIN vtiger_contactscf ON vtiger_contactscf.contactid = vtiger_contactdetails.contactid
+				LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_contactdetails.contactid
+				LEFT JOIN vtiger_account ON vtiger_account.accountid=vtiger_contactdetails.accountid
+				LEFT JOIN vtiger_customerdetails ON vtiger_customerdetails.customerid=vtiger_contactdetails.contactid
+				LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid
+				LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+				INNER JOIN (SELECT vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2
+						FROM vtiger_contactdetails
+						INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_contactdetails.contactid
+						INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid
+						INNER JOIN vtiger_contactsubdetails ON vtiger_contactaddress.contactaddressid = vtiger_contactsubdetails.contactsubscriptionid
+						LEFT JOIN vtiger_contactscf ON vtiger_contactscf.contactid = vtiger_contactdetails.contactid
+						LEFT JOIN vtiger_account ON vtiger_account.accountid=vtiger_contactdetails.accountid
+						LEFT JOIN vtiger_customerdetails ON vtiger_customerdetails.customerid=vtiger_contactdetails.contactid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						WHERE vtiger_crmentity.deleted=0 
+						GROUP BY vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2 HAVING COUNT(*)>1) as temp
+					ON  ifnull(vtiger_contactdetails.firstname,'null') = ifnull(temp.firstname,'null') and  ifnull(vtiger_contactsubdetails.email2,'null') = ifnull(temp.email2,'null')
+								WHERE vtiger_crmentity.deleted=0  ORDER BY vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2,vtiger_contactdetails.contactid ASC",
+			),
+			array(
+				'Potentials',
+				'vtiger_potentials.amount.amount,vtiger_potentials.forecast.forecast',
+				array('amount'=> '71', 'forecast'=> '9'),
+				"SELECT vtiger_potential.potentialid AS recordid,
+			vtiger_users_last_import.deleted,vtiger_potentials.amount,vtiger_potentials.forecast
+			FROM vtiger_potential
+			INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid=vtiger_potential.potentialid
+			LEFT JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid = vtiger_potential.potentialid
+			LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_potential.potentialid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+			INNER JOIN (SELECT vtiger_potentials.amount,vtiger_potentials.forecast
+						FROM vtiger_potential
+						INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid
+						LEFT JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid = vtiger_potential.potentialid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						WHERE vtiger_crmentity.deleted=0 
+						GROUP BY vtiger_potentials.amount,vtiger_potentials.forecast HAVING COUNT(*)>1) as temp
+			ON  ifnull(vtiger_potentials.amount,'null') = ifnull(temp.amount,'null') and  ifnull(vtiger_potentials.forecast,'null') = ifnull(temp.forecast,'null')
+							WHERE vtiger_crmentity.deleted=0  ORDER BY vtiger_potentials.amount,vtiger_potentials.forecast,vtiger_potential.potentialid ASC",
+			),
+		);
+	}
+
+	/**
+	 * Method testgetDuplicateQuery
+	 * @test
+	 * @dataProvider getDuplicateQueryProvider
+	 */
+	public function testgetDuplicateQuery($module, $field_values, $ui_type_arr, $expected) {
+		$actual = getDuplicateQuery($module, $field_values, $ui_type_arr);
+		$this->assertEquals($expected, $actual, "Test getDuplicatesQuery Method on $module Module");
+	}
 }
