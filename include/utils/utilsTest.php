@@ -73,29 +73,29 @@ class testutils extends TestCase {
 		$userWS = vtws_getEntityId('Users');
 		// Not Deleted
 		$actual = isRecordExists(80);
-		$this->assertEquals(true, $actual,"testisRecordExists not deleted CRM record");
+		$this->assertEquals(true, $actual, "testisRecordExists not deleted CRM record");
 		$actual = isRecordExists(5);
-		$this->assertEquals(true, $actual,"testisRecordExists not deleted User record");
+		$this->assertEquals(true, $actual, "testisRecordExists not deleted User record");
 		$actual = isRecordExists($accountWS.'x80');
-		$this->assertEquals(true, $actual,"testisRecordExists deleted CRM record Webservice");
+		$this->assertEquals(true, $actual, "testisRecordExists deleted CRM record Webservice");
 		$actual = isRecordExists($userWS.'x5');
-		$this->assertEquals(true, $actual,"testisRecordExists deleted User record Webservice");
+		$this->assertEquals(true, $actual, "testisRecordExists deleted User record Webservice");
 		// Deleted Records
 		$adb->query('update vtiger_crmentity set deleted=1 where crmid=80');
 		$adb->query('update vtiger_users set deleted=1 where id=5');
 		$actual = isRecordExists(80);
-		$this->assertEquals(false, $actual,"testisRecordExists deleted CRM record");
+		$this->assertEquals(false, $actual, "testisRecordExists deleted CRM record");
 		$actual = isRecordExists(5);
 		// THIS ONE IS WRONG BECAUSE WE CANNOT DISTINGUISH A USER FROM A NORMAL CRM RECORD SO WE FIND cbupdater 5 and return true
-		$this->assertEquals(true, $actual,"testisRecordExists deleted User record");
+		$this->assertEquals(true, $actual, "testisRecordExists deleted User record");
 		$actual = isRecordExists(1);
 		// THIS ONE IS WRONG, IT RETURNS FALSE BECAUSE THERE IS NO RECORD 1 but there is a user 1
-		$this->assertEquals(false, $actual,"testisRecordExists deleted User record");
+		$this->assertEquals(false, $actual, "testisRecordExists deleted User record");
 		$actual = isRecordExists($accountWS.'x80');
-		$this->assertEquals(false, $actual,"testisRecordExists deleted CRM record Webservice");
+		$this->assertEquals(false, $actual, "testisRecordExists deleted CRM record Webservice");
 		$adb->query('update vtiger_users set deleted=1 where crmid=5');
 		$actual = isRecordExists($userWS.'x5');
-		$this->assertEquals(false, $actual,"testisRecordExists deleted User record Webservice");
+		$this->assertEquals(false, $actual, "testisRecordExists deleted User record Webservice");
 		// restore DB
 		$adb->query('update vtiger_crmentity set deleted=0 where crmid=80');
 		$adb->query('update vtiger_users set deleted=0 where id=5');
@@ -125,9 +125,9 @@ class testutils extends TestCase {
 	 * @test
 	 * @dataProvider html2utf8Provider
 	 */
-	public function testhtml_to_utf8($data,$expected,$message) {
+	public function testhtml_to_utf8($data, $expected, $message) {
 		$actual = html_to_utf8($data);
-		$this->assertEquals($expected, $actual,"testhtml_to_utf8 $message");
+		$this->assertEquals($expected, $actual, "testhtml_to_utf8 $message");
 	}
 
 	/**
@@ -181,14 +181,14 @@ class testutils extends TestCase {
 	 * @test
 	 * @dataProvider getValidDBInsertDateValueProvider
 	 */
-	public function testgetValidDBInsertDateValue($user,$data,$expected,$message) {
+	public function testgetValidDBInsertDateValue($user, $data, $expected, $message) {
 		global $current_user;
 		$holduser = $current_user;
 		$dtuser = new Users();
 		$dtuser->retrieveCurrentUserInfoFromFile($user);
 		$current_user = $dtuser;
 		$actual = getValidDBInsertDateValue($data);
-		$this->assertEquals($expected, $actual,"getValidDBInsertDateValue $message");
+		$this->assertEquals($expected, $actual, "getValidDBInsertDateValue $message");
 		$current_user = $holduser;
 	}
 
@@ -211,20 +211,20 @@ class testutils extends TestCase {
 			'fieldname' => 'email1',
 			'fieldlabel' => 'Email',
 		);
-		$this->assertEquals($emailfields,getMailFields(getTabid('Accounts')),'Account Email Field');
+		$this->assertEquals($emailfields, getMailFields(getTabid('Accounts')), 'Account Email Field');
 		$emailfields = array(
 			'tablename' => 'vtiger_contactdetails',
 			'fieldname' => 'email',
 			'fieldlabel' => 'Email',
 		);
-		$this->assertEquals($emailfields,getMailFields(getTabid('Contacts')),'Contact Email Field');
+		$this->assertEquals($emailfields, getMailFields(getTabid('Contacts')), 'Contact Email Field');
 		$emailfields = array(
 			'tablename' => 'vtiger_users',
 			'fieldname' => 'email1',
 			'fieldlabel' => 'Email',
 		);
-		$this->assertEquals($emailfields,getMailFields(getTabid('Users')),'Users Email Field');
-		$this->assertEquals(array(),getMailFields(getTabid('Assets')),'Assets Email Fields');
+		$this->assertEquals($emailfields, getMailFields(getTabid('Users')), 'Users Email Field');
+		$this->assertEquals(array(), getMailFields(getTabid('Assets')), 'Assets Email Fields');
 	}
 
 	/**
@@ -232,10 +232,10 @@ class testutils extends TestCase {
 	 * @test
 	 */
 	public function testgetModuleForField() {
-		$this->assertEquals('Calendar',getModuleForField(254),'Calendar Field');
-		$this->assertEquals('Contacts',getModuleForField(100),'Contact Field');
-		$this->assertEquals('Users',getModuleForField(482),'Users Email Field');
-		$this->assertEquals('Users',getModuleForField(-1),'Users Email Address specification');
+		$this->assertEquals('Calendar', getModuleForField(254), 'Calendar Field');
+		$this->assertEquals('Contacts', getModuleForField(100), 'Contact Field');
+		$this->assertEquals('Users', getModuleForField(482), 'Users Email Field');
+		$this->assertEquals('Users', getModuleForField(-1), 'Users Email Address specification');
 	}
 
 	/**
@@ -244,18 +244,18 @@ class testutils extends TestCase {
 	 */
 	public function testgetCurrentModule() {
 		global $currentModule;
-		$this->assertEquals($currentModule,getCurrentModule(),'getCurrentModule default');
+		$this->assertEquals($currentModule, getCurrentModule(), 'getCurrentModule default');
 		$holdcurrentModule = $currentModule;
 		$currentModule = '';
 		$_REQUEST['module'] = 'doesnotexist';
-		$this->assertNull(getCurrentModule(),'getCurrentModule not exist');
+		$this->assertNull(getCurrentModule(), 'getCurrentModule not exist');
 		$_REQUEST['module'] = '../../Accounts';
-		$this->assertNull(getCurrentModule(),'getCurrentModule incorrect');
+		$this->assertNull(getCurrentModule(), 'getCurrentModule incorrect');
 		$_REQUEST['module'] = 'Accounts';
-		$this->assertEquals('Accounts',getCurrentModule(),'getCurrentModule Accounts no set');
-		$this->assertEmpty($currentModule,'getCurrentModule accounts currentmodule not set');
-		$this->assertEquals('Accounts',getCurrentModule(true),'getCurrentModule Accounts set');
-		$this->assertEquals('Accounts',$currentModule,'getCurrentModule accounts currentmodule set');
+		$this->assertEquals('Accounts', getCurrentModule(), 'getCurrentModule Accounts no set');
+		$this->assertEmpty($currentModule, 'getCurrentModule accounts currentmodule not set');
+		$this->assertEquals('Accounts', getCurrentModule(true), 'getCurrentModule Accounts set');
+		$this->assertEquals('Accounts', $currentModule, 'getCurrentModule accounts currentmodule set');
 		$currentModule = $holdcurrentModule;
 	}
 
@@ -270,7 +270,7 @@ class testutils extends TestCase {
 			'softed' => 'softed',
 			'woodspice' => 'woodspice',
 		);
-		$this->assertEquals($expected, get_themes(),'get_themes');
+		$this->assertEquals($expected, get_themes(), 'get_themes');
 	}
 
 	/**
