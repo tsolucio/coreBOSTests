@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -22,12 +22,13 @@
  * Test the coreBOS Permission system via isPermitted function
  */
 use PHPUnit\Framework\TestCase;
+
 class testUserInfoUtil extends TestCase {
 
 	/****
 	 * TEST Users
 	 ****/
-	var $testusers = array(
+	public $testusers = array(
 		'usrtestdmy' => 5,
 		'usrtestmdy' => 6,
 		'usrtestymd' => 7,
@@ -35,7 +36,7 @@ class testUserInfoUtil extends TestCase {
 		'usrnocreate' => 11,
 		'usrtestmcurrency' => 12
 	);
-	var $profiles = array(
+	public $profiles = array(
 		'1' => 'Administrator',
 		'2' => 'Sales Profile',
 		'3' => 'Support Profile',
@@ -50,7 +51,7 @@ class testUserInfoUtil extends TestCase {
 	 */
 	public function getTabsPermissionProvidor() {
 		$return = array();
-		$profiles =  Array (
+		$profiles =  array(
 			1 => '0',
 			2 => '0',
 			4 => '0',
@@ -108,6 +109,8 @@ class testUserInfoUtil extends TestCase {
 			67 => '0',
 			68 => '0',
 			69 => '0',
+			70 => '0',
+			71 => '0',
 		);
 		$expected = array(
 			'1' => $profiles,
@@ -128,7 +131,7 @@ class testUserInfoUtil extends TestCase {
 	 * @test
 	 * @dataProvider getTabsPermissionProvidor
 	 */
-	public function testgetTabsPermission($profile,$expected,$message) {
+	public function testgetTabsPermission($profile, $expected, $message) {
 		global $current_user;
 		$actual = getTabsPermission($profile);
 		$this->assertEquals($expected, $actual, "testgetTabsPermission $message");
@@ -140,7 +143,7 @@ class testUserInfoUtil extends TestCase {
 	 */
 	public function getAllTabsPermissionProvidor() {
 		$return = array();
-		$profiles =  Array (
+		$profiles =  array(
 			1 => '0',
 			2 => '0',
 			4 => '0',
@@ -202,6 +205,8 @@ class testUserInfoUtil extends TestCase {
 			67 => '0',
 			68 => '0',
 			69 => '0',
+			70 => '0',
+			71 => '0',
 		);
 		$prof4 = $profiles;
 		$prof4[45] = $prof4[52] = '1';
@@ -226,7 +231,7 @@ class testUserInfoUtil extends TestCase {
 	 * @test
 	 * @dataProvider getAllTabsPermissionProvidor
 	 */
-	public function testgetAllTabsPermission($profile,$expected,$message) {
+	public function testgetAllTabsPermission($profile, $expected, $message) {
 		global $current_user;
 		$actual = getAllTabsPermission($profile);
 		$this->assertEquals($expected, $actual, "testgetAllTabsPermission $message");
@@ -277,6 +282,8 @@ class testUserInfoUtil extends TestCase {
 			67 => '3',
 			68 => '3',
 			69 => '3',
+			70 => '2',
+			71 => '3',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingEditAction");
 	}
@@ -327,6 +334,8 @@ class testUserInfoUtil extends TestCase {
 			67 => '3',
 			68 => '3',
 			69 => '3',
+			70 => '2',
+			71 => '3',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingAction");
 	}

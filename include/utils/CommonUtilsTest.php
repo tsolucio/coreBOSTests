@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -19,12 +19,13 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class testCommonUtils extends TestCase {
 
 	/****
 	 * TEST Users
 	 ****/
-	var $testusers = array(
+	public $testusers = array(
 		'usrtestdmy' => 5,
 		'usrtestmdy' => 6,
 		'usrtestymd' => 7,
@@ -1267,11 +1268,6 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 			array (
 			  0 => 'Assets: Created By',
 			  1 => '$assets-smcreatorid$',
-			),
-			19 => 
-			array (
-			  0 => 'Assets: img',
-			  1 => '$assets-cf_983$',
 			),
 		);
 		$this->assertEquals($expected, getEmailTemplateVariables(array('Assets')), 'getEmailTemplateVariables assets');

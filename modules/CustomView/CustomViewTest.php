@@ -46,7 +46,7 @@ class CustomViewTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'getCVStdFilterSQL Contacts All');
 		$actual = $cv->getCVStdFilterSQL(9);
 		$d = date('Y-m-d');
-		$expected="DATE_FORMAT(vtiger_contactsubdetails.birthday, '%m%d') BETWEEN DATE_FORMAT('".$d." 00:00:00', '%m%d') and DATE_FORMAT('2018-09-03 23:59:00', '%m%d')";
+		$expected="DATE_FORMAT(vtiger_contactsubdetails.birthday, '%m%d') BETWEEN DATE_FORMAT('".$d." 00:00:00', '%m%d') and DATE_FORMAT('".$d." 23:59:00', '%m%d')";
 		$this->assertEquals($expected, $actual, 'getCVStdFilterSQL Contacts Birthday');
 	}
 

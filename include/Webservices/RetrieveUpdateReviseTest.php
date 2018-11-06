@@ -24,17 +24,18 @@ The only difference is that REVISE does not require the presence of mandatory fi
 /////////////////////////////////////////////////////*/
 
 use PHPUnit\Framework\TestCase;
+
 class WSRetrieveUpdateReviseTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
 	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
 	 ****/
-	var $usrdota0x = 5; // testdmy
-	var $usrcomd0x = 6; // testmdy
-	var $usrdotd3com = 7; // testymd
-	var $usrcoma3dot = 10; // testtz
-	var $usrdota3comdollar = 12; // testmcurrency
+	public $usrdota0x = 5; // testdmy
+	public $usrcomd0x = 6; // testmdy
+	public $usrdotd3com = 7; // testymd
+	public $usrcoma3dot = 10; // testtz
+	public $usrdota3comdollar = 12; // testmcurrency
 
 	/**
 	 * Method testRetrieve
@@ -76,6 +77,18 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'description' => 'Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur dictum. Phasellus in felis. Nulla tempor augue ac ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce',
 			'created_user_id' => '19x1',
 			'id' => '1x4973',
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'created_user_idename' => array (
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testmcurrency',
+			),
 		);
 		$this->assertEquals($expected, $actual, 'retrieve campaign usrdota0x');
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
@@ -172,6 +185,22 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5021.000000',
 			'description' => 'Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu, eleifend',
 			'id' => '1x4985',
+			'product_idename' => array(
+				'module' => 'Products',
+				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
+			'created_user_idename' => array (
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
 		);
 		$newValuesCompleteusrdota0x = array (
 			'campaignname' => 'Spain áçèñtös <>',
@@ -199,6 +228,22 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5021.000000',
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
+			'product_idename' => array(
+				'module' => 'Products',
+				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testmdy',
+			),
+			'created_user_idename' => array (
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
 		);
 		$newValuesPartialusrdota0x = array (
 			'campaignname' => 'Spain áçèñtös <>',
@@ -233,6 +278,22 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5021,000000',
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
+			'product_idename' => array(
+				'module' => 'Products',
+				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testmdy',
+			),
+			'created_user_idename' => array (
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
 		);
 		$newValuesPartialusrcomd0x = array (
 			'campaignname' => 'Spain áçèñtös <>',
@@ -267,12 +328,29 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5.021,000000',
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
+			'product_idename' => array(
+				'module' => 'Products',
+				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
+			'created_user_idename' => array (
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
 		);
 		// Complete
 		vtws_update($newValuesCompleteusrdota0x, $user);
 		$actual = vtws_retrieve($campaignID.'x4985', $user);
 		$expected = $newValuesCompleteusrdota0x;
 		$expected['modifiedby'] = '19x'.$user->id;
+		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
 		unset($actual['modifiedtime']);
 		$this->assertEquals($expected, $actual, 'retrieve after Complete update usrdota0x');
 		$this->restoreUpdateRecord(); // Restore record
@@ -281,6 +359,7 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$actual = vtws_retrieve($campaignID.'x4985', $user);
 		$expected = $newValuesCompleteusrdota0x;
 		$expected['modifiedby'] = '19x'.$user->id;
+		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
 		unset($actual['modifiedtime']);
 		$this->assertEquals($expected, $actual, 'retrieve after Partial update usrdota0x');
 		$this->restoreUpdateRecord(); // Restore record
@@ -311,6 +390,7 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$actual = vtws_retrieve($campaignID.'x4985', $user);
 		$expected = $newValuesCompleteusrdota0x;
 		$expected['modifiedby'] = '19x'.$user->id;
+		$expected['modifiedbyename']['reference'] = 'cbTest testtz';
 		unset($actual['modifiedtime']);
 		$this->assertEquals($expected, $actual, 'retrieve after Complete update usrcoma3dot');
 		$this->restoreUpdateRecord(); // Restore record
@@ -319,6 +399,7 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$actual = vtws_retrieve($campaignID.'x4985', $user);
 		$expected = $newValuesCompleteusrdota0x;
 		$expected['modifiedby'] = '19x'.$user->id;
+		$expected['modifiedbyename']['reference'] = 'cbTest testtz';
 		unset($actual['modifiedtime']);
 		$this->assertEquals($expected, $actual, 'retrieve after Partial update usrcoma3dot');
 		$this->restoreUpdateRecord(); // Restore record
@@ -418,6 +499,22 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5021.000000',
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
+			'product_idename' => array(
+				'module' => 'Products',
+				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
+			'created_user_idename' => array (
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
 		);
 		// Missing mandatory fields
 		$newValuesPartial = array (
