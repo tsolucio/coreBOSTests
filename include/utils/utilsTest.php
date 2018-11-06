@@ -285,9 +285,7 @@ class testutils extends TestCase {
 	}
 	
 	public function testgetProfile2FieldPermissionList() {
-		global $current_user;
-		$fld_module = 'cbtranslation';
-		$profileid = fetchUserProfileId($current_user->id);
+		//TEST FOR cbtranslation MODULE
 		$expected = array(
 			array('cbtranslation No', '0', '4', '0', '833', '1', 'V~M'),
 			array('Locale', '0', '32', '0', '834', '1', 'V~M'),
@@ -303,7 +301,207 @@ class testutils extends TestCase {
 			array('Modified Time', '0', '70', '0', '844', '2', 'T~O'),
 			array('Created By', '0', '52', '0', '845', '2', 'V~O'),
 		);
-		$actual = getProfile2FieldPermissionList($fld_module, $profileid);
-		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module');
+		$fld_module = 'cbtranslation';
+		$profileid = getUserProfile(1);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User admin');
+		$profileid = getUserProfile(5);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User testdmy');
+		$profileid = getUserProfile(6);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User testmdy');
+		$profileid = getUserProfile(7);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User testymd');
+		$profileid = getUserProfile(8);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User testes');
+		$profileid = getUserProfile(9);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User testinactive');
+		$profileid = getUserProfile(10);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User testtz');
+		$profileid = getUserProfile(11);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User NoCreate');
+		$profileid = getUserProfile(12);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User testmcurrency');
+		$profileid = getUserProfile(13);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module and User testtz-3');
+		//TEST FOR Accounts MODULE
+		$expected = array(
+			array('Account Name', '0', '2', '0', '1', '1', 'V~M'),
+			array('Account No', '0', '4', '0', '2', '1', 'V~O'),
+			array('Phone', '0', '11', '0', '3', '1', 'V~O'),
+			array('Website', '0', '17', '0', '4', '1', 'V~O'),
+			array('Fax', '0', '11', '0', '5', '1', 'V~O'),
+			array('Ticker Symbol', '0', '1', '0', '6', '1', 'V~O' ),
+			array('Other Phone', '0', '11', '0', '7', '1', 'V~O'),
+			array('Member Of', '0', '51', '0', '8', '1', 'I~O'),
+			array('Email', '0', '13', '0', '9', '1', 'E~O'),
+			array('Employees', '0', '7', '0', '10', '1', 'I~O'),
+			array('Other Email', '0', '13', '0', '11', '1', 'E~O'),
+			array('Ownership', '0', '1', '0', '12', '1', 'V~O'),
+			array('Rating', '0', '15', '0', '13', '1', 'V~O'),
+			array('industry', '0', '15', '0', '14', '1', 'V~O'),
+			array('SIC Code', '0', '1', '0', '15', '1', 'V~O'),
+			array('Type', '0', '15', '0', '16', '1', 'V~O'),
+			array('Annual Revenue', '0', '71', '0', '17', '1', 'N~O'),
+			array('Email Opt Out', '0', '56', '0', '18', '1','C~O'),
+			array('Notify Owner', '0', '56', '0', '19', '1', 'C~O'),
+			array('Assigned To', '0', '53', '0', '20', '1', 'V~M'),
+			array('Created Time', '0', '70', '0', '21', '2', 'DT~O'),
+			array('Modified Time', '0', '70', '0', '22', '2', 'DT~O'),
+			array('Last Modified By', '0', '52', '0', '23', '3', 'V~O'),
+			array('Billing Address','0', '21', '0', '24', '1', 'V~O'),
+			array('Shipping Address', '0', '21', '0', '25', '1', 'V~O'),
+			array('Billing City', '0', '1', '0', '26', '1', 'V~O'),
+			array('Shipping City', '0', '1', '0', '27', '1', 'V~O'),
+			array('Billing State', '0', '1', '0', '28', '1', 'V~O'),
+			array('Shipping State', '0', '1', '0', '29', '1', 'V~O'),
+			array('Billing Code', '0', '1', '0', '30', '1', 'V~O'),
+			array('Shipping Code', '0', '1', '0', '31', '1', 'V~O'),
+			array('Billing Country', '0', '1', '0', '32', '1', 'V~O'),
+			array('Shipping Country', '0', '1', '0', '33', '1', 'V~O'),
+			array('Billing Po Box', '0', '1', '0', '34', '1', 'V~O'),
+			array('Shipping Po Box', '0', '1', '0', '35', '1', 'V~O'),
+			array('Description', '0', '19', '0', '36', '1', 'V~O'),
+			array('Status', '0', '16', '0', '152', '1', 'V~O'),
+			array('Text', '0', '1', '0', '718', '1', 'V~O~LE~50'),
+			array('Number', '0', '7', '0', '719', '1', 'NN~O~8,2'),
+			array('Percent', '0', '9', '0', '720', '1', 'N~O~2~2'),
+			array('Currency', '0', '71', '0', '721', '1', 'N~O~8,2'),
+			array('Date', '0', '5', '0', '722', '1', 'D~O'),
+			array('Emailcf', '0', '13', '0', '723', '1', 'E~O'),
+			array('Phonecf', '0', '11', '0', '724', '1', 'V~O'),
+			array('URL', '0', '17', '0', '725', '1', 'V~O'),
+			array('Checkbox', '0', '56', '0', '726', '1', 'C~O'),
+			array('skypecf', '0', '85', '0', '727', '1', 'V~O'),
+			array('Time', '0', '14', '0', '728', '1', 'T~O'),
+			array('PLMain', '0', '15', '0', '729', '1', 'V~O'),
+			array('PLDep1', '0', '15', '0', '730', '1', 'V~O'),
+			array('PLDep2', '0', '15', '0', '731', '1', 'V~O'),
+			array('Planets', '0', '33', '0', '732', '1', 'V~O'),
+			array('Is Converted From Lead', '0', '56', '0', '752', '2', 'C~O'),
+			array('Converted From Lead', '0', '10', '0', '753', '3', 'V~O'),
+			array('Created By', '0', '52', '0', '764', '2', 'V~O'), 
+		);
+		$fld_module = 'Accounts';
+		$profileid = getUserProfile(1);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User admin');
+		$profileid = getUserProfile(5);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User testdmy');
+		$profileid = getUserProfile(6);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User testmdy');
+		$profileid = getUserProfile(7);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User testymd');
+		$profileid = getUserProfile(8);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User testes');
+		$profileid = getUserProfile(9);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User testinactive');
+		$profileid = getUserProfile(10);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User testtz');
+		$profileid = getUserProfile(11);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User NoCreate');
+		$profileid = getUserProfile(12);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User testmcurrency');
+		$profileid = getUserProfile(13);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Accounts Module and User testtz-3');
+		//TEST FOR Contacts MODULE
+		$expected = array(
+			array('Salutation', '0', '55', '0', '66', '3', 'V~O'),
+			array('First Name', '0', '55', '0', '67', '1', 'V~O'),
+			array('Contact Id', '0', '4', '0', '68', '1', 'V~O'),
+			array('Office Phone', '0', '11', '0', '69', '1', 'V~O'),
+			array('Last Name', '0', '255', '0', '70', '1', 'V~M'),
+			array('Mobile', '0', '11', '0', '71', '1', 'V~O'),
+			array('Account Name', '0', '51', '0', '72', '1', 'I~O'),
+			array('Home Phone', '0', '11', '0', '73', '1', 'V~O'),
+			array('Lead Source', '0', '15', '0', '74', '1', 'V~O'),
+			array('Other Phone', '0', '11', '0', '75', '1', 'V~O'),
+			array('Title', '0', '1', '0', '76', '1', 'V~O'),
+			array('Fax', '0', '11', '0', '77', '1', 'V~O'),
+			array('Department', '0', '1', '0', '78', '1', 'V~O'),
+			array('Birthdate', '0', '5', '0', '79', '1', 'D~O'),
+			array('Email', '0', '13', '0', '80', '1', 'E~O'),
+			array('Reports To', '0', '57', '0', '81', '1', 'V~O'),
+			array('Assistant', '0', '1', '0', '82', '1', 'V~O'),
+			array('Secondary Email', '0', '13', '0', '83', '1', 'E~O'),
+			array('Assistant Phone', '0', '11', '0', '84', '1', 'V~O'),
+			array('Do Not Call', '0', '56', '0', '85', '1', 'C~O'),
+			array('Email Opt Out', '0', '56', '0', '86', '1', 'C~O'),
+			array('Assigned To', '0', '53', '0', '87', '1', 'V~M'),
+			array('Reference', '0', '56', '0', '88', '1', 'C~O'),
+			array('Notify Owner', '0', '56', '0', '89', '1', 'C~O'),
+			array('Created Time', '0', '70', '0', '90', '2', 'DT~O'),
+			array('Modified Time', '0', '70', '0', '91', '2', 'DT~O'),
+			array('Last Modified By', '0', '52', '0', '92', '3', 'V~O'),
+			array('Portal User', '0', '56', '0', '93', '1', 'C~O'),
+			array('Support Start Date', '0', '5', '0', '94', '1', 'D~O'),
+			array('Support End Date', '0', '5', '0', '95', '1', 'D~O~OTH~GE~support_start_date~Support Start Date'),
+			array('Mailing Street', '0', '21', '0', '96', '1', 'V~O'),
+			array('Other Street', '0', '21', '0', '97', '1', 'V~O'),
+			array('Mailing City', '0', '1', '0', '98', '1', 'V~O'),
+			array('Other City', '0', '1', '0', '99', '1', 'V~O'),
+			array('Mailing State', '0', '1', '0', '100', '1', 'V~O'),
+			array('Other State', '0', '1', '0', '101', '1', 'V~O'),
+			array('Mailing Zip', '0', '1', '0', '102', '1', 'V~O'),
+			array('Other Zip', '0', '1', '0', '103', '1', 'V~O'),
+			array('Mailing Country', '0', '1', '0', '104', '1', 'V~O'),
+			array('Other Country', '0', '1', '0', '105', '1', 'V~O'),
+			array('Mailing Po Box', '0', '1', '0', '106', '1', 'V~O'),
+			array('Other Po Box', '0', '1', '0', '107', '1', 'V~O'),
+			array('Contact Image', '0', '69', '0', '108', '1', 'V~O'),
+			array('Description', '0', '19', '0', '109', '1', 'V~O'),
+			array('Status', '0', '16', '0', '151', '1', 'V~O'),
+			array('Is Converted From Lead', '0', '56', '0', '754', '2', 'C~O'),
+			array('Converted From Lead', '0', '10', '0', '755', '3', 'V~O'),
+			array('Created By', '0', '52', '0', '763', '2', 'V~O'),
+		);
+		$fld_module = 'Contacts';
+		$profileid = getUserProfile(1);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User admin');
+		$profileid = getUserProfile(5);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User testdmy');
+		$profileid = getUserProfile(6);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User testmdy');
+		$profileid = getUserProfile(7);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User testymd');
+		$profileid = getUserProfile(8);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User testes');
+		$profileid = getUserProfile(9);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User testinactive');
+		$profileid = getUserProfile(10);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User testtz');
+		$profileid = getUserProfile(11);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User NoCreate');
+		$profileid = getUserProfile(12);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User testmcurrency');
+		$profileid = getUserProfile(13);
+		$actual = getProfile2FieldPermissionList($fld_module, $profileid[0]);
+		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on Contacts Module and User testtz-3');
 	}
 }
