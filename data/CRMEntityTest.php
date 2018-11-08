@@ -55,5 +55,4 @@ class testCRMEntity extends TestCase {
 		$expected = "select crmid as id, emailoptout,notify_owner,cf_726,isconvertedfromlead, accountname as name  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid AND deleted = 0  INNER JOIN vtiger_accountscf on vtiger_account.accountid = vtiger_accountscf.accountid WHERE emailoptout = '1' OR notify_owner = '1' OR cf_726 = '1' OR isconvertedfromlead = '1'";
 		$this->assertEquals($expected, $actual, "testbuildSearchQueryForFieldTypes account phone");
 	}
-
 }
