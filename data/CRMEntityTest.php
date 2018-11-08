@@ -54,15 +54,4 @@ class testCRMEntity extends TestCase {
 		$expected = "select crmid as id, emailoptout,notify_owner,cf_726,isconvertedfromlead, accountname as name  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid AND deleted = 0  INNER JOIN vtiger_accountscf on vtiger_account.accountid = vtiger_accountscf.accountid WHERE emailoptout = '1' OR notify_owner = '1' OR cf_726 = '1' OR isconvertedfromlead = '1'";
 		$this->assertEquals($expected, $actual, "testbuildSearchQueryForFieldTypes account phone");
 	}
-
-	public function testgetDuplicatesQuery() {
-		$crmentity = CRMEntity::getInstance('cbtranslation');
-		$module = 'cbtranslation';
-		$table_cols = 'vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale';
-		$field_values = 'vtiger_cbtranslation.i18n.i18n,vtiger_cbtranslation.locale.locale';
-		$ui_type_arr = array('i18n'=> '19', 'locale'=> "32");
-		$actual = $crmentity->getDuplicatesQuery($module, $table_cols, $field_values, $ui_type_arr);
-		$expected = "SELECT vtiger_cbtranslation.cbtranslationid AS recordid, vtiger_users_last_import.deleted,vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid = vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_cbtranslation.cbtranslationid INNER JOIN (SELECT vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale  FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid = vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_cbtranslation.i18n,'null') = ifnull(temp.i18n,'null') and  ifnull(vtiger_cbtranslation.locale,'null') = ifnull(temp.locale,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale,vtiger_cbtranslation.cbtranslationid ASC";
-		$this->assertEquals($expected, $actual, "Test getDuplicatesQuery Method on cbtranslation Module");
-	}
 }

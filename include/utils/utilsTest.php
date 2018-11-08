@@ -283,27 +283,4 @@ class testutils extends TestCase {
 		$this->assertFalse(isValueInPicklist('NOTINBanking', 'industry'), 'isValueInPicklist 1');
 		$this->assertFalse(isValueInPicklist('NOTInService', 'assetstatus'), 'isValueInPicklist 1');
 	}
-	
-	public function testgetProfile2FieldPermissionList() {
-		global $current_user;
-		$fld_module = 'cbtranslation';
-		$profileid = fetchUserProfileId($current_user->id);
-		$expected = array(
-			array('cbtranslation No', '0', '4', '0', '833', '1', 'V~M'),
-			array('Locale', '0', '32', '0', '834', '1', 'V~M'),
-			array('Module', '0', '1614', '0', '835', '1', 'V~M'),
-			array('Key', '0', '1', '0', '836', '1', 'V~M'),
-			array('i18n', '0', '19', '0', '837', '1', 'V~0'),
-			array('Translates', '0', '10', '0', '838', '1', 'V~0'),
-			array('Picklist', '0', '1615', '0', '839', '1', 'V~0'),
-			array('Field', '0', '1', '0', '840', '1', 'V~0'),
-			array('Proof Read', '0', '56', '0', '841', '1', 'C~0'),
-			array('Assigned To', '0', '53', '0', '842', '1', 'V~M'),
-			array('Created Time', '0', '70', '0', '843', '2', 'T~O'),
-			array('Modified Time', '0', '70', '0', '844', '2', 'T~O'),
-			array('Created By', '0', '52', '0', '845', '2', 'V~O'),
-		);
-		$actual = getProfile2FieldPermissionList($fld_module, $profileid);
-		$this->assertEquals($expected, $actual, 'Test getProfile2FieldPermissionList Method on cbtranslation Module');
-	}
 }
