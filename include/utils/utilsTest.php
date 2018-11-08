@@ -73,29 +73,29 @@ class testutils extends TestCase {
 		$userWS = vtws_getEntityId('Users');
 		// Not Deleted
 		$actual = isRecordExists(80);
-		$this->assertEquals(true, $actual,"testisRecordExists not deleted CRM record");
+		$this->assertEquals(true, $actual, "testisRecordExists not deleted CRM record");
 		$actual = isRecordExists(5);
-		$this->assertEquals(true, $actual,"testisRecordExists not deleted User record");
+		$this->assertEquals(true, $actual, "testisRecordExists not deleted User record");
 		$actual = isRecordExists($accountWS.'x80');
-		$this->assertEquals(true, $actual,"testisRecordExists deleted CRM record Webservice");
+		$this->assertEquals(true, $actual, "testisRecordExists deleted CRM record Webservice");
 		$actual = isRecordExists($userWS.'x5');
-		$this->assertEquals(true, $actual,"testisRecordExists deleted User record Webservice");
+		$this->assertEquals(true, $actual, "testisRecordExists deleted User record Webservice");
 		// Deleted Records
 		$adb->query('update vtiger_crmentity set deleted=1 where crmid=80');
 		$adb->query('update vtiger_users set deleted=1 where id=5');
 		$actual = isRecordExists(80);
-		$this->assertEquals(false, $actual,"testisRecordExists deleted CRM record");
+		$this->assertEquals(false, $actual, "testisRecordExists deleted CRM record");
 		$actual = isRecordExists(5);
 		// THIS ONE IS WRONG BECAUSE WE CANNOT DISTINGUISH A USER FROM A NORMAL CRM RECORD SO WE FIND cbupdater 5 and return true
-		$this->assertEquals(true, $actual,"testisRecordExists deleted User record");
+		$this->assertEquals(true, $actual, "testisRecordExists deleted User record");
 		$actual = isRecordExists(1);
 		// THIS ONE IS WRONG, IT RETURNS FALSE BECAUSE THERE IS NO RECORD 1 but there is a user 1
-		$this->assertEquals(false, $actual,"testisRecordExists deleted User record");
+		$this->assertEquals(false, $actual, "testisRecordExists deleted User record");
 		$actual = isRecordExists($accountWS.'x80');
-		$this->assertEquals(false, $actual,"testisRecordExists deleted CRM record Webservice");
+		$this->assertEquals(false, $actual, "testisRecordExists deleted CRM record Webservice");
 		$adb->query('update vtiger_users set deleted=1 where crmid=5');
 		$actual = isRecordExists($userWS.'x5');
-		$this->assertEquals(false, $actual,"testisRecordExists deleted User record Webservice");
+		$this->assertEquals(false, $actual, "testisRecordExists deleted User record Webservice");
 		// restore DB
 		$adb->query('update vtiger_crmentity set deleted=0 where crmid=80');
 		$adb->query('update vtiger_users set deleted=0 where id=5');
@@ -125,9 +125,9 @@ class testutils extends TestCase {
 	 * @test
 	 * @dataProvider html2utf8Provider
 	 */
-	public function testhtml_to_utf8($data,$expected,$message) {
+	public function testhtml_to_utf8($data, $expected, $message) {
 		$actual = html_to_utf8($data);
-		$this->assertEquals($expected, $actual,"testhtml_to_utf8 $message");
+		$this->assertEquals($expected, $actual, "testhtml_to_utf8 $message");
 	}
 
 	/**
@@ -181,14 +181,14 @@ class testutils extends TestCase {
 	 * @test
 	 * @dataProvider getValidDBInsertDateValueProvider
 	 */
-	public function testgetValidDBInsertDateValue($user,$data,$expected,$message) {
+	public function testgetValidDBInsertDateValue($user, $data, $expected, $message) {
 		global $current_user;
 		$holduser = $current_user;
 		$dtuser = new Users();
 		$dtuser->retrieveCurrentUserInfoFromFile($user);
 		$current_user = $dtuser;
 		$actual = getValidDBInsertDateValue($data);
-		$this->assertEquals($expected, $actual,"getValidDBInsertDateValue $message");
+		$this->assertEquals($expected, $actual, "getValidDBInsertDateValue $message");
 		$current_user = $holduser;
 	}
 
@@ -211,20 +211,20 @@ class testutils extends TestCase {
 			'fieldname' => 'email1',
 			'fieldlabel' => 'Email',
 		);
-		$this->assertEquals($emailfields,getMailFields(getTabid('Accounts')),'Account Email Field');
+		$this->assertEquals($emailfields, getMailFields(getTabid('Accounts')), 'Account Email Field');
 		$emailfields = array(
 			'tablename' => 'vtiger_contactdetails',
 			'fieldname' => 'email',
 			'fieldlabel' => 'Email',
 		);
-		$this->assertEquals($emailfields,getMailFields(getTabid('Contacts')),'Contact Email Field');
+		$this->assertEquals($emailfields, getMailFields(getTabid('Contacts')), 'Contact Email Field');
 		$emailfields = array(
 			'tablename' => 'vtiger_users',
 			'fieldname' => 'email1',
 			'fieldlabel' => 'Email',
 		);
-		$this->assertEquals($emailfields,getMailFields(getTabid('Users')),'Users Email Field');
-		$this->assertEquals(array(),getMailFields(getTabid('Assets')),'Assets Email Fields');
+		$this->assertEquals($emailfields, getMailFields(getTabid('Users')), 'Users Email Field');
+		$this->assertEquals(array(), getMailFields(getTabid('Assets')), 'Assets Email Fields');
 	}
 
 	/**
@@ -232,10 +232,10 @@ class testutils extends TestCase {
 	 * @test
 	 */
 	public function testgetModuleForField() {
-		$this->assertEquals('Calendar',getModuleForField(254),'Calendar Field');
-		$this->assertEquals('Contacts',getModuleForField(100),'Contact Field');
-		$this->assertEquals('Users',getModuleForField(482),'Users Email Field');
-		$this->assertEquals('Users',getModuleForField(-1),'Users Email Address specification');
+		$this->assertEquals('Calendar', getModuleForField(254), 'Calendar Field');
+		$this->assertEquals('Contacts', getModuleForField(100), 'Contact Field');
+		$this->assertEquals('Users', getModuleForField(482), 'Users Email Field');
+		$this->assertEquals('Users', getModuleForField(-1), 'Users Email Address specification');
 	}
 
 	/**
@@ -244,18 +244,18 @@ class testutils extends TestCase {
 	 */
 	public function testgetCurrentModule() {
 		global $currentModule;
-		$this->assertEquals($currentModule,getCurrentModule(),'getCurrentModule default');
+		$this->assertEquals($currentModule, getCurrentModule(), 'getCurrentModule default');
 		$holdcurrentModule = $currentModule;
 		$currentModule = '';
 		$_REQUEST['module'] = 'doesnotexist';
-		$this->assertNull(getCurrentModule(),'getCurrentModule not exist');
+		$this->assertNull(getCurrentModule(), 'getCurrentModule not exist');
 		$_REQUEST['module'] = '../../Accounts';
-		$this->assertNull(getCurrentModule(),'getCurrentModule incorrect');
+		$this->assertNull(getCurrentModule(), 'getCurrentModule incorrect');
 		$_REQUEST['module'] = 'Accounts';
-		$this->assertEquals('Accounts',getCurrentModule(),'getCurrentModule Accounts no set');
-		$this->assertEmpty($currentModule,'getCurrentModule accounts currentmodule not set');
-		$this->assertEquals('Accounts',getCurrentModule(true),'getCurrentModule Accounts set');
-		$this->assertEquals('Accounts',$currentModule,'getCurrentModule accounts currentmodule set');
+		$this->assertEquals('Accounts', getCurrentModule(), 'getCurrentModule Accounts no set');
+		$this->assertEmpty($currentModule, 'getCurrentModule accounts currentmodule not set');
+		$this->assertEquals('Accounts', getCurrentModule(true), 'getCurrentModule Accounts set');
+		$this->assertEquals('Accounts', $currentModule, 'getCurrentModule accounts currentmodule set');
 		$currentModule = $holdcurrentModule;
 	}
 
@@ -270,7 +270,7 @@ class testutils extends TestCase {
 			'softed' => 'softed',
 			'woodspice' => 'woodspice',
 		);
-		$this->assertEquals($expected, get_themes(),'get_themes');
+		$this->assertEquals($expected, get_themes(), 'get_themes');
 	}
 
 	/**
@@ -282,5 +282,94 @@ class testutils extends TestCase {
 		$this->assertTrue(isValueInPicklist('In Service', 'assetstatus'), 'isValueInPicklist 1');
 		$this->assertFalse(isValueInPicklist('NOTINBanking', 'industry'), 'isValueInPicklist 1');
 		$this->assertFalse(isValueInPicklist('NOTInService', 'assetstatus'), 'isValueInPicklist 1');
+	}
+
+	/**
+	 * Method getDuplicateQueryProvider
+	 * params
+	 */
+	public function getDuplicateQueryProvider() {
+		return array(
+			array(
+				'cbtranslation',
+				'vtiger_cbtranslation.i18n.i18n,vtiger_cbtranslation.locale.locale',
+				array('i18n'=> '19', 'locale'=> '32'),
+				"SELECT vtiger_cbtranslation.cbtranslationid AS recordid, vtiger_users_last_import.deleted,vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid = vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_cbtranslation.cbtranslationid INNER JOIN (SELECT vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale  FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid = vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_cbtranslation.i18n,'null') = ifnull(temp.i18n,'null') and  ifnull(vtiger_cbtranslation.locale,'null') = ifnull(temp.locale,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale,vtiger_cbtranslation.cbtranslationid ASC",
+			),
+			array(
+				'Assets',
+				'vtiger_assets.product.product,vtiger_assets.serialnumber.serialnumber',
+				array('product'=> '10', 'serialnumber'=> '1'),
+				"SELECT vtiger_assets.assetsid AS recordid, vtiger_users_last_import.deleted,vtiger_assets.product,vtiger_assets.serialnumber FROM vtiger_assets INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_assets.assetsid INNER JOIN vtiger_assetscf ON vtiger_assetscf.assetsid = vtiger_assets.assetsid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_assets.assetsid INNER JOIN (SELECT vtiger_assets.product,vtiger_assets.serialnumber  FROM vtiger_assets INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_assets.assetsid INNER JOIN vtiger_assetscf ON vtiger_assetscf.assetsid = vtiger_assets.assetsid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_assets.product,vtiger_assets.serialnumber HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_assets.product,'null') = ifnull(temp.product,'null') and  ifnull(vtiger_assets.serialnumber,'null') = ifnull(temp.serialnumber,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_assets.product,vtiger_assets.serialnumber,vtiger_assets.assetsid ASC",
+			),
+			array(
+				'Contacts',
+				'vtiger_contactdetails.firstname.firstname,vtiger_contactsubdetails.email2.email2',
+				array('firstname'=> '1', 'email2'=> '13'),
+"SELECT vtiger_contactdetails.contactid AS recordid,
+				vtiger_users_last_import.deleted,vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2
+				FROM vtiger_contactdetails
+				INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid=vtiger_contactdetails.contactid
+				INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid
+				INNER JOIN vtiger_contactsubdetails ON vtiger_contactaddress.contactaddressid = vtiger_contactsubdetails.contactsubscriptionid
+				LEFT JOIN vtiger_contactscf ON vtiger_contactscf.contactid = vtiger_contactdetails.contactid
+				LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_contactdetails.contactid
+				LEFT JOIN vtiger_account ON vtiger_account.accountid=vtiger_contactdetails.accountid
+				LEFT JOIN vtiger_customerdetails ON vtiger_customerdetails.customerid=vtiger_contactdetails.contactid
+				LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid
+				LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+				INNER JOIN (SELECT vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2
+						FROM vtiger_contactdetails
+						INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_contactdetails.contactid
+						INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid
+						INNER JOIN vtiger_contactsubdetails ON vtiger_contactaddress.contactaddressid = vtiger_contactsubdetails.contactsubscriptionid
+						LEFT JOIN vtiger_contactscf ON vtiger_contactscf.contactid = vtiger_contactdetails.contactid
+						LEFT JOIN vtiger_account ON vtiger_account.accountid=vtiger_contactdetails.accountid
+						LEFT JOIN vtiger_customerdetails ON vtiger_customerdetails.customerid=vtiger_contactdetails.contactid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						WHERE vtiger_crmentity.deleted=0 
+						GROUP BY vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2 HAVING COUNT(*)>1) as temp
+					ON  ifnull(vtiger_contactdetails.firstname,'null') = ifnull(temp.firstname,'null') and  ifnull(vtiger_contactsubdetails.email2,'null') = ifnull(temp.email2,'null')
+								WHERE vtiger_crmentity.deleted=0  ORDER BY vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2,vtiger_contactdetails.contactid ASC",
+			),
+			array(
+				'Potentials',
+				'vtiger_potentials.amount.amount,vtiger_potentials.forecast.forecast',
+				array('amount'=> '71', 'forecast'=> '9'),
+				"SELECT vtiger_potential.potentialid AS recordid,
+			vtiger_users_last_import.deleted,vtiger_potentials.amount,vtiger_potentials.forecast
+			FROM vtiger_potential
+			INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid=vtiger_potential.potentialid
+			LEFT JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid = vtiger_potential.potentialid
+			LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_potential.potentialid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+			INNER JOIN (SELECT vtiger_potentials.amount,vtiger_potentials.forecast
+						FROM vtiger_potential
+						INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid
+						LEFT JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid = vtiger_potential.potentialid
+						LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid
+						LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid
+						WHERE vtiger_crmentity.deleted=0 
+						GROUP BY vtiger_potentials.amount,vtiger_potentials.forecast HAVING COUNT(*)>1) as temp
+			ON  ifnull(vtiger_potentials.amount,'null') = ifnull(temp.amount,'null') and  ifnull(vtiger_potentials.forecast,'null') = ifnull(temp.forecast,'null')
+							WHERE vtiger_crmentity.deleted=0  ORDER BY vtiger_potentials.amount,vtiger_potentials.forecast,vtiger_potential.potentialid ASC",
+			),
+		);
+	}
+
+	/**
+	 * Method testgetDuplicateQuery
+	 * @test
+	 * @dataProvider getDuplicateQueryProvider
+	 */
+	public function testgetDuplicateQuery($module, $field_values, $ui_type_arr, $expected) {
+		$actual = getDuplicateQuery($module, $field_values, $ui_type_arr);
+		$this->assertEquals($expected, $actual, "Test getDuplicatesQuery Method on $module Module");
 	}
 }
