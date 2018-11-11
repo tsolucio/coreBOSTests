@@ -17,8 +17,8 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class VtigerCRMObjectTest extends TestCase {
 
 	/**
@@ -28,7 +28,7 @@ class VtigerCRMObjectTest extends TestCase {
 	public function testVtigerCRMObject() {
 		global $current_user, $adb, $log;
 		$obj = new VtigerCRMObject('Accounts');
-		$this->assertEquals('VtigerCRMObject',  get_class($obj), 'Class instantiated correctly');
+		$this->assertEquals('VtigerCRMObject', get_class($obj), 'Class instantiated correctly');
 		$this->assertEquals('Accounts', $obj->getModuleName(), 'module name');
 		$this->assertEquals(6, $obj->getModuleId(), 'module ID');
 	}
