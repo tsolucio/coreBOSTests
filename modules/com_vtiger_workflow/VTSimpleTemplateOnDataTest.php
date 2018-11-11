@@ -83,23 +83,43 @@ class VTSimpleTemplateOnDataOnDataTest extends TestCase {
 		// Detail View URL
 		$ct = new VTSimpleTemplateOnData('$(general : (__VtigerMeta__) crmdetailviewurl)');
 		$expected = $site_URL.'/index.php?action=DetailView&module=Accounts&record=0';
-		$actual = $ct->render($entityCache, 'Accounts',$data);
+		$actual = $ct->render($entityCache, 'Accounts', $data);
 		$this->assertEquals($expected, $actual, 'Detail View URL');
 		// Today
 		$ct = new VTSimpleTemplateOnData('$(general : (__VtigerMeta__) date)');
 		$expected = date('m-d-Y');
-		$actual = $ct->render($entityCache, 'Accounts',$data);
-		$this->assertEquals($expected, $actual,'Today');
+		$actual = $ct->render($entityCache, 'Accounts', $data);
+		$this->assertEquals($expected, $actual, 'Today');
 		// Record ID
 		$ct = new VTSimpleTemplateOnData('$(general : (__VtigerMeta__) recordId)');
 		$expected = '0';
-		$actual = $ct->render($entityCache, 'Accounts',$data);
-		$this->assertEquals($expected, $actual,'Record ID');
+		$actual = $ct->render($entityCache, 'Accounts', $data);
+		$this->assertEquals($expected, $actual, 'Record ID');
+		// Teardown
+		$util->revertUser();
+	}
+
+	/**
+	 * Method testMetaExceptionOnRelated
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testMetaExceptionOnRelated() {
+		$entityId = '12x1607';
+		$userId = '19x6'; // testmdy
+		$data = array(
+			'accountname' => 'hard coded account name',
+			'account_no' => 'hard coded account number',
+			'assigned_user_id'=>$userId,
+		);
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$entityCache = new VTEntityCache($adminUser);
 		// Comments
 		$ct = new VTSimpleTemplateOnData('$(general : (__VtigerMeta__) comments)​​​​​​​');
 		$expected = '​​​​​​​'; // this information does not exist so we get an empty string back
-		$actual = $ct->render($entityCache, 'Accounts',$data);
-		$this->assertEquals($expected, $actual,'Comments');
+		$actual = $ct->render($entityCache, 'Accounts', $data);
+		$this->assertEquals($expected, $actual, 'Comments');
 		// Teardown
 		$util->revertUser();
 	}
