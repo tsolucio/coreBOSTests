@@ -351,5 +351,13 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		$this->expectException('Exception');
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id,firstname,lastname from Contacts where firstname LIKE "%ele%" LIMIT 0, 250;', $meta, $queryRelatedModules);
 	}
+
+	public function testExtendedConditionQuery() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id, account_no, accountname, Accounts.accountname from accounts where [{"fieldname":"assigned_user_id","operation":"is","value":"cbTest testtz","valuetype":"raw","joincondition":"and","groupid":"0"}]', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_account.accountid, vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid  WHERE vtiger_crmentity.deleted=0 AND   (  (( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'cbTest testtz' or vtiger_groups.groupname = 'cbTest testtz')) )) AND vtiger_account.accountid > 0",
+			$actual
+		);
+	}
 }
 ?>
