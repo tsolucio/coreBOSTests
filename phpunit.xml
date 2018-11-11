@@ -55,6 +55,9 @@
 		<testsuite name="cbCustomView">
 			<directory>./modules/CustomView</directory>
 		</testsuite>
+		<testsuite name="cbWSAPP">
+			<directory>./modules/WSAPP</directory>
+		</testsuite>
 		<testsuite name="cbData">
 			<directory>./data</directory>
 		</testsuite>
