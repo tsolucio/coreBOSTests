@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,6 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class VTSimpleTemplateTest extends TestCase {
 
 	/**
@@ -39,17 +40,17 @@ class VTSimpleTemplateTest extends TestCase {
 		$ct = new VTSimpleTemplate('AccountId:$account_no - AccountName:$accountname');
 		$expected = 'AccountId:ACC1 - AccountName:Chemex Labs Ltd';
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual,'Account variables');
+		$this->assertEquals($expected, $actual, 'Account variables');
 		// User variables
 		$ct = new VTSimpleTemplate('$(assigned_user_id : (Users) email1)');
 		$expected = 'noreply@tsolucio.com';
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual,'User variables');
+		$this->assertEquals($expected, $actual, 'User variables');
 		// Member of
 		$ct = new VTSimpleTemplate('$(account_id : (Accounts) accountname)');
 		$expected = 'Rowley Schlimgen Inc';
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual,'Member of variables');
+		$this->assertEquals($expected, $actual, 'Member of variables');
 		// Teardown
 		$util->revertUser();
 	}
@@ -100,7 +101,7 @@ Type:<b>--None--</b><br />
 Thank You<br />
 Admin</p>';
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual,'Potential Email');
+		$this->assertEquals($expected, $actual, 'Potential Email');
 		// Teardown
 		$util->revertUser();
 	}
@@ -300,31 +301,31 @@ Location : Hamburg';
 		// uppercase string
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."uppercase('firstname' ) ) ");
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals('FIRSTNAME', $actual,'uppercase string');
+		$this->assertEquals('FIRSTNAME', $actual, 'uppercase string');
 		// Formatted date
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."format_date(get_date('today'),'Ymd') ) ");
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals(date('Ymd'), $actual,'Formatted date');
+		$this->assertEquals(date('Ymd'), $actual, 'Formatted date');
 		// concat related info
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) concat($(account_id : (Accounts) accountname),email ) ) ');
 		$expected = 'Spieker Propertiescgrafenstein@gmail.com';
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual,'concat related info');
+		$this->assertEquals($expected, $actual, 'concat related info');
 		// concat related info with space
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) concat($(account_id : (Accounts) accountname),'."' - ', email ) ) ");
 		$expected = 'Spieker Properties - cgrafenstein@gmail.com';
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual,'concat related info');
+		$this->assertEquals($expected, $actual, 'concat related info');
 		// Access current user name in full
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."getCurrentUserName('full') ) ");
 		$expected = 'Administrator';
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual,'get full user name');
+		$this->assertEquals($expected, $actual, 'get full user name');
 		// Access current user email
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."getCurrentUserField('email1') ) ");
 		$expected = 'noreply@tsolucio.com';
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual,'get user email');
+		$this->assertEquals($expected, $actual, 'get user email');
 		// accountname Contact first name uppercase
 		$ct = new VTSimpleTemplate('$(account_id : (Accounts) accountname) $(general : (__WorkflowFunction__) uppercase(firstname ) ) ');
 		$actual = $ct->render($entityCache, $entityId);
@@ -336,7 +337,7 @@ Location : Hamburg';
 		// uppercase string + accountname
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."uppercase('firstname' ) )  $(account_id : (Accounts) accountname)");
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals('FIRSTNAME Spieker Properties', $actual,'uppercase string');
+		$this->assertEquals('FIRSTNAME Spieker Properties', $actual, 'uppercase string');
 		// Contact first name uppercase + accountname
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname) )  $(account_id : (Accounts) accountname)');
 		$actual = $ct->render($entityCache, $entityId);
@@ -344,7 +345,7 @@ Location : Hamburg';
 		// uppercase string + accountname
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."uppercase('firstname') )  $(account_id : (Accounts) accountname)");
 		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals('FIRSTNAME Spieker Properties', $actual,'uppercase string');
+		$this->assertEquals('FIRSTNAME Spieker Properties', $actual, 'uppercase string');
 		// functions inside functions
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."concat(format_date(birthday, 'd'),'/',format_date(birthday, 'F'),'/',format_date(birthday, 'm')) )  $(account_id : (Accounts) accountname)");
 		$actual = $ct->render($entityCache, $entityId);
