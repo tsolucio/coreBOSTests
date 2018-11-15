@@ -322,6 +322,31 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 	}
 
 	/**
+	 * Method testgetWorkflowQueryAggregationsConditions
+	 * @test
+	 */
+	public function testgetWorkflowQueryAggregationsConditions() {
+		global $adb, $currentModule;
+		$currentModule = 'Accounts';
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Accounts';
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"cf_719","operation":"greater than or equal to","value":"aggregation(\'count\',\'SalesOrder\',\'vtiger_salesorder.subject\',\'[duedate,h,2018-01-01,and]\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_accountscf.cf_719 >= (select count(vtiger_salesorder.subject) as aggop  FROM vtiger_salesorder    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_salesorder.salesorderid    LEFT OUTER JOIN vtiger_quotes ON vtiger_quotes.quoteid = vtiger_salesorder.quoteid    LEFT OUTER JOIN vtiger_account as vtiger_accountaggop ON vtiger_accountaggop.accountid = vtiger_salesorder.accountid    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    WHERE vtiger_crmentity.deleted = 0 AND vtiger_salesorder.accountid = vtiger_account.accountid and (vtiger_crmentity.deleted=0 AND ( vtiger_salesorder.duedate >= '2018-01-01')  AND vtiger_salesorder.salesorderid > 0))) )) AND vtiger_account.accountid > 0";
+		$this->assertEquals($expected, $actual, 'aggregation condition count field');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"cf_719","operation":"greater than or equal to","value":"aggregation(\'count\',\'SalesOrder\',\'*\',\'[duedate,h,2018-01-01,and]\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_accountscf.cf_719 >= (select count(*) as aggop  FROM vtiger_salesorder    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_salesorder.salesorderid    LEFT OUTER JOIN vtiger_quotes ON vtiger_quotes.quoteid = vtiger_salesorder.quoteid    LEFT OUTER JOIN vtiger_account as vtiger_accountaggop ON vtiger_accountaggop.accountid = vtiger_salesorder.accountid    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    WHERE vtiger_crmentity.deleted = 0 AND vtiger_salesorder.accountid = vtiger_account.accountid and (vtiger_crmentity.deleted=0 AND ( vtiger_salesorder.duedate >= '2018-01-01')  AND vtiger_salesorder.salesorderid > 0))) )) AND vtiger_account.accountid > 0";
+		$this->assertEquals($expected, $actual, 'aggregation condition count *');
+	}
+
+	/**
 	 * Method testgetWorkflowQueryMath
 	 * @test
 	 */
