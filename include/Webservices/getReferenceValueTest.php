@@ -31,7 +31,7 @@ class testgetReferenceValue extends TestCase {
 	public function testvtws_getReferenceValue() {
 		global $current_user;
 		$actual = vtws_getReferenceValue(serialize(array('11x74','12x1085','20x2','21x1','22x2')), $current_user);
-		$expected = 'a:5:{s:5:"11x74";a:2:{s:6:"module";s:8:"Accounts";s:9:"reference";s:17:"Chemex Labs Ltd!!";}s:7:"12x1085";a:2:{s:6:"module";s:8:"Contacts";s:9:"reference";s:15:"Julieta Cropsey";}s:4:"20x2";a:2:{s:6:"module";s:6:"Groups";s:9:"reference";s:12:"Team Selling";}s:4:"21x1";a:2:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";}s:4:"22x2";a:2:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";}}';
+		$expected = 'a:5:{s:5:"11x74";a:2:{s:6:"module";s:8:"Accounts";s:9:"reference";s:15:"Chemex Labs Ltd";}s:7:"12x1085";a:2:{s:6:"module";s:8:"Contacts";s:9:"reference";s:15:"Julieta Cropsey";}s:4:"20x2";a:2:{s:6:"module";s:6:"Groups";s:9:"reference";s:12:"Team Selling";}s:4:"21x1";a:2:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";}s:4:"22x2";a:2:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";}}';
 		$this->assertEquals($expected, $actual, "testvtws_getReferenceValue");
 	}
 }

@@ -33,7 +33,7 @@ class vtlibLinkTest extends TestCase {
 		$actual = Vtiger_Link::getAllByType(getTabid('CobroPago'), array('DETAILVIEWBASIC', 'DETAILVIEW', 'DETAILVIEWWIDGET'), $customlink_params);
 		$expectedLink = new Vtiger_Link();
 		$expectedLink->tabid = '42';
-		$expectedLink->linkid = '49';
+		$expectedLink->linkid = $actual['DETAILVIEWBASIC'][0]->linkid;
 		$expectedLink->linktype = 'DETAILVIEWBASIC';
 		$expectedLink->linklabel = 'View History';
 		$expectedLink->linkurl = "javascript:ModTrackerCommon.showhistory('14297')";
@@ -56,7 +56,7 @@ class vtlibLinkTest extends TestCase {
 		$actual = Vtiger_Link::getAllByType(getTabid('CobroPago'), 'DETAILVIEWBASIC', $customlink_params);
 		$expectedLink = new Vtiger_Link();
 		$expectedLink->tabid = '42';
-		$expectedLink->linkid = '49';
+		$expectedLink->linkid = $actual['DETAILVIEWBASIC']->linkid;
 		$expectedLink->linktype = 'DETAILVIEWBASIC';
 		$expectedLink->linklabel = 'View History';
 		$expectedLink->linkurl = "javascript:ModTrackerCommon.showhistory('14297')";

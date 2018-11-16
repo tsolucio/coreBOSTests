@@ -55,6 +55,7 @@ class testCommonUtilsgetRAC extends TestCase {
 		'29198' => '0',
 		'27187' => '0',
 		'43029' => '0',
+		'43044' => '0',
 	);
 	private $Contactsresults = array(
 		'74' => '0',
@@ -90,6 +91,7 @@ class testCommonUtilsgetRAC extends TestCase {
 		'29198' => '1655',
 		'27187' => '0',
 		'43029' => '0',
+		'43044' => '0',
 	);
 
 	/**
