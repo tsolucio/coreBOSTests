@@ -19,6 +19,12 @@
  *************************************************************************************************/
 
 function superDifficultDecision($decider1, $decider2) {
+	if (!is_numeric($decider1)) {
+		$decider1 = 0;
+	}
+	if (!is_numeric($decider2)) {
+		$decider2 = 0;
+	}
 	return ($decider1 + $decider2 > 10);
 }
 

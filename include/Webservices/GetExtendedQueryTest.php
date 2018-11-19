@@ -20,17 +20,18 @@
 include_once 'include/Webservices/GetExtendedQuery.php';
 
 use PHPUnit\Framework\TestCase;
+
 class GetExtendedQueryTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
 	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
 	 ****/
-	var $usrdota0x = 5; // testdmy 2 decimal places
-	var $usrcomd0x = 6; // testmdy 3 decimal places
-	var $usrdotd3com = 7; // testymd 4 decimal places
-	var $usrcoma3dot = 10; // testtz 5 decimal places
-	var $usrdota3comdollar = 12; // testmcurrency 6 decimal places
+	private $usrdota0x = 5; // testdmy 2 decimal places
+	private $usrcomd0x = 6; // testmdy 3 decimal places
+	private $usrdotd3com = 7; // testymd 4 decimal places
+	private $usrcoma3dot = 10; // testtz 5 decimal places
+	private $usrdota3comdollar = 12; // testmcurrency 6 decimal places
 
 	/**
 	 * Method FQNProcessConditionProvidor
@@ -65,9 +66,8 @@ class GetExtendedQueryTest extends TestCase {
 	 * @test
 	 * @dataProvider FQNProcessConditionProvidor
 	 */
-	public function test__FQNExtendedQueryProcessCondition($condition,$expected) {
-		$this->assertEquals($expected, __FQNExtendedQueryProcessCondition($condition),'ProcessCondition PriceBooks');
+	public function test__FQNExtendedQueryProcessCondition($condition, $expected) {
+		$this->assertEquals($expected, __FQNExtendedQueryProcessCondition($condition), 'ProcessCondition PriceBooks');
 	}
-
 }
 ?>

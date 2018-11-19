@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,12 +18,13 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class PickListUtilsTest extends TestCase {
 
-	var $role_vicepresident = 'H3';
-	var $role_salesman = 'H5';
+	private $role_vicepresident = 'H3';
+	private $role_salesman = 'H5';
 
-	var $expectedH3_picklists = array(
+	private $expectedH3_picklists = array(
 'Accounts' => array(
   0 => 
   array (
@@ -627,6 +628,8 @@ class PickListUtilsTest extends TestCase {
 			'cbMap' => 'cbMap',
 			'cbTermConditions' => 'cbTermConditions',
 			'cbCalendar' => 'cbCalendar',
+			'BusinessActions' => 'BusinessActions',
+			'Business Question' => 'cbQuestion'
 		);
 		$this->assertEquals($expected, $actual);
 	}

@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,6 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class workflowfunctionsdatetimeTest extends TestCase {
 
 	/**
@@ -39,6 +40,30 @@ class workflowfunctionsdatetimeTest extends TestCase {
 		$this->assertEquals(-1, $actual);
 		$actual = __vt_time_diffdays(array('2017-06-25 23:30:30','2017-06-21 03:30:30'));
 		$this->assertEquals(4, $actual);
+	}
+
+	/**
+	 * Method testtimeDiffYears
+	 * @test
+	 */
+	public function testtimeDiffYears() {
+		$actual = __cb_time_diffyears(array('2017-06-20 11:30:30','2017-06-20 10:30:30'));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_time_diffyears(array('2018-06-20 13:30:30','2017-06-20 10:30:30'));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_time_diffyears(array('1967-01-29 02:30:30','2018-07-22 23:30:30'));
+		$this->assertEquals(51, $actual);
+		$actual = __cb_time_diffyears(array('2012-02-29 23:30:30','2016-02-29 03:30:30'));
+		$this->assertEquals(3, $actual);
+		$actual = __cb_time_diffyears(array('2012-02-29 23:30:30','2016-03-01 03:30:30'));
+		$this->assertEquals(4, $actual);
+		$actual = __cb_time_diffyears(array('2017-06-20 10:30:30','2018-06-20 13:30:30'));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_time_diffyears(array('2017-06-25 23:30:30'));
+		$date = new DateTime('2017-06-25 23:30:30');
+		$now = new DateTime();
+		$interval = $now->diff($date);
+		$this->assertEquals($interval->y, $actual);
 	}
 
 	/**
@@ -118,6 +143,20 @@ class workflowfunctionsdatetimeTest extends TestCase {
 		$this->assertEquals('Jun', $actual);
 		$actual = __cb_format_date(array('2017-06-20','W H:i:s'));
 		$this->assertEquals('25 00:00:00', $actual);
+		//// time
+		$actual = __cb_format_date(array('2017-06-20 22:30:33','d-m-Y'));
+		$this->assertEquals('20-06-2017', $actual);
+		$actual = __cb_format_date(array('2017-06-20 22:30:33','M'));
+		$this->assertEquals('Jun', $actual);
+		$actual = __cb_format_date(array('2017-06-20 22:30:33','W H:i:s'));
+		$this->assertEquals('25 22:30:33', $actual);
+		$actual = __cb_format_date(array('2017-06-20 22:30:33','d-m-Y H:i:s'));
+		$this->assertEquals('20-06-2017 22:30:33', $actual);
+		$actual = __cb_format_date(array('2017-06-20 22:30:33','M H:i:s'));
+		$this->assertEquals('Jun 22:30:33', $actual);
+		// empty date
+		$actual = __cb_format_date(array('','d-m-Y H:i:s'));
+		$this->assertEquals('', $actual);
 	}
 
 	/**
@@ -179,6 +218,5 @@ class workflowfunctionsdatetimeTest extends TestCase {
 		$actual = __cb_next_dateLaborable(array('2017-07-01','15,30','2017-07-17,2017-08-15',0));
 		$this->assertEquals('2017-07-18', $actual);
 	}
-
 }
 ?>

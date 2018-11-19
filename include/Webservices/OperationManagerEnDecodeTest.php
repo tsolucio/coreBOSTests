@@ -17,8 +17,8 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class testOperationManagerEnDecode extends TestCase {
 
 	protected static $omEDjson;
@@ -36,14 +36,14 @@ class testOperationManagerEnDecode extends TestCase {
 			array('Normal string','"Normal string"','Normal string'),
 			array(123.456,123.456,'123.456'),
 			array(true,'true','true'),
-			array(NULL,'null','null'),
+			array(null,'null','null'),
 			array(array('string'),'["string"]','array with string'),
 			array(array('string1','string2'),'["string1","string2"]','array with two string'),
 			array(array('string',123.456),'["string",123.456]','array with string and number'),
 			array(array('string',123.456,true),'["string",123.456,true]','array with string, number and boolean'),
-			array(array('string',123.456,true,NULL),'["string",123.456,true,null]','array with string, number boolean and null'),
+			array(array('string',123.456,true,null),'["string",123.456,true,null]','array with string, number boolean and null'),
 			array(array('k1'=>'string1','k2'=>'string2'),'{"k1":"string1","k2":"string2"}','array with keys string'),
-			array(array('k1'=>'string','k2'=>123.456,'k3'=>true,'k4'=>NULL),'{"k1":"string","k2":123.456,"k3":true,"k4":null}','array with keys on string, number boolean and null'),
+			array(array('k1'=>'string','k2'=>123.456,'k3'=>true,'k4'=>null),'{"k1":"string","k2":123.456,"k3":true,"k4":null}','array with keys on string, number boolean and null'),
 		);
 	}
 
@@ -52,9 +52,9 @@ class testOperationManagerEnDecode extends TestCase {
 	 * @test
 	 * @dataProvider encodeProvider
 	 */
-	public function testencode($input,$expected,$message) {
+	public function testencode($input, $expected, $message) {
 		$actual = self::$omEDjson->encode($input);
-		$this->assertEquals($expected, $actual,"testencode $message");
+		$this->assertEquals($expected, $actual, "testencode $message");
 	}
 
 	/**
@@ -66,14 +66,14 @@ class testOperationManagerEnDecode extends TestCase {
 			array('Normal string','"Normal string"','Normal string'),
 			array(123.456,123.456,'123.456'),
 			array(true,'true','true'),
-			array(NULL,'null','null'),
+			array(null,'null','null'),
 			array(array('string'),'["string"]','array with string'),
 			array(array('string1','string2'),'["string1","string2"]','array with two string'),
 			array(array('string',123.456),'["string",123.456]','array with string and number'),
 			array(array('string',123.456,true),'["string",123.456,true]','array with string, number and boolean'),
-			array(array('string',123.456,true,NULL),'["string",123.456,true,null]','array with string, number boolean and null'),
+			array(array('string',123.456,true,null),'["string",123.456,true,null]','array with string, number boolean and null'),
 			array(array('k1'=>'string1','k2'=>'string2'),'{"k1":"string1","k2":"string2"}','array with keys string'),
-			array(array('k1'=>'string','k2'=>123.456,'k3'=>true,'k4'=>NULL),'{"k1":"string","k2":123.456,"k3":true,"k4":null}','array with keys on string, number boolean and null'),
+			array(array('k1'=>'string','k2'=>123.456,'k3'=>true,'k4'=>null),'{"k1":"string","k2":123.456,"k3":true,"k4":null}','array with keys on string, number boolean and null'),
 		);
 	}
 
@@ -82,11 +82,9 @@ class testOperationManagerEnDecode extends TestCase {
 	 * @test
 	 * @dataProvider decodeProvider
 	 */
-	public function testdecode($expected,$input,$message) {
+	public function testdecode($expected, $input, $message) {
 		$actual = self::$omEDjson->decode($input);
-		$this->assertEquals($expected, $actual,"testdecode $message");
+		$this->assertEquals($expected, $actual, "testdecode $message");
 	}
-
 }
-
 ?>

@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,6 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class VTExpressionEvaluaterTest extends TestCase {
 
 	/**
@@ -33,11 +34,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => cf_722
+    [type] => string
 )
 ',
 			1 => 'VTExpressionSymbol Object
 (
     [value] => cf_719
+    [type] => string
 )
 ',
 			2 => '7',
@@ -141,11 +144,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			2 => 'VTExpressionSymbol Object
 (
     [value] => cf_722
+    [type] => string
 )
 ',
 			3 => '30',
@@ -166,6 +171,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			8 => 'VTExpressionSymbol Object
 (
     [value] => cf_722
+    [type] => string
 )
 ',
 			9 => '30',
@@ -205,11 +211,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			2 => 'VTExpressionSymbol Object
 (
     [value] => $(assigned_user_id : (Users) email1)
+    [type] => string
 )
 ',
 			3 => 'Array
@@ -233,11 +241,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => tickersymbol
+    [type] => string
 )
 ',
 			2 => 'VTExpressionSymbol Object
 (
     [value] => $(assigned_user_id : (Users) email1)
+    [type] => string
 )
 ',
 			3 => 'Array
@@ -260,11 +270,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => tickersymbol
+    [type] => string
 )
 ',
 			1 => 'VTExpressionSymbol Object
 (
     [value] => $(assigned_user_id : (Users) email1)
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -286,11 +298,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => tickersymbol
+    [type] => string
 )
 ',
 			1 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -314,11 +328,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => duedate
+    [type] => string
 )
 ',
 			1 => 'VTExpressionSymbol Object
 (
     [value] => $(parent_id : (Accounts) cf_719)
+    [type] => string
 )
 ',
 			2 => ' ',
@@ -344,11 +360,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => duedate
+    [type] => string
 )
 ',
 			1 => 'VTExpressionSymbol Object
 (
     [value] => $(parent_id : (Accounts) cf_719)
+    [type] => string
 )
 ',
 			2 => '',
@@ -376,6 +394,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => cf_732
+    [type] => string
 )
 ',
 			1 => ' |##| ',
@@ -402,6 +421,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			2 => 'VTExpressionSymbol Object
 (
     [value] => cf_732
+    [type] => string
 )
 ',
 			3 => 'Array
@@ -433,6 +453,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 );
@@ -448,6 +469,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => fieldthatdoesnotexist
+    [type] => string
 )
 ',
 );
@@ -463,6 +485,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => $(assigned_user_id : (Users) email1)
+    [type] => string
 )
 ',
 );
@@ -487,6 +510,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '1',
@@ -510,6 +534,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -531,11 +556,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => cf_719
+    [type] => string
 )
 ',
 			1 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			2 => '0.9',
@@ -566,6 +593,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '0.5',
@@ -590,6 +618,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '0.5',
@@ -621,6 +650,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '13',
@@ -639,11 +669,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 13
@@ -672,6 +704,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -689,12 +722,14 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => 13
                     [2] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                 )
@@ -722,6 +757,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -739,12 +775,14 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => 13
                     [2] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                 )
@@ -772,6 +810,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -789,12 +828,14 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => <
+                            [type] => string
                         )
 
                     [1] => 13
                     [2] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                 )
@@ -822,6 +863,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -839,12 +881,14 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => >
+                            [type] => string
                         )
 
                     [1] => 13
                     [2] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                 )
@@ -872,6 +916,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -889,12 +934,14 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => <=
+                            [type] => string
                         )
 
                     [1] => 13
                     [2] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                 )
@@ -921,6 +968,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => $(assigned_user_id : (Users) email1)
+    [type] => string
 )
 ',
 			1 => 'noreply@tsolucio.com',
@@ -939,11 +987,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => $(assigned_user_id : (Users) email1)
+                            [type] => string
                         )
 
                     [2] => noreply@tsolucio.com
@@ -972,6 +1022,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => $(assigned_user_id : (Users) email1)
+    [type] => string
 )
 ',
 			2 => 'Array
@@ -989,12 +1040,14 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => notthesame
                     [2] => VTExpressionSymbol Object
                         (
                             [value] => $(assigned_user_id : (Users) email1)
+                            [type] => string
                         )
 
                 )
@@ -1029,6 +1082,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '13',
@@ -1047,11 +1101,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 13
@@ -1062,11 +1118,13 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => VTExpressionSymbol Object
         (
             [value] => employees
+            [type] => string
         )
 
     [2] => VTExpressionSymbol Object
         (
             [value] => accountname
+            [type] => string
         )
 
 )
@@ -1075,6 +1133,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 '
 );
@@ -1090,6 +1149,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '13',
@@ -1108,11 +1168,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => <=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 13
@@ -1123,11 +1185,13 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => VTExpressionSymbol Object
         (
             [value] => employees
+            [type] => string
         )
 
     [2] => VTExpressionSymbol Object
         (
             [value] => accountname
+            [type] => string
         )
 
 )
@@ -1136,6 +1200,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 '
 );
@@ -1151,6 +1216,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			1 => '',
@@ -1169,11 +1235,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                     [2] => 
@@ -1209,6 +1277,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '13',
@@ -1227,11 +1296,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 13
@@ -1246,11 +1317,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => add_days
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_722
+                            [type] => string
                         )
 
                     [2] => 3
@@ -1265,11 +1338,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => sub_days
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_722
+                            [type] => string
                         )
 
                     [2] => 3
@@ -1283,6 +1358,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => cf_722
+    [type] => string
 )
 ',
 			6 => '3',
@@ -1305,6 +1381,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '13',
@@ -1323,11 +1400,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => <=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 13
@@ -1342,11 +1421,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => add_days
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_722
+                            [type] => string
                         )
 
                     [2] => 3
@@ -1361,11 +1442,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => sub_days
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_722
+                            [type] => string
                         )
 
                     [2] => 3
@@ -1379,6 +1462,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => cf_722
+    [type] => string
 )
 ',
 			6 => '3',
@@ -1401,6 +1485,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			1 => '',
@@ -1419,11 +1504,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                     [2] => 
@@ -1438,17 +1525,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => tickersymbol
+                            [type] => string
                         )
 
                 )
@@ -1462,17 +1552,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => tickersymbol
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                 )
@@ -1485,12 +1578,14 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => tickersymbol
+    [type] => string
 )
 ',
 			6 => '-',
 			7 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			8 => 'Array
@@ -1513,6 +1608,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			1 => '',
@@ -1531,11 +1627,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                     [2] => 
@@ -1550,17 +1648,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => tickersymbol
+                            [type] => string
                         )
 
                 )
@@ -1574,17 +1675,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => tickersymbol
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                 )
@@ -1597,12 +1701,14 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => tickersymbol
+    [type] => string
 )
 ',
 			6 => '-',
 			7 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			8 => 'Array
@@ -1625,6 +1731,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => cf_718
+    [type] => string
 )
 ',
 			1 => '',
@@ -1643,11 +1750,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                     [2] => 
@@ -1662,17 +1771,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => cf_725
+                            [type] => string
                         )
 
                 )
@@ -1686,17 +1798,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_725
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                 )
@@ -1709,12 +1824,14 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => cf_718
+    [type] => string
 )
 ',
 			6 => '-',
 			7 => 'VTExpressionSymbol Object
 (
     [value] => cf_725
+    [type] => string
 )
 ',
 			8 => 'Array
@@ -1737,6 +1854,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => cf_718
+    [type] => string
 )
 ',
 			1 => '',
@@ -1755,11 +1873,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                     [2] => 
@@ -1774,17 +1894,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => cf_725
+                            [type] => string
                         )
 
                 )
@@ -1798,17 +1921,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_725
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                 )
@@ -1821,12 +1947,14 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => cf_718
+    [type] => string
 )
 ',
 			6 => '-',
 			7 => 'VTExpressionSymbol Object
 (
     [value] => cf_725
+    [type] => string
 )
 ',
 			8 => 'Array
@@ -1849,6 +1977,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => cf_718
+    [type] => string
 )
 ',
 			1 => '',
@@ -1867,11 +1996,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                     [2] => 
@@ -1886,17 +2017,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => cf_725
+                            [type] => string
                         )
 
                 )
@@ -1910,17 +2044,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_725
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                 )
@@ -1933,12 +2070,14 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => cf_725
+    [type] => string
 )
 ',
 			6 => '-',
 			7 => 'VTExpressionSymbol Object
 (
     [value] => cf_718
+    [type] => string
 )
 ',
 			8 => 'Array
@@ -1963,6 +2102,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => cf_718
+    [type] => string
 )
 ',
 			1 => '',
@@ -1981,11 +2121,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                     [2] => 
@@ -2000,17 +2142,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => cf_725
+                            [type] => string
                         )
 
                 )
@@ -2024,17 +2169,20 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => cf_725
+                            [type] => string
                         )
 
                     [2] => -
                     [3] => VTExpressionSymbol Object
                         (
                             [value] => cf_718
+                            [type] => string
                         )
 
                 )
@@ -2047,12 +2195,14 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => cf_718
+    [type] => string
 )
 ',
 			6 => '-',
 			7 => 'VTExpressionSymbol Object
 (
     [value] => cf_725
+    [type] => string
 )
 ',
 			8 => 'Array
@@ -2084,6 +2234,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '13',
@@ -2102,11 +2253,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 13
@@ -2121,11 +2274,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => +
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 1
@@ -2140,11 +2295,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => -
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 1
@@ -2158,6 +2315,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			6 => '1',
@@ -2180,6 +2338,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			1 => '13',
@@ -2198,11 +2357,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => <=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 13
@@ -2217,11 +2378,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => +
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 1
@@ -2236,11 +2399,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => -
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => employees
+                            [type] => string
                         )
 
                     [2] => 1
@@ -2254,6 +2419,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => employees
+    [type] => string
 )
 ',
 			6 => '1',
@@ -2285,6 +2451,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			1 => 'Chemex Labs Ltd',
@@ -2303,11 +2470,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                     [2] => Chemex Labs Ltd
@@ -2323,6 +2492,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => if
+                            [type] => string
                         )
 
                     [1] => VTExpressionTreeNode Object
@@ -2332,11 +2502,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => ==
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionSymbol Object
                                         (
                                             [value] => bill_city
+                                            [type] => string
                                         )
 
                                     [2] => Els Poblets
@@ -2352,6 +2524,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => if
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionTreeNode Object
@@ -2361,11 +2534,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                                     [0] => VTExpressionSymbol Object
                                                         (
                                                             [value] => ==
+                                                            [type] => string
                                                         )
 
                                                     [1] => VTExpressionSymbol Object
                                                         (
                                                             [value] => ship_country
+                                                            [type] => string
                                                         )
 
                                                     [2] => Spain
@@ -2400,6 +2575,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			1 => 'Chemex Labs Ltd',
@@ -2418,11 +2594,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                     [2] => Chemex Labs Ltd
@@ -2438,6 +2616,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => if
+                            [type] => string
                         )
 
                     [1] => VTExpressionTreeNode Object
@@ -2447,11 +2626,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => ==
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionSymbol Object
                                         (
                                             [value] => bill_city
+                                            [type] => string
                                         )
 
                                     [2] => Els Poblets
@@ -2467,6 +2648,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => if
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionTreeNode Object
@@ -2476,11 +2658,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                                     [0] => VTExpressionSymbol Object
                                                         (
                                                             [value] => ==
+                                                            [type] => string
                                                         )
 
                                                     [1] => VTExpressionSymbol Object
                                                         (
                                                             [value] => ship_country
+                                                            [type] => string
                                                         )
 
                                                     [2] => Spain
@@ -2504,6 +2688,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => bill_city
+    [type] => string
 )
 ',
 			6 => 'Els Poblets',
@@ -2522,11 +2707,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => bill_city
+                            [type] => string
                         )
 
                     [2] => Els Poblets
@@ -2542,6 +2729,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => if
+                            [type] => string
                         )
 
                     [1] => VTExpressionTreeNode Object
@@ -2551,11 +2739,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => ==
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionSymbol Object
                                         (
                                             [value] => ship_country
+                                            [type] => string
                                         )
 
                                     [2] => Spain
@@ -2586,6 +2776,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => accountname
+    [type] => string
 )
 ',
 			1 => 'Chemex Labs Ltd',
@@ -2604,11 +2795,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => accountname
+                            [type] => string
                         )
 
                     [2] => Chemex Labs Ltd
@@ -2624,6 +2817,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => if
+                            [type] => string
                         )
 
                     [1] => VTExpressionTreeNode Object
@@ -2633,11 +2827,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => !=
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionSymbol Object
                                         (
                                             [value] => bill_city
+                                            [type] => string
                                         )
 
                                     [2] => Els Poblets
@@ -2653,6 +2849,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => if
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionTreeNode Object
@@ -2662,11 +2859,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                                     [0] => VTExpressionSymbol Object
                                                         (
                                                             [value] => ==
+                                                            [type] => string
                                                         )
 
                                                     [1] => VTExpressionSymbol Object
                                                         (
                                                             [value] => ship_country
+                                                            [type] => string
                                                         )
 
                                                     [2] => Spain
@@ -2690,6 +2889,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			5 => 'VTExpressionSymbol Object
 (
     [value] => bill_city
+    [type] => string
 )
 ',
 			6 => 'Els Poblets',
@@ -2708,11 +2908,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => bill_city
+                            [type] => string
                         )
 
                     [2] => Els Poblets
@@ -2728,6 +2930,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => if
+                            [type] => string
                         )
 
                     [1] => VTExpressionTreeNode Object
@@ -2737,11 +2940,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => ==
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionSymbol Object
                                         (
                                             [value] => ship_country
+                                            [type] => string
                                         )
 
                                     [2] => Spain
@@ -2761,6 +2966,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			10 => 'VTExpressionSymbol Object
 (
     [value] => ship_country
+    [type] => string
 )
 ',
 			11 => 'Spain',
@@ -2779,11 +2985,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionSymbol Object
                         (
                             [value] => ship_country
+                            [type] => string
                         )
 
                     [2] => Spain
@@ -2824,6 +3032,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => 681487
@@ -2840,6 +3049,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => if
+                            [type] => string
                         )
 
                     [1] => VTExpressionTreeNode Object
@@ -2849,6 +3059,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => <
+                                            [type] => string
                                         )
 
                                     [1] => 4
@@ -2865,6 +3076,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => +
+                                            [type] => string
                                         )
 
                                     [1] => 1
@@ -2875,6 +3087,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                                     [0] => VTExpressionSymbol Object
                                                         (
                                                             [value] => -
+                                                            [type] => string
                                                         )
 
                                                     [1] => 4
@@ -2910,6 +3123,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => <
+                            [type] => string
                         )
 
                     [1] => 4
@@ -2926,6 +3140,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => +
+                            [type] => string
                         )
 
                     [1] => 1
@@ -2936,6 +3151,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => -
+                                            [type] => string
                                         )
 
                                     [1] => 4
@@ -2980,6 +3196,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => 681487
@@ -2996,6 +3213,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => if
+                            [type] => string
                         )
 
                     [1] => VTExpressionTreeNode Object
@@ -3005,6 +3223,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => >
+                                            [type] => string
                                         )
 
                                     [1] => 4
@@ -3021,6 +3240,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => +
+                                            [type] => string
                                         )
 
                                     [1] => 1
@@ -3031,6 +3251,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                                     [0] => VTExpressionSymbol Object
                                                         (
                                                             [value] => -
+                                                            [type] => string
                                                         )
 
                                                     [1] => 4
@@ -3066,6 +3287,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => >
+                            [type] => string
                         )
 
                     [1] => 4
@@ -3082,6 +3304,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => +
+                            [type] => string
                         )
 
                     [1] => 1
@@ -3092,6 +3315,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => -
+                                            [type] => string
                                         )
 
                                     [1] => 4
@@ -3145,6 +3369,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => phone
+    [type] => string
 )
 ',
 			1 => '0',
@@ -3172,6 +3397,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => ==
+                            [type] => string
                         )
 
                     [1] => VTExpressionTreeNode Object
@@ -3181,11 +3407,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => substring
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionSymbol Object
                                         (
                                             [value] => phone
+                                            [type] => string
                                         )
 
                                     [2] => 0
@@ -3206,12 +3434,14 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => +
                     [2] => VTExpressionSymbol Object
                         (
                             [value] => phone
+                            [type] => string
                         )
 
                 )
@@ -3221,6 +3451,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => VTExpressionSymbol Object
         (
             [value] => phone
+            [type] => string
         )
 
 )
@@ -3229,6 +3460,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			8 => 'VTExpressionSymbol Object
 (
     [value] => phone
+    [type] => string
 )
 ',
 );
@@ -3245,6 +3477,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			1 => 'VTExpressionSymbol Object
 (
     [value] => phone
+    [type] => string
 )
 ',
 			2 => '0',
@@ -3271,6 +3504,7 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => !=
+                            [type] => string
                         )
 
                     [1] => 00
@@ -3281,11 +3515,13 @@ class VTExpressionEvaluaterTest extends TestCase {
                                     [0] => VTExpressionSymbol Object
                                         (
                                             [value] => substring
+                                            [type] => string
                                         )
 
                                     [1] => VTExpressionSymbol Object
                                         (
                                             [value] => phone
+                                            [type] => string
                                         )
 
                                     [2] => 0
@@ -3305,12 +3541,14 @@ class VTExpressionEvaluaterTest extends TestCase {
                     [0] => VTExpressionSymbol Object
                         (
                             [value] => concat
+                            [type] => string
                         )
 
                     [1] => +
                     [2] => VTExpressionSymbol Object
                         (
                             [value] => phone
+                            [type] => string
                         )
 
                 )
@@ -3320,6 +3558,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => VTExpressionSymbol Object
         (
             [value] => phone
+            [type] => string
         )
 
 )
@@ -3329,6 +3568,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			9 => 'VTExpressionSymbol Object
 (
     [value] => phone
+    [type] => string
 )
 ',
     10 => 'Array
@@ -3410,6 +3650,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => assigned_user_id
+    [type] => string
 )
 ',
 );
@@ -3425,6 +3666,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => created_user_id
+    [type] => string
 )
 ',
 );
@@ -3440,6 +3682,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			0 => 'VTExpressionSymbol Object
 (
     [value] => reports_to_id
+    [type] => string
 )
 ',
 );
@@ -3450,6 +3693,5 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('cbTest testymd', $exprEvaluation);
 	}
-
 }
 ?>

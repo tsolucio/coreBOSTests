@@ -46,6 +46,18 @@
 		<testsuite name="Picklists">
 			<directory>./modules/Picklist</directory>
 		</testsuite>
+		<testsuite name="cbUsers">
+			<directory>./modules/Users</directory>
+		</testsuite>
+		<testsuite name="Settings">
+			<directory>./modules/Settings</directory>
+		</testsuite>
+		<testsuite name="cbCustomView">
+			<directory>./modules/CustomView</directory>
+		</testsuite>
+		<testsuite name="cbWSAPP">
+			<directory>./modules/WSAPP</directory>
+		</testsuite>
 		<testsuite name="cbData">
 			<directory>./data</directory>
 		</testsuite>

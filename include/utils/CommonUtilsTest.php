@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -19,12 +19,13 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class testCommonUtils extends TestCase {
 
 	/****
 	 * TEST Users
 	 ****/
-	var $testusers = array(
+	public $testusers = array(
 		'usrtestdmy' => 5,
 		'usrtestmdy' => 6,
 		'usrtestymd' => 7,
@@ -627,5 +628,648 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 			'entityid' => '',
 		);
 		$this->assertEquals(getEntityField('non-existent', true), $expected, 'getEntityField non-existent');
+	}
+
+	/**
+	 * Method testgetEmailTemplateVariables
+	 * @test
+	 */
+	public function testgetEmailTemplateVariables() {
+		$base[1] = array(
+		  0 => array(
+			0 => 'Current Date',
+			1 => '$custom-currentdate$',
+		  ),
+		  1 => array(
+			0 => 'Current Time',
+			1 => '$custom-currenttime$',
+		  ),
+		  2 => array(
+			0 => 'Image Field',
+			1 => '${module}-{imagefield}_fullpath$',
+		  ),
+		);
+		$expected = $base;
+		$expected[0] = array(
+			0 => 
+			array (
+			0 => 'Organizations: OrganizationsID',
+			1 => '$accounts-accountid$',
+			),
+			1 => 
+			array (
+			0 => 'Organizations: Organization Name',
+			1 => '$accounts-accountname$',
+			),
+			2 => 
+			array (
+			0 => 'Organizations: Organization No',
+			1 => '$accounts-account_no$',
+			),
+			3 => 
+			array (
+			0 => 'Organizations: Phone',
+			1 => '$accounts-phone$',
+			),
+			4 => 
+			array (
+			0 => 'Organizations: Website',
+			1 => '$accounts-website$',
+			),
+			5 => 
+			array (
+			0 => 'Organizations: Fax',
+			1 => '$accounts-fax$',
+			),
+			6 => 
+			array (
+			0 => 'Organizations: Ticker Symbol',
+			1 => '$accounts-tickersymbol$',
+			),
+			7 => 
+			array (
+			0 => 'Organizations: Other Phone',
+			1 => '$accounts-otherphone$',
+			),
+			8 => 
+			array (
+			0 => 'Organizations: Member Of',
+			1 => '$accounts-parentid$',
+			),
+			9 => 
+			array (
+			0 => 'Organizations: Email',
+			1 => '$accounts-email1$',
+			),
+			10 => 
+			array (
+			0 => 'Organizations: Employees',
+			1 => '$accounts-employees$',
+			),
+			11 => 
+			array (
+			0 => 'Organizations: Other Email',
+			1 => '$accounts-email2$',
+			),
+			12 => 
+			array (
+			0 => 'Organizations: Ownership',
+			1 => '$accounts-ownership$',
+			),
+			13 => 
+			array (
+			0 => 'Organizations: Rating',
+			1 => '$accounts-rating$',
+			),
+			14 => 
+			array (
+			0 => 'Organizations: Industry',
+			1 => '$accounts-industry$',
+			),
+			15 => 
+			array (
+			0 => 'Organizations: SIC Code',
+			1 => '$accounts-siccode$',
+			),
+			16 => 
+			array (
+			0 => 'Organizations: Type',
+			1 => '$accounts-account_type$',
+			),
+			17 => 
+			array (
+			0 => 'Organizations: Annual Revenue',
+			1 => '$accounts-annualrevenue$',
+			),
+			18 => 
+			array (
+			0 => 'Organizations: Email Opt Out',
+			1 => '$accounts-emailoptout$',
+			),
+			19 => 
+			array (
+			0 => 'Organizations: Notify Owner',
+			1 => '$accounts-notify_owner$',
+			),
+			20 => 
+			array (
+			0 => 'Organizations: Assigned To',
+			1 => '$accounts-smownerid$',
+			),
+			21 => 
+			array (
+			0 => 'Organizations: Created Time',
+			1 => '$accounts-createdtime$',
+			),
+			22 => 
+			array (
+			0 => 'Organizations: Modified Time',
+			1 => '$accounts-modifiedtime$',
+			),
+			23 => 
+			array (
+			0 => 'Organizations: Last Modified By',
+			1 => '$accounts-modifiedby$',
+			),
+			24 => 
+			array (
+			0 => 'Organizations: Billing Address',
+			1 => '$accounts-bill_street$',
+			),
+			25 => 
+			array (
+			0 => 'Organizations: Shipping Address',
+			1 => '$accounts-ship_street$',
+			),
+			26 => 
+			array (
+			0 => 'Organizations: Billing City',
+			1 => '$accounts-bill_city$',
+			),
+			27 => 
+			array (
+			0 => 'Organizations: Shipping City',
+			1 => '$accounts-ship_city$',
+			),
+			28 => 
+			array (
+			0 => 'Organizations: Billing State',
+			1 => '$accounts-bill_state$',
+			),
+			29 => 
+			array (
+			0 => 'Organizations: Shipping State',
+			1 => '$accounts-ship_state$',
+			),
+			30 => 
+			array (
+			0 => 'Organizations: Billing Postal Code',
+			1 => '$accounts-bill_code$',
+			),
+			31 => 
+			array (
+			0 => 'Organizations: Shipping Postal Code',
+			1 => '$accounts-ship_code$',
+			),
+			32 => 
+			array (
+			0 => 'Organizations: Billing Country',
+			1 => '$accounts-bill_country$',
+			),
+			33 => 
+			array (
+			0 => 'Organizations: Shipping Country',
+			1 => '$accounts-ship_country$',
+			),
+			34 => 
+			array (
+			0 => 'Organizations: Billing PO Box',
+			1 => '$accounts-bill_pobox$',
+			),
+			35 => 
+			array (
+			0 => 'Organizations: Shipping PO Box',
+			1 => '$accounts-ship_pobox$',
+			),
+			36 => 
+			array (
+			0 => 'Organizations: Description',
+			1 => '$accounts-description$',
+			),
+			37 => 
+			array (
+			0 => 'Organizations: Text',
+			1 => '$accounts-cf_718$',
+			),
+			38 => 
+			array (
+			0 => 'Organizations: Number',
+			1 => '$accounts-cf_719$',
+			),
+			39 => 
+			array (
+			0 => 'Organizations: Percent',
+			1 => '$accounts-cf_720$',
+			),
+			40 => 
+			array (
+			0 => 'Organizations: Currency',
+			1 => '$accounts-cf_721$',
+			),
+			41 => 
+			array (
+			0 => 'Organizations: Date',
+			1 => '$accounts-cf_722$',
+			),
+			42 => 
+			array (
+			0 => 'Organizations: Emailcf',
+			1 => '$accounts-cf_723$',
+			),
+			43 => 
+			array (
+			0 => 'Organizations: Phonecf',
+			1 => '$accounts-cf_724$',
+			),
+			44 => 
+			array (
+			0 => 'Organizations: URL',
+			1 => '$accounts-cf_725$',
+			),
+			45 => 
+			array (
+			0 => 'Organizations: Checkbox',
+			1 => '$accounts-cf_726$',
+			),
+			46 => 
+			array (
+			0 => 'Organizations: skypecf',
+			1 => '$accounts-cf_727$',
+			),
+			47 => 
+			array (
+			0 => 'Organizations: Time',
+			1 => '$accounts-cf_728$',
+			),
+			48 => 
+			array (
+			0 => 'Organizations: PLMain',
+			1 => '$accounts-cf_729$',
+			),
+			49 => 
+			array (
+			0 => 'Organizations: PLDep1',
+			1 => '$accounts-cf_730$',
+			),
+			50 => 
+			array (
+			0 => 'Organizations: PLDep2',
+			1 => '$accounts-cf_731$',
+			),
+			51 => 
+			array (
+			0 => 'Organizations: Planets',
+			1 => '$accounts-cf_732$',
+			),
+			52 => 
+			array (
+			0 => 'Organizations: Is Converted From Lead',
+			1 => '$accounts-isconvertedfromlead$',
+			),
+			53 => 
+			array (
+			0 => 'Organizations: Converted From Lead',
+			1 => '$accounts-convertedfromlead$',
+			),
+			54 => 
+			array (
+			0 => 'Organizations: Created By',
+			1 => '$accounts-smcreatorid$',
+			),
+		);
+		$this->assertEquals($expected, getEmailTemplateVariables(array('Accounts')), 'getEmailTemplateVariables accounts');
+		$expected = $base;
+		$expected[0] = array(
+			0 => 
+			array (
+				0 => 'Contacts: ContactsID',
+				1 => '$contacts-contactid$',
+			),
+			1 => 
+			array (
+				0 => 'Contacts: Salutation',
+				1 => '$contacts-salutation$',
+			),
+			2 => 
+			array (
+				0 => 'Contacts: First Name',
+				1 => '$contacts-firstname$',
+			),
+			3 => 
+			array (
+				0 => 'Contacts: Contact No.',
+				1 => '$contacts-contact_no$',
+			),
+			4 => 
+			array (
+				0 => 'Contacts: Office Phone',
+				1 => '$contacts-phone$',
+			),
+			5 => 
+			array (
+				0 => 'Contacts: Last Name',
+				1 => '$contacts-lastname$',
+			),
+			6 => 
+			array (
+				0 => 'Contacts: Mobile',
+				1 => '$contacts-mobile$',
+			),
+			7 => 
+			array (
+				0 => 'Contacts: Organization Name',
+				1 => '$contacts-accountid$',
+			),
+			8 => 
+			array (
+				0 => 'Contacts: Home Phone',
+				1 => '$contacts-homephone$',
+			),
+			9 => 
+			array (
+				0 => 'Contacts: Lead Source',
+				1 => '$contacts-leadsource$',
+			),
+			10 => 
+			array (
+				0 => 'Contacts: Other Phone',
+				1 => '$contacts-otherphone$',
+			),
+			11 => 
+			array (
+				0 => 'Contacts: Title',
+				1 => '$contacts-title$',
+			),
+			12 => 
+			array (
+				0 => 'Contacts: Fax',
+				1 => '$contacts-fax$',
+			),
+			13 => 
+			array (
+				0 => 'Contacts: Department',
+				1 => '$contacts-department$',
+			),
+			14 => 
+			array (
+				0 => 'Contacts: Birthdate',
+				1 => '$contacts-birthday$',
+			),
+			15 => 
+			array (
+				0 => 'Contacts: Email',
+				1 => '$contacts-email$',
+			),
+			16 => 
+			array (
+				0 => 'Contacts: Reports To',
+				1 => '$contacts-reportsto$',
+			),
+			17 => 
+			array (
+				0 => 'Contacts: Assistant',
+				1 => '$contacts-assistant$',
+			),
+			18 => 
+			array (
+				0 => 'Contacts: Secondary Email',
+				1 => '$contacts-secondaryemail$',
+			),
+			19 => 
+			array (
+				0 => 'Contacts: Assistant Phone',
+				1 => '$contacts-assistantphone$',
+			),
+			20 => 
+			array (
+				0 => 'Contacts: Do Not Call',
+				1 => '$contacts-donotcall$',
+			),
+			21 => 
+			array (
+				0 => 'Contacts: Email Opt Out',
+				1 => '$contacts-emailoptout$',
+			),
+			22 => 
+			array (
+				0 => 'Contacts: Assigned To',
+				1 => '$contacts-smownerid$',
+			),
+			23 => 
+			array (
+				0 => 'Contacts: Reference',
+				1 => '$contacts-reference$',
+			),
+			24 => 
+			array (
+				0 => 'Contacts: Notify Owner',
+				1 => '$contacts-notify_owner$',
+			),
+			25 => 
+			array (
+				0 => 'Contacts: Created Time',
+				1 => '$contacts-createdtime$',
+			),
+			26 => 
+			array (
+				0 => 'Contacts: Modified Time',
+				1 => '$contacts-modifiedtime$',
+			),
+			27 => 
+			array (
+				0 => 'Contacts: Last Modified By',
+				1 => '$contacts-modifiedby$',
+			),
+			28 => 
+			array (
+				0 => 'Contacts: Portal User',
+				1 => '$contacts-portal$',
+			),
+			29 => 
+			array (
+				0 => 'Contacts: Support Start Date',
+				1 => '$contacts-support_start_date$',
+			),
+			30 => 
+			array (
+				0 => 'Contacts: Support End Date',
+				1 => '$contacts-support_end_date$',
+			),
+			31 => 
+			array (
+				0 => 'Contacts: Mailing Street',
+				1 => '$contacts-mailingstreet$',
+			),
+			32 => 
+			array (
+				0 => 'Contacts: Other Street',
+				1 => '$contacts-otherstreet$',
+			),
+			33 => 
+			array (
+				0 => 'Contacts: Mailing City',
+				1 => '$contacts-mailingcity$',
+			),
+			34 => 
+			array (
+				0 => 'Contacts: Other City',
+				1 => '$contacts-othercity$',
+			),
+			35 => 
+			array (
+				0 => 'Contacts: Mailing State',
+				1 => '$contacts-mailingstate$',
+			),
+			36 => 
+			array (
+				0 => 'Contacts: Other State',
+				1 => '$contacts-otherstate$',
+			),
+			37 => 
+			array (
+				0 => 'Contacts: Mailing Postal Code',
+				1 => '$contacts-mailingzip$',
+			),
+			38 => 
+			array (
+				0 => 'Contacts: Other Postal Code',
+				1 => '$contacts-otherzip$',
+			),
+			39 => 
+			array (
+				0 => 'Contacts: Mailing Country',
+				1 => '$contacts-mailingcountry$',
+			),
+			40 => 
+			array (
+				0 => 'Contacts: Other Country',
+				1 => '$contacts-othercountry$',
+			),
+			41 => 
+			array (
+				0 => 'Contacts: Mailing PO Box',
+				1 => '$contacts-mailingpobox$',
+			),
+			42 => 
+			array (
+				0 => 'Contacts: Other PO Box',
+				1 => '$contacts-otherpobox$',
+			),
+			43 => 
+			array (
+				0 => 'Contacts: Contact Image',
+				1 => '$contacts-imagename$',
+			),
+			44 => 
+			array (
+				0 => 'Contacts: Description',
+				1 => '$contacts-description$',
+			),
+			45 => 
+			array (
+				0 => 'Contacts: Is Converted From Lead',
+				1 => '$contacts-isconvertedfromlead$',
+			),
+			46 => 
+			array (
+				0 => 'Contacts: Converted From Lead',
+				1 => '$contacts-convertedfromlead$',
+			),
+			47 => 
+			array (
+				0 => 'Contacts: Created By',
+				1 => '$contacts-smcreatorid$',
+			),
+		);
+		$this->assertEquals($expected, getEmailTemplateVariables(array('Contacts')), 'getEmailTemplateVariables contacts');
+		$expected = $base;
+		$expected[0] = array(
+			0 => 
+			array (
+			  0 => 'Assets: AssetsID',
+			  1 => '$assets-assetsid$',
+			),
+			1 => 
+			array (
+			  0 => 'Assets: Asset No',
+			  1 => '$assets-asset_no$',
+			),
+			2 => 
+			array (
+			  0 => 'Assets: Product Name',
+			  1 => '$assets-product$',
+			),
+			3 => 
+			array (
+			  0 => 'Assets: Serial Number',
+			  1 => '$assets-serialnumber$',
+			),
+			4 => 
+			array (
+			  0 => 'Assets: Date Sold',
+			  1 => '$assets-datesold$',
+			),
+			5 => 
+			array (
+			  0 => 'Assets: Date in Service',
+			  1 => '$assets-dateinservice$',
+			),
+			6 => 
+			array (
+			  0 => 'Assets: Status',
+			  1 => '$assets-assetstatus$',
+			),
+			7 => 
+			array (
+			  0 => 'Assets: Tag Number',
+			  1 => '$assets-tagnumber$',
+			),
+			8 => 
+			array (
+			  0 => 'Assets: Invoice Name',
+			  1 => '$assets-invoiceid$',
+			),
+			9 => 
+			array (
+			  0 => 'Assets: Shipping Method',
+			  1 => '$assets-shippingmethod$',
+			),
+			10 => 
+			array (
+			  0 => 'Assets: Shipping Tracking Number',
+			  1 => '$assets-shippingtrackingnumber$',
+			),
+			11 => 
+			array (
+			  0 => 'Assets: Assigned To',
+			  1 => '$assets-smownerid$',
+			),
+			12 => 
+			array (
+			  0 => 'Assets: Asset Name',
+			  1 => '$assets-assetname$',
+			),
+			13 => 
+			array (
+			  0 => 'Assets: Customer Name',
+			  1 => '$assets-account$',
+			),
+			14 => 
+			array (
+			  0 => 'Assets: Created Time',
+			  1 => '$assets-createdtime$',
+			),
+			15 => 
+			array (
+			  0 => 'Assets: Modified Time',
+			  1 => '$assets-modifiedtime$',
+			),
+			16 => 
+			array (
+			  0 => 'Assets: Last Modified By',
+			  1 => '$assets-modifiedby$',
+			),
+			17 => 
+			array (
+			  0 => 'Assets: Notes',
+			  1 => '$assets-description$',
+			),
+			18 => 
+			array (
+			  0 => 'Assets: Created By',
+			  1 => '$assets-smcreatorid$',
+			),
+		);
+		$this->assertEquals($expected, getEmailTemplateVariables(array('Assets')), 'getEmailTemplateVariables assets');
 	}
 }

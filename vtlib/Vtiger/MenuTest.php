@@ -92,9 +92,7 @@ class vtlibMenuTest extends TestCase {
 		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu, 1, 'mvalue'));
 		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu, 2, 'mvalue'));
 		$moduleInstance = Vtiger_Module::getInstance('Accounts');
-		ob_start();
 		$actual->addModule($moduleInstance);
-		ob_end_clean();
 		$rsmnu = $adb->query('select * from vtiger_parenttabrel where parenttabid=1 order by sequence');
 		$this->assertEquals(4, $adb->num_rows($rsmnu));
 		$this->assertEquals('3', $adb->query_result($rsmnu, 0, 'tabid'));
@@ -107,9 +105,7 @@ class vtlibMenuTest extends TestCase {
 		$this->assertEquals('Calendar4You', $adb->query_result($rsmnu, 1, 'mvalue'));
 		$this->assertEquals('cbCalendar', $adb->query_result($rsmnu, 2, 'mvalue'));
 		$this->assertEquals('Accounts', $adb->query_result($rsmnu, 3, 'mvalue'));
-		ob_start();
 		$actual->removeModule($moduleInstance);
-		ob_end_clean();
 		$rsmnu = $adb->query('select * from vtiger_parenttabrel where parenttabid=1 order by sequence');
 		$this->assertEquals(3, $adb->num_rows($rsmnu));
 		$this->assertEquals('3', $adb->query_result($rsmnu, 0, 'tabid'));

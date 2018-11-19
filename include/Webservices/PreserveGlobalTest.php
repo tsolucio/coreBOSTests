@@ -19,6 +19,7 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class PreserveGlobalTest extends TestCase {
 
 	/**
@@ -27,30 +28,30 @@ class PreserveGlobalTest extends TestCase {
 	 */
 	public function testpreserveGlobalOneVariable() {
 		global $current_language;
-		$this->assertEquals('en_us', $current_language,'initial language');
+		$this->assertEquals('en_us', $current_language, 'initial language');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'initial data array is empty');
-		$return = VTWS_PreserveGlobal::preserveGlobal('current_language','es_es');
-		$this->assertEquals('es_es', $return,'change language to es_es preserveGlobal');
-		$this->assertEquals('es_es', $current_language,'language is es_es');
+		$this->assertEquals(array(), $data, 'initial data array is empty');
+		$return = VTWS_PreserveGlobal::preserveGlobal('current_language', 'es_es');
+		$this->assertEquals('es_es', $return, 'change language to es_es preserveGlobal');
+		$this->assertEquals('es_es', $current_language, 'language is es_es');
 		$data = VTWS_PreserveGlobal::getGlobalData();
 		$expected = array('current_language' => array(0 => "en_us"));
-		$this->assertEquals($expected, $data,'data array contains initial current language en_us');
+		$this->assertEquals($expected, $data, 'data array contains initial current language en_us');
 		$return = VTWS_PreserveGlobal::restore('current_language');
-		$this->assertEquals(null, $return,'restore has no return value');
-		$this->assertEquals('en_us', $current_language,'current language is en_us again');
+		$this->assertEquals(null, $return, 'restore has no return value');
+		$this->assertEquals('en_us', $current_language, 'current language is en_us again');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'data array is empty after restore');
+		$this->assertEquals(array(), $data, 'data array is empty after restore');
 		$return = VTWS_PreserveGlobal::getGlobal('current_language');
-		$this->assertEquals('en_us', $current_language,'language is en_us');
+		$this->assertEquals('en_us', $current_language, 'language is en_us');
 		$data = VTWS_PreserveGlobal::getGlobalData();
 		$expected = array('current_language' => array(0 => "en_us"));
-		$this->assertEquals($expected, $data,'data array contains initial current language en_us');
+		$this->assertEquals($expected, $data, 'data array contains initial current language en_us');
 		$return = VTWS_PreserveGlobal::flush();
-		$this->assertEquals(null, $return,'flush has no return value');
+		$this->assertEquals(null, $return, 'flush has no return value');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'data array is empty after flush');
-		$this->assertEquals('en_us', $current_language,'language is still en_us after flush');
+		$this->assertEquals(array(), $data, 'data array is empty after flush');
+		$this->assertEquals('en_us', $current_language, 'language is still en_us after flush');
 	}
 
 	/**
@@ -59,37 +60,37 @@ class PreserveGlobalTest extends TestCase {
 	 */
 	public function testpreserveGlobalTwoVariables() {
 		global $current_language, $coreBOS_app_name;
-		$this->assertEquals('en_us', $current_language,'initial language');
-		$this->assertEquals('coreBOS', $coreBOS_app_name,'coreBOS_app_name');
+		$this->assertEquals('en_us', $current_language, 'initial language');
+		$this->assertEquals('coreBOS', $coreBOS_app_name, 'coreBOS_app_name');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'initial data array is empty');
-		$return = VTWS_PreserveGlobal::preserveGlobal('current_language','es_es');
-		$this->assertEquals('es_es', $return,'change language to es_es preserveGlobal');
-		$this->assertEquals('es_es', $current_language,'language is es_es');
-		$return = VTWS_PreserveGlobal::preserveGlobal('coreBOS_app_name','coreBOSTest');
-		$this->assertEquals('coreBOSTest', $return,'change appname to coreBOSTest preserveGlobal');
-		$this->assertEquals('coreBOSTest', $coreBOS_app_name,'appname is coreBOSTest');
+		$this->assertEquals(array(), $data, 'initial data array is empty');
+		$return = VTWS_PreserveGlobal::preserveGlobal('current_language', 'es_es');
+		$this->assertEquals('es_es', $return, 'change language to es_es preserveGlobal');
+		$this->assertEquals('es_es', $current_language, 'language is es_es');
+		$return = VTWS_PreserveGlobal::preserveGlobal('coreBOS_app_name', 'coreBOSTest');
+		$this->assertEquals('coreBOSTest', $return, 'change appname to coreBOSTest preserveGlobal');
+		$this->assertEquals('coreBOSTest', $coreBOS_app_name, 'appname is coreBOSTest');
 		$data = VTWS_PreserveGlobal::getGlobalData();
 		$expected = array('current_language' => array(0 => "en_us"),'coreBOS_app_name'=>array(0 => 'coreBOS'));
-		$this->assertEquals($expected, $data,'data array contains initial current language en_us and initial appname coreBOS');
+		$this->assertEquals($expected, $data, 'data array contains initial current language en_us and initial appname coreBOS');
 		VTWS_PreserveGlobal::restore('current_language');
-		$this->assertEquals('en_us', $current_language,'current language is en_us again');
+		$this->assertEquals('en_us', $current_language, 'current language is en_us again');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array('coreBOS_app_name'=>array(0 => 'coreBOS')), $data,'data array is appname after restore');
+		$this->assertEquals(array('coreBOS_app_name'=>array(0 => 'coreBOS')), $data, 'data array is appname after restore');
 		VTWS_PreserveGlobal::restore('coreBOS_app_name');
-		$this->assertEquals('coreBOS', $coreBOS_app_name,'appname is coreBOS again');
+		$this->assertEquals('coreBOS', $coreBOS_app_name, 'appname is coreBOS again');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'data array is empty after restore');
+		$this->assertEquals(array(), $data, 'data array is empty after restore');
 		$return = VTWS_PreserveGlobal::getGlobal('current_language');
 		$return = VTWS_PreserveGlobal::getGlobal('coreBOS_app_name');
 		$data = VTWS_PreserveGlobal::getGlobalData();
 		$expected = array('current_language' => array(0 => "en_us"),'coreBOS_app_name'=>array(0 => 'coreBOS'));
-		$this->assertEquals($expected, $data,'data array contains initial current language en_us and initial appname coreBOS');
+		$this->assertEquals($expected, $data, 'data array contains initial current language en_us and initial appname coreBOS');
 		VTWS_PreserveGlobal::flush();
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'data array is empty after flush');
-		$this->assertEquals('en_us', $current_language,'language is still en_us after flush');
-		$this->assertEquals('coreBOS', $coreBOS_app_name,'appname is still coreBOS after flush');
+		$this->assertEquals(array(), $data, 'data array is empty after flush');
+		$this->assertEquals('en_us', $current_language, 'language is still en_us after flush');
+		$this->assertEquals('coreBOS', $coreBOS_app_name, 'appname is still coreBOS after flush');
 	}
 
 	/**
@@ -98,18 +99,20 @@ class PreserveGlobalTest extends TestCase {
 	 */
 	public function testpreserveNullVariable() {
 		global $currentModule;
-		$this->assertEquals(null, $currentModule,'initial current module is empty');
+		$holdCM = $currentModule;
+		$currentModule = null;
+		$this->assertEquals(null, $currentModule, 'initial current module is empty');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'initial data array is empty');
-		$return = VTWS_PreserveGlobal::preserveGlobal('currentModule','Accounts');
-		$this->assertEquals('Accounts', $return,'change currentModule to Accounts');
-		$this->assertEquals('Accounts', $currentModule,'currentModule is Accounts');
+		$this->assertEquals(array(), $data, 'initial data array is empty');
+		$return = VTWS_PreserveGlobal::preserveGlobal('currentModule', 'Accounts');
+		$this->assertEquals('Accounts', $return, 'change currentModule to Accounts');
+		$this->assertEquals('Accounts', $currentModule, 'currentModule is Accounts');
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'data array is emtpy: no null values saved'); // array('currentModule' => array(0 => null));
+		$this->assertEquals(array(), $data, 'data array is emtpy: no null values saved'); // array('currentModule' => array(0 => null));
 		$return = VTWS_PreserveGlobal::restore('currentModule');
-		$this->assertEquals('Accounts', $currentModule,'current module stays assigned with last value'); // not sure this is correct but the application expects this
+		$this->assertEquals('Accounts', $currentModule, 'current module stays assigned with last value'); // not sure this is correct but the application expects this
 		$data = VTWS_PreserveGlobal::getGlobalData();
-		$this->assertEquals(array(), $data,'data array is empty after restore');
+		$this->assertEquals(array(), $data, 'data array is empty after restore');
+		$currentModule = $holdCM;
 	}
-
 }

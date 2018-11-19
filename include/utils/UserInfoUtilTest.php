@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -22,12 +22,13 @@
  * Test the coreBOS Permission system via isPermitted function
  */
 use PHPUnit\Framework\TestCase;
+
 class testUserInfoUtil extends TestCase {
 
 	/****
 	 * TEST Users
 	 ****/
-	var $testusers = array(
+	public $testusers = array(
 		'usrtestdmy' => 5,
 		'usrtestmdy' => 6,
 		'usrtestymd' => 7,
@@ -35,7 +36,7 @@ class testUserInfoUtil extends TestCase {
 		'usrnocreate' => 11,
 		'usrtestmcurrency' => 12
 	);
-	var $profiles = array(
+	public $profiles = array(
 		'1' => 'Administrator',
 		'2' => 'Sales Profile',
 		'3' => 'Support Profile',
@@ -50,7 +51,7 @@ class testUserInfoUtil extends TestCase {
 	 */
 	public function getTabsPermissionProvidor() {
 		$return = array();
-		$profiles =  Array (
+		$profiles =  array(
 			1 => '0',
 			2 => '0',
 			4 => '0',
@@ -103,6 +104,14 @@ class testUserInfoUtil extends TestCase {
 			62 => '0',
 			63 => '0',
 			64 => '0',
+			65 => '0',
+			66 => '0',
+			67 => '0',
+			68 => '0',
+			69 => '0',
+			70 => '0',
+			71 => '0',
+			72 => '0',
 		);
 		$expected = array(
 			'1' => $profiles,
@@ -123,7 +132,7 @@ class testUserInfoUtil extends TestCase {
 	 * @test
 	 * @dataProvider getTabsPermissionProvidor
 	 */
-	public function testgetTabsPermission($profile,$expected,$message) {
+	public function testgetTabsPermission($profile, $expected, $message) {
 		global $current_user;
 		$actual = getTabsPermission($profile);
 		$this->assertEquals($expected, $actual, "testgetTabsPermission $message");
@@ -135,7 +144,7 @@ class testUserInfoUtil extends TestCase {
 	 */
 	public function getAllTabsPermissionProvidor() {
 		$return = array();
-		$profiles =  Array (
+		$profiles =  array(
 			1 => '0',
 			2 => '0',
 			4 => '0',
@@ -192,6 +201,14 @@ class testUserInfoUtil extends TestCase {
 			62 => '0',
 			63 => '0',
 			64 => '0',
+			65 => '0',
+			66 => '0',
+			67 => '0',
+			68 => '0',
+			69 => '0',
+			70 => '0',
+			71 => '0',
+			72 => '0',
 		);
 		$prof4 = $profiles;
 		$prof4[45] = $prof4[52] = '1';
@@ -216,7 +233,7 @@ class testUserInfoUtil extends TestCase {
 	 * @test
 	 * @dataProvider getAllTabsPermissionProvidor
 	 */
-	public function testgetAllTabsPermission($profile,$expected,$message) {
+	public function testgetAllTabsPermission($profile, $expected, $message) {
 		global $current_user;
 		$actual = getAllTabsPermission($profile);
 		$this->assertEquals($expected, $actual, "testgetAllTabsPermission $message");
@@ -262,6 +279,14 @@ class testUserInfoUtil extends TestCase {
 			62 => '2',
 			63 => '3',
 			64 => '3',
+			65 => '3',
+			66 => '3',
+			67 => '3',
+			68 => '3',
+			69 => '3',
+			70 => '2',
+			71 => '3',
+			72 => '3',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingEditAction");
 	}
@@ -307,6 +332,14 @@ class testUserInfoUtil extends TestCase {
 			63 => '3',
 			64 => '3',
 			9 => '3',
+			65 => '3',
+			66 => '3',
+			67 => '3',
+			68 => '3',
+			69 => '3',
+			70 => '2',
+			71 => '3',
+			72 => '3',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingAction");
 	}
@@ -430,6 +463,136 @@ class testUserInfoUtil extends TestCase {
 		$actual = getRoleUserIds('H3');
 		$expected = array(5,6,7,8,9,10,12,13,);
 		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * Method getRoleAndSubordinateUsersProvider
+	 * params
+	 */
+	public function getRoleAndSubordinateUsersProvider() {
+		$expected_H1_role_users = array(
+			1 => 'admin',
+			5 => 'testdmy',
+			6 => 'testmdy',
+			7 => 'testymd',
+			8 => 'testes',
+			9 => 'testinactive',
+			10 => 'testtz',
+			12 => 'testmcurrency',
+			13 => 'testtz-3',
+			11 => 'nocreate',
+		);
+		$expected_H2_role_users = array(
+			1 => 'admin',
+			5 => 'testdmy',
+			6 => 'testmdy',
+			7 => 'testymd',
+			8 => 'testes',
+			9 => 'testinactive',
+			10 => 'testtz',
+			12 => 'testmcurrency',
+			13 => 'testtz-3',
+			11 => 'nocreate',
+		);
+		$expected_H3_role_users = array(
+			5 => 'testdmy',
+			6 => 'testmdy',
+			7 => 'testymd',
+			8 => 'testes',
+			9 => 'testinactive',
+			10 => 'testtz',
+			12 => 'testmcurrency',
+			13 => 'testtz-3',
+			11 => 'nocreate',
+		);
+		$expected_H4_role_users = array();
+		$expected_H5_role_users = array();
+		$expected_H6_role_users = array(
+			11 => 'nocreate',
+		);
+		return array(
+			array('H1', $expected_H1_role_users),
+			array('H2', $expected_H2_role_users),
+			array('H3', $expected_H3_role_users),
+			array('H4', $expected_H4_role_users),
+			array('H5', $expected_H5_role_users),
+			array('H6', $expected_H6_role_users),
+		);
+	}
+
+	/**
+	 * Method testgetRoleAndSubordinateUsers
+	 * @test
+	 * @dataProvider getRoleAndSubordinateUsersProvider
+	 */
+	public function testgetRoleAndSubordinateUsers($roleid, $expected) {
+		$actual=getRoleAndSubordinateUsers($roleid);
+		$this->assertEquals($expected, $actual, "Test getRoleAndSubordinateUsers Method on $roleid roleid");
+	}
+
+	/**
+	 * Method getRoleAndSubordinateUserIdsProvider
+	 * params
+	 */
+	public function getRoleAndSubordinateUserIdsProvider() {
+		$expected_H1_role_users_ids = array(
+			0 => "1",
+			1 => "5",
+			2 => "6",
+			3 => "7",
+			4 => "8",
+			5 => "9",
+			6 => "10",
+			7 => "12",
+			8 => "13",
+			9 => "11",
+		);
+		$expected_H2_role_users_ids = array(
+			0 => '1',
+			1 => '5',
+			2 => '6',
+			3 => '7',
+			4 => '8',
+			5 => '9',
+			6 => '10',
+			7 => '12',
+			8 => '13',
+			9 => '11'
+		);
+		$expected_H3_role_users_ids = array(
+			0 => '5',
+			1 => '6',
+			2 => '7',
+			3 => '8',
+			4 => '9',
+			5 => '10',
+			6 => '12',
+			7 => '13',
+			8 => '11',
+		);
+		$expected_H4_role_users_ids = array();
+		$expected_H5_role_users_ids = array();
+		$expected_H6_role_users_ids = array(
+			0 => '11',
+		);
+		return array(
+			array('H1', $expected_H1_role_users_ids),
+			array('H2', $expected_H2_role_users_ids),
+			array('H3', $expected_H3_role_users_ids),
+			array('H4', $expected_H4_role_users_ids),
+			array('H5', $expected_H5_role_users_ids),
+			array('H6', $expected_H6_role_users_ids),
+		);
+	}
+
+	/**
+	 * Method testgetRoleAndSubordinateUserIds
+	 * @test
+	 * @dataProvider getRoleAndSubordinateUserIdsProvider
+	 */
+	public function testgetRoleAndSubordinateUserIds($roleid, $expected) {
+		$actual=getRoleAndSubordinateUserIds($roleid);
+		$this->assertEquals($expected, $actual, "Test getRoleAndSubordinateUserIds Method on $roleid roleid");
 	}
 }
 ?>
