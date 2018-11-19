@@ -460,5 +460,135 @@ class testUserInfoUtil extends TestCase {
 		$expected = array(5,6,7,8,9,10,12,13,);
 		$this->assertEquals($expected, $actual);
 	}
+
+	/**
+	 * Method getRoleAndSubordinateUsersProvider
+	 * params
+	 */
+	public function getRoleAndSubordinateUsersProvider() {
+		$expected_H1_role_users = array(
+			1 => 'admin',
+			5 => 'testdmy',
+			6 => 'testmdy',
+			7 => 'testymd',
+			8 => 'testes',
+			9 => 'testinactive',
+			10 => 'testtz',
+			12 => 'testmcurrency',
+			13 => 'testtz-3',
+			11 => 'nocreate',
+		);
+		$expected_H2_role_users = array(
+			1 => 'admin',
+			5 => 'testdmy',
+			6 => 'testmdy',
+			7 => 'testymd',
+			8 => 'testes',
+			9 => 'testinactive',
+			10 => 'testtz',
+			12 => 'testmcurrency',
+			13 => 'testtz-3',
+			11 => 'nocreate',
+		);
+		$expected_H3_role_users = array(
+			5 => 'testdmy',
+			6 => 'testmdy',
+			7 => 'testymd',
+			8 => 'testes',
+			9 => 'testinactive',
+			10 => 'testtz',
+			12 => 'testmcurrency',
+			13 => 'testtz-3',
+			11 => 'nocreate',
+		);
+		$expected_H4_role_users = array();
+		$expected_H5_role_users = array();
+		$expected_H6_role_users = array(
+			11 => 'nocreate',
+		);
+		return array(
+			array('H1', $expected_H1_role_users),
+			array('H2', $expected_H2_role_users),
+			array('H3', $expected_H3_role_users),
+			array('H4', $expected_H4_role_users),
+			array('H5', $expected_H5_role_users),
+			array('H6', $expected_H6_role_users),
+		);
+	}
+
+	/**
+	 * Method testgetRoleAndSubordinateUsers
+	 * @test
+	 * @dataProvider getRoleAndSubordinateUsersProvider
+	 */
+	public function testgetRoleAndSubordinateUsers($roleid, $expected) {
+		$actual=getRoleAndSubordinateUsers($roleid);
+		$this->assertEquals($expected, $actual, "Test getRoleAndSubordinateUsers Method on $roleid roleid");
+	}
+
+	/**
+	 * Method getRoleAndSubordinateUserIdsProvider
+	 * params
+	 */
+	public function getRoleAndSubordinateUserIdsProvider() {
+		$expected_H1_role_users_ids = array(
+			0 => "1",
+			1 => "5",
+			2 => "6",
+			3 => "7",
+			4 => "8",
+			5 => "9",
+			6 => "10",
+			7 => "12",
+			8 => "13",
+			9 => "11",
+		);
+		$expected_H2_role_users_ids = array(
+			0 => '1',
+			1 => '5',
+			2 => '6',
+			3 => '7',
+			4 => '8',
+			5 => '9',
+			6 => '10',
+			7 => '12',
+			8 => '13',
+			9 => '11'
+		);
+		$expected_H3_role_users_ids = array(
+			0 => '5',
+			1 => '6',
+			2 => '7',
+			3 => '8',
+			4 => '9',
+			5 => '10',
+			6 => '12',
+			7 => '13',
+			8 => '11',
+		);
+		$expected_H4_role_users_ids = array();
+		$expected_H5_role_users_ids = array();
+		$expected_H6_role_users_ids = array(
+			0 => '11',
+		);
+		return array(
+			array('H1', $expected_H1_role_users_ids),
+			array('H2', $expected_H2_role_users_ids),
+			array('H3', $expected_H3_role_users_ids),
+			array('H4', $expected_H4_role_users_ids),
+			array('H5', $expected_H5_role_users_ids),
+			array('H6', $expected_H6_role_users_ids),
+		);
+	}
+
+	/**
+	 * Method testgetRoleAndSubordinateUserIds
+	 * @test
+	 * @dataProvider getRoleAndSubordinateUserIdsProvider
+	 */
+	public function testgetRoleAndSubordinateUserIds($roleid, $expected) {
+		$actual=getRoleAndSubordinateUserIds($roleid);
+		$this->assertEquals($expected, $actual, "Test getRoleAndSubordinateUserIds Method on $roleid roleid");
+	}
 }
 ?>
