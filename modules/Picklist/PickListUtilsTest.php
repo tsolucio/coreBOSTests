@@ -1694,7 +1694,6 @@ class PickListUtilsTest extends TestCase {
       array('cf_732', 'H4', $expected_cf_732_H4_picklist_values),
       array('cf_732', 'H5', $expected_cf_732_H5_picklist_values),
       array('cf_732', 'H6', $expected_cf_732_H6_picklist_values),
-      //CONTACTS MODULE
       array('leadsource', 'H1', $expected_leadsource_H1_picklist_values),
       array('leadsource', 'H2', $expected_leadsource_H2_picklist_values),
       array('leadsource', 'H3', $expected_leadsource_H3_picklist_values),
@@ -1707,7 +1706,6 @@ class PickListUtilsTest extends TestCase {
       array('salutationtype', 'H4', $expected_salutationtype_H4_picklist_values),
       array('salutationtype', 'H5', $expected_salutationtype_H5_picklist_values),
       array('salutationtype', 'H6', $expected_salutationtype_H6_picklist_values),
-      //HELPDESK MODULE
       array('ticketcategories', 'H1', $expected_ticketcategories_H1_picklist_values),
       array('ticketcategories', 'H2', $expected_ticketcategories_H2_picklist_values),
       array('ticketcategories', 'H3', $expected_ticketcategories_H3_picklist_values),
