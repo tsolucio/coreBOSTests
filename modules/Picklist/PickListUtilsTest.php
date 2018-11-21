@@ -1732,13 +1732,13 @@ class PickListUtilsTest extends TestCase {
       array('ticketstatus', 'H6', $expected_ticketstatus_H6_picklist_values),
     );
   }
-
-	/**
-	 * Method testgetAssignedPicklistValues
-	 * @test
+  
+  /**
+   * Method testgetAssignedPicklistValues
+   * @test
    * @dataProvider getAssignedPicklistValuesProvider
-	 */
-	public function testgetAssignedPicklistValues($tableName, $roleid, $expected_picklists_values) {
+   */
+  public function testgetAssignedPicklistValues($tableName, $roleid, $expected_picklists_values) {
     global $adb;
     $actual = getAssignedPicklistValues($tableName, $roleid, $adb);
     $this->assertEquals($expected_picklists_values, $actual, "Test getAssignedPicklistValues Method on $tableName TableName and RoleId $roleid");
