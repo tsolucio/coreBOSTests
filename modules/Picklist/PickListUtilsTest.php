@@ -713,16 +713,1039 @@ class PickListUtilsTest extends TestCase {
 		);
 	}
 
+  /**
+   * Method getAssignedPicklistValuesProvider
+   * params
+   */
+  public function getAssignedPicklistValuesProvider() {
+    // Accounts Module Picklist Values
+    $expected_accounttype_H1_picklist_values = array(
+      '--None--' => '--None--',
+      'Analyst' => 'Analyst',
+      'Competitor' => 'Competitor',
+      'Customer' => 'Customer',
+      'Integrator' => 'Integrator',
+      'Investor' => 'Investor',
+      'Partner' => 'Partner',
+      'Press' => 'Press',
+      'Prospect' => 'Prospect',
+      'Reseller' => 'Reseller',
+      'Other' => 'Other'
+    );
+    $expected_accounttype_H2_picklist_values =  array(
+      '--None--' => '--None--',
+      'Analyst' => 'Analyst',
+      'Competitor' => 'Competitor',
+      'Customer' => 'Customer',
+      'Integrator' => 'Integrator',
+      'Investor' => 'Investor',
+      'Partner' => 'Partner',
+      'Press' => 'Press',
+      'Prospect' => 'Prospect',
+      'Reseller' => 'Reseller',
+      'Other' => 'Other'
+    );
+    $expected_accounttype_H3_picklist_values =  array(
+      '--None--' => '--None--',
+      'Analyst' => 'Analyst',
+      'Competitor' => 'Competitor',
+      'Customer' => 'Customer',
+      'Integrator' => 'Integrator',
+      'Investor' => 'Investor',
+      'Partner' => 'Partner',
+      'Press' => 'Press',
+      'Prospect' => 'Prospect',
+      'Reseller' => 'Reseller',
+      'Other' => 'Other'
+    );
+    $expected_accounttype_H4_picklist_values =  array(
+      '--None--' => '--None--',
+      'Analyst' => 'Analyst',
+      'Competitor' => 'Competitor',
+      'Customer' => 'Customer',
+      'Integrator' => 'Integrator',
+      'Investor' => 'Investor',
+      'Partner' => 'Partner',
+      'Press' => 'Press',
+      'Prospect' => 'Prospect',
+      'Reseller' => 'Reseller',
+      'Other' => 'Other'
+    );
+    $expected_accounttype_H5_picklist_values =  array(
+      '--None--' => '--None--',
+      'Analyst' => 'Analyst',
+      'Competitor' => 'Competitor',
+      'Customer' => 'Customer',
+      'Integrator' => 'Integrator',
+      'Investor' => 'Investor',
+      'Partner' => 'Partner',
+      'Press' => 'Press',
+      'Prospect' => 'Prospect',
+      'Reseller' => 'Reseller'
+    );
+    $expected_accounttype_H6_picklist_values =  array(
+      '--None--' => '--None--',
+      'Analyst' => 'Analyst',
+      'Competitor' => 'Competitor',
+      'Customer' => 'Customer',
+      'Integrator' => 'Integrator',
+      'Investor' => 'Investor',
+      'Partner' => 'Partner',
+      'Press' => 'Press',
+      'Prospect' => 'Prospect',
+      'Reseller' => 'Reseller',
+      'Other' => 'Other'
+    );
+    $expected_industry_H1_picklist_values = array(
+      '--None--' => '--None--',
+      'Apparel' => 'Apparel',
+      'Banking' => 'Banking',
+      'Biotechnology' => 'Biotechnology',
+      'Chemicals' => 'Chemicals',
+      'Communications'=> 'Communications',
+      'Construction' => 'Construction',
+      'Consulting' => 'Consulting',
+      'Education' => 'Education',
+      'Electronics' => 'Electronics',
+      'Energy' => 'Energy',
+      'Engineering' => 'Engineering',
+      'Entertainment' => 'Entertainment',
+      'Environmental' => 'Environmental',
+      'Finance' => 'Finance',
+      'Food & Beverage' => 'Food & Beverage',
+      'Government' => 'Government',
+      'Healthcare' => 'Healthcare',
+      'Hospitality' => 'Hospitality',
+      'Insurance' => 'Insurance',
+      'Machinery' => 'Machinery',
+      'Manufacturing' => 'Manufacturing',
+      'Media' => 'Media',
+      'Not For Profit' => 'Not For Profit',
+      'Recreation' => 'Recreation',
+      'Retail' => 'Retail',
+      'Shipping' => 'Shipping',
+      'Technology' => 'Technology',
+      'Telecommunications' => 'Telecommunications',
+      'Transportation' => 'Transportation',
+      'Utilities' => 'Utilities',
+      'Other' => 'Other'
+    );
+    $expected_industry_H2_picklist_values = array(
+      '--None--' => '--None--',
+      'Apparel' => 'Apparel',
+      'Banking' => 'Banking',
+      'Biotechnology' => 'Biotechnology',
+      'Chemicals' => 'Chemicals',
+      'Communications'=> 'Communications',
+      'Construction' => 'Construction',
+      'Consulting' => 'Consulting',
+      'Education' => 'Education',
+      'Electronics' => 'Electronics',
+      'Energy' => 'Energy',
+      'Engineering' => 'Engineering',
+      'Entertainment' => 'Entertainment',
+      'Environmental' => 'Environmental',
+      'Finance' => 'Finance',
+      'Food & Beverage' => 'Food & Beverage',
+      'Government' => 'Government',
+      'Healthcare' => 'Healthcare',
+      'Hospitality' => 'Hospitality',
+      'Insurance' => 'Insurance',
+      'Machinery' => 'Machinery',
+      'Manufacturing' => 'Manufacturing',
+      'Media' => 'Media',
+      'Not For Profit' => 'Not For Profit',
+      'Recreation' => 'Recreation',
+      'Retail' => 'Retail',
+      'Shipping' => 'Shipping',
+      'Technology' => 'Technology',
+      'Telecommunications' => 'Telecommunications',
+      'Transportation' => 'Transportation',
+      'Utilities' => 'Utilities',
+      'Other' => 'Other'
+    );
+    $expected_industry_H3_picklist_values = array(
+      '--None--' => '--None--',
+      'Apparel' => 'Apparel',
+      'Banking' => 'Banking',
+      'Biotechnology' => 'Biotechnology',
+      'Chemicals' => 'Chemicals',
+      'Communications'=> 'Communications',
+      'Construction' => 'Construction',
+      'Consulting' => 'Consulting',
+      'Education' => 'Education',
+      'Electronics' => 'Electronics',
+      'Energy' => 'Energy',
+      'Engineering' => 'Engineering',
+      'Entertainment' => 'Entertainment',
+      'Environmental' => 'Environmental',
+      'Finance' => 'Finance',
+      'Food & Beverage' => 'Food & Beverage',
+      'Government' => 'Government',
+      'Healthcare' => 'Healthcare',
+      'Hospitality' => 'Hospitality',
+      'Insurance' => 'Insurance',
+      'Machinery' => 'Machinery',
+      'Manufacturing' => 'Manufacturing',
+      'Media' => 'Media',
+      'Not For Profit' => 'Not For Profit',
+      'Recreation' => 'Recreation',
+      'Retail' => 'Retail',
+      'Shipping' => 'Shipping',
+      'Technology' => 'Technology',
+      'Telecommunications' => 'Telecommunications',
+      'Transportation' => 'Transportation',
+      'Utilities' => 'Utilities',
+      'Other' => 'Other'
+    );
+    $expected_industry_H4_picklist_values = array(
+      '--None--' => '--None--',
+      'Apparel' => 'Apparel',
+      'Banking' => 'Banking',
+      'Biotechnology' => 'Biotechnology',
+      'Chemicals' => 'Chemicals',
+      'Communications'=> 'Communications',
+      'Construction' => 'Construction',
+      'Consulting' => 'Consulting',
+      'Education' => 'Education',
+      'Electronics' => 'Electronics',
+      'Energy' => 'Energy',
+      'Engineering' => 'Engineering',
+      'Entertainment' => 'Entertainment',
+      'Environmental' => 'Environmental',
+      'Finance' => 'Finance',
+      'Food & Beverage' => 'Food & Beverage',
+      'Government' => 'Government',
+      'Healthcare' => 'Healthcare',
+      'Hospitality' => 'Hospitality',
+      'Insurance' => 'Insurance',
+      'Machinery' => 'Machinery',
+      'Manufacturing' => 'Manufacturing',
+      'Media' => 'Media',
+      'Not For Profit' => 'Not For Profit',
+      'Recreation' => 'Recreation',
+      'Retail' => 'Retail',
+      'Shipping' => 'Shipping',
+      'Technology' => 'Technology',
+      'Telecommunications' => 'Telecommunications',
+      'Transportation' => 'Transportation',
+      'Utilities' => 'Utilities',
+      'Other' => 'Other'
+    );
+    $expected_industry_H5_picklist_values = array(
+      '--None--' => '--None--',
+      'Apparel' => 'Apparel',
+      'Banking' => 'Banking',
+      'Biotechnology' => 'Biotechnology',
+      'Chemicals' => 'Chemicals',
+      'Communications'=> 'Communications',
+      'Construction' => 'Construction',
+      'Consulting' => 'Consulting',
+      'Education' => 'Education',
+      'Electronics' => 'Electronics',
+      'Energy' => 'Energy',
+      'Engineering' => 'Engineering',
+      'Entertainment' => 'Entertainment',
+      'Environmental' => 'Environmental',
+      'Finance' => 'Finance',
+      'Food & Beverage' => 'Food & Beverage',
+      'Government' => 'Government',
+      'Healthcare' => 'Healthcare',
+      'Hospitality' => 'Hospitality',
+      'Insurance' => 'Insurance',
+      'Machinery' => 'Machinery',
+      'Manufacturing' => 'Manufacturing',
+      'Media' => 'Media',
+      'Not For Profit' => 'Not For Profit',
+      'Recreation' => 'Recreation',
+      'Retail' => 'Retail',
+      'Shipping' => 'Shipping',
+      'Technology' => 'Technology',
+      'Telecommunications' => 'Telecommunications',
+      'Transportation' => 'Transportation',
+      'Utilities' => 'Utilities',
+      'Other' => 'Other'
+    );
+    $expected_industry_H6_picklist_values = array(
+      '--None--' => '--None--',
+      'Apparel' => 'Apparel',
+      'Banking' => 'Banking',
+      'Biotechnology' => 'Biotechnology',
+      'Chemicals' => 'Chemicals',
+      'Communications'=> 'Communications',
+      'Construction' => 'Construction',
+      'Consulting' => 'Consulting',
+      'Education' => 'Education',
+      'Electronics' => 'Electronics',
+      'Energy' => 'Energy',
+      'Engineering' => 'Engineering',
+      'Entertainment' => 'Entertainment',
+      'Environmental' => 'Environmental',
+      'Finance' => 'Finance',
+      'Food & Beverage' => 'Food & Beverage',
+      'Government' => 'Government',
+      'Healthcare' => 'Healthcare',
+      'Hospitality' => 'Hospitality',
+      'Insurance' => 'Insurance',
+      'Machinery' => 'Machinery',
+      'Manufacturing' => 'Manufacturing',
+      'Media' => 'Media',
+      'Not For Profit' => 'Not For Profit',
+      'Recreation' => 'Recreation',
+      'Retail' => 'Retail',
+      'Shipping' => 'Shipping',
+      'Technology' => 'Technology',
+      'Telecommunications' => 'Telecommunications',
+      'Transportation' => 'Transportation',
+      'Utilities' => 'Utilities',
+      'Other' => 'Other'
+    );
+    $expected_rating_H1_picklist_values = array(
+      '--None--' => '--None--',
+      'Acquired' => 'Acquired',
+      'Active' => 'Active',
+      'Market Failed' => 'Market Failed',
+      'Project Cancelled' => 'Project Cancelled',
+      'Shutdown' => 'Shutdown'
+    );
+    $expected_rating_H2_picklist_values = array(
+      '--None--' => '--None--',
+      'Acquired' => 'Acquired',
+      'Active' => 'Active',
+      'Market Failed' => 'Market Failed',
+      'Project Cancelled' => 'Project Cancelled',
+      'Shutdown' => 'Shutdown'
+    );
+    $expected_rating_H3_picklist_values = array(
+      '--None--' => '--None--',
+      'Acquired' => 'Acquired',
+      'Active' => 'Active',
+      'Market Failed' => 'Market Failed',
+      'Project Cancelled' => 'Project Cancelled',
+      'Shutdown' => 'Shutdown'
+    );
+    $expected_rating_H4_picklist_values = array(
+      '--None--' => '--None--',
+      'Acquired' => 'Acquired',
+      'Active' => 'Active',
+      'Market Failed' => 'Market Failed',
+      'Project Cancelled' => 'Project Cancelled',
+      'Shutdown' => 'Shutdown'
+    );
+    $expected_rating_H5_picklist_values = array(
+      '--None--' => '--None--',
+      'Acquired' => 'Acquired',
+      'Active' => 'Active',
+      'Market Failed' => 'Market Failed'
+    );
+    $expected_rating_H6_picklist_values = array(
+      '--None--' => '--None--',
+      'Acquired' => 'Acquired',
+      'Active' => 'Active',
+      'Market Failed' => 'Market Failed',
+      'Project Cancelled' => 'Project Cancelled',
+      'Shutdown' => 'Shutdown'
+    );
+    $expected_cf_729_H1_picklist_values = array(
+      'one' => 'one',
+      'two' => 'two',
+      'three' => 'three'
+    );
+    $expected_cf_729_H2_picklist_values = array(
+      'one' => 'one',
+      'two' => 'two',
+      'three' => 'three'
+    );
+    $expected_cf_729_H3_picklist_values = array(
+      'one' => 'one',
+      'two' => 'two',
+      'three' => 'three'
+    );
+    $expected_cf_729_H4_picklist_values = array(
+      'one' => 'one',
+      'two' => 'two',
+      'three' => 'three'
+    );
+    $expected_cf_729_H5_picklist_values = array(
+      'one' => 'one',
+      'two' => 'two',
+      'three' => 'three'
+    );
+    $expected_cf_729_H6_picklist_values = array(
+      'one' => 'one',
+      'two' => 'two',
+      'three' => 'three'
+    );
+    $expected_cf_730_H1_picklist_values = array(
+      "oneone" => "oneone",
+      "onetwo" => "onetwo",
+      "twoone" => "twoone",
+      "twotwo" => "twotwo",
+      "threeone" => "threeone",
+      "threetwo" => "threetwo"
+    );
+    $expected_cf_730_H2_picklist_values = array(
+      "oneone" => "oneone",
+      "onetwo" => "onetwo",
+      "twoone" => "twoone",
+      "twotwo" => "twotwo",
+      "threeone" => "threeone",
+      "threetwo" => "threetwo"
+    );
+    $expected_cf_730_H3_picklist_values = array(
+      "oneone" => "oneone",
+      "onetwo" => "onetwo",
+      "twoone" => "twoone",
+      "twotwo" => "twotwo",
+      "threeone" => "threeone",
+      "threetwo" => "threetwo"
+    );
+    $expected_cf_730_H4_picklist_values = array(
+      "oneone" => "oneone",
+      "onetwo" => "onetwo",
+      "twoone" => "twoone",
+      "twotwo" => "twotwo",
+      "threeone" => "threeone",
+      "threetwo" => "threetwo"
+    );
+    $expected_cf_730_H5_picklist_values = array(
+      "oneone" => "oneone",
+      "onetwo" => "onetwo",
+      "twoone" => "twoone",
+      "twotwo" => "twotwo",
+      "threeone" => "threeone",
+      "threetwo" => "threetwo"
+    );
+    $expected_cf_730_H6_picklist_values = array(
+      "oneone" => "oneone",
+      "onetwo" => "onetwo",
+      "twoone" => "twoone",
+      "twotwo" => "twotwo",
+      "threeone" => "threeone",
+      "threetwo" => "threetwo"
+    );
+    $expected_cf_731_H1_picklist_values = array(
+      'oneoneone' => 'oneoneone',
+      'oneonetwo' => 'oneonetwo',
+      'onetwoone' => 'onetwoone',
+      'onetwotwo' => 'onetwotwo',
+      'twooneone' => 'twooneone',
+      'twoonetwo' => 'twoonetwo',
+      'twotwoone' => 'twotwoone',
+      'twotwotwo' => 'twotwotwo',
+      'threeoneone' => 'threeoneone',
+      'threeonetwo' => 'threeonetwo',
+      'threetwoone' => 'threetwoone',
+      'threetwotwo' => 'threetwotwo'
+    );
+    $expected_cf_731_H2_picklist_values = array(
+      'oneoneone' => 'oneoneone',
+      'oneonetwo' => 'oneonetwo',
+      'onetwoone' => 'onetwoone',
+      'onetwotwo' => 'onetwotwo',
+      'twooneone' => 'twooneone',
+      'twoonetwo' => 'twoonetwo',
+      'twotwoone' => 'twotwoone',
+      'twotwotwo' => 'twotwotwo',
+      'threeoneone' => 'threeoneone',
+      'threeonetwo' => 'threeonetwo',
+      'threetwoone' => 'threetwoone',
+      'threetwotwo' => 'threetwotwo'
+    );
+    $expected_cf_731_H3_picklist_values = array(
+      'oneoneone' => 'oneoneone',
+      'oneonetwo' => 'oneonetwo',
+      'onetwoone' => 'onetwoone',
+      'onetwotwo' => 'onetwotwo',
+      'twooneone' => 'twooneone',
+      'twoonetwo' => 'twoonetwo',
+      'twotwoone' => 'twotwoone',
+      'twotwotwo' => 'twotwotwo',
+      'threeoneone' => 'threeoneone',
+      'threeonetwo' => 'threeonetwo',
+      'threetwoone' => 'threetwoone',
+      'threetwotwo' => 'threetwotwo'
+    );
+    $expected_cf_731_H4_picklist_values = array(
+      'oneoneone' => 'oneoneone',
+      'oneonetwo' => 'oneonetwo',
+      'onetwoone' => 'onetwoone',
+      'onetwotwo' => 'onetwotwo',
+      'twooneone' => 'twooneone',
+      'twoonetwo' => 'twoonetwo',
+      'twotwoone' => 'twotwoone',
+      'twotwotwo' => 'twotwotwo',
+      'threeoneone' => 'threeoneone',
+      'threeonetwo' => 'threeonetwo',
+      'threetwoone' => 'threetwoone',
+      'threetwotwo' => 'threetwotwo'
+    );
+    $expected_cf_731_H5_picklist_values = array(
+      'oneoneone' => 'oneoneone',
+      'oneonetwo' => 'oneonetwo',
+      'onetwoone' => 'onetwoone',
+      'onetwotwo' => 'onetwotwo',
+      'twooneone' => 'twooneone',
+      'twoonetwo' => 'twoonetwo',
+      'twotwoone' => 'twotwoone',
+      'twotwotwo' => 'twotwotwo',
+      'threeoneone' => 'threeoneone',
+      'threeonetwo' => 'threeonetwo',
+      'threetwoone' => 'threetwoone',
+      'threetwotwo' => 'threetwotwo'
+    );
+    $expected_cf_731_H6_picklist_values = array(
+      'oneoneone' => 'oneoneone',
+      'oneonetwo' => 'oneonetwo',
+      'onetwoone' => 'onetwoone',
+      'onetwotwo' => 'onetwotwo',
+      'twooneone' => 'twooneone',
+      'twoonetwo' => 'twoonetwo',
+      'twotwoone' => 'twotwoone',
+      'twotwotwo' => 'twotwotwo',
+      'threeoneone' => 'threeoneone',
+      'threeonetwo' => 'threeonetwo',
+      'threetwoone' => 'threetwoone',
+      'threetwotwo' => 'threetwotwo'
+    );
+    $expected_cf_732_H1_picklist_values = array(
+      'Adipose 3' => 'Adipose 3',
+      'Barcelona' => 'Barcelona',
+      'Chronos' => 'Chronos',
+      'Dioscuros' => 'Dioscuros',
+      'Earth' => 'Earth',
+      'Florana' => 'Florana',
+      'Gallifrey' => 'Gallifrey',
+      'House' => 'House',
+      'Indigo 3' => 'Indigo 3',
+      'Jaconda' => 'Jaconda',
+      'Karris' => 'Karris',
+      'The Library' => 'The Library',
+      'Midnight' => 'Midnight',
+      'New Alexandria' => 'New Alexandria',
+      'Oblivion' => 'Oblivion',
+      'Poosh' => 'Poosh',
+      'Qualactin' => 'Qualactin',
+      'Rit' => 'Rit',
+      'Salvak' => 'Salvak',
+      'Tara' => 'Tara',
+      'Utopia' => 'Utopia',
+      'Vandos' => 'Vandos',
+      'Woldyhool' => 'Woldyhool',
+      'Xeros' => 'Xeros',
+      'Yegros Alpha' => 'Yegros Alpha',
+      'Zygor' => 'Zygor'
+    );
+    $expected_cf_732_H2_picklist_values = array(
+      'Adipose 3' => 'Adipose 3',
+      'Barcelona' => 'Barcelona',
+      'Chronos' => 'Chronos',
+      'Dioscuros' => 'Dioscuros',
+      'Earth' => 'Earth',
+      'Florana' => 'Florana',
+      'Gallifrey' => 'Gallifrey',
+      'House' => 'House',
+      'Indigo 3' => 'Indigo 3',
+      'Jaconda' => 'Jaconda',
+      'Karris' => 'Karris',
+      'The Library' => 'The Library',
+      'Midnight' => 'Midnight',
+      'New Alexandria' => 'New Alexandria',
+      'Oblivion' => 'Oblivion',
+      'Poosh' => 'Poosh',
+      'Qualactin' => 'Qualactin',
+      'Rit' => 'Rit',
+      'Salvak' => 'Salvak',
+      'Tara' => 'Tara',
+      'Utopia' => 'Utopia',
+      'Vandos' => 'Vandos',
+      'Woldyhool' => 'Woldyhool',
+      'Xeros' => 'Xeros',
+      'Yegros Alpha' => 'Yegros Alpha',
+      'Zygor' => 'Zygor'
+    );
+    $expected_cf_732_H3_picklist_values = array(
+      'Adipose 3' => 'Adipose 3',
+      'Barcelona' => 'Barcelona',
+      'Chronos' => 'Chronos',
+      'Dioscuros' => 'Dioscuros',
+      'Earth' => 'Earth',
+      'Florana' => 'Florana',
+      'Gallifrey' => 'Gallifrey',
+      'House' => 'House',
+      'Indigo 3' => 'Indigo 3',
+      'Jaconda' => 'Jaconda',
+      'Karris' => 'Karris',
+      'The Library' => 'The Library',
+      'Midnight' => 'Midnight',
+      'New Alexandria' => 'New Alexandria',
+      'Oblivion' => 'Oblivion',
+      'Poosh' => 'Poosh',
+      'Qualactin' => 'Qualactin',
+      'Rit' => 'Rit',
+      'Salvak' => 'Salvak',
+      'Tara' => 'Tara',
+      'Utopia' => 'Utopia',
+      'Vandos' => 'Vandos',
+      'Woldyhool' => 'Woldyhool',
+      'Xeros' => 'Xeros',
+      'Yegros Alpha' => 'Yegros Alpha',
+      'Zygor' => 'Zygor'
+    );
+    $expected_cf_732_H4_picklist_values = array(
+      'Adipose 3' => 'Adipose 3',
+      'Barcelona' => 'Barcelona',
+      'Chronos' => 'Chronos',
+      'Dioscuros' => 'Dioscuros',
+      'Earth' => 'Earth',
+      'Florana' => 'Florana',
+      'Gallifrey' => 'Gallifrey',
+      'House' => 'House',
+      'Indigo 3' => 'Indigo 3',
+      'Jaconda' => 'Jaconda',
+      'Karris' => 'Karris',
+      'The Library' => 'The Library',
+      'Midnight' => 'Midnight',
+      'New Alexandria' => 'New Alexandria',
+      'Oblivion' => 'Oblivion',
+      'Poosh' => 'Poosh',
+      'Qualactin' => 'Qualactin',
+      'Rit' => 'Rit',
+      'Salvak' => 'Salvak',
+      'Tara' => 'Tara',
+      'Utopia' => 'Utopia',
+      'Vandos' => 'Vandos',
+      'Woldyhool' => 'Woldyhool',
+      'Xeros' => 'Xeros',
+      'Yegros Alpha' => 'Yegros Alpha',
+      'Zygor' => 'Zygor'
+    );
+    $expected_cf_732_H5_picklist_values = array(
+      'Adipose 3' => 'Adipose 3',
+      'Barcelona' => 'Barcelona',
+      'Chronos' => 'Chronos',
+      'Dioscuros' => 'Dioscuros',
+      'Earth' => 'Earth',
+      'Florana' => 'Florana',
+      'Gallifrey' => 'Gallifrey',
+      'House' => 'House',
+      'Indigo 3' => 'Indigo 3',
+      'Jaconda' => 'Jaconda',
+      'Karris' => 'Karris',
+      'The Library' => 'The Library',
+      'Midnight' => 'Midnight',
+      'New Alexandria' => 'New Alexandria',
+      'Oblivion' => 'Oblivion',
+      'Poosh' => 'Poosh',
+      'Qualactin' => 'Qualactin',
+      'Rit' => 'Rit',
+      'Salvak' => 'Salvak',
+      'Tara' => 'Tara',
+      'Utopia' => 'Utopia',
+      'Vandos' => 'Vandos',
+      'Woldyhool' => 'Woldyhool',
+      'Xeros' => 'Xeros',
+      'Yegros Alpha' => 'Yegros Alpha',
+      'Zygor' => 'Zygor'
+    );
+    $expected_cf_732_H6_picklist_values = array(
+      'Adipose 3' => 'Adipose 3',
+      'Barcelona' => 'Barcelona',
+      'Chronos' => 'Chronos',
+      'Dioscuros' => 'Dioscuros',
+      'Earth' => 'Earth',
+      'Florana' => 'Florana',
+      'Gallifrey' => 'Gallifrey',
+      'House' => 'House',
+      'Indigo 3' => 'Indigo 3',
+      'Jaconda' => 'Jaconda',
+      'Karris' => 'Karris',
+      'The Library' => 'The Library',
+      'Midnight' => 'Midnight',
+      'New Alexandria' => 'New Alexandria',
+      'Oblivion' => 'Oblivion',
+      'Poosh' => 'Poosh',
+      'Qualactin' => 'Qualactin',
+      'Rit' => 'Rit',
+      'Salvak' => 'Salvak',
+      'Tara' => 'Tara',
+      'Utopia' => 'Utopia',
+      'Vandos' => 'Vandos',
+      'Woldyhool' => 'Woldyhool',
+      'Xeros' => 'Xeros',
+      'Yegros Alpha' => 'Yegros Alpha',
+      'Zygor' => 'Zygor'
+    );
+    // Contacts Module Picklist Values
+    $expected_leadsource_H1_picklist_values = array(
+      '--None--' => '--None--',
+      'Cold Call' => 'Cold Call',
+      'Existing Customer' => 'Existing Customer',
+      'Self Generated' => 'Self Generated',
+      'Employee' => 'Employee',
+      'Partner' => 'Partner',
+      'Public Relations' => 'Public Relations',
+      'Direct Mail' => 'Direct Mail',
+      'Conference' => 'Conference',
+      'Trade Show' => 'Trade Show',
+      'Web Site' => 'Web Site',
+      'Word of mouth' => 'Word of mouth',
+      'Other' => 'Other'
+    );
+    $expected_leadsource_H2_picklist_values = array(
+      '--None--' => '--None--',
+      'Cold Call' => 'Cold Call',
+      'Existing Customer' => 'Existing Customer',
+      'Self Generated' => 'Self Generated',
+      'Employee' => 'Employee',
+      'Partner' => 'Partner',
+      'Public Relations' => 'Public Relations',
+      'Direct Mail' => 'Direct Mail',
+      'Conference' => 'Conference',
+      'Trade Show' => 'Trade Show',
+      'Web Site' => 'Web Site',
+      'Word of mouth' => 'Word of mouth',
+      'Other' => 'Other'
+    );
+    $expected_leadsource_H3_picklist_values = array(
+      '--None--' => '--None--',
+      'Cold Call' => 'Cold Call',
+      'Existing Customer' => 'Existing Customer',
+      'Self Generated' => 'Self Generated',
+      'Employee' => 'Employee',
+      'Partner' => 'Partner',
+      'Public Relations' => 'Public Relations',
+      'Direct Mail' => 'Direct Mail',
+      'Conference' => 'Conference',
+      'Trade Show' => 'Trade Show',
+      'Web Site' => 'Web Site',
+      'Word of mouth' => 'Word of mouth',
+      'Other' => 'Other'
+    );
+    $expected_leadsource_H4_picklist_values = array(
+      '--None--' => '--None--',
+      'Cold Call' => 'Cold Call',
+      'Existing Customer' => 'Existing Customer',
+      'Self Generated' => 'Self Generated',
+      'Employee' => 'Employee',
+      'Partner' => 'Partner',
+      'Public Relations' => 'Public Relations',
+      'Direct Mail' => 'Direct Mail',
+      'Conference' => 'Conference',
+      'Trade Show' => 'Trade Show',
+      'Web Site' => 'Web Site',
+      'Word of mouth' => 'Word of mouth',
+      'Other' => 'Other'
+    );
+    $expected_leadsource_H5_picklist_values = array(
+      '--None--' => '--None--',
+      'Cold Call' => 'Cold Call',
+      'Existing Customer' => 'Existing Customer',
+      'Self Generated' => 'Self Generated',
+      'Employee' => 'Employee',
+      'Partner' => 'Partner',
+      'Public Relations' => 'Public Relations',
+      'Direct Mail' => 'Direct Mail',
+      'Conference' => 'Conference',
+      'Trade Show' => 'Trade Show',
+      'Web Site' => 'Web Site',
+      'Word of mouth' => 'Word of mouth'
+    );
+    $expected_leadsource_H6_picklist_values = array(
+      '--None--' => '--None--',
+      'Cold Call' => 'Cold Call',
+      'Existing Customer' => 'Existing Customer',
+      'Self Generated' => 'Self Generated',
+      'Employee' => 'Employee',
+      'Partner' => 'Partner',
+      'Public Relations' => 'Public Relations',
+      'Direct Mail' => 'Direct Mail',
+      'Conference' => 'Conference',
+      'Trade Show' => 'Trade Show',
+      'Web Site' => 'Web Site',
+      'Word of mouth' => 'Word of mouth',
+      'Other' => 'Other'
+    );
+    $expected_salutationtype_H1_picklist_values = array(
+      '--None--' => '--None--',
+      'Mr.' => 'Mr.',
+      'Ms.' => 'Ms.',
+      'Mrs.' => 'Mrs.',
+      'Dr.' => 'Dr.',
+      'Prof.' => 'Prof.'
+    );
+    $expected_salutationtype_H2_picklist_values = array(
+      '--None--' => '--None--',
+      'Mr.' => 'Mr.',
+      'Ms.' => 'Ms.',
+      'Mrs.' => 'Mrs.',
+      'Dr.' => 'Dr.',
+      'Prof.' => 'Prof.'
+    );
+    $expected_salutationtype_H3_picklist_values = array(
+      '--None--' => '--None--',
+      'Mr.' => 'Mr.',
+      'Ms.' => 'Ms.',
+      'Mrs.' => 'Mrs.',
+      'Dr.' => 'Dr.',
+      'Prof.' => 'Prof.'
+    );
+    $expected_salutationtype_H4_picklist_values = array(
+      '--None--' => '--None--',
+      'Mr.' => 'Mr.',
+      'Ms.' => 'Ms.',
+      'Mrs.' => 'Mrs.',
+      'Dr.' => 'Dr.',
+      'Prof.' => 'Prof.'
+    );
+    $expected_salutationtype_H5_picklist_values = array(
+      '--None--' => '--None--',
+      'Mr.' => 'Mr.',
+      'Ms.' => 'Ms.',
+      'Mrs.' => 'Mrs.',
+      'Dr.' => 'Dr.',
+      'Prof.' => 'Prof.'
+    );
+    $expected_salutationtype_H6_picklist_values = array(
+      '--None--' => '--None--',
+      'Mr.' => 'Mr.',
+      'Ms.' => 'Ms.',
+      'Mrs.' => 'Mrs.',
+      'Dr.' => 'Dr.',
+      'Prof.' => 'Prof.'
+    );
+    // HelpDesk Module Picklist Values
+    $expected_ticketcategories_H1_picklist_values = array(
+      'Big Problem'=> 'Big Problem',
+      'Small Problem'=> 'Small Problem',
+      'Other Problem'=> 'Other Problem'
+    );
+    $expected_ticketcategories_H2_picklist_values = array(
+      'Big Problem'=> 'Big Problem',
+      'Small Problem'=> 'Small Problem',
+      'Other Problem'=> 'Other Problem'
+    );
+    $expected_ticketcategories_H3_picklist_values = array(
+      'Big Problem'=> 'Big Problem',
+      'Small Problem'=> 'Small Problem',
+      'Other Problem'=> 'Other Problem'
+    );
+    $expected_ticketcategories_H4_picklist_values = array(
+      'Big Problem'=> 'Big Problem',
+      'Small Problem'=> 'Small Problem',
+      'Other Problem'=> 'Other Problem'
+    );
+    $expected_ticketcategories_H5_picklist_values = array(
+      'Big Problem'=> 'Big Problem',
+      'Small Problem'=> 'Small Problem',
+      'Other Problem'=> 'Other Problem'
+    );
+    $expected_ticketcategories_H6_picklist_values = array(
+      'Big Problem'=> 'Big Problem',
+      'Small Problem'=> 'Small Problem',
+      'Other Problem'=> 'Other Problem'
+    );
+    $expected_ticketpriorities_H1_picklist_values = array(
+      'Low' => 'Low',
+      'Normal'=> 'Normal',
+      'High'=> 'High',
+      'Urgent'=> 'Urgent'
+    );
+    $expected_ticketpriorities_H2_picklist_values = array(
+      'Low' => 'Low',
+      'Normal'=> 'Normal',
+      'High'=> 'High',
+      'Urgent'=> 'Urgent'
+    );
+    $expected_ticketpriorities_H3_picklist_values = array(
+      'Low' => 'Low',
+      'Normal'=> 'Normal',
+      'High'=> 'High',
+      'Urgent'=> 'Urgent'
+    );
+    $expected_ticketpriorities_H4_picklist_values = array(
+      'Low' => 'Low',
+      'Normal'=> 'Normal',
+      'High'=> 'High',
+      'Urgent'=> 'Urgent'
+    );
+    $expected_ticketpriorities_H5_picklist_values = array(
+      'Low' => 'Low',
+      'Normal'=> 'Normal',
+      'High'=> 'High'
+    );
+    $expected_ticketpriorities_H6_picklist_values = array(
+      'Low' => 'Low',
+      'Normal'=> 'Normal',
+      'High'=> 'High',
+      'Urgent'=> 'Urgent'
+    );
+    $expected_ticketseverities_H1_picklist_values = array(
+      "Minor" => "Minor",
+      "Major" => "Major",
+      "Feature" => "Feature",
+      "Critical" => "Critical"
+    );
+    $expected_ticketseverities_H2_picklist_values = array(
+      "Minor" => "Minor",
+      "Major" => "Major",
+      "Feature" => "Feature",
+      "Critical" => "Critical"
+    );
+    $expected_ticketseverities_H3_picklist_values = array(
+      "Minor" => "Minor",
+      "Major" => "Major",
+      "Feature" => "Feature",
+      "Critical" => "Critical"
+    );
+    $expected_ticketseverities_H4_picklist_values = array(
+      "Minor" => "Minor",
+      "Major" => "Major",
+      "Feature" => "Feature",
+      "Critical" => "Critical"
+    );
+    $expected_ticketseverities_H5_picklist_values = array(
+      "Minor" => "Minor",
+      "Major" => "Major",
+      "Feature" => "Feature",
+      "Critical" => "Critical"
+    );
+    $expected_ticketseverities_H6_picklist_values = array(
+      "Minor" => "Minor",
+      "Major" => "Major",
+      "Feature" => "Feature",
+      "Critical" => "Critical"
+    );
+    $expected_ticketstatus_H1_picklist_values = array(
+      'Open' => 'Open',
+      'In Progress' =>'In Progress',
+      'Wait For Response' => 'Wait For Response',
+      'Closed' => 'Closed'
+    );
+    $expected_ticketstatus_H2_picklist_values = array(
+      'Open' => 'Open',
+      'In Progress' =>'In Progress',
+      'Wait For Response' => 'Wait For Response',
+      'Closed' => 'Closed'
+    );
+    $expected_ticketstatus_H3_picklist_values = array(
+      'Open' => 'Open',
+      'In Progress' =>'In Progress',
+      'Wait For Response' => 'Wait For Response',
+      'Closed' => 'Closed'
+    );
+    $expected_ticketstatus_H4_picklist_values = array(
+      'Open' => 'Open',
+      'In Progress' =>'In Progress',
+      'Wait For Response' => 'Wait For Response',
+      'Closed' => 'Closed'
+    );
+    $expected_ticketstatus_H5_picklist_values = array(
+      'Open' => 'Open',
+      'In Progress' =>'In Progress',
+      'Wait For Response' => 'Wait For Response'
+    );
+    $expected_ticketstatus_H6_picklist_values = array(
+      'Open' => 'Open',
+      'In Progress' =>'In Progress',
+      'Wait For Response' => 'Wait For Response',
+      'Closed' => 'Closed'
+    );
+    return array(
+      array('accounttype', 'H1', $expected_accounttype_H1_picklist_values),
+      array('accounttype', 'H2', $expected_accounttype_H2_picklist_values),
+      array('accounttype', 'H3', $expected_accounttype_H3_picklist_values),
+      array('accounttype', 'H4', $expected_accounttype_H4_picklist_values),
+      array('accounttype', 'H5', $expected_accounttype_H5_picklist_values),
+      array('accounttype', 'H6', $expected_accounttype_H6_picklist_values),
+      array('industry', 'H1', $expected_industry_H1_picklist_values),
+      array('industry', 'H2', $expected_industry_H2_picklist_values),
+      array('industry', 'H3', $expected_industry_H3_picklist_values),
+      array('industry', 'H4', $expected_industry_H4_picklist_values),
+      array('industry', 'H5', $expected_industry_H5_picklist_values),
+      array('industry', 'H6', $expected_industry_H6_picklist_values),
+      array('rating', 'H1', $expected_rating_H1_picklist_values),
+      array('rating', 'H2', $expected_rating_H2_picklist_values),
+      array('rating', 'H3', $expected_rating_H3_picklist_values),
+      array('rating', 'H4', $expected_rating_H4_picklist_values),
+      array('rating', 'H5', $expected_rating_H5_picklist_values),
+      array('rating', 'H6', $expected_rating_H6_picklist_values),
+      array('cf_729', 'H1', $expected_cf_729_H1_picklist_values),
+      array('cf_729', 'H2', $expected_cf_729_H2_picklist_values),
+      array('cf_729', 'H3', $expected_cf_729_H3_picklist_values),
+      array('cf_729', 'H4', $expected_cf_729_H4_picklist_values),
+      array('cf_729', 'H5', $expected_cf_729_H5_picklist_values),
+      array('cf_729', 'H6', $expected_cf_729_H6_picklist_values),
+      array('cf_730', 'H1', $expected_cf_730_H1_picklist_values),
+      array('cf_730', 'H2', $expected_cf_730_H2_picklist_values),
+      array('cf_730', 'H3', $expected_cf_730_H3_picklist_values),
+      array('cf_730', 'H4', $expected_cf_730_H4_picklist_values),
+      array('cf_730', 'H5', $expected_cf_730_H5_picklist_values),
+      array('cf_730', 'H6', $expected_cf_730_H6_picklist_values),
+      array('cf_731', 'H1', $expected_cf_731_H1_picklist_values),
+      array('cf_731', 'H2', $expected_cf_731_H2_picklist_values),
+      array('cf_731', 'H3', $expected_cf_731_H3_picklist_values),
+      array('cf_731', 'H4', $expected_cf_731_H4_picklist_values),
+      array('cf_731', 'H5', $expected_cf_731_H5_picklist_values),
+      array('cf_731', 'H6', $expected_cf_731_H6_picklist_values),
+      array('cf_732', 'H1', $expected_cf_732_H1_picklist_values),
+      array('cf_732', 'H2', $expected_cf_732_H2_picklist_values),
+      array('cf_732', 'H3', $expected_cf_732_H3_picklist_values),
+      array('cf_732', 'H4', $expected_cf_732_H4_picklist_values),
+      array('cf_732', 'H5', $expected_cf_732_H5_picklist_values),
+      array('cf_732', 'H6', $expected_cf_732_H6_picklist_values),
+      //CONTACTS MODULE
+      array('leadsource', 'H1', $expected_leadsource_H1_picklist_values),
+      array('leadsource', 'H2', $expected_leadsource_H2_picklist_values),
+      array('leadsource', 'H3', $expected_leadsource_H3_picklist_values),
+      array('leadsource', 'H4', $expected_leadsource_H4_picklist_values),
+      array('leadsource', 'H5', $expected_leadsource_H5_picklist_values),
+      array('leadsource', 'H6', $expected_leadsource_H6_picklist_values),
+      array('salutationtype', 'H1', $expected_salutationtype_H1_picklist_values),
+      array('salutationtype', 'H2', $expected_salutationtype_H2_picklist_values),
+      array('salutationtype', 'H3', $expected_salutationtype_H3_picklist_values),
+      array('salutationtype', 'H4', $expected_salutationtype_H4_picklist_values),
+      array('salutationtype', 'H5', $expected_salutationtype_H5_picklist_values),
+      array('salutationtype', 'H6', $expected_salutationtype_H6_picklist_values),
+      //HELPDESK MODULE
+      array('ticketcategories', 'H1', $expected_ticketcategories_H1_picklist_values),
+      array('ticketcategories', 'H2', $expected_ticketcategories_H2_picklist_values),
+      array('ticketcategories', 'H3', $expected_ticketcategories_H3_picklist_values),
+      array('ticketcategories', 'H4', $expected_ticketcategories_H4_picklist_values),
+      array('ticketcategories', 'H5', $expected_ticketcategories_H5_picklist_values),
+      array('ticketcategories', 'H6', $expected_ticketcategories_H6_picklist_values),
+      array('ticketpriorities', 'H1', $expected_ticketpriorities_H1_picklist_values),
+      array('ticketpriorities', 'H2', $expected_ticketpriorities_H2_picklist_values),
+      array('ticketpriorities', 'H3', $expected_ticketpriorities_H3_picklist_values),
+      array('ticketpriorities', 'H4', $expected_ticketpriorities_H4_picklist_values),
+      array('ticketpriorities', 'H5', $expected_ticketpriorities_H5_picklist_values),
+      array('ticketpriorities', 'H6', $expected_ticketpriorities_H6_picklist_values),
+      array('ticketseverities', 'H1', $expected_ticketseverities_H1_picklist_values),
+      array('ticketseverities', 'H2', $expected_ticketseverities_H2_picklist_values),
+      array('ticketseverities', 'H3', $expected_ticketseverities_H3_picklist_values),
+      array('ticketseverities', 'H4', $expected_ticketseverities_H4_picklist_values),
+      array('ticketseverities', 'H5', $expected_ticketseverities_H5_picklist_values),
+      array('ticketseverities', 'H6', $expected_ticketseverities_H6_picklist_values),
+      array('ticketstatus', 'H1', $expected_ticketstatus_H1_picklist_values),
+      array('ticketstatus', 'H2', $expected_ticketstatus_H2_picklist_values),
+      array('ticketstatus', 'H3', $expected_ticketstatus_H3_picklist_values),
+      array('ticketstatus', 'H4', $expected_ticketstatus_H4_picklist_values),
+      array('ticketstatus', 'H5', $expected_ticketstatus_H5_picklist_values),
+      array('ticketstatus', 'H6', $expected_ticketstatus_H6_picklist_values),
+    );
+  }
+
 	/**
 	 * Method testgetAssignedPicklistValues
 	 * @test
+   * @dataProvider getAssignedPicklistValuesProvider
 	 */
-	public function testgetAssignedPicklistValues() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
-	}
-
+	public function testgetAssignedPicklistValues($tableName, $roleid, $expected_picklists_values) {
+    global $adb;
+    $actual = getAssignedPicklistValues($tableName, $roleid, $adb);
+    $this->assertEquals($expected_picklists_values, $actual, "Test getAssignedPicklistValues Method on $tableName TableName and RoleId $roleid");
+  }
+	
 	/**
 	 * Method testgetAllowedPicklistModules
 	 * @test
