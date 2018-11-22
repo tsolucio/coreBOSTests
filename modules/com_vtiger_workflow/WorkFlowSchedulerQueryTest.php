@@ -260,6 +260,12 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = "SELECT vtiger_leaddetails.leadid FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (  (( vtiger_leaddetails.firstname = UPPER(vtiger_leaddetails.lastname)) )) AND vtiger_leaddetails.leadid > 0";
 		$this->assertEquals($expected, $actual, 'uppercase field');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"firstname","operation":"greater than","value":"uppercase(lastname)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_leaddetails.leadid FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (  (( vtiger_leaddetails.firstname > UPPER(vtiger_leaddetails.lastname)) )) AND vtiger_leaddetails.leadid > 0";
+		$this->assertEquals($expected, $actual, 'uppercase field');
 	}
 
 	/**

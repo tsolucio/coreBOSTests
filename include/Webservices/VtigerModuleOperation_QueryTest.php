@@ -358,6 +358,11 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 			"SELECT vtiger_account.accountid, vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid  WHERE vtiger_crmentity.deleted=0 AND   (  (( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'cbTest testtz' or vtiger_groups.groupname = 'cbTest testtz')) )) AND vtiger_account.accountid > 0",
 			$actual
 		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select firstname from Leads where [{"fieldname":"firstname","operation":"greater than","value":"uppercase(lastname)","valuetype":"expression","joincondition":"and","groupid":"0"}];', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_leaddetails.leadid, vtiger_leaddetails.firstname, vtiger_leaddetails.leadid FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (  (( vtiger_leaddetails.firstname > UPPER(vtiger_leaddetails.lastname)) )) AND vtiger_leaddetails.leadid > 0",
+			$actual
+		);
 	}
 }
 ?>
