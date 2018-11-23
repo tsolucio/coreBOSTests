@@ -629,7 +629,8 @@ class PickListUtilsTest extends TestCase {
 			'cbTermConditions' => 'cbTermConditions',
 			'cbCalendar' => 'cbCalendar',
 			'BusinessActions' => 'BusinessActions',
-			'Business Question' => 'cbQuestion'
+			'Business Question' => 'cbQuestion',
+			'Product Component' => 'ProductComponent',
 		);
 		$this->assertEquals($expected, $actual);
 	}
