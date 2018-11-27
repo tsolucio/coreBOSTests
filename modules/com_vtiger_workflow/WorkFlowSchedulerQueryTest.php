@@ -266,6 +266,39 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = "SELECT vtiger_leaddetails.leadid FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (  (( vtiger_leaddetails.firstname > UPPER(vtiger_leaddetails.lastname)) )) AND vtiger_leaddetails.leadid > 0";
 		$this->assertEquals($expected, $actual, 'uppercase field');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"annualrevenue","operation":"is","value":"3654","valuetype":"raw","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_leaddetails.leadid FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (  (( vtiger_leaddetails.annualrevenue = 3654) )) AND vtiger_leaddetails.leadid > 0";
+		$this->assertEquals($expected, $actual, 'product end today');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"annualrevenue","operation":"is","value":"36+54","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_leaddetails.leadid FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND   (  (( vtiger_leaddetails.annualrevenue = 36+54) )) AND vtiger_leaddetails.leadid > 0";
+		$this->assertEquals($expected, $actual, 'product end today');
+		//////////////////////
+		$currentModule = 'Products';
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Products';
+		$wfvals['test'] = '[{"fieldname":"start_date","operation":"is today","value":"","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_products.productid FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_products.start_date = '".date('Y-m-d')."') )) AND vtiger_products.productid > 0";
+		$this->assertEquals($expected, $actual, 'product start is today');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"start_date","operation":"is","value":"get_date(\'today\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_products.productid FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_products.start_date = CURDATE()) )) AND vtiger_products.productid > 0";
+		$this->assertEquals($expected, $actual, 'product start today');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"expiry_date","operation":"is","value":"get_date(\'today\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_products.productid FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_products.expiry_date = CURDATE()) )) AND vtiger_products.productid > 0";
+		$this->assertEquals($expected, $actual, 'product end today');
 	}
 
 	/**
