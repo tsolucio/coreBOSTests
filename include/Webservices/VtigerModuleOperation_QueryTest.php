@@ -364,5 +364,13 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 			$actual
 		);
 	}
+
+	public function testCurrencyQuery() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select * from Currency;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_currency_info.id,vtiger_currency_info.currency_name,vtiger_currency_info.currency_code,vtiger_currency_info.currency_symbol,vtiger_currency_info.conversion_rate,vtiger_currency_info.currency_status,vtiger_currency_info.defaultid,vtiger_currency_info.deleted,vtiger_currency_info.currency_position FROM vtiger_currency_info  WHERE  vtiger_currency_info.deleted=0 LIMIT 100;",
+			$actual
+		);
+	}
 }
 ?>
