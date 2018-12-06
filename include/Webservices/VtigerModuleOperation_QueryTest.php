@@ -365,10 +365,25 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 	}
 
-	public function testCurrencyQuery() {
+	public function testActorQuery() {
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select * from Currency;', $meta, $queryRelatedModules);
 		$this->assertEquals(
 			"SELECT vtiger_currency_info.id,vtiger_currency_info.currency_name,vtiger_currency_info.currency_code,vtiger_currency_info.currency_symbol,vtiger_currency_info.conversion_rate,vtiger_currency_info.currency_status,vtiger_currency_info.defaultid,vtiger_currency_info.deleted,vtiger_currency_info.currency_position FROM vtiger_currency_info  WHERE  vtiger_currency_info.deleted=0 LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select * from Workflow;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT com_vtiger_workflows.workflow_id,com_vtiger_workflows.module_name,com_vtiger_workflows.summary,com_vtiger_workflows.test,com_vtiger_workflows.execution_condition,com_vtiger_workflows.defaultworkflow,com_vtiger_workflows.type,com_vtiger_workflows.schtypeid,com_vtiger_workflows.schtime,com_vtiger_workflows.schdayofmonth,com_vtiger_workflows.schdayofweek,com_vtiger_workflows.schannualdates,com_vtiger_workflows.nexttrigger_time,com_vtiger_workflows.schminuteinterval,com_vtiger_workflows.workflow_id FROM com_vtiger_workflows   LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select * from AuditTrail;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_audit_trial.auditid,vtiger_audit_trial.userid,vtiger_audit_trial.module,vtiger_audit_trial.action,vtiger_audit_trial.recordid,vtiger_audit_trial.actiondate,vtiger_audit_trial.auditid FROM vtiger_audit_trial   LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select * from LoginHistory;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_loginhistory.login_id,vtiger_loginhistory.user_name,vtiger_loginhistory.user_ip,vtiger_loginhistory.logout_time,vtiger_loginhistory.login_time,vtiger_loginhistory.status,vtiger_loginhistory.login_id FROM vtiger_loginhistory   LIMIT 100;",
 			$actual
 		);
 	}
