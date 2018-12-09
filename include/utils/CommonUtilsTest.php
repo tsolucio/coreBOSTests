@@ -574,6 +574,18 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 	}
 
 	/**
+	 * Method testgetEntityName
+	 * @test
+	 */
+	public function testgetEntityName() {
+		$this->assertEquals(getEntityName('Accounts', 74), array('74'=>'Chemex Labs Ltd'), 'getEntityName accounts');
+		$this->assertEquals(getEntityName('Accounts', array(74,75)), array('74'=>'Chemex Labs Ltd','75'=>'Atrium Marketing Inc'), 'getEntityName accounts array');
+		$this->assertEquals(getEntityName('Contacts', 1084), array('1084'=>'Lina Schwiebert'), 'getEntityName contacts');
+		$this->assertEquals(getEntityName('Users', 5), array('5'=>'cbTest testdmy'), 'getEntityName Users');
+		$this->assertEquals(getEntityName('NoExists', 5), array(), 'getEntityName non-existant');
+	}
+
+	/**
 	 * Method testgetEntityField
 	 * @test
 	 */
