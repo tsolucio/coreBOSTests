@@ -19,6 +19,9 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
+include_once 'include/Webservices/Create.php';
+include_once 'include/Webservices/Delete.php';
+
 class VTExpressionEvaluaterTest extends TestCase {
 
 	/**
@@ -438,6 +441,62 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('Adipose 3, Chronos, Earth', $exprEvaluation);
+		/////////////////////////
+		$entityId = '11x74'; // Account
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "translate('LBL_LAST_VIEWED')";
+$expectedresult = array(
+    0 => 'LBL_LAST_VIEWED',
+    1 => 'Array
+(
+    [0] => LBL_LAST_VIEWED
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('Last Viewed', $exprEvaluation);
+		/////////////////////////
+		$entityId = '11x74'; // Account
+		global $current_language, $current_user;
+		$holdlang = $current_language;
+		$current_language = 'es_es';
+		$cbtr = array(
+			'locale' => 'es_es',
+			'translation_module' => 'cbtranslation',
+			'translation_key' => 'June',
+			'i18n' => 'Junio',
+			'assigned_user_id' => vtws_getEntityId('Users').'x'.$current_user->id,
+		);
+		$trinfo = vtws_create('cbtranslation', $cbtr, $current_user);
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "translate(format_date('2017-06-20','F'))";
+		$expectedresult = array(
+			0 => '2017-06-20',
+			1 => 'F',
+			2 => 'Array
+(
+    [0] => 2017-06-20
+    [1] => F
+)
+',
+			3 => 'Array
+(
+    [0] => June
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('Junio', $exprEvaluation);
+		vtws_delete($trinfo['id'], $current_user);
+		$current_language = $holdlang;
 	}
 
 	/**
