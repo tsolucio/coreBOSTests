@@ -26,7 +26,9 @@ class workflowfunctionsaggregationTest extends TestCase {
 	 * @test
 	 */
 	public function testaggregationfunctions() {
-		global $adb, $current_user;
+		global $adb, $current_user, $currentModule;
+		$holdModule = $currentModule;
+		$currentModule = 'Invoice';
 		$entityCache = new VTEntityCache($current_user);
 		$entityData = $entityCache->forId('11x74');
 		$actual = __cb_aggregation(array('sum','Invoice','hdnSubTotal','',$entityData));
@@ -52,6 +54,15 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$actual = __cb_aggregation(array('sum','Potentials','amount','[amount,l,71000,or],[sales_stage,e,Closed Lost,or]',$entityData));
 		$this->assertEquals(142234, $actual, 'no values');
 		////////////////
+		$entityData = $entityCache->forId('7x3076'); // Invoice
+		$actual = __cb_aggregation(array('sum','CobroPago','amount','',$entityData));
+		$this->assertEquals(1601, $actual, 'CyP Invoice');
+		$actual = __cb_aggregation(array('sum','CobroPago','amount','[paymentmode,e,Transfer,or]',$entityData));
+		$this->assertEquals(383, $actual, 'CyP Invoice condition on CyP');
+		// $actual = __cb_aggregation(array('sum','CobroPago','amount','[cf_1069,e,$invoice_no,or]',$entityData));
+		// $this->assertEquals(383, $actual, 'CyP Invoice condition on Invoice');
+		////////////////
+		$currentModule = 'SalesOrder';
 		$entityData = $entityCache->forId('6x11424'); // Sales Order
 		$actual = __cb_aggregation(array('sum','Invoice','hdnSubTotal','',$entityData));
 		$this->assertEquals(9030.970000, $actual);
@@ -60,6 +71,7 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$actual = __cb_aggregation(array('sum','Invoice','sum_nettotal','',$entityData));
 		$this->assertEquals(9030.970000, $actual);
 		////////////////
+		$currentModule = 'Potentials';
 		$entityData = $entityCache->forId('13x5900'); // Egestas Aliquam Fringilla Corp potential
 		$actual = __cb_aggregation(array('min','Potentials','amount','',$entityData));
 		$this->assertEquals(370.000000, $actual);
@@ -75,6 +87,7 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$this->assertEquals(0, $actual, 'unknown operation');
 		$actual = __cb_aggregation(array('sum','Potentials','inexistentfield','',$entityData));
 		$this->assertEquals(0, $actual, 'unknown field');
+		$currentModule = $holdModule;
 	}
 }
 ?>
