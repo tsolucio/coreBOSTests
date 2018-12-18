@@ -525,4 +525,61 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase
 								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * Method testWorkFlowAggregations
+     * @test
+     */
+    public function testWorkFlowAggregations() {
+        global $adb;
+        $workflowScheduler = new WorkFlowScheduler($adb);
+        $workflow = new Workflow();
+        $wfvals = $this->defaultWF;
+        $wfvals['module_name'] = 'Invoice';
+        $wfvals['test'] = '[{"fieldname":"invoicestatus","operation":"is","value":"Created","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
+        $wfvals['select_expressions'] = '[{"fieldname":"sumres","operation":"is","value":"sum(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+        $workflow->setup($wfvals);
+        $actual = $workflowScheduler->getWorkflowQuery($workflow);
+        $expected = 'SELECT SUM(vtiger_invoice.sum_nettotal) AS sumres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
+								select translation_key
+								from vtiger_cbtranslation
+								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+        $this->assertEquals($expected, $actual);
+        //////////////////////
+        $wfvals['select_expressions'] = '[{"fieldname":"minres","operation":"is","value":"min(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+        $workflow->setup($wfvals);
+        $actual = $workflowScheduler->getWorkflowQuery($workflow);
+        $expected = 'SELECT MIN(vtiger_invoice.sum_nettotal) AS minres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
+								select translation_key
+								from vtiger_cbtranslation
+								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+        $this->assertEquals($expected, $actual);
+        //////////////////////
+        $wfvals['select_expressions'] = '[{"fieldname":"maxres","operation":"is","value":"max(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+        $workflow->setup($wfvals);
+        $actual = $workflowScheduler->getWorkflowQuery($workflow);
+        $expected = 'SELECT MAX(vtiger_invoice.sum_nettotal) AS maxres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
+								select translation_key
+								from vtiger_cbtranslation
+								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+        $this->assertEquals($expected, $actual);
+        //////////////////////
+        $wfvals['select_expressions'] = '[{"fieldname":"avgres","operation":"is","value":"avg(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+        $workflow->setup($wfvals);
+        $actual = $workflowScheduler->getWorkflowQuery($workflow);
+        $expected = 'SELECT AVG(vtiger_invoice.sum_nettotal) AS avgres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
+								select translation_key
+								from vtiger_cbtranslation
+								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+        $this->assertEquals($expected, $actual);
+        //////////////////////
+        $wfvals['select_expressions'] = '[{"fieldname":"sumres","operation":"is","value":"sum(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"minres","operation":"is","value":"min(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"maxres","operation":"is","value":"max(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"avgres","operation":"is","value":"avg(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+        $workflow->setup($wfvals);
+        $actual = $workflowScheduler->getWorkflowQuery($workflow);
+        $expected = 'SELECT SUM(vtiger_invoice.sum_nettotal) AS sumres,MIN(vtiger_invoice.sum_nettotal) AS minres,MAX(vtiger_invoice.sum_nettotal) AS maxres,AVG(vtiger_invoice.sum_nettotal) AS avgres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
+								select translation_key
+								from vtiger_cbtranslation
+								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+        $this->assertEquals($expected, $actual);
+    }
 }
