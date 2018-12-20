@@ -324,6 +324,24 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = "SELECT vtiger_invoice.invoiceid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.subject = pow(MOD(vtiger_invoice.exciseduty,vtiger_invoice.adjustment),2)) )) AND vtiger_invoice.invoiceid > 0";
 		$this->assertEquals($expected, $actual, 'recursive function');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"duedate","operation":"is","value":"add_days(get_date(\'today\'), 7)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_invoice.invoiceid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.duedate = ADDDATE(CURDATE(),7)) )) AND vtiger_invoice.invoiceid > 0";
+		$this->assertEquals($expected, $actual, 'recursive function');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"duedate","operation":"is","value":"add_days(get_date(\'time\'), 7)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_invoice.invoiceid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.duedate = ADDDATE(CURTIME(),7)) )) AND vtiger_invoice.invoiceid > 0";
+		$this->assertEquals($expected, $actual, 'recursive function');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"duedate","operation":"is","value":"add_days(get_date(\'yesterday\'), 7)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_invoice.invoiceid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.duedate = ADDDATE(subdate(CURDATE(),1),7)) )) AND vtiger_invoice.invoiceid > 0";
+		$this->assertEquals($expected, $actual, 'recursive function');
 	}
 
 		/**
