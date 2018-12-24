@@ -399,4 +399,33 @@ Location : Hamburg';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ -');
 	}
+
+	/**
+	 * Method testWorkflowFunctionInventoryDetails
+	 * @test
+	 */
+	public function testWorkflowFunctionInventoryDetails() {
+		global $current_user;
+		// Setup
+		$entityId = '4x12841'; // quote
+		$holduser = $current_user;
+		$usrcoma3dot = 10; // testtz 5 decimal places
+		$current_user->retrieveCurrentUserInfoFromFile($usrcoma3dot);
+		$entityCache = new VTEntityCache($current_user);
+		$ct = new VTSimpleTemplate('$(general : (__VtigerMeta__) inventorydetails )');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('<div class="inventorydetails"><ul class="inventorydetailsfields"><li class="inventorydetailsfield">New FULL HD 1080P Car Video Recorder With G-Sensor and 24H Parking mode</li><li class="inventorydetailsfield">7,00</li><li class="inventorydetailsfield">41,82</li><li class="inventorydetailsfield">292,74</li><li class="inventorydetailsfield">292,74</li><li class="inventorydetailsfield">Android TV BOX</li><li class="inventorydetailsfield">6,00</li><li class="inventorydetailsfield">92,50</li><li class="inventorydetailsfield">555,00</li><li class="inventorydetailsfield">555,00</li></ul></div>', $actual, '__WorkflowMeta__ invdet html');
+		$ct = new VTSimpleTemplate('$(general : (__VtigerMeta__) inventorydetails_table )');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('<table class="inventorydetails"><tr class="inventorydetailsfields"><td class="inventorydetailsfield">New FULL HD 1080P Car Video Recorder With G-Sensor and 24H Parking mode</td><td class="inventorydetailsfield">7,00</td><td class="inventorydetailsfield">41,82</td><td class="inventorydetailsfield">292,74</td><td class="inventorydetailsfield">292,74</td><td class="inventorydetailsfield">Android TV BOX</td><td class="inventorydetailsfield">6,00</td><td class="inventorydetailsfield">92,50</td><td class="inventorydetailsfield">555,00</td><td class="inventorydetailsfield">555,00</td></tr></table>', $actual, '__WorkflowMeta__ invdet table');
+		$ct = new VTSimpleTemplate('$(general : (__VtigerMeta__) inventorydetails_table_productname )');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('<table class="inventorydetails"><tr class="inventorydetailsfields"><td class="inventorydetailsfield">New FULL HD 1080P Car Video Recorder With G-Sensor and 24H Parking mode</td><td class="inventorydetailsfield">Android TV BOX</td></tr></table>', $actual, '__WorkflowMeta__ invdet table productname');
+		$ct = new VTSimpleTemplate('$(general : (__VtigerMeta__) inventorydetails_text_productname )');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('New FULL HD 1080P Car Video Recorder With G-Sensor and 24H Parking mode
+Android TV BOX
+', $actual, '__WorkflowMeta__ invdet text productname');
+		$current_user = $holduser;
+	}
 }
