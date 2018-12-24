@@ -7,29 +7,29 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class testCurrencyField extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
 	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
 	 ****/
-	var $usrdota0x = 5; // testdmy 2 decimal places
-	var $usrcomd0x = 6; // testmdy 3 decimal places
-	var $usrdotd3com = 7; // testymd 4 decimal places
-	var $usrcoma3dot = 10; // testtz 5 decimal places
-	var $usrdota3comdollar = 12; // testmcurrency 6 decimal places
+	private $usrdota0x = 5; // testdmy 2 decimal places
+	private $usrcomd0x = 6; // testmdy 3 decimal places
+	private $usrdotd3com = 7; // testymd 4 decimal places
+	private $usrcoma3dot = 10; // testtz 5 decimal places
+	private $usrdota3comdollar = 12; // testmcurrency 6 decimal places
 
 	/**
 	 * Method testgetCurrencyInformation
@@ -43,9 +43,9 @@ class testCurrencyField extends TestCase {
 		$currencyField = new CurrencyField($testcurrency);
 		$converted2Dollar = $testcurrency * 1.1; // 46919417.6248479
 		$converted = convertToDollar(46919417.6248479, 1.1);
-		$this->assertEquals(round(42654016.022589,6), round($converted,6), 'convertToDollar UTILS');
+		$this->assertEquals(round(42654016.022589,6), round($converted, 6), 'convertToDollar UTILS');
 		$converted = convertFromDollar(42654016.022589, 1.1);
-		$this->assertEquals(round(46919417.6248479,2), $converted, 'convertFromDollar UTILS');
+		$this->assertEquals(round(46919417.6248479, 2), $converted, 'convertFromDollar UTILS');
 		$converted = CurrencyField::convertToDollar(46919417.6248479, 1.1);
 		$this->assertEquals(round(42654016.022589,CurrencyField::$maxNumberOfDecimals), round($converted,CurrencyField::$maxNumberOfDecimals), 'convertToDollar CLASS');
 		$converted = CurrencyField::convertFromDollar(42654016.022589, 1.1);
