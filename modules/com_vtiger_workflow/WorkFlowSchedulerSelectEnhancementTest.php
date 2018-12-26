@@ -589,4 +589,22 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 	}
+
+	/**
+	 * Method testWorkFlowNoConditions
+	 * @test
+	 */
+	public function testWorkFlowNoConditions() {
+		global $adb;
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Accounts';
+		$wfvals['test'] = '';
+		$wfvals['select_expressions'] = '[{"fieldname":"countres","operation":"is","value":"count(accountname)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT COUNT(vtiger_account.accountname) AS countres FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0';
+		$this->assertEquals($expected, $actual);
+	}
 }
