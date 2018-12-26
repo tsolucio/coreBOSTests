@@ -31,7 +31,7 @@ class BusinessActionsTest extends TestCase {
 		$actual = Vtiger_Link::getAllByType(getTabid('CobroPago'), array('DETAILVIEWBASIC', 'DETAILVIEW', 'DETAILVIEWWIDGET'), $customlink_params);
 		$expectedLink = new Vtiger_Link();
 		$expectedLink->tabid = '42';
-		$expectedLink->linkid = '43542';
+		$expectedLink->linkid = $actual['DETAILVIEWBASIC'][0]->linkid;
 		$expectedLink->linktype = 'DETAILVIEWBASIC';
 		$expectedLink->linklabel = 'View History';
 		$expectedLink->linkurl = "javascript:ModTrackerCommon.showhistory('14297')";
@@ -54,7 +54,7 @@ class BusinessActionsTest extends TestCase {
 		$actual = Vtiger_Link::getAllByType(getTabid('CobroPago'), 'DETAILVIEWBASIC', $customlink_params);
 		$expectedLink = new Vtiger_Link();
 		$expectedLink->tabid = '42';
-		$expectedLink->linkid = '43542';
+		$expectedLink->linkid = $actual['DETAILVIEWBASIC']->linkid;
 		$expectedLink->linktype = 'DETAILVIEWBASIC';
 		$expectedLink->linklabel = 'View History';
 		$expectedLink->linkurl = "javascript:ModTrackerCommon.showhistory('14297')";
@@ -182,7 +182,7 @@ class BusinessActionsTest extends TestCase {
 		$handlerInfo['class'] = $lastLink->handler_class;
 		$handlerInfo['method'] = $lastLink->handler;
 
-		$module_contacts->addLink($lastLink->linktype, $lastLink->linklabel, $lastLink->linkurl, $lastLink->icon, $lastLink->sequence, $handlerInfo, $lastLink->onlyonmymodule);
+		$module_contacts->addLink($lastLink->linktype, $lastLink->linklabel, $lastLink->linkurl, $lastLink->linkicon, $lastLink->sequence, $handlerInfo, $lastLink->onlyonmymodule);
 
 		$this->assertEquals($expectedLinks, $actualLinks);
 	}
@@ -207,7 +207,7 @@ class BusinessActionsTest extends TestCase {
 			$handlerInfo['class'] = $link->handler_class;
 			$handlerInfo['method'] = $link->handler;
 
-			$module_contacts->addLink($link->linktype, $link->linklabel, $link->linkurl, $link->icon, (int)$link->sequence, $handlerInfo, $link->onlyonmymodule);
+			$module_contacts->addLink($link->linktype, $link->linklabel, $link->linkurl, $link->linkicon, (int)$link->sequence, $handlerInfo, $link->onlyonmymodule);
 		}
 
 		$this->assertEquals(0, count($expectedLinks));
