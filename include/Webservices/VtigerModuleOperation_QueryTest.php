@@ -420,6 +420,23 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 			"SELECT COUNT(vtiger_account.accountname) AS countres,vtiger_accountbillads.bill_city FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.accountname LIKE 'a%') )) AND vtiger_account.accountid > 0 group by bill_city",
 			$actual
 		);
+		/////
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select [{"fieldname":"countres","operation":"is","value":"count(ticket_title)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"ticketstatus","operation":"is","value":"ticketstatus","valuetype":"fieldname","joincondition":"and","groupid":"0"}] from HelpDesk group by status;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_troubletickets.ticketid > 0 group by status;",
+			$actual
+		);
+		global $current_user, $adb, $log;
+		$holdUser = $current_user;
+		$current_user->retrieveCurrentUserInfoFromFile(7); // testymd HelpDesk is private
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, 'HelpDesk');
+		$vtModuleOperation = new VtigerModuleOperation($webserviceObject, $current_user, $adb, $log);
+		$actual = $vtModuleOperation->wsVTQL2SQL('select [{"fieldname":"countres","operation":"is","value":"count(ticket_title)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"ticketstatus","operation":"is","value":"ticketstatus","valuetype":"fieldname","joincondition":"and","groupid":"0"}] from HelpDesk group by status;', $meta, $queryRelatedModules);
+		$current_user = $holdUser;
+		$this->assertEquals(
+			"SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid INNER JOIN vt_tmp_u7 vt_tmp_u7 ON vt_tmp_u7.id = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted=0 AND vtiger_troubletickets.ticketid > 0 group by status;",
+			$actual
+		);
 	}
 
 	public function testActorQuery() {

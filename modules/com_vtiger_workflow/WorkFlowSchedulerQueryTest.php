@@ -589,6 +589,28 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'select columns');
 	}
 
+	/**
+	 * Method testgetWorkflowQueryUserPermissions
+	 * @test
+	 */
+	public function testgetWorkflowQueryUserPermissions() {
+		global $adb, $currentModule;
+		$currentModule = 'HelpDesk';
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'HelpDesk';
+		//////////////////////
+		$wfvals['select_expressions'] = '[{"fieldname":"countres","operation":"is","value":"count(ticket_title)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"ticketstatus","operation":"is","value":"ticketstatus","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
+		$wfvals['test'] = '';
+		$workflow->setup($wfvals);
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(7); // testymd HelpDesk is private
+		$actual = $workflowScheduler->getWorkflowQuery($workflow, array(), true, $user);
+		$expected = 'SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid INNER JOIN vt_tmp_u7 vt_tmp_u7 ON vt_tmp_u7.id = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted=0 AND vtiger_troubletickets.ticketid > 0';
+		$this->assertEquals($expected, $actual, 'UserPermissions');
+	}
+
 	// /**
 	//  * Method testgetWorkflowQueryFieldType
 	//  * @test
