@@ -208,7 +208,7 @@ class getRelatedModulesTest extends TestCase {
 				'actions' => 'ADD',
 				'relationId' => '116',
 				'filterFields' => array(
-					'fields' => array('cyp_no', 'reference', 'duedate', 'amount', 'cost', 'benefit', 'paid', 'assigned_user_id'),
+					'fields' => array('cyp_no', 'reference', 'duedate', 'parent_id', 'related_id', 'amount', 'assigned_user_id'),
 					'linkfields' => array('cyp_no'),
 					'pagesize' => 40
 				),

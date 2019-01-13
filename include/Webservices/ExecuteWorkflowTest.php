@@ -30,6 +30,8 @@ class testExecuteWorkflow extends TestCase {
 	 */
 	public function testcbwsExecuteWorkflow() {
 		global $current_user, $adb;
+		$holduser = $current_user;
+		$current_user = Users::getActiveAdminUser();
 		$adb->query('TRUNCATE com_vtiger_workflowtask_queue');
 		$wsid = vtws_getEntityId('cbCalendar').'x';
 		cbwsExecuteWorkflow(26, '["'.$wsid.'14729","'.$wsid.'14731"]', $current_user);
@@ -52,6 +54,7 @@ class testExecuteWorkflow extends TestCase {
 		$rs = $adb->pquery('select smownerid from vtiger_crmentity where crmid=?', array(2642));
 		$ownerafter = $adb->query_result($rs, 0, 0);
 		$this->assertEquals(8, $ownerafter, 'task count');
+		$current_user = $holduser;
 	}
 
 	public function testInvalidParameter1() {

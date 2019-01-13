@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,6 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class testVtlibUnzip extends TestCase {
 	private static $zipFile = __DIR__ . '/cbLoginHistory.zip';
 
@@ -33,7 +34,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482516520,
 				'crc' => 2159072277,
 				'compressed_size' => 226,
-				'uncompressed_size' => 427 
+				'uncompressed_size' => 427
 			),
 			'modules/cbLoginHistory/index.php' => array (
 				'file_name' => 'modules/cbLoginHistory/index.php',
@@ -41,7 +42,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 2442578722,
 				'compressed_size' => 307,
-				'uncompressed_size' => 679 
+				'uncompressed_size' => 679
 			),
 			'modules/cbLoginHistory/manifest.xml' => array (
 				'file_name' => 'modules/cbLoginHistory/manifest.xml',
@@ -49,7 +50,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 3032954958,
 				'compressed_size' => 914,
-				'uncompressed_size' => 2109 
+				'uncompressed_size' => 2109
 			),
 			'modules/cbLoginHistory/cbLoginHistoryAjax.php' => array (
 				'file_name' => 'modules/cbLoginHistory/cbLoginHistoryAjax.php',
@@ -57,7 +58,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 3264661394,
 				'compressed_size' => 273,
-				'uncompressed_size' => 579 
+				'uncompressed_size' => 579
 			),
 			'modules/cbLoginHistory/language/de_de.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/de_de.lang.php',
@@ -65,7 +66,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 1545382535,
 				'compressed_size' => 411,
-				'uncompressed_size' => 883 
+				'uncompressed_size' => 883
 			),
 			'modules/cbLoginHistory/language/it_it.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/it_it.lang.php',
@@ -73,7 +74,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 148289608,
 				'compressed_size' => 400,
-				'uncompressed_size' => 855 
+				'uncompressed_size' => 855
 			),
 			'modules/cbLoginHistory/language/pt_br.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/pt_br.lang.php',
@@ -81,7 +82,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 1489342377,
 				'compressed_size' => 429,
-				'uncompressed_size' => 900 
+				'uncompressed_size' => 900
 			),
 			'modules/cbLoginHistory/language/en_us.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/en_us.lang.php',
@@ -89,7 +90,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 714009349,
 				'compressed_size' => 295,
-				'uncompressed_size' => 654 
+				'uncompressed_size' => 654
 			),
 			'modules/cbLoginHistory/language/en_gb.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/en_gb.lang.php',
@@ -97,7 +98,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 714009349,
 				'compressed_size' => 295,
-				'uncompressed_size' => 654 
+				'uncompressed_size' => 654
 			),
 			'modules/cbLoginHistory/language/hu_hu.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/hu_hu.lang.php',
@@ -105,7 +106,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 1107592222,
 				'compressed_size' => 397,
-				'uncompressed_size' => 881 
+				'uncompressed_size' => 881
 			),
 			'modules/cbLoginHistory/language/nl_nl.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/nl_nl.lang.php',
@@ -113,7 +114,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 3621974815,
 				'compressed_size' => 411,
-				'uncompressed_size' => 894 
+				'uncompressed_size' => 894
 			),
 			'modules/cbLoginHistory/language/fr_fr.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/fr_fr.lang.php',
@@ -121,7 +122,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 1107592222,
 				'compressed_size' => 397,
-				'uncompressed_size' => 881 
+				'uncompressed_size' => 881
 			),
 			'modules/cbLoginHistory/language/es_es.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/es_es.lang.php',
@@ -129,7 +130,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 1465915341,
 				'compressed_size' => 310,
-				'uncompressed_size' => 670 
+				'uncompressed_size' => 670
 			),
 			'modules/cbLoginHistory/language/es_mx.lang.php' => array (
 				'file_name' => 'modules/cbLoginHistory/language/es_mx.lang.php',
@@ -137,7 +138,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 1465915341,
 				'compressed_size' => 310,
-				'uncompressed_size' => 670 
+				'uncompressed_size' => 670
 			),
 			'modules/cbLoginHistory/ExportRecords.php' => array (
 				'file_name' => 'modules/cbLoginHistory/ExportRecords.php',
@@ -145,7 +146,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 1900597356,
 				'compressed_size' => 274,
-				'uncompressed_size' => 583 
+				'uncompressed_size' => 583
 			),
 			'modules/cbLoginHistory/cbLoginHistory.js' => array (
 				'file_name' => 'modules/cbLoginHistory/cbLoginHistory.js',
@@ -153,7 +154,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 71449992,
 				'compressed_size' => 228,
-				'uncompressed_size' => 525 
+				'uncompressed_size' => 525
 			),
 			'modules/cbLoginHistory/cbLoginHistory.php' => array (
 				'file_name' => 'modules/cbLoginHistory/cbLoginHistory.php',
@@ -161,7 +162,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 3893047786,
 				'compressed_size' => 564,
-				'uncompressed_size' => 1540 
+				'uncompressed_size' => 1540
 			),
 			'modules/cbLoginHistory/getJSON.php' => array (
 				'file_name' => 'modules/cbLoginHistory/getJSON.php',
@@ -169,7 +170,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 855573040,
 				'compressed_size' => 1027,
-				'uncompressed_size' => 2607 
+				'uncompressed_size' => 2607
 			),
 			'modules/cbLoginHistory/ListView.php' => array (
 				'file_name' => 'modules/cbLoginHistory/ListView.php',
@@ -177,7 +178,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236244,
 				'crc' => 1771634721,
 				'compressed_size' => 671,
-				'uncompressed_size' => 1633 
+				'uncompressed_size' => 1633
 			),
 			'templates/index.tpl' => array (
 				'file_name' => 'templates/index.tpl',
@@ -185,7 +186,7 @@ class testVtlibUnzip extends TestCase {
 				'lastmod_datetime' => 1482236242,
 				'crc' => 427506083,
 				'compressed_size' => 2142,
-				'uncompressed_size' => 5609 
+				'uncompressed_size' => 5609
 			),
 		);
 		$zipa = new Vtiger_Unzip(self::$zipFile);
@@ -219,22 +220,23 @@ class testVtlibUnzip extends TestCase {
 		$unzip = new Vtiger_Unzip(self::$zipFile);
 		@mkdir($cacheDir);
 		// Unzip selectively
-		$unzip->unzipAllEx( $cacheDir,
-			Array(
+		$unzip->unzipAllEx(
+			$cacheDir,
+			array(
 				// Include only file/folders that need to be extracted
-				'include' => Array('templates', "modules/cbLoginHistory", 'cron','manifest.xml'),
-				//'exclude' => Array('manifest.xml')
+				'include' => array('templates', "modules/cbLoginHistory", 'cron','manifest.xml'),
+				//'exclude' => array('manifest.xml')
 				// NOTE: If excludes is not given then by those not mentioned in include are ignored.
 			),
 			// What files needs to be renamed?
-			Array(
+			array(
 				// Templates folder
 				'templates' => "Smarty/templates/modules/cbLoginHistory",
 				// Cron folder
 				'cron' => "cron/modules/cbLoginHistory"
 			)
 		);
-		$actual = $this->getDirectroyListing($cacheDir,true);
+		$actual = $this->getDirectroyListing($cacheDir, true);
 		$this->assertEquals($expected, $actual, 'unzipAllEx directory list');
 		$this->recursiveRemoveDirectory($cacheDir);
 	}
@@ -270,7 +272,7 @@ class testVtlibUnzip extends TestCase {
 			5 => 'cache/ziptest/modules/cbLoginHistory/modules/cbLoginHistory',
 			6 => 'cache/ziptest/manifest.xml',
 		);
-		$this->assertEquals($expected, $actual, "unzip $fileName");
+		$this->assertEquals(sort($expected), sort($actual), "unzip $fileName");
 		$fileName = 'modules/cbLoginHistory/language/de_de.lang.php';
 		$dirname = dirname($fileName);
 		$unzip->unzip($fileName, "$cacheDir/$dirname/".basename($fileName), 0664);
@@ -289,7 +291,7 @@ class testVtlibUnzip extends TestCase {
 			10 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
 			11 => 'cache/ziptest/manifest.xml',
 		);
-		$this->assertEquals($expected, $actual, "unzip $fileName");
+		$this->assertEquals(sort($expected), sort($actual), "unzip $fileName");
 		$fileName = 'templates/index.tpl';
 		$dirname = dirname($fileName);
 		$unzip->unzip($fileName, "$cacheDir/Smarty/templates/modules/cbLoginHistory/".basename($fileName), 0664);
@@ -314,7 +316,7 @@ class testVtlibUnzip extends TestCase {
 			16 => 'cache/ziptest/modules/cbLoginHistory/language/de_de.lang.php',
 			17 => 'cache/ziptest/manifest.xml',
 		);
-		$this->assertEquals($expected, $actual, "unzip $fileName");
+		$this->assertEquals(sort($expected), sort($actual), "unzip $fileName");
 		$this->recursiveRemoveDirectory($cacheDir);
 	}
 
@@ -329,7 +331,7 @@ class testVtlibUnzip extends TestCase {
 		@mkdir($cacheDir);
 		$unzip->unzipAll($cacheDir);
 		$actual = $this->getDirectroyListing($cacheDir);
-		$expected = array (
+		$expected = array(
 			0 => 'cache/ziptest',
 			1 => 'cache/ziptest/modules',
 			2 => 'cache/ziptest/modules/cbLoginHistory',
@@ -356,19 +358,19 @@ class testVtlibUnzip extends TestCase {
 			23 => 'cache/ziptest/templates',
 			24 => 'cache/ziptest/templates/index.tpl',
 		);
-		$this->assertEquals($expected, $actual, "unzipAll");
+		$this->assertEquals(sort($expected), sort($actual), 'unzipAll');
 		$this->recursiveRemoveDirectory($cacheDir);
 	}
 
-	private function getDirectroyListing($topdir,$onlydirectories=false) {
+	private function getDirectroyListing($topdir, $onlydirectories = false) {
 		$iter = new RecursiveIteratorIterator(
-		new RecursiveDirectoryIterator($topdir, RecursiveDirectoryIterator::SKIP_DOTS),
+			new RecursiveDirectoryIterator($topdir, RecursiveDirectoryIterator::SKIP_DOTS),
 			RecursiveIteratorIterator::SELF_FIRST,
 			RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
 		);
 		$actual = array($topdir);
 		foreach ($iter as $path => $dir) {
-			if (!$onlydirectories or $dir->isDir()) {
+			if (!$onlydirectories || $dir->isDir()) {
 				$actual[] = $path;
 			}
 		}
