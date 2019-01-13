@@ -586,6 +586,55 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 	}
 
 	/**
+	 * Method testgetEntityFieldNames
+	 * @test
+	 */
+	public function testgetEntityFieldNames() {
+		$expected = array(
+			'tablename' => 'vtiger_account',
+			'modulename' => 'Accounts',
+			'fieldname' => 'accountname',
+			'entityidfield' => 'accountid',
+		);
+		$this->assertEquals($expected, getEntityFieldNames('Accounts'), 'getEntityFieldNames accounts');
+		$expected = array(
+			'tablename' => 'vtiger_contactdetails',
+			'modulename' => 'Contacts',
+			'fieldname' => array('firstname', 'lastname'),
+			'entityidfield' => 'contactid',
+		);
+		$this->assertEquals($expected, getEntityFieldNames('Contacts'), 'getEntityFieldNames contacts');
+		$expected = array(
+			'tablename' => 'vtiger_notes',
+			'modulename' => 'Documents',
+			'fieldname' => 'title',
+			'entityidfield' => 'notesid',
+		);
+		$this->assertEquals($expected, getEntityFieldNames('Documents'), 'getEntityFieldNames documents');
+		$expected = array(
+			'tablename' => 'vtiger_troubletickets',
+			'modulename' => 'HelpDesk',
+			'fieldname' => 'title',
+			'entityidfield' => 'ticketid',
+		);
+		$this->assertEquals($expected, getEntityFieldNames('HelpDesk'), 'getEntityFieldNames HelpDesk');
+		$expected = array(
+			'tablename' => 'vtiger_faq',
+			'modulename' => 'Faq',
+			'fieldname' => 'question',
+			'entityidfield' => 'id',
+		);
+		$this->assertEquals($expected, getEntityFieldNames('Faq'), 'getEntityFieldNames Faq');
+		$expected = array(
+			'tablename' => '',
+			'modulename' => '',
+			'fieldname' => '',
+			'entityidfield' => '',
+		);
+		$this->assertEquals($expected, getEntityFieldNames('Unknown'), 'getEntityFieldNames Unknown');
+	}
+
+	/**
 	 * Method testgetEntityField
 	 * @test
 	 */
