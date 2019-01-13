@@ -34,7 +34,7 @@
 		<testsuite name="cbMapTest">
 			<directory>./modules/cbMap</directory>
 		</testsuite>
-		<testsuite name="cbTranslation">
+		<testsuite name="translations">
 			<directory>./modules/cbtranslation</directory>
 		</testsuite>
 		<testsuite name="LeadsTest">
