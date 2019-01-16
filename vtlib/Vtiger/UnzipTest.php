@@ -237,6 +237,8 @@ class testVtlibUnzip extends TestCase {
 			)
 		);
 		$actual = $this->getDirectroyListing($cacheDir, true);
+		$actual = sort($actual);
+		$expected = sort($expected);
 		$this->assertEquals($expected, $actual, 'unzipAllEx directory list');
 		$this->recursiveRemoveDirectory($cacheDir);
 	}
