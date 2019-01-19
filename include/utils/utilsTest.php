@@ -372,7 +372,7 @@ class testutils extends TestCase {
 		$actual = getDuplicateQuery($module, $field_values, $ui_type_arr);
 		$this->assertEquals($expected, $actual, "Test getDuplicatesQuery Method on $module Module");
 	}
-	
+
 	/**
 	 * Method getProfile2FieldPermissionListProvider
 	 * params
@@ -530,5 +530,36 @@ class testutils extends TestCase {
 	public function testgetProfile2FieldPermissionList($module, $profileid, $expected) {
 		$actual = getProfile2FieldPermissionList($module, $profileid);
 		$this->assertEquals($expected, $actual, "Test getProfile2FieldPermissionList Method on $module Module and Profileid $profileid");
+	}
+
+	/**
+	 * Method getConvertToMinutesProvider
+	 * params
+	 */
+	public function getConvertToMinutesProvider() {
+		return array(
+			array('', 0),
+			array('0', 0),
+			array('1 Minute', 1),
+			array('5 Minutes', 5),
+			array('15 Minutes', 15),
+			array('30 Minutes', 30),
+			array('45 Minutes', 45),
+			array('1 Hour', 60),
+			array('1 Day', 1440),
+			array('8 Minutes', 8),
+			array('5 Hours', 300),
+			array('5 Days', 7200),
+		);
+	}
+
+		/**
+	 * Method testConvertToMinutes
+	 * @test
+	 * @dataProvider getConvertToMinutesProvider
+	 */
+	public function testConvertToMinutes($tstring, $expected) {
+		$actual = ConvertToMinutes($tstring);
+		$this->assertEquals($expected, $actual, "Test ConvertToMinutes $tstring");
 	}
 }
