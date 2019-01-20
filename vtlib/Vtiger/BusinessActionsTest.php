@@ -163,12 +163,8 @@ class BusinessActionsTest extends TestCase {
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$actualLinks = $module_contacts->getLinks();
 
-		// Last link
-		$lastLink = end($actualLinks);
-		reset($actualLinks);
-
 		// Remove last link
-		array_pop($actualLinks);
+		$lastLink = array_pop($actualLinks);
 
 		// Delete last link
 		Vtiger_Link::deleteLink($lastLink->tabid, $lastLink->linktype, $lastLink->linklabel);
