@@ -10,15 +10,15 @@ The goal of the project is to create a set of automatic validations, more orient
 Installation
 -------
 
-Clone the the full [coreBOS repository](https://github.com/tsolucio/corebos). The coreBOS Tests project is a submodule inside the coreBOS github repository. So you will have to follow the typical steps to get the code from the submodule:
+Clone the the full [coreBOS repository](https://github.com/tsolucio/corebos). The coreBOS Tests project must be cloned inside the build directory with the name **coreBOSTests**, so this should do the trick:
 ```
-git submodule init
-git submodule update
+cd build
+git clone https://github.com/tsolucio/coreBOSTests
 ```
 
 Create a database with the contents of the test database which can be found in build/coreBOSTests/database/coreBOSTests.sql
 
-Next copy the test config.inc.php file from build/coreBOSTests/database/config.inc.php to the root of the test project:
+Next copy the test **config.inc.php** file from build/coreBOSTests/database/config.inc.php to the root of the test project:
 ```
 cd {coreBOSTests Project directory}
 cp build/coreBOSTests/database/config.inc.php .
@@ -31,8 +31,8 @@ Now edit the file and correctly set the variables:
 You should be able to log in with the user and password "admin".
 
 * go to coreBOS Updater, load and apply all changes (as always)
-* go to Settings > Access Privileges and "Recalculate"
-* go to Settings > Module Manager. Deactivate and Activate the Assets module (for example). We do this to generate and update the tabdata.php file.
+* go to Settings > Module Manager. Deactivate and Activate the Assets module (for example). We do this to generate and update the tabdata.php file. Alternatively you can execute: `build/HelperScripts/update_tabdata`
+* go to Settings > Access Privileges and "Recalculate". Alternatively you can execute: `build/HelperScripts/createuserfiles`
 
 You should be able to run the different tests now.
 
