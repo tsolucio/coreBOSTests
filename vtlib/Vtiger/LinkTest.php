@@ -56,7 +56,7 @@ class vtlibLinkTest extends TestCase {
 		$actual = Vtiger_Link::getAllByType(getTabid('CobroPago'), 'DETAILVIEWBASIC', $customlink_params);
 		$expectedLink = new Vtiger_Link();
 		$expectedLink->tabid = '42';
-		$expectedLink->linkid = $actual['DETAILVIEWBASIC']->linkid;
+		$expectedLink->linkid = $actual[0]->linkid;
 		$expectedLink->linktype = 'DETAILVIEWBASIC';
 		$expectedLink->linklabel = 'View History';
 		$expectedLink->linkurl = "javascript:ModTrackerCommon.showhistory('14297')";
@@ -67,9 +67,7 @@ class vtlibLinkTest extends TestCase {
 		$expectedLink->handler_class = 'ModTracker';
 		$expectedLink->handler = 'isViewPermitted';
 		$expectedLink->onlyonmymodule = '0';
-		$expected = array(
-			'DETAILVIEWBASIC' => $expectedLink,
-		);
+		$expected = array($expectedLink);
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -117,7 +115,7 @@ class vtlibLinkTest extends TestCase {
 		$link->onlyonmymodule = $onlyonmymodule;
 
 		// Adding link object to expectedLinks
-		$expectedLinks["LISTVIEWBASIC"] = $link;
+		$expectedLinks[] = $link;
 
 		// Delete created link
 		Vtiger_Link::deleteLink($tabid, $linktype, $linklabel);
