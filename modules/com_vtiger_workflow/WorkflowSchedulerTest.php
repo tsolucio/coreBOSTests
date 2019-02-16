@@ -19,6 +19,7 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class WorkflowSchedulerTest extends TestCase {
 
 	/**
@@ -74,5 +75,4 @@ class WorkflowSchedulerTest extends TestCase {
 			$wm->delete($workflowid_to_evaluate); // cleanup
 		}
 	}
-
 }

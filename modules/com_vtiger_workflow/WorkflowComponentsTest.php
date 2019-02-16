@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -23,6 +23,7 @@ include_once 'modules/com_vtiger_workflow/WorkflowComponents.php';
 unset($_REQUEST['mode']);
 
 use PHPUnit\Framework\TestCase;
+
 class WorkflowComponentsTest extends TestCase {
 
 	/**
@@ -42,23 +43,23 @@ class WorkflowComponentsTest extends TestCase {
 			'entities' => array(
 				'CobroPago' => array(
 					'fieldname' => 'related_id',
-					'modulelabel' => getTranslatedString('CobroPago','CobroPago')
+					'modulelabel' => getTranslatedString('CobroPago', 'CobroPago')
 				),
 				'Assets' => array(
 					'fieldname' => 'invoiceid',
-					'modulelabel' => getTranslatedString('Assets','Assets')
+					'modulelabel' => getTranslatedString('Assets', 'Assets')
 				),
 				'InventoryDetails' => array(
 					'fieldname' => 'related_to',
-					'modulelabel' => getTranslatedString('InventoryDetails','InventoryDetails')
+					'modulelabel' => getTranslatedString('InventoryDetails', 'InventoryDetails')
 				),
 				'cbCalendar' => array(
 					'fieldname' => 'rel_id',
-					'modulelabel' => getTranslatedString('cbCalendar','cbCalendar')
+					'modulelabel' => getTranslatedString('cbCalendar', 'cbCalendar')
 				),
 				'cbtranslation' => array(
 					'fieldname' => 'translates',
-					'modulelabel' => getTranslatedString('cbtranslation','cbtranslation')
+					'modulelabel' => getTranslatedString('cbtranslation', 'cbtranslation')
 				),
 			)
 		);
@@ -74,23 +75,22 @@ class WorkflowComponentsTest extends TestCase {
 			'entities' => array(
 				'CobroPago' => array(
 					'fieldname' => 'related_id',
-					'modulelabel' => getTranslatedString('CobroPago','CobroPago')
+					'modulelabel' => getTranslatedString('CobroPago', 'CobroPago')
 				),
 				'InventoryDetails' => array(
 					'fieldname' => 'related_to',
-					'modulelabel' => getTranslatedString('InventoryDetails','InventoryDetails')
+					'modulelabel' => getTranslatedString('InventoryDetails', 'InventoryDetails')
 				),
 				'cbCalendar' => array(
 					'fieldname' => 'rel_id',
-					'modulelabel' => getTranslatedString('cbCalendar','cbCalendar')
+					'modulelabel' => getTranslatedString('cbCalendar', 'cbCalendar')
 				),
 				'cbtranslation' => array(
 					'fieldname' => 'translates',
-					'modulelabel' => getTranslatedString('cbtranslation','cbtranslation')
+					'modulelabel' => getTranslatedString('cbtranslation', 'cbtranslation')
 				),
 			)
 		);
 		$this->assertEquals($expected, $depmods_arr, 'SalesOrder deps array');
 	}
-
 }
