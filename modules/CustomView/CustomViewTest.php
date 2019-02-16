@@ -109,4 +109,85 @@ class CustomViewTest extends TestCase {
 		);
 		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid cbupdater execstate');
 	}
+
+	/**
+	 * Method testgetAdvFilterByCvidWithCurrentUser
+	 * @test
+	 */
+	public function testgetAdvFilterByCvidWithCurrentUser() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(1); // admin
+		$current_user = $user;
+		$cv = new CustomView('Accounts');
+		$actual = $cv->getAdvFilterByCvid(90);
+		$expected = array(
+			1 => array(
+				'columns' => array(
+					array(
+						'columnname' => 'vtiger_crmentity:smcreatorid:created_user_id:Accounts_Created_By:V',
+						'comparator' => 'e',
+						'value' => 'Administrator',
+						'column_condition' => '',
+					),
+				),
+				'condition' => '',
+			),
+		);
+		$cv = new CustomView('CobroPago');
+		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user admin');
+		$actual = $cv->getAdvFilterByCvid(91);
+		$expected = array(
+			1 => array(
+				'columns' => array(
+					array(
+						'columnname' => 'vtiger_cobropago:comercialid:reports_to_id:CobroPago_Comercial:V',
+						'comparator' => 'e',
+						'value' => 'Administrator',
+						'column_condition' => '',
+					),
+				),
+				'condition' => '',
+			),
+		);
+		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user 101 admin');
+		//////
+		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
+		$current_user = $user;
+		$cv = new CustomView('Accounts');
+		$actual = $cv->getAdvFilterByCvid(90);
+		$expected = array(
+			1 => array(
+				'columns' => array(
+					array(
+						'columnname' => 'vtiger_crmentity:smcreatorid:created_user_id:Accounts_Created_By:V',
+						'comparator' => 'e',
+						'value' => 'cbTest testmdy',
+						'column_condition' => '',
+					),
+				),
+				'condition' => '',
+			),
+		);
+		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user testmdy');
+		$cv = new CustomView('CobroPago');
+		$actual = $cv->getAdvFilterByCvid(91);
+		$expected = array(
+			1 => array(
+				'columns' => array(
+					array(
+						'columnname' => 'vtiger_cobropago:comercialid:reports_to_id:CobroPago_Comercial:V',
+						'comparator' => 'e',
+						'value' => 'cbTest testmdy',
+						'column_condition' => '',
+					),
+				),
+				'condition' => '',
+			),
+		);
+		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user 101 testmdy');
+		$current_user = $user;
+		$current_user = $holduser;
+	}
 }
