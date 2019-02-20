@@ -150,5 +150,118 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$postValues->retrieve_entity_info($lastcrmid, 'HelpDesk');
 		unset($postValues->column_fields['assigned_user_id'], $postValues->column_fields['modifiedtime']);
 		$this->assertEquals($preValues, $postValues, 'HelpDesk update record does not change');
+		$current_user = $holduser;
+	}
+
+	public function testCorrectUpdateRelatedTo() {
+		global $adb, $current_user;
+
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$current_user = $adminUser;
+		$taskId = 37; // Update related records
+		$CobroPagoWSID = '28x';
+		$cypid = '14501';// the id of the CobroPago Record
+		$entityId = $CobroPagoWSID.$cypid;
+		$preValues = array();
+		$preValues['CobroPago'] = CRMEntity::getInstance('CobroPago');
+		$preValues['CobroPago']->retrieve_entity_info($cypid, 'CobroPago');
+		$preValues['Products'] = CRMEntity::getInstance('Products');
+		$preValues['Products']->retrieve_entity_info(2633, 'Products');
+		$prePdoPrices = getPriceDetailsForProduct(2633, 3.89, 'available', 'Products');
+		$preTaxDetails = getTaxDetailsForProduct(2633, 'available_associated');
+		for ($i=0; $i<count($preTaxDetails); $i++) {
+			$tax_value = getProductTaxPercentage($preTaxDetails[$i]['taxname'], 2633);
+			$preTaxDetails[$i]['percentage'] = $tax_value;
+			$preTaxDetails[$i]['check_value'] = 1;
+			if ($tax_value == '') {
+				$preTaxDetails[$i]['check_value'] = 0;
+				$preTaxDetails[$i]['percentage'] = getTaxPercentage($preTaxDetails[$i]['taxname']);
+			}
+		}
+		$preValues['Vendors'] = CRMEntity::getInstance('Vendors');
+		$preValues['Vendors']->retrieve_entity_info(2350, 'Vendors');
+		unset($preValues['CobroPago']->column_fields['modifiedtime'], $preValues['Vendors']->column_fields['modifiedtime'], $preValues['Products']->column_fields['modifiedtime']);
+		$orgValVendorspobox = $preValues['Vendors']->column_fields['pobox'];
+		$orgValVendorscountry = $preValues['Vendors']->column_fields['country'];
+		$orgValProductsunit_price = $preValues['Products']->column_fields['unit_price'];
+
+		$tm = new VTTaskManager($adb);
+		$task = $tm->retrieveTask($taskId);
+		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test retrieveTask');
+		list($moduleId, $crmId) = explode('x', $entityId);
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$task->doTask($entity);
+		$postValues = array();
+		$postValues['CobroPago'] = CRMEntity::getInstance('CobroPago');
+		$postValues['CobroPago']->retrieve_entity_info($cypid, 'CobroPago');
+		$postValues['Products'] = CRMEntity::getInstance('Products');
+		$postValues['Products']->retrieve_entity_info(2633, 'Products');
+		$postValues['Vendors'] = CRMEntity::getInstance('Vendors');
+		$postValues['Vendors']->retrieve_entity_info(2350, 'Vendors');
+		unset($postValues['CobroPago']->column_fields['modifiedtime'], $postValues['Vendors']->column_fields['modifiedtime'], $postValues['Products']->column_fields['modifiedtime']);
+		$this->assertEquals('wfupdated', $postValues['Vendors']->column_fields['pobox'], 'workflow action Vendors');
+		$this->assertEquals('ab', $postValues['Vendors']->column_fields['country'], 'workflow action Vendors');
+		$this->assertEquals(223.00, $postValues['Products']->column_fields['unit_price'], 'workflow action Products');
+		$postValues['Vendors']->column_fields['pobox'] = $orgValVendorspobox; // undo workflow action
+		$postValues['Vendors']->column_fields['country'] = $orgValVendorscountry; // undo workflow action
+		$postValues['Products']->column_fields['unit_price'] = $orgValProductsunit_price; // undo workflow action
+		$this->assertEquals($preValues['CobroPago'], $postValues['CobroPago'], 'CyP after update');
+		$this->assertEquals($preValues['Vendors'], $postValues['Vendors'], 'Vendors after update');
+		$this->assertEquals($preValues['Products'], $postValues['Products'], 'Products after update');
+		// undo workflow
+		$adb->pquery('update vtiger_vendor set pobox=?, country=? where vendorid=?', array($orgValVendorspobox, $orgValVendorscountry, 2350));
+		$adb->pquery('update vtiger_products set unit_price=? where productid=?', array($orgValProductsunit_price, 2633));
+
+		// Now with normal user
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
+		$holduser = $current_user;
+		$current_user = $user;
+
+		$tm = new VTTaskManager($adb);
+		$task = $tm->retrieveTask($taskId);
+		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test retrieveTask');
+		list($moduleId, $crmId) = explode('x', $entityId);
+		$entity = new VTWorkflowEntity($current_user, $entityId);
+		$task->doTask($entity);
+		$current_user = $holduser;
+		$postValues = array();
+		$postValues['CobroPago'] = CRMEntity::getInstance('CobroPago');
+		$postValues['CobroPago']->retrieve_entity_info($cypid, 'CobroPago');
+		$postValues['Products'] = CRMEntity::getInstance('Products');
+		$postValues['Products']->retrieve_entity_info(2633, 'Products');
+		$postPdoPrices = getPriceDetailsForProduct(2633, 3.89, 'available', 'Products');
+		$postTaxDetails = getTaxDetailsForProduct(2633, 'available_associated');
+		for ($i=0; $i<count($postTaxDetails); $i++) {
+			$tax_value = getProductTaxPercentage($preTaxDetails[$i]['taxname'], 2633);
+			$postTaxDetails[$i]['percentage'] = $tax_value;
+			$postTaxDetails[$i]['check_value'] = 1;
+			if ($tax_value == '') {
+				$postTaxDetails[$i]['check_value'] = 0;
+				$postTaxDetails[$i]['percentage'] = getTaxPercentage($postTaxDetails[$i]['taxname']);
+			}
+		}
+		$postValues['Vendors'] = CRMEntity::getInstance('Vendors');
+		$postValues['Vendors']->retrieve_entity_info(2350, 'Vendors');
+		unset($postValues['CobroPago']->column_fields['modifiedtime'], $postValues['Vendors']->column_fields['modifiedtime'], $postValues['Products']->column_fields['modifiedtime']);
+		$this->assertEquals('wfupdated', $postValues['Vendors']->column_fields['pobox'], 'workflow action Vendors normal user');
+		$this->assertEquals('ab', $postValues['Vendors']->column_fields['country'], 'workflow action Vendors');
+		$this->assertEquals(223.00, $postValues['Products']->column_fields['unit_price'], 'workflow action Products normal user');
+		$postValues['Vendors']->column_fields['pobox'] = $orgValVendorspobox; // undo workflow action
+		$postValues['Vendors']->column_fields['country'] = $orgValVendorscountry; // undo workflow action
+		$postValues['Products']->column_fields['unit_price'] = $orgValProductsunit_price; // undo workflow action
+		$this->assertEquals($preValues['CobroPago'], $postValues['CobroPago'], 'CyP after update');
+		$this->assertEquals($preValues['Vendors'], $postValues['Vendors'], 'Vendors after update');
+		$this->assertEquals($preValues['Products'], $postValues['Products'], 'Products after update');
+		$this->assertEquals(223.00, $postPdoPrices[0]['curvalue'], 'Product Prices after update');
+		$postPdoPrices[0]['curvalue'] = $orgValProductsunit_price;
+		$this->assertEquals($prePdoPrices, $postPdoPrices, 'Product Prices after update');
+		$this->assertEquals($preTaxDetails, $postTaxDetails, 'Product Taxes after update');
+		// Teardown
+		$util->revertUser();
+		$adb->pquery('update vtiger_crmentity set smownerid=? where crmid=?', array('6', $cypid));
+		$adb->pquery('update vtiger_vendor set pobox=?, country=? where vendorid=?', array($orgValVendorspobox, $orgValVendorscountry, 2350));
+		$adb->pquery('update vtiger_products set unit_price=? where productid=?', array($orgValProductsunit_price, 2633));
 	}
 }
