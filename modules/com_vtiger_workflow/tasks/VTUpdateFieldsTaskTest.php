@@ -202,7 +202,7 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		unset($postValues['CobroPago']->column_fields['modifiedtime'], $postValues['Vendors']->column_fields['modifiedtime'], $postValues['Products']->column_fields['modifiedtime']);
 		$this->assertEquals('wfupdated', $postValues['Vendors']->column_fields['pobox'], 'workflow action Vendors');
 		$this->assertEquals('ab', $postValues['Vendors']->column_fields['country'], 'workflow action Vendors');
-		$this->assertEquals(3.89, $postValues['Products']->column_fields['unit_price'], 'workflow action Products');
+		$this->assertEquals(223.00, $postValues['Products']->column_fields['unit_price'], 'workflow action Products');
 		$postValues['Vendors']->column_fields['pobox'] = $orgValVendorspobox; // undo workflow action
 		$postValues['Vendors']->column_fields['country'] = $orgValVendorscountry; // undo workflow action
 		$postValues['Products']->column_fields['unit_price'] = $orgValProductsunit_price; // undo workflow action
@@ -247,14 +247,14 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		unset($postValues['CobroPago']->column_fields['modifiedtime'], $postValues['Vendors']->column_fields['modifiedtime'], $postValues['Products']->column_fields['modifiedtime']);
 		$this->assertEquals('wfupdated', $postValues['Vendors']->column_fields['pobox'], 'workflow action Vendors normal user');
 		$this->assertEquals('ab', $postValues['Vendors']->column_fields['country'], 'workflow action Vendors');
-		$this->assertEquals(3.89, $postValues['Products']->column_fields['unit_price'], 'workflow action Products normal user');
+		$this->assertEquals(223.00, $postValues['Products']->column_fields['unit_price'], 'workflow action Products normal user');
 		$postValues['Vendors']->column_fields['pobox'] = $orgValVendorspobox; // undo workflow action
 		$postValues['Vendors']->column_fields['country'] = $orgValVendorscountry; // undo workflow action
 		$postValues['Products']->column_fields['unit_price'] = $orgValProductsunit_price; // undo workflow action
 		$this->assertEquals($preValues['CobroPago'], $postValues['CobroPago'], 'CyP after update');
 		$this->assertEquals($preValues['Vendors'], $postValues['Vendors'], 'Vendors after update');
 		$this->assertEquals($preValues['Products'], $postValues['Products'], 'Products after update');
-		$this->assertEquals(3.89, $postPdoPrices[0]['curvalue'], 'Product Prices after update');
+		$this->assertEquals(223.00, $postPdoPrices[0]['curvalue'], 'Product Prices after update');
 		$postPdoPrices[0]['curvalue'] = $orgValProductsunit_price;
 		$this->assertEquals($prePdoPrices, $postPdoPrices, 'Product Prices after update');
 		$this->assertEquals($preTaxDetails, $postTaxDetails, 'Product Taxes after update');
