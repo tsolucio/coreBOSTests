@@ -116,17 +116,18 @@ class CustomViewTest extends TestCase {
 	 */
 	public function testgetAdvFilterByCvidWithCurrentUser() {
 		global $current_user;
+		unset($_REQUEST['action'], $_REQUEST['record']);
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(1); // admin
 		$current_user = $user;
 		$cv = new CustomView('Accounts');
-		$actual = $cv->getAdvFilterByCvid(90);
+		$actual = $cv->getAdvFilterByCvid(82);
 		$expected = array(
 			1 => array(
 				'columns' => array(
 					array(
-						'columnname' => 'vtiger_crmentity:smcreatorid:created_user_id:Accounts_Created_By:V',
+						'columnname' => 'vtiger_crmentity:smownerid:assigned_user_id:Accounts_Assigned_To:V',
 						'comparator' => 'e',
 						'value' => 'Administrator',
 						'column_condition' => '',
@@ -135,9 +136,9 @@ class CustomViewTest extends TestCase {
 				'condition' => '',
 			),
 		);
-		$cv = new CustomView('CobroPago');
 		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user admin');
-		$actual = $cv->getAdvFilterByCvid(91);
+		$cv = new CustomView('CobroPago');
+		$actual = $cv->getAdvFilterByCvid(81);
 		$expected = array(
 			1 => array(
 				'columns' => array(
@@ -156,12 +157,12 @@ class CustomViewTest extends TestCase {
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$current_user = $user;
 		$cv = new CustomView('Accounts');
-		$actual = $cv->getAdvFilterByCvid(90);
+		$actual = $cv->getAdvFilterByCvid(82);
 		$expected = array(
 			1 => array(
 				'columns' => array(
 					array(
-						'columnname' => 'vtiger_crmentity:smcreatorid:created_user_id:Accounts_Created_By:V',
+						'columnname' => 'vtiger_crmentity:smownerid:assigned_user_id:Accounts_Assigned_To:V',
 						'comparator' => 'e',
 						'value' => 'cbTest testmdy',
 						'column_condition' => '',
@@ -172,7 +173,7 @@ class CustomViewTest extends TestCase {
 		);
 		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user testmdy');
 		$cv = new CustomView('CobroPago');
-		$actual = $cv->getAdvFilterByCvid(91);
+		$actual = $cv->getAdvFilterByCvid(81);
 		$expected = array(
 			1 => array(
 				'columns' => array(
