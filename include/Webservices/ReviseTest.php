@@ -17,19 +17,19 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class WSReviseTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
 	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
 	 ****/
-	var $usrdota0x = 5; // testdmy
-	var $usrcomd0x = 6; // testmdy
-	var $usrdotd3com = 7; // testymd
-	var $usrcoma3dot = 10; // testtz
-	var $usrdota3comdollar = 12; // testmcurrency
+	public $usrdota0x = 5; // testdmy
+	public $usrcomd0x = 6; // testmdy
+	public $usrdotd3com = 7; // testymd
+	public $usrcoma3dot = 10; // testtz
+	public $usrdota3comdollar = 12; // testmcurrency
 
 	/**
 	 * Method testReviseWithCheckboxes
@@ -117,6 +117,5 @@ class WSReviseTest extends TestCase {
 		/// end
 		$current_user = $holduser;
 	}
-
 }
 ?>

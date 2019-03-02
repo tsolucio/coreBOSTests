@@ -19,6 +19,7 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class WebserviceFieldTest extends TestCase {
 
 	/**
@@ -43,6 +44,5 @@ class WebserviceFieldTest extends TestCase {
 		$this->assertTrue($wsfield->isOwnerField(), 'potential: assigned_user_id is owner');
 		$this->assertTrue($wsfield->isMassEditable(), 'potential: assigned_user_id is mass editable');
 	}
-
 }
 ?>

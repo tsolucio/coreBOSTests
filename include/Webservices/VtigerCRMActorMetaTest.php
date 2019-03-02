@@ -19,6 +19,7 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class VtigerCRMActorMetaTest extends TestCase {
 
 	/**
@@ -32,7 +33,7 @@ class VtigerCRMActorMetaTest extends TestCase {
 		$handlerClass = $webserviceObject->getHandlerClass();
 		require_once $handlerPath;
 		$obj = new VtigerCRMActorMeta('vtiger_account', $webserviceObject, $adb, $current_user);
-		$this->assertEquals('VtigerCRMActorMeta',  get_class($obj), 'Class instantiated correctly');
+		$this->assertEquals('VtigerCRMActorMeta', get_class($obj), 'Class instantiated correctly');
 		$this->assertEquals('Accounts', $obj->getEntityName(), 'module name');
 		$this->assertEquals(11, $obj->getEntityId(), 'module ID');
 	}
