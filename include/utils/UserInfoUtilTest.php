@@ -113,6 +113,8 @@ class testUserInfoUtil extends TestCase {
 			71 => '0',
 			72 => '0',
 			73 => '0',
+			74 => '0',
+			75 => '0',
 		);
 		$expected = array(
 			'1' => $profiles,
@@ -211,6 +213,8 @@ class testUserInfoUtil extends TestCase {
 			71 => '0',
 			72 => '0',
 			73 => '0',
+			74 => '0',
+			75 => '0',
 		);
 		$prof4 = $profiles;
 		$prof4[45] = $prof4[52] = '1';
@@ -290,6 +294,8 @@ class testUserInfoUtil extends TestCase {
 			71 => '3',
 			72 => '3',
 			73 => '2',
+			74 => '2',
+			75 => '2',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingEditAction");
 	}
@@ -344,6 +350,8 @@ class testUserInfoUtil extends TestCase {
 			71 => '3',
 			72 => '3',
 			73 => '2',
+			74 => '2',
+			75 => '2',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingAction");
 	}

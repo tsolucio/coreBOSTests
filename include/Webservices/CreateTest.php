@@ -19,17 +19,18 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class WSCreateTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
 	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
 	 ****/
-	var $usrdota0x = 5; // testdmy
-	var $usrcomd0x = 6; // testmdy
-	var $usrdotd3com = 7; // testymd
-	var $usrcoma3dot = 10; // testtz
-	var $usrdota3comdollar = 12; // testmcurrency
+	public $usrdota0x = 5; // testdmy
+	public $usrcomd0x = 6; // testmdy
+	public $usrdotd3com = 7; // testymd
+	public $usrcoma3dot = 10; // testtz
+	public $usrdota3comdollar = 12; // testmcurrency
 
 	/**
 	 * Method testCreateWithCurrencyCorrect
@@ -74,14 +75,14 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['campaign_no'] = $actual['campaign_no'];
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['closingdate'] = '2015-12-25';
-		$ObjectValues['expectedrevenue'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['budgetcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['expectedroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedrevenue'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Test currency usrdota0x Correct');
+		$this->assertEquals($ObjectValues, $actual, 'Test currency usrdota0x Correct');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot); // testtz
 		$current_user = $user;
@@ -116,14 +117,14 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['campaign_no'] = $actual['campaign_no'];
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['closingdate'] = '2015-12-25';
-		$ObjectValues['expectedrevenue'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['budgetcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['expectedroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedrevenue'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Test currency usrcoma3dot Correct');
+		$this->assertEquals($ObjectValues, $actual, 'Test currency usrcoma3dot Correct');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
 		$current_user = $user;
@@ -158,14 +159,14 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['campaign_no'] = $actual['campaign_no'];
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['closingdate'] = '2015-12-25';
-		$ObjectValues['expectedrevenue'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['budgetcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['expectedroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedrevenue'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Test currency usrcomd0x Correct');
+		$this->assertEquals($ObjectValues, $actual, 'Test currency usrcomd0x Correct');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
 		$current_user = $user;
@@ -200,14 +201,14 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['campaign_no'] = $actual['campaign_no'];
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['closingdate'] = '2015-12-25';
-		$ObjectValues['expectedrevenue'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['budgetcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['expectedroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedrevenue'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Test currency usrdotd3com Correct');
+		$this->assertEquals($ObjectValues, $actual, 'Test currency usrdotd3com Correct');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar); // testmcurrency
 		$current_user = $user;
@@ -242,14 +243,14 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['campaign_no'] = $actual['campaign_no'];
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['closingdate'] = '2015-12-25';
-		$ObjectValues['expectedrevenue'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['budgetcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualcost'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['actualroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
-		$ObjectValues['expectedroi'] = round($testcurrency,CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedrevenue'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['budgetcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualcost'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['actualroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
+		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Test currency usrdota3comdollar Correct');
+		$this->assertEquals($ObjectValues, $actual, 'Test currency usrdota3comdollar Correct');
 		/// end
 		$current_user = $holduser;
 	}
@@ -292,7 +293,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['dateinservice'] = '2015-12-25';
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Test d-m-Y Correct');
+		$this->assertEquals($ObjectValues, $actual, 'Test d-m-Y Correct');
 		///  m-d-Y
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$current_user = $user;
@@ -322,7 +323,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['dateinservice'] = '2015-12-25';
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Test m-d-Y Correct');
+		$this->assertEquals($ObjectValues, $actual, 'Test m-d-Y Correct');
 		///  Y-m-d
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$current_user = $user;
@@ -350,7 +351,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Test Y-m-d Correct');
+		$this->assertEquals($ObjectValues, $actual, 'Test Y-m-d Correct');
 		/// end
 		$current_user = $holduser;
 	}
@@ -491,10 +492,12 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-		$this->assertEquals($ObjectValues, $actual,'Create with relation to helpdesk');
+		$this->assertEquals($ObjectValues, $actual, 'Create with relation to helpdesk');
 		list($void,$assetid) = explode('x', $actual['id']);
-		$rels = $adb->pquery('select * from vtiger_crmentityrel where crmid=? and module=? and relcrmid=? and relmodule=?',
-			array($assetid,'Assets','2637','HelpDesk'));
+		$rels = $adb->pquery(
+			'select * from vtiger_crmentityrel where crmid=? and module=? and relcrmid=? and relmodule=?',
+			array($assetid,'Assets','2637','HelpDesk')
+		);
 		$this->assertEquals(1, $adb->num_rows($rels), 'Asset-HelpDesk related');
 		/// end
 		$current_user = $holduser;
@@ -585,6 +588,7 @@ class WSCreateTest extends TestCase {
 			  ),
 			),
 		);
+		$_FILES=array();
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		$ObjectValues['salesorder_no'] = $actual['salesorder_no'];
 		$ObjectValues['id'] = $actual['id'];
@@ -621,7 +625,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['pl_sh_tax'] = '1.200000';
 		$ObjectValues['pl_grand_total'] = '90.030000';
 		$ObjectValues['pl_adjustment'] = '40.000000';
-		$this->assertEquals($ObjectValues, $actual,'Create salesorder');
+		$this->assertEquals($ObjectValues, $actual, 'Create salesorder');
 		/// end
 		$current_user = $holduser;
 	}
@@ -665,15 +669,16 @@ class WSCreateTest extends TestCase {
 			'modifiedby' => $cbUserID,
 		);
 		//$this->expectException('WebServiceException');
+		$_FILES=array();
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		$ObjectValues['note_no'] = $actual['note_no'];
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		unset($ObjectValues['filename']);
-		$this->assertEquals($ObjectValues, $actual,'Create Documents');
+		$this->assertEquals($ObjectValues, $actual, 'Create Documents');
 		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
-		$this->assertEquals($model_filename['content'], $sdoc[$actual['id']]['attachment'],'Document Attachment');
+		$this->assertEquals($model_filename['content'], $sdoc[$actual['id']]['attachment'], 'Document Attachment');
 		/// end
 		$current_user = $holduser;
 	}
@@ -709,6 +714,7 @@ class WSCreateTest extends TestCase {
 			'modifiedby' => $cbUserID,
 			'description' => 'áçèñtös',
 		);
+		$_FILES=array();
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		/// end
 		$current_user = $holduser;
@@ -745,10 +751,10 @@ class WSCreateTest extends TestCase {
 			'modifiedby' => $cbUserID,
 			'description' => 'áçèñtös',
 		);
+		$_FILES=array();
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		/// end
 		$current_user = $holduser;
 	}
-
 }
 ?>

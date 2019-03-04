@@ -182,6 +182,7 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$orgValVendorspobox = $preValues['Vendors']->column_fields['pobox'];
 		$orgValVendorscountry = $preValues['Vendors']->column_fields['country'];
 		$orgValProductsunit_price = $preValues['Products']->column_fields['unit_price'];
+		$orgValProductsModBy = $preValues['Products']->column_fields['modifiedby'];
 
 		$_REQUEST = array(
 			'hidImagePath' => 'themes/softed/images/',
@@ -203,6 +204,7 @@ class VTUpdateFieldsTaskTest extends TestCase {
 			'Module_Popup_Edit' => '',
 			'search_url' => '',
 		);
+		$_FILES=array();
 		$tm = new VTTaskManager($adb);
 		$task = $tm->retrieveTask($taskId);
 		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test updateTask module admin');
@@ -215,13 +217,18 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$postValues['Products']->retrieve_entity_info(2633, 'Products');
 		$postValues['Vendors'] = CRMEntity::getInstance('Vendors');
 		$postValues['Vendors']->retrieve_entity_info(2350, 'Vendors');
-		unset($postValues['CobroPago']->column_fields['modifiedtime'], $postValues['Vendors']->column_fields['modifiedtime'], $postValues['Products']->column_fields['modifiedtime']);
+		unset(
+			$postValues['CobroPago']->column_fields['modifiedtime'],
+			$postValues['Vendors']->column_fields['modifiedtime'],
+			$postValues['Products']->column_fields['modifiedtime']
+		);
 		$this->assertEquals('wfupdated', $postValues['Vendors']->column_fields['pobox'], 'workflow action Vendors');
 		$this->assertEquals('ab', $postValues['Vendors']->column_fields['country'], 'workflow action Vendors');
 		$this->assertEquals(223.00, $postValues['Products']->column_fields['unit_price'], 'workflow action Products');
 		$postValues['Vendors']->column_fields['pobox'] = $orgValVendorspobox; // undo workflow action
 		$postValues['Vendors']->column_fields['country'] = $orgValVendorscountry; // undo workflow action
 		$postValues['Products']->column_fields['unit_price'] = $orgValProductsunit_price; // undo workflow action
+		$postValues['Products']->column_fields['modifiedby'] = $orgValProductsModBy; // undo workflow action
 		$this->assertEquals($preValues['CobroPago'], $postValues['CobroPago'], 'CyP after update');
 		$this->assertEquals($preValues['Vendors'], $postValues['Vendors'], 'Vendors after update');
 		$this->assertEquals($preValues['Products'], $postValues['Products'], 'Products after update');
@@ -266,6 +273,7 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$postValues['Vendors']->column_fields['pobox'] = $orgValVendorspobox; // undo workflow action
 		$postValues['Vendors']->column_fields['country'] = $orgValVendorscountry; // undo workflow action
 		$postValues['Products']->column_fields['unit_price'] = $orgValProductsunit_price; // undo workflow action
+		$postValues['Products']->column_fields['modifiedby'] = $orgValProductsModBy; // undo workflow action
 		$this->assertEquals($preValues['CobroPago'], $postValues['CobroPago'], 'CyP after update');
 		$this->assertEquals($preValues['Vendors'], $postValues['Vendors'], 'Vendors after update');
 		$this->assertEquals($preValues['Products'], $postValues['Products'], 'Products after update');
@@ -434,6 +442,7 @@ class VTUpdateFieldsTaskTest extends TestCase {
 			'subtotal' => '350.82',
 			'total' => '445.54',
 		);
+		$_FILES=array();
 		$tm = new VTTaskManager($adb);
 		$task = $tm->retrieveTask($taskId);
 		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test updateTask Inventory Modules admin');

@@ -100,7 +100,74 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
 		$actual = vtws_retrieve($campaignID.'x4973', $user);
 		$this->assertEquals($expected, $actual, 'retrieve campaign usrdota3comdollar');
+		///////////////
+		$pdoID = vtws_getEntityId('Products');
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
+		$current_user = $user;
+		$actual = vtws_retrieve($pdoID.'x2633', $user);
+		unset($actual['modifiedtime'], $actual['modifiedby'], $actual['modifiedbyename']);
+		// We always get values in database format
+		$expected = array (
+			'assigned_user_id' => '19x6',
+			'createdtime' => '2015-04-06 17:00:58',
+			'description' => 'Teneo, inquit, finem illi videri nihil dolere. Quonam modo? Sin te auctoritas commovebat, nobisne omnibus et Platoni ipsi nescio quem illum anteponebas? Cum praesertim illa perdiscere ludus esset.',
+			'created_user_id' => '19x1',
+			'id' => '14x2633',
+			'productname' => 'Leagoo Lead 3s Mobile Phone',
+			'product_no' => 'PRO18',
+			'discontinued' => '1',
+			'productcode' => '',
+			'sales_start_date' => '2015-07-10',
+			'start_date' => '2012-12-31',
+			'sales_end_date' => '2024-08-03',
+			'expiry_date' => '2025-08-24',
+			'vendor_id' => '2x2363',
+			'mfr_part_no' => '',
+			'productsheet' => '',
+			'glacct' => '302-Rental-Income',
+			'unit_price' => '223.000000',
+			'commissionrate' => '0.000',
+			'taxclass' => '',
+			'cost_price' => '200.000000',
+			'usageunit' => 'M',
+			'qty_per_unit' => '0.00',
+			'qtyinstock' => '6.000',
+			'reorderlevel' => '0',
+			'qtyindemand' => '0',
+			'divisible' => '0',
+			'imagename' => '',
+			'vendor_idename' => array(
+				'module' => 'Vendors',
+				'reference' => 'E Zaks & Co',
+			),
+			'created_user_idename' => array (
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testmdy',
+			),
+		);
+		$this->assertEquals($expected, $actual, 'retrieve product usrdota0x');
 		/// end
+		$current_user = $holduser;
+	}
+
+	/**
+	 * Method testRetrieveException
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testRetrieveException() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$current_user = $user;
+		$pdoID = vtws_getEntityId('Products');
+		$actual = vtws_retrieve($pdoID.'x2633', $user);
 		$current_user = $holduser;
 	}
 

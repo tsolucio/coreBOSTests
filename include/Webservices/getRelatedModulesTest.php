@@ -291,6 +291,19 @@ class getRelatedModulesTest extends TestCase {
 					'pagesize' => 40
 				),
 			),
+			'Messages' => array(
+				'related_tabid' => '74',
+				'related_module' => 'Messages',
+				'label' => 'Messages',
+				'labeli18n' => 'Messages',
+				'actions' => 'ADD',
+				'relationId' => '191',
+				'filterFields' => array(
+					'fields' => array('messageno', 'assigned_user_id', 'createdtime', 'messagename', 'account_message', 'contact_message', 'campaign_message'),
+					'linkfields' => array('messageno'),
+					'pagesize' => 40
+				),
+			),
 		);
 		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get accounts');
 		$currentModule = 'Assets';

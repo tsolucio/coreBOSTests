@@ -631,6 +631,8 @@ class PickListUtilsTest extends TestCase {
 			'BusinessActions' => 'BusinessActions',
 			'Business Question' => 'cbQuestion',
 			'Product Component' => 'ProductComponent',
+			'Messages' => 'Messages',
+			'cbPulse' => 'cbPulse',
 		);
 		$this->assertEquals($expected, $actual);
 	}
