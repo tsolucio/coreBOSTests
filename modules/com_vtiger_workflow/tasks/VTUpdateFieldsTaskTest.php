@@ -100,7 +100,6 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$tm = new VTTaskManager($adb);
 		$task = $tm->retrieveTask($taskId);
 		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test retrieveTask');
-		list($moduleId, $crmId) = explode('x', $entityId);
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
 		$task->doTask($entity);
 		$actual=$entity->get('assigned_user_id');
@@ -114,7 +113,6 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$tm = new VTTaskManager($adb);
 		$task = $tm->retrieveTask($taskId);
 		$this->assertInstanceOf(VTEntityMethodTask::class, $task, 'test retrieveTask');
-		list($moduleId, $crmId) = explode('x', $entityId);
 		$task->doTask($entity);
 		$actual=$entity->get('assigned_user_id');
 		$expected = '19x8';
@@ -138,7 +136,6 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$tm = new VTTaskManager($adb);
 		$task = $tm->retrieveTask($taskId);
 		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test retrieveTask');
-		list($moduleId, $crmId) = explode('x', $entityId);
 		$entity = new VTWorkflowEntity($current_user, $entityId);
 		$task->doTask($entity);
 		$actual=$entity->get('assigned_user_id');
@@ -186,10 +183,29 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$orgValVendorscountry = $preValues['Vendors']->column_fields['country'];
 		$orgValProductsunit_price = $preValues['Products']->column_fields['unit_price'];
 
+		$_REQUEST = array(
+			'hidImagePath' => 'themes/softed/images/',
+			'convertmode' => '',
+			'pagenumber' => '',
+			'module' => 'CobroPago',
+			'record' => $cypid,
+			'mode' => 'edit',
+			'action' => 'Save',
+			'saverepeat' => '0',
+			'parenttab' => 'ptab',
+			'return_module' => 'CobroPago',
+			'return_id' => $cypid,
+			'return_action' => 'DetailView',
+			'return_viewname' => '',
+			'createmode' => '',
+			'cbcustominfo1' => '',
+			'cbcustominfo2' => '',
+			'Module_Popup_Edit' => '',
+			'search_url' => '',
+		);
 		$tm = new VTTaskManager($adb);
 		$task = $tm->retrieveTask($taskId);
-		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test retrieveTask');
-		list($moduleId, $crmId) = explode('x', $entityId);
+		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test updateTask module admin');
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
 		$task->doTask($entity);
 		$postValues = array();
@@ -221,8 +237,7 @@ class VTUpdateFieldsTaskTest extends TestCase {
 
 		$tm = new VTTaskManager($adb);
 		$task = $tm->retrieveTask($taskId);
-		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test retrieveTask');
-		list($moduleId, $crmId) = explode('x', $entityId);
+		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test updateTask modules user');
 		$entity = new VTWorkflowEntity($current_user, $entityId);
 		$task->doTask($entity);
 		$current_user = $holduser;
@@ -259,9 +274,279 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$this->assertEquals($prePdoPrices, $postPdoPrices, 'Product Prices after update');
 		$this->assertEquals($preTaxDetails, $postTaxDetails, 'Product Taxes after update');
 		// Teardown
-		$util->revertUser();
 		$adb->pquery('update vtiger_crmentity set smownerid=? where crmid=?', array('6', $cypid));
 		$adb->pquery('update vtiger_vendor set pobox=?, country=? where vendorid=?', array($orgValVendorspobox, $orgValVendorscountry, 2350));
 		$adb->pquery('update vtiger_products set unit_price=? where productid=?', array($orgValProductsunit_price, 2633));
+		$util->revertUser();
+		$_REQUEST = array();
+	}
+
+	public function testCorrectUpdateRelatedToInventoryModule() {
+		global $adb, $current_user;
+
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$current_user = $adminUser;
+		$taskId = 35; // Update related records InventoryDetails
+		$InvDetWSID = '36x';
+		$preValues = array();
+		$preValues['SalesOrder'] = CRMEntity::getInstance('SalesOrder');
+		$preValues['SalesOrder']->retrieve_entity_info(10655, 'SalesOrder');
+		$preValues['InvDet1'] = CRMEntity::getInstance('InventoryDetails');
+		$preValues['InvDet1']->retrieve_entity_info(10656, 'InventoryDetails');
+		$preValues['InvDet2'] = CRMEntity::getInstance('InventoryDetails');
+		$preValues['InvDet2']->retrieve_entity_info(10657, 'InventoryDetails');
+		$preValues['Products'] = CRMEntity::getInstance('Products');
+		$preValues['Products']->retrieve_entity_info(2617, 'Products');
+		$prePdoPrices = getPriceDetailsForProduct(2617, 3.89, 'available', 'Products');
+		$prePdoTaxDetails = getTaxDetailsForProduct(2617, 'available_associated');
+		$preValues['Services'] = CRMEntity::getInstance('Services');
+		$preValues['Services']->retrieve_entity_info(9752, 'Services');
+		$preSrvPrices = getPriceDetailsForProduct(9752, 3.89, 'available', 'Services');
+		$preSrvTaxDetails = getTaxDetailsForProduct(9752, 'available_associated');
+		unset(
+			$preValues['InvDet1']->column_fields['modifiedtime'],
+			$preValues['InvDet2']->column_fields['modifiedtime'],
+			$preValues['Services']->column_fields['modifiedtime'],
+			$preValues['Products']->column_fields['modifiedtime']
+		);
+		$orgValSrvDesc = $preValues['Services']->column_fields['website'];
+		$orgValPdoMfr = $preValues['Products']->column_fields['mfr_part_no'];
+
+		$_REQUEST = array(
+			'hidImagePath' => 'themes/softed/images/',
+			'convertmode' => '',
+			'pagenumber' => '',
+			'module' => 'SalesOrder',
+			'record' => '10655',
+			'mode' => 'edit',
+			'action' => 'Save',
+			'saverepeat' => '0',
+			'parenttab' => 'ptab',
+			'return_module' => 'SalesOrder',
+			'return_id' => '10655',
+			'return_action' => 'DetailView',
+			'return_viewname' => '',
+			'createmode' => '',
+			'cbcustominfo1' => '',
+			'cbcustominfo2' => '',
+			'Module_Popup_Edit' => '',
+			'search_url' => '',
+			'subject' => 'Handsaw (Power Tools)',
+			'potential_name' => 'Auctor Mauris Company',
+			'potential_id' => '5535',
+			'customerno' => '777798232-00008',
+			'salesorder_no' => 'SO8',
+			'quote_name' => 'Obadiah Shaw',
+			'quote_id' => '12153',
+			'vtiger_purchaseorder' => '',
+			'contact_name' => 'Gearldine Gellinger',
+			'contact_id' => '1466',
+			'duedate' => '2015-05-05',
+			'carrier' => 'FedEx',
+			'pending' => '',
+			'sostatus' => 'Created',
+			'salescommission' => '0.000',
+			'exciseduty' => '0.000',
+			'account_name' => 'Automation Engrg & Mfg Inc',
+			'account_id' => '10654',
+			'assigntype' => 'U',
+			'assigned_user_id' => '11',
+			'assigned_group_id' => '3',
+			'recurring_frequency' => '--None--',
+			'start_period' => '2019-03-03',
+			'end_period' => '2019-03-03',
+			'payment_duration' => 'Net 30 days',
+			'invoicestatus' => 'AutoCreated',
+			'bill_street' => '1 Back Canning St',
+			'ship_street' => '1 Back Canning St',
+			'bill_pobox' => '',
+			'ship_pobox' => '',
+			'bill_city' => 'Dunblane and Bridge of Allan W',
+			'ship_city' => 'Dunblane and Bridge of Allan W',
+			'bill_state' => 'Stirling',
+			'ship_state' => 'Stirling',
+			'bill_code' => 'FK9 4LD',
+			'ship_code' => 'FK9 4LD',
+			'bill_country' => 'United Kingdom',
+			'ship_country' => 'United Kingdom',
+			'terms_conditions' => '',
+			'tandc_type' => 'cbTermConditions',
+			'tandc' => '',
+			'tandc_display' => '',
+			'description' => '',
+			'inventory_currency' => '1',
+			'taxtype' => 'group',
+			'deleted1' => '0',
+			'lineitem_id1' => '1236',
+			'hidtax_row_no1' => '',
+			'productName1' => 'Design',
+			'hdnProductId1' => '9752',
+			'lineItemType1' => 'Services',
+			'subproduct_ids1' => '',
+			'comment1' => '',
+			'qty1' => '10.00',
+			'listPrice1' => '30.90',
+			'discount_type1' => 'zero',
+			'discount1' => 'on',
+			'discount_percentage1' => '0',
+			'discount_amount1' => '0',
+			'tax1_percentage1' => '14.500',
+			'popup_tax_row1' => '347.63',
+			'tax3_percentage1' => '112.500',
+			'deleted2' => '0',
+			'lineitem_id2' => '1237',
+			'hidtax_row_no2' => '1',
+			'productName2' => 'New FULL HD 1080P Car Video Recorder With G-Sensor and 24H Parking mode',
+			'hdnProductId2' => '2617',
+			'lineItemType2' => 'Products',
+			'subproduct_ids2' => '',
+			'comment2' => '',
+			'qty2' => '1.00',
+			'listPrice2' => '41.82',
+			'discount_type2' => 'zero',
+			'discount2' => 'on',
+			'discount_percentage2' => '0',
+			'discount_amount2' => '0',
+			'tax1_percentage2' => '14.500',
+			'popup_tax_row2' => '47.05',
+			'tax3_percentage2' => '112.500',
+			'discount_type_final' => 'zero',
+			'discount_final' => 'on',
+			'discount_percentage_final' => '0',
+			'discount_amount_final' => '0',
+			'tax1_group_percentage' => '4.500',
+			'tax1_group_amount' => '15.786900000000001',
+			'tax2_group_percentage' => '10.000',
+			'tax2_group_amount' => '35.082',
+			'tax3_group_percentage' => '12.500',
+			'tax3_group_amount' => '43.8525',
+			'shipping_handling_charge' => '0',
+			'shtax1_sh_percent' => '0.00',
+			'shtax1_sh_amount' => '0',
+			'shtax2_sh_percent' => '0.00',
+			'shtax2_sh_amount' => '0',
+			'shtax3_sh_percent' => '0.00',
+			'shtax3_sh_amount' => '0',
+			'adjustmentType' => '+',
+			'adjustment' => '0',
+			'totalProductCount' => '2',
+			'subtotal' => '350.82',
+			'total' => '445.54',
+		);
+		$tm = new VTTaskManager($adb);
+		$task = $tm->retrieveTask($taskId);
+		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test updateTask Inventory Modules admin');
+		$entityId = $InvDetWSID.'10656';
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$task->doTask($entity);
+		$entityId = $InvDetWSID.'10657';
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$task->doTask($entity);
+		$postValues = array();
+		$postValues['SalesOrder'] = CRMEntity::getInstance('SalesOrder');
+		$postValues['SalesOrder']->retrieve_entity_info(10655, 'SalesOrder');
+		$postValues['InvDet1'] = CRMEntity::getInstance('InventoryDetails');
+		$postValues['InvDet1']->retrieve_entity_info(10656, 'InventoryDetails');
+		$postValues['InvDet2'] = CRMEntity::getInstance('InventoryDetails');
+		$postValues['InvDet2']->retrieve_entity_info(10657, 'InventoryDetails');
+		$postValues['Products'] = CRMEntity::getInstance('Products');
+		$postValues['Products']->retrieve_entity_info(2617, 'Products');
+		$pstPdoPrices = getPriceDetailsForProduct(2617, 3.89, 'available', 'Products');
+		$pstPdoTaxDetails = getTaxDetailsForProduct(2617, 'available_associated');
+		$postValues['Services'] = CRMEntity::getInstance('Services');
+		$postValues['Services']->retrieve_entity_info(9752, 'Services');
+		$pstSrvPrices = getPriceDetailsForProduct(9752, 3.89, 'available', 'Services');
+		$pstSrvTaxDetails = getTaxDetailsForProduct(9752, 'available_associated');
+		unset(
+			$postValues['InvDet1']->column_fields['modifiedtime'],
+			$postValues['InvDet2']->column_fields['modifiedtime'],
+			$postValues['Services']->column_fields['modifiedtime'],
+			$postValues['Products']->column_fields['modifiedtime']
+		);
+		$this->assertEquals('testme', $postValues['Services']->column_fields['website'], 'workflow action Service');
+		$this->assertEquals('testme', $postValues['Products']->column_fields['mfr_part_no'], 'workflow action Products');
+		$postValues['Services']->column_fields['website'] = $orgValSrvDesc; // undo workflow action
+		$postValues['Products']->column_fields['mfr_part_no'] = $orgValPdoMfr; // undo workflow action
+		$this->assertEquals($preValues['SalesOrder'], $postValues['SalesOrder'], 'SalesOrder after update');
+		$this->assertEquals($preValues['InvDet1'], $postValues['InvDet1'], 'InvDet1 after update');
+		$this->assertEquals($preValues['InvDet2'], $postValues['InvDet2'], 'InvDet2 after update');
+		$this->assertEquals($preValues['Services'], $postValues['Services'], 'Services after update');
+		$this->assertEquals($preValues['Products'], $postValues['Products'], 'Products after update');
+		// undo workflow
+		$adb->pquery('update vtiger_service set website=? where serviceid=?', array($orgValSrvDesc, 9752));
+		$adb->pquery('update vtiger_products set mfr_part_no=? where productid=?', array($orgValPdoMfr, 2617));
+
+		// Now with normal user
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
+		$holduser = $current_user;
+		$current_user = $user;
+
+		$preValues = array();
+		$preValues['SalesOrder'] = CRMEntity::getInstance('SalesOrder');
+		$preValues['SalesOrder']->retrieve_entity_info(10655, 'SalesOrder');
+		$preValues['InvDet1'] = CRMEntity::getInstance('InventoryDetails');
+		$preValues['InvDet1']->retrieve_entity_info(10656, 'InventoryDetails');
+		$preValues['InvDet2'] = CRMEntity::getInstance('InventoryDetails');
+		$preValues['InvDet2']->retrieve_entity_info(10657, 'InventoryDetails');
+		$preValues['Products'] = CRMEntity::getInstance('Products');
+		$preValues['Products']->retrieve_entity_info(2617, 'Products');
+		$prePdoPrices = getPriceDetailsForProduct(2617, 3.89, 'available', 'Products');
+		$prePdoTaxDetails = getTaxDetailsForProduct(2617, 'available_associated');
+		$preValues['Services'] = CRMEntity::getInstance('Services');
+		$preValues['Services']->retrieve_entity_info(9752, 'Services');
+		$preSrvPrices = getPriceDetailsForProduct(9752, 3.89, 'available', 'Services');
+		$preSrvTaxDetails = getTaxDetailsForProduct(9752, 'available_associated');
+		unset(
+			$preValues['InvDet1']->column_fields['modifiedtime'],
+			$preValues['InvDet2']->column_fields['modifiedtime'],
+			$preValues['Services']->column_fields['modifiedtime'],
+			$preValues['Products']->column_fields['modifiedtime']
+		);
+		$tm = new VTTaskManager($adb);
+		$task = $tm->retrieveTask($taskId);
+		$this->assertInstanceOf(VTUpdateFieldsTask::class, $task, 'test updateTask Inventory Modules user');
+		$entityId = $InvDetWSID.'10656';
+		$entity = new VTWorkflowEntity($current_user, $entityId);
+		$task->doTask($entity);
+		$entityId = $InvDetWSID.'10657';
+		$entity = new VTWorkflowEntity($current_user, $entityId);
+		$task->doTask($entity);
+		$postValues = array();
+		$postValues['SalesOrder'] = CRMEntity::getInstance('SalesOrder');
+		$postValues['SalesOrder']->retrieve_entity_info(10655, 'SalesOrder');
+		$postValues['InvDet1'] = CRMEntity::getInstance('InventoryDetails');
+		$postValues['InvDet1']->retrieve_entity_info(10656, 'InventoryDetails');
+		$postValues['InvDet2'] = CRMEntity::getInstance('InventoryDetails');
+		$postValues['InvDet2']->retrieve_entity_info(10657, 'InventoryDetails');
+		$postValues['Products'] = CRMEntity::getInstance('Products');
+		$postValues['Products']->retrieve_entity_info(2617, 'Products');
+		$pstPdoPrices = getPriceDetailsForProduct(2617, 3.89, 'available', 'Products');
+		$pstPdoTaxDetails = getTaxDetailsForProduct(2617, 'available_associated');
+		$postValues['Services'] = CRMEntity::getInstance('Services');
+		$postValues['Services']->retrieve_entity_info(9752, 'Services');
+		$pstSrvPrices = getPriceDetailsForProduct(9752, 3.89, 'available', 'Services');
+		$pstSrvTaxDetails = getTaxDetailsForProduct(9752, 'available_associated');
+		unset(
+			$postValues['InvDet1']->column_fields['modifiedtime'],
+			$postValues['InvDet2']->column_fields['modifiedtime'],
+			$postValues['Services']->column_fields['modifiedtime'],
+			$postValues['Products']->column_fields['modifiedtime']
+		);
+		$this->assertEquals('testme', $postValues['Services']->column_fields['website'], 'workflow action Service');
+		$this->assertEquals('', $postValues['Products']->column_fields['mfr_part_no'], 'workflow action Products'); // no access to this field
+		$postValues['Services']->column_fields['website'] = $orgValSrvDesc; // undo workflow action
+		$postValues['Products']->column_fields['mfr_part_no'] = ''; // undo workflow action
+		$this->assertEquals($preValues['SalesOrder'], $postValues['SalesOrder'], 'SalesOrder after update');
+		$this->assertEquals($preValues['InvDet1'], $postValues['InvDet1'], 'InvDet1 after update');
+		$this->assertEquals($preValues['InvDet2'], $postValues['InvDet2'], 'InvDet2 after update');
+		$this->assertEquals($preValues['Services'], $postValues['Services'], 'Services after update');
+		$this->assertEquals($preValues['Products'], $postValues['Products'], 'Products after update');
+		// undo workflow
+		$adb->pquery('update vtiger_service set website=? where serviceid=?', array($orgValSrvDesc, 9752));
+		$adb->pquery('update vtiger_products set mfr_part_no=? where productid=?', array($orgValPdoMfr, 2617));
+		$util->revertUser();
+		$_REQUEST = array();
 	}
 }
