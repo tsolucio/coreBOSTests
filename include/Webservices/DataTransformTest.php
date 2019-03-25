@@ -211,5 +211,85 @@ class DataTransformTest extends TestCase {
 
 		$current_user = $hcu;
 	}
+
+	/**
+	 * Method testsanitizeRetrieveEntityInfo
+	 * @test
+	 */
+	public function testsanitizeRetrieveEntityInfo() {
+		global $current_user, $adb, $log;
+		$hcu = $current_user;
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$invalues = array(
+			'inventorydetails_no' => 'InvDet-000000007',
+			'productid' => '2634',
+			'related_to' => '2816',
+			'account_id' => '123',
+			'contact_id' => '1292',
+			'vendor_id' => 0,
+			'sequence_no' => '7',
+			'lineitem_id' => '7',
+			'quantity' => 10.000,
+			'listprice' => 78.700000, // does not have access to this field
+			'tax_percent' => 0,
+			'extgross' => 787.000000000,
+			'discount_percent' => 0.0000000000,
+			'discount_amount' => 0,
+			'extnet' => 787.0000000000000000,
+			'linetax' => 0,
+			'linetotal' => 787.00, // does not have access to this field
+			'units_delivered_received' => 3,
+			'line_completed' => 0,
+			'assigned_user_id' => '11',
+			'description' => 'áçèñtös',
+			'cost_price' => '56.45',
+			'cost_gross' => 560.000000,
+			'total_stock' => 295.000000,
+			'created_user_id' => 1,
+			'id_tax1_perc' => 4.500, // does not have access to this field
+			'id_tax2_perc' => 10.000,
+			'id_tax3_perc' => 12.500,
+			'record_id' => 2823,
+			'record_module' => 'InventoryDetails',
+		);
+		$expected = array(
+			'inventorydetails_no' => 'InvDet-000000007',
+			'productid' => '2634',
+			'related_to' => '2816',
+			'account_id' => '123',
+			'contact_id' => '1292',
+			'vendor_id' => 0,
+			'sequence_no' => '7',
+			'lineitem_id' => '7',
+			'quantity' => '10',
+			'listprice' => 78.700000, // does not have access to this field
+			'tax_percent' => 0,
+			'extgross' => '787,000000',
+			'discount_percent' => 0.0,
+			'discount_amount' => 0,
+			'extnet' => '787,000000',
+			'linetax' => 0,
+			'linetotal' => 787.00, // does not have access to this field
+			'units_delivered_received' => '3,000000',
+			'line_completed' => 0,
+			'assigned_user_id' => '11',
+			'description' => 'áçèñtös',
+			'cost_price' => '56,450000',
+			'cost_gross' => '560,000000',
+			'total_stock' => '295,000000',
+			'created_user_id' => '1',
+			'id_tax1_perc' => 4.500, // does not have access to this field
+			'id_tax2_perc' => '10,000000',
+			'id_tax3_perc' => '12,500000',
+			'record_id' => 2823,
+			'record_module' => 'InventoryDetails',
+		);
+		$handler = vtws_getModuleHandlerFromName('InventoryDetails', $current_user);
+		$meta = $handler->getMeta();
+		$actual = DataTransform::sanitizeRetrieveEntityInfo($invalues, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeRetrieveEntityInfo InventoryDetails usrcoma3dot');
+		$current_user = $hcu;
+	}
 }
 ?>
