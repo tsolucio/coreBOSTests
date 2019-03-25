@@ -408,6 +408,16 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 			"SELECT COUNT(vtiger_account.accountname) AS countres FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0 order by 1",
 			$actual
 		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('SELECT [{"fieldname":"countres","operation":"is","value":"count(ticket_title)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"ticketstatus","operation":"is","value":"ticketstatus","valuetype":"fieldname","joincondition":"and","groupid":"0"}] FROM HelpDesk WHERE [{"fieldname":"parent_id","operation":"is","value":"74","valuetype":"raw","joincondition":"and","groupid":"0"}] GROUP BY status;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_account  ON vtiger_troubletickets.parent_id = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_troubletickets.parent_id = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND   (  (( trim(vtiger_account.accountname) = '74' OR trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) = '74') )) AND vtiger_troubletickets.ticketid > 0 GROUP BY status",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('SELECT [{"fieldname":"countres","operation":"is","value":"count(ticket_title)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"ticketstatus","operation":"is","value":"ticketstatus","valuetype":"fieldname","joincondition":"and","groupid":"0"}] FROM HelpDesk WHERE [{"fieldname":"$(parent_id : (Accounts) account_no)","operation":"is","value":"ACC1","valuetype":"raw","joincondition":"and","groupid":"0"}] GROUP BY status;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_troubletickets.parent_id  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_accountparent_id.account_no = 'ACC1') )) AND vtiger_troubletickets.ticketid > 0 GROUP BY status",
+			$actual
+		);
 	}
 
 	public function testExtendedConditionGroupByQuery() {
