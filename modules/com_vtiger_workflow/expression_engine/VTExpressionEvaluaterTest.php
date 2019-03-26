@@ -3751,6 +3751,133 @@ $expectedresult = array(
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('cbTest testymd', $exprEvaluation);
-	}
+    }
+    
+    /**
+	 * Method testLogicalOperators
+	 * @test
+	 */
+	public function testLogicalOperators() {
+        $adminUser = Users::getActiveAdminUser();
+		$entityId = '11x74'; // employees = 131
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+        $testexpression = 'isString($(account_id : (Accounts) accountname))';
+        $expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) accountname)
+    [type] => string
+)
+',
+            1 => 'Array
+(
+    [0] => Rowley Schlimgen Inc
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+        $this->assertEquals(1, $exprEvaluation);
+        ///////////////
+        $testexpression = 'isNumeric($(account_id : (Accounts) accounttype))';
+        $expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) accounttype)
+    [type] => string
+)
+',
+            1 => 'Array
+(
+    [0] => Analyst
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+        $this->assertEquals(0, $exprEvaluation);
+        //////////////
+        $testexpression = 'OR(isString($(account_id : (Accounts) accountname)), isNumeric($(account_id : (Accounts) bill_code)))';
+        $expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) accountname)
+    [type] => string
+)
+',
+            1 => 'Array
+(
+    [0] => Rowley Schlimgen Inc
+)
+',
+            2 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) bill_code)
+    [type] => string
+)
+',
+            3 => 'Array
+(
+    [0] => 94104
+)
+',
+            4 => 'Array
+(
+    [0] => 1
+    [1] => 1
+)
+'
+);
+        $parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+        $expression = $parser->expression();
+        $exprEvaluater = new VTFieldExpressionEvaluater($expression);
+        $exprEvaluation = $exprEvaluater->evaluate($entity);
+        $this->assertEquals($expectedresult, $exprEvaluater->debug);
+        $this->assertEquals(1, $exprEvaluation);
+        //////////////
+        $testexpression = 'AND(isString($(account_id : (Accounts) accountname)), isNumeric($(account_id : (Accounts) accounttype)))';
+        $expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) accountname)
+    [type] => string
+)
+',
+            1 => 'Array
+(
+    [0] => Rowley Schlimgen Inc
+)
+',
+            2 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) accounttype)
+    [type] => string
+)
+',
+            3 => 'Array
+(
+    [0] => Analyst
+)
+',
+            4 => 'Array
+(
+    [0] => 1
+    [1] => 
+)
+'
+);
+        $parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+        $expression = $parser->expression();
+        $exprEvaluater = new VTFieldExpressionEvaluater($expression);
+        $exprEvaluation = $exprEvaluater->evaluate($entity);
+        $this->assertEquals($expectedresult, $exprEvaluater->debug);
+        $this->assertEquals(0, $exprEvaluation);
+    }
 }
 ?>
