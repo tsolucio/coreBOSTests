@@ -348,6 +348,15 @@ Contact Image Field: $contacts-imagename_fullpath$','Contact Image'),
 			array('Contact name: $contacts-lastname$
 Current Date: $custom-currentdate$',1086,'Contacts','Contact name: Hirpara
 Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
+			array('Contact name: $contacts-lastname$
+Current Date: $custom-currentdate$
+Contact WF name: $firstname $lastname
+Account Name: $(account_id : (Accounts) accountname)
+Site URL: $URL$',1086,'Contacts','Contact name: Hirpara
+Current Date: '.$lang['MONTH_STRINGS'][$mes].date(' j, Y').'
+Contact WF name: Felix Hirpara
+Account Name: Chemex Labs Ltd
+Site URL: $URL$','WF vars variables'),
 		);
 	}
 
