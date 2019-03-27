@@ -103,14 +103,14 @@ class testCommonUtilsgetRAC extends TestCase {
 		$recs = $adb->query("SELECT min(vtiger_crmentity.crmid) as id, vtiger_crmentity.setype as setype
 			FROM vtiger_crmentity
 			INNER JOIN vtiger_tab on vtiger_crmentity.setype = vtiger_tab.name
-			where deleted=0 and isentitytype=1 group by setype having setype!='Documents'");
+			where deleted=0 and isentitytype=1 group by setype having setype!='Documents' and setype!='MsgTemplate'");
 		while ($rec = $adb->fetch_row($recs)) {
 			$actual = getRelatedAccountContact($rec['id'], 'Accounts');
 			$expected = $this->Accountsresults[$rec['id']];
-			$this->assertEquals($expected, $actual, "getRAC Accounts-".$rec['setype'].' '.$rec['id']);
+			$this->assertEquals($expected, $actual, 'getRAC Accounts-'.$rec['setype'].' '.$rec['id']);
 			$actual = getRelatedAccountContact($rec['id'], 'Contacts');
 			$expected = $this->Contactsresults[$rec['id']];
-			$this->assertEquals($expected, $actual, "getRAC Contacts-".$rec['setype'].' '.$rec['id']);
+			$this->assertEquals($expected, $actual, 'getRAC Contacts-'.$rec['setype'].' '.$rec['id']);
 		}
 	}
 }

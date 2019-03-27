@@ -659,7 +659,7 @@ class WSCreateTest extends TestCase {
 			'notes_title' => 'REST Test create doc',
 			'filename'=>$model_filename,
 			'filetype'=>$model_filename['type'],
-			'filesize'=>$model_filename['size'],
+			'filesize'=> (string)$model_filename['size'],
 			'fileversion'=>'2',
 			'filelocationtype'=>'I',
 			'filedownloadcount'=> '0',
@@ -667,6 +667,9 @@ class WSCreateTest extends TestCase {
 			'folderid' => '22x1',
 			'notecontent' => 'áçèñtös',
 			'modifiedby' => $cbUserID,
+			'template' => '0',
+			'template_for' => '',
+			'mergetemplate' => '0',
 		);
 		//$this->expectException('WebServiceException');
 		$_FILES=array();

@@ -208,58 +208,58 @@ class testCurrencyField extends TestCase {
 	public function testconvertToUserFormatRealZero() {
 		$user = new Users();
 		$testcurrency = 0;
-		$testcurrencyrounded = '0';
+		$testcurrencyrounded = '0.00';
 		$currencyField = new CurrencyField($testcurrency);
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue REAL zero usrdota0x');
+		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue, 'getDisplayValue REAL zero usrdota0x');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertSame($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol REAL zero usrdota0x');
+		$this->assertSame($testcurrencyrounded.'&euro;', $formattedCurrencyValue, 'getDisplayValueWithSymbol REAL zero usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip REAL zero usrdota0x');
+		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue, 'convertToUserFormat noskip REAL zero usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip REAL zero usrdota0x');
+		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue, 'convertToUserFormat skip REAL zero usrdota0x');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue REAL zero usrcomd0x');
+		$this->assertSame('0,000', $formattedCurrencyValue, 'getDisplayValue REAL zero usrcomd0x');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertSame($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol REAL zero usrcomd0x');
+		$this->assertSame('0,000&euro;', $formattedCurrencyValue, 'getDisplayValueWithSymbol REAL zero usrcomd0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip REAL zero usrcomd0x');
+		$this->assertSame('0,000', $formattedCurrencyValue, 'convertToUserFormat noskip REAL zero usrcomd0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip REAL zero usrcomd0x');
+		$this->assertSame('0,000', $formattedCurrencyValue, 'convertToUserFormat skip REAL zero usrcomd0x');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue REAL zero usrdotd3com');
+		$this->assertSame('0.0000', $formattedCurrencyValue, 'getDisplayValue REAL zero usrdotd3com');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertSame($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol REAL zero usrdotd3com');
+		$this->assertSame('0.0000&euro;', $formattedCurrencyValue, 'getDisplayValueWithSymbol REAL zero usrdotd3com');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip REAL zero usrdotd3com');
+		$this->assertSame('0.0000', $formattedCurrencyValue, 'convertToUserFormat noskip REAL zero usrdotd3com');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip REAL zero usrdotd3com');
+		$this->assertSame('0.0000', $formattedCurrencyValue, 'convertToUserFormat skip REAL zero usrdotd3com');
 		/////////////////
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue REAL zero usrcoma3dot');
+		$this->assertSame('0,00000', $formattedCurrencyValue, 'getDisplayValue REAL zero usrcoma3dot');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertSame($testcurrencyrounded.'&euro;', $formattedCurrencyValue,'getDisplayValueWithSymbol REAL zero usrcoma3dot');
+		$this->assertSame('0,00000&euro;', $formattedCurrencyValue, 'getDisplayValueWithSymbol REAL zero usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip REAL zero usrcoma3dot');
+		$this->assertSame('0,00000', $formattedCurrencyValue, 'convertToUserFormat noskip REAL zero usrcoma3dot');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip REAL zero usrcoma3dot');
+		$this->assertSame('0,00000', $formattedCurrencyValue, 'convertToUserFormat skip REAL zero usrcoma3dot');
 		/////////////////
 		$converted2Dollar = $testcurrency * 1.1;
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
 		$formattedCurrencyValue = $currencyField->getDisplayValue($user);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'getDisplayValue REAL zero usrdota3comdollar');
+		$this->assertSame('0.000000', $formattedCurrencyValue, 'getDisplayValue REAL zero usrdota3comdollar');
 		$formattedCurrencyValue = $currencyField->getDisplayValueWithSymbol($user);
-		$this->assertSame('$'.$testcurrencyrounded, $formattedCurrencyValue,'getDisplayValueWithSymbol REAL zero usrdota3comdollar');
+		$this->assertSame('$0.000000', $formattedCurrencyValue, 'getDisplayValueWithSymbol REAL zero usrdota3comdollar');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, false);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat noskip REAL zero usrdota3comdollar');
+		$this->assertSame('0.000000', $formattedCurrencyValue, 'convertToUserFormat noskip REAL zero usrdota3comdollar');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
-		$this->assertSame($testcurrencyrounded, $formattedCurrencyValue,'convertToUserFormat skip REAL zero usrdota3comdollar');
+		$this->assertSame('0.000000', $formattedCurrencyValue, 'convertToUserFormat skip REAL zero usrdota3comdollar');
 	}
 
 	/**

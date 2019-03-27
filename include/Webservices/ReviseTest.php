@@ -94,6 +94,22 @@ class WSReviseTest extends TestCase {
 ',
 			'imagename' => '',
 			'id' => '12x1150', // Contacts
+			'account_idename' => array(
+				'module' => 'Accounts',
+				'reference' => 'Computer Repair Service',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
+			'created_user_idename' => array(
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testmdy',
+			),
 		);
 		$updateValues = array(
 			'otherphone' => '123456789',
@@ -157,6 +173,18 @@ class WSReviseTest extends TestCase {
 			'cf_802' => '',
 			'description' => 'Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur dictum. Phasellus in felis. Nulla tempor augue ac ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum',
 			'id' => '26x9727',
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testmdy',
+			),
+			'created_user_idename' => array(
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+			),
 		);
 		$prePdoPrices = getPriceDetailsForProduct(9727, 3.89, 'available_associated', 'Services');
 		$preTaxDetails = getTaxDetailsForProduct(9727, 'available_associated');
@@ -215,6 +243,22 @@ class WSReviseTest extends TestCase {
 			'imagename' => '',
 			'description' => 'Teneo, inquit, finem illi videri nihil dolere. Quonam modo? Sin te auctoritas commovebat, nobisne omnibus et Platoni ipsi nescio quem illum anteponebas? Cum praesertim illa perdiscere ludus esset.',
 			'id' => '14x2633',
+			'vendor_idename' => array(
+				'module' => 'Vendors',
+				'reference' => 'E Zaks & Co',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testmdy',
+			),
+			'created_user_idename' => array(
+				'module' => 'Users',
+				'reference' => ' Administrator',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testmdy',
+			),
 		);
 		$prePdoPrices = getPriceDetailsForProduct(2633, 3.89, 'available_associated', 'Products');
 		$preTaxDetails = getTaxDetailsForProduct(2633, 'available_associated');

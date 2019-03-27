@@ -633,6 +633,7 @@ class PickListUtilsTest extends TestCase {
 			'Product Component' => 'ProductComponent',
 			'Messages' => 'Messages',
 			'cbPulse' => 'cbPulse',
+			'MsgTemplate' => 'MsgTemplate',
 		);
 		$this->assertEquals($expected, $actual);
 	}
