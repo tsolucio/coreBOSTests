@@ -748,4 +748,65 @@ class testutils extends TestCase {
 		$actual = ConvertToMinutes($tstring);
 		$this->assertEquals($expected, $actual, "Test ConvertToMinutes $tstring");
 	}
+
+	/**
+	 * Method get_group_arrayProvider
+	 * params
+	 */
+	public function get_group_arrayProvider() {
+		$grp1 = array(
+			2 => 'Team Selling',
+			3 => 'Marketing Group',
+			4 => 'Support Group',
+			'' => '',
+		);
+		$grp2 = array(
+			2 => 'Team Selling',
+			3 => 'Marketing Group',
+			4 => 'Support Group',
+		);
+		$grp111 = array(
+			3 => 'Marketing Group',
+			4 => 'Support Group',
+			'' => '',
+		);
+		$grp112 = array(
+			3 => 'Marketing Group',
+			4 => 'Support Group',
+		);
+		return array(
+			array(1, true, 'Active', '', '', $grp1),
+			array(1, true, 'Active', '', 'private', array('' => '')),
+			array(1, false, 'Active', '', '', $grp2),
+			array(1, false, 'Active', '', 'private', array()),
+			array(11, true, 'Active', '', '', $grp1),
+			array(11, true, 'Active', '', 'private', $grp111),
+			array(11, false, 'Active', '', '', $grp2),
+			array(11, false, 'Active', '', 'private', $grp112),
+			array(5, true, 'Active', '', '', $grp1),
+			array(5, true, 'Active', '', 'private', $grp1),
+			array(5, false, 'Active', '', '', $grp2),
+			array(5, false, 'Active', '', 'private', $grp2),
+			array(9, true, 'Active', '', '', $grp1),
+			array(9, true, 'Active', '', 'private', $grp1),
+			array(9, false, 'Active', '', '', $grp2),
+			array(9, false, 'Active', '', 'private', $grp2),
+		);
+	}
+
+	/**
+	 * Method testget_group_array
+	 * @test
+	 * @dataProvider get_group_arrayProvider
+	 */
+	public function testget_group_array($userid, $add_blank, $status, $assigned_user, $private, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$actual=get_group_array($add_blank, $status, $assigned_user, $private, true);
+		$this->assertEquals($expected, $actual, 'testget_group_array');
+		$current_user = $hold_user;
+	}
 }
