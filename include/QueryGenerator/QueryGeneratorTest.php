@@ -20,24 +20,28 @@
 
 /*
  Query with conditions, Supported operators:
-    'e'  = value  (equals)
-    'n'  <> value  (not equal)
-    's'  LIKE $value%  (starts with)
-    'ew' LIKE %$value  (ends with)
-    'c'  LIKE %$value%  (contains)
-    'k'  NOT LIKE %$value% (does not contain)
-    'l'  < value (less than)
-    'b'  < value (before, only for dates)
-    'g'  > value  (greater than)
-    'a'  > value  (after, only for dates)
-    'm'  <= value  (less or equal)
-    'h'  >= value  (greater or equal)
-    'y'  or 'empty' NULL or ''  (null or empty)
-    'ny' NOT NULL nor ''  (not null nor empty)
-    'bw' BETWEEN value1 and value2  (between two dates)
-    'i'  or 'in' IN value1,...,valuen  (in set of values)
-    'ni' or 'nin' NOT IN value1,...,valuen  (not in set of values)
-    There is special support for empty fields and for the Birthday field
+	'e'  = value  (equals)
+	'n'  <> value  (not equal)
+	's'  LIKE $value%  (starts with)
+	'ew' LIKE %$value  (ends with)
+	'c'  LIKE %$value%  (contains)
+	'k'  NOT LIKE %$value% (does not contain)
+	'l'  < value (less than)
+	'b'  < value (before, only for dates)
+	'g'  > value  (greater than)
+	'a'  > value  (after, only for dates)
+	'm'  <= value  (less or equal)
+	'h'  >= value  (greater or equal)
+	'y'  or 'empty' NULL or ''  (null or empty)
+	'ny' NOT NULL nor ''  (not null nor empty)
+	'bw' BETWEEN value1 and value2  (between two dates)
+	'i'  or 'in' IN value1,...,valuen  (in set of values)
+	'ni' or 'nin' NOT IN value1,...,valuen  (not in set of values)
+	'[]' range, start included, end included
+	'[[' range, start included, end excluded
+	']]' range, start excluded, end included
+	'][' range, start excluded, end excluded
+	There is special support for empty fields and for the Birthday field
 */
 
 use PHPUnit\Framework\TestCase;
