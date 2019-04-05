@@ -614,5 +614,520 @@ class testUserInfoUtil extends TestCase {
 		$actual=getRoleAndSubordinateUserIds($roleid);
 		$this->assertEquals($expected, $actual, "Test getRoleAndSubordinateUserIds Method on $roleid roleid");
 	}
+
+	/**
+	 * Method getCurrentUserGroupListProvider
+	 * params
+	 */
+	public function getCurrentUserGroupListProvider() {
+		return array(
+			array(1, array()),
+			array(11, array(3, 4)),
+			array(5, array(4, 3)),
+			array(9, array(4, 3)),
+		);
+	}
+
+	/**
+	 * Method testgetCurrentUserGroupList
+	 * @test
+	 * @dataProvider getCurrentUserGroupListProvider
+	 */
+	public function testgetCurrentUserGroupList($userid, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$actual=getCurrentUserGroupList();
+		$this->assertEquals($expected, $actual, 'testgetCurrentUserGroupList');
+		$current_user = $hold_user;
+	}
+
+	/**
+	 * Method getSubordinateUsersListProvider
+	 * params
+	 */
+	public function getSubordinateUsersListProvider() {
+		return array(
+			array(1, array()),
+			array(11, array()),
+			array(5, array(11)),
+			array(9, array(11)),
+		);
+	}
+
+	/**
+	 * Method testgetSubordinateUsersList
+	 * @test
+	 * @dataProvider getSubordinateUsersListProvider
+	 */
+	public function testgetSubordinateUsersList($userid, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$actual=getSubordinateUsersList();
+		$this->assertEquals($expected, $actual, 'testgetSubordinateUsersList');
+		$current_user = $hold_user;
+	}
+
+	/**
+	 * Method getSecListViewSecurityParameterProvider
+	 * params
+	 */
+	public function getSecListViewSecurityParameterProvider() {
+		return array(
+			array(1, 'Leads', " and (vtiger_crmentityLeads.smownerid in(1) or vtiger_crmentityLeads.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '::%') or vtiger_crmentityLeads.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=7) or ( vtiger_groupsLeads.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=1 and tabid=7))) "),
+			array(1, 'Accounts', " and (vtiger_crmentityAccounts.smownerid in(1) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=6) or ( vtiger_groupsAccounts.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=1 and tabid=6))) "),
+			array(1, 'Campaigns', " and (vtiger_crmentityCampaigns.smownerid in(1) or vtiger_crmentityCampaigns.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '::%') or vtiger_crmentityCampaigns.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=26) or (( vtiger_groupsCampaigns.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=1 and tabid=26)))) "),
+			array(1, 'Assets', " and (vtiger_crmentityAssets.smownerid in(1) or vtiger_crmentityAssets.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '::%') or vtiger_crmentityAssets.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=43) or (( vtiger_groupsAssets.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=1 and tabid=43)))) "),
+			array(11, 'Leads', " and (vtiger_crmentityLeads.smownerid in(11) or vtiger_crmentityLeads.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentityLeads.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=7) or ( vtiger_groupsLeads.groupid in (3,4) or  vtiger_groupsLeads.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=11 and tabid=7))) "),
+			array(11, 'Accounts', " and (vtiger_crmentityAccounts.smownerid in(11) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=6) or ( vtiger_groupsAccounts.groupid in (3,4) or  vtiger_groupsAccounts.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=11 and tabid=6))) "),
+			array(11, 'Campaigns', " and (vtiger_crmentityCampaigns.smownerid in(11) or vtiger_crmentityCampaigns.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentityCampaigns.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=26) or (( vtiger_groupsCampaigns.groupid in (3,4) or  vtiger_groupsCampaigns.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=11 and tabid=26)))) "),
+			array(11, 'Assets', " and (vtiger_crmentityAssets.smownerid in(11) or vtiger_crmentityAssets.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentityAssets.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=43) or (( vtiger_groupsAssets.groupid in (3,4) or  vtiger_groupsAssets.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=11 and tabid=43)))) "),
+			array(5, 'Leads', " and (vtiger_crmentityLeads.smownerid in(5) or vtiger_crmentityLeads.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentityLeads.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=7) or ( vtiger_groupsLeads.groupid in (4,3) or  vtiger_groupsLeads.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=5 and tabid=7))) "),
+			array(5, 'Accounts', " and (vtiger_crmentityAccounts.smownerid in(5) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=6) or ( vtiger_groupsAccounts.groupid in (4,3) or  vtiger_groupsAccounts.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=5 and tabid=6))) "),
+			array(5, 'Campaigns', " and (vtiger_crmentityCampaigns.smownerid in(5) or vtiger_crmentityCampaigns.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentityCampaigns.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=26) or (( vtiger_groupsCampaigns.groupid in (4,3) or  vtiger_groupsCampaigns.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=5 and tabid=26)))) "),
+			array(5, 'Assets', " and (vtiger_crmentityAssets.smownerid in(5) or vtiger_crmentityAssets.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentityAssets.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=43) or (( vtiger_groupsAssets.groupid in (4,3) or  vtiger_groupsAssets.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=5 and tabid=43)))) "),
+		);
+	}
+
+	/**
+	 * Method testgetSecListViewSecurityParameter
+	 * @test
+	 * @dataProvider getSecListViewSecurityParameterProvider
+	 */
+	public function testgetSecListViewSecurityParameter($userid, $module, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$actual=getSecListViewSecurityParameter($module);
+		$this->assertEquals($expected, $actual, 'testgetSecListViewSecurityParameter');
+		$current_user = $hold_user;
+	}
+
+	/**
+	 * Method getListViewSecurityParameterProvider
+	 * params
+	 */
+	public function getListViewSecurityParameterProvider() {
+		return array(
+			array(1, 'Leads', " and (
+						vtiger_crmentity.smownerid in(1)
+						or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '::%')
+						or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=7)
+						or ( vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=1 and tabid=7))) "),
+			array(1, 'Accounts', " and (vtiger_crmentity.smownerid in(1) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=6) or ( vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=1 and tabid=6))) "),
+			array(1, 'Campaigns', " and (vtiger_crmentity.smownerid in(1) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like '::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=26) or (( vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=1 and tabid=26)))) "),
+			array(1, 'Assets', ""),
+			array(11, 'Leads', " and (
+						vtiger_crmentity.smownerid in(11)
+						or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::H6::%')
+						or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=7)
+						or ( vtiger_groups.groupid in (3,4) or  vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=11 and tabid=7))) "),
+			array(11, 'Accounts', " and (vtiger_crmentity.smownerid in(11) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=6) or ( vtiger_groups.groupid in (3,4) or  vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=11 and tabid=6))) "),
+			array(11, 'Campaigns', " and (vtiger_crmentity.smownerid in(11) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=26) or (( vtiger_groups.groupid in (3,4) or  vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=11 and tabid=26)))) "),
+			array(11, 'Assets', ""),
+			array(5, 'Leads', " and (
+						vtiger_crmentity.smownerid in(5)
+						or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::%')
+						or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=7)
+						or ( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=5 and tabid=7))) "),
+			array(5, 'Accounts', " and (vtiger_crmentity.smownerid in(5) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=6) or ( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=5 and tabid=6))) "),
+			array(5, 'Campaigns', " and (vtiger_crmentity.smownerid in(5) or vtiger_crmentity.smownerid in(select vtiger_user2role.userid from vtiger_user2role inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in(select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=26) or (( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in(select vtiger_tmp_read_group_sharing_per.sharedgroupid from vtiger_tmp_read_group_sharing_per where userid=5 and tabid=26)))) "),
+			array(5, 'Assets', ""),
+		);
+	}
+
+	/**
+	 * Method testgetListViewSecurityParameter
+	 * @test
+	 * @dataProvider getListViewSecurityParameterProvider
+	 */
+	public function testgetListViewSecurityParameter($userid, $module, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$actual=getListViewSecurityParameter($module);
+		$this->assertEquals($expected, $actual, 'testgetListViewSecurityParameter');
+		$current_user = $hold_user;
+	}
+
+	/**
+	 * Method getFieldVisibilityPermissionProvider
+	 * params
+	 */
+	public function getFieldVisibilityPermissionProvider() {
+		return array(
+			array('Products', 1, 'productcode', '', '0'),
+			array('Products', 1, 'productcode', 'readonly', '0'),
+			array('Products', 1, 'productcategory', '', '0'),
+			array('Products', 1, 'productcategory', 'readonly', '0'),
+			array('Products', 11, 'productcode', '', '0'),
+			array('Products', 11, 'productcode', 'readonly', '0'),
+			array('Products', 11, 'productcategory', '', '0'),
+			array('Products', 11, 'productcategory', 'readonly', '0'),
+			array('Products', 5, 'productcode', '', '0'),
+			array('Products', 5, 'productcode', 'readonly', '0'),
+			array('Products', 5, 'productcategory', '', '1'),
+			array('Products', 5, 'productcategory', 'readonly', '1'),
+			array('Products', 9, 'productcode', '', '0'),
+			array('Products', 9, 'productcode', 'readonly', '0'),
+			array('Products', 9, 'productcategory', '', '1'),
+			array('Products', 9, 'productcategory', 'readonly', '1'),
+		);
+	}
+
+	/**
+	 * Method testgetFieldVisibilityPermission
+	 * @test
+	 * @dataProvider getFieldVisibilityPermissionProvider
+	 */
+	public function testgetFieldVisibilityPermission($fld_module, $userid, $fieldname, $accessmode, $expected) {
+		$actual=getFieldVisibilityPermission($fld_module, $userid, $fieldname, $accessmode);
+		$this->assertEquals($expected, $actual, 'testgetFieldVisibilityPermission');
+	}
+
+	/**
+	 * Method getPermittedModuleNamesProvider
+	 * params
+	 */
+	public function getPermittedModuleNamesProvider() {
+		$exp1 = array(
+			0 => 'Dashboard',
+			1 => 'Potentials',
+			2 => 'Home',
+			3 => 'Contacts',
+			4 => 'Accounts',
+			5 => 'Leads',
+			6 => 'Documents',
+			7 => 'Calendar',
+			8 => 'Emails',
+			9 => 'HelpDesk',
+			10 => 'Products',
+			11 => 'Faq',
+			12 => 'Vendors',
+			13 => 'PriceBooks',
+			14 => 'Quotes',
+			15 => 'PurchaseOrder',
+			16 => 'SalesOrder',
+			17 => 'Invoice',
+			18 => 'Rss',
+			19 => 'Reports',
+			20 => 'Campaigns',
+			21 => 'Portal',
+			22 => 'Users',
+			23 => 'ConfigEditor',
+			24 => 'Import',
+			25 => 'MailManager',
+			26 => 'Mobile',
+			27 => 'ModTracker',
+			28 => 'PBXManager',
+			29 => 'ServiceContracts',
+			30 => 'Services',
+			31 => 'VtigerBackup',
+			32 => 'WSAPP',
+			33 => 'cbupdater',
+			34 => 'CobroPago',
+			35 => 'Assets',
+			36 => 'CronTasks',
+			37 => 'ModComments',
+			38 => 'ProjectMilestone',
+			39 => 'ProjectTask',
+			40 => 'Project',
+			41 => 'RecycleBin',
+			42 => 'Tooltip',
+			43 => 'Webforms',
+			44 => 'Calendar4You',
+			45 => 'GlobalVariable',
+			46 => 'InventoryDetails',
+			47 => 'cbMap',
+			48 => 'evvtMenu',
+			49 => 'cbAuditTrail',
+			50 => 'cbLoginHistory',
+			51 => 'cbTermConditions',
+			52 => 'cbCalendar',
+			53 => 'cbtranslation',
+			54 => 'BusinessActions',
+			55 => 'cbSurvey',
+			56 => 'cbSurveyQuestion',
+			57 => 'cbSurveyDone',
+			58 => 'cbSurveyAnswer',
+			59 => 'cbCompany',
+			60 => 'cbCVManagement',
+			61 => 'cbQuestion',
+			62 => 'ProductComponent',
+			63 => 'Messages',
+			64 => 'cbPulse',
+			65 => 'EtiquetasOO',
+			66 => 'evvtgendoc',
+			67 => 'MsgTemplate',
+		);
+		$exp2 = array(
+			0 => 'Dashboard',
+			1 => 'Potentials',
+			2 => 'Home',
+			3 => 'Contacts',
+			4 => 'Accounts',
+			5 => 'Leads',
+			6 => 'Documents',
+			7 => 'Calendar',
+			8 => 'Emails',
+			9 => 'HelpDesk',
+			10 => 'Products',
+			11 => 'Faq',
+			12 => 'Vendors',
+			13 => 'PriceBooks',
+			14 => 'Quotes',
+			15 => 'PurchaseOrder',
+			16 => 'SalesOrder',
+			17 => 'Invoice',
+			18 => 'Rss',
+			19 => 'Reports',
+			20 => 'Campaigns',
+			21 => 'Portal',
+			22 => 'ConfigEditor',
+			23 => 'Import',
+			24 => 'MailManager',
+			25 => 'Mobile',
+			26 => 'ModTracker',
+			27 => 'PBXManager',
+			28 => 'ServiceContracts',
+			29 => 'Services',
+			30 => 'VtigerBackup',
+			31 => 'WSAPP',
+			32 => 'cbupdater',
+			33 => 'CobroPago',
+			34 => 'Assets',
+			35 => 'CronTasks',
+			36 => 'ModComments',
+			37 => 'ProjectMilestone',
+			38 => 'ProjectTask',
+			39 => 'Project',
+			40 => 'RecycleBin',
+			41 => 'Tooltip',
+			42 => 'Webforms',
+			43 => 'Calendar4You',
+			44 => 'GlobalVariable',
+			45 => 'InventoryDetails',
+			46 => 'cbMap',
+			47 => 'evvtMenu',
+			48 => 'cbAuditTrail',
+			49 => 'cbLoginHistory',
+			50 => 'cbTermConditions',
+			51 => 'cbCalendar',
+			52 => 'cbtranslation',
+			53 => 'BusinessActions',
+			54 => 'cbSurvey',
+			55 => 'cbSurveyQuestion',
+			56 => 'cbSurveyDone',
+			57 => 'cbSurveyAnswer',
+			58 => 'cbCompany',
+			59 => 'cbCVManagement',
+			60 => 'cbQuestion',
+			61 => 'ProductComponent',
+			62 => 'Messages',
+			63 => 'cbPulse',
+			64 => 'EtiquetasOO',
+			65 => 'evvtgendoc',
+			66 => 'MsgTemplate',
+		);
+		return array(
+			array(1, $exp1),
+			array(11, $exp2),
+			array(5, $exp2),
+			array(9, $exp2),
+		);
+	}
+
+	/**
+	 * Method testgetPermittedModuleNames
+	 * @test
+	 * @dataProvider getPermittedModuleNamesProvider
+	 */
+	public function testgetPermittedModuleNames($userid, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$actual=getPermittedModuleNames();
+		$this->assertEquals($expected, $actual, 'testgetPermittedModuleNames');
+		$current_user = $hold_user;
+	}
+
+	/**
+	 * Method getPermittedModuleIdListProvider
+	 * params
+	 */
+	public function getPermittedModuleIdListProvider() {
+		$exp1 = array(
+			0 => 1,
+			1 => 2,
+			2 => 3,
+			3 => 4,
+			4 => 6,
+			5 => 7,
+			6 => 8,
+			7 => 9,
+			8 => 10,
+			9 => 13,
+			10 => 14,
+			11 => 15,
+			12 => 18,
+			13 => 19,
+			14 => 20,
+			15 => 21,
+			16 => 22,
+			17 => 23,
+			18 => 24,
+			19 => 25,
+			20 => 26,
+			21 => 27,
+			22 => 29,
+			23 => 30,
+			24 => 31,
+			25 => 33,
+			26 => 34,
+			27 => 35,
+			28 => 36,
+			29 => 37,
+			30 => 38,
+			31 => 39,
+			32 => 40,
+			33 => 41,
+			34 => 42,
+			35 => 43,
+			36 => 44,
+			37 => 47,
+			38 => 48,
+			39 => 49,
+			40 => 50,
+			41 => 51,
+			42 => 53,
+			43 => 54,
+			44 => 55,
+			45 => 56,
+			46 => 57,
+			47 => 58,
+			48 => 59,
+			49 => 60,
+			50 => 61,
+			51 => 62,
+			52 => 63,
+			53 => 64,
+			54 => 65,
+			55 => 66,
+			56 => 67,
+			57 => 68,
+			58 => 69,
+			59 => 70,
+			60 => 71,
+			61 => 72,
+			62 => 73,
+			63 => 74,
+			64 => 75,
+			65 => 76,
+			66 => 77,
+			67 => 78,
+		);
+		$exp2 = array(
+			0 => 1,
+			1 => 2,
+			2 => 3,
+			3 => 4,
+			4 => 6,
+			5 => 7,
+			6 => 8,
+			7 => 9,
+			8 => 10,
+			9 => 13,
+			10 => 14,
+			11 => 15,
+			12 => 18,
+			13 => 19,
+			14 => 20,
+			15 => 21,
+			16 => 22,
+			17 => 23,
+			18 => 24,
+			19 => 25,
+			20 => 26,
+			21 => 27,
+			22 => 30,
+			23 => 31,
+			24 => 33,
+			25 => 34,
+			26 => 35,
+			27 => 36,
+			28 => 37,
+			29 => 38,
+			30 => 39,
+			31 => 40,
+			32 => 41,
+			33 => 42,
+			34 => 43,
+			35 => 44,
+			36 => 47,
+			37 => 48,
+			38 => 49,
+			39 => 50,
+			40 => 51,
+			41 => 53,
+			42 => 54,
+			43 => 55,
+			44 => 56,
+			45 => 57,
+			46 => 58,
+			47 => 59,
+			48 => 60,
+			49 => 61,
+			50 => 62,
+			51 => 63,
+			52 => 64,
+			53 => 65,
+			54 => 66,
+			55 => 67,
+			56 => 68,
+			57 => 69,
+			58 => 70,
+			59 => 71,
+			60 => 72,
+			61 => 73,
+			62 => 74,
+			63 => 75,
+			64 => 76,
+			65 => 77,
+			66 => 78,
+		);
+		return array(
+			array(1, $exp1),
+			array(11, $exp2),
+			array(5, $exp2),
+			array(9, $exp2),
+		);
+	}
+
+	/**
+	 * Method testgetPermittedModuleIdList
+	 * @test
+	 * @dataProvider getPermittedModuleIdListProvider
+	 */
+	public function testgetPermittedModuleIdList($userid, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$actual=getPermittedModuleIdList();
+		$this->assertEquals($expected, $actual, 'testgetPermittedModuleIdList');
+		$current_user = $hold_user;
+	}
 }
 ?>
