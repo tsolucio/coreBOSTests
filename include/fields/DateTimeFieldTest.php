@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -19,6 +19,7 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class tstDateTimeField extends TestCase {
 
 	/**
@@ -31,7 +32,7 @@ class tstDateTimeField extends TestCase {
 		$testdate = '2016-02-25';
 		$dt = new DateTimeField($testdate);
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
-		$fmtdate = $dt->convertToUserFormat($testdate,$user);
+		$fmtdate = $dt->convertToUserFormat($testdate, $user);
 		$this->assertEquals('25-02-2016', $fmtdate);
 		$fmtdate = $dt->getDisplayDate($user);
 		$this->assertEquals('25-02-2016', $fmtdate);
@@ -39,8 +40,9 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('00:00:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDateTimeValue($user);
 		$this->assertEquals('25-02-2016 00:00:00', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
-		$fmtdate = $dt->convertToUserFormat($testdate,$user);
+		$fmtdate = $dt->convertToUserFormat($testdate, $user);
 		$this->assertEquals('02-25-2016', $fmtdate);
 		$fmtdate = $dt->getDisplayDate($user);
 		$this->assertEquals('02-25-2016', $fmtdate);
@@ -48,8 +50,9 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('00:00:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDateTimeValue($user);
 		$this->assertEquals('02-25-2016 00:00:00', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
-		$fmtdate = $dt->convertToUserFormat($testdate,$user);
+		$fmtdate = $dt->convertToUserFormat($testdate, $user);
 		$this->assertEquals('2016-02-25', $fmtdate);
 		$fmtdate = $dt->getDisplayDate($user);
 		$this->assertEquals('2016-02-25', $fmtdate);
@@ -93,57 +96,58 @@ class tstDateTimeField extends TestCase {
 		$testdate = '2016-02-25 20:30:00';
 		$dt = new DateTimeField($testdate);
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
-		$fmtdate = $dt->convertToUserTimeZone($testdate,$user);
+		$fmtdate = $dt->convertToUserTimeZone($testdate, $user);
 		$expectedDateTime = new DateTime('2016-02-25 20:30:00', new DateTimeZone('UTC'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'a');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'a');
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone
-		$fmtdate = $dt->convertToUserTimeZone($testdate,$user);
+		$fmtdate = $dt->convertToUserTimeZone($testdate, $user);
 		$expectedDateTime = new DateTime('2016-02-25 20:30:00', new DateTimeZone('Europe/London'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'b');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'b');
 		//////////////
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','Europe/Kiev');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'Europe/Kiev');
 		$expectedDateTime = new DateTime('2016-02-25 22:30:00', new DateTimeZone('Europe/Kiev'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'c');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'c');
 
 		$testdate = '2018-02-05 09:00';
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','Europe/Amsterdam');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'Europe/Amsterdam');
 		$expectedDateTime = new DateTime('2018-02-05 10:00:00', new DateTimeZone('Europe/Amsterdam'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'd');
 
 		$testdate = '2016-02-25 33:30:00';
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'UTC');
 		$expectedDateTime = new DateTime('2016-02-25 00:00:00', new DateTimeZone('UTC'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'd');
 
 		$testdate = '2016-02-25 19:30';
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'UTC');
 		$expectedDateTime = new DateTime('2016-02-25 19:30:00', new DateTimeZone('UTC'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'd');
 
 		$testdate = '3 Jun 2016';
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'UTC');
 		$expectedDateTime = new DateTime('2016-06-03 00:00:00', new DateTimeZone('UTC'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'd');
 
 		$testdate = '10:30';
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'UTC');
 		$expectedDateTime = new DateTime(date('Y-m-d').' 10:30:00', new DateTimeZone('UTC'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'd');
 
 		$testdate = '190:30';
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'UTC');
 		$expectedDateTime = new DateTime(date('Y-m-d').' 00:00:00', new DateTimeZone('UTC'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'd');
 
 		$testdate = '2016-02-25 190:30';
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'UTC');
 		$expectedDateTime = new DateTime('2016-02-25 00:00:00', new DateTimeZone('UTC'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'd');
 
 		$testdate = '25-02-2016 20:30:00'; // works only because PHP knows how to transform it
-		$fmtdate = $dt->convertTimeZone($testdate,'UTC','UTC');
+		$fmtdate = $dt->convertTimeZone($testdate, 'UTC', 'UTC');
 		$expectedDateTime = new DateTime('2016-02-25 20:30:00', new DateTimeZone('UTC'));
-		$this->assertEquals($expectedDateTime, $fmtdate,'d');
+		$this->assertEquals($expectedDateTime, $fmtdate, 'd');
 	}
 
 	/**
@@ -156,7 +160,7 @@ class tstDateTimeField extends TestCase {
 		$testdate = '2016-02-25 20:30:00';
 		$dt = new DateTimeField($testdate);
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
-		$fmtdate = $dt->convertToUserFormat($testdate,$user);
+		$fmtdate = $dt->convertToUserFormat($testdate, $user);
 		$this->assertEquals('25-02-2016 20:30:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDate($user);
 		$this->assertEquals('25-02-2016', $fmtdate);
@@ -164,8 +168,9 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('20:30:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDateTimeValue($user);
 		$this->assertEquals('25-02-2016 20:30:00', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
-		$fmtdate = $dt->convertToUserFormat($testdate,$user);
+		$fmtdate = $dt->convertToUserFormat($testdate, $user);
 		$this->assertEquals('02-25-2016 20:30:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDate($user);
 		$this->assertEquals('02-25-2016', $fmtdate);
@@ -173,8 +178,9 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('20:30:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDateTimeValue($user);
 		$this->assertEquals('02-25-2016 20:30:00', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
-		$fmtdate = $dt->convertToUserFormat($testdate,$user);
+		$fmtdate = $dt->convertToUserFormat($testdate, $user);
 		$this->assertEquals('2016-02-25 20:30:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDate($user);
 		$this->assertEquals('2016-02-25', $fmtdate);
@@ -206,8 +212,9 @@ class tstDateTimeField extends TestCase {
 		$fmtdate = $dt->getDisplayDateTimeValue();
 		$this->assertEquals($edate.' 20:30:00', $fmtdate);
 		//////////
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone
-		$fmtdate = $dt->convertToUserFormat($testdate,$user);
+		$fmtdate = $dt->convertToUserFormat($testdate, $user);
 		$this->assertEquals('2016-02-25 20:30:00', $fmtdate);
 		$fmtdate = $dt->getDisplayDate($user);
 		$this->assertEquals('2016-02-25', $fmtdate);
@@ -237,25 +244,30 @@ class tstDateTimeField extends TestCase {
 		$dt = new DateTimeField('25-02-2016 20:30:00');
 		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$current_user = $user;
 		$dt = new DateTimeField('02-25-2016 20:30:00');
 		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$dt = new DateTimeField('2016-02-25 20:30:00');
 		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
 		$dt = new DateTimeField('2016-02-25 20:30:00');
 		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
 		$expectedDateTime['hour'] = '21';
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
 		$dt = new DateTimeField('2016-02-25 00:30:00');
 		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
 		$expectedDateTime['hour'] = '01';
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(13); // testtz-3  TimeZone Ymd -3 Buenos Aires
 		$dt = new DateTimeField('2016-02-25 23:30:00');
 		$fmtdate = $dt->getDisplayDateTimeValueComponents($user);
@@ -288,26 +300,31 @@ class tstDateTimeField extends TestCase {
 		$dt = new DateTimeField('25-02-2016 20:30:00');
 		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$current_user = $user;
 		$dt = new DateTimeField('02-25-2016 20:30:00');
 		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$dt = new DateTimeField('2016-02-25 20:30:00');
 		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
 		$dt = new DateTimeField('2016-02-25 20:30:00');
 		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
 		$expectedDateTime['hour'] = '19';
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
 		$dt = new DateTimeField('2016-02-25 00:30:00');
 		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
 		$expectedDateTime['hour'] = '23';
 		$expectedDateTime['day'] = '24';
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(13); // testtz-3  TimeZone Ymd -3 Buenos Aires
 		$dt = new DateTimeField('2016-02-25 23:30:00');
 		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
@@ -332,10 +349,12 @@ class tstDateTimeField extends TestCase {
 		$fmtdate = DateTimeField::getPHPDateFormat($user);
 		$this->assertEquals('dd-mm-yyyy', $user->date_format);
 		$this->assertEquals('d-m-Y', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$fmtdate = DateTimeField::getPHPDateFormat($user);
 		$this->assertEquals('mm-dd-yyyy', $user->date_format);
 		$this->assertEquals('m-d-Y', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$fmtdate = DateTimeField::getPHPDateFormat($user);
 		$this->assertEquals('yyyy-mm-dd', $user->date_format);
@@ -362,19 +381,21 @@ class tstDateTimeField extends TestCase {
 		$testdate = '2016-06-01';
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$dt = new DateTimeField('01-06-2016');
-		$fmtdate = $dt->convertToDBFormat('01-06-2016',$user);
+		$fmtdate = $dt->convertToDBFormat('01-06-2016', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$dt = new DateTimeField('06-01-2016');
-		$fmtdate = $dt->convertToDBFormat('06-01-2016',$user);
+		$fmtdate = $dt->convertToDBFormat('06-01-2016', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$dt = new DateTimeField('2016-06-01');
-		$fmtdate = $dt->convertToDBFormat('2016-06-01',$user);
+		$fmtdate = $dt->convertToDBFormat('2016-06-01', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
@@ -390,19 +411,21 @@ class tstDateTimeField extends TestCase {
 		$testdate = '2016-06-30';
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$dt = new DateTimeField('30-06-2016');
-		$fmtdate = $dt->convertToDBFormat('30-06-2016',$user);
+		$fmtdate = $dt->convertToDBFormat('30-06-2016', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$dt = new DateTimeField('06-30-2016');
-		$fmtdate = $dt->convertToDBFormat('06-30-2016',$user);
+		$fmtdate = $dt->convertToDBFormat('06-30-2016', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$dt = new DateTimeField('2016-06-30');
-		$fmtdate = $dt->convertToDBFormat('2016-06-30',$user);
+		$fmtdate = $dt->convertToDBFormat('2016-06-30', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
@@ -418,7 +441,7 @@ class tstDateTimeField extends TestCase {
 		$testdate = '2016-02-25';
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$dt = new DateTimeField('25-02-2016');
-		$fmtdate = $dt->convertToDBFormat('25-02-2016',$user);
+		$fmtdate = $dt->convertToDBFormat('25-02-2016', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
@@ -426,9 +449,10 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('00:00:00', $fmtdate);
 		$fmtdate = $dt->getDBInsertDateTimeValue($user);
 		$this->assertEquals($testdate.' 00:00:00', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$dt = new DateTimeField('02-25-2016');
-		$fmtdate = $dt->convertToDBFormat('02-25-2016',$user);
+		$fmtdate = $dt->convertToDBFormat('02-25-2016', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
@@ -436,9 +460,10 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('00:00:00', $fmtdate);
 		$fmtdate = $dt->getDBInsertDateTimeValue($user);
 		$this->assertEquals($testdate.' 00:00:00', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$dt = new DateTimeField('2016-02-25');
-		$fmtdate = $dt->convertToDBFormat('2016-02-25',$user);
+		$fmtdate = $dt->convertToDBFormat('2016-02-25', $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
@@ -481,32 +506,37 @@ class tstDateTimeField extends TestCase {
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$dt = new DateTimeField('25-02-2016 20:30:00');
-		$fmtdate = $dt->convertToDBTimeZone('25-02-2016 20:30:00',$user);
+		$fmtdate = $dt->convertToDBTimeZone('25-02-2016 20:30:00', $user);
 		$expectedDateTime = new DateTime('2016-02-25 20:30:00', new DateTimeZone('UTC'));
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$dt = new DateTimeField('02-25-2016 20:30:00');
-		$fmtdate = $dt->convertToDBTimeZone('02-25-2016 20:30:00',$user);
+		$fmtdate = $dt->convertToDBTimeZone('02-25-2016 20:30:00', $user);
 		$expectedDateTime = new DateTime('2016-02-25 20:30:00', new DateTimeZone('UTC'));
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$dt = new DateTimeField('2016-02-25 20:30:00');
-		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 20:30:00',$user);
+		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 20:30:00', $user);
 		$expectedDateTime = new DateTime('2016-02-25 20:30:00', new DateTimeZone('UTC'));
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
 		$dt = new DateTimeField('2016-02-25 20:30:00');
-		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 20:30:00',$user);
+		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 20:30:00', $user);
 		$expectedDateTime = new DateTime('2016-02-25 19:30:00', new DateTimeZone('UTC'));
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(10); // testtz  TimeZone Ymd +1 Madrid
 		$dt = new DateTimeField('2016-02-25 00:30:00');
-		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 00:30:00',$user);
+		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 00:30:00', $user);
 		$expectedDateTime = new DateTime('2016-02-24 23:30:00', new DateTimeZone('UTC'));
 		$this->assertEquals($expectedDateTime, $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(13); // testtz-3  TimeZone Ymd -3 Buenos Aires
 		$dt = new DateTimeField('2016-02-25 23:30:00');
-		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 23:30:00',$user);
+		$fmtdate = $dt->convertToDBTimeZone('2016-02-25 23:30:00', $user);
 		$expectedDateTime = new DateTime('2016-02-26 02:30:00', new DateTimeZone('UTC'));
 		$this->assertEquals($expectedDateTime, $fmtdate);
 
@@ -541,7 +571,7 @@ class tstDateTimeField extends TestCase {
 		$testdate = '2016-02-25';
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$dt = new DateTimeField($testdate);
-		$fmtdate = $dt->convertToDBFormat($testdate,$user);
+		$fmtdate = $dt->convertToDBFormat($testdate, $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
@@ -549,8 +579,9 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('00:00:00', $fmtdate);
 		$fmtdate = $dt->getDBInsertDateTimeValue($user);
 		$this->assertEquals($testdate.' 00:00:00', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
-		$fmtdate = $dt->convertToDBFormat($testdate,$user);
+		$fmtdate = $dt->convertToDBFormat($testdate, $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
@@ -558,8 +589,9 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('00:00:00', $fmtdate);
 		$fmtdate = $dt->getDBInsertDateTimeValue($user);
 		$this->assertEquals($testdate.' 00:00:00', $fmtdate);
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
-		$fmtdate = $dt->convertToDBFormat($testdate,$user);
+		$fmtdate = $dt->convertToDBFormat($testdate, $user);
 		$this->assertEquals($testdate, $fmtdate);
 		$fmtdate = $dt->getDBInsertDateValue($user);
 		$this->assertEquals($testdate, $fmtdate);
@@ -574,23 +606,23 @@ class tstDateTimeField extends TestCase {
 	 * @test
 	 */
 	public function testformatUserTimeString() {
-		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('01:15',24), 'normal 24 time lt 12');
-		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('13:15',24), 'normal 24 time gt 12');
-		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('1:15',24), 'missing number 24 time');
-		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('01:15',12), 'normal 12 time lt 12');
-		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('13:15',12), 'normal 12 time gt 12');
-		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('1:15',12), 'missing number 12 time');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('01:15', 24), 'normal 24 time lt 12');
+		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('13:15', 24), 'normal 24 time gt 12');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('1:15', 24), 'missing number 24 time');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('01:15', 12), 'normal 12 time lt 12');
+		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('13:15', 12), 'normal 12 time gt 12');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('1:15', 12), 'missing number 12 time');
 		//////////////////
-		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 01:15',24), 'normal 24 time lt 12 with date');
-		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('2017-09-02 13:15',24), 'normal 24 time gt 12 with date');
-		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 1:15',24), 'missing number 24 time with date');
-		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 01:15',12), 'normal 12 time lt 12 with date');
-		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('2017-09-02 13:15',12), 'normal 12 time gt 12 with date');
-		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 1:15',12), 'missing number 12 time with date');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 01:15', 24), 'normal 24 time lt 12 with date');
+		$this->assertEquals('13:15', DateTimeField::formatUserTimeString('2017-09-02 13:15', 24), 'normal 24 time gt 12 with date');
+		$this->assertEquals('01:15', DateTimeField::formatUserTimeString('2017-09-02 1:15', 24), 'missing number 24 time with date');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 01:15', 12), 'normal 12 time lt 12 with date');
+		$this->assertEquals('01:15PM', DateTimeField::formatUserTimeString('2017-09-02 13:15', 12), 'normal 12 time gt 12 with date');
+		$this->assertEquals('01:15AM', DateTimeField::formatUserTimeString('2017-09-02 1:15', 12), 'missing number 12 time with date');
 		//////////////////
-		$this->assertEquals('01:05', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'),24), 'missing number 24 time with array');
-		$this->assertEquals('01:05PM', DateTimeField::formatUserTimeString(array('hour'=>'13','minute'=>'5'),12), 'normal 24 time gt 12 with array');
-		$this->assertEquals('01:05AM', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'),12), 'missing number 12 time with array');
+		$this->assertEquals('01:05', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'), 24), 'missing number 24 time with array');
+		$this->assertEquals('01:05PM', DateTimeField::formatUserTimeString(array('hour'=>'13','minute'=>'5'), 12), 'normal 24 time gt 12 with array');
+		$this->assertEquals('01:05AM', DateTimeField::formatUserTimeString(array('hour'=>'1','minute'=>'5'), 12), 'missing number 12 time with array');
 	}
 
 	/**
@@ -598,25 +630,25 @@ class tstDateTimeField extends TestCase {
 	 * @test
 	 */
 	public function testformatDatebaseTimeString() {
-		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('01:15',24), 'normal 24 time lt 12');
-		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('1:15',24), 'missing number 24 time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('13:15',24), 'normal 24 time gt 12');
-		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('01:15','am'), 'normal am time');
-		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('1:15','am'), 'missing number am time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('01:15','pm'), 'normal pm time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('1:15','pm'), 'missing number pm time');
-		$this->assertEquals('00:15', DateTimeField::formatDatebaseTimeString('12:15','am'), 'normal am 12 time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('12:15','pm'), 'normal pm 12 time');
+		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('01:15', 24), 'normal 24 time lt 12');
+		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('1:15', 24), 'missing number 24 time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('13:15', 24), 'normal 24 time gt 12');
+		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('01:15', 'am'), 'normal am time');
+		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('1:15', 'am'), 'missing number am time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('01:15', 'pm'), 'normal pm time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('1:15', 'pm'), 'missing number pm time');
+		$this->assertEquals('00:15', DateTimeField::formatDatebaseTimeString('12:15', 'am'), 'normal am 12 time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('12:15', 'pm'), 'normal pm 12 time');
 		//////////////////
-		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15',24), 'normal 24 time lt 12');
-		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15',24), 'missing number 24 time');
-		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 13:15',24), 'normal 24 time gt 12');
-		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15','am'), 'normal am time');
-		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15','am'), 'missing number am time');
-		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15','pm'), 'normal pm time');
-		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15','pm'), 'missing number pm time');
-		$this->assertEquals('2017-09-02 00:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15','am'), 'normal am 12 time');
-		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15','pm'), 'normal pm 12 time');
+		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 24), 'normal 24 time lt 12');
+		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 24), 'missing number 24 time');
+		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 13:15', 24), 'normal 24 time gt 12');
+		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 'am'), 'normal am time');
+		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 'am'), 'missing number am time');
+		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 'pm'), 'normal pm time');
+		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 'pm'), 'missing number pm time');
+		$this->assertEquals('2017-09-02 00:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'am'), 'normal am 12 time');
+		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'pm'), 'normal pm 12 time');
 	}
 
 	/**
@@ -657,6 +689,5 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('01:1:1'), 'hour/min bad');
 		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('1:01:1'), 'hour/min bad');
 	}
-
 }
 ?>

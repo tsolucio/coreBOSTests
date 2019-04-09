@@ -91,17 +91,21 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			),
 		);
 		$this->assertEquals($expected, $actual, 'retrieve campaign usrdota0x');
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$actual = vtws_retrieve($campaignID.'x4973', $user);
 		$this->assertEquals($expected, $actual, 'retrieve campaign usrcomd0x');
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$actual = vtws_retrieve($campaignID.'x4973', $user);
 		$this->assertEquals($expected, $actual, 'retrieve campaign usrcoma3dot');
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar);
 		$actual = vtws_retrieve($campaignID.'x4973', $user);
 		$this->assertEquals($expected, $actual, 'retrieve campaign usrdota3comdollar');
 		///////////////
 		$pdoID = vtws_getEntityId('Products');
+		$user = new Users();
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$current_user = $user;
@@ -431,6 +435,7 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'retrieve after Partial update usrdota0x');
 		$this->restoreUpdateRecord(); // Restore record
 		///////////
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$current_user = $user;
 		// Complete
@@ -450,6 +455,7 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'retrieve after Partial update usrcomd0x');
 		$this->restoreUpdateRecord(); // Restore record
 		///////////
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$current_user = $user;
 		// Complete
@@ -622,6 +628,5 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'This test has not been implemented yet.'
 		);
 	}
-
 }
 ?>

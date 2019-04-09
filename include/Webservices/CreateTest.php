@@ -84,6 +84,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrdota0x Correct');
 		/////////////////
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot); // testtz
 		$current_user = $user;
 		$Module = 'Campaigns';
@@ -126,6 +127,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrcoma3dot Correct');
 		/////////////////
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
 		$current_user = $user;
 		$Module = 'Campaigns';
@@ -168,6 +170,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrcomd0x Correct');
 		/////////////////
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
 		$current_user = $user;
 		$Module = 'Campaigns';
@@ -210,6 +213,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrdotd3com Correct');
 		/////////////////
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota3comdollar); // testmcurrency
 		$current_user = $user;
 		$Module = 'Campaigns';
@@ -295,6 +299,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$this->assertEquals($ObjectValues, $actual, 'Test d-m-Y Correct');
 		///  m-d-Y
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$current_user = $user;
 		$Module = 'Assets';
@@ -325,6 +330,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$this->assertEquals($ObjectValues, $actual, 'Test m-d-Y Correct');
 		///  Y-m-d
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$current_user = $user;
 		$Module = 'Assets';
@@ -395,6 +401,7 @@ class WSCreateTest extends TestCase {
 // 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 // 		$this->assertEquals($ObjectValues, $actual,'Test d-m-Y Wrong');
 // 		///  m-d-Y
+// 		$user = new Users();
 // 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 // 		$current_user = $user;
 // 		$Module = 'Assets';
@@ -424,6 +431,7 @@ class WSCreateTest extends TestCase {
 // 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 // 		$this->assertEquals($ObjectValues, $actual,'Test m-d-Y Wrong');
 // 		///  Y-m-d
+// 		$user = new Users();
 // 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 // 		$current_user = $user;
 // 		$Module = 'Assets';

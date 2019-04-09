@@ -154,6 +154,7 @@ class CustomViewTest extends TestCase {
 		);
 		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user 101 admin');
 		//////
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
 		$current_user = $user;
 		$cv = new CustomView('Accounts');
@@ -188,7 +189,6 @@ class CustomViewTest extends TestCase {
 			),
 		);
 		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user 101 testmdy');
-		$current_user = $user;
 		$current_user = $holduser;
 	}
 }

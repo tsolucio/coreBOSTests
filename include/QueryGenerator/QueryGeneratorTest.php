@@ -1113,6 +1113,7 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->addCondition('birthday','2015-06-16','a','OR');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,$sqlresult,"Birthday testymd");
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy
 		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Contacts', $user);
@@ -1121,6 +1122,7 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->addCondition('birthday','16-06-2015','a','OR');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,$sqlresult,"Birthday testdmy");
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
 		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Contacts', $user);
@@ -1131,6 +1133,7 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals($query,$sqlresult,"Birthday testmdy");
 		//////////////////
 		$sqlresult = "SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname, vtiger_contactsubdetails.birthday FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid INNER JOIN vtiger_contactsubdetails ON vtiger_contactdetails.contactid = vtiger_contactsubdetails.contactsubscriptionid  WHERE vtiger_crmentity.deleted=0 AND ( DATE_FORMAT(vtiger_contactsubdetails.birthday,'%m%d') BETWEEN DATE_FORMAT('2006-01-21', '%m%d') AND DATE_FORMAT('2016-01-11', '%m%d'))  AND vtiger_contactdetails.contactid > 0";
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com); // testymd
 		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Contacts', $user);
@@ -1138,6 +1141,7 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->addCondition('birthday',array(0=>'2006-01-21',1=>'2016-01-11'), 'bw');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,$sqlresult,"Birthday between testymd");
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy
 		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Contacts', $user);
@@ -1145,6 +1149,7 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->addCondition('birthday',array(0=>'21-01-2006',1=>'11-01-2016'), 'bw');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query,$sqlresult,"Birthday testdmy");
+		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy
 		$current_user = $user;
 		$queryGenerator = new QueryGenerator('Contacts', $user);

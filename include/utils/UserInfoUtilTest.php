@@ -636,11 +636,9 @@ class testUserInfoUtil extends TestCase {
 	public function testgetCurrentUserGroupList($userid, $expected) {
 		global $current_user;
 		$hold_user = $current_user;
-		$user = new Users();
-		$user->retrieveCurrentUserInfoFromFile($userid);
-		$current_user = $user;
-		$actual=getCurrentUserGroupList();
-		$this->assertEquals($expected, $actual, 'testgetCurrentUserGroupList');
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($userid);
+		$this->assertEquals($expected, getCurrentUserGroupList(), 'testgetCurrentUserGroupList');
 		$current_user = $hold_user;
 	}
 
@@ -815,8 +813,13 @@ class testUserInfoUtil extends TestCase {
 	 * @dataProvider getFieldVisibilityPermissionProvider
 	 */
 	public function testgetFieldVisibilityPermission($fld_module, $userid, $fieldname, $accessmode, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($userid);
 		$actual=getFieldVisibilityPermission($fld_module, $userid, $fieldname, $accessmode);
 		$this->assertEquals($expected, $actual, 'testgetFieldVisibilityPermission');
+		$current_user = $hold_user;
 	}
 
 	/**

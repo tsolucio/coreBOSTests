@@ -449,6 +449,7 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 		global $current_user, $adb, $log;
 		$holdUser = $current_user;
+		$current_user = new Users();
 		$current_user->retrieveCurrentUserInfoFromFile(7); // testymd HelpDesk is private
 		$webserviceObject = VtigerWebserviceObject::fromName($adb, 'HelpDesk');
 		$vtModuleOperation = new VtigerModuleOperation($webserviceObject, $current_user, $adb, $log);
