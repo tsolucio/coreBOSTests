@@ -76,4 +76,29 @@ class testListViewUtils extends TestCase {
 		$current_user = $holduser;
 	}
 
+	/**
+	 * Method textlength_checkProvidor
+	 * params
+	 */
+	public function textlength_checkProvidor() {
+		return array(
+			array('smaller40', 0, 'smaller40'),
+			array('line1<br>line2', 0, 'line1line2'),
+			array('this one is a little bigger than the 40 default cut size', 0, 'this one is a little bigger than the 40 ...'),
+			array('smaller40', 20, 'smaller40'),
+			array('line1<br>line2', 20, 'line1line2'),
+			array('this one is a little bigger than the 40 default cut size', 20, 'this one is a little...'),
+			array('word on cut size', 10, 'word on cu...'),
+			array('word <strong>on</strong> cut size', 10, 'word on cu...'),
+		);
+	}
+
+	/**
+	 * Method testtextlength_check
+	 * @test
+	 * @dataProvider textlength_checkProvidor
+	 */
+	public function testtextlength_check($inputtext, $cutsize, $expected) {
+		$this->assertEquals($expected, textlength_check($inputtext, $cutsize), 'textlength_check: '.$inputtext);
+	}
 }
