@@ -39,14 +39,14 @@ class testCommonUtils extends TestCase {
 	 * @test
 	 */
 	public function testgetCurrencyName() {
-		$actual = getCurrencyName(1,false);
-		$this->assertEquals('Euro', $actual,"currency name 1 no symbol");
-		$actual = getCurrencyName(1,true);
-		$this->assertEquals('Euro : &euro;', $actual,"currency name 1 symbol");
-		$actual = getCurrencyName(2,false);
-		$this->assertEquals('USA, Dollars', $actual,"currency name 2 no symbol");
-		$actual = getCurrencyName(2,true);
-		$this->assertEquals('USA, Dollars : $', $actual,"currency name 2 symbol");
+		$actual = getCurrencyName(1, false);
+		$this->assertEquals('Euro', $actual, 'currency name 1 no symbol');
+		$actual = getCurrencyName(1, true);
+		$this->assertEquals('Euro : &euro;', $actual, 'currency name 1 symbol');
+		$actual = getCurrencyName(2, false);
+		$this->assertEquals('USA, Dollars', $actual, 'currency name 2 no symbol');
+		$actual = getCurrencyName(2, true);
+		$this->assertEquals('USA, Dollars : $', $actual, 'currency name 2 symbol');
 	}
 
 	/**
@@ -60,14 +60,14 @@ class testCommonUtils extends TestCase {
 			'symbol' => '&euro;',
 			'position' => '1.0$',
 		);
-		$this->assertEquals($expected, $actual,"currency symrate 1");
+		$this->assertEquals($expected, $actual, 'currency symrate 1');
 		$actual = getCurrencySymbolandCRate(2);
 		$expected = array(
 			'rate' => '1.10',
 			'symbol' => '$',
 			'position' => '$1.0',
 		);
-		$this->assertEquals($expected, $actual,"currency symrate 2");
+		$this->assertEquals($expected, $actual, 'currency symrate 2');
 	}
 
 	/**
@@ -76,7 +76,7 @@ class testCommonUtils extends TestCase {
 	 */
 	public function testgetBasic_Advance_SearchURL() {
 		$actualRequest = $_REQUEST;
-		$_REQUEST = array (
+		$_REQUEST = array(
 		  'module' => 'Home',
 		  'action' => 'HomeAjax',
 		  'file' => 'HomeWidgetBlockList',
@@ -88,8 +88,8 @@ class testCommonUtils extends TestCase {
 		);
 		$actual = getBasic_Advance_SearchURL();
 		$expected = '&query=true&searchtype=advance';
-		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 1");
-		$_REQUEST = array (
+		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 1');
+		$_REQUEST = array(
 		  'search_field' => 'firstname',
 		  'searchtype' => 'BasicSearch',
 		  'search_text' => 'lina',
@@ -103,8 +103,8 @@ class testCommonUtils extends TestCase {
 		);
 		$actual = getBasic_Advance_SearchURL();
 		$expected = '&query=true&searchtype=BasicSearch&search_field=firstname&search_text=lina';
-		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 2");
-		$_REQUEST = array (
+		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 2');
+		$_REQUEST = array(
 		  'search_field' => 'account_id',
 		  'searchtype' => 'BasicSearch',
 		  'search_text' => '&',
@@ -118,8 +118,8 @@ class testCommonUtils extends TestCase {
 		);
 		$actual = getBasic_Advance_SearchURL();
 		$expected = '&query=true&searchtype=BasicSearch&search_field=account_id&search_text=&amp;';
-		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 3");
-		$_REQUEST = array (
+		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 3');
+		$_REQUEST = array(
 		  'advft_criteria' => '[{"groupid":"1","columnname":"vtiger_contactdetails:firstname:firstname:Contacts_First_Name:V","comparator":"c","value":"lina","columncondition":"and"},{"groupid":"1","columnname":"vtiger_contactdetails:accountid:account_id:Contacts_Account_Name:V","comparator":"c","value":"&","columncondition":""}]',
 		  'advft_criteria_groups' => '[null,{"groupcondition":""}]',
 		  'searchtype' => 'advance',
@@ -132,8 +132,8 @@ class testCommonUtils extends TestCase {
 		);
 		$actual = getBasic_Advance_SearchURL();
 		$expected = '&query=true&searchtype=advance';
-		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 4");
-		$_REQUEST = array (
+		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 4');
+		$_REQUEST = array(
 		  'advft_criteria' => '[{"groupid":"1","columnname":"vtiger_accountscf:cf_722:cf_722:Accounts_Date:D","comparator":"e","value":"$","columncondition":""}]',
 		  'advft_criteria_groups' => '[null,{"groupcondition":""}]',
 		  'searchtype' => 'advance',
@@ -146,8 +146,8 @@ class testCommonUtils extends TestCase {
 		);
 		$actual = getBasic_Advance_SearchURL();
 		$expected = '&query=true&searchtype=advance';
-		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 5");
-		$_REQUEST = array (
+		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 5');
+		$_REQUEST = array(
 		  'search_field' => 'account_id',
 		  'searchtype' => 'BasicSearch',
 		  'search_text' => '& li',
@@ -161,7 +161,7 @@ class testCommonUtils extends TestCase {
 		);
 		$actual = getBasic_Advance_SearchURL();
 		$expected = '&query=true&searchtype=BasicSearch&search_field=account_id&search_text=&amp; li';
-		$this->assertEquals($expected, $actual,"getBasic_Advance_SearchURL 6");
+		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 6');
 		$_REQUEST = $actualRequest;
 	}
 
@@ -169,48 +169,50 @@ class testCommonUtils extends TestCase {
 	 * Method testisInsideApplication
 	 * @test
 	 */
-	function testisInsideApplication() {
+	public function testisInsideApplication() {
 		global $root_directory;
-		$this->assertTrue(isInsideApplication('modules'),"isInsideApplication modules");
-		$this->assertTrue(isInsideApplication('modules/cbupdater'),"isInsideApplication modules/cbupdater");
-		$this->assertTrue(isInsideApplication('modules/cbupdater/cbupdater.php'),"isInsideApplication modules/cbupdater/cbupdater.php");
-		$this->assertFalse(isInsideApplication('/etc'),"isInsideApplication /etc");
-		$this->assertFalse(isInsideApplication('..'),"isInsideApplication ..");
-		$this->assertFalse(isInsideApplication('&#046;&#046;'),"isInsideApplication encoded ..");
-		$this->assertFalse(isInsideApplication('modules\cbupdater\cbupdater.php'),"isInsideApplication modules\cbupdater\cbupdater.php");
-		$this->assertFalse(isInsideApplication('../modules/cbupdater/cbupdater.php'),"isInsideApplication ../modules/cbupdater/cbupdater.php");
-		$this->assertFalse(isInsideApplication('modules/../../../../etc'),"isInsideApplication modules/../../../../etc");
-		$this->assertFalse(isInsideApplication('\etc'),"isInsideApplication \etc");
-		$this->assertFalse(isInsideApplication('modules\\cbupdater\\cbupdater.php'),"isInsideApplication modules\\cbupdater\\cbupdater.php");
-		$this->assertFalse(isInsideApplication('modules\\\\cbupdater\\\\cbupdater.php'),'isInsideApplication modules\\\\cbupdater\\\\cbupdater.php');
-		$this->assertTrue(isInsideApplication($root_directory.'index.php'),'isInsideApplication $root_directory');
-		$this->assertFalse(isInsideApplication('\\etc'),'isInsideApplication \\etc');
+		$this->assertTrue(isInsideApplication('modules'), "isInsideApplication modules");
+		$this->assertTrue(isInsideApplication('modules/cbupdater'), "isInsideApplication modules/cbupdater");
+		$this->assertTrue(isInsideApplication('modules/cbupdater/cbupdater.php'), "isInsideApplication modules/cbupdater/cbupdater.php");
+		$this->assertFalse(isInsideApplication('/etc'), "isInsideApplication /etc");
+		$this->assertFalse(isInsideApplication('..'), "isInsideApplication ..");
+		$this->assertFalse(isInsideApplication('&#046;&#046;'), "isInsideApplication encoded ..");
+		$this->assertFalse(isInsideApplication('modules\cbupdater\cbupdater.php'), "isInsideApplication modules\cbupdater\cbupdater.php");
+		$this->assertFalse(isInsideApplication('../modules/cbupdater/cbupdater.php'), "isInsideApplication ../modules/cbupdater/cbupdater.php");
+		$this->assertFalse(isInsideApplication('modules/../../../../etc'), "isInsideApplication modules/../../../../etc");
+		$this->assertFalse(isInsideApplication('\etc'), "isInsideApplication \etc");
+		$this->assertFalse(isInsideApplication('modules\\cbupdater\\cbupdater.php'), "isInsideApplication modules\\cbupdater\\cbupdater.php");
+		$this->assertFalse(isInsideApplication('modules\\\\cbupdater\\\\cbupdater.php'), 'isInsideApplication modules\\\\cbupdater\\\\cbupdater.php');
+		$this->assertTrue(isInsideApplication($root_directory.'index.php'), 'isInsideApplication $root_directory');
+		$this->assertFalse(isInsideApplication('\\etc'), 'isInsideApplication \\etc');
 	}
 
 	/**
 	 * Method testisFileAccessible
 	 * @test
 	 */
-	function testisFileAccessible() {
-		$this->assertTrue(true,"isFileAccessible tested in testisInsideApplication");
+	public function testisFileAccessible() {
+		$this->assertTrue(true, 'isFileAccessible tested in testisInsideApplication');
 	}
 
 	/**
 	 * Method getbr2nlProvidor
 	 * params
 	 */
-	function getbr2nlProvidor() {
+	public function getbr2nlProvidor() {
 		return array(
 			array('line1','line1','br2nl one line'),
 			array('line1<br>line2','line1<br>line2','br2nl two lines <br>'),
 			array('line1<br/>line2','line1<br/>line2','br2nl two lines <br/>'),
 			array('line1
 line2','line1\nline2','br2nl two lines nl'),
-			array('line1line2','line1\rline2','br2nl two lines cr'),
+			array('line1
+line2','line1\rline2','br2nl two lines cr'),
 			array('line2
 line2','line2\r\nline2','br2nl two lines crnl'),
 			array('line1
-line2','line1\n\rline2','br2nl two lines nlcr'),
+
+line2','line1\n\rline2','br2nl two lines nlcr'),
 			array("line1\nline2",'line1\nline2','br2nl two lines nl'),
 			array("line1\rline2",'line1\rline2','br2nl two lines cr'),
 			array("line1\r\nline2",'line1\r\nline2','br2nl two lines crnl'),
@@ -225,7 +227,7 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 	 * @test
 	 * @dataProvider getbr2nlProvidor
 	 */
-	function testbr2nl($input, $expected, $msg) {
+	public function testbr2nl($input, $expected, $msg) {
 		$this->assertEquals($expected, br2nl($input), $msg);
 	}
 
@@ -233,7 +235,7 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 	 * Method testgetUserslist1
 	 * @test
 	 */
-	function testgetUserslist1() {
+	public function testgetUserslist1() {
 		global $current_user, $module;
 		$module = 'Utilities';
 		$hold_user = $current_user;
@@ -277,7 +279,7 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 	 * Method getMergedDescriptionProvidor
 	 * params
 	 */
-	function getMergedDescriptionProvidor() {
+	public function getMergedDescriptionProvidor() {
 		$lang = return_module_language('en_us', 'Reports');
 		$mes = date('m')-1;
 		return array(
@@ -365,7 +367,7 @@ Site URL: $URL$','WF vars variables'),
 	 * @test
 	 * @dataProvider getMergedDescriptionProvidor
 	 */
-	function testgetMergedDescription($description, $id, $parent_type, $expected, $msg) {
+	public function testgetMergedDescription($description, $id, $parent_type, $expected, $msg) {
 		$this->assertEquals($expected, getMergedDescription($description, $id, $parent_type), $msg);
 	}
 
@@ -373,7 +375,7 @@ Site URL: $URL$','WF vars variables'),
 	 * Method testgetReturnPathProvidor
 	 * params
 	 */
-	function getReturnPathProvidor() {
+	public function getReturnPathProvidor() {
 		return array(
 			array('tsolucio.com','','info@tsolucio.com','normal'),
 			array('ispconfig.tsolucio.com','','info@tsolucio.com','superdomain'),
@@ -420,7 +422,7 @@ Site URL: $URL$','WF vars variables'),
 	 * Method getrecurringObjValueProvidor
 	 * params
 	 */
-	function getrecurringObjValueProvidor() {
+	public function getrecurringObjValueProvidor() {
 		return array(
 		array(null,null,null,null,null,null,
 			null,null,null,null,null,null,null,null,null,
@@ -501,9 +503,11 @@ Site URL: $URL$','WF vars variables'),
 	 * @test
 	 * @dataProvider getrecurringObjValueProvidor
 	 */
-	function testgetrecurringObjValue($recurringtype,$date_start,$calendar_repeat_limit_date,$due_date,$time_start,$time_end,
-			$sun_flag,$mon_flag,$tue_flag,$wed_flag,$thu_flag,$fri_flag,$sat_flag,$repeatMonth,$repeatMonth_date,
-			$repeatmonth_daytype,$repeatMonth_day,$repeat_frequency,$expected,$msg) {
+	public function testgetrecurringObjValue(
+		$recurringtype, $date_start, $calendar_repeat_limit_date, $due_date,$time_start, $time_end,
+		$sun_flag, $mon_flag, $tue_flag, $wed_flag, $thu_flag, $fri_flag, $sat_flag, $repeatMonth,
+		$repeatMonth_date, $repeatmonth_daytype, $repeatMonth_day, $repeat_frequency, $expected,$msg
+	) {
 		$_REQUEST['recurringtype'] = $recurringtype;
 		$_REQUEST['date_start'] = $date_start;
 		$_REQUEST['calendar_repeat_limit_date'] = $calendar_repeat_limit_date;
@@ -534,7 +538,7 @@ Site URL: $URL$','WF vars variables'),
 	 * Method testgetSalesEntityType
 	 * @test
 	 */
-	function testgetSalesEntityType() {
+	public function testgetSalesEntityType() {
 		$this->assertEquals('Accounts', getSalesEntityType('74'), 'Accounts setype');
 		$this->assertEquals('CobroPago', getSalesEntityType('14335'), 'Payment setype');
 		$this->assertEquals('Contacts', getSalesEntityType('1090'), 'Contacts setype');
@@ -544,7 +548,7 @@ Site URL: $URL$','WF vars variables'),
 	 * Method testUserCount
 	 * @test
 	 */
-	function testUserCount() {
+	public function testUserCount() {
 		$expected = array(
 			'user' => 10,
 			'admin' => 1,
@@ -557,7 +561,7 @@ Site URL: $URL$','WF vars variables'),
 	 * Method testpicklistHasDependency
 	 * @test
 	 */
-	function testpicklistHasDependency() {
+	public function testpicklistHasDependency() {
 		$this->assertTrue(picklistHasDependency('cf_729', 'Accounts'), 'picklist dependency on Accounts CF');
 		$this->assertFalse(picklistHasDependency('industry', 'Accounts'), 'picklist dependency on Accounts industry');
 	}
@@ -566,7 +570,7 @@ Site URL: $URL$','WF vars variables'),
 	 * Method testgetView
 	 * @test
 	 */
-	function testgetView() {
+	public function testgetView() {
 		$this->assertEquals(getView(''), 'create_view', 'get view empty');
 		$this->assertEquals(getView('edit'), 'edit_view', 'get view edit');
 		$this->assertEquals(getView('junk'), 'create_view', 'get view anything else');
@@ -576,7 +580,7 @@ Site URL: $URL$','WF vars variables'),
 	 * Method testgetBlockId
 	 * @test
 	 */
-	function testgetBlockId() {
+	public function testgetBlockId() {
 		$this->assertEquals(getBlockId(6, 'LBL_ACCOUNT_INFORMATION'), '9', 'getblockid accounts');
 		$this->assertEquals(getBlockId(4, 'LBL_CONTACT_INFORMATION'), '4', 'getblockid contacts');
 		$this->assertEquals(getBlockId(4, 'non-existent'), '', 'getblockid non-existent');
@@ -647,7 +651,7 @@ Site URL: $URL$','WF vars variables'),
 	 * Method testgetEntityField
 	 * @test
 	 */
-	function testgetEntityField() {
+	public function testgetEntityField() {
 		$expected = array(
 			'tablename' => 'vtiger_account',
 			'fieldname' => 'accountname',
@@ -721,522 +725,419 @@ Site URL: $URL$','WF vars variables'),
 		);
 		$expected = $base;
 		$expected[0] = array(
-			0 => 
-			array (
-			0 => 'Organizations: OrganizationsID',
-			1 => '$accounts-accountid$',
+			0 => array(
+				0 => 'Organizations: OrganizationsID',
+				1 => '$accounts-accountid$',
 			),
-			1 => 
-			array (
-			0 => 'Organizations: Organization Name',
-			1 => '$accounts-accountname$',
+			1 => array(
+				0 => 'Organizations: Organization Name',
+				1 => '$accounts-accountname$',
 			),
-			2 => 
-			array (
-			0 => 'Organizations: Organization No',
-			1 => '$accounts-account_no$',
+			2 => array(
+				0 => 'Organizations: Organization No',
+				1 => '$accounts-account_no$',
 			),
-			3 => 
-			array (
-			0 => 'Organizations: Phone',
-			1 => '$accounts-phone$',
+			3 => array(
+				0 => 'Organizations: Phone',
+				1 => '$accounts-phone$',
 			),
-			4 => 
-			array (
-			0 => 'Organizations: Website',
-			1 => '$accounts-website$',
+			4 => array(
+				0 => 'Organizations: Website',
+				1 => '$accounts-website$',
 			),
-			5 => 
-			array (
-			0 => 'Organizations: Fax',
-			1 => '$accounts-fax$',
+			5 => array(
+				0 => 'Organizations: Fax',
+				1 => '$accounts-fax$',
 			),
-			6 => 
-			array (
-			0 => 'Organizations: Ticker Symbol',
-			1 => '$accounts-tickersymbol$',
+			6 => array(
+				0 => 'Organizations: Ticker Symbol',
+				1 => '$accounts-tickersymbol$',
 			),
-			7 => 
-			array (
-			0 => 'Organizations: Other Phone',
-			1 => '$accounts-otherphone$',
+			7 => array(
+				0 => 'Organizations: Other Phone',
+				1 => '$accounts-otherphone$',
 			),
-			8 => 
-			array (
-			0 => 'Organizations: Member Of',
-			1 => '$accounts-parentid$',
+			8 => array(
+				0 => 'Organizations: Member Of',
+				1 => '$accounts-parentid$',
 			),
-			9 => 
-			array (
-			0 => 'Organizations: Email',
-			1 => '$accounts-email1$',
+			9 => array(
+				0 => 'Organizations: Email',
+				1 => '$accounts-email1$',
 			),
-			10 => 
-			array (
-			0 => 'Organizations: Employees',
-			1 => '$accounts-employees$',
+			10 => array(
+				0 => 'Organizations: Employees',
+				1 => '$accounts-employees$',
 			),
-			11 => 
-			array (
-			0 => 'Organizations: Other Email',
-			1 => '$accounts-email2$',
+			11 => array(
+				0 => 'Organizations: Other Email',
+				1 => '$accounts-email2$',
 			),
-			12 => 
-			array (
-			0 => 'Organizations: Ownership',
-			1 => '$accounts-ownership$',
+			12 => array(
+				0 => 'Organizations: Ownership',
+				1 => '$accounts-ownership$',
 			),
-			13 => 
-			array (
-			0 => 'Organizations: Rating',
-			1 => '$accounts-rating$',
+			13 => array(
+				0 => 'Organizations: Rating',
+				1 => '$accounts-rating$',
 			),
-			14 => 
-			array (
-			0 => 'Organizations: Industry',
-			1 => '$accounts-industry$',
+			14 => array(
+				0 => 'Organizations: Industry',
+				1 => '$accounts-industry$',
 			),
-			15 => 
-			array (
-			0 => 'Organizations: SIC Code',
-			1 => '$accounts-siccode$',
+			15 => array(
+				0 => 'Organizations: SIC Code',
+				1 => '$accounts-siccode$',
 			),
-			16 => 
-			array (
-			0 => 'Organizations: Type',
-			1 => '$accounts-account_type$',
+			16 => array(
+				0 => 'Organizations: Type',
+				1 => '$accounts-account_type$',
 			),
-			17 => 
-			array (
-			0 => 'Organizations: Annual Revenue',
-			1 => '$accounts-annualrevenue$',
+			17 => array(
+				0 => 'Organizations: Annual Revenue',
+				1 => '$accounts-annualrevenue$',
 			),
-			18 => 
-			array (
-			0 => 'Organizations: Email Opt Out',
-			1 => '$accounts-emailoptout$',
+			18 => array(
+				0 => 'Organizations: Email Opt Out',
+				1 => '$accounts-emailoptout$',
 			),
-			19 => 
-			array (
-			0 => 'Organizations: Notify Owner',
-			1 => '$accounts-notify_owner$',
+			19 => array(
+				0 => 'Organizations: Notify Owner',
+				1 => '$accounts-notify_owner$',
 			),
-			20 => 
-			array (
-			0 => 'Organizations: Assigned To',
-			1 => '$accounts-smownerid$',
+			20 => array(
+				0 => 'Organizations: Assigned To',
+				1 => '$accounts-smownerid$',
 			),
-			21 => 
-			array (
-			0 => 'Organizations: Created Time',
-			1 => '$accounts-createdtime$',
+			21 => array(
+				0 => 'Organizations: Created Time',
+				1 => '$accounts-createdtime$',
 			),
-			22 => 
-			array (
-			0 => 'Organizations: Modified Time',
-			1 => '$accounts-modifiedtime$',
+			22 => array(
+				0 => 'Organizations: Modified Time',
+				1 => '$accounts-modifiedtime$',
 			),
-			23 => 
-			array (
-			0 => 'Organizations: Last Modified By',
-			1 => '$accounts-modifiedby$',
+			23 => array(
+				0 => 'Organizations: Last Modified By',
+				1 => '$accounts-modifiedby$',
 			),
-			24 => 
-			array (
-			0 => 'Organizations: Billing Address',
-			1 => '$accounts-bill_street$',
+			24 => array(
+				0 => 'Organizations: Billing Address',
+				1 => '$accounts-bill_street$',
 			),
-			25 => 
-			array (
-			0 => 'Organizations: Shipping Address',
-			1 => '$accounts-ship_street$',
+			25 => array(
+				0 => 'Organizations: Shipping Address',
+				1 => '$accounts-ship_street$',
 			),
-			26 => 
-			array (
-			0 => 'Organizations: Billing City',
-			1 => '$accounts-bill_city$',
+			26 => array(
+				0 => 'Organizations: Billing City',
+				1 => '$accounts-bill_city$',
 			),
-			27 => 
-			array (
-			0 => 'Organizations: Shipping City',
-			1 => '$accounts-ship_city$',
+			27 => array(
+				0 => 'Organizations: Shipping City',
+				1 => '$accounts-ship_city$',
 			),
-			28 => 
-			array (
-			0 => 'Organizations: Billing State',
-			1 => '$accounts-bill_state$',
+			28 => array(
+				0 => 'Organizations: Billing State',
+				1 => '$accounts-bill_state$',
 			),
-			29 => 
-			array (
-			0 => 'Organizations: Shipping State',
-			1 => '$accounts-ship_state$',
+			29 => array(
+				0 => 'Organizations: Shipping State',
+				1 => '$accounts-ship_state$',
 			),
-			30 => 
-			array (
-			0 => 'Organizations: Billing Postal Code',
-			1 => '$accounts-bill_code$',
+			30 => array(
+				0 => 'Organizations: Billing Postal Code',
+				1 => '$accounts-bill_code$',
 			),
-			31 => 
-			array (
-			0 => 'Organizations: Shipping Postal Code',
-			1 => '$accounts-ship_code$',
+			31 => array(
+				0 => 'Organizations: Shipping Postal Code',
+				1 => '$accounts-ship_code$',
 			),
-			32 => 
-			array (
-			0 => 'Organizations: Billing Country',
-			1 => '$accounts-bill_country$',
+			32 => array(
+				0 => 'Organizations: Billing Country',
+				1 => '$accounts-bill_country$',
 			),
-			33 => 
-			array (
-			0 => 'Organizations: Shipping Country',
-			1 => '$accounts-ship_country$',
+			33 => array(
+				0 => 'Organizations: Shipping Country',
+				1 => '$accounts-ship_country$',
 			),
-			34 => 
-			array (
-			0 => 'Organizations: Billing PO Box',
-			1 => '$accounts-bill_pobox$',
+			34 => array(
+				0 => 'Organizations: Billing PO Box',
+				1 => '$accounts-bill_pobox$',
 			),
-			35 => 
-			array (
-			0 => 'Organizations: Shipping PO Box',
-			1 => '$accounts-ship_pobox$',
+			35 => array(
+				0 => 'Organizations: Shipping PO Box',
+				1 => '$accounts-ship_pobox$',
 			),
-			36 => 
-			array (
-			0 => 'Organizations: Description',
-			1 => '$accounts-description$',
+			36 => array(
+				0 => 'Organizations: Description',
+				1 => '$accounts-description$',
 			),
-			37 => 
-			array (
-			0 => 'Organizations: Text',
-			1 => '$accounts-cf_718$',
+			37 => array(
+				0 => 'Organizations: Text',
+				1 => '$accounts-cf_718$',
 			),
-			38 => 
-			array (
-			0 => 'Organizations: Number',
-			1 => '$accounts-cf_719$',
+			38 => array(
+				0 => 'Organizations: Number',
+				1 => '$accounts-cf_719$',
 			),
-			39 => 
-			array (
-			0 => 'Organizations: Percent',
-			1 => '$accounts-cf_720$',
+			39 => array(
+				0 => 'Organizations: Percent',
+				1 => '$accounts-cf_720$',
 			),
-			40 => 
-			array (
-			0 => 'Organizations: Currency',
-			1 => '$accounts-cf_721$',
+			40 => array(
+				0 => 'Organizations: Currency',
+				1 => '$accounts-cf_721$',
 			),
-			41 => 
-			array (
-			0 => 'Organizations: Date',
-			1 => '$accounts-cf_722$',
+			41 => array(
+				0 => 'Organizations: Date',
+				1 => '$accounts-cf_722$',
 			),
-			42 => 
-			array (
-			0 => 'Organizations: Emailcf',
-			1 => '$accounts-cf_723$',
+			42 => array(
+				0 => 'Organizations: Emailcf',
+				1 => '$accounts-cf_723$',
 			),
-			43 => 
-			array (
-			0 => 'Organizations: Phonecf',
-			1 => '$accounts-cf_724$',
+			43 => array(
+				0 => 'Organizations: Phonecf',
+				1 => '$accounts-cf_724$',
 			),
-			44 => 
-			array (
-			0 => 'Organizations: URL',
-			1 => '$accounts-cf_725$',
+			44 => array(
+				0 => 'Organizations: URL',
+				1 => '$accounts-cf_725$',
 			),
-			45 => 
-			array (
-			0 => 'Organizations: Checkbox',
-			1 => '$accounts-cf_726$',
+			45 => array(
+				0 => 'Organizations: Checkbox',
+				1 => '$accounts-cf_726$',
 			),
-			46 => 
-			array (
-			0 => 'Organizations: skypecf',
-			1 => '$accounts-cf_727$',
+			46 => array(
+				0 => 'Organizations: skypecf',
+				1 => '$accounts-cf_727$',
 			),
-			47 => 
-			array (
-			0 => 'Organizations: Time',
-			1 => '$accounts-cf_728$',
+			47 => array(
+				0 => 'Organizations: Time',
+				1 => '$accounts-cf_728$',
 			),
-			48 => 
-			array (
-			0 => 'Organizations: PLMain',
-			1 => '$accounts-cf_729$',
+			48 => array(
+				0 => 'Organizations: PLMain',
+				1 => '$accounts-cf_729$',
 			),
-			49 => 
-			array (
-			0 => 'Organizations: PLDep1',
-			1 => '$accounts-cf_730$',
+			49 => array(
+				0 => 'Organizations: PLDep1',
+				1 => '$accounts-cf_730$',
 			),
-			50 => 
-			array (
-			0 => 'Organizations: PLDep2',
-			1 => '$accounts-cf_731$',
+			50 => array(
+				0 => 'Organizations: PLDep2',
+				1 => '$accounts-cf_731$',
 			),
-			51 => 
-			array (
-			0 => 'Organizations: Planets',
-			1 => '$accounts-cf_732$',
+			51 => array(
+				0 => 'Organizations: Planets',
+				1 => '$accounts-cf_732$',
 			),
-			52 => 
-			array (
-			0 => 'Organizations: Is Converted From Lead',
-			1 => '$accounts-isconvertedfromlead$',
+			52 => array(
+				0 => 'Organizations: Is Converted From Lead',
+				1 => '$accounts-isconvertedfromlead$',
 			),
-			53 => 
-			array (
-			0 => 'Organizations: Converted From Lead',
-			1 => '$accounts-convertedfromlead$',
+			53 => array(
+				0 => 'Organizations: Converted From Lead',
+				1 => '$accounts-convertedfromlead$',
 			),
-			54 => 
-			array (
-			0 => 'Organizations: Created By',
-			1 => '$accounts-smcreatorid$',
+			54 => array(
+				0 => 'Organizations: Created By',
+				1 => '$accounts-smcreatorid$',
 			),
 		);
 		$this->assertEquals($expected, getEmailTemplateVariables(array('Accounts')), 'getEmailTemplateVariables accounts');
 		$expected = $base;
 		$expected[0] = array(
-			0 => 
-			array (
+			0 => array(
 				0 => 'Contacts: ContactsID',
 				1 => '$contacts-contactid$',
 			),
-			1 => 
-			array (
+			1 => array(
 				0 => 'Contacts: Salutation',
 				1 => '$contacts-salutation$',
 			),
-			2 => 
-			array (
+			2 => array(
 				0 => 'Contacts: First Name',
 				1 => '$contacts-firstname$',
 			),
-			3 => 
-			array (
+			3 => array(
 				0 => 'Contacts: Contact No.',
 				1 => '$contacts-contact_no$',
 			),
-			4 => 
-			array (
+			4 => array(
 				0 => 'Contacts: Office Phone',
 				1 => '$contacts-phone$',
 			),
-			5 => 
-			array (
+			5 => array(
 				0 => 'Contacts: Last Name',
 				1 => '$contacts-lastname$',
 			),
-			6 => 
-			array (
+			6 => array(
 				0 => 'Contacts: Mobile',
 				1 => '$contacts-mobile$',
 			),
-			7 => 
-			array (
+			7 => array(
 				0 => 'Contacts: Organization Name',
 				1 => '$contacts-accountid$',
 			),
-			8 => 
-			array (
+			8 => array(
 				0 => 'Contacts: Home Phone',
 				1 => '$contacts-homephone$',
 			),
-			9 => 
-			array (
+			9 => array(
 				0 => 'Contacts: Lead Source',
 				1 => '$contacts-leadsource$',
 			),
-			10 => 
-			array (
+			10 => array(
 				0 => 'Contacts: Other Phone',
 				1 => '$contacts-otherphone$',
 			),
-			11 => 
-			array (
+			11 => array(
 				0 => 'Contacts: Title',
 				1 => '$contacts-title$',
 			),
-			12 => 
-			array (
+			12 => array(
 				0 => 'Contacts: Fax',
 				1 => '$contacts-fax$',
 			),
-			13 => 
-			array (
+			13 => array(
 				0 => 'Contacts: Department',
 				1 => '$contacts-department$',
 			),
-			14 => 
-			array (
+			14 => array(
 				0 => 'Contacts: Birthdate',
 				1 => '$contacts-birthday$',
 			),
-			15 => 
-			array (
+			15 => array(
 				0 => 'Contacts: Email',
 				1 => '$contacts-email$',
 			),
-			16 => 
-			array (
+			16 => array(
 				0 => 'Contacts: Reports To',
 				1 => '$contacts-reportsto$',
 			),
-			17 => 
-			array (
+			17 => array(
 				0 => 'Contacts: Assistant',
 				1 => '$contacts-assistant$',
 			),
-			18 => 
-			array (
+			18 => array(
 				0 => 'Contacts: Secondary Email',
 				1 => '$contacts-secondaryemail$',
 			),
-			19 => 
-			array (
+			19 => array(
 				0 => 'Contacts: Assistant Phone',
 				1 => '$contacts-assistantphone$',
 			),
-			20 => 
-			array (
+			20 => array(
 				0 => 'Contacts: Do Not Call',
 				1 => '$contacts-donotcall$',
 			),
-			21 => 
-			array (
+			21 => array(
 				0 => 'Contacts: Email Opt Out',
 				1 => '$contacts-emailoptout$',
 			),
-			22 => 
-			array (
+			22 => array(
 				0 => 'Contacts: Assigned To',
 				1 => '$contacts-smownerid$',
 			),
-			23 => 
-			array (
+			23 => array(
 				0 => 'Contacts: Reference',
 				1 => '$contacts-reference$',
 			),
-			24 => 
-			array (
+			24 => array(
 				0 => 'Contacts: Notify Owner',
 				1 => '$contacts-notify_owner$',
 			),
-			25 => 
-			array (
+			25 => array(
 				0 => 'Contacts: Created Time',
 				1 => '$contacts-createdtime$',
 			),
-			26 => 
-			array (
+			26 => array(
 				0 => 'Contacts: Modified Time',
 				1 => '$contacts-modifiedtime$',
 			),
-			27 => 
-			array (
+			27 => array(
 				0 => 'Contacts: Last Modified By',
 				1 => '$contacts-modifiedby$',
 			),
-			28 => 
-			array (
+			28 => array(
 				0 => 'Contacts: Portal User',
 				1 => '$contacts-portal$',
 			),
-			29 => 
-			array (
+			29 => array(
 				0 => 'Contacts: Support Start Date',
 				1 => '$contacts-support_start_date$',
 			),
-			30 => 
-			array (
+			30 => array(
 				0 => 'Contacts: Support End Date',
 				1 => '$contacts-support_end_date$',
 			),
-			31 => 
-			array (
+			31 => array(
 				0 => 'Contacts: Mailing Street',
 				1 => '$contacts-mailingstreet$',
 			),
-			32 => 
-			array (
+			32 => array(
 				0 => 'Contacts: Other Street',
 				1 => '$contacts-otherstreet$',
 			),
-			33 => 
-			array (
+			33 => array(
 				0 => 'Contacts: Mailing City',
 				1 => '$contacts-mailingcity$',
 			),
-			34 => 
-			array (
+			34 => array(
 				0 => 'Contacts: Other City',
 				1 => '$contacts-othercity$',
 			),
-			35 => 
-			array (
+			35 => array(
 				0 => 'Contacts: Mailing State',
 				1 => '$contacts-mailingstate$',
 			),
-			36 => 
-			array (
+			36 => array(
 				0 => 'Contacts: Other State',
 				1 => '$contacts-otherstate$',
 			),
-			37 => 
-			array (
+			37 => array(
 				0 => 'Contacts: Mailing Postal Code',
 				1 => '$contacts-mailingzip$',
 			),
-			38 => 
-			array (
+			38 => array(
 				0 => 'Contacts: Other Postal Code',
 				1 => '$contacts-otherzip$',
 			),
-			39 => 
-			array (
+			39 => array(
 				0 => 'Contacts: Mailing Country',
 				1 => '$contacts-mailingcountry$',
 			),
-			40 => 
-			array (
+			40 => array(
 				0 => 'Contacts: Other Country',
 				1 => '$contacts-othercountry$',
 			),
-			41 => 
-			array (
+			41 => array(
 				0 => 'Contacts: Mailing PO Box',
 				1 => '$contacts-mailingpobox$',
 			),
-			42 => 
-			array (
+			42 => array(
 				0 => 'Contacts: Other PO Box',
 				1 => '$contacts-otherpobox$',
 			),
-			43 => 
-			array (
+			43 => array(
 				0 => 'Contacts: Contact Image',
 				1 => '$contacts-imagename$',
 			),
-			44 => 
-			array (
+			44 => array(
 				0 => 'Contacts: Description',
 				1 => '$contacts-description$',
 			),
-			45 => 
-			array (
+			45 => array(
 				0 => 'Contacts: Is Converted From Lead',
 				1 => '$contacts-isconvertedfromlead$',
 			),
-			46 => 
-			array (
+			46 => array(
 				0 => 'Contacts: Converted From Lead',
 				1 => '$contacts-convertedfromlead$',
 			),
-			47 => 
-			array (
+			47 => array(
 				0 => 'Contacts: Created By',
 				1 => '$contacts-smcreatorid$',
 			),
@@ -1244,98 +1145,79 @@ Site URL: $URL$','WF vars variables'),
 		$this->assertEquals($expected, getEmailTemplateVariables(array('Contacts')), 'getEmailTemplateVariables contacts');
 		$expected = $base;
 		$expected[0] = array(
-			0 => 
-			array (
+			0 => array(
 			  0 => 'Assets: AssetsID',
 			  1 => '$assets-assetsid$',
 			),
-			1 => 
-			array (
+			1 => array(
 			  0 => 'Assets: Asset No',
 			  1 => '$assets-asset_no$',
 			),
-			2 => 
-			array (
+			2 => array(
 			  0 => 'Assets: Product Name',
 			  1 => '$assets-product$',
 			),
-			3 => 
-			array (
+			3 => array(
 			  0 => 'Assets: Serial Number',
 			  1 => '$assets-serialnumber$',
 			),
-			4 => 
-			array (
+			4 => array(
 			  0 => 'Assets: Date Sold',
 			  1 => '$assets-datesold$',
 			),
-			5 => 
-			array (
+			5 => array(
 			  0 => 'Assets: Date in Service',
 			  1 => '$assets-dateinservice$',
 			),
-			6 => 
-			array (
+			6 => array(
 			  0 => 'Assets: Status',
 			  1 => '$assets-assetstatus$',
 			),
-			7 => 
-			array (
+			7 => array(
 			  0 => 'Assets: Tag Number',
 			  1 => '$assets-tagnumber$',
 			),
-			8 => 
-			array (
+			8 => array(
 			  0 => 'Assets: Invoice Name',
 			  1 => '$assets-invoiceid$',
 			),
-			9 => 
-			array (
+			9 => array(
 			  0 => 'Assets: Shipping Method',
 			  1 => '$assets-shippingmethod$',
 			),
-			10 => 
-			array (
+			10 => array(
 			  0 => 'Assets: Shipping Tracking Number',
 			  1 => '$assets-shippingtrackingnumber$',
 			),
-			11 => 
-			array (
+			11 => array(
 			  0 => 'Assets: Assigned To',
 			  1 => '$assets-smownerid$',
 			),
-			12 => 
-			array (
+			12 => array(
 			  0 => 'Assets: Asset Name',
 			  1 => '$assets-assetname$',
 			),
-			13 => 
-			array (
+			13 => array(
 			  0 => 'Assets: Customer Name',
 			  1 => '$assets-account$',
 			),
-			14 => 
-			array (
+			14 => array(
 			  0 => 'Assets: Created Time',
 			  1 => '$assets-createdtime$',
 			),
-			15 => 
-			array (
+			15 => array(
 			  0 => 'Assets: Modified Time',
 			  1 => '$assets-modifiedtime$',
 			),
-			16 => 
-			array (
+			16 => array(
 			  0 => 'Assets: Last Modified By',
 			  1 => '$assets-modifiedby$',
 			),
-			17 => 
-			array (
+			17 => array(
 			  0 => 'Assets: Notes',
 			  1 => '$assets-description$',
 			),
-			18 => 
-			array (
+			18 => array(
 			  0 => 'Assets: Created By',
 			  1 => '$assets-smcreatorid$',
 			),
