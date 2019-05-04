@@ -218,5 +218,37 @@ class workflowfunctionsdatetimeTest extends TestCase {
 		$actual = __cb_next_dateLaborable(array('2017-07-01','15,30','2017-07-17,2017-08-15',0));
 		$this->assertEquals('2017-07-18', $actual);
 	}
+
+	/**
+	 * Method testaddworkdays
+	 * @test
+	 */
+	public function testaddworkdays() {
+		$actual = __cb_add_workdays(array('2017-06-20',10,1,''));
+		$this->assertEquals('2017-07-01', $actual);
+		$actual = __cb_add_workdays(array('2017-06-20',10,0,''));
+		$this->assertEquals('2017-07-04', $actual);
+		$actual = __cb_add_workdays(array('2017-06-30',10,1,''));
+		$this->assertEquals('2017-07-12', $actual);
+		$actual = __cb_add_workdays(array('2017-06-30',10,0,''));
+		$this->assertEquals('2017-07-14', $actual);
+		$actual = __cb_add_workdays(array('2017-07-01',10,1,''));
+		$this->assertEquals('2017-07-13', $actual);
+		$actual = __cb_add_workdays(array('2017-07-01',10,0,''));
+		$this->assertEquals('2017-07-14', $actual);
+		////////////
+		$actual = __cb_add_workdays(array('2017-06-20',10,1,'2017-06-27,2017-07-04'));
+		$this->assertEquals('2017-07-03', $actual);
+		$actual = __cb_add_workdays(array('2017-06-20',10,0,'2017-06-27,2017-07-04'));
+		$this->assertEquals('2017-07-06', $actual);
+		$actual = __cb_add_workdays(array('2017-06-30',10,1,'2017-06-27,2017-07-04'));
+		$this->assertEquals('2017-07-13', $actual);
+		$actual = __cb_add_workdays(array('2017-06-30',10,0,'2017-06-27,2017-07-04'));
+		$this->assertEquals('2017-07-17', $actual);
+		$actual = __cb_add_workdays(array('2017-07-01',10,1,'2017-06-27,2017-07-04'));
+		$this->assertEquals('2017-07-14', $actual);
+		$actual = __cb_add_workdays(array('2017-07-01',10,0,'2017-06-27,2017-07-04'));
+		$this->assertEquals('2017-07-17', $actual);
+	}
 }
 ?>
