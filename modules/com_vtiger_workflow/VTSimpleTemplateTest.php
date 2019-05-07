@@ -398,6 +398,15 @@ Location : Hamburg';
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) )-');
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ -');
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) )<');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('CORAZON', $actual, '__WorkflowFunction__ <');
+		$ct = new VTSimpleTemplate("<p>Event on <strong>$(general : (__WorkflowFunction__) concat ( format_date(get_date('today'),'d. F Y') ,' um ', substring(get_date('time'),0,5),' Uhr.') )&</strong></p>");
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('<p>Event on <strong>'.date('d. F Y').' um '.date('H:i').' Uhr.</strong></p>', $actual, '__WorkflowFunction__ -');
+		$ct = new VTSimpleTemplate("<p>Event on <strong>$(general : (__WorkflowFunction__) concat ( format_date(get_date('today'),'d. F Y') ,' um ', substring(get_date('time'),0,5),' Uhr.') ).</strong></p>");
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('<p>Event on <strong>'.date('d. F Y').' um '.date('H:i').' Uhr.</strong></p>', $actual, '__WorkflowFunction__ -');
 	}
 
 	/**
