@@ -554,6 +554,38 @@ $expectedresult = array(
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('noreply@tsolucio.com', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "$(account_id : (Accounts) accountname)";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) accountname)
+    [type] => string
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('Rowley Schlimgen Inc', $exprEvaluation);
+		/////////////////////////
+		$testexpression = "$(account_id : (Accounts) record_id)";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) record_id)
+    [type] => string
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('746', $exprEvaluation);
 	}
 
 	/**
