@@ -81,7 +81,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
-		$expecteddate = date('Y-m-d',mktime(0,0,0,date('m'),date('d') + 14,date('Y')));
+		$expecteddate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 14, date('Y')));
 		$this->assertEquals($expecteddate, $exprEvaluation);
 		/////////////////////////
 		$testexpression = "get_date('today')";
@@ -122,7 +122,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
-		$expecteddate = date('Y-m-d',mktime(0,0,0,date('m'),date('d') + 7,date('Y')));
+		$expecteddate = date('Y-m-d', mktime(0, 0, 0, date('m'), date('d') + 7, date('Y')));
 		$this->assertEquals($expecteddate, $exprEvaluation);
 		/////////////////////////
 		$testexpression = "uppercase('today')";
@@ -445,7 +445,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$entityId = '11x74'; // Account
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
 		$testexpression = "translate('LBL_LAST_VIEWED')";
-$expectedresult = array(
+		$expectedresult = array(
     0 => 'LBL_LAST_VIEWED',
     1 => 'Array
 (
@@ -3783,18 +3783,18 @@ $expectedresult = array(
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals('cbTest testymd', $exprEvaluation);
-    }
-    
-    /**
+	}
+
+	/**
 	 * Method testLogicalOperators
 	 * @test
 	 */
 	public function testLogicalOperators() {
-        $adminUser = Users::getActiveAdminUser();
+		$adminUser = Users::getActiveAdminUser();
 		$entityId = '11x74'; // employees = 131
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
-        $testexpression = 'isString($(account_id : (Accounts) accountname))';
-        $expectedresult = array(
+		$testexpression = 'isString($(account_id : (Accounts) accountname))';
+		$expectedresult = array(
 			0 => 'VTExpressionSymbol Object
 (
     [value] => $(account_id : (Accounts) accountname)
@@ -3812,10 +3812,10 @@ $expectedresult = array(
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
-        $this->assertEquals(1, $exprEvaluation);
-        ///////////////
-        $testexpression = 'isNumeric($(account_id : (Accounts) accounttype))';
-        $expectedresult = array(
+		$this->assertEquals(1, $exprEvaluation);
+		///////////////
+		$testexpression = 'isNumeric($(account_id : (Accounts) accounttype))';
+		$expectedresult = array(
 			0 => 'VTExpressionSymbol Object
 (
     [value] => $(account_id : (Accounts) accounttype)
@@ -3833,10 +3833,10 @@ $expectedresult = array(
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
-        $this->assertEquals(0, $exprEvaluation);
-        //////////////
-        $testexpression = 'OR(isString($(account_id : (Accounts) accountname)), isNumeric($(account_id : (Accounts) bill_code)))';
-        $expectedresult = array(
+		$this->assertEquals(0, $exprEvaluation);
+		//////////////
+		$testexpression = 'OR(isString($(account_id : (Accounts) accountname)), isNumeric($(account_id : (Accounts) bill_code)))';
+		$expectedresult = array(
 			0 => 'VTExpressionSymbol Object
 (
     [value] => $(account_id : (Accounts) accountname)
@@ -3866,15 +3866,15 @@ $expectedresult = array(
 )
 '
 );
-        $parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
-        $expression = $parser->expression();
-        $exprEvaluater = new VTFieldExpressionEvaluater($expression);
-        $exprEvaluation = $exprEvaluater->evaluate($entity);
-        $this->assertEquals($expectedresult, $exprEvaluater->debug);
-        $this->assertEquals(1, $exprEvaluation);
-        //////////////
-        $testexpression = 'AND(isString($(account_id : (Accounts) accountname)), isNumeric($(account_id : (Accounts) accounttype)))';
-        $expectedresult = array(
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(1, $exprEvaluation);
+		//////////////
+		$testexpression = 'AND(isString($(account_id : (Accounts) accountname)), isNumeric($(account_id : (Accounts) accounttype)))';
+		$expectedresult = array(
 			0 => 'VTExpressionSymbol Object
 (
     [value] => $(account_id : (Accounts) accountname)
@@ -3904,12 +3904,12 @@ $expectedresult = array(
 )
 '
 );
-        $parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
-        $expression = $parser->expression();
-        $exprEvaluater = new VTFieldExpressionEvaluater($expression);
-        $exprEvaluation = $exprEvaluater->evaluate($entity);
-        $this->assertEquals($expectedresult, $exprEvaluater->debug);
-        $this->assertEquals(0, $exprEvaluation);
-    }
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(0, $exprEvaluation);
+	}
 }
 ?>
