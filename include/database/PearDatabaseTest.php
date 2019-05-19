@@ -19,8 +19,8 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
-class PearDatabaseTest extends TestCase
-{
+
+class PearDatabaseTest extends TestCase {
 	public function testObjectType() {
 		global $adb;
 		$this->assertInstanceOf('PearDatabase', $adb);
@@ -45,11 +45,11 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends testqueryProvider
 	 */
-	public function testConvert2Sql($adb,$array) {
+	public function testConvert2Sql($adb, $array) {
 
-		$convertedSql = $adb->convert2Sql($array[0],$array[1]);
+		$convertedSql = $adb->convert2Sql($array[0], $array[1]);
 		$expectedSql = "SELECT * FROM vtiger_contactdetails WHERE contactid>1084 AND department='Marketing' LIMIT 5";
-		$this->assertEquals($expectedSql,$convertedSql);
+		$this->assertEquals($expectedSql, $convertedSql);
 		return $convertedSql;
 	}
 
@@ -59,26 +59,26 @@ class PearDatabaseTest extends TestCase
 	public function test_change_key_case($adb) {
 		$array = array("X"=>"a","Y"=>"b","Z"=>"c");
 		$result = $adb->change_key_case($array);
-		$this->assertEquals(array("x"=>"a","y"=>"b","z"=>"c"),$result);
+		$this->assertEquals(array("x"=>"a", "y"=>"b", "z"=>"c"), $result);
 	}
 
 	/**
 	 * @dataProvider recordProvider
 	 * @depends testObjectType
 	 */
-	public function test_query($expected,$adb) {
+	public function test_query($expected, $adb) {
 		$sql = "SELECT * FROM vtiger_contactdetails WHERE firstname='Felix' AND lastname='Hirpara'";
 		$result = $adb->query($sql);
-		$this->assertEquals($result->fields,$expected);
+		$this->assertEquals($result->fields, $expected);
 	}
 
 	/**
 	 * @dataProvider recordProvider
 	 * @depends testObjectType
 	 */
-	public function test_limitQuery($expected,$adb) {
+	public function test_limitQuery($expected, $adb) {
 		$sql = "SELECT * FROM vtiger_contactdetails WHERE accountid=74";
-		$this->assertEquals($expected,$adb->limitQuery($sql,1,2)->fields);
+		$this->assertEquals($expected, $adb->limitQuery($sql, 1, 2)->fields);
 	}
 
 	/**
@@ -86,21 +86,20 @@ class PearDatabaseTest extends TestCase
 	 */
 	public function test_getOne($adb) {
 		$sql = "SELECT * FROM vtiger_contactdetails WHERE accountid=74";
-		$this->assertEquals(1084,$adb->getOne($sql));
+		$this->assertEquals(1084, $adb->getOne($sql));
 	}
 
 	/**
 	 * @depends testObjectType
 	 * @depends testqueryProvider
 	 */
-	public function test_pquery($adb,$array) {
-
-		$result = $adb->pquery( $array[0],$array[1] );
+	public function test_pquery($adb, $array) {
+		$result = $adb->pquery($array[0], $array[1]);
 
 		$array_result = (array)$result;
 		$is_empty = ( empty($array_result) )?true:false;
 
-		$this->assertFalse($is_empty,"Result object should not be empty");
+		$this->assertFalse($is_empty, "Result object should not be empty");
 
 		return $result;
 	}
@@ -150,7 +149,7 @@ class PearDatabaseTest extends TestCase
 	 */
 	public function test_getFieldsDefinition($adb) {
 		$sql = "SELECT * FROM marvel";
-		$result = $adb->pquery($sql,array());
+		$result = $adb->pquery($sql, array());
 		$filed_defs = $adb->getFieldsDefinition($result);
 		$expected = array(
 			'name' => 'name',
@@ -172,46 +171,46 @@ class PearDatabaseTest extends TestCase
 			'decimals' => 0,
 			'auto_increment' => 0,
 		);
-		$this->assertEquals($expected,(array)$filed_defs[0]);
+		$this->assertEquals($expected, (array)$filed_defs[0]);
 	}
 
 	/**
 	 * @depends testObjectType
 	 */
 	public function test_sql_quote($adb) {
-		$this->assertEquals("'hello'",$adb->sql_quote("hello"));
-		$this->assertEquals("'5'",$adb->sql_quote(5));
-		$this->assertEquals("'0.123'",$adb->sql_quote(0.123));
+		$this->assertEquals("'hello'", $adb->sql_quote("hello"));
+		$this->assertEquals("'5'", $adb->sql_quote(5));
+		$this->assertEquals("'0.123'", $adb->sql_quote(0.123));
 	}
 
 	/**
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_getFieldsArray($adb,$result) {
+	public function test_getFieldsArray($adb, $result) {
 		$fields_array = $adb->getFieldsArray($result);
 		$expected_array  = array('contactid','contact_no','accountid','salutation','firstname','lastname','email','phone','mobile',
 								  'title','department','fax','reportsto','training','otheremail','secondaryemail','donotcall','emailoptout',
 								  'imagename','reference','notify_owner','isconvertedfromlead','convertedfromlead');
-		$this->assertEquals($expected_array,$fields_array);
+		$this->assertEquals($expected_array, $fields_array);
 	}
 
 	/**
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_getRowCount($adb,$result) {
+	public function test_getRowCount($adb, $result) {
 		$num_rows = $adb->getRowCount($result);
-		$this->assertEquals(5,$num_rows);
+		$this->assertEquals(5, $num_rows);
 	}
 
 	/**
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_num_fields($adb,$result) {
+	public function test_num_fields($adb, $result) {
 		$num_fields = $adb->num_fields($result);
-		$this->assertEquals(23,$num_fields);
+		$this->assertEquals(23, $num_fields);
 	}
 
 	/**
@@ -219,9 +218,9 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_fetch_array($expected,$adb,$result) {
+	public function test_fetch_array($expected, $adb, $result) {
 		$res = $adb->fetch_array($result);
-		$this->assertEquals($expected,$res);
+		$this->assertEquals($expected, $res);
 	}
 
 	/**
@@ -229,18 +228,18 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends testConvert2Sql
 	 */
-	public function test_run_query_record_html($expected,$adb,$query) {
+	public function test_run_query_record_html($expected, $adb, $query) {
 		$result = $adb->run_query_record_html($query);
-		$this->assertEquals($expected,$result);
+		$this->assertEquals($expected, $result);
 	}
 
 	/**
 	 * @depends testConvert2Sql
 	 * @depends testObjectType
 	 */
-	public function test_run_query_field($query,$adb) {
-		$this->assertEquals('Felix',$adb->run_query_field($query,'firstname'));
-		$this->assertEquals('Hirpara',$adb->run_query_field($query,'lastname'));
+	public function test_run_query_field($query, $adb) {
+		$this->assertEquals('Felix', $adb->run_query_field($query, 'firstname'));
+		$this->assertEquals('Hirpara', $adb->run_query_field($query, 'lastname'));
 	}
 
 	/**
@@ -248,10 +247,10 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_result_get_next_record($count,$record,$adb,$result) {
+	public function test_result_get_next_record($count, $record, $adb, $result) {
 		$next_rec = $adb->result_get_next_record($result);
 		if ($count == 2) {
-			$this->assertEquals($record,$next_rec);
+			$this->assertEquals($record, $next_rec);
 		} else {
 			$this->assertTrue(true);
 		}
@@ -263,7 +262,7 @@ class PearDatabaseTest extends TestCase
 	public function test_sql_expr_datalist($adb) {
 		$expected = " ( 'a','b','c','d' ) ";
 		$result = $adb->sql_expr_datalist(array('a','b','c','d'));
-		$this->assertEquals($expected,$result);
+		$this->assertEquals($expected, $result);
 	}
 
 	/**
@@ -273,7 +272,7 @@ class PearDatabaseTest extends TestCase
 		$list = array('a','b','c','d');
 		$expected = "concat(a,b,c,d)";
 		$result = $adb->sql_concat($list);
-		$this->assertEquals($expected,$result);
+		$this->assertEquals($expected, $result);
 	}
 
 	/**
@@ -286,10 +285,10 @@ class PearDatabaseTest extends TestCase
 			"lastname"  => "Murphy",
 		);
 
-		$query = $adb->sql_insert_data($table,$data);
+		$query = $adb->sql_insert_data($table, $data);
 		$expected_query = "INSERT INTO contactdetails (firstname,lastname) VALUES ('John','Murphy')";
 
-		$this->assertEquals($expected_query,$query);
+		$this->assertEquals($expected_query, $query);
 	}
 
 	/**
@@ -297,13 +296,11 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends testConvert2Sql
 	 */
-	public function test_run_query_record($expected,$adb,$query) {
-
+	public function test_run_query_record($expected, $adb, $query) {
 		$result = $adb->run_query_record($query);
-		$this->assertEquals($expected,$result);
-
+		$this->assertEquals($expected, $result);
 		$all_records = $adb->run_query_allrecords($query);
-		$this->assertEquals($expected,$all_records[0]);
+		$this->assertEquals($expected, $all_records[0]);
 	}
 
 	/**
@@ -311,8 +308,8 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_query_result($row,$col,$expected_val,$adb,$result) {
-		$this->assertEquals( $expected_val, $adb->query_result($result,$row,$col) );
+	public function test_query_result($row, $col, $expected_val, $adb, $result) {
+		$this->assertEquals($expected_val, $adb->query_result($result, $row, $col));
 	}
 
 	/**
@@ -320,9 +317,9 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_query_result_rowdata($expected,$adb,$result) {
-		$row = $adb->query_result_rowdata($result,0);
-		$this->assertEquals($expected,$row);
+	public function test_query_result_rowdata($expected, $adb, $result) {
+		$row = $adb->query_result_rowdata($result, 0);
+		$this->assertEquals($expected, $row);
 	}
 
 	/**
@@ -330,8 +327,8 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_fetchByAssoc($needle,$array,$adb,$result) {
-		$this->assertEquals($array,$adb->fetchByAssoc($result,$needle) );
+	public function test_fetchByAssoc($needle, $array, $adb, $result) {
+		$this->assertEquals($array, $adb->fetchByAssoc($result, $needle));
 	}
 
 	/**
@@ -339,11 +336,11 @@ class PearDatabaseTest extends TestCase
 	 * @depends test_pquery
 	 * @depends testObjectType
 	 */
-	public function test_getNextRow($count,$record,$result,$adb) {
-		$data = $adb->raw_query_result_rowdata($result,0);
+	public function test_getNextRow($count, $record, $result, $adb) {
+		$adb->raw_query_result_rowdata($result, 0);
 		$next_row = $adb->getNextRow($result);
 		if ($count == 1) {
-			$this->assertEquals($record,$next_row);
+			$this->assertEquals($record, $next_row);
 		} else {
 			$this->assertTrue(true);
 		}
@@ -353,8 +350,8 @@ class PearDatabaseTest extends TestCase
 	 * @depends test_pquery
 	 * @depends testObjectType
 	 */
-	public function test_field_name($result,$adb) {
-		$field = $adb->field_name($result,1);
+	public function test_field_name($result, $adb) {
+		$field = $adb->field_name($result, 1);
 		$expected = array(
 			'name' => 'contact_no',
 			'table' => 'vtiger_contactdetails',
@@ -375,7 +372,7 @@ class PearDatabaseTest extends TestCase
 			'decimals' => 0,
 			'auto_increment' => 0,
 		);
-		$this->assertEquals($expected,(array)$field);
+		$this->assertEquals($expected, (array)$field);
 	}
 
 	/**
@@ -384,7 +381,7 @@ class PearDatabaseTest extends TestCase
 	public function test_formatDate($adb) {
 		$expected = "'2016-12-15'";
 		$formated_date = $adb->formatDate("2016-12-15");
-		$this->assertEquals($expected,$formated_date);
+		$this->assertEquals($expected, $formated_date);
 	}
 
 	/**
@@ -393,7 +390,7 @@ class PearDatabaseTest extends TestCase
 	public function test_getDBDateString($adb) {
 		$result = $adb->getDBDateString("test");
 		$expected = "DATE_FORMAT(test,'%Y-%m-%d, %H:%i:%s')";
-		$this->assertEquals($expected,$result);
+		$this->assertEquals($expected, $result);
 	}
 
 	/**
@@ -401,50 +398,54 @@ class PearDatabaseTest extends TestCase
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_raw_query_result_rowdata($needle,$array,$adb,$result) {
-		$this->assertEquals($array,$adb->raw_query_result_rowdata($result,$needle) );
+	public function test_raw_query_result_rowdata($needle, $array, $adb, $result) {
+		$this->assertEquals($array, $adb->raw_query_result_rowdata($result, $needle));
 	}
 
 	/**
 	 * @depends testObjectType
 	 * @depends test_pquery
 	 */
-	public function test_getAffectedRowCount($adb,$result) {
-		$this->assertEquals(5,$adb->getAffectedRowCount($result) );
+	public function test_getAffectedRowCount($adb, $result) {
+		$this->assertEquals(5, $adb->getAffectedRowCount($result));
 	}
 
 	/**
 	 * @dataProvider recordProvider
 	 * @depends testObjectType
 	 */
-	public function test_requireSingleResult($expected,$adb) {
+	public function test_requireSingleResult($expected, $adb) {
 		$result = $adb->requireSingleResult("SELECT * FROM vtiger_contactdetails WHERE firstname='Felix'");
-		$this->assertEquals($expected,$result->fields);
+		$this->assertEquals($expected, $result->fields);
 	}
 
 	/**
 	 * @dataProvider tablesProvider
 	 * @depends testObjectType
 	 */
-	public function test_getColumnNames($table_name,$table_cols,$adb) {
-		$this->assertEquals($table_cols,$adb->getColumnNames($table_name) );
+	public function test_getColumnNames($table_name, $table_cols, $adb) {
+		$this->assertEquals($table_cols, $adb->getColumnNames($table_name));
 	}
 
 	/**
 	 * @depends testObjectType
 	 */
 	public function test_sql_escape_string($adb) {
-		$this->assertEquals('normal string',$adb->sql_escape_string('normal string'),'normal string');
-		$this->assertEquals("\' OR \'\'=\'",$adb->sql_escape_string("' OR ''='") );
-		$this->assertEquals("Alicia\'; DROP TABLE usuarios; SELECT * FROM datos WHERE nombre LIKE \'%",$adb->sql_escape_string("Alicia'; DROP TABLE usuarios; SELECT * FROM datos WHERE nombre LIKE '%"),'SQL Injection');
-		$this->assertEquals('',$adb->sql_escape_string(''),'empty string');
-		$this->assertEquals('',$adb->sql_escape_string(false),'false');
-		$this->assertEquals(1,$adb->sql_escape_string(true),'true');
-		$this->assertEquals(0,$adb->sql_escape_string(0),'zero');
-		$this->assertEquals(1,$adb->sql_escape_string(1),'one');
-		$this->assertEquals(123,$adb->sql_escape_string(123),'number');
-		$this->assertEquals(123.456,$adb->sql_escape_string(123.456),'decimal');
-		$this->assertEquals('NULL',$adb->sql_escape_string(null),'Null');
+		$this->assertEquals('normal string', $adb->sql_escape_string('normal string'), 'normal string');
+		$this->assertEquals("\' OR \'\'=\'", $adb->sql_escape_string("' OR ''='"));
+		$this->assertEquals(
+			"Alicia\'; DROP TABLE usuarios; SELECT * FROM datos WHERE nombre LIKE \'%",
+			$adb->sql_escape_string("Alicia'; DROP TABLE usuarios; SELECT * FROM datos WHERE nombre LIKE '%"),
+			'SQL Injection'
+		);
+		$this->assertEquals('', $adb->sql_escape_string(''), 'empty string');
+		$this->assertEquals('', $adb->sql_escape_string(false), 'false');
+		$this->assertEquals(1, $adb->sql_escape_string(true), 'true');
+		$this->assertEquals(0, $adb->sql_escape_string(0), 'zero');
+		$this->assertEquals(1, $adb->sql_escape_string(1), 'one');
+		$this->assertEquals(123, $adb->sql_escape_string(123), 'number');
+		$this->assertEquals(123.456, $adb->sql_escape_string(123.456), 'decimal');
+		$this->assertEquals('NULL', $adb->sql_escape_string(null), 'Null');
 	}
 
 	/**
@@ -453,7 +454,7 @@ class PearDatabaseTest extends TestCase
 	public function test_CreteTable($adb) {
 		$adb->query('DROP TABLE vtiger_tmp;');
 		if (empty($adb->getColumnNames('vtiger_tmp'))) {
-			$this->assertEquals(2, $adb->CreateTable('vtiger_tmp','id INTEGER, name VARCHAR(100), email VARCHAR(100), type VARCHAR(7)'));
+			$this->assertEquals(2, $adb->CreateTable('vtiger_tmp', 'id INTEGER, name VARCHAR(100), email VARCHAR(100), type VARCHAR(7)'));
 		}
 	}
 
@@ -463,7 +464,7 @@ class PearDatabaseTest extends TestCase
 	public function test_alterTable($adb) {
 		$adb->alterTable("vtiger_tmp", "surname VARCHAR(100)", "Add_Column");
 		$expected_fields = array("id","name","email","type","surname");
-		$this->assertEquals($expected_fields,$adb->getColumnNames("vtiger_tmp"));
+		$this->assertEquals($expected_fields, $adb->getColumnNames("vtiger_tmp"));
 	}
 
 	/**
@@ -472,7 +473,7 @@ class PearDatabaseTest extends TestCase
 	public function test_escapeDbName($adb) {
 		$expected = "`database1`";
 		$dbname = $adb->escapeDbName("database1");
-		$this->assertEquals($expected,$dbname);
+		$this->assertEquals($expected, $dbname);
 	}
 
 	/**
@@ -496,7 +497,7 @@ class PearDatabaseTest extends TestCase
 // 	}
 
 	/*********************************************************************
-                                     DATA PROVIDERS
+		DATA PROVIDERS
 	**********************************************************************/
 	public function recordProvider() {
 		return array(
@@ -621,46 +622,46 @@ class PearDatabaseTest extends TestCase
 				array(
 					0 => '1104',
 					'contactid' => '1104',
-	                1 => 'CON19',
-	                'contact_no' => 'CON19',
-	                2 => '1103',
-	                'accountid' => '1103',
-	                3 => '',
-	                'salutation' => '',
-	                4 => 'Amber',
-	                'firstname' => 'Amber',
-	                5 => 'Windell',
-	                'lastname' => 'Windell',
-	                6 => 'amber.windell@cox.net',
-	                'email' => 'amber.windell@cox.net',
-	                7 => '604-864-2113',
-	                'phone' => '604-864-2113',
-	                8 => '604-902-5812',
-	                'mobile' => '604-902-5812',
-	                9 => 'Owner',
-	                'title' => 'Owner',
-	                10 => 'Marketing',
-	                'department' => 'Marketing',
-	                11 => '',
-	                'fax' => '',
-	                12 => '0',
-	                'reportsto' => '0',
-	                13 => '',
-	                'training' => '',
-	                14 => '',
-	                'otheremail' => '',
-	                15 => '',
-	                'secondaryemail' => '',
-	                16 => '0',
-	                'donotcall' => '0',
-	                17 => '0',
-	                'emailoptout' => '0',
-	                18 => '',
-	                'imagename' => '',
-	                19 => '0',
-	                'reference' => '0',
-	                20 => '0',
-	                'notify_owner' => '0',
+					1 => 'CON19',
+					'contact_no' => 'CON19',
+					2 => '1103',
+					'accountid' => '1103',
+					3 => '',
+					'salutation' => '',
+					4 => 'Amber',
+					'firstname' => 'Amber',
+					5 => 'Windell',
+					'lastname' => 'Windell',
+					6 => 'amber.windell@cox.net',
+					'email' => 'amber.windell@cox.net',
+					7 => '604-864-2113',
+					'phone' => '604-864-2113',
+					8 => '604-902-5812',
+					'mobile' => '604-902-5812',
+					9 => 'Owner',
+					'title' => 'Owner',
+					10 => 'Marketing',
+					'department' => 'Marketing',
+					11 => '',
+					'fax' => '',
+					12 => '0',
+					'reportsto' => '0',
+					13 => '',
+					'training' => '',
+					14 => '',
+					'otheremail' => '',
+					15 => '',
+					'secondaryemail' => '',
+					16 => '0',
+					'donotcall' => '0',
+					17 => '0',
+					'emailoptout' => '0',
+					18 => '',
+					'imagename' => '',
+					19 => '0',
+					'reference' => '0',
+					20 => '0',
+					'notify_owner' => '0',
 					21 => null,
 					'isconvertedfromlead' => null,
 					22 => null,
@@ -702,26 +703,26 @@ class PearDatabaseTest extends TestCase
 			array(1,
 				array(
 					'contactid' => '1104',
-	                'contact_no' => 'CON19',
-	                'accountid' => '1103',
-	                'salutation' => '',
-	                'firstname' => 'Amber',
-	                'lastname' => 'Windell',
-	                'email' => 'amber.windell@cox.net',
-	                'phone' => '604-864-2113',
-	                'mobile' => '604-902-5812',
-	                'title' => 'Owner',
-	                'department' => 'Marketing',
-	                'fax' => '',
-	                'reportsto' => '0',
-	                'training' => '',
-	                'otheremail' => '',
-	                'secondaryemail' => '',
-	                'donotcall' => '0',
-	                'emailoptout' => '0',
-	                'imagename' => '',
-	                'reference' => '0',
-	                'notify_owner' => '0',
+					'contact_no' => 'CON19',
+					'accountid' => '1103',
+					'salutation' => '',
+					'firstname' => 'Amber',
+					'lastname' => 'Windell',
+					'email' => 'amber.windell@cox.net',
+					'phone' => '604-864-2113',
+					'mobile' => '604-902-5812',
+					'title' => 'Owner',
+					'department' => 'Marketing',
+					'fax' => '',
+					'reportsto' => '0',
+					'training' => '',
+					'otheremail' => '',
+					'secondaryemail' => '',
+					'donotcall' => '0',
+					'emailoptout' => '0',
+					'imagename' => '',
+					'reference' => '0',
+					'notify_owner' => '0',
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
 				),
@@ -830,7 +831,5 @@ class PearDatabaseTest extends TestCase
 			),
 		);
 	}
-
 }
-
 ?>

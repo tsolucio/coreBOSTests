@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -19,6 +19,7 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class testcbSettings extends TestCase {
 
 	/**
@@ -27,30 +28,29 @@ class testcbSettings extends TestCase {
 	 */
 	public function testcbSettingsAll() {
 		$actual = coreBOS_Settings::settingExists('cbSettingsTest');
-		$this->assertFalse($actual,'testcbSettings not exist');
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null); // test default value
-		$this->assertNull($actual,'testcbSettings not exist so null returned');
+		$this->assertFalse($actual, 'testcbSettings not exist');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest', null); // test default value
+		$this->assertNull($actual, 'testcbSettings not exist so null returned');
 		// create
-		$actual = coreBOS_Settings::setSetting('cbSettingsTest','testvalue');
+		$actual = coreBOS_Settings::setSetting('cbSettingsTest', 'testvalue');
 		$actual = coreBOS_Settings::settingExists('cbSettingsTest');
-		$this->assertTrue($actual,'testcbSettings exist');
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
-		$this->assertEquals('testvalue',$actual,'testcbSettings get value');
+		$this->assertTrue($actual, 'testcbSettings exist');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest', null);
+		$this->assertEquals('testvalue', $actual, 'testcbSettings get value');
 		// test cache
 		global $adb;
 		$adb->query("update cb_settings set setting_value='testcache' where setting_key='cbSettingsTest'");
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
-		$this->assertEquals('testvalue',$actual,'testcbSettings get value from cache');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest', null);
+		$this->assertEquals('testvalue', $actual, 'testcbSettings get value from cache');
 		// update
-		$actual = coreBOS_Settings::setSetting('cbSettingsTest','testupdate');
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
-		$this->assertEquals('testupdate',$actual,'testcbSettings get value after update');
+		$actual = coreBOS_Settings::setSetting('cbSettingsTest', 'testupdate');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest', null);
+		$this->assertEquals('testupdate', $actual, 'testcbSettings get value after update');
 		// delete
 		$actual = coreBOS_Settings::delSetting('cbSettingsTest');
 		$actual = coreBOS_Settings::settingExists('cbSettingsTest');
-		$this->assertFalse($actual,'testcbSettings not exist after delete');
-		$actual = coreBOS_Settings::getSetting('cbSettingsTest',null);
-		$this->assertNull($actual,'testcbSettings not exist so null returned after delete');
+		$this->assertFalse($actual, 'testcbSettings not exist after delete');
+		$actual = coreBOS_Settings::getSetting('cbSettingsTest', null);
+		$this->assertNull($actual, 'testcbSettings not exist so null returned after delete');
 	}
-
 }
