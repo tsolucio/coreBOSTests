@@ -17,11 +17,11 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class cbMapTest extends TestCase {
 
-	var $usrtestes = 8;
+	public $usrtestes = 8;
 
 	/**
 	 * Method testcbMapModule
@@ -54,23 +54,23 @@ class cbMapTest extends TestCase {
   </relatedlists>
   </map>';
 		$cbmap = cbMap::getMapByID($cbmapid);
-		$this->assertInstanceOf(cbMap::class,$cbmap,"getMapByID class cbMap");
-		$this->assertEquals($cbmapid, $cbmap->column_fields['record_id'],"getMapByID cbMap ID");
-		$this->assertEquals($cbmapxml, decode_html($cbmap->column_fields['content']),"getMapByID cbMap XML");
+		$this->assertInstanceOf(cbMap::class, $cbmap, 'getMapByID class cbMap');
+		$this->assertEquals($cbmapid, $cbmap->column_fields['record_id'], 'getMapByID cbMap ID');
+		$this->assertEquals($cbmapxml, decode_html($cbmap->column_fields['content']), 'getMapByID cbMap XML');
 		$cbmap = cbMap::getMapByName('RACProjectClosed');
-		$this->assertInstanceOf(cbMap::class,$cbmap,"getMapByName class cbMap");
-		$this->assertEquals($cbmapid, $cbmap->column_fields['record_id'],"getMapByName cbMap ID");
-		$this->assertEquals($cbmapxml, decode_html($cbmap->column_fields['content']),"getMapByName cbMap XML");
-		$cbmap = cbMap::getMapByName('RACProjectClosed','Record Access Control');
-		$this->assertInstanceOf(cbMap::class,$cbmap,"getMapByName class cbMap");
-		$this->assertEquals($cbmapid, $cbmap->column_fields['record_id'],"getMapByName cbMap ID");
-		$this->assertEquals($cbmapxml, decode_html($cbmap->column_fields['content']),"getMapByName cbMap XML");
-		$cbmap = cbMap::getMapByName('RACProjectClosed','NonExistentMapType');
-		$this->assertNull($cbmap,"getMapByName nonexistent type");
+		$this->assertInstanceOf(cbMap::class, $cbmap, 'getMapByName class cbMap');
+		$this->assertEquals($cbmapid, $cbmap->column_fields['record_id'], 'getMapByName cbMap ID');
+		$this->assertEquals($cbmapxml, decode_html($cbmap->column_fields['content']), 'getMapByName cbMap XML');
+		$cbmap = cbMap::getMapByName('RACProjectClosed', 'Record Access Control');
+		$this->assertInstanceOf(cbMap::class, $cbmap, 'getMapByName class cbMap');
+		$this->assertEquals($cbmapid, $cbmap->column_fields['record_id'], 'getMapByName cbMap ID');
+		$this->assertEquals($cbmapxml, decode_html($cbmap->column_fields['content']), 'getMapByName cbMap XML');
+		$cbmap = cbMap::getMapByName('RACProjectClosed', 'NonExistentMapType');
+		$this->assertNull($cbmap, 'getMapByName nonexistent type');
 		$cbmap = cbMap::getMapIdByName('RACProjectClosed');
-		$this->assertEquals($cbmapid,$cbmap,"getMapIdByName");
+		$this->assertEquals($cbmapid, $cbmap, 'getMapIdByName');
 		$cbmap = cbMap::getMapIdByName('NonExistentMapName');
-		$this->assertEquals(0,$cbmap,"getMapIdByName");
+		$this->assertEquals(0, $cbmap, 'getMapIdByName');
 		// getMapArray
 		$cbmap = cbMap::getMapByID(34030);
 		$actual = $cbmap->getMapArray();
@@ -88,7 +88,6 @@ class cbMapTest extends TestCase {
 				),
 			),
 		);
-		$this->assertEquals($expected,$actual,"getMapArray");
+		$this->assertEquals($expected, $actual, 'getMapArray');
 	}
-
 }

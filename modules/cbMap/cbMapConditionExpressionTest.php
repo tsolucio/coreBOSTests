@@ -17,8 +17,8 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class cbMapConditionExpressionTest extends TestCase {
 
 	/**
@@ -26,7 +26,6 @@ class cbMapConditionExpressionTest extends TestCase {
 	 * @test
 	 */
 	public function testcbMapConditionExpression() {
-		$this->assertTrue(true,'This class is tested in cbRuleTest.');
+		$this->assertTrue(true, 'This class is tested in cbRuleTest.');
 	}
-
 }

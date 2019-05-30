@@ -17,8 +17,8 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class cbMapMappingTest extends TestCase {
 
 	/**
@@ -42,15 +42,14 @@ class cbMapMappingTest extends TestCase {
 				),
 			),
 		);
-		$this->assertEquals($expected,$actual,"convert Map to Array");
+		$this->assertEquals($expected, $actual, 'convert Map to Array');
 		$ifocus = CRMEntity::getInstance('Invoice');
 		$ifocus->retrieve_entity_info(2816, 'Invoice');
-		$actual = $cbmap->Mapping($ifocus->column_fields,array('sentin'=>'notmodified','amount'=>'will be modified'));
+		$actual = $cbmap->Mapping($ifocus->column_fields, array('sentin'=>'notmodified', 'amount'=>'will be modified'));
 		$expected = array(
 			'sentin' => 'notmodified',
 			'amount' => '1890.930000',
 		);
-		$this->assertEquals($expected,$actual,"Mapping: process Map");
+		$this->assertEquals($expected, $actual, 'Mapping: process Map');
 	}
-
 }
