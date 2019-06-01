@@ -31,7 +31,7 @@ class WebserviceFieldTest extends TestCase {
 		$wsfield = WebserviceField::fromFieldId($adb, -1); // field does not exist
 		$this->assertFalse($wsfield, 'field does not exist');
 		$wsfield = WebserviceField::fromFieldId($adb, 113); // potential account/contact
-		$this->assertEquals('WebserviceField',  get_class($wsfield), 'Class instantiated correctly');
+		$this->assertEquals('WebserviceField', get_class($wsfield), 'Class instantiated correctly');
 		$this->assertEquals('related_to', $wsfield->getFieldName(), 'potential: related_to field name');
 		$this->assertTrue($wsfield->isReferenceField(), 'potential: related_to is reference');
 		$this->assertTrue($wsfield->isActiveField(), 'potential: related_to is active');
@@ -43,6 +43,111 @@ class WebserviceFieldTest extends TestCase {
 		$this->assertTrue($wsfield->isActiveField(), 'potential: assigned_user_id is active');
 		$this->assertTrue($wsfield->isOwnerField(), 'potential: assigned_user_id is owner');
 		$this->assertTrue($wsfield->isMassEditable(), 'potential: assigned_user_id is mass editable');
+	}
+
+	/**
+	 * Method testgetPickListOptions
+	 * @test
+	 */
+	public function testgetPickListOptions() {
+		global $current_user, $adb, $log;
+		$wsfield = WebserviceField::fromFieldId($adb, 13); // account rating
+		$this->assertEquals('WebserviceField', get_class($wsfield), 'Class instantiated correctly');
+		$this->assertEquals('rating', $wsfield->getFieldName(), 'account: rating field name');
+		$expected = array(
+			0 => array(
+				'label' => '--None--',
+				'value' => '--None--',
+			),
+			1 => array(
+				'label' => 'Acquired',
+				'value' => 'Acquired',
+			),
+			2 => array(
+				'label' => 'Active',
+				'value' => 'Active',
+			),
+			3 => array(
+				'label' => 'Market Failed',
+				'value' => 'Market Failed',
+			),
+			4 => array(
+				'label' => 'Project Cancelled',
+				'value' => 'Project Cancelled',
+			),
+			5 => array(
+				'label' => 'Shutdown',
+				'value' => 'Shutdown',
+			),
+		);
+		$this->assertEquals($expected, $wsfield->getPickListOptions(), 'account: rating values');
+		///////////////
+		$wsfield = WebserviceField::fromFieldId($adb, 130); // campaign status
+		$expected = array(
+			0 => array(
+				'label' => '--None--',
+				'value' => '--None--',
+			),
+			1 => array(
+				'label' => 'Planning',
+				'value' => 'Planning',
+			),
+			2 => array(
+				'label' => 'Active',
+				'value' => 'Active',
+			),
+			3 => array(
+				'label' => 'Inactive',
+				'value' => 'Inactive',
+			),
+			4 => array(
+				'label' => 'Completed',
+				'value' => 'Completed',
+			),
+			5 => array(
+				'label' => 'Cancelled',
+				'value' => 'Cancelled',
+			),
+		);
+		$this->assertEquals($expected, $wsfield->getPickListOptions(), 'campaign: status values');
+		///////////////
+		$wsfield = WebserviceField::fromFieldId($adb, 152); // campaignrelstatus uitype 16
+		$expected = array(
+			0 => array(
+				'label' => '--None--',
+				'value' => '--None--',
+			),
+			1 => array(
+				'label' => 'Contacted - Successful',
+				'value' => 'Contacted - Successful',
+			),
+			2 => array(
+				'label' => 'Contacted - Unsuccessful',
+				'value' => 'Contacted - Unsuccessful',
+			),
+			3 => array(
+				'label' => 'Contacted - Never Contact Again',
+				'value' => 'Contacted - Never Contact Again',
+			),
+		);
+		$this->assertEquals($expected, $wsfield->getPickListOptions(), 'campaignrelstatus uitype 16');
+		///////////////
+		$wsfield = WebserviceField::fromFieldId($adb, 434); // payment_duration uitype 16
+		$expected = array(
+			0 => array(
+				'label' => 'Net 30 days',
+				'value' => 'Net 30 days',
+			),
+			1 => array(
+				'label' => 'Net 45 days',
+				'value' => 'Net 45 days',
+			),
+			2 => array(
+				'label' => 'Net 60 days',
+				'value' => 'Net 60 days',
+			),
+		);
+		$this->assertEquals($expected, $wsfield->getPickListOptions(), 'payment_duration uitype 16');
 	}
 }
 ?>
