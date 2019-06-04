@@ -359,6 +359,23 @@ Current Date: '.$lang['MONTH_STRINGS'][$mes].date(' j, Y').'
 Contact WF name: Felix Hirpara
 Account Name: Chemex Labs Ltd
 Site URL: $URL$','WF vars variables'),
+			array('Description $(general : (__VtigerMeta__) scanQRCode->firstname)', 4260, 'Leads','/^Description <img src="cid:qrcode[a-zA-Z0-9]+" \/>$/', 'Lead QRCode name'),
+			array('
+Description $(general : (__VtigerMeta__) scanQRCode->firstname)
+', 4260, 'Leads','/^
+Description <img src="cid:qrcode[a-zA-Z0-9]+" \/>
+$/', 'Lead QRCode name multiline'),
+			array('first line
+Description $(general : (__VtigerMeta__) scanQRCode->firstname)
+WF name: $firstname $lastname
+$leads-firstname$ $users-user_name$
+$leads-lastname$ last line
+', 4260, 'Leads','/^first line
+Description <img src="cid:qrcode[a-zA-Z0-9]+" \/>
+WF name: Timothy Mulqueen
+Timothy \$users-user_name\$
+Mulqueen last line
+$/', 'Lead QRCode name multiline mixed with legacy and workflow field references'),
 		);
 	}
 
@@ -368,7 +385,11 @@ Site URL: $URL$','WF vars variables'),
 	 * @dataProvider getMergedDescriptionProvidor
 	 */
 	public function testgetMergedDescription($description, $id, $parent_type, $expected, $msg) {
-		$this->assertEquals($expected, getMergedDescription($description, $id, $parent_type), $msg);
+		if (strpos($description, 'scanQRCode->')) {
+			$this->assertRegExp($expected, getMergedDescription($description, $id, $parent_type), $msg);
+		} else {
+			$this->assertEquals($expected, getMergedDescription($description, $id, $parent_type), $msg);
+		}
 	}
 
 	/**
