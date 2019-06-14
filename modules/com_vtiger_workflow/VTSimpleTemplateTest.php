@@ -51,6 +51,11 @@ class VTSimpleTemplateTest extends TestCase {
 		$expected = 'Rowley Schlimgen Inc';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual, 'Member of variables');
+		// Custom field
+		$ct = new VTSimpleTemplate('$cf_722 $cf_719');
+		$expected = '2016-02-15 2,00000';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual, 'Custom fields');
 		// Teardown
 		$util->revertUser();
 	}
