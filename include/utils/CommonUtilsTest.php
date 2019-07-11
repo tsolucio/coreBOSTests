@@ -206,13 +206,11 @@ class testCommonUtils extends TestCase {
 			array('line1<br/>line2','line1<br/>line2','br2nl two lines <br/>'),
 			array('line1
 line2','line1\nline2','br2nl two lines nl'),
-			array('line1
-line2','line1\rline2','br2nl two lines cr'),
+			array('line1line2','line1\rline2','br2nl two lines cr'),
 			array('line2
 line2','line2\r\nline2','br2nl two lines crnl'),
 			array('line1
-
-line2','line1\n\rline2','br2nl two lines nlcr'),
+line2','line1\n\rline2','br2nl two lines nlcr'),
 			array("line1\nline2",'line1\nline2','br2nl two lines nl'),
 			array("line1\rline2",'line1\rline2','br2nl two lines cr'),
 			array("line1\r\nline2",'line1\r\nline2','br2nl two lines crnl'),
