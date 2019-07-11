@@ -183,7 +183,7 @@ class ModuleTypesTest extends TestCase {
 			'HelpDesk' => array(
 				'isEntity' => true,
 				'label' => 'Support Tickets',
-				'singular' => 'Ticket',
+				'singular' => 'Support Ticket',
 			),
 			'Events' => array(
 				'isEntity' => true,

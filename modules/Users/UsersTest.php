@@ -93,7 +93,7 @@ class UsersTest extends TestCase {
 			'currency_code' => 'EUR',
 			'currency_symbol' => '&#8364;',
 			'conv_rate' => '1.000000',
-			'imagenameimagenfo' => '',
+			'imagenameimageinfo' => '',
 		);
 		$this->assertEquals($expected, $user->column_fields, 'retrieveCurrentUserInfoFromFile admin');
 		$user = new Users();
@@ -152,7 +152,7 @@ class UsersTest extends TestCase {
 			'currency_code' => 'EUR',
 			'currency_symbol' => '&#8364;',
 			'conv_rate' => '1.000000',
-			'imagenameimagenfo' => '',
+			'imagenameimageinfo' => '',
 		);
 		$this->assertEquals($expected, $user->column_fields, 'retrieveCurrentUserInfoFromFile testes');
 		$user = new Users();
@@ -211,7 +211,7 @@ class UsersTest extends TestCase {
 			'currency_code' => 'EUR',
 			'currency_symbol' => '&#8364;',
 			'conv_rate' => '1.000000',
-			'imagenameimagenfo' => '',
+			'imagenameimageinfo' => '',
 		);
 		$this->assertEquals($expected, $user->column_fields, 'retrieveCurrentUserInfoFromFile inactive');
 	}

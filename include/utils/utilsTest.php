@@ -389,8 +389,8 @@ class testutils extends TestCase {
 			array('Field', '0', '1', '0', '840', '1', 'V~0'),
 			array('Proof Read', '0', '56', '0', '841', '1', 'C~0'),
 			array('Assigned To', '0', '53', '0', '842', '1', 'V~M'),
-			array('Created Time', '0', '70', '0', '843', '2', 'T~O'),
-			array('Modified Time', '0', '70', '0', '844', '2', 'T~O'),
+			array('Created Time', '0', '70', '0', '843', '2', 'DT~O'),
+			array('Modified Time', '0', '70', '0', '844', '2', 'DT~O'),
 			array('Created By', '0', '52', '0', '845', '2', 'V~O'),
 		);
 		$expected_accounts_module_fields = array(
@@ -499,6 +499,7 @@ class testutils extends TestCase {
 			array('Is Converted From Lead', '0', '56', '0', '754', '2', 'C~O'),
 			array('Converted From Lead', '0', '10', '0', '755', '3', 'V~O'),
 			array('Created By', '0', '52', '0', '763', '2', 'V~O'),
+			array('Template Language', '0', '15', '0', '1135', '1', 'V~O'),
 		);
 		return array(
 			array('cbtranslation', '1', $expected_cbtranslation_module_fields),
@@ -549,8 +550,8 @@ class testutils extends TestCase {
 			7 => array(0 => 'Field', 1 => '0', 2 => '1', 3 => '0', 4 => '840', 5 => '1', 6 => 'V~0', 7 => 'B',),
 			8 => array(0 => 'Proof Read', 1 => '0', 2 => '56', 3 => '0', 4 => '841', 5 => '1', 6 => 'C~0', 7 => 'B',),
 			9 => array(0 => 'Assigned To', 1 => '0', 2 => '53', 3 => '0', 4 => '842', 5 => '1', 6 => 'V~M', 7 => 'B',),
-			10 => array(0 => 'Created Time', 1 => '0', 2 => '70', 3 => '0', 4 => '843', 5 => '2', 6 => 'T~O', 7 => 'B',),
-			11 => array(0 => 'Modified Time', 1 => '0', 2 => '70', 3 => '0', 4 => '844', 5 => '2', 6 => 'T~O', 7 => 'B',),
+			10 => array(0 => 'Created Time', 1 => '0', 2 => '70', 3 => '0', 4 => '843', 5 => '2', 6 => 'DT~O', 7 => 'B',),
+			11 => array(0 => 'Modified Time', 1 => '0', 2 => '70', 3 => '0', 4 => '844', 5 => '2', 6 => 'DT~O', 7 => 'B',),
 			12 => array(0 => 'Created By', 1 => '0', 2 => '52', 3 => '0', 4 => '845', 5 => '2', 6 => 'V~O', 7 => 'B',),
 		);
 		$expected_accounts_module_fields = array(
@@ -659,6 +660,7 @@ class testutils extends TestCase {
 			45 => array(0 => 'Is Converted From Lead', 1 => '0', 2 => '56', 3 => '0', 4 => '754', 5 => '2', 6 => 'C~O', 7 => 'B',),
 			46 => array(0 => 'Converted From Lead', 1 => '0', 2 => '10', 3 => '0', 4 => '755', 5 => '3', 6 => 'V~O', 7 => 'B',),
 			47 => array(0 => 'Created By', 1 => '0', 2 => '52', 3 => '0', 4 => '763', 5 => '2', 6 => 'V~O', 7 => 'B',),
+			48 => array(0 => 'Template Language', 1 => '0', 2 => '15', 3 => '0', 4 => '1135', 5 => '1', 6 => 'V~O', 7 => 'B',),
 		);
 		$expected_assets_module_fields = array(
 			0 => array(0 => 'Asset No', 1 => '0', 2 => '4', 3 => '0', 4 => '602', 5 => '1', 6 => 'V~O', 7 => 'B',),

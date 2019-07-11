@@ -189,9 +189,11 @@ class PearDatabaseTest extends TestCase {
 	 */
 	public function test_getFieldsArray($adb, $result) {
 		$fields_array = $adb->getFieldsArray($result);
-		$expected_array  = array('contactid','contact_no','accountid','salutation','firstname','lastname','email','phone','mobile',
-								  'title','department','fax','reportsto','training','otheremail','secondaryemail','donotcall','emailoptout',
-								  'imagename','reference','notify_owner','isconvertedfromlead','convertedfromlead');
+		$expected_array  = array(
+			'contactid','contact_no','accountid','salutation','firstname','lastname','email','phone','mobile',
+			'title','department','fax','reportsto','training','otheremail','secondaryemail','donotcall','emailoptout',
+			'imagename','reference','notify_owner','isconvertedfromlead','convertedfromlead','template_language'
+		);
 		$this->assertEquals($expected_array, $fields_array);
 	}
 
@@ -210,7 +212,7 @@ class PearDatabaseTest extends TestCase {
 	 */
 	public function test_num_fields($adb, $result) {
 		$num_fields = $adb->num_fields($result);
-		$this->assertEquals(23, $num_fields);
+		$this->assertEquals(24, $num_fields);
 	}
 
 	/**
@@ -549,6 +551,8 @@ class PearDatabaseTest extends TestCase {
 					'isconvertedfromlead' => null,
 					22 => null,
 					'convertedfromlead' => null,
+					23 => null,
+					'template_language' => null,
 				),
 			),
 		);
@@ -616,6 +620,8 @@ class PearDatabaseTest extends TestCase {
 					'isconvertedfromlead' => null,
 					22 => null,
 					'convertedfromlead' => null,
+					23 => null,
+					'template_language' => null,
 				)
 			),
 			array(1,
@@ -666,6 +672,8 @@ class PearDatabaseTest extends TestCase {
 					'isconvertedfromlead' => null,
 					22 => null,
 					'convertedfromlead' => null,
+					23 => null,
+					'template_language' => null,
 				),
 			),
 		);
@@ -698,6 +706,7 @@ class PearDatabaseTest extends TestCase {
 					'notify_owner' => '0',
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
+					'template_language' => '',
 			)
 			),
 			array(1,
@@ -725,6 +734,7 @@ class PearDatabaseTest extends TestCase {
 					'notify_owner' => '0',
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
+					'template_language' => '',
 				),
 			),
 			array(2,
@@ -752,6 +762,7 @@ class PearDatabaseTest extends TestCase {
 					'notify_owner' => '0',
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
+					'template_language' => '',
 				),
 			),
 			array(3,
@@ -779,6 +790,7 @@ class PearDatabaseTest extends TestCase {
 					'notify_owner' => '0',
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
+					'template_language' => '',
 				),
 			),
 			array(4,
@@ -806,6 +818,7 @@ class PearDatabaseTest extends TestCase {
 					'notify_owner' => '0',
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
+					'template_language' => '',
 				),
 			)
 		);

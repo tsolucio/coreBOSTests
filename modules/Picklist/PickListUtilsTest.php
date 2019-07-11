@@ -242,6 +242,25 @@ class PickListUtilsTest extends TestCase {
 		'Prof.' => 'Prof.',
 	),
 	),
+	2 =>
+	array (
+	'fieldlabel' => 'Template Language',
+	'generatedtype' => '',
+	'columnname' => 'template_language',
+	'fieldname' => 'template_language',
+	'uitype' => '15',
+	'value' =>
+	array (
+		'en' => 'en',
+		'de' => 'de',
+		'es' => 'es',
+		'pt' => 'pt',
+		'fr' => 'fr',
+		'hu' => 'hu',
+		'it' => 'it',
+		'nl' => 'nl',
+	),
+	),
 	),
 	'HelpDesk' => array(
 	0 =>
@@ -519,6 +538,25 @@ class PickListUtilsTest extends TestCase {
 		'Prof.' => 'Prof.',
 	),
 	),
+	2 =>
+	array (
+	'fieldlabel' => 'Template Language',
+	'generatedtype' => '',
+	'columnname' => 'template_language',
+	'fieldname' => 'template_language',
+	'uitype' => '15',
+	'value' =>
+	array (
+		'en' => 'en',
+		'de' => 'de',
+		'es' => 'es',
+		'pt' => 'pt',
+		'fr' => 'fr',
+		'hu' => 'hu',
+		'it' => 'it',
+		'nl' => 'nl',
+	),
+	),
 	),
 	'HelpDesk' => array(
 	0 =>
@@ -673,6 +711,7 @@ class PickListUtilsTest extends TestCase {
 			'Contacts' => array (
 				'leadsource' => 'Lead Source',
 				'salutationtype' => 'Salutation ',
+				'template_language' => 'Template Language',
 			),
 			'HelpDesk' => array (
 				'ticketcategories' => 'Category',

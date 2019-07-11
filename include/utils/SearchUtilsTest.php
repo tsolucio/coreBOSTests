@@ -38,20 +38,20 @@ class testSearchUtils extends TestCase {
 		$actual = getAdvancedSearchValue('vtiger_crmentity', 'smownerid', 'c', 'ad', 'V');
 		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
 		$expected = "vtiger_account.industry IN (select translation_key from vtiger_cbtranslation
-					where locale=\"en_us\" and forpicklist=\"Accounts::industry\" and i18n  = 'Apparel') OR vtiger_account.industry = 'Apparel'";
+						where locale=\"en_us\" and forpicklist=\"Accounts::industry\" and i18n  = 'Apparel') OR vtiger_account.industry = 'Apparel'";
 		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'e', 'Apparel', 'V');
 		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
 		$current_user->language = 'es_es';
 		$expected = "vtiger_account.industry IN (select translation_key from vtiger_cbtranslation
-					where locale=\"es_es\" and forpicklist=\"Accounts::industry\" and i18n  = 'Apparel') OR vtiger_account.industry = 'Apparel'";
+						where locale=\"es_es\" and forpicklist=\"Accounts::industry\" and i18n  = 'Apparel') OR vtiger_account.industry = 'Apparel'";
 		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'e', 'Apparel', 'V');
 		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
 		$expected = "vtiger_account.industry IN (select translation_key from vtiger_cbtranslation
-					where locale=\"es_es\" and forpicklist=\"Accounts::industry\" and i18n  = 'Ropa') OR vtiger_account.industry = 'Ropa'";
+						where locale=\"es_es\" and forpicklist=\"Accounts::industry\" and i18n  = 'Ropa') OR vtiger_account.industry = 'Ropa'";
 		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'e', 'Ropa', 'V');
 		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
 		$expected = "vtiger_account.industry IN (select translation_key from vtiger_cbtranslation
-					where locale=\"es_es\" and forpicklist=\"Accounts::industry\" and i18n  like '%Ropa%') OR vtiger_account.industry like '%Ropa%'";
+						where locale=\"es_es\" and forpicklist=\"Accounts::industry\" and i18n  like '%Ropa%') OR vtiger_account.industry like '%Ropa%'";
 		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'c', 'Ropa', 'V');
 		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
 		$current_user->language = $ulang;

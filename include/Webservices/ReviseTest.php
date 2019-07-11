@@ -92,6 +92,7 @@ class WSReviseTest extends TestCase {
 			'description' => ' Estne, quaeso, inquam, sitienti in bibendo voluptas? Duarum enim vitarum nobis erunt instituta capienda. Respondeat totidem verbis. Quod, inquit, quamquam voluptatibus quibusdam est saepe iucundius, tamen expetitur propter voluptatem. Duo Reges: constructio interrete. Nihilo magis. Miserum hominem! Si dolor summum malum est, dici aliter non potest. Nec lapathi suavitatem acupenseri Galloni Laelius anteponebat, sed suavitatem ipsam neglegebat; Dempta enim aeternitate nihilo beatior Iuppiter quam Epicurus; 
 
 ',
+			'template_language' => '',
 			'imagename' => '',
 			'id' => '12x1150', // Contacts
 			'account_idename' => array(
