@@ -256,6 +256,24 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 	}
 
+	public function testUserQueries() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select * from Users;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_users.user_name,vtiger_users.is_admin,vtiger_users.email1,vtiger_users.status,vtiger_users.first_name,vtiger_users.last_name,vtiger_user2role.roleid,vtiger_users.currency_id,vtiger_users.currency_grouping_pattern,vtiger_users.currency_decimal_separator,vtiger_users.currency_grouping_separator,vtiger_users.currency_symbol_placement,vtiger_users.no_of_currency_decimals,vtiger_users.lead_view,vtiger_users.activity_view,vtiger_users.hour_format,vtiger_users.signature,vtiger_users.start_hour,vtiger_users.end_hour,vtiger_users.title,vtiger_users.phone_fax,vtiger_users.department,vtiger_users.email2,vtiger_users.phone_work,vtiger_users.secondaryemail,vtiger_users.phone_mobile,vtiger_users.reports_to_id,vtiger_users.phone_home,vtiger_users.phone_other,vtiger_users.date_format,vtiger_users.description,vtiger_users.time_zone,vtiger_users.internal_mailer,vtiger_users.theme,vtiger_users.language,vtiger_users.send_email_to_sender,vtiger_users.address_street,vtiger_users.address_country,vtiger_users.address_city,vtiger_users.address_postalcode,vtiger_users.address_state,vtiger_users.id FROM vtiger_users LEFT JOIN vtiger_user2role ON vtiger_users.id=vtiger_user2role.userid  WHERE  vtiger_users.status='Active' LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id,first_name, status from Users;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_users.id,vtiger_users.first_name,vtiger_users.status FROM vtiger_users  WHERE  vtiger_users.status='Active' LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id,first_name, status, roleid from Users;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_users.id,vtiger_users.first_name,vtiger_users.status,vtiger_user2role.roleid FROM vtiger_users LEFT JOIN vtiger_user2role ON vtiger_users.id=vtiger_user2role.userid  WHERE  vtiger_users.status='Active' LIMIT 100;",
+			$actual
+		);
+	}
+
 	public function testRelations() {
 		global $GetRelatedList_ReturnOnlyQuery;
 		$GetRelatedList_ReturnOnlyQuery = true;
