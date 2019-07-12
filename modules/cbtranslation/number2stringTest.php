@@ -19,6 +19,7 @@
  *************************************************************************************************/
 require_once 'modules/cbtranslation/number2string.php';
 use PHPUnit\Framework\TestCase;
+
 class number2stringTest extends TestCase {
 
 	/**
