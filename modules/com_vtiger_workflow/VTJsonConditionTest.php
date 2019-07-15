@@ -167,12 +167,52 @@ class VTJsonConditionTest extends TestCase {
 		$testexpression = '[{"fieldname":"createdtime","operation":"less than or equal to","value":"sub_days($(productid : (Services) sales_start_date) , 3)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
 		$this->assertTrue($actual);
+		/////////////////////////
 		$entityId = '36x2822'; // inventory details
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
 		$cs = new VTJsonCondition();
-		/////////////////////////
 		$testexpression = '[{"fieldname":"createdtime","operation":"less than or equal to","value":"sub_days($(productid : (Services) sales_start_date) , 20)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
 		$this->assertFalse($actual);
+		/////////////////////////
+		/////////////////////////
+		global $current_user;
+		$huser = $current_user;
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile(5); // testdmy
+		/////////////////////////
+		$entityId = '36x2822'; // inventory details
+		$entity = new VTWorkflowEntity($current_user, $entityId);
+		$cs = new VTJsonCondition();
+		$testexpression = '[{"fieldname":"createdtime","operation":"less than or equal to","value":"sub_days($(productid : (Services) sales_start_date) , 3)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		/////////////////////////
+		$this->assertTrue($actual);
+		$entityId = '36x2822'; // inventory details
+		$entity = new VTWorkflowEntity($current_user, $entityId);
+		$cs = new VTJsonCondition();
+		$testexpression = '[{"fieldname":"createdtime","operation":"less than or equal to","value":"sub_days($(productid : (Services) sales_start_date) , 20)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		/////////////////////////
+		/////////////////////////
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile(10); // testtz
+		/////////////////////////
+		$entityId = '36x2822'; // inventory details
+		$entity = new VTWorkflowEntity($current_user, $entityId);
+		$cs = new VTJsonCondition();
+		$testexpression = '[{"fieldname":"createdtime","operation":"less than or equal to","value":"sub_days($(productid : (Services) sales_start_date) , 3)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		/////////////////////////
+		$this->assertTrue($actual);
+		$entityId = '36x2822'; // inventory details
+		$entity = new VTWorkflowEntity($current_user, $entityId);
+		$cs = new VTJsonCondition();
+		$testexpression = '[{"fieldname":"createdtime","operation":"less than or equal to","value":"sub_days($(productid : (Services) sales_start_date) , 20)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		/////////////////////////
+		$current_user = $huser;
 	}
 }
