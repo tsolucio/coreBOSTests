@@ -44,6 +44,8 @@ class VtigerModuleOperation_QueryTest extends TestCase {
 		$this->assertEquals("SELECT vtiger_leaddetails.firstname,vtiger_leaddetails.lastname,vtiger_leaddetails.leadid FROM vtiger_leaddetails LEFT JOIN vtiger_crmentity ON vtiger_leaddetails.leadid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 ORDER BY vtiger_leaddetails.firstname DESC LIMIT 0,2;", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select accountname from Accounts;', $meta, $queryRelatedModules);
 		$this->assertEquals("SELECT vtiger_account.accountname,vtiger_account.accountid FROM vtiger_account LEFT JOIN vtiger_crmentity ON vtiger_account.accountid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 LIMIT 100;", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select account_id, industry, assigned_user_id from accounts;', $meta, $queryRelatedModules);
+		$this->assertEquals("SELECT vtiger_account.parentid,vtiger_account.industry,vtiger_crmentity.smownerid,vtiger_account.accountid FROM vtiger_account LEFT JOIN vtiger_crmentity ON vtiger_account.accountid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 LIMIT 100;", $actual);
 	}
 
 	public function testInventoryModules() {
