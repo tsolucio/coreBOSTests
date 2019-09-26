@@ -20,6 +20,15 @@
 use PHPUnit\Framework\TestCase;
 
 class workflowfunctionsdatetimeTest extends TestCase {
+	/****
+	 * TEST Users decimal configuration
+	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
+	 ****/
+	public $usrdota0x = 5; // testdmy
+	public $usrcomd0x = 6; // testmdy
+	public $usrdotd3com = 7; // testymd
+	public $usrcoma3dot = 10; // testtz
+	public $usrdota3comdollar = 12; // testmcurrency
 
 	/**
 	 * Method testtimeDiff
@@ -98,6 +107,30 @@ class workflowfunctionsdatetimeTest extends TestCase {
 		$this->assertEquals('2017-06-22', $actual);
 		$actual = __vt_add_days(array('2017-06-20',12));
 		$this->assertEquals('2017-07-02', $actual);
+		global $current_user;
+		$hold = $current_user;
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$actual = __vt_add_days(array('20-06-2017',2));
+		$this->assertEquals('2017-06-22', $actual);
+		$actual = __vt_add_days(array('20-06-2017',12));
+		$this->assertEquals('2017-07-02', $actual);
+		$actual = __vt_add_days(array('2017-06-20',2));
+		$this->assertEquals('2017-06-22', $actual);
+		$actual = __vt_add_days(array('2017-06-20',12));
+		$this->assertEquals('2017-07-02', $actual);
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
+		$actual = __vt_add_days(array('06-20-2017',2));
+		$this->assertEquals('2017-06-22', $actual);
+		$actual = __vt_add_days(array('06-20-2017',12));
+		$this->assertEquals('2017-07-02', $actual);
+		$actual = __vt_add_days(array('2017-06-20',2));
+		$this->assertEquals('2017-06-22', $actual);
+		$actual = __vt_add_days(array('2017-06-20',12));
+		$this->assertEquals('2017-07-02', $actual);
+		/////////////////
+		$current_user = $hold;
 	}
 
 	/**
@@ -111,6 +144,38 @@ class workflowfunctionsdatetimeTest extends TestCase {
 		$this->assertEquals('2017-06-08', $actual);
 		$actual = __vt_sub_days(array('2017-06-20',22));
 		$this->assertEquals('2017-05-29', $actual);
+		global $current_user;
+		$hold = $current_user;
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$actual = __vt_sub_days(array('20-06-2017',2));
+		$this->assertEquals('2017-06-18', $actual);
+		$actual = __vt_sub_days(array('20-06-2017',12));
+		$this->assertEquals('2017-06-08', $actual);
+		$actual = __vt_sub_days(array('20-06-2017',22));
+		$this->assertEquals('2017-05-29', $actual);
+		$actual = __vt_sub_days(array('2017-06-20',2));
+		$this->assertEquals('2017-06-18', $actual);
+		$actual = __vt_sub_days(array('2017-06-20',12));
+		$this->assertEquals('2017-06-08', $actual);
+		$actual = __vt_sub_days(array('2017-06-20',22));
+		$this->assertEquals('2017-05-29', $actual);
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
+		$actual = __vt_sub_days(array('06-20-2017',2));
+		$this->assertEquals('2017-06-18', $actual);
+		$actual = __vt_sub_days(array('06-20-2017',12));
+		$this->assertEquals('2017-06-08', $actual);
+		$actual = __vt_sub_days(array('06-20-2017',22));
+		$this->assertEquals('2017-05-29', $actual);
+		$actual = __vt_sub_days(array('2017-06-20',2));
+		$this->assertEquals('2017-06-18', $actual);
+		$actual = __vt_sub_days(array('2017-06-20',12));
+		$this->assertEquals('2017-06-08', $actual);
+		$actual = __vt_sub_days(array('2017-06-20',22));
+		$this->assertEquals('2017-05-29', $actual);
+		/////////////////
+		$current_user = $hold;
 	}
 
 	/**
