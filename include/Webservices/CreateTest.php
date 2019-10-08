@@ -573,6 +573,7 @@ class WSCreateTest extends TestCase {
 			'adjustmentType' => 'add',  //  none/add/deduct
 			'adjustment' => '40.000',
 			'taxtype' => 'group',  // group or individual  taxes are obtained from the application
+			'invoiced' => 0,
 			'pdoInformation' => array(
 			  array(
 				"productid"=>2618,

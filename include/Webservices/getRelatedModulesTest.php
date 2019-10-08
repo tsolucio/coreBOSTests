@@ -342,6 +342,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('ticket_title'),
 					'pagesize' => 40
 				),
+				'relatedfield' => null,
 			),
 			'Documents' => array(
 				'related_tabid' => '8',
@@ -355,6 +356,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('notes_title'),
 					'pagesize' => 40
 				),
+				'relatedfield' => null,
 			)
 		);
 		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get assets');
