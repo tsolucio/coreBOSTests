@@ -62,6 +62,29 @@ class workflowfunctionsaggregationTest extends TestCase {
 		// $actual = __cb_aggregation(array('sum','CobroPago','amount','[cf_1069,e,$invoice_no,or]',$entityData));
 		// $this->assertEquals(383, $actual, 'CyP Invoice condition on Invoice');
 		////////////////
+		$entityData = $entityCache->forId('11x2005');
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[sales_stage,e,Closed Lost,or]',$entityData));
+		$this->assertEquals(105176.000000, $actual);
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[amount,l,1000,or]',$entityData));
+		$this->assertEquals(0, $actual, 'no values');
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[amount,l,71000,or],[sales_stage,e,Closed Lost,or]',$entityData));
+		$this->assertEquals(126455.000000, $actual, 'no values');
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[isconvertedfromlead,e,1,or]',$entityData));
+		$this->assertEquals(39120.000000, $actual, 'no values');
+		////////////////
+		$currentModule = 'Potentials';
+		$entityData = $entityCache->forId('13x5358'); // N Amercn Min & Quar Equip Inc
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[related_to,e,$(related_to : (Accounts) accountname),or]',$entityData));
+		$this->assertEquals(126455.000000, $actual, 'no values');
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[isconvertedfromlead,e,1,and],[related_to,e,$(related_to : (Accounts) accountname),and]',$entityData));
+		$this->assertEquals(39120.000000, $actual, 'no values');
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[isconvertedfromlead,e,0,and],[related_to,e,$(related_to : (Accounts) accountname),and]',$entityData));
+		$this->assertEquals(87335.000000, $actual, 'no values');
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[isconvertedfromlead,e,1,and],[related_to,e,$(related_to : (Accounts) accountname),or]',$entityData));
+		$this->assertEquals(39120.000000, $actual, 'no values');
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[isconvertedfromlead,e,0,and],[related_to,e,$(related_to : (Accounts) accountname),or]',$entityData));
+		$this->assertEquals(87335.000000, $actual, 'no values');
+		////////////////
 		$currentModule = 'SalesOrder';
 		$entityData = $entityCache->forId('6x11424'); // Sales Order
 		$actual = __cb_aggregation(array('sum','Invoice','hdnSubTotal','',$entityData));

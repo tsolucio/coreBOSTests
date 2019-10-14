@@ -310,8 +310,7 @@ class testutils extends TestCase {
 				'Contacts',
 				'vtiger_contactdetails.firstname.firstname,vtiger_contactsubdetails.email2.email2',
 				array('firstname'=> '1', 'email2'=> '13'),
-"SELECT vtiger_contactdetails.contactid AS recordid,
-				vtiger_users_last_import.deleted,vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2
+"SELECT vtiger_contactdetails.contactid AS recordid, vtiger_users_last_import.deleted,vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2
 				FROM vtiger_contactdetails
 				INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid=vtiger_contactdetails.contactid
 				INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid
@@ -341,8 +340,7 @@ class testutils extends TestCase {
 				'Potentials',
 				'vtiger_potentials.amount.amount,vtiger_potentials.forecast.forecast',
 				array('amount'=> '71', 'forecast'=> '9'),
-				"SELECT vtiger_potential.potentialid AS recordid,
-			vtiger_users_last_import.deleted,vtiger_potentials.amount,vtiger_potentials.forecast
+				"SELECT vtiger_potential.potentialid AS recordid,vtiger_users_last_import.deleted,vtiger_potentials.amount,vtiger_potentials.forecast
 			FROM vtiger_potential
 			INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid=vtiger_potential.potentialid
 			LEFT JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid = vtiger_potential.potentialid
