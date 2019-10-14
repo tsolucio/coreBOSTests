@@ -689,5 +689,43 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('01:1:1'), 'hour/min bad');
 		$this->assertEquals('01:01:01', DateTimeField::sanitizeTime('1:01:1'), 'hour/min bad');
 	}
+
+
+	/**
+	* Method testgetWeekendDates
+	* @test
+	*/
+	public function testgetWeekendDates() {
+		$dateFormat = 'Y-m-d';
+		$resultExpectedOne = [];
+		$resultExpectedTwo = ['2018-01-06'];
+		$resultExpectedThree = ['2018-01-06', '2018-01-07'];
+		$resultExpectedFour = ['2018-01-06', '2018-01-07'];
+		$resultExpectedFive = ['06-01-2018', '07-01-2018'];
+		$resultExpectedSix = ['2018-01-13','2018-01-14'];
+		$this->assertEquals($resultExpectedOne, DateTimeField::getWeekendDates('2018-06-01', '2018-01-08', $dateFormat), 'StartDate cannot be earlier than EndDate!!');
+		$this->assertEquals($resultExpectedTwo, DateTimeField::getWeekendDates('2018-01-06', '2018-01-06', $dateFormat), 'The returned array is not equal to expected one');
+		$this->assertEquals($resultExpectedThree, DateTimeField::getWeekendDates('2018-01-01', '2018-01-08', $dateFormat), 'Returned dates are not the same as Expected dates');
+		$this->assertEquals($resultExpectedOne, DateTimeField::getWeekendDates('2018-01-06', '2018-01-01', $dateFormat), 'EndDate cannot be previus to StartDate!!!');
+		$this->assertEquals($resultExpectedOne, DateTimeField::getWeekendDates('', '2018-01-08', $dateFormat), 'StartDate is empty. The returned array will be empty');
+		$this->assertEquals($resultExpectedOne, DateTimeField::getWeekendDates('2018-01-01', '', $dateFormat), 'EndDate is empty. The returned array will be empty');
+		$this->assertEquals($resultExpectedOne, DateTimeField::getWeekendDates('2018-01-01', '', $dateFormat), 'EndDate is empty. The returned array will be empty');
+		$this->assertEquals($resultExpectedFive, DateTimeField::getWeekendDates('01-01-2018', '08-01-2018', 'd-m-Y'), 'Returned dates and the Expected dates are not in the same format');
+		$this->assertEquals($resultExpectedOne, DateTimeField::getWeekendDates('2018-01-48', '2018-01-16', $dateFormat), 'The format of dateStart is not correct');
+		$this->assertEquals($resultExpectedSix, DateTimeField::getWeekendDates('2018-01-09', '2018-01-16', $dateFormat), 'The format of dateEnd is not correct');
+	}
+
+	 /**
+	 * Method testvalidateDate
+	 * @test
+	 */
+	 public function testvalidateDate() {
+		 $resultOK = true;
+		 $resultKO = false;
+		 $dateFormat = 'Y-m-d';
+		 $this->assertEquals($resultOK, DateTimeField::validateDate('2018-01-06', $dateFormat), 'Date format valid');
+		 $this->assertEquals($resultKO, DateTimeField::validateDate('2018-14-06', $dateFormat), 'Date format not valid');
+	 }
+
 }
 ?>
