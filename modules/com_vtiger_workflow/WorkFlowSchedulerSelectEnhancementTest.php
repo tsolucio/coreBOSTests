@@ -195,6 +195,14 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflow = new Workflow();
 		$wfvals = $this->defaultWF;
 		$wfvals['module_name'] = 'Contacts';
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"account_id : (Accounts) accountname","operation":"starts with","value":"Chemex","valuetype":"raw","joincondition":"and","groupid":"0"}]';
+		$wfvals['select_expressions'] = '[{"fieldname":"firstname","operation":"is","value":"firstname","valuetype":"fieldname","joincondition":"and","groupid":"0"},{"fieldname":"account_id : (Accounts) accountname","operation":"is","value":"Accounts.accountname","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_contactdetails.firstname,vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_accountaccount_id.accountname LIKE 'Chemex%') )) AND vtiger_contactdetails.contactid > 0";
+		$this->assertEquals($expected, $actual);
+		//////////////////////
 		$wfvals['test'] = '[{"fieldname":"firstname","operation":"greater than","value":"uppercase(lastname)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$wfvals['select_expressions'] = '[{"fieldname":"account_id : (Accounts) accountname","operation":"is","value":"Accounts.accountname","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
