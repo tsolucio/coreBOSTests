@@ -30,11 +30,23 @@ class workflowfunctionsmathTest extends TestCase {
 		$this->assertEquals(2017, $actual);
 		$actual = __vt_add(array(2017,23));
 		$this->assertEquals(2040, $actual);
+		$actual = __vt_add(array(2017,'a23'));
+		$this->assertEquals(2017, $actual);
+		$actual = __vt_add(array('a2017',23));
+		$this->assertEquals(23, $actual);
+		$actual = __vt_add(array('a2017','a23'));
+		$this->assertEquals(0, $actual);
 		////////////////
 		$actual = __vt_sub(array(2017));
 		$this->assertEquals(-2017, $actual);
 		$actual = __vt_sub(array(2017,23));
 		$this->assertEquals(1994, $actual);
+		$actual = __vt_sub(array(2017,'a23'));
+		$this->assertEquals(2017, $actual);
+		$actual = __vt_sub(array('a2017',23));
+		$this->assertEquals(23, $actual);
+		$actual = __vt_sub(array('a2017','a23'));
+		$this->assertEquals(0, $actual);
 		////////////////
 		$actual = __vt_mul(array(2017));
 		$this->assertEquals(0, $actual);
