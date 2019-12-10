@@ -750,6 +750,35 @@ class testutils extends TestCase {
 	}
 
 	/**
+	 * Method sanitizeUploadFileNameProvider
+	 * params
+	 */
+	public function sanitizeUploadFileNameProvider() {
+		return array(
+			array('normal.ext', 'normal.ext', 'normal.ext'),
+			array('name with spaces.ext', 'name_with_spaces.ext', 'spaces'),
+			array('normal.ext\\', 'normal.ext', 'normal.ext\\'),
+			array('normal.ext/', 'normal.ext', 'normal.ext/'),
+			array('normal.php/', 'normal.phpfile.txt', 'normal.PHP'),
+			array('normal.php', 'normal.phpfile.txt', 'normal.PHP'),
+			array('normal.ext/..', 'normal.ext/..', 'normal.ext'),
+			array('\\normal.ext', '\\normal.ext', '\\normal.ext'),
+			array('/normal.ext', '/normal.ext', '/normal.ext'), // this is DANGEROUS
+			array('../normal.ext', '../normal.ext', 'normal.ext'), // this is DANGEROUS
+		);
+	}
+
+	/**
+	 * Method testsanitizeUploadFileName
+	 * @test
+	 * @dataProvider sanitizeUploadFileNameProvider
+	 */
+	public function testsanitizeUploadFileName($file_name, $expected, $msg) {
+		global $upload_badext;
+		$this->assertEquals($expected, sanitizeUploadFileName($file_name, $upload_badext), $msg);
+	}
+
+	/**
 	 * Method get_group_arrayProvider
 	 * params
 	 */
