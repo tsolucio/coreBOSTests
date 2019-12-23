@@ -84,6 +84,34 @@ class testduplicate extends TestCase {
 					'tablename' => 'vtiger_messages',
 					'columname' => 'account_message',
 				),
+				'Accounts' => array(
+					'tablename' => 'vtiger_account',
+					'columname' => 'parentid',
+				),
+				'Contacts' => array(
+					'tablename' => 'vtiger_contactdetails',
+					'columname' => 'accountid',
+				),
+				'Calendar' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
+				),
+				'Events' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
+				),
+				'Quotes' => array(
+					'tablename' => 'vtiger_quotes',
+					'columname' => 'accountid',
+				),
+				'SalesOrder' => array(
+					'tablename' => 'vtiger_salesorder',
+					'columname' => 'accountid',
+				),
+				'Invoice' => array(
+					'tablename' => 'vtiger_invoice',
+					'columname' => 'accountid',
+				),
 			), 'Accounts'),
 			array('Assets', array(
 				'CobroPago' => array(
@@ -124,6 +152,14 @@ class testduplicate extends TestCase {
 					'tablename' => 'vtiger_messages',
 					'columname' => 'messagesrelatedto',
 				),
+				'Calendar' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
+				),
+				'Events' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
+				),
 			), 'Vendors'),
 			array('Campaigns', array(
 				'CobroPago' => array(
@@ -146,6 +182,14 @@ class testduplicate extends TestCase {
 					'tablename' => 'vtiger_messages',
 					'columname' => 'campaign_message',
 				),
+				'Calendar' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
+				),
+				'Events' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
+				),
 			), 'Campaigns'),
 			array('HelpDesk', array(
 				'CobroPago' => array(
@@ -163,6 +207,14 @@ class testduplicate extends TestCase {
 				'Messages' => array(
 					'tablename' => 'vtiger_messages',
 					'columname' => 'messagesrelatedto',
+				),
+				'Calendar' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
+				),
+				'Events' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
 				),
 			), 'HelpDesk'),
 			array('Potentials', array(
@@ -193,6 +245,14 @@ class testduplicate extends TestCase {
 				'ModComments' => array(
 					'tablename' => 'vtiger_modcomments',
 					'columname' => 'related_to',
+				),
+				'Calendar' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
+				),
+				'Events' => array(
+					'tablename' => 'vtiger_seactivityrel',
+					'columname' => 'crmid',
 				),
 			), 'Potentials'),
 		);
