@@ -34,18 +34,20 @@ class testExecuteWorkflow extends TestCase {
 		$current_user = Users::getActiveAdminUser();
 		$adb->query('TRUNCATE com_vtiger_workflowtask_queue');
 		$wsid = vtws_getEntityId('cbCalendar').'x';
-		cbwsExecuteWorkflow(26, '["'.$wsid.'14729","'.$wsid.'14731"]', $current_user);
-		$rs = $adb->query('select * from com_vtiger_workflowtask_queue order by entity_id');
-		$cnt = 0;
-		$expected = array(
-			1 => $wsid.'14729',
-			2 => $wsid.'14731',
-		);
-		while ($wftsk = $adb->fetch_array($rs)) {
-			$cnt++;
-			$this->assertEquals($expected[$cnt], $wftsk['entity_id'], 'task row');
-		}
-		$this->assertEquals(2, $cnt, 'task count');
+		$rdo = cbwsExecuteWorkflow(26, '["'.$wsid.'14729","'.$wsid.'14731"]', $current_user);
+		$this->assertTrue($rdo);
+		// those two tasks are not queued anymore because now manual emails are sent immediatly
+		// $rs = $adb->query('select * from com_vtiger_workflowtask_queue order by entity_id');
+		// $cnt = 0;
+		// $expected = array(
+		// 	1 => $wsid.'14729',
+		// 	2 => $wsid.'14731',
+		// );
+		// while ($wftsk = $adb->fetch_array($rs)) {
+		// 	$cnt++;
+		// 	$this->assertEquals($expected[$cnt], $wftsk['entity_id'], 'task row');
+		// }
+		// $this->assertEquals(2, $cnt, 'task count');
 		//////////////////////
 		$wsid = vtws_getEntityId('HelpDesk').'x';
 		$ownerbefore = 5;
