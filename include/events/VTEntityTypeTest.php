@@ -7,18 +7,18 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
-
 use PHPUnit\Framework\TestCase;
+
 class VTEntityTypeTest extends TestCase {
 
 	/**
@@ -28,8 +28,8 @@ class VTEntityTypeTest extends TestCase {
 	public function testVTEntityType() {
 		global $current_user, $adb;
 		$setype = 'Potentials';
-		$et = new VTEntityType($adb,$setype);
-		$this->assertInstanceOf(VTEntityType::class,$et,"testConstruct class VTEntityType");
+		$et = new VTEntityType($adb, $setype);
+		$this->assertInstanceOf(VTEntityType::class, $et, 'testConstruct class VTEntityType');
 		$this->assertEquals($setype, $et->getModuleName(), 'ModuleName');
 		$this->assertEquals(getTabid($setype), $et->getTabId(), 'tabid');
 		$fieldnames = array(
@@ -56,20 +56,19 @@ class VTEntityTypeTest extends TestCase {
 			20 => 'created_user_id',
 		);
 		$this->assertEquals($fieldnames, $et->getFieldNames(), 'FieldNames');
-		$fieldtypes = array();
 		$ftypes = $et->getFieldTypes();
-		$this->assertInstanceOf(VTFieldType::class,$ftypes['potential_no'],"potential_no");
+		$this->assertInstanceOf(VTFieldType::class, $ftypes['potential_no'], 'potential_no');
 		$this->assertEquals($ftypes['potential_no']->type, $et->getFieldType('potential_no')->type, 'FieldType potential_no');
 		$this->assertEquals('String', $et->getFieldType('potential_no')->type, 'FieldType potential_no');
-		$this->assertEquals(array('type' => 'String'),(array)$ftypes['potential_no'],'FieldType ToArray');
-		$this->assertInstanceOf(VTFieldType::class,$ftypes['amount'],"amount");
+		$this->assertEquals(array('type' => 'String'), (array)$ftypes['potential_no'], 'FieldType ToArray');
+		$this->assertInstanceOf(VTFieldType::class, $ftypes['amount'], 'amount');
 		$this->assertEquals($ftypes['amount']->type, $et->getFieldType('amount')->type, 'FieldType amount');
 		$this->assertEquals('Number', $et->getFieldType('amount')->type, 'FieldType amount');
-		$this->assertEquals(array('type' => 'Number'),(array)$ftypes['amount'],'FieldType ToArray');
+		$this->assertEquals(array('type' => 'Number'), (array)$ftypes['amount'], 'FieldType ToArray');
 		///////////////
 		$setype = 'Invoice';
-		$et = new VTEntityType($adb,$setype);
-		$this->assertInstanceOf(VTEntityType::class,$et,"testConstruct class VTEntityType");
+		$et = new VTEntityType($adb, $setype);
+		$this->assertInstanceOf(VTEntityType::class, $et, 'testConstruct class VTEntityType');
 		$this->assertEquals($setype, $et->getModuleName(), 'ModuleName');
 		$this->assertEquals(getTabid($setype), $et->getTabId(), 'tabid');
 		$fieldnames = array(
@@ -131,13 +130,10 @@ class VTEntityTypeTest extends TestCase {
 			55 => 'sum_taxtotalretention',
 		);
 		$this->assertEquals($fieldnames, $et->getFieldNames(), 'FieldNames');
-		$fieldtypes = array();
 		$ftypes = $et->getFieldTypes();
-		$this->assertInstanceOf(VTFieldType::class,$ftypes['account_id'],"account_id");
+		$this->assertInstanceOf(VTFieldType::class, $ftypes['account_id'], 'account_id');
 		$this->assertEquals($ftypes['account_id']->type, $et->getFieldType('account_id')->type, 'FieldType account_id');
-		$this->assertEquals('Related', $et->getFieldType('account_id')->type, 'FieldType account_id');
-		$this->assertEquals('Accounts', $et->getFieldType('account_id')->relatedTo, 'FieldType account_id relatedTo');
+		$this->assertEquals('String', $et->getFieldType('account_id')->type, 'FieldType account_id');
 	}
-
 }
 ?>
