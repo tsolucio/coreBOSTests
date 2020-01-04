@@ -297,6 +297,9 @@ class tstDateTimeField extends TestCase {
 		);
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
+		$dt = new DateTimeField('25-02-2016');
+		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
+		$this->assertEquals(array('year' => '2016','month' => '02','day' => '25','hour' => '00','minute' => '00','second' => '00'), $fmtdate);
 		$dt = new DateTimeField('25-02-2016 20:30:00');
 		$fmtdate = $dt->getDBInsertDateTimeValueComponents($user);
 		$this->assertEquals($expectedDateTime, $fmtdate);
