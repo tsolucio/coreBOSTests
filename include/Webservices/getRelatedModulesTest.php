@@ -44,6 +44,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('firstname', 'lastname'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Potentials' => array(
 				'related_tabid' => '2',
@@ -58,6 +59,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('potentialname'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Quotes' => array(
 				'related_tabid' => '20',
@@ -72,6 +74,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('subject'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Sales Order' => array(
 				'related_tabid' => '22',
@@ -86,6 +89,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('subject'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Invoice' => array(
 				'related_tabid' => '23',
@@ -100,6 +104,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('subject'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Activities' => array(
 				'related_tabid' => '63',
@@ -114,6 +119,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('subject'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Emails' => array(
 				'related_tabid' => '10',
@@ -128,6 +134,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('subject'),
 					'pagesize' => 40
 				),
+				'relationtype' => 'N:N',
 			),
 			'Documents' => array(
 				'related_tabid' => '8',
@@ -142,6 +149,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('notes_title'),
 					'pagesize' => 40
 				),
+				'relationtype' => 'N:N',
 			),
 			'HelpDesk' => array(
 				'related_tabid' => '13',
@@ -156,6 +164,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('ticket_title'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Products' => array(
 				'related_tabid' => '14',
@@ -170,6 +179,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('productname'),
 					'pagesize' => 40
 				),
+				'relationtype' => 'N:N',
 			),
 			'Campaigns' => array(
 				'related_tabid' => '26',
@@ -184,6 +194,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('campaignname'),
 					'pagesize' => 40
 				),
+				'relationtype' => 'N:N',
 			),
 			'Service Contracts' => array(
 				'related_tabid' => '37',
@@ -198,6 +209,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('subject'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Services' => array(
 				'related_tabid' => '38',
@@ -212,6 +224,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('servicename'),
 					'pagesize' => 40
 				),
+				'relationtype' => 'N:N',
 			),
 			'CobroPago' => array(
 				'related_tabid' => '42',
@@ -226,6 +239,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('cyp_no'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Assets' => array(
 				'related_tabid' => '43',
@@ -240,6 +254,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('assetname'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Projects' => array(
 				'related_tabid' => '50',
@@ -254,6 +269,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('projectname'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'InventoryDetails' => array(
 				'related_tabid' => '57',
@@ -268,6 +284,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('inventorydetails_no'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'cbSurveyDone' => array(
 				'related_tabid' => '68',
@@ -282,6 +299,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('cbsurveydone_no'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'cbSurveyAnswer' => array(
 				'related_tabid' => '69',
@@ -296,6 +314,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('cbsurveyanswer_no'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'cbCompany' => array(
 				'related_tabid' => '70',
@@ -310,6 +329,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('companyname'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 			'Messages' => array(
 				'related_tabid' => '74',
@@ -324,6 +344,7 @@ class getRelatedModulesTest extends TestCase {
 					'linkfields' => array('messageno'),
 					'pagesize' => 40
 				),
+				'relationtype' => '1:N',
 			),
 		);
 		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get accounts');
@@ -343,6 +364,7 @@ class getRelatedModulesTest extends TestCase {
 					'pagesize' => 40
 				),
 				'relatedfield' => null,
+				'relationtype' => 'N:N',
 			),
 			'Documents' => array(
 				'related_tabid' => '8',
@@ -357,6 +379,7 @@ class getRelatedModulesTest extends TestCase {
 					'pagesize' => 40
 				),
 				'relatedfield' => null,
+				'relationtype' => 'N:N',
 			)
 		);
 		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get assets');
