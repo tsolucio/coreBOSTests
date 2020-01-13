@@ -90,6 +90,14 @@ class testListViewUtils extends TestCase {
 			array('this one is a little bigger than the 40 default cut size', 20, 'this one is a little...'),
 			array('word on cut size', 10, 'word on cu...'),
 			array('word <strong>on</strong> cut size', 10, 'word on cu...'),
+			array('probability>50', 10, 'probabilit...'),
+			array('probability>50', 20, 'probability&gt;50'),
+			array('probability>50', 12, 'probability&gt;...'),
+			array('probability<50', 10, 'probabilit...'),
+			array('probability<50', 20, 'probability&lt;50'),
+			array('probability<50', 12, 'probability&lt;...'),
+			array('probability&gt;50', 0, 'probability&gt;50'),
+			array('probability&lt;50', 0, 'probability&lt;50'),
 		);
 	}
 
