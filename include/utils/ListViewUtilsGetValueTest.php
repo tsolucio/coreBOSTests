@@ -77,6 +77,10 @@ class testListViewUtilsGetValue extends TestCase {
 				case 'annual_revenue':
 					$ret = '<span style="float:right;padding-right:10px;display:block;">4,210,827.00</span>';
 					break;
+				case 'ownership':
+				case 'cf_718':
+					$ret = gtltTagsToHTML($fieldvalue);
+					break;
 				case 'employees':
 					$ret = '<span style="float:right;padding-right:10px;display:block;">147</span>';
 					break;
