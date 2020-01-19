@@ -1,0 +1,25 @@
+{
+  "name": "coreBOSTests",
+  "version": "1.0.0",
+  "description": "coreBOS Tests\r =======",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tsolucio/coreBOSTests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tsolucio/coreBOSTests/issues"
+  },
+  "homepage": "https://github.com/tsolucio/coreBOSTests#readme",
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "jest-cli": "^24.9.0",
+    "puppeteer": "^2.0.0"
+  }
+}
