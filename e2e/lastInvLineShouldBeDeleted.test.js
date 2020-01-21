@@ -1,16 +1,9 @@
 const puppeteer = require('puppeteer')
-const fs = require('fs')
+const getUrlFromConfigFile = require('../utils.js').getUrlFromConfigFile
 
 test('Adding inventorylines should not set deleted lines to deleted = 0', async () => {
 	jest.setTimeout(30000);
-	const configLines = fs.readFileSync('../../config.inc.php').toString().split("\n");
-	var url = false;
-	configLines.forEach(line => {
-		let r = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
-		if (line.match(r) !== null) {
-			url = line.match(r)[0];
-		}
-	})
+	const url = getUrlFromConfigFile();
 	if (!!url) {
 		// Uncomment this section to actually see the test happening
 		const browser = await puppeteer.launch({
