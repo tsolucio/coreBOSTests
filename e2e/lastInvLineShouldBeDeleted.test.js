@@ -28,6 +28,7 @@ test('Adding inventorylines should not set deleted lines to deleted = 0', async 
 		await page.click('tr#row9 > td > img')
 		await page.click('.create:first-child')
 		const lastRowDeleteStatus = await page.$eval('#deleted10', el => el.value)
+		browser.close()
 		expect(lastRowDeleteStatus).toBe('1')
 	} else {
 		throw 'URL could not be determined from config file'
