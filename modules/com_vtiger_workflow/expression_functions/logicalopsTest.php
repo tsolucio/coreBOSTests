@@ -22,21 +22,21 @@ use PHPUnit\Framework\TestCase;
 class workflowfunctionslogicalopsTest extends TestCase {
 
 	/**
-	 * Method testisnumfunctions
+	 * Method testisnumfunction
 	 * @test
 	 */
-	public function testisnumfunctions() {
+	public function testisnumfunction() {
 		$this->assertTrue(__cb_is_numeric(array(2017)), 'is numeric true');
 		$this->assertFalse(__cb_is_numeric(array('kkk')), 'is numeric false');
 	}
 
 	/**
-	 * Method testisstrfunctions
+	 * Method testisstrfunction
 	 * @test
 	 */
-	public function testisstrfunctions() {
-		$this->assertFalse(__cb_is_string(array(2017)), 'is string true');
-		$this->assertTrue(__cb_is_string(array('kkk')), 'is string false');
+	public function testisstrfunction() {
+		$this->assertFalse(__cb_is_string(array(2017)), 'is string false');
+		$this->assertTrue(__cb_is_string(array('kkk')), 'is string true');
 	}
 
 	/**
@@ -69,6 +69,36 @@ class workflowfunctionslogicalopsTest extends TestCase {
 		$this->assertFalse(__cb_and(array('a', '')), 'and');
 		$this->assertFalse(__cb_and(array('', 'a')), 'and');
 		$this->assertFalse(__cb_and(array('', '')), 'and');
+	}
+
+	/**
+	 * Method testexistsfunction
+	 * @test
+	 */
+	public function testexistsfunction() {
+		global $current_user;
+		$entityCache = new VTEntityCache($current_user);
+		$entityData = $entityCache->forId('11x74');
+		$params = array('accountname', 'J A Associates', $entityData);
+		$this->assertTrue(__cb_exists($params), 'exists true');
+		$params = array('accountname', 'No account with this name', $entityData);
+		$this->assertFalse(__cb_exists($params), 'exists false');
+	}
+
+	/**
+	 * Method testexistsrelatedfunction
+	 * @test
+	 */
+	public function testexistsrelatedfunction() {
+		global $current_user;
+		$entityCache = new VTEntityCache($current_user);
+		$entityData = $entityCache->forId('11x74');
+		$params = array('Contacts', 'firstname', 'Lina', $entityData);
+		$this->assertTrue(__cb_existsrelated($params), 'exists related true');
+		$params = array('Contacts', 'firstname', 'no contact with this name', $entityData);
+		$this->assertFalse(__cb_existsrelated($params), 'exists related true');
+		$params = array('Assets', 'assetname', 'No asset related', $entityData);
+		$this->assertFalse(__cb_existsrelated($params), 'exists related false');
 	}
 }
 ?>
