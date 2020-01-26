@@ -599,6 +599,29 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 	}
 
 	/**
+	 * Method testWorkFlowLogicals
+	 * @test
+	 */
+	public function testWorkFlowLogicals() {
+		global $adb;
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Accounts';
+		$wfvals['test'] = '';
+		$wfvals['select_expressions'] = '[{"fieldname":"accountnameisstr","operation":"is","value":"isString(accountname)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT concat('',vtiger_account.accountname*1)!=(vtiger_account.accountname) AS accountnameisstr FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0";
+		$this->assertEquals($expected, $actual);
+		$wfvals['select_expressions'] = '[{"fieldname":"accountnameisnum","operation":"is","value":"isNumeric(accountname)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT concat('',vtiger_account.accountname*1)=(vtiger_account.accountname) AS accountnameisnum FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0";
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
 	 * Method testWorkFlowNoConditions
 	 * @test
 	 */
