@@ -183,6 +183,8 @@ class workflowfunctionsdatetimeTest extends TestCase {
 	 * @test
 	 */
 	public function testgetDate() {
+		$actual = __vt_get_date(array('now'));
+		$this->assertEquals(date('Y-m-d H:i:s'), $actual);
 		$actual = __vt_get_date(array('today'));
 		$this->assertEquals(date('Y-m-d'), $actual);
 		$actual = __vt_get_date(array('invalid'));
