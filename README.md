@@ -13,6 +13,7 @@ Installation
 Clone the the full [coreBOS repository](https://github.com/tsolucio/corebos). The coreBOS Tests project must be cloned inside the build directory with the name **coreBOSTests**, so this should do the trick:
 ```
 cd build
+rmdir coreBOSTests
 git clone https://github.com/tsolucio/coreBOSTests
 ```
 
@@ -31,7 +32,6 @@ Now edit the file and correctly set the variables:
 You should be able to log in with the user and password "admin".
 
 * go to coreBOS Updater, load and apply all changes (as always)
-* go to Settings > Module Manager. Deactivate and Activate the Assets module (for example). We do this to generate and update the tabdata.php file. Alternatively you can execute: `build/HelperScripts/update_tabdata`
 * go to Settings > Access Privileges and "Recalculate". Alternatively you can execute: `build/HelperScripts/createuserfiles`
 
 You should be able to run the different tests now.
@@ -47,23 +47,12 @@ Optionally with debugging for more verbose output:
 
 ```build/coreBOSTests/phpunit --debug -c build/coreBOSTests/phpunit.xml```
 
-If you want to execute the **integration tests**, you will need a selenium server. On my server I use this to get selenium ready:
-
-```java -jar selenium-server-standalone-2.52.0.jar -Dwebdriver.chrome.driver=/var/www/coreBOSTest/build/coreBOSTests/vendor/webdriver/chromedriver```
-
-Then you can launch the tests with:
-
-```build/coreBOSTests/phpunit -c build/coreBOSTests/integration.xml```
+For the E2E browser integration tests you have to go into the e2e directory and execute `npm install` and then an `npm test`
 
 Individual tests suites
 -------
 
-In the files build/coreBOSTests/phpunit.xml and build/coreBOSTests/integration.xml you will find definitions of the different test suites that can be launched individually if needed.
-
-Test browser
-----------
-
-By default, the integration tests are executed in firefox and chrome browsers, which are the two coreBOS officially supported browsers. So your selenium server must have the chrome driver loaded. You can find a driver for linux 64bit in build/coreBOSTests/vendor/webdriver/. You can add other browsers by adding the corresponding webdriver in your selenium server and changing the base integration test class which can be found at build/coreBOSTests/integration/cbIntegrationTest.php
+In the files build/coreBOSTests/phpunit.xml you will find definitions of the different test suites that can be launched individually if needed.
 
 Developing Tests
 ----------
@@ -71,18 +60,6 @@ Developing Tests
 For functional and unit tests just follow phpunit good practices by creating test scripts in the same structure as the original file and with the recommended file naming conventions.
 
 Then edit the test suites accordingly if necessary.
-
-For integration tests the same rules apply except that the base class for tests is the one that coreBOSTests uses, so all our integration tests inherit the two browser testing. The integration tests are launched in **http://localhost/coreBOSTest** so the coreBOS test installation **MUST** live there (you can change that in the integration/cbIntegrationTest.php file). You can look at the existing tests for examples, but it basically means something like this:
-
-```
-<?php
-//put your license here
-require_once 'build/coreBOSTests/integration/cbIntegrationTest.php';
-
-class YourIntegrationTest extends cbIntegrationTest
-{
-...
-```
 
 Profiling
 -------
