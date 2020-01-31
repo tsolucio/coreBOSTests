@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer')
 const getUrlFromConfigFile = require('../utils.js').getUrlFromConfigFile
 
-test('Adding inventorylines should not set deleted lines to deleted = 0', async () => {
+test('Moving inventorylines should not overwrite each other', async () => {
 	jest.setTimeout(30000);
 	const url = getUrlFromConfigFile();
 	if (!!url) {
@@ -21,15 +21,15 @@ test('Adding inventorylines should not set deleted lines to deleted = 0', async 
 		await page.type('input#password', 'admin')
 		await page.click('input#Login')
 		await page.goto(
-			url + '/index.php?module=SalesOrder&parenttab=ptab&action=DetailView&record=10616'
+			url + '/index.php?module=SalesOrder&parenttab=ptab&action=DetailView&record=10720'
 		)
 		await page.click('input[name=Edit]')
-		await page.click('tr#row10 > td > img')
-		await page.click('tr#row9 > td > img')
-		await page.click('.create:first-child')
-		const lastRowDeleteStatus = await page.$eval('#deleted10', el => el.value)
+		await page.click('tr#row2 > td > img')
+		await page.click('tr#row3 > td > img')
+		await page.click('tr#row1 > td > a')
+		const firstRowServiceName = await page.$eval('#productName1', el => el.value)
 		browser.close()
-		expect(lastRowDeleteStatus).toBe('1')
+		expect(firstRowServiceName).toBe('Manufacturing Japan Movt Stainless Steel Back For Men Bracelet Brand Watch Wrist Wtach Quartz')
 	} else {
 		throw 'URL could not be determined from config file'
 	}
