@@ -19,6 +19,7 @@
  *************************************************************************************************/
 require_once 'modules/Settings/MailScanner/core/MailScanner.php';
 use PHPUnit\Framework\TestCase;
+
 class MailScannerTest extends TestCase {
 
 	/**
