@@ -30,6 +30,64 @@ class VTExpressionEvaluaterTest extends TestCase {
 	 */
 	public function testFunctions() {
 		$adminUser = Users::getActiveAdminUser();
+		/////////////////////////
+		$entityId = '7x3021'; // Invoice
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = 'round(hdnGrandTotal, 2)';
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => hdnGrandTotal
+    [type] => string
+)
+',
+			1 => '2',
+			2 => 'Array
+(
+    [0] => 5234.280000
+    [1] => 2
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('5234.28', $exprEvaluation);
+		/////////////////////////
+		$entityId = '7x3021'; // Invoice
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = 'round(hdnGrandTotal/0.21, 2)';
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => hdnGrandTotal
+    [type] => string
+)
+',
+			1 => '0.21',
+			2 => 'Array
+(
+    [0] => 5234.280000
+    [1] => 0.21
+)
+',
+			3 => '2',
+			4 => 'Array
+(
+    [0] => 24925.142857143
+    [1] => 2
+)
+',
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('24925.14', $exprEvaluation);
+		/////////////////////////
 		$entityId = '11x74'; // employees = 131
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
 		$testexpression = 'add_days(cf_722, (cf_719*7))';
