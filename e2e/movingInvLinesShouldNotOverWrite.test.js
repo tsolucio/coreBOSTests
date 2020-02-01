@@ -24,6 +24,7 @@ test('Moving inventorylines should not overwrite each other', async () => {
 			url + '/index.php?module=SalesOrder&parenttab=ptab&action=DetailView&record=10720'
 		)
 		await page.click('input[name=Edit]')
+		await page.waitForSelector('#row4');
 		await page.click('tr#row2 > td > img')
 		await page.click('tr#row3 > td > img')
 		await page.click('tr#row1 > td > a')

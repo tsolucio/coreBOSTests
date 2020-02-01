@@ -24,6 +24,7 @@ test('Adding inventorylines should not set deleted lines to deleted = 0', async 
 			url + '/index.php?module=SalesOrder&parenttab=ptab&action=DetailView&record=10616'
 		)
 		await page.click('input[name=Edit]')
+		await page.waitForSelector('#row10');
 		await page.click('tr#row10 > td > img')
 		await page.click('tr#row9 > td > img')
 		await page.click('.create:first-child')
