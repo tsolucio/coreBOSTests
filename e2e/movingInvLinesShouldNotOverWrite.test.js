@@ -7,9 +7,9 @@ test('Moving inventorylines should not overwrite each other', async () => {
 	if (!!url) {
 		// Uncomment this section to actually see the test happening
 		const browser = await puppeteer.launch({
-			headless: false,
-			slowMo: 80,
-			args: ['--window-size=1920,1080'],
+			// headless: false,
+			// slowMo: 80,
+			// args: ['--window-size=1920,1080'],
 			defaultViewport: null
 		})
 
