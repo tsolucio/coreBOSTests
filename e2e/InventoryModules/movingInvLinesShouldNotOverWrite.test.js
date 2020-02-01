@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer')
-const getUrlFromConfigFile = require('../utils.js').getUrlFromConfigFile
+const getUrlFromConfigFile = require('../../utils.js').getUrlFromConfigFile
 
 test('Moving inventorylines should not overwrite each other', async () => {
 	jest.setTimeout(30000);

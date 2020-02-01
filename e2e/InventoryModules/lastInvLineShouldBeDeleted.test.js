@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer')
-const getUrlFromConfigFile = require('../utils.js').getUrlFromConfigFile
+const getUrlFromConfigFile = require('../../utils.js').getUrlFromConfigFile
 
 test('Adding inventorylines should not set deleted lines to deleted = 0', async () => {
 	jest.setTimeout(30000);
