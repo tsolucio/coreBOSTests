@@ -11,6 +11,7 @@ Installation
 -------
 
 Clone the the full [coreBOS repository](https://github.com/tsolucio/corebos). The coreBOS Tests project must be cloned inside the build directory with the name **coreBOSTests**, so this should do the trick:
+
 ```
 cd build
 rmdir coreBOSTests
@@ -20,11 +21,14 @@ git clone https://github.com/tsolucio/coreBOSTests
 Create a database with the contents of the test database which can be found in build/coreBOSTests/database/coreBOSTests.sql
 
 Next copy the test **config.inc.php** file from build/coreBOSTests/database/config.inc.php to the root of the test project:
+
 ```
 cd {coreBOSTests Project directory}
 cp build/coreBOSTests/database/config.inc.php .
 ```
+
 Now edit the file and correctly set the variables:
+
 * site_URL
 * root_directory
 * database configuration
@@ -47,7 +51,11 @@ Optionally with debugging for more verbose output:
 
 ```build/coreBOSTests/phpunit --debug -c build/coreBOSTests/phpunit.xml```
 
-For the E2E browser integration tests you have to go into the e2e directory and execute `npm install` and then an `npm test`
+For the E2E browser integration tests and javascript unit tests you have to go into the build/coreBOSTests directory and execute `npm install` and then a `npm test`
+
+You can get a detailed execution with the command: `npm test -- --config jest.config.json`
+
+and execute individual tests both in phpunit and jest indicating the path to the test file
 
 Individual tests suites
 -------
@@ -63,9 +71,11 @@ Then edit the test suites accordingly if necessary.
 
 Profiling
 -------
+
 This project also caters the needs of profiling the application. To accomplish this, we use the [XHProf PHP](http://pecl.php.net/package/xhprof) and [Tideways](https://tideways.io/) extensions and the visual user interface [XHGUI](https://github.com/perftools/xhgui.git).
 
 To get profiling working you need to:
+
 * install the XHProf PHP or Tideways extension in your PHP (uprofiler has not been tested but should work also)
 * install mongodb and mongodb PHP libraries
 * your apache must be configured to accept .htaccess directives because the build directory is protected from web access so we need to eliminate that restriction for the xhgui direcotry
@@ -73,6 +83,7 @@ To get profiling working you need to:
 * get the latest code of the coreBOSTest project (see above)
 * inside the xhgui directory (build/coreBOSTests/xhgui) you have to download composer.phar and execute `composer update`
 * register the profiling calls:
+
 ```
 cd {coreBOSTests Project directory}
 cp build/coreBOSTests/registerxhgui.php .
@@ -95,7 +106,7 @@ If you want to **force a registration** in any part of the code you have to take
 ```
 include_once('build/coreBOSTests/cbxhgui.php');
  ```
- 
+
 * enable the profile at the start of the code you want to analyze
 
 ```
@@ -136,9 +147,9 @@ index 1bc9257..c5f5dce 100644
 
 This setup is based on the work described in engineyard.com blog post [**Profiling PHP with Xhprof & Xhgui**](https://blog.engineyard.com/2014/profiling-with-xhprof-xhgui-part-1) which is a recommended read along with the article [Profiling PHP Applications with XHGui](https://inviqa.com/blog/profiling-xhgui). Some other helpful links are:
 
-  * [Tideways PHP Profiler Extension](https://github.com/tideways/php-profiler-extension)
-  * [How To Set Up XHProf and XHGui for Profiling PHP Applications on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-xhprof-and-xhgui-for-profiling-php-applications-on-ubuntu-14-04#step-4-—-set-up-mongodb-indexes-(optional))
-  * [xhgui](https://github.com/perftools/xhgui)
+* [Tideways PHP Profiler Extension](https://github.com/tideways/php-profiler-extension)
+* [How To Set Up XHProf and XHGui for Profiling PHP Applications on Ubuntu 14.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-xhprof-and-xhgui-for-profiling-php-applications-on-ubuntu-14-04#step-4-—-set-up-mongodb-indexes-(optional))
+* [xhgui](https://github.com/perftools/xhgui)
 
 Tideways extension
 -------
@@ -171,7 +182,6 @@ tideways.sample_rate=100
 ; wordpress
 ;tideways.framework=
 ```
-
 
 License
 -------
