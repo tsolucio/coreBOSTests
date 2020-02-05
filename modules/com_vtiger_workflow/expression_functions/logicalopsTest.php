@@ -100,5 +100,17 @@ class workflowfunctionslogicalopsTest extends TestCase {
 		$params = array('Assets', 'assetname', 'No asset related', $entityData);
 		$this->assertFalse(__cb_existsrelated($params), 'exists related false');
 	}
+
+	//test number formating
+	public function testenumberformatingfunction() {
+		$actual = __cb_number_format(array(1234.56));
+		$this->assertEquals("1,235", $actual);
+		$actual = __cb_number_format(array(12345678,2,",",'.'));
+		$this->assertEquals("12.345.678,00", $actual);
+		$actual = __cb_number_format(array(9999999,2,".",','));
+		var_dump($actual);
+		$this->assertEquals("9,999,999.00", $actual);
+	}
+
 }
 ?>
