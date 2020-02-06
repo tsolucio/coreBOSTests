@@ -19,6 +19,7 @@
  *************************************************************************************************/
 require_once 'modules/Leads/ConvertLeadUI.php';
 use PHPUnit\Framework\TestCase;
+
 class ConvertLeadUITest extends TestCase {
 
 	/**
@@ -29,34 +30,32 @@ class ConvertLeadUITest extends TestCase {
 		global $current_user;
 		$record = '4196';
 		$uiinfo = new ConvertLeadUI($record, $current_user);
-		$actual = $uiinfo->getMappedFieldValue('Accounts','accountname',0);
+		$actual = $uiinfo->getMappedFieldValue('Accounts', 'accountname', 0);
 		$expected = 'T M Byxbee Company Pc';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Accounts accountname');
-		$actual = $uiinfo->getMappedFieldValue('Accounts','industry',1);
+		$actual = $uiinfo->getMappedFieldValue('Accounts', 'industry', 1);
 		$expected = 'Biotechnology';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Accounts industry');
-		$actual = $uiinfo->getMappedFieldValue('Potentials','potentialname',0);
+		$actual = $uiinfo->getMappedFieldValue('Potentials', 'potentialname', 0);
 		$expected = 'T M Byxbee Company Pc';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Potentials potentialname');
-		$actual = $uiinfo->getMappedFieldValue('Potentials','closingdate',1);
+		$actual = $uiinfo->getMappedFieldValue('Potentials', 'closingdate', 1);
 		$expected = '';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Potentials closingdate');
-		$actual = $uiinfo->getMappedFieldValue('Potentials','sales_stage',1);
+		$actual = $uiinfo->getMappedFieldValue('Potentials', 'sales_stage', 1);
 		$expected = '';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Potentials sales_stage');
-		$actual = $uiinfo->getMappedFieldValue('Potentials','amount',1);
+		$actual = $uiinfo->getMappedFieldValue('Potentials', 'amount', 1);
 		$expected = '';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Potentials amount');
-		$actual = $uiinfo->getMappedFieldValue('Contacts','lastname',0);
+		$actual = $uiinfo->getMappedFieldValue('Contacts', 'lastname', 0);
 		$expected = 'Rim';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Contacts lastname');
-		$actual = $uiinfo->getMappedFieldValue('Contacts','firstname',0);
+		$actual = $uiinfo->getMappedFieldValue('Contacts', 'firstname', 0);
 		$expected = 'Gladys';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Contacts firstname');
-		$actual = $uiinfo->getMappedFieldValue('Contacts','email',0);
+		$actual = $uiinfo->getMappedFieldValue('Contacts', 'email', 0);
 		$expected = 'gladys.rim@rim.org';
 		$this->assertEquals($expected, $actual, 'ConvertLeadUI Contacts email');
 	}
-
-
 }
