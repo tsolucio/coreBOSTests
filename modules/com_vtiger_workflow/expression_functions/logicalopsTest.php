@@ -100,47 +100,5 @@ class workflowfunctionslogicalopsTest extends TestCase {
 		$params = array('Assets', 'assetname', 'No asset related', $entityData);
 		$this->assertFalse(__cb_existsrelated($params), 'exists related false');
 	}
-
-	//test number formating
-	public function testenumberformatingfunction() {
-		$actual = __cb_number_format(array(1234.56));
-		$this->assertNotEquals("1,23456", $actual);
-		$actual = __cb_number_format(array(1234.56,1));
-		$this->assertEquals("1,234.6", $actual);
-		$actual = __cb_number_format(array(12345,2,"."));
-		$this->assertEquals("12,345.00", $actual);
-		$actual = __cb_number_format(array(1234,3,".",','));
-		$this->assertEquals("1,234.000", $actual);
-		$actual = __cb_number_format(array(123,4,",".'.'));
-		$this->assertEquals("123,.0000", $actual);
-
-//less than 100
-		$actual = __cb_number_format(array(10));
-		$this->assertEquals("10", $actual);
-		$actual = __cb_number_format(array(22,1));
-		$this->assertEquals("22.0", $actual);
-		$actual = __cb_number_format(array(45,2,','));
-		$this->assertNotEquals("4500", $actual);
-		$actual = __cb_number_format(array(38,3,",",'.'));
-		$this->assertEquals("38,000", $actual);
-		$actual = __cb_number_format(array(99,4,".",':'));
-		$this->assertEquals("99.0000", $actual);
-
-		//number with decimals
-		$actual = __cb_number_format(array(999.999999));
-		$this->assertNotEquals("999", $actual);
-		$actual = __cb_number_format(array(999.999999,1));
-		$this->assertEquals("1,000.0", $actual);
-		$actual = __cb_number_format(array(999.999999,2,'.'));
-		$this->assertEquals("1,000.00", $actual);
-		$actual = __cb_number_format(array(999.999999,3,",",'.'));
-		$this->assertEquals("1.000,000", $actual);
-		$actual = __cb_number_format(array(999.999999,4,".",','));
-		$this->assertEquals("1,000.0000", $actual);
-		$actual = __cb_number_format(array(999394394.999999,5,",",'.'));
-		$this->assertEquals("999.394.395,00000", $actual);
-		$actual = __cb_number_format(array(99923456785433.999999,6,".",':'));
-		$this->assertEquals("99:923:456:785:434.000000", $actual);
-	}
 }
 ?>
