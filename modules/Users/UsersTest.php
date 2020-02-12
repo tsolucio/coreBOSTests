@@ -209,7 +209,7 @@ class UsersTest extends TestCase {
 			'failed_login_attempts' => '0',
 			'currency_name' => 'Euro',
 			'currency_code' => 'EUR',
-			'currency_symbol' => '&#8364;',
+			'currency_symbol' => '€',
 			'conv_rate' => '1.000000',
 			'imagenameimageinfo' => '',
 		);
