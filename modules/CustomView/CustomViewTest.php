@@ -109,6 +109,44 @@ class CustomViewTest extends TestCase {
 			),
 		);
 		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid cbupdater execstate');
+		$actual = $cv->getAdvFilterByCvid(92);
+		$expected = array(
+			1 => array(
+				'columns' => array(
+					0 => array(
+						'columnname' => 'vtiger_account:accountname:accountname:Accounts_Account_Name:V',
+						'comparator' => 'c',
+						'value' => 'a',
+						'column_condition' => 'and',
+					),
+					1 => array(
+						'columnname' => 'vtiger_account:employees:employees:Accounts_Employees:I',
+						'comparator' => 'l',
+						'value' => '50',
+						'column_condition' => '',
+					),
+				),
+				'condition' => 'or',
+			),
+			2 => array(
+				'columns' => array(
+					2 => array(
+						'columnname' => 'vtiger_account:accountname:accountname:Accounts_Account_Name:V',
+						'comparator' => 'k',
+						'value' => 'a',
+						'column_condition' => 'and',
+					),
+					3 => array(
+						'columnname' => 'vtiger_account:employees:employees:Accounts_Employees:I',
+						'comparator' => 'g',
+						'value' => '40',
+						'column_condition' => '',
+					),
+				),
+				'condition' => '',
+			)
+		);
+		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid  account grouped condition');
 	}
 
 	/**
@@ -191,6 +229,27 @@ class CustomViewTest extends TestCase {
 		);
 		$this->assertEquals($expected, $actual, 'getAdvFilterByCvid current_user 101 testmdy');
 		$current_user = $holduser;
+	}
+
+	/**
+	 * Method testgetCVAdvFilterSQL
+	 * @test
+	 */
+	public function testgetCVAdvFilterSQL() {
+		global $current_user;
+		$cv = new CustomView();
+		$actual = $cv->getCVAdvFilterSQL(11);
+		$expected = "(( vtiger_potential.sales_stage = 'Closed Won' ) )";
+		$this->assertEquals($expected, $actual, 'getCVAdvFilterSQL Potential Won');
+		$actual = $cv->getCVAdvFilterSQL(17);
+		$expected = "(( vtiger_quotes.quotestage <> 'Accepted' and vtiger_quotes.quotestage <> 'Rejected' ) )";
+		$this->assertEquals($expected, $actual, 'getCVAdvFilterSQL Quotes Stage');
+		$actual = $cv->getCVAdvFilterSQL(45);
+		$expected = "(( vtiger_cbupdater.execstate = 'Executed' ) )";
+		$this->assertEquals($expected, $actual, 'getCVAdvFilterSQL cbupdater execstate');
+		$actual = $cv->getCVAdvFilterSQL(92);
+		$expected = "(( vtiger_account.accountname like '%a%' and vtiger_account.employees < '50' )  or ( vtiger_account.accountname not like '%a%' and vtiger_account.employees > '40' ) )";
+		$this->assertEquals($expected, $actual, 'getCVAdvFilterSQL account grouped condition');
 	}
 
 	/**
@@ -316,7 +375,7 @@ class CustomViewTest extends TestCase {
 	public function getCustomViewComboProvider() {
 		$expected_leads_admin_combo = '<option selected value="1">All</option><option value="2">Hot Leads</option><option value="3">This Month Leads</option>';
 		$expected_contacts_admin_combo = '<option selected value="7">All</option><option value="8">Contacts Address</option><option value="9">Todays Birthday</option>';
-		$expected_accounts_admin_combo = '<option selected value="4">All</option><option value="82">current_user</option><option value="6">New This Week</option><option value="5">Prospect Accounts</option>';
+		$expected_accounts_admin_combo = '<option selected value="4">All</option><option value="82">current_user</option><option value="92">Group Condition</option><option value="6">New This Week</option><option value="5">Prospect Accounts</option>';
 		$expected_potentials_admin_combo = '<option selected value="10">All</option><option value="11">Potentials Won</option><option value="12">Prospecting</option>';
 		$expected_salesorder_admin_combo = '<option selected value="26">All</option><option value="37">Pending Sales Orders</option>';
 		$expected_leads_testmdy_combo = '<option selected value="1">All</option><option disabled>--- Public ---</option><option value="2">Hot Leads [ Administrator] </option><option value="3">This Month Leads [ Administrator] </option>';
