@@ -435,6 +435,27 @@ class tstDateTimeField extends TestCase {
 	}
 
 	/**
+	 * Method testgetDBInsertTimeValue
+	 * @test
+	 */
+	public function testgetDBInsertTimeValue() {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
+		$dt = new DateTimeField('13-02-2020 10:00');
+		$fmtdate = $dt->getDBInsertTimeValue($user);
+		$this->assertEquals('10:00:00', $fmtdate);
+		$dt = new DateTimeField('13-02-2020 12:00');
+		$fmtdate = $dt->getDBInsertTimeValue($user);
+		$this->assertEquals('12:00:00', $fmtdate);
+		$dt = new DateTimeField('13-02-2020 14:00');
+		$fmtdate = $dt->getDBInsertTimeValue($user);
+		$this->assertEquals('14:00:00', $fmtdate);
+		$dt = new DateTimeField('13-02-2020 00:00');
+		$fmtdate = $dt->getDBInsertTimeValue($user);
+		$this->assertEquals('00:00:00', $fmtdate);
+	}
+
+	/**
 	 * Method testconvertToDBFormat
 	 * @test
 	 */
@@ -641,7 +662,9 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('01:15', 'pm'), 'normal pm time');
 		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('1:15', 'pm'), 'missing number pm time');
 		$this->assertEquals('00:15', DateTimeField::formatDatebaseTimeString('12:15', 'am'), 'normal am 12 time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('12:15', 'pm'), 'normal pm 12 time');
+		$this->assertEquals('12:15', DateTimeField::formatDatebaseTimeString('12:15', 'pm'), 'normal pm 12 time');
+		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('13:15', 'pm'), 'incorrect pm 13 time');
+		$this->assertEquals('23:15', DateTimeField::formatDatebaseTimeString('23:15', 'pm'), 'incorrect pm 23 time');
 		//////////////////
 		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 24), 'normal 24 time lt 12');
 		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 24), 'missing number 24 time');
@@ -651,7 +674,9 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 'pm'), 'normal pm time');
 		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 'pm'), 'missing number pm time');
 		$this->assertEquals('2017-09-02 00:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'am'), 'normal am 12 time');
-		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'pm'), 'normal pm 12 time');
+		$this->assertEquals('2017-09-02 12:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'pm'), 'normal pm 12 time');
+		$this->assertEquals('2020-01-28 13:00', DateTimeField::formatDatebaseTimeString('2020-01-28 13:00:00', 'pm'), 'incorrect pm 13 time');
+		$this->assertEquals('2020-01-28 23:10', DateTimeField::formatDatebaseTimeString('2020-01-28 23:10:00', 'pm'), 'incorrect pm 23 time');
 	}
 
 	/**
