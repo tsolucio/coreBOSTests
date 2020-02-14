@@ -1327,5 +1327,154 @@ class QueryGeneratorTest extends TestCase {
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals("SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0", $query);
 	}
+
+	public function testconstructAdvancedSearchConditions() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Quotes', $current_user);
+		$actual = $queryGenerator->constructAdvancedSearchConditions('Quotes', array());
+		$expected = array();
+		$this->assertEquals($expected, $actual);
+		$queryGenerator = new QueryGenerator('Quotes', $current_user);
+		$conds = array(
+			array(),
+		);
+		$actual = $queryGenerator->constructAdvancedSearchConditions('Quotes', $conds);
+		$expected = array(
+			'query' => 'true',
+			'searchtype' => 'advance',
+			'advft_criteria' => '[]',
+			'advft_criteria_groups' => '{"1":{"groupcondition":""}}',
+		);
+		$this->assertEquals($expected, $actual);
+		$condsbefore = $queryGenerator->getWhereClause();
+		$this->assertEquals(' WHERE vtiger_crmentity.deleted=0 AND vtiger_quotes.quoteid > 0', $condsbefore);
+		$queryGenerator->addUserSearchConditions($actual);
+		$condsafter = $queryGenerator->getWhereClause();
+		$this->assertEquals(' WHERE vtiger_crmentity.deleted=0 AND vtiger_quotes.quoteid > 0', $condsafter);
+		//////////////////////////
+		$queryGenerator = new QueryGenerator('Quotes', $current_user);
+		$conds = array(
+			'group1' => array(
+				'field1' => array(
+					'field' => 'subject',
+					'op' => 'e',
+					'value' => 'anyval',
+					'glue' => '',
+				),
+			),
+		);
+		$actual = $queryGenerator->constructAdvancedSearchConditions('Quotes', $conds);
+		$expected = array(
+			'query' => 'true',
+			'searchtype' => 'advance',
+			'advft_criteria' => '[{"groupid":1,"columnname":"vtiger_quotes:subject:subject:Quotes_Subject:V~M","comparator":"e","value":"anyval","columncondition":""}]',
+			'advft_criteria_groups' => '{"1":{"groupcondition":""}}',
+		);
+		$this->assertEquals($expected, $actual);
+		$queryGenerator->addUserSearchConditions($actual);
+		$condsafter = $queryGenerator->getWhereClause();
+		$this->assertEquals(" WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_quotes.subject = 'anyval') )) AND vtiger_quotes.quoteid > 0", $condsafter);
+		//////////////////////////
+		$queryGenerator = new QueryGenerator('Quotes', $current_user);
+		$conds = array(
+			'group1' => array(
+				'field1' => array(
+					'field' => 'subject',
+					'op' => 'e',
+					'value' => 'anyval',
+					'glue' => 'or',
+				),
+				'field2' => array(
+					'field' => 'pl_gross_total',
+					'op' => 'g',
+					'value' => '20',
+					'glue' => '',
+				),
+			),
+		);
+		$actual = $queryGenerator->constructAdvancedSearchConditions('Quotes', $conds);
+		$expected = array(
+			'query' => 'true',
+			'searchtype' => 'advance',
+			'advft_criteria' => '[{"groupid":1,"columnname":"vtiger_quotes:subject:subject:Quotes_Subject:V~M","comparator":"e","value":"anyval","columncondition":"or"},{"groupid":1,"columnname":"vtiger_quotes:pl_gross_total:pl_gross_total:Quotes_Gross_Total:NN~O","comparator":"g","value":"20","columncondition":""}]',
+			'advft_criteria_groups' => '{"1":{"groupcondition":""}}',
+		);
+		$this->assertEquals($expected, $actual);
+		$queryGenerator->addUserSearchConditions($actual);
+		$condsafter = $queryGenerator->getWhereClause();
+		$this->assertEquals(" WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_quotes.subject = 'anyval')  or ( vtiger_quotes.pl_gross_total > 20) )) AND vtiger_quotes.quoteid > 0", $condsafter);
+		//////////////////////////
+		$queryGenerator = new QueryGenerator('Quotes', $current_user);
+		$conds = array(
+			'group1' => array(
+				'field1' => array(
+					'field' => 'subject',
+					'op' => 'e',
+					'value' => 'anyval',
+					'glue' => 'or',
+				),
+				'field2' => array(
+					'field' => 'pl_gross_total',
+					'op' => 'g',
+					'value' => '20',
+					'glue' => 'or',
+				),
+			),
+		);
+		$actual = $queryGenerator->constructAdvancedSearchConditions('Quotes', $conds);
+		$expected = array(
+			'query' => 'true',
+			'searchtype' => 'advance',
+			'advft_criteria' => '[{"groupid":1,"columnname":"vtiger_quotes:subject:subject:Quotes_Subject:V~M","comparator":"e","value":"anyval","columncondition":"or"},{"groupid":1,"columnname":"vtiger_quotes:pl_gross_total:pl_gross_total:Quotes_Gross_Total:NN~O","comparator":"g","value":"20","columncondition":""}]',
+			'advft_criteria_groups' => '{"1":{"groupcondition":""}}',
+		);
+		$this->assertEquals($expected, $actual);
+		$queryGenerator->addUserSearchConditions($actual);
+		$condsafter = $queryGenerator->getWhereClause();
+		$this->assertEquals(" WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_quotes.subject = 'anyval')  or ( vtiger_quotes.pl_gross_total > 20) )) AND vtiger_quotes.quoteid > 0", $condsafter);
+		//////////////////////////
+		$queryGenerator = new QueryGenerator('Quotes', $current_user);
+		$conds = array(
+			'group1' => array(
+				'field1' => array(
+					'field' => 'subject',
+					'op' => 'e',
+					'value' => 'anyval',
+					'glue' => 'or',
+				),
+				'field2' => array(
+					'field' => 'pl_gross_total',
+					'op' => 'g',
+					'value' => '20',
+					'glue' => 'and',
+				),
+			),
+			'group2' => array(
+				'field1' => array(
+					'field' => 'quotestage',
+					'op' => 'n',
+					'value' => 'anyval',
+					'glue' => '',
+				),
+			),
+		);
+		$actual = $queryGenerator->constructAdvancedSearchConditions('Quotes', $conds);
+		$expected = array(
+			'query' => 'true',
+			'searchtype' => 'advance',
+			'advft_criteria' => '[{"groupid":1,"columnname":"vtiger_quotes:subject:subject:Quotes_Subject:V~M","comparator":"e","value":"anyval","columncondition":"or"},{"groupid":1,"columnname":"vtiger_quotes:pl_gross_total:pl_gross_total:Quotes_Gross_Total:NN~O","comparator":"g","value":"20","columncondition":""},{"groupid":2,"columnname":"vtiger_quotes:quotestage:quotestage:Quotes_Quote_Stage:V~M","comparator":"n","value":"anyval","columncondition":""}]',
+			'advft_criteria_groups' => '{"1":{"groupcondition":"and"},"2":{"groupcondition":""}}',
+		);
+		$this->assertEquals($expected, $actual);
+		$queryGenerator->addUserSearchConditions($actual);
+		$condsafter = $queryGenerator->getWhereClause();
+		$this->assertEquals(
+			" WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_quotes.subject = 'anyval')  or ( vtiger_quotes.pl_gross_total > 20) ) and   (( vtiger_quotes.quotestage IN (
+								select translation_key
+								from vtiger_cbtranslation
+								where locale=\"en_us\" and forpicklist=\"Quotes::quotestage\" and i18n <> 'anyval') AND vtiger_quotes.quotestage <> 'anyval') )) AND vtiger_quotes.quoteid > 0",
+			$condsafter
+		);
+	}
 }
 ?>
