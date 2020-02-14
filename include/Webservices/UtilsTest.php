@@ -91,5 +91,64 @@ class testWebservicesUtils extends TestCase {
 		$actual = vtws_getParameter($parameterArray, $paramName, $default);
 		$this->assertEquals($expected, $actual, "testvtws_getParameter $message");
 	}
+
+	/**
+	 * Method testvtws_getWsIdForFilteredRecord
+	 * @test
+	 */
+	public function testvtws_getWsIdForFilteredRecord() {
+		global $current_user;
+		$actual = vtws_getWsIdForFilteredRecord('Accounts', array(), $current_user);
+		$expected = '11x74';
+		$this->assertEquals($expected, $actual);
+		//////////////////////////
+		$conds = array(
+			array(
+				array(
+					'field' => 'subject',
+					'op' => 'e',
+					'value' => 'Lou Monkton',
+					'glue' => '',
+				),
+			),
+		);
+		$actual = vtws_getWsIdForFilteredRecord('Quotes', $conds, $current_user);
+		$expected = '4x11945';
+		$this->assertEquals($expected, $actual);
+		//////////////////////////
+		$conds = array(
+			array(
+				array(
+					'field' => 'subject',
+					'op' => 'e',
+					'value' => 'anyval',
+					'glue' => 'or',
+				),
+				array(
+					'field' => 'pl_gross_total',
+					'op' => 'g',
+					'value' => '20',
+					'glue' => '',
+				),
+			),
+		);
+		$actual = vtws_getWsIdForFilteredRecord('Quotes', $conds, $current_user);
+		$expected = '4x11815';
+		$this->assertEquals($expected, $actual);
+		//////////////////////////
+		$conds = array(
+			array(
+				array(
+					'field' => 'subject',
+					'op' => 'e',
+					'value' => 'anyval',
+					'glue' => 'or',
+				),
+			),
+		);
+		$actual = vtws_getWsIdForFilteredRecord('Quotes', $conds, $current_user);
+		$expected = null;
+		$this->assertEquals($expected, $actual);
+	}
 }
 ?>
