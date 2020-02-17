@@ -1327,4 +1327,50 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			$fieldinfo = VTCacheUtils::lookupFieldInfo($tabid, $fieldname);
 		}
 	}
+
+	/**
+	 * Method getUItypeProvider
+	 * params
+	 */
+	public function getUItypeProvider() {
+		return array(
+			array('Accounts', 'accountname', 2),
+			array('Assets', 'assetname', 1),
+			array('HelpDesk', 'title', 21),
+			array('PBXManager', 'callto', 2),
+			array('EtiquetasOO', 'eooname', false),
+		);
+	}
+
+	/**
+	 * Method testgetUItype
+	 * @test
+	 * @dataProvider getUItypeProvider
+	 */
+	public function testgetUItype($module, $columnname, $expected) {
+		$this->assertEquals($expected, getUItype($module, $columnname), "getUItype $module, $columnname");
+	}
+
+	/**
+	 * Method getUItypeByFieldNameProvider
+	 * params
+	 */
+	public function getUItypeByFieldNameProvider() {
+		return array(
+			array('Accounts', 'accountname', 2),
+			array('Assets', 'assetname', 1),
+			array('HelpDesk', 'ticket_title', 21),
+			array('PBXManager', 'callto', 2),
+			array('EtiquetasOO', 'eooname', false),
+		);
+	}
+
+	/**
+	 * Method testgetUItypeByFieldName
+	 * @test
+	 * @dataProvider getUItypeByFieldNameProvider
+	 */
+	public function testgetUItypeByFieldName($module, $fieldname, $expected) {
+		$this->assertEquals($expected, getUItypeByFieldName($module, $fieldname), "getUItypeByFieldName $module, $fieldname");
+	}
 }
