@@ -838,4 +838,138 @@ class testutils extends TestCase {
 		$this->assertEquals($expected, $actual, 'testget_group_array');
 		$current_user = $hold_user;
 	}
+
+	/**
+	 * Method getColumnFieldsProvider
+	 * params
+	 */
+	public function getColumnFieldsProvider() {
+		$accfinfo = array(
+			'accountname' => '',
+			'account_no' => '',
+			'phone' => '',
+			'website' => '',
+			'fax' => '',
+			'tickersymbol' => '',
+			'otherphone' => '',
+			'account_id' => '',
+			'email1' => '',
+			'employees' => '',
+			'email2' => '',
+			'ownership' => '',
+			'rating' => '',
+			'industry' => '',
+			'siccode' => '',
+			'accounttype' => '',
+			'annual_revenue' => '',
+			'emailoptout' => '',
+			'notify_owner' => '',
+			'assigned_user_id' => '',
+			'createdtime' => '',
+			'modifiedtime' => '',
+			'modifiedby' => '',
+			'bill_street' => '',
+			'ship_street' => '',
+			'bill_city' => '',
+			'ship_city' => '',
+			'bill_state' => '',
+			'ship_state' => '',
+			'bill_code' => '',
+			'ship_code' => '',
+			'bill_country' => '',
+			'ship_country' => '',
+			'bill_pobox' => '',
+			'ship_pobox' => '',
+			'description' => '',
+			'campaignrelstatus' => '',
+			'cf_718' => '',
+			'cf_719' => '',
+			'cf_720' => '',
+			'cf_721' => '',
+			'cf_722' => '',
+			'cf_723' => '',
+			'cf_724' => '',
+			'cf_725' => '',
+			'cf_726' => '',
+			'cf_727' => '',
+			'cf_728' => '',
+			'cf_729' => '',
+			'cf_730' => '',
+			'cf_731' => '',
+			'cf_732' => '',
+			'isconvertedfromlead' => '',
+			'convertedfromlead' => '',
+			'created_user_id' => '',
+		);
+		$astfinfo = array(
+			'asset_no' => '',
+			'product' => '',
+			'serialnumber' => '',
+			'datesold' => '',
+			'dateinservice' => '',
+			'assetstatus' => '',
+			'tagnumber' => '',
+			'invoiceid' => '',
+			'shippingmethod' => '',
+			'shippingtrackingnumber' => '',
+			'assigned_user_id' => '',
+			'assetname' => '',
+			'account' => '',
+			'createdtime' => '',
+			'modifiedtime' => '',
+			'modifiedby' => '',
+			'description' => '',
+			'created_user_id' => '',
+		);
+		$hdfinfo = array(
+			'ticket_no' => '',
+			'assigned_user_id' => '',
+			'parent_id' => '',
+			'ticketpriorities' => '',
+			'product_id' => '',
+			'ticketseverities' => '',
+			'ticketstatus' => '',
+			'ticketcategories' => '',
+			'update_log' => '',
+			'hours' => '',
+			'days' => '',
+			'createdtime' => '',
+			'modifiedtime' => '',
+			'from_portal' => '',
+			'modifiedby' => '',
+			'ticket_title' => '',
+			'description' => '',
+			'solution' => '',
+			'comments' => '',
+			'email' => '',
+			'from_mailscanner' => '',
+			'commentadded' => '',
+			'created_user_id' => '',
+		);
+		$pbxfinfo = array(
+			'callfrom' => '',
+			'callto' => '',
+			'timeofcall' => '',
+			'status' => '',
+			'pbxuuid' => '',
+		);
+		$eoofinfo = array(
+		);
+		return array(
+			array('Accounts', $accfinfo),
+			array('Assets', $astfinfo),
+			array('HelpDesk', $hdfinfo),
+			array('PBXmanager', $pbxfinfo),
+			array('EtiquetasOO', $eoofinfo),
+		);
+	}
+
+	/**
+	 * Method testgetColumnFields
+	 * @test
+	 * @dataProvider getColumnFieldsProvider
+	 */
+	public function testgetColumnFields($module, $expected) {
+		$this->assertEquals($expected, getColumnFields($module), 'getColumnFields '.$module);
+	}
 }
