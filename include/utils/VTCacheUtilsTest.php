@@ -28,4 +28,12 @@ class testVTCacheUtils extends TestCase {
 	public function testlookupFieldInfo_Module() {
 		$this->assertTrue(true, 'lookupFieldInfo_Module tested in testgetColumnFields');
 	}
+
+	/**
+	 * Method testlookupFieldInfo
+	 * @test
+	 */
+	public function testlookupFieldInfo() {
+		$this->assertTrue(true, 'lookupFieldInfo tested in testgetFieldid');
+	}
 }

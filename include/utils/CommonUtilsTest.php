@@ -1247,4 +1247,84 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 		);
 		$this->assertEquals($expected, getEmailTemplateVariables(array('Assets')), 'getEmailTemplateVariables assets');
 	}
+
+	/**
+	 * Method getFieldidProvider
+	 * params
+	 */
+	public function getFieldidProvider() {
+		$accname = array(
+			'tabid' => '6',
+			'fieldid' => '1',
+			'fieldname' => 'accountname',
+			'fieldlabel' => 'Account Name',
+			'columnname' => 'accountname',
+			'tablename' => 'vtiger_account',
+			'uitype' => '2',
+			'typeofdata' => 'V~M',
+			'presence' => '0',
+		);
+		$astname = array(
+			'tabid' => '43',
+			'fieldid' => '613',
+			'fieldname' => 'assetname',
+			'fieldlabel' => 'Asset Name',
+			'columnname' => 'assetname',
+			'tablename' => 'vtiger_assets',
+			'uitype' => '1',
+			'typeofdata' => 'V~M',
+			'presence' => '0',
+		);
+		$hdname = array(
+			'tabid' => '13',
+			'fieldid' => '170',
+			'fieldname' => 'ticket_title',
+			'fieldlabel' => 'Title',
+			'columnname' => 'title',
+			'tablename' => 'vtiger_troubletickets',
+			'uitype' => '21',
+			'typeofdata' => 'V~M',
+			'presence' => '0',
+		);
+		$pbxname = array(
+			'tabid' => '36',
+			'fieldid' => '526',
+			'fieldname' => 'callto',
+			'fieldlabel' => 'Call To',
+			'columnname' => 'callto',
+			'tablename' => 'vtiger_pbxmanager',
+			'uitype' => '2',
+			'typeofdata' => 'V~M',
+			'presence' => '0',
+		);
+		$eooname = false;
+		return array(
+			array(6, 'accountname', 1, $accname),
+			array(43, 'assetname', 613, $astname),
+			array(13, 'ticket_title', 170, $hdname),
+			array(36, 'callto', 526, $pbxname),
+			array(76, 'eooname', false, $eooname),
+		);
+	}
+
+	/**
+	 * Method testgetFieldid
+	 * @test
+	 * @dataProvider getFieldidProvider
+	 */
+	public function testgetFieldid($tabid, $fieldname, $expected, $expectedc) {
+		$this->assertEquals($expected, getFieldid($tabid, $fieldname), "getFieldid $tabid, $fieldname");
+		$fieldinfo = VTCacheUtils::lookupFieldInfo($tabid, $fieldname);
+		$this->assertEquals($expectedc, $fieldinfo, "lookupFieldInfo cache $tabid, $fieldname");
+		if ($fieldname=='accountname') {
+			global $adb;
+			$adb->query("update vtiger_field set presence='1' where fieldid=1");
+			VTCacheUtils::$_fieldinfo_cache = array();
+			$fieldinfo = VTCacheUtils::lookupFieldInfo($tabid, $fieldname);
+			$this->assertFalse(getFieldid(6, 'accountname', true), "getFieldid $tabid, $fieldname ONLYACTIVE");
+			$adb->query("update vtiger_field set presence='0' where fieldid=1");
+			VTCacheUtils::$_fieldinfo_cache = array();
+			$fieldinfo = VTCacheUtils::lookupFieldInfo($tabid, $fieldname);
+		}
+	}
 }
