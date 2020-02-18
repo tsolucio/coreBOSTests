@@ -96,9 +96,33 @@ class workflowfunctionslogicalopsTest extends TestCase {
 		$params = array('Contacts', 'firstname', 'Lina', $entityData);
 		$this->assertTrue(__cb_existsrelated($params), 'exists related true');
 		$params = array('Contacts', 'firstname', 'no contact with this name', $entityData);
-		$this->assertFalse(__cb_existsrelated($params), 'exists related true');
+		$this->assertFalse(__cb_existsrelated($params), 'exists related false');
 		$params = array('Assets', 'assetname', 'No asset related', $entityData);
 		$this->assertFalse(__cb_existsrelated($params), 'exists related false');
+	}
+
+	/**
+	 * Method testallrelatedarefunction
+	 * @test
+	 */
+	public function testallrelatedarefunction() {
+		global $current_user;
+		$entityCache = new VTEntityCache($current_user);
+		$entityData = $entityCache->forId('11x74');
+		$params = array('Contacts', 'title', 'Owner', $entityData);
+		$this->assertFalse(__cb_allrelatedare($params), 'all related are false');
+		$params = array('Contacts', 'notify_owner', '0', $entityData);
+		$this->assertTrue(__cb_allrelatedare($params), 'all related are true');
+		$params = array('Assets', 'assetname', 'No asset related', $entityData);
+		$this->assertFalse(__cb_allrelatedare($params), 'all related are false');
+	}
+
+	/**
+	 * Method testrelatedevaluationsfunction
+	 * @test
+	 */
+	public function testrelatedevaluationsfunction() {
+		$this->assertTrue(true, 'tested through testexistsrelatedfunction and testallrelatedarefunction');
 	}
 }
 ?>
