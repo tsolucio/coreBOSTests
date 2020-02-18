@@ -3870,7 +3870,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
-		$this->assertEquals(1, $exprEvaluation);
+		$this->assertTrue($exprEvaluation);
 		///////////////
 		$testexpression = 'isNumeric($(account_id : (Accounts) accounttype))';
 		$expectedresult = array(
@@ -3891,7 +3891,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
-		$this->assertEquals(0, $exprEvaluation);
+		$this->assertFalse($exprEvaluation);
 		//////////////
 		$testexpression = 'OR(isString($(account_id : (Accounts) accountname)), isNumeric($(account_id : (Accounts) bill_code)))';
 		$expectedresult = array(
@@ -3929,7 +3929,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
-		$this->assertEquals(1, $exprEvaluation);
+		$this->assertTrue($exprEvaluation);
 		//////////////
 		$testexpression = 'AND(isString($(account_id : (Accounts) accountname)), isNumeric($(account_id : (Accounts) accounttype)))';
 		$expectedresult = array(
@@ -3967,7 +3967,33 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
-		$this->assertEquals(0, $exprEvaluation);
+		$this->assertFalse($exprEvaluation);
+		//////////////
+		$testexpression = 'NOT(isString($(account_id : (Accounts) accountname)))';
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) accountname)
+    [type] => string
+)
+',
+            1 => 'Array
+(
+    [0] => Rowley Schlimgen Inc
+)
+',
+            2 => 'Array
+(
+    [0] => 1
+)
+'
+);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertFalse($exprEvaluation);
 	}
 }
 ?>
