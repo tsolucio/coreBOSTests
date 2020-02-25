@@ -568,4 +568,17 @@ class testInventoryUtils extends TestCase {
 		$actual = getTaxDetailsForProduct('', 'available_associated');
 		$this->assertEquals(array(), $actual);
 	}
+
+	/**
+	 * Method testgetInventoryTaxType
+	 * @test
+	 */
+	public function testgetInventoryTaxType() {
+		$this->assertEquals('group', getInventoryTaxType('Invoice', 2824), 'Invoice group');
+		$this->assertEquals('individual', getInventoryTaxType('Invoice', 2902), 'Invoice individual');
+		$this->assertEquals('group', getInventoryTaxType('Quotes', 11972), 'Quotes group');
+		$this->assertEquals('group', getInventoryTaxType('SalesOrder', 10616), 'SalesOrder group');
+		$this->assertEquals('group', getInventoryTaxType('PurchaseOrder', 13378), 'PurchaseOrder group');
+		$this->assertEquals('', getInventoryTaxType('PurchaseOrder', 1), 'NotExist');
+	}
 }
