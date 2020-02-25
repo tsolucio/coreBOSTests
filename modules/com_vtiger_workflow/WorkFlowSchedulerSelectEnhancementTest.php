@@ -157,7 +157,7 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
-		$wfvals['select_expressions'] = '[{"fieldname":"lowercaseres","operation":"is","value":"lowercase(subject)","valuetype":"expression","joincondition":"and","groupid":"0"}]';;
+		$wfvals['select_expressions'] = '[{"fieldname":"lowercaseres","operation":"is","value":"lowercase(subject)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT LOWER(vtiger_invoice.subject) AS lowercaseres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
