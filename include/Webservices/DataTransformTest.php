@@ -74,6 +74,63 @@ class DataTransformTest extends TestCase {
 		$expected['created_user_id'] = '19x1';
 		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
 		$this->assertEquals($expected, $actual, 'sanitizeReferences PriceBooks');
+		///////////////
+		$testrecord = 5321;
+		$testmodule = 'Potentials';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$focus = CRMEntity::getInstance($testmodule);
+		$focus->id = $testrecord;
+		$focus->retrieve_entity_info($testrecord, $testmodule);
+		$expected = $focus->column_fields;
+		$expected['related_to'] = '11x658';
+		$expected['campaignid'] = '1x4972';
+		$expected['convertedfromlead'] = null;
+		$expected['modifiedby'] = '19x1';
+		$expected['created_user_id'] = '19x1';
+		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferences PriceBooks');
+		///////////////
+		$testrecord = 5322;
+		$testmodule = 'Potentials';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$focus = CRMEntity::getInstance($testmodule);
+		$focus->id = $testrecord;
+		$focus->retrieve_entity_info($testrecord, $testmodule);
+		$expected = $focus->column_fields;
+		$expected['related_to'] = '12x1614';
+		$expected['campaignid'] = null;
+		$expected['convertedfromlead'] = null;
+		$expected['modifiedby'] = '19x1';
+		$expected['created_user_id'] = '19x1';
+		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferences PriceBooks');
+		///////////////
+		$testrecord = 26784;
+		$testmodule = 'Emails';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$focus = CRMEntity::getInstance($testmodule);
+		$focus->id = $testrecord;
+		$focus->retrieve_entity_info($testrecord, $testmodule);
+		$expected = $focus->column_fields;
+		$expected['parent_id'] = '12x1084|11x74';
+		$expected['modifiedby'] = '19x1';
+		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferences Emails');
 	}
 
 	public function testsanitizeCurrencyFieldsForDB() {
