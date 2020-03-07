@@ -82,7 +82,6 @@ class testVtlibUtils extends TestCase {
 			// test url
 			array('http://localhost',false,'http://localhost','url'),
 			array('https://corebos.org',false,'https://corebos.org','urls'),
-
 		);
 	}
 
@@ -94,5 +93,29 @@ class testVtlibUtils extends TestCase {
 	public function testvtlib_purify($input, $ignore, $expected, $message) {
 		$actual = vtlib_purify($input, $ignore);
 		$this->assertEquals($expected, $actual, "testvtlib_purify $message");
+	}
+
+	/**
+	 * Method vtlib_isEntityModuleProvider
+	 * params
+	 */
+	public function vtlib_isEntityModuleProvider() {
+		return array(
+			array('Accounts', true),
+			array('Assets', true),
+			array('EtiquetasOO', false),
+			array('evvtMenu', false),
+			array('Products', true),
+			array('HelpDesk', true),
+		);
+	}
+
+	/**
+	 * Method testvtlib_isEntityModule
+	 * @test
+	 * @dataProvider vtlib_isEntityModuleProvider
+	 */
+	public function testvtlib_isEntityModule($mname, $expected) {
+		$this->assertEquals($expected, vtlib_isEntityModule($mname), "vtlib_isEntityModule $mname");
 	}
 }
