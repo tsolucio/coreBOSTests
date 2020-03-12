@@ -448,4 +448,144 @@ class CustomViewTest extends TestCase {
 		$this->assertEquals($expected_cvid_values, $actual, "Test getMetricList Method on User with Id: $userid");
 		$current_user = $holduser;
 	}
+
+	/**
+	 * Method getColumnsListbyBlockProvider
+	 * params
+	 */
+	public function getColumnsListbyBlockProvider() {
+		$expected_blck_asset = array(
+			'vtiger_assets:asset_no:asset_no:Assets_Asset_No:V' => 'Asset No',
+			'vtiger_assets:product:product:Assets_Product_Name:V' => 'Product Name',
+			'vtiger_assets:serialnumber:serialnumber:Assets_Serial_Number:V' => 'Serial Number',
+			'vtiger_crmentity:smownerid:assigned_user_id:Assets_Assigned_To:V' => 'Assigned To',
+			'vtiger_assets:datesold:datesold:Assets_Date_Sold:D' => 'Date Sold',
+			'vtiger_assets:dateinservice:dateinservice:Assets_Date_in_Service:D' => 'Date in Service',
+			'vtiger_assets:assetstatus:assetstatus:Assets_Status:V' => 'Status',
+			'vtiger_assets:tagnumber:tagnumber:Assets_Tag_Number:V' => 'Tag Number',
+			'vtiger_assets:invoiceid:invoiceid:Assets_Invoice_Name:V' => 'Invoice Name',
+			'vtiger_assets:shippingmethod:shippingmethod:Assets_Shipping_Method:V' => 'Shipping Method',
+			'vtiger_assets:shippingtrackingnumber:shippingtrackingnumber:Assets_Shipping_Tracking_Number:V' => 'Shipping Tracking Number',
+			'vtiger_assets:assetname:assetname:Assets_Asset_Name:V' => 'Asset Name',
+			'vtiger_assets:account:account:Assets_Customer_Name:V' => 'Customer Name',
+			'vtiger_crmentity:createdtime:createdtime:Assets_Created_Time:DT' => 'Created Time',
+			'vtiger_crmentity:modifiedtime:modifiedtime:Assets_Modified_Time:DT' => 'Modified Time',
+			'vtiger_crmentity:modifiedby:modifiedby:Assets_Last_Modified_By:V' => 'Last Modified By',
+			'vtiger_crmentity:smcreatorid:created_user_id:Assets_Created_By:V' => 'Created By',
+		);
+		$expected_blck_assetM = array(
+			"'vtiger_assets:product:product:Assets_Product_Name:V'",
+			"'vtiger_assets:serialnumber:serialnumber:Assets_Serial_Number:V'",
+			"'vtiger_crmentity:smownerid:assigned_user_id:Assets_Assigned_To:V'",
+			"'vtiger_assets:datesold:datesold:Assets_Date_Sold:D'",
+			"'vtiger_assets:dateinservice:dateinservice:Assets_Date_in_Service:D'",
+			"'vtiger_assets:assetstatus:assetstatus:Assets_Status:V'",
+			"'vtiger_assets:assetname:assetname:Assets_Asset_Name:V'",
+			"'vtiger_assets:account:account:Assets_Customer_Name:V'",
+		);
+		$expected_blck_assetS = array(
+			'Product Name',
+			'Serial Number',
+			'Assigned To',
+			'Date Sold',
+			'Date in Service',
+			'Status',
+			'Asset Name',
+			'Customer Name',
+		);
+		$expected_blck_assetD = array(
+			'Product Name' => 'M',
+			'Serial Number' => 'M',
+			'Assigned To' => 'M',
+			'Date Sold' => 'M',
+			'Date in Service' => 'M',
+			'Status' => 'M',
+			'Asset Name' => 'M',
+			'Customer Name' => 'M',
+		);
+		$expected_blckHD = array('vtiger_troubletickets:solution:solution:HelpDesk_Solution:V' => 'Solution');
+		$expected_blck_cal = array(
+			'vtiger_activity:activitytype:activitytype:Calendar_Activity_Type:V' => 'Activity Type',
+			'vtiger_cntactivityrel:contactid:contact_id:Calendar_Contact_Name:V' => 'Contact Name',
+			'vtiger_activity:subject:subject:Calendar_Subject:V' => 'Subject',
+			'vtiger_activity_reminder:reminder_time:reminder_time:Calendar_Send_Reminder:I' => 'Send Reminder',
+			'vtiger_crmentity:smownerid:assigned_user_id:Calendar_Assigned_To:V' => 'Assigned To',
+			'vtiger_activity:time_start::Calendar_Start_Time:I' => 'Start Time',
+			'vtiger_activity:date_start:date_start:Calendar_Start_Date:DT' => 'Start Date',
+			'vtiger_activity:time_start:time_start:Calendar_Time_Start:T' => 'Time Start',
+			'vtiger_activity:time_end:time_end:Calendar_End_Time:T' => 'End Time',
+			'vtiger_activity:due_date:due_date:Calendar_Due_Date:D' => 'Due Date',
+			'vtiger_activity:recurringtype:recurringtype:Calendar_Recurrence:O' => 'Recurrence',
+			'vtiger_seactivityrel:crmid:parent_id:Calendar_Related_to:V' => 'Related To',
+			'vtiger_activity:eventstatus:eventstatus:Calendar_Status:V' => 'Status',
+			'vtiger_activity:priority:taskpriority:Calendar_Priority:V' => 'Priority',
+			'vtiger_activity:sendnotification:sendnotification:Calendar_Send_Notification:C' => 'Send Notification',
+			'vtiger_crmentity:createdtime:createdtime:Calendar_Created_Time:DT' => 'Created Time',
+			'vtiger_crmentity:modifiedtime:modifiedtime:Calendar_Modified_Time:DT' => 'Modified Time',
+			'vtiger_activity:visibility:visibility:Calendar_Visibility:V' => 'Visibility',
+			'vtiger_activity:location:location:Calendar_Location:V' => 'Location',
+			'vtiger_crmentity:modifiedby:modifiedby:Calendar_Last_Modified_By:V' => 'Last Modified By',
+		);
+		$expected_blck_cbcal = array(
+			'vtiger_activity:subject:subject:cbCalendar_Subject:V' => 'Subject',
+			'vtiger_activity_reminder:reminder_time:reminder_time:cbCalendar_Send_Reminder:I' => 'Send Reminder',
+			'vtiger_crmentity:smownerid:assigned_user_id:cbCalendar_Assigned_To:V' => 'Assigned To',
+			'vtiger_activity:dtstart:dtstart:cbCalendar_Start_Date_Time:DT' => 'Start Date Time',
+			'vtiger_activity:date_start:date_start:cbCalendar_Start_Date:DT' => 'Start Date',
+			'vtiger_activity:time_start:time_start:cbCalendar_Time_Start:T' => 'Time Start (System Time)',
+			'vtiger_activity:dtend:dtend:cbCalendar_Due_Date:D' => 'Due Date',
+			'vtiger_activity:due_date:due_date:cbCalendar_End_Date:D' => 'End Date',
+			'vtiger_activity:time_end:time_end:cbCalendar_End_Time:T' => 'End Time (System Time)',
+			'vtiger_activity:recurringtype:recurringtype:cbCalendar_Recurrence:O' => 'Recurrence',
+			'vtiger_activity:rel_id:rel_id:cbCalendar_Related_to:V' => 'Related To',
+			'vtiger_activity:cto_id:cto_id:cbCalendar_Contact_Name:V' => 'Contact Name',
+			'vtiger_activity:eventstatus:eventstatus:cbCalendar_Status:V' => 'Status',
+			'vtiger_activity:priority:taskpriority:cbCalendar_Priority:V' => 'Priority',
+			'vtiger_activity:sendnotification:sendnotification:cbCalendar_Send_Notification:C' => 'Send Notification',
+			'vtiger_crmentity:createdtime:createdtime:cbCalendar_Created_Time:DT' => 'Created Time',
+			'vtiger_crmentity:modifiedtime:modifiedtime:cbCalendar_Modified_Time:DT' => 'Modified Time',
+			'vtiger_activity:activitytype:activitytype:cbCalendar_Activity_Type:V' => 'Activity Type',
+			'vtiger_activity:visibility:visibility:cbCalendar_Visibility:V' => 'Visibility',
+			'vtiger_activity:duration_hours:duration_hours:cbCalendar_Duration:I' => 'Duration',
+			'vtiger_activity:duration_minutes:duration_minutes:cbCalendar_Duration_Minutes:I' => 'Duration Minutes',
+			'vtiger_activity:location:location:cbCalendar_Location:V' => 'Location',
+			'vtiger_activity:notime:notime:cbCalendar_No_Time:C' => 'All Day',
+			'vtiger_activity:relatedwith:relatedwith:cbCalendar_Related_with:V' => 'Related To Do',
+			'vtiger_crmentity:smcreatorid:created_user_id:cbCalendar_Created_By:V' => 'Created By',
+			'vtiger_crmentity:modifiedby:modifiedby:cbCalendar_Last_Modified_By:V' => 'Last Modified By',
+		);
+		return array(
+			array('Assets', 102, true, 1, null, null, null, null, 'asset admin incorrect block'),
+			array('Assets', 102, true, 5, null, null, null, null, 'asset user incorrect block'),
+			array('Assets', 1000002, true, 1, null, null, null, null, 'asset admin inexistent block'),
+			array('Assets', 1000002, true, 5, null, null, null, null, 'asset user  inexistent block'),
+			array('Assets', 103, true, 1, $expected_blck_asset, $expected_blck_assetM, $expected_blck_assetS, $expected_blck_assetD, 'asset admin mandatory'),
+			array('Assets', 103, true, 5, $expected_blck_asset, $expected_blck_assetM, $expected_blck_assetS, $expected_blck_assetD, 'asset user mandatory'),
+			array('Assets', 103, false, 1, $expected_blck_asset, null, null, null, 'asset admin not mandatory'),
+			array('Assets', 103, false, 5, $expected_blck_asset, null, null, null, 'asset user not mandatory'),
+			array('HelpDesk', 29, true, 1, $expected_blckHD, null, null, null, 'helpdesk admin mandatory'),
+			array('HelpDesk', 29, false, 1, $expected_blckHD, null, null, null, 'helpdesk admin not mandatory'),
+			array('Calendar', 19, false, 1, $expected_blck_cal, null, null, null, 'calendar admin not mandatory'),
+			array('cbCalendar', 135, false, 1, $expected_blck_cbcal, null, null, null, 'cbcalendar admin not mandatory'),
+		);
+	}
+
+	/**
+	 * Method testgetColumnsListbyBlock
+	 * @test
+	 * @dataProvider getColumnsListbyBlockProvider
+	 */
+	public function testgetColumnsListbyBlock($module, $block, $markMandatory, $userid, $expected, $em, $es, $ed, $msg) {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$customView = new CustomView($module);
+		$this->assertEquals($expected, $customView->getColumnsListbyBlock($module, $block, $markMandatory), $msg);
+		$this->assertEquals($em, $customView->mandatoryvalues, $msg);
+		$this->assertEquals($es, $customView->showvalues, $msg);
+		$this->assertEquals($ed, $customView->data_type, $msg);
+		$current_user = $holduser;
+	}
 }
