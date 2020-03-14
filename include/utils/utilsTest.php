@@ -2093,4 +2093,31 @@ class testutils extends TestCase {
 		$cachedModuleFields = VTCacheUtils::lookupFieldInfo_Module($module);
 		$this->assertEquals($expectedc, $cachedModuleFields, 'lookupFieldInfo_Module cache '.$module);
 	}
+
+	/**
+	 * Method getModuleSequenceFieldProvider
+	 * params
+	 */
+	public function getModuleSequenceFieldProvider() {
+		return array(
+			array('Assets', array('name'=>'asset_no','column'=>'asset_no','label'=>'Asset No')),
+			array('Accounts', array('name'=>'account_no','column'=>'account_no','label'=>'Account No')),
+			array('HelpDesk', array('name'=>'ticket_no','column'=>'ticket_no','label'=>'Ticket No')),
+			array('cbupdater', array('name'=>'cbupd_no','column'=>'cbupd_no','label'=>'cbupd_no')),
+			array('Calendar', null),
+			array('cbCalendar', null),
+			array('InexistentModule', null),
+			array('', null),
+			array('EtiquetasOO', null),
+		);
+	}
+
+	/**
+	 * Method testgetModuleSequenceField
+	 * @test
+	 * @dataProvider getModuleSequenceFieldProvider
+	 */
+	public function testgetModuleSequenceField($module, $expected) {
+		$this->assertEquals($expected, getModuleSequenceField($module), 'getModuleSequenceField '.$module);
+	}
 }
