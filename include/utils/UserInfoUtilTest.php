@@ -198,7 +198,6 @@ class testUserInfoUtil extends TestCase {
 			57 => '0',
 			58 => '0',
 			3 => '0',
-			16 => '0',
 			45 => '0',
 			52 => '0',
 			59 => '0',

@@ -165,24 +165,6 @@ Contacts List : Thro Coletta
 Location : ';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual, 'Render cbCalendar email body');
-		$entityId = '9x14737';
-		$util = new VTWorkflowUtils();
-		$adminUser = $util->adminUser();
-		$entityCache = new VTEntityCache($adminUser);
-		// Constant string.
-		$expected = 'cbTest testmdy,
-Activity Notification Details:
-Subject : Salamandra
-Start date and time : 03-31-2015 11:43:00 (UTC)
-End date and time : 03-31-2015 12:16:00 (UTC)
-Follow up date: 
-Status : In Progress
-Priority : Low
-Related To : JuveraNickolas
-Contacts List : Kloska Aaron
-Location : Hamburg';
-		$actual = $ct->render($entityCache, $entityId);
-		$this->assertEquals($expected, $actual, 'Render Calendar email body');
 		$entityId = '39x14737';
 		$util = new VTWorkflowUtils();
 		$adminUser = $util->adminUser();

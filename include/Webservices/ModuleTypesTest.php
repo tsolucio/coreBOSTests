@@ -38,9 +38,9 @@ class ModuleTypesTest extends TestCase {
 	 * @test
 	 */
 	public function testvtws_listtypesNull() {
-		$user = new Users();
-		$user->retrieveCurrentUserInfoFromFile($this->usradmin);
-		$actual = vtws_listtypes(null, $user);
+		global $current_user;
+		$current_user->retrieveCurrentUserInfoFromFile($this->usradmin);
+		$actual = vtws_listtypes(null, $current_user);
 		$expected = array (
 			'types' => array (
 			'Campaigns',
@@ -51,7 +51,6 @@ class ModuleTypesTest extends TestCase {
 			'SalesOrder',
 			'Invoice',
 			'PriceBooks',
-			'Calendar',
 			'Leads',
 			'Accounts',
 			'Contacts',
@@ -60,7 +59,6 @@ class ModuleTypesTest extends TestCase {
 			'Documents',
 			'Emails',
 			'HelpDesk',
-			'Events',
 			'Users',
 			'PBXManager',
 			'ServiceContracts',
@@ -140,11 +138,6 @@ class ModuleTypesTest extends TestCase {
 				'label' => 'Price Books',
 				'singular' => 'PriceBook',
 			),
-			'Calendar' => array(
-				'isEntity' => true,
-				'label' => 'Tasks',
-				'singular' => 'To Do',
-			),
 			'Leads' => array(
 				'isEntity' => true,
 				'label' => 'Leads',
@@ -184,11 +177,6 @@ class ModuleTypesTest extends TestCase {
 				'isEntity' => true,
 				'label' => 'Support Tickets',
 				'singular' => 'Support Ticket',
-			),
-			'Events' => array(
-				'isEntity' => true,
-				'label' => 'Events',
-				'singular' => 'Event',
 			),
 			'Users' => array(
 				'isEntity' => true,
@@ -379,17 +367,16 @@ class ModuleTypesTest extends TestCase {
 		);
 		$this->assertEquals($expected, $actual, 'null admin');
 		///////////////
-		$user = new Users();
-		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy
-		$actual = vtws_listtypes(null, $user);
-		array_splice($expected['types'], 18, 1);
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy
+		$actual = vtws_listtypes(null, $current_user);
+		array_splice($expected['types'], 16, 1);
 		unset($expected['information']['Users']);
 		$this->assertEquals($expected, $actual, 'null user');
 		///////////////
-		$user = new Users();
-		$user->retrieveCurrentUserInfoFromFile($this->usrinactive);
-		$actual = vtws_listtypes(null, $user);
-		$this->assertEquals($expected, $actual, 'null user');
+		// $current_user->retrieveCurrentUserInfoFromFile($this->usrinactive);
+		// $actual = vtws_listtypes(null, $current_user);
+		// $this->assertEquals($expected, $actual, 'null user');
+		$current_user = Users::getActiveAdminUser();
 	}
 
 	/**

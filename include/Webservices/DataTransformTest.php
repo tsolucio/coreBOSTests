@@ -37,6 +37,7 @@ class DataTransformTest extends TestCase {
 	 */
 	public function testsanitizeReferences() {
 		global $current_user, $adb,$log;
+		$current_user = Users::getActiveAdminUser();
 		$testrecord = 4062;
 		$testmodule = 'Assets';
 		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);

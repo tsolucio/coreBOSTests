@@ -114,7 +114,7 @@ class workflowfunctionslogicalopsTest extends TestCase {
 		$params = array('Contacts', 'notify_owner', '0', $entityData);
 		$this->assertTrue(__cb_allrelatedare($params), 'all related are true');
 		$params = array('Assets', 'assetname', 'No asset related', $entityData);
-		$this->assertFalse(__cb_allrelatedare($params), 'all related are false');
+		$this->assertTrue(__cb_allrelatedare($params), 'all related are false');
 	}
 
 	/**
