@@ -365,22 +365,22 @@ class QueryGeneratorTest extends TestCase {
 
 	public function testQueryCalendarEmail() {
 		global $current_user;
-		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype','date_start','due_date','taskstatus'));
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_activity.date_start, vtiger_activity.time_start, vtiger_activity.due_date, vtiger_activity.time_end, vtiger_activity.status, CASE WHEN (vtiger_activity.status not like '') THEN vtiger_activity.status ELSE vtiger_activity.eventstatus END AS status FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_activity.date_start, vtiger_activity.due_date FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_activity.activityid > 0");
 
-		$queryGenerator = new QueryGenerator('Calendar', $current_user);
-		$queryGenerator->setFields(array('id','subject','activitytype','date_start','due_date','taskstatus'));
+		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);
+		$queryGenerator->setFields(array('id','subject','activitytype','date_start','due_date','eventstatus'));
 		$queryGenerator->addCondition('date_start', array(0=>'2006-01-21',1=>'2016-01-11'), 'bw');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_activity.date_start, vtiger_activity.time_start, vtiger_activity.due_date, vtiger_activity.time_end, vtiger_activity.status, CASE WHEN (vtiger_activity.status not like '') THEN vtiger_activity.status ELSE vtiger_activity.eventstatus END AS status FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_activity.date_start BETWEEN '2006-01-21' AND '2016-01-11')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_activity.date_start, vtiger_activity.due_date, vtiger_activity.eventstatus FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_activity.date_start BETWEEN '2006-01-21' AND '2016-01-11')  AND vtiger_activity.activityid > 0");
 
-		$queryGenerator = new QueryGenerator('Events', $current_user);
+		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype'));
-		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'contact_id', 'firstname', 'Mary', 'c');
+		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'cto_id', 'firstname', 'Mary', 'c');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_cntactivityrel ON vtiger_cntactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_cntactivityrel.contactid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscontact_id.firstname LIKE '%Mary%')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscto_id ON vtiger_contactdetailscto_id.contactid=vtiger_activity.cto_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscto_id.firstname LIKE '%Mary%')  AND vtiger_activity.activityid > 0");
 
 		$queryGenerator = new QueryGenerator('Emails', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype'));
@@ -394,35 +394,35 @@ class QueryGeneratorTest extends TestCase {
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_emaildetails.from_email FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid INNER JOIN vtiger_emaildetails ON vtiger_activity.activityid = vtiger_emaildetails.emailid LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_emaildetails.idlists  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
 
-		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype','accountname'));
-		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
+		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'rel_id', 'accountname', 'EDFG', 'c');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.accountname as accountsaccountname FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountrel_id.accountname as accountsaccountname FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountrel_id ON vtiger_accountrel_id.accountid=vtiger_activity.rel_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountrel_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
 
-		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype','Accounts.phone'));
-		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'accountname', 'EDFG', 'c');
+		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'rel_id', 'accountname', 'EDFG', 'c');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountrel_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountrel_id ON vtiger_accountrel_id.accountid=vtiger_activity.rel_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountrel_id.accountname LIKE '%EDFG%')  AND vtiger_activity.activityid > 0");
 
-		$queryGenerator = new QueryGenerator('Events', $current_user);
+		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype')); //,'Contacts.firstname'));
-		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'contact_id', 'id', '33', 'e');
+		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'cto_id', 'id', '33', 'e');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_cntactivityrel ON vtiger_cntactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscontact_id ON vtiger_contactdetailscontact_id.contactid=vtiger_cntactivityrel.contactid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscontact_id.contactid = '33')  AND vtiger_activity.activityid > 0");
+		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscto_id ON vtiger_contactdetailscto_id.contactid=vtiger_activity.cto_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailscto_id.contactid = '33')  AND vtiger_activity.activityid > 0");
 
-		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);
 		$queryGenerator->setFields(array('id','subject','activitytype','Accounts.phone'));
-		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'parent_id', 'id', '22', 'e');
+		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'rel_id', 'id', '22', 'e');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountparent_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountparent_id.accountid = '22')  AND vtiger_activity.activityid > 0", 'Calendar-Account');
+		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_activity.subject, vtiger_activity.activitytype, vtiger_accountrel_id.phone as accountsphone FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountrel_id ON vtiger_accountrel_id.accountid=vtiger_activity.rel_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountrel_id.accountid = '22')  AND vtiger_activity.activityid > 0", 'Calendar-Account');
 
-		$queryGenerator = new QueryGenerator('Calendar', $current_user);
+		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);
 		$queryGenerator->setFields(array('id','HelpDesk.ticket_title'));  // include link field to force join
-		$queryGenerator->addReferenceModuleFieldCondition('HelpDesk', 'parent_id', 'id', '8953', 'e');
+		$queryGenerator->addReferenceModuleFieldCondition('HelpDesk', 'rel_id', 'id', '8953', 'e');
 		$query = $queryGenerator->getQuery();
-		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_troubleticketsparent_id.title as helpdesktitle FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_seactivityrel ON vtiger_seactivityrel.activityid=vtiger_activity.activityid  LEFT JOIN vtiger_troubletickets AS vtiger_troubleticketsparent_id ON vtiger_troubleticketsparent_id.ticketid=vtiger_seactivityrel.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_troubleticketsparent_id.ticketid = '8953')  AND vtiger_activity.activityid > 0", 'Calendar-HelpDesk');
+		$this->assertEquals($query, "SELECT vtiger_activity.activityid, vtiger_troubleticketsrel_id.title as helpdesktitle FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_troubletickets AS vtiger_troubleticketsrel_id ON vtiger_troubleticketsrel_id.ticketid=vtiger_activity.rel_id  WHERE vtiger_crmentity.deleted=0 AND (vtiger_troubleticketsrel_id.ticketid = '8953')  AND vtiger_activity.activityid > 0", 'Calendar-HelpDesk');
 
 		$holduser = $current_user;
 		$user = new Users();
