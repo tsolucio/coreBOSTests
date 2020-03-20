@@ -702,6 +702,56 @@ class WSCreateTest extends TestCase {
 		$this->assertEquals($ObjectValues, $actual, 'Create Documents');
 		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
 		$this->assertEquals($model_filename['content'], $sdoc[$actual['id']]['attachment'], 'Document Attachment');
+		$sdoc = vtws_retrieve($actual['id'], $current_user);
+		unset($sdoc['note_no'], $sdoc['modifiedtime'], $sdoc['_downloadurl']);
+		$expected = array(
+			'notes_title' => 'REST Test create doc',
+			'folderid' => '22x1',
+			'assigned_user_id' => '19x7',
+			'createdtime' => $actual['createdtime'],
+			'modifiedby' => '19x7',
+			'created_user_id' => '19x7',
+			'template' => '0',
+			'template_for' => '',
+			'mergetemplate' => '0',
+			'notecontent' => 'áçèñtös',
+			'filelocationtype' => 'I',
+			'filestatus' => '1',
+			'filesize' => '5271',
+			'filetype' => 'image/png; charset=binary',
+			'fileversion' => '2',
+			'filedownloadcount' => '1',
+			'id' => $actual['id'],
+			'cbuuid' => $actual['cbuuid'],
+			'relations' => array(),
+			'filename' => 'Cron.png',
+			'folderidename' => array(
+				'module' => 'DocumentFolders',
+				'reference' => 'Default',
+				'cbuuid' => '',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testymd',
+				'cbuuid' => '',
+			),
+			'created_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testymd',
+				'cbuuid' => '',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testymd',
+				'cbuuid' => '',
+			),
+		);
+		$this->assertEquals($expected, $sdoc, 'Document Retrieve');
+		$sdoc['notes_title'] = $expected['notes_title'] = 'REST Test create doc UPDATED';
+		unset($sdoc['filename']);
+		$actual = vtws_update($sdoc, $current_user);
+		unset($actual['note_no'], $actual['modifiedtime'], $actual['_downloadurl']);
+		$this->assertEquals($expected, $actual, 'Document after Update');
 		/// end
 		$current_user = $holduser;
 	}
