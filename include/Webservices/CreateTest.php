@@ -650,6 +650,108 @@ class WSCreateTest extends TestCase {
 	}
 
 	/**
+	 * Method testCreateEmailWithAttachment
+	 * @test
+	 */
+	public function testCreateEmailWithAttachment() {
+		global $current_user,$adb;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(7); // testymd
+		$current_user = $user;
+		$Module = 'Emails';
+		$cbUserID = '19x'.$current_user->id;
+		// get file and file information
+		// if you are using PHP 5.2 (!) you need to install finfo via PECL
+		$finfo = finfo_open(FILEINFO_MIME); // return mime type ala mimetype extension.
+		$filename = 'themes/images/Cron.png';
+		$mtype = finfo_file($finfo, $filename);
+		$model_filename=array(
+			'name'=>basename($filename),  // no slash nor paths in the name
+			'size'=>filesize($filename),
+			'type'=>$mtype,
+			'content'=>base64_encode(file_get_contents($filename))
+		);
+		$ObjectValues = array(
+			'assigned_user_id' => $cbUserID,
+			'date_start' => '2020-03-03',
+			'time_start' => '22:22',
+			'files'=>array($model_filename),
+			'from_email'=>'email@domain.tld',
+			'parent_type'=> 'Accounts',
+			'saved_toid'=> 'julieta@yahoo.com,felix_hirpara@cox.net,lina@yahoo.com',
+			'activitytype' => 'Emails',
+			'subject' => 'áçèñtös',
+			'ccmail' => 'noemail@domain.tld',
+			'related' => array('12x1084', '11x74'), // 'parent_id' => '1084@80|74@9|',
+			'email_flag' => 'SENT',
+			'bccmail' => '',
+			'access_count' => '',
+			'modifiedby' => '19x7',
+			'spamreport' => '1',
+			'bounce' => '0',
+			'clicked' => '0',
+			'delivered' => '0',
+			'dropped' => '0',
+			'open' => '2',
+			'unsubscribe' => '0',
+			'description' => 'This is the body of the email áçèñtös.',
+		);
+		$email = $ObjectValues;
+		//$this->expectException('WebServiceException');
+		$_FILES=array();
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['parent_id'] = '12x1084|11x74';
+		$ObjectValues['saved_toid'] = '["julieta@yahoo.com","felix_hirpara@cox.net","lina@yahoo.com"]';
+		$ObjectValues['ccmail'] = '["noemail@domain.tld"]';
+		$ObjectValues['bccmail'] = '[""]';
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
+		unset($ObjectValues['files'], $ObjectValues['related']);
+		$this->assertEquals($ObjectValues, $actual, 'Create Email');
+		$sdoc = vtws_retrieve($actual['id'], $current_user);
+		$expected = $ObjectValues;
+		$expected['parent_idename'] = array(
+			'12x1084' => array(
+				'module' => 'Contacts',
+				'reference' => 'Lina Schwiebert',
+				'cbuuid' => 'a609725772dc91ad733b19e4100cf68bb30195d1',
+			),
+			'11x74' => array(
+				'module' => 'Accounts',
+				'reference' => 'Chemex Labs Ltd',
+				'cbuuid' => 'b0857db0c1dee95300a10982853f5fb1d4e981c1',
+			),
+		);
+		$expected['modifiedbyename'] = array(
+			'module' => 'Users',
+			'reference' => 'cbTest testymd',
+			'cbuuid' => '',
+		);
+		$expected['assigned_user_idename'] = array(
+			'module' => 'Users',
+			'reference' => 'cbTest testymd',
+			'cbuuid' => '',
+		);
+		$expected['relations'] = array();
+		$this->assertEquals($expected, $sdoc, 'Email Retrieve');
+		$email['subject'] = 'áçèñtös UPDATED';
+		$email['id'] = $actual['id'];
+		$email['spamreport'] = $expected['spamreport'] = '2';
+		$email['bounce'] = $expected['bounce'] = '2';
+		$email['clicked'] = $expected['clicked'] = '4';
+		$email['modifiedby'] = $expected['modifiedby'] = '19x5';
+		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
+		$actual = vtws_update($email, $current_user);
+		unset($actual['modifiedtime'], $expected['modifiedtime']);
+		$this->assertEquals($expected, $actual, 'Email after Update');
+		/// end
+		$current_user = $holduser;
+	}
+
+	/**
 	 * Method testCreateDocumentWithAttachment
 	 * @test
 	 */
