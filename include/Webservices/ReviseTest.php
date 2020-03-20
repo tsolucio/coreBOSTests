@@ -95,6 +95,7 @@ class WSReviseTest extends TestCase {
 			'template_language' => '',
 			'imagename' => '',
 			'id' => '12x1150', // Contacts
+			'cbuuid' => '64a07af78e8b56e8232e875daa23154a9afac000',
 			'account_idename' => array(
 				'module' => 'Accounts',
 				'reference' => 'Computer Repair Service',
@@ -178,6 +179,7 @@ class WSReviseTest extends TestCase {
 			'cf_802' => '',
 			'description' => 'Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur dictum. Phasellus in felis. Nulla tempor augue ac ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce fermentum fermentum arcu. Vestibulum ante ipsum',
 			'id' => '26x9727',
+			'cbuuid' => '9d07d2d68cfbc68b8c855b58ee07faea8a5ed3fa',
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmdy',
@@ -251,6 +253,7 @@ class WSReviseTest extends TestCase {
 			'imagename' => '',
 			'description' => 'Teneo, inquit, finem illi videri nihil dolere. Quonam modo? Sin te auctoritas commovebat, nobisne omnibus et Platoni ipsi nescio quem illum anteponebas? Cum praesertim illa perdiscere ludus esset.',
 			'id' => '14x2633',
+			'cbuuid' => '61221bff1c0ff171674aca18d81903db1afe0a41',
 			'vendor_idename' => array(
 				'module' => 'Vendors',
 				'reference' => 'E Zaks & Co',
