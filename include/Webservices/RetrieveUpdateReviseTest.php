@@ -77,17 +77,21 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'description' => 'Nunc mauris elit, dictum eu, eleifend nec, malesuada ut, sem. Nulla interdum. Curabitur dictum. Phasellus in felis. Nulla tempor augue ac ipsum. Phasellus vitae mauris sit amet lorem semper auctor. Mauris vel turpis. Aliquam adipiscing lobortis risus. In mi pede, nonummy ut, molestie in, tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed eget lacus. Mauris non dui nec urna suscipit nonummy. Fusce',
 			'created_user_id' => '19x1',
 			'id' => '1x4973',
+			'cbuuid' => '559516a535b92c36ab3be0b15486056303052e24',
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array (
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmcurrency',
+				'cbuuid' => '',
 			),
 		);
 		$this->assertEquals($expected, $actual, 'retrieve campaign usrdota0x');
@@ -141,17 +145,21 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'qtyindemand' => '0',
 			'divisible' => '0',
 			'imagename' => '',
+			'cbuuid' => '61221bff1c0ff171674aca18d81903db1afe0a41',
 			'vendor_idename' => array(
 				'module' => 'Vendors',
 				'reference' => 'E Zaks & Co',
+				'cbuuid' => 'ccfcc045d88404261dad730cf1aa0b11468ab89c',
 			),
 			'created_user_idename' => array (
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmdy',
+				'cbuuid' => '',
 			),
 		);
 		$this->assertEquals($expected, $actual, 'retrieve product usrdota0x');
@@ -256,21 +264,26 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5021.000000',
 			'description' => 'Phasellus at augue id ante dictum cursus. Nunc mauris elit, dictum eu, eleifend',
 			'id' => '1x4985',
+			'cbuuid' => '5261bade9b0ee17c0ff2c44fdff1f71e1dd733bf',
 			'product_idename' => array(
 				'module' => 'Products',
 				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+				'cbuuid' => 'efdf5dc4d4aab1a3bd158e3324554e4d54bbc27f',
 			),
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array (
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 		);
 		$newValuesCompleteusrdota0x = array (
@@ -299,21 +312,26 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5021.000000',
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
+			'cbuuid' => '5261bade9b0ee17c0ff2c44fdff1f71e1dd733bf',
 			'product_idename' => array(
 				'module' => 'Products',
 				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+				'cbuuid' => 'efdf5dc4d4aab1a3bd158e3324554e4d54bbc27f',
 			),
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmdy',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array (
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 		);
 		$newValuesPartialusrdota0x = array (
@@ -349,21 +367,26 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5021,000000',
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
+			'cbuuid' => '5261bade9b0ee17c0ff2c44fdff1f71e1dd733bf',
 			'product_idename' => array(
 				'module' => 'Products',
 				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+				'cbuuid' => 'efdf5dc4d4aab1a3bd158e3324554e4d54bbc27f',
 			),
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmdy',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array (
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 		);
 		$newValuesPartialusrcomd0x = array (
@@ -399,21 +422,26 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5.021,000000',
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
+			'cbuuid' => '5261bade9b0ee17c0ff2c44fdff1f71e1dd733bf',
 			'product_idename' => array(
 				'module' => 'Products',
 				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+				'cbuuid' => 'efdf5dc4d4aab1a3bd158e3324554e4d54bbc27f',
 			),
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array (
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 		);
 		// Complete
@@ -572,21 +600,26 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'actualroi' => '5021.000000',
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
+			'cbuuid' => '5261bade9b0ee17c0ff2c44fdff1f71e1dd733bf',
 			'product_idename' => array(
 				'module' => 'Products',
 				'reference' => 'New Arrival Metal Aluminum Case for iPhone 6',
+				'cbuuid' => 'efdf5dc4d4aab1a3bd158e3324554e4d54bbc27f',
 			),
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array (
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 		);
 		// Missing mandatory fields

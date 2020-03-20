@@ -98,18 +98,22 @@ class WSReviseTest extends TestCase {
 			'account_idename' => array(
 				'module' => 'Accounts',
 				'reference' => 'Computer Repair Service',
+				'cbuuid' => 'c96bc3d37a773ddf9aa2e75b4ca02a25e5a356a4',
 			),
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array(
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmdy',
+				'cbuuid' => '',
 			),
 		);
 		$updateValues = array(
@@ -177,14 +181,17 @@ class WSReviseTest extends TestCase {
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmdy',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array(
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
 			),
 		);
 		$prePdoPrices = getPriceDetailsForProduct(9727, 3.89, 'available_associated', 'Services');
@@ -247,18 +254,22 @@ class WSReviseTest extends TestCase {
 			'vendor_idename' => array(
 				'module' => 'Vendors',
 				'reference' => 'E Zaks & Co',
+				'cbuuid' => 'ccfcc045d88404261dad730cf1aa0b11468ab89c',
 			),
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmdy',
+				'cbuuid' => '',
 			),
 			'created_user_idename' => array(
 				'module' => 'Users',
 				'reference' => ' Administrator',
+				'cbuuid' => '',
 			),
 			'assigned_user_idename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testmdy',
+				'cbuuid' => '',
 			),
 		);
 		$prePdoPrices = getPriceDetailsForProduct(2633, 3.89, 'available_associated', 'Products');

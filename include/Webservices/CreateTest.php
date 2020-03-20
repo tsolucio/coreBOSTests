@@ -82,6 +82,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrdota0x Correct');
 		/////////////////
 		$user = new Users();
@@ -125,6 +126,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrcoma3dot Correct');
 		/////////////////
 		$user = new Users();
@@ -168,6 +170,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrcomd0x Correct');
 		/////////////////
 		$user = new Users();
@@ -211,6 +214,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrdotd3com Correct');
 		/////////////////
 		$user = new Users();
@@ -254,6 +258,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['expectedroi'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Test currency usrdota3comdollar Correct');
 		/// end
 		$current_user = $holduser;
@@ -297,6 +302,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['dateinservice'] = '2015-12-25';
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Test d-m-Y Correct');
 		///  m-d-Y
 		$user = new Users();
@@ -328,6 +334,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['dateinservice'] = '2015-12-25';
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Test m-d-Y Correct');
 		///  Y-m-d
 		$user = new Users();
@@ -357,6 +364,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Test Y-m-d Correct');
 		/// end
 		$current_user = $holduser;
@@ -500,6 +508,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Create with relation to helpdesk');
 		list($void,$assetid) = explode('x', $actual['id']);
 		$rels = $adb->pquery(
@@ -634,6 +643,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['pl_sh_tax'] = '1.200000';
 		$ObjectValues['pl_grand_total'] = '90.030000';
 		$ObjectValues['pl_adjustment'] = '40.000000';
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Create salesorder');
 		/// end
 		$current_user = $holduser;
@@ -687,6 +697,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		unset($ObjectValues['filename']);
 		$this->assertEquals($ObjectValues, $actual, 'Create Documents');
 		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
