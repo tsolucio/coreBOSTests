@@ -33,6 +33,18 @@ class testgetReferenceValue extends TestCase {
 		$actual = vtws_getReferenceValue(serialize(array('11x74','12x1085','20x2','21x1','22x2')), $current_user);
 		$expected = 'a:5:{s:5:"11x74";a:2:{s:6:"module";s:8:"Accounts";s:9:"reference";s:15:"Chemex Labs Ltd";}s:7:"12x1085";a:2:{s:6:"module";s:8:"Contacts";s:9:"reference";s:15:"Julieta Cropsey";}s:4:"20x2";a:2:{s:6:"module";s:6:"Groups";s:9:"reference";s:12:"Team Selling";}s:4:"21x1";a:2:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";}s:4:"22x2";a:2:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";}}';
 		$this->assertEquals($expected, $actual, "testvtws_getReferenceValue");
+		$actual = vtws_getReferenceValue(serialize(array('12x1084|11x74')), $current_user);
+		$expected = serialize(array(
+			'12x1084' => array(
+				'module' => 'Contacts',
+				'reference' => 'Lina Schwiebert',
+			),
+			'11x74' => array(
+				'module' => 'Accounts',
+				'reference' => 'Chemex Labs Ltd',
+			),
+		));
+		$this->assertEquals($expected, $actual, "testvtws_getReferenceValue");
 	}
 }
 ?>
