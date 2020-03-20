@@ -31,17 +31,19 @@ class testgetReferenceValue extends TestCase {
 	public function testvtws_getReferenceValue() {
 		global $current_user;
 		$actual = vtws_getReferenceValue(serialize(array('11x74','12x1085','20x2','21x1','22x2')), $current_user);
-		$expected = 'a:5:{s:5:"11x74";a:2:{s:6:"module";s:8:"Accounts";s:9:"reference";s:15:"Chemex Labs Ltd";}s:7:"12x1085";a:2:{s:6:"module";s:8:"Contacts";s:9:"reference";s:15:"Julieta Cropsey";}s:4:"20x2";a:2:{s:6:"module";s:6:"Groups";s:9:"reference";s:12:"Team Selling";}s:4:"21x1";a:2:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";}s:4:"22x2";a:2:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";}}';
+		$expected = 'a:5:{s:5:"11x74";a:3:{s:6:"module";s:8:"Accounts";s:9:"reference";s:15:"Chemex Labs Ltd";s:6:"cbuuid";s:40:"b0857db0c1dee95300a10982853f5fb1d4e981c1";}s:7:"12x1085";a:3:{s:6:"module";s:8:"Contacts";s:9:"reference";s:15:"Julieta Cropsey";s:6:"cbuuid";s:40:"d9692723137a4f119c900157b38189738e692fc4";}s:4:"20x2";a:3:{s:6:"module";s:6:"Groups";s:9:"reference";s:12:"Team Selling";s:6:"cbuuid";s:0:"";}s:4:"21x1";a:3:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";s:6:"cbuuid";s:0:"";}s:4:"22x2";a:3:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";s:6:"cbuuid";s:0:"";}}';
 		$this->assertEquals($expected, $actual, "testvtws_getReferenceValue");
 		$actual = vtws_getReferenceValue(serialize(array('12x1084|11x74')), $current_user);
 		$expected = serialize(array(
 			'12x1084' => array(
 				'module' => 'Contacts',
 				'reference' => 'Lina Schwiebert',
+				'cbuuid' => 'a609725772dc91ad733b19e4100cf68bb30195d1',
 			),
 			'11x74' => array(
 				'module' => 'Accounts',
 				'reference' => 'Chemex Labs Ltd',
+				'cbuuid' => 'b0857db0c1dee95300a10982853f5fb1d4e981c1',
 			),
 		));
 		$this->assertEquals($expected, $actual, "testvtws_getReferenceValue");
