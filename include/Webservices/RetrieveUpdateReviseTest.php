@@ -534,6 +534,115 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	}
 
 	/**
+	 * Method testUpdateUUID
+	 * @test
+	 */
+	public function testUpdateUUID() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		///////////
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$current_user = $user;
+		$assetID = vtws_getEntityId('Assets');
+		$cbUserID = '19x'.$current_user->id;
+		$currentValues = array (
+			'asset_no' => 'AST-000057',
+			'createdtime' => '2015-04-21 14:10:39',
+			'product'=>'14x2620',
+			'serialnumber'=>'ABCD-123456',
+			'datesold'=>'2016-04-11',  // Y-m-d
+			'dateinservice'=>'2015-12-08',  // Y-m-d
+			'assetstatus' => 'In Service',
+			'tagnumber' => '',
+			'invoiceid' => '7x2902',
+			'shippingmethod' => '',
+			'shippingtrackingnumber' => '',
+			'assigned_user_id' => $cbUserID,
+			'created_user_id' => '19x1',
+			'assetname' => 'Perrysburg Animal Care Inc :: Car Sunshade Windshield Cover / Car Snow Cover',
+			'account' => '11x138',
+			'modifiedby' => '19x1',
+			'description' => ' Morbo gravissimo affectus, exul, orbus, egens, torqueatur eculeo: quem hunc appellas, Zeno? Fortemne possumus dicere eundem illum Torquatum? Dicet pro me ipsa virtus nec dubitabit isti vestro beato M. Duo Reges: constructio interrete. Hoc ne statuam quidem dicturam pater aiebat, si loqui posset. Ut aliquid scire se gaudeant? Omnia contraria, quos etiam insanos esse vultis. At modo dixeras nihil in istis rebus esse, quod interesset. 
+
+',
+			'id' => '29x4124',
+			'cbuuid' => '35eec5e421b97c8feb3045e6476dbff6a2aeb920',
+			'productename' => array(
+				'module' => 'Products',
+				'reference' => 'Car Sunshade Windshield Cover / Car Snow Cover',
+				'cbuuid' => '08b6499c06f49c16689928879243b21e61928a5c',
+			),
+			'invoiceidename' => array(
+				'module' => 'Invoice',
+				'reference' => 'Dream Master',
+				'cbuuid' => '0c1030cf9b87def60ddd4354ba7b62ec8257c05d',
+			),
+			'accountename' => array(
+				'module' => 'Accounts',
+				'reference' => 'Perrysburg Animal Care Inc',
+				'cbuuid' => 'dd574403238a3e69a2015a381465ddd5ad348443',
+			),
+			'modifiedbyename' => array(
+				'module' => 'Users',
+				'reference' => ' Administrator',
+				'cbuuid' => '',
+			),
+			'created_user_idename' => array (
+				'module' => 'Users',
+				'reference' => ' Administrator',
+				'cbuuid' => '',
+			),
+			'assigned_user_idename' => array(
+				'module' => 'Users',
+				'reference' => 'cbTest testdmy',
+				'cbuuid' => '',
+			),
+		);
+		$realValues = vtws_retrieve('35eec5e421b97c8feb3045e6476dbff6a2aeb920', $user);
+		$expected = $currentValues;
+		$expected['modifiedby'] = '19x5';
+		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
+		unset($realValues['modifiedtime']);
+		$this->assertEquals($expected, $realValues, 'retrieve before update');
+		$newValues = array (
+			'product'=>'0a3c5c965d2c42e246349fee0e919ef22f4c80d3',
+			'invoiceid' => 'dc68fcd9960bdbaf677d7fc8a9b274730cf4b30c',
+			'account' => 'c96bc3d37a773ddf9aa2e75b4ca02a25e5a356a4',
+			'assetname' => 'Spain áçèñtös <>',
+			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
+			'id' => '35eec5e421b97c8feb3045e6476dbff6a2aeb920',
+		);
+		vtws_revise($newValues, $user);
+		$realValues = vtws_retrieve('35eec5e421b97c8feb3045e6476dbff6a2aeb920', $user);
+		$expected = $currentValues;
+		$expected['modifiedby'] = '19x5';
+		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
+		$expected['product'] = '14x2617';
+		$expected['invoiceid'] = '7x3021';
+		$expected['account'] = '11x131';
+		$expected['assetname'] = $newValues['assetname'];
+		$expected['description'] = $newValues['description'];
+		$expected['productename']['reference'] = 'New FULL HD 1080P Car Video Recorder With G-Sensor and 24H Parking mode';
+		$expected['productename']['cbuuid'] = '0a3c5c965d2c42e246349fee0e919ef22f4c80d3';
+		$expected['accountename']['reference'] = 'Computer Repair Service';
+		$expected['accountename']['cbuuid'] = 'c96bc3d37a773ddf9aa2e75b4ca02a25e5a356a4';
+		$expected['invoiceidename']['reference'] = 'Ept-Rass';
+		$expected['invoiceidename']['cbuuid'] = 'dc68fcd9960bdbaf677d7fc8a9b274730cf4b30c';
+		unset($realValues['modifiedtime']);
+		$this->assertEquals($expected, $realValues, 'retrieve after update');
+		vtws_update($currentValues, $user);
+		$realValues = vtws_retrieve('35eec5e421b97c8feb3045e6476dbff6a2aeb920', $user);
+		$expected = $currentValues;
+		$expected['modifiedby'] = '19x5';
+		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
+		unset($realValues['modifiedtime']);
+		$this->assertEquals($expected, $realValues, 'retrieve before update');
+		/// end
+		$current_user = $holduser;
+	}
+
+	/**
 	 * Method testRevise
 	 * @test
 	 */
