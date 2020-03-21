@@ -379,6 +379,8 @@ class testWSgetRelatedRecords extends TestCase {
 							'relatedassignedemail' => 'gcarris@hotmail.com',
 							14 => '18428',
 							'modcommentsid' => '18428',
+							15 => 'f083fcf0e8e8ae41c35366fe0f04801a9eaff189',
+							'cbuuid' => 'f083fcf0e8e8ae41c35366fe0f04801a9eaff189',
 							'id' => '30x18428',
 						),
 						array(
@@ -415,6 +417,8 @@ class testWSgetRelatedRecords extends TestCase {
 							'relatedassignedemail' => 'gcarris@hotmail.com',
 							14 => '18912',
 							'modcommentsid' => '18912',
+							15 => 'bb98a9282d4ab7f01d09e8c546e9bbc358409d3a',
+							'cbuuid' => 'bb98a9282d4ab7f01d09e8c546e9bbc358409d3a',
 						),
 					),
 				),
