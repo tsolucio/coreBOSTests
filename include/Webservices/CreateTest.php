@@ -516,6 +516,42 @@ class WSCreateTest extends TestCase {
 			array($assetid,'Assets','2637','HelpDesk')
 		);
 		$this->assertEquals(1, $adb->num_rows($rels), 'Asset-HelpDesk related');
+		///////////////  cbuuid
+		$ObjectValues = array(
+			'product'=>'668d624d92e450119f769142036e7e235ec030c7',
+			'serialnumber'=>'123456789',
+			'datesold'=>'2015-12-25',  // Y-m-d
+			'dateinservice'=>'2015-12-25',  // Y-m-d
+			'assetstatus' => 'In Service',
+			'tagnumber' => 'tag1',
+			'invoiceid' => '94eecf43924619e49ef9afbeddcb9c69cbda2dd8',
+			'shippingmethod' => 'direct',
+			'shippingtrackingnumber' => '321654',
+			'assigned_user_id' => $cbUserID,
+			'created_user_id' => $cbUserID,
+			'assetname' => 'wfasset-related',
+			'account' => '29518def3b1c45c25c3803691f79b8de93205888',
+			'modifiedby' => $cbUserID,
+			'description' => 'áçèñtös',
+			'relations' => array('8bd86b7bbb66f4af297ada68b5b8200cbf825d74'),
+		);
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		unset($ObjectValues['relations']);
+		$ObjectValues['asset_no'] = $actual['asset_no'];
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
+		$ObjectValues['product'] = '14x2618';
+		$ObjectValues['invoiceid'] = '7x2993';
+		$ObjectValues['account'] = '11x174';
+		$this->assertEquals($ObjectValues, $actual, 'Create with relation to helpdesk');
+		list($void,$assetid) = explode('x', $actual['id']);
+		$rels = $adb->pquery(
+			'select * from vtiger_crmentityrel where crmid=? and module=? and relcrmid=? and relmodule=?',
+			array($assetid,'Assets','2637','HelpDesk')
+		);
+		$this->assertEquals(1, $adb->num_rows($rels), 'Asset-HelpDesk related');
 		/// end
 		$current_user = $holduser;
 	}
