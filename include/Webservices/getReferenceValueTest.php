@@ -25,7 +25,7 @@ include_once 'include/Webservices/CustomerPortalWS.php';
 class testgetReferenceValue extends TestCase {
 
 	/**
-	 * Method vtws_getReferenceValue
+	 * Method testvtws_getReferenceValue
 	 * @test
 	 */
 	public function testvtws_getReferenceValue() {
