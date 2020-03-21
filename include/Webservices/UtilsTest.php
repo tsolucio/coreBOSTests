@@ -150,5 +150,55 @@ class testWebservicesUtils extends TestCase {
 		$expected = null;
 		$this->assertEquals($expected, $actual);
 	}
+
+	/**
+	 * Method vtws_getEntityIdProvider
+	 * params
+	 */
+	public function vtws_getEntityIdProvider() {
+		return array(
+			array('Users', '19'),
+			array('Accounts', '11'),
+			array('Assets', '29'),
+			array('cbCalendar', '39'),
+			array('NonExistent', '0'),
+			array('', '0'),
+		);
+	}
+
+	/**
+	 * Method testvtws_getEntityId
+	 * @test
+	 * @dataProvider vtws_getEntityIdProvider
+	 */
+	public function testvtws_getEntityId($entityName, $expected) {
+		$actual = vtws_getEntityId($entityName, $expected);
+		$this->assertEquals($expected, $actual, "vtws_getEntityId $entityName");
+	}
+
+	/**
+	 * Method vtws_getEntityNameProvider
+	 * params
+	 */
+	public function vtws_getEntityNameProvider() {
+		return array(
+			array('19', 'Users'),
+			array('11', 'Accounts'),
+			array('29', 'Assets'),
+			array('39', 'cbCalendar'),
+			array('0', ''),
+			array('', ''),
+		);
+	}
+
+	/**
+	 * Method testvtws_getEntityName
+	 * @test
+	 * @dataProvider vtws_getEntityNameProvider
+	 */
+	public function testvtws_getEntityName($entityId, $expected) {
+		$actual = vtws_getEntityName($entityId, $expected);
+		$this->assertEquals($expected, $actual, "vtws_getEntityName $entityId");
+	}
 }
 ?>
