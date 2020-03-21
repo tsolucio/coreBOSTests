@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/SetRelation.php';
 
-class testgetReferenceValue extends TestCase {
+class testSetRelation extends TestCase {
 
 	/**
 	 * Method testvtws_setrelation
