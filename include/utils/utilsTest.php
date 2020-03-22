@@ -310,7 +310,7 @@ class testutils extends TestCase {
 				'Contacts',
 				'vtiger_contactdetails.firstname.firstname,vtiger_contactsubdetails.email2.email2',
 				array('firstname'=> '1', 'email2'=> '13'),
-"SELECT vtiger_contactdetails.contactid AS recordid, vtiger_users_last_import.deleted,vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2
+				"SELECT vtiger_contactdetails.contactid AS recordid, vtiger_users_last_import.deleted,vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2
 				FROM vtiger_contactdetails
 				INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid=vtiger_contactdetails.contactid
 				INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid
@@ -446,7 +446,7 @@ class testutils extends TestCase {
 			array('Planets', '0', '33', '0', '732', '1', 'V~O'),
 			array('Is Converted From Lead', '0', '56', '0', '752', '2', 'C~O'),
 			array('Converted From Lead', '0', '10', '0', '753', '3', 'V~O'),
-			array('Created By', '0', '52', '0', '764', '2', 'V~O'), 
+			array('Created By', '0', '52', '0', '764', '2', 'V~O'),
 		);
 		$expected_contacts_module_fields = array(
 			array('Salutation', '0', '55', '0', '66', '3', 'V~O'),

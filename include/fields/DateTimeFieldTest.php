@@ -743,17 +743,16 @@ class tstDateTimeField extends TestCase {
 		$this->assertEquals($resultExpectedSix, DateTimeField::getWeekendDates('2018-01-09', '2018-01-16', $dateFormat), 'The format of dateEnd is not correct');
 	}
 
-	 /**
-	 * Method testvalidateDate
-	 * @test
-	 */
-	 public function testvalidateDate() {
-		 $resultOK = true;
-		 $resultKO = false;
-		 $dateFormat = 'Y-m-d';
-		 $this->assertEquals($resultOK, DateTimeField::validateDate('2018-01-06', $dateFormat), 'Date format valid');
-		 $this->assertEquals($resultKO, DateTimeField::validateDate('2018-14-06', $dateFormat), 'Date format not valid');
-	 }
-
+	/**
+	* Method testvalidateDate
+	* @test
+	*/
+	public function testvalidateDate() {
+		$resultOK = true;
+		$resultKO = false;
+		$dateFormat = 'Y-m-d';
+		$this->assertEquals($resultOK, DateTimeField::validateDate('2018-01-06', $dateFormat), 'Date format valid');
+		$this->assertEquals($resultKO, DateTimeField::validateDate('2018-14-06', $dateFormat), 'Date format not valid');
+	}
 }
 ?>

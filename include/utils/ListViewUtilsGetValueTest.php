@@ -55,7 +55,7 @@ class testListViewUtilsGetValue extends TestCase {
 						break;
 					default:
 						$ret = '<a href="javascript:if (document.getElementById(\'closewindow\').value==\'true\') {window.close();}" onclick=\'set_return("92", "Rose & Co Management Cnslnts");\' id=\''.$id.'\' >Rose & Co Management Cnslnts</a>';
-					}
+				}
 			} else {
 				$ret = '<a href="index.php?action=DetailView&module=Accounts&record=92" id='.$id.'>Rose & Co Management Cnslnts</a>';
 			}
@@ -364,7 +364,7 @@ class testListViewUtilsGetValue extends TestCase {
 					break;
 				default:
 					$ret = '<a href="javascript:if (document.getElementById(\'closewindow\').value==\'true\') {window.close();}" onclick=\'set_return("1087", "Lino Sut\\\'ulovich");\' id=\''.$id.'\' >Lino Sut\'ulovich</a>';
-				}
+			}
 		} else {
 			$ret = '<a href="index.php?action=DetailView&module=Contacts&record=1087" id='.$id.'>Sut\'ulovich</a>';
 		}
