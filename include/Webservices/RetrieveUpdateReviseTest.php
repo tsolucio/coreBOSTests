@@ -562,7 +562,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'created_user_id' => '19x1',
 			'assetname' => 'Perrysburg Animal Care Inc :: Car Sunshade Windshield Cover / Car Snow Cover',
 			'account' => '11x138',
-			'modifiedby' => '19x1',
 			'description' => ' Morbo gravissimo affectus, exul, orbus, egens, torqueatur eculeo: quem hunc appellas, Zeno? Fortemne possumus dicere eundem illum Torquatum? Dicet pro me ipsa virtus nec dubitabit isti vestro beato M. Duo Reges: constructio interrete. Hoc ne statuam quidem dicturam pater aiebat, si loqui posset. Ut aliquid scire se gaudeant? Omnia contraria, quos etiam insanos esse vultis. At modo dixeras nihil in istis rebus esse, quod interesset. 
 
 ',
@@ -583,11 +582,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 				'reference' => 'Perrysburg Animal Care Inc',
 				'cbuuid' => 'dd574403238a3e69a2015a381465ddd5ad348443',
 			),
-			'modifiedbyename' => array(
-				'module' => 'Users',
-				'reference' => ' Administrator',
-				'cbuuid' => '',
-			),
 			'created_user_idename' => array (
 				'module' => 'Users',
 				'reference' => ' Administrator',
@@ -600,11 +594,8 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			),
 		);
 		$realValues = vtws_retrieve('35eec5e421b97c8feb3045e6476dbff6a2aeb920', $user);
-		$expected = $currentValues;
-		$expected['modifiedby'] = '19x5';
-		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
-		unset($realValues['modifiedtime']);
-		$this->assertEquals($expected, $realValues, 'retrieve before update');
+		unset($realValues['modifiedtime'], $realValues['modifiedby'], $realValues['modifiedbyename']);
+		$this->assertEquals($currentValues, $realValues, 'retrieve before update');
 		$newValues = array (
 			'product'=>'0a3c5c965d2c42e246349fee0e919ef22f4c80d3',
 			'invoiceid' => 'dc68fcd9960bdbaf677d7fc8a9b274730cf4b30c',
@@ -617,7 +608,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$realValues = vtws_retrieve('35eec5e421b97c8feb3045e6476dbff6a2aeb920', $user);
 		$expected = $currentValues;
 		$expected['modifiedby'] = '19x5';
-		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
 		$expected['product'] = '14x2617';
 		$expected['invoiceid'] = '7x3021';
 		$expected['account'] = '11x131';
@@ -629,14 +619,13 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$expected['accountename']['cbuuid'] = 'c96bc3d37a773ddf9aa2e75b4ca02a25e5a356a4';
 		$expected['invoiceidename']['reference'] = 'Ept-Rass';
 		$expected['invoiceidename']['cbuuid'] = 'dc68fcd9960bdbaf677d7fc8a9b274730cf4b30c';
-		unset($realValues['modifiedtime']);
+		unset($realValues['modifiedtime'], $realValues['modifiedbyename']);
 		$this->assertEquals($expected, $realValues, 'retrieve after update');
 		vtws_update($currentValues, $user);
 		$realValues = vtws_retrieve('35eec5e421b97c8feb3045e6476dbff6a2aeb920', $user);
 		$expected = $currentValues;
 		$expected['modifiedby'] = '19x5';
-		$expected['modifiedbyename']['reference'] = 'cbTest testdmy';
-		unset($realValues['modifiedtime']);
+		unset($realValues['modifiedtime'], $realValues['modifiedbyename']);
 		$this->assertEquals($expected, $realValues, 'retrieve before update');
 		/// end
 		$current_user = $holduser;

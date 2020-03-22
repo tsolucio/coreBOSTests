@@ -120,6 +120,7 @@ class BusinessActionsTest extends TestCase {
 	 * @test
 	 */
 	public function testaddLink() {
+		$_REQUEST['module'] = 'Contacts';
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$expectedLinks = $module_contacts->getLinks();
 
@@ -138,6 +139,7 @@ class BusinessActionsTest extends TestCase {
 		// Adding link
 		$module_contacts->addLink($linktype, $linklabel, $linkurl);
 		$actualLinks = $module_contacts->getLinks();
+		sort($actualLinks);
 
 		// Getting linkid
 		$lastLink = end($actualLinks);
@@ -146,7 +148,7 @@ class BusinessActionsTest extends TestCase {
 
 		// Link object
 		$link = new Vtiger_Link();
-		$link->tabid = $tabid;
+		$link->tabid = (string)$tabid;
 		$link->linkid = $linkid;
 		$link->linktype = $linktype;
 		$link->linklabel = $linklabel;
@@ -160,6 +162,7 @@ class BusinessActionsTest extends TestCase {
 
 		// Adding link object to expectedLinks
 		$expectedLinks[] = $link;
+		sort($expectedLinks);
 
 		// Delete created link
 		Vtiger_Link::deleteLink($tabid, $linktype, $linklabel);
