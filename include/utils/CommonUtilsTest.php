@@ -613,8 +613,21 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 		$this->assertEquals(getEntityName('Accounts', 74), array('74'=>'Chemex Labs Ltd'), 'getEntityName accounts');
 		$this->assertEquals(getEntityName('Accounts', array(74,75)), array('74'=>'Chemex Labs Ltd','75'=>'Atrium Marketing Inc'), 'getEntityName accounts array');
 		$this->assertEquals(getEntityName('Contacts', 1084), array('1084'=>'Lina Schwiebert'), 'getEntityName contacts');
+		$this->assertEquals(getEntityName('Contacts', 1847), array('1847'=>'&aacute;&ccedil;&egrave;&ntilde;t&ouml;s &lt;Tindal&gt;'), 'getEntityName contacts special characters');
 		$this->assertEquals(getEntityName('Users', 5), array('5'=>'cbTest testdmy'), 'getEntityName Users');
 		$this->assertEquals(getEntityName('NoExists', 5), array(), 'getEntityName non-existant');
+	}
+
+	/**
+	 * Method testgetContactName
+	 * @test
+	 */
+	public function testgetContactName() {
+		$this->assertEquals(getContactName(1084), 'Schwiebert Lina', 'getContactName contacts');
+		$this->assertEquals(getContactName(1847), '&lt;Tindal&gt; &aacute;&ccedil;&egrave;&ntilde;t&ouml;s', 'getContactName contacts special characters');
+		$this->assertEquals(getContactName(74), ' ', 'getContactName accounts');
+		$this->assertEquals(getContactName(0), '', 'getContactName non-existant 0');
+		$this->assertEquals(getContactName(''), '', 'getContactName non-existant empty string');
 	}
 
 	/**
