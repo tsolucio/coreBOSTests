@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -19,6 +19,7 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class VTEventConditionTest extends TestCase {
 
 	/************
@@ -41,9 +42,9 @@ class VTEventConditionTest extends TestCase {
 		$entityData = VTEntityData::fromEntityId($adb, 74); // Chemex test account
 		/// Construct
 		$condition = new VTEventCondition('');
-		$this->assertInstanceOf(VTEventCondition::class,$condition,"testConstruct class VTEventCondition");
-		$this->assertNull($condition->expr,' parsed expression is null');
-		$this->assertTrue($condition->test($entityData),' no expression is true');
+		$this->assertInstanceOf(VTEventCondition::class, $condition, 'testConstruct class VTEventCondition');
+		$this->assertNull($condition->expr, ' parsed expression is null');
+		$this->assertTrue($condition->test($entityData), ' no expression is true');
 		//// inclause
 		$condition = new VTEventCondition("moduleName in ['Contacts', 'Potentials']");
 		$expectedexpr = array (
@@ -55,10 +56,10 @@ class VTEventConditionTest extends TestCase {
 				2 => 'Potentials',
 			),
 		);
-		$this->assertEquals($expectedexpr,$condition->expr,' parsed expression moduleName in');
-		$this->assertFalse($condition->test($entityData),' NOT IN module list');
+		$this->assertEquals($expectedexpr, $condition->expr, ' parsed expression moduleName in');
+		$this->assertFalse($condition->test($entityData), ' NOT IN module list');
 		$condition = new VTEventCondition("moduleName in ['Contacts', 'Accounts']");
-		$this->assertTrue($condition->test($entityData),' IN module list');
+		$this->assertTrue($condition->test($entityData), ' IN module list');
 		/// comparision
 		$condition = new VTEventCondition("moduleName == 'Contacts'");
 		$expectedexpr = array (
@@ -66,22 +67,21 @@ class VTEventConditionTest extends TestCase {
 			1 => new VTEventConditionSymbol('moduleName'),
 			2 => 'Contacts',
 		);
-		$this->assertEquals($expectedexpr,$condition->expr,' parsed expression moduleName ==');
-		$this->assertFalse($condition->test($entityData),' moduleName == Contacts');
+		$this->assertEquals($expectedexpr, $condition->expr, ' parsed expression moduleName ==');
+		$this->assertFalse($condition->test($entityData), ' moduleName == Contacts');
 		$condition = new VTEventCondition("moduleName == 'Accounts'");
-		$this->assertTrue($condition->test($entityData),' moduleName == Accounts');
+		$this->assertTrue($condition->test($entityData), ' moduleName == Accounts');
 		///// others
 		$condition = new VTEventCondition("employees == '131'");
-		$this->assertTrue($condition->test($entityData)," employees == '131'");
+		$this->assertTrue($condition->test($entityData), " employees == '131'");
 		$condition = new VTEventCondition("employees == '127'");
-		$this->assertFalse($condition->test($entityData)," employees == '127'");
+		$this->assertFalse($condition->test($entityData), " employees == '127'");
 		$condition = new VTEventCondition("id == '740'");
-		$this->assertFalse($condition->test($entityData)," id == '74'");
+		$this->assertFalse($condition->test($entityData), " id == '74'");
 		$condition = new VTEventCondition("id == '74'");
-		$this->assertTrue($condition->test($entityData)," id == '74'");
+		$this->assertTrue($condition->test($entityData), " id == '74'");
 		$condition = new VTEventCondition("rating in ['Active','Acquired']");
-		$this->assertTrue($condition->test($entityData)," rating in ['Active','Acquired']");
+		$this->assertTrue($condition->test($entityData), " rating in ['Active','Acquired']");
 	}
-
 }
 ?>

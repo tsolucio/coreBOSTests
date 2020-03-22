@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -21,6 +21,7 @@
 include_once 'modules/MailManager/src/helpers/Utils.php';
 
 use PHPUnit\Framework\TestCase;
+
 class testMailManager_Utils extends TestCase {
 
 	/**
@@ -51,9 +52,9 @@ class testMailManager_Utils extends TestCase {
 	 * @test
 	 * @dataProvider allowedFileExtensionProvider
 	 */
-	public function testallowedFileExtension($input,$expected,$message) {
+	public function testallowedFileExtension($input, $expected, $message) {
 		$actual = MailManager_Utils::allowedFileExtension($input);
-		$this->assertEquals($expected, $actual,"testallowedFileExtension $message");
+		$this->assertEquals($expected, $actual, "testallowedFileExtension $message");
 	}
 
 	/**
@@ -64,7 +65,5 @@ class testMailManager_Utils extends TestCase {
 		// this test is all about php json encoding which is redundant with Webservice/OperationManagerEnDecode() test, so we don't repeat it here.
 		$this->assertTrue(true);
 	}
-
 }
-
 ?>

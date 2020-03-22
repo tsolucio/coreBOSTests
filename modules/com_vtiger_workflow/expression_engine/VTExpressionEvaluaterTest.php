@@ -48,7 +48,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 2
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -80,7 +80,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 2
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -117,7 +117,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 14
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -133,7 +133,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [0] => 14
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -150,7 +150,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [0] => today
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -174,7 +174,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 7
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -191,7 +191,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [0] => today
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -258,7 +258,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [4] => 03
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -288,7 +288,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => noreply@tsolucio.com
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -318,7 +318,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => noreply@tsolucio.com
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -346,7 +346,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => noreply@tsolucio.com
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -374,7 +374,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 131
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -408,7 +408,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [3] => 1
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -440,7 +440,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [3] => 1
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -465,7 +465,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] =>  |##| 
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -492,7 +492,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => Adipose 3 |##| Chronos |##| Earth
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -504,13 +504,13 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
 		$testexpression = "translate('LBL_LAST_VIEWED')";
 		$expectedresult = array(
-    0 => 'LBL_LAST_VIEWED',
-    1 => 'Array
+			0 => 'LBL_LAST_VIEWED',
+			1 => 'Array
 (
     [0] => LBL_LAST_VIEWED
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -546,7 +546,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [0] => June
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -573,7 +573,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -589,7 +589,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -605,7 +605,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -621,7 +621,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -637,7 +637,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -669,7 +669,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 1
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -692,7 +692,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 131
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -727,7 +727,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 117.9
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -752,7 +752,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 0.5
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -777,7 +777,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 0.5
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -838,7 +838,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => true,
 			5 => '0'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -891,7 +891,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => true,
 			5 => '0'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -944,7 +944,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => true,
 			5 => 'then'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -997,7 +997,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => true,
 			5 => 'then'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1050,7 +1050,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => false,
 			5 => 'else'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1103,7 +1103,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => true,
 			5 => 'then'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1156,7 +1156,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => true,
 			5 => 'then'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1209,7 +1209,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => false,
 			5 => 'else'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1285,7 +1285,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1352,7 +1352,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1404,7 +1404,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => false,
 			5 => '1'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1517,7 +1517,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 3
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1621,7 +1621,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 3
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1744,7 +1744,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => Chemex Labs Ltd
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1867,7 +1867,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => Chemex Labs Ltd
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -1990,7 +1990,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => 
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -2113,7 +2113,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => 
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -2236,7 +2236,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => 
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -2361,7 +2361,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [2] => 
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -2474,7 +2474,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 1
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -2578,7 +2578,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [1] => 1
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -2711,7 +2711,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			4 => true,
 			5 => 'accountname'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -2912,7 +2912,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			9 => true,
 			10 => 'bill_city'
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3154,7 +3154,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 ',
 			14 => true,
 			15 => 'ship_country',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3318,7 +3318,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			9 => true,
 			10 => '1',
 			4 => false,
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3479,24 +3479,24 @@ class VTExpressionEvaluaterTest extends TestCase {
 
 )
 ',
-	9 => false,
-	10 => '1',
-	4 => false,
-	11 => '4',
-	12 => '5',
-	13 => 'Array
+			9 => false,
+			10 => '1',
+			4 => false,
+			11 => '4',
+			12 => '5',
+			13 => 'Array
 (
     [0] => 4
     [1] => 5
 )
 ',
-	14 => 'Array
+			14 => 'Array
 (
     [0] => 1
     [1] => -1
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3612,7 +3612,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3720,13 +3720,13 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-    10 => 'Array
+			10 => 'Array
 (
     [0] => +
     [1] => 03-3608-5660
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3749,7 +3749,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 (
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3762,7 +3762,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 (
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3802,7 +3802,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3818,7 +3818,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3834,7 +3834,7 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3859,12 +3859,12 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-            1 => 'Array
+			1 => 'Array
 (
     [0] => Rowley Schlimgen Inc
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3880,12 +3880,12 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-            1 => 'Array
+			1 => 'Array
 (
     [0] => Analyst
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3901,29 +3901,29 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-            1 => 'Array
+			1 => 'Array
 (
     [0] => Rowley Schlimgen Inc
 )
 ',
-            2 => 'VTExpressionSymbol Object
+			2 => 'VTExpressionSymbol Object
 (
     [value] => $(account_id : (Accounts) bill_code)
     [type] => string
 )
 ',
-            3 => 'Array
+			3 => 'Array
 (
     [0] => 94104
 )
 ',
-            4 => 'Array
+			4 => 'Array
 (
     [0] => 1
     [1] => 1
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3939,29 +3939,29 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-            1 => 'Array
+			1 => 'Array
 (
     [0] => Rowley Schlimgen Inc
 )
 ',
-            2 => 'VTExpressionSymbol Object
+			2 => 'VTExpressionSymbol Object
 (
     [value] => $(account_id : (Accounts) accounttype)
     [type] => string
 )
 ',
-            3 => 'Array
+			3 => 'Array
 (
     [0] => Analyst
 )
 ',
-            4 => 'Array
+			4 => 'Array
 (
     [0] => 1
     [1] => 
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
@@ -3977,17 +3977,17 @@ class VTExpressionEvaluaterTest extends TestCase {
     [type] => string
 )
 ',
-            1 => 'Array
+			1 => 'Array
 (
     [0] => Rowley Schlimgen Inc
 )
 ',
-            2 => 'Array
+			2 => 'Array
 (
     [0] => 1
 )
 '
-);
+		);
 		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
 		$expression = $parser->expression();
 		$exprEvaluater = new VTFieldExpressionEvaluater($expression);

@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -19,20 +19,21 @@
  *************************************************************************************************/
 
 use PHPUnit\Framework\TestCase;
+
 class testRecurringType extends TestCase {
 
-	var $monday = 1;
-	var $tuesday = 2;
-	var $wednesday = 3;
-	var $thursday = 4;
-	var $friday = 5;
-	var $saturday = 6;
-	var $sunday = 7;
-	var $first = 1;
-	var $second = 2;
-	var $third = 3;
-	var $last = 4;
-	var $stubRT = array(
+	private $monday = 1;
+	private $tuesday = 2;
+	private $wednesday = 3;
+	private $thursday = 4;
+	private $friday = 5;
+	private $saturday = 6;
+	private $sunday = 7;
+	private $first = 1;
+	private $second = 2;
+	private $third = 3;
+	private $last = 4;
+	private $stubRT = array(
 					'date_start' => '2016-05-05',
 					'due_date' => '2016-09-09',
 					'time_start' => '15:00',
@@ -99,7 +100,7 @@ class testRecurringType extends TestCase {
 	 * @dataProvider getFistdayofmonthProvider
 	 * @test
 	 */
-	public function testgetFistdayofmonth($date2use,$dow,$expected,$msg) {
+	public function testgetFistdayofmonth($date2use, $dow, $expected, $msg) {
 		$actual = $this->rtobj->getFistdayofmonth($dow, $this->dateObj[$date2use]);
 		$this->assertEquals($expected, $actual->get_Date(), "testgetFistdayofmonth $msg of date ($date2use)");
 	}
@@ -146,7 +147,7 @@ class testRecurringType extends TestCase {
 	 * @dataProvider getLastdayofmonthProvider
 	 * @test
 	 */
-	public function testgetLastdayofmonth($date2use,$dow,$expected,$msg) {
+	public function testgetLastdayofmonth($date2use, $dow, $expected, $msg) {
 		$actual = $this->rtobj->getLastdayofmonth($dow, $this->dateObj[$date2use]);
 		$this->assertEquals($expected, $actual->get_Date(), "testgetLastdayofmonth $msg of date ($date2use)");
 	}
@@ -221,7 +222,7 @@ class testRecurringType extends TestCase {
 	 * @dataProvider getDayOfWeekPerWeekPositionInMonthProvider
 	 * @test
 	 */
-	public function testgetDayOfWeekPerWeekPositionInMonth($date2use,$dow,$position,$expected,$msg) {
+	public function testgetDayOfWeekPerWeekPositionInMonth($date2use, $dow, $position, $expected, $msg) {
 		$actual = $this->rtobj->getDayOfWeekPerWeekPositionInMonth($dow, $this->dateObj[$date2use]->getYear(), $this->dateObj[$date2use]->getMonth(), $position);
 		$this->assertEquals($expected, $actual, "testgetDayOfWeekPerWeekPositionInMonth $msg of date ($date2use)");
 	}
@@ -265,7 +266,7 @@ class testRecurringType extends TestCase {
 	 *   repeat_frequency [1-14]
 	 * return $recurObj - Object of class RecurringType
 	 */
-	function getrecurringObjValue($rtsetup) {
+	public function getrecurringObjValue($rtsetup) {
 		$recurring_data = array();
 		$startDate = $rtsetup['date_start'];
 		if (!empty($rtsetup['calendar_repeat_limit_date'])) {
@@ -283,63 +284,69 @@ class testRecurringType extends TestCase {
 
 		$recurring_data['type'] = $rtsetup['recurringtype'];
 		if ($rtsetup['recurringtype'] == 'Weekly') {
-			if (isset($rtsetup['sun_flag']) && $rtsetup['sun_flag'] != null)
+			if (isset($rtsetup['sun_flag']) && $rtsetup['sun_flag'] != null) {
 				$recurring_data['sun_flag'] = true;
-			if (isset($rtsetup['mon_flag']) && $rtsetup['mon_flag'] != null)
-				$recurring_data['mon_flag'] = true;
-			if (isset($rtsetup['tue_flag']) && $rtsetup['tue_flag'] != null)
-				$recurring_data['tue_flag'] = true;
-			if (isset($rtsetup['wed_flag']) && $rtsetup['wed_flag'] != null)
-				$recurring_data['wed_flag'] = true;
-			if (isset($rtsetup['thu_flag']) && $rtsetup['thu_flag'] != null)
-				$recurring_data['thu_flag'] = true;
-			if (isset($rtsetup['fri_flag']) && $rtsetup['fri_flag'] != null)
-				$recurring_data['fri_flag'] = true;
-			if (isset($rtsetup['sat_flag']) && $rtsetup['sat_flag'] != null)
-				$recurring_data['sat_flag'] = true;
-		}
-		elseif ($rtsetup['recurringtype'] == 'Monthly') {
-			if (isset($rtsetup['repeatMonth']) && $rtsetup['repeatMonth'] != null)
-				$recurring_data['repeatmonth_type'] = $rtsetup['repeatMonth'];
-			if ($recurring_data['repeatmonth_type'] == 'date') {
-				if (isset($rtsetup['repeatMonth_date']) && $rtsetup['repeatMonth_date'] != null)
-					$recurring_data['repeatmonth_date'] = $rtsetup['repeatMonth_date'];
-				else
-					$recurring_data['repeatmonth_date'] = 1;
 			}
-			elseif ($recurring_data['repeatmonth_type'] == 'day') {
+			if (isset($rtsetup['mon_flag']) && $rtsetup['mon_flag'] != null) {
+				$recurring_data['mon_flag'] = true;
+			}
+			if (isset($rtsetup['tue_flag']) && $rtsetup['tue_flag'] != null) {
+				$recurring_data['tue_flag'] = true;
+			}
+			if (isset($rtsetup['wed_flag']) && $rtsetup['wed_flag'] != null) {
+				$recurring_data['wed_flag'] = true;
+			}
+			if (isset($rtsetup['thu_flag']) && $rtsetup['thu_flag'] != null) {
+				$recurring_data['thu_flag'] = true;
+			}
+			if (isset($rtsetup['fri_flag']) && $rtsetup['fri_flag'] != null) {
+				$recurring_data['fri_flag'] = true;
+			}
+			if (isset($rtsetup['sat_flag']) && $rtsetup['sat_flag'] != null) {
+				$recurring_data['sat_flag'] = true;
+			}
+		} elseif ($rtsetup['recurringtype'] == 'Monthly') {
+			if (isset($rtsetup['repeatMonth']) && $rtsetup['repeatMonth'] != null) {
+				$recurring_data['repeatmonth_type'] = $rtsetup['repeatMonth'];
+			}
+			if ($recurring_data['repeatmonth_type'] == 'date') {
+				if (isset($rtsetup['repeatMonth_date']) && $rtsetup['repeatMonth_date'] != null) {
+					$recurring_data['repeatmonth_date'] = $rtsetup['repeatMonth_date'];
+				} else {
+					$recurring_data['repeatmonth_date'] = 1;
+				}
+			} elseif ($recurring_data['repeatmonth_type'] == 'day') {
 				$recurring_data['repeatmonth_daytype'] = vtlib_purify($rtsetup['repeatMonth_daytype']);
 				$rdm = (isset($rtsetup['repeatMonth_day']) ? $rtsetup['repeatMonth_day'] : '');
 				switch ($rdm) {
-					case 0 :
+					case 0:
 						$recurring_data['sun_flag'] = true;
 						break;
-					case 1 :
+					case 1:
 						$recurring_data['mon_flag'] = true;
 						break;
-					case 2 :
+					case 2:
 						$recurring_data['tue_flag'] = true;
 						break;
-					case 3 :
+					case 3:
 						$recurring_data['wed_flag'] = true;
 						break;
-					case 4 :
+					case 4:
 						$recurring_data['thu_flag'] = true;
 						break;
-					case 5 :
+					case 5:
 						$recurring_data['fri_flag'] = true;
 						break;
-					case 6 :
+					case 6:
 						$recurring_data['sat_flag'] = true;
 						break;
 				}
 			}
 		}
-		if (isset($rtsetup['repeat_frequency']) && $rtsetup['repeat_frequency'] != null)
+		if (isset($rtsetup['repeat_frequency']) && $rtsetup['repeat_frequency'] != null) {
 			$recurring_data['repeat_frequency'] = $rtsetup['repeat_frequency'];
-
+		}
 		$recurObj = RecurringType::fromUserRequest($recurring_data);
 		return $recurObj;
 	}
-
 }

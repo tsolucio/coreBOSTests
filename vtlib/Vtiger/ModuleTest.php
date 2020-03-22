@@ -7,10 +7,10 @@
  * including without limitation the rights to use, copy, modify, merge, publish, distribute,
  * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all copies or
  * substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
  * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
  * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
@@ -18,6 +18,7 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
+
 class vtlibModuleTest extends TestCase {
 
 	/**
@@ -26,13 +27,12 @@ class vtlibModuleTest extends TestCase {
 	 */
 	public function testInstantiate() {
 		$module = VTiger_Module::getInstance('Accounts');
-		$this->assertInstanceOf(VTiger_Module::class, $module, "testConstruct class VTiger_Module");
+		$this->assertInstanceOf(VTiger_Module::class, $module, 'testConstruct class VTiger_Module');
 		$this->assertEquals(6, $module->id);
 		$module = VTiger_Module::getInstance('Contacts');
 		$this->assertEquals(4, $module->id);
 		$module = VTiger_Module::getInstance('Potentials');
 		$this->assertEquals(2, $module->id);
 	}
-
 }
 ?>

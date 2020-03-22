@@ -246,7 +246,7 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 		$actual = getUserslist(false);
 		$expected = '<option value=1> Administrator</option><option value=11>nocreate cbTest</option><option value=5>cbTest testdmy</option><option value=8>cbTest testes</option><option value=12>cbTest testmcurrency</option><option value=6>cbTest testmdy</option><option value=10>cbTest testtz</option><option value=13>cbTest testtz-3</option><option value=7>cbTest testymd</option>';
 		$this->assertEquals($expected, $actual, 'getUserslist admin false');
-		$actual = getUserslist(true,5);
+		$actual = getUserslist(true, 5);
 		$expected = '<option value=1 > Administrator</option><option value=11 >nocreate cbTest</option><option value=5 selected>cbTest testdmy</option><option value=8 >cbTest testes</option><option value=12 >cbTest testmcurrency</option><option value=6 >cbTest testmdy</option><option value=10 >cbTest testtz</option><option value=13 >cbTest testtz-3</option><option value=7 >cbTest testymd</option>';
 		$this->assertEquals($expected, $actual, 'getUserslist admin false');
 		$current_user = $hold_user;
@@ -523,9 +523,9 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	 * @dataProvider getrecurringObjValueProvidor
 	 */
 	public function testgetrecurringObjValue(
-		$recurringtype, $date_start, $calendar_repeat_limit_date, $due_date,$time_start, $time_end,
+		$recurringtype, $date_start, $calendar_repeat_limit_date, $due_date, $time_start, $time_end,
 		$sun_flag, $mon_flag, $tue_flag, $wed_flag, $thu_flag, $fri_flag, $sat_flag, $repeatMonth,
-		$repeatMonth_date, $repeatmonth_daytype, $repeatMonth_day, $repeat_frequency, $expected,$msg
+		$repeatMonth_date, $repeatmonth_daytype, $repeatMonth_day, $repeat_frequency, $expected, $msg
 	) {
 		$_REQUEST['recurringtype'] = $recurringtype;
 		$_REQUEST['date_start'] = $date_start;
