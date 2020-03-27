@@ -1386,4 +1386,100 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	public function testgetUItypeByFieldName($module, $fieldname, $expected) {
 		$this->assertEquals($expected, getUItypeByFieldName($module, $fieldname), "getUItypeByFieldName $module, $fieldname");
 	}
+
+	/**
+	 * Method readableBytesProvider
+	 * params
+	 */
+	public function readableBytesProvider() {
+		return array(
+			array(1, '', '1B'),
+			array(1, 'B', '1B'),
+			array(1024, 'KB', '1KB'),
+			array(1048576.0, 'MB', '1MB'),
+			array(1073741824.0, 'GB', '1GB'),
+			array(1099511627776.0, 'TB', '1TB'),
+			array(1.1258999068426e15, 'PB', '1PB'),
+			array(1.1529215046068e18, 'EB', '1EB'),
+			array(1.1805916207174e21, 'ZB', '1ZB'),
+			array(1.2089258196146e24, 'YB', '1YB'),
+			array(20, '', '20B'),
+			array(20, 'B', '20B'),
+			array(20480, 'KB', '20KB'),
+			array(20971520, 'MB', '20MB'),
+			array(21474836480, 'GB', '20GB'),
+			array(21990232555520, 'TB', '20TB'),
+			array(2.2517998136852e16, 'PB', '20PB'),
+			array(2.3058430092137e19, 'EB', '20EB'),
+			array(2.3611832414348e22, 'ZB', '20ZB'),
+			array(2.4178516392293e25, 'YB', '20YB'),
+			array(100, '', '100B'),
+			array(100, 'B', '100B'),
+			array(102400.0, 'KB', '100KB'),
+			array(104857600.0, 'MB', '100MB'),
+			array(107374182400.0, 'GB', '100GB'),
+			array(1.099511627776e14, 'TB', '100TB'),
+			array(1.1258999068426e17, 'PB', '100PB'),
+			array(1.1529215046068e20, 'EB', '100EB'),
+			array(1.1805916207174e23, 'ZB', '100ZB'),
+			array(1.2089258196146e26, 'YB', '100YB'),
+		);
+	}
+
+	/**
+	 * Method testreadableBytes
+	 * @test
+	 * @dataProvider readableBytesProvider
+	 */
+	public function testreadableBytes($bytes, $format, $e) {
+		$this->assertEquals($e, readableBytes($bytes, $format), "readableBytes $bytes , $format");
+	}
+
+	/**
+	 * Method numberBytesProvider
+	 * params
+	 */
+	public function numberBytesProvider() {
+		return array(
+			array('1', '1'),
+			array('1b', '1'),
+			array('1k', '1024'),
+			array('1m', '1048576.0'),
+			array('1g', '1073741824.0'),
+			array('1t', '1099511627776.0'),
+			array('1p', '1.1258999068426E+15'),
+			array('1e', '1.1529215046068E+18'),
+			array('1z', '1.1805916207174E+21'),
+			array('1y', '1.2089258196146E+24'),
+			array('20', '20'),
+			array('20b', '20'),
+			array('20k', '20480'),
+			array('20m', '20971520'),
+			array('20g', '21474836480'),
+			array('20t', '21990232555520'),
+			array('20p', '2.2517998136852E+16'),
+			array('20e', '2.3058430092137E+19'),
+			array('20z', '2.3611832414348E+22'),
+			array('20y', '2.4178516392293E+25'),
+			array('100', '100'),
+			array('100b', '100'),
+			array('100k', '102400.0'),
+			array('100m', '104857600.0'),
+			array('100g', '107374182400.0'),
+			array('100t', '1.099511627776E+14'),
+			array('100p', '1.1258999068426E+17'),
+			array('100e', '1.1529215046068E+20'),
+			array('100z', '1.1805916207174E+23'),
+			array('100y', '1.2089258196146E+26'),
+		);
+	}
+
+	/**
+	 * Method testnumberBytes
+	 * @test
+	 * @dataProvider numberBytesProvider
+	 */
+	public function testnumberBytes($size, $e) {
+		$this->assertEquals($e, (string)numberBytes($size), "numberBytes $size");
+	}
 }
