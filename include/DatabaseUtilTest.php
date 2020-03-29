@@ -246,4 +246,112 @@ class testDatabaseUtil extends TestCase {
 		$rs = $adb->query($mksql);
 		$this->assertTrue($rs !== false);
 	}
+
+
+	/**
+	 * Method stripTailCommandsFromQueryProvider
+	 */
+	public function stripTailCommandsFromQueryProvider() {
+		return array(
+			array(
+				'select * from vtiger_accounts where accountname like "%t%"',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" limit 1',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" limit 1,1',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" order by 1',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" order by 1 limit 1',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname limit 1',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname order by 1',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname order by 1 limit 1',
+				true,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%"',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" limit 1',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" limit 1,1',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" order by 1',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" order by 1 limit 1',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%"',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname limit 1',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname order by 1',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname',
+			),
+			array(
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname order by 1 limit 1',
+				false,
+				'select * from vtiger_accounts where accountname like "%t%" group by accountname',
+			),
+		);
+	}
+
+	/**
+	 * Method teststripTailCommandsFromQuery
+	 * @test
+	 * @dataProvider stripTailCommandsFromQueryProvider
+	 */
+	public function teststripTailCommandsFromQuery($query, $groupby, $expected) {
+		$this->assertEquals($expected, stripTailCommandsFromQuery($query, $groupby));
+	}
 }
