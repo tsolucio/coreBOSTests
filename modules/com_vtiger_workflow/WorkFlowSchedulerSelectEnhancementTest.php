@@ -659,6 +659,62 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 	}
 
 	/**
+	 * Method testgetEntityType
+	 * @test
+	 */
+	public function testgetEntityType() {
+		global $adb;
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Potentials';
+		$wfvals['test'] = '';
+		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getEntityType(related_to)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT (select setype from vtiger_crmentity where vtiger_crmentity.crmid=vtiger_potential.related_to) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getEntityType(id)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT (select setype from vtiger_crmentity where vtiger_crmentity.crmid=0) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getEntityType(nonexistentfield)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT (select setype from vtiger_crmentity where vtiger_crmentity.crmid=nonexistentfield) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * Method testgetSetting
+	 * @test
+	 */
+	public function testgetSetting() {
+		global $adb;
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Potentials';
+		$wfvals['test'] = '';
+		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getSetting(\'setkey\',\'default value\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT coalesce((select setting_value from cb_settings where setting_key=\'setkey\'), "default value") AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getSetting(\'cbodLastLoginTime1\',\'default value\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT coalesce((select setting_value from cb_settings where setting_key=\'cbodLastLoginTime1\'), "default value") AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getSetting(\'nonexistentkey\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT coalesce((select setting_value from cb_settings where setting_key=\'nonexistentkey\'), "") AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
 	 * Method testWorkFlowNoConditions
 	 * @test
 	 */
