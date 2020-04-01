@@ -2120,4 +2120,33 @@ class testutils extends TestCase {
 	public function testgetModuleSequenceField($module, $expected) {
 		$this->assertEquals($expected, getModuleSequenceField($module), 'getModuleSequenceField '.$module);
 	}
-}
+
+	/**
+	 * Method getTableNameForFieldProvider
+	 * params
+	 */
+	public function getTableNameForFieldProvider() {
+		return array(
+			array('Assets', 'asset_no', 'vtiger_assets'),
+			array('Accounts', 'account_no', 'vtiger_account'),
+			array('Accounts', 'ship_city', 'vtiger_accountshipads'),
+			array('HelpDesk', 'title', 'vtiger_troubletickets'),
+			array('HelpDesk', 'ticket_no', 'vtiger_troubletickets'),
+			array('cbupdater', 'cbupd_no', 'vtiger_cbupdater'),
+			array('cbupdater', 'InexistentField', ''),
+			array('Calendar', null, ''),
+			array('cbCalendar', null, ''),
+			array('InexistentModule', null, ''),
+			array('', null, ''),
+			array('EtiquetasOO', null, ''),
+		);
+	}
+
+	/**
+	 * Method testgetTableNameForField
+	 * @test
+	 * @dataProvider getTableNameForFieldProvider
+	 */
+	public function testgetTableNameForField($module, $fieldname, $expected) {
+		$this->assertEquals($expected, getTableNameForField($module, $fieldname), "getTableNameForField $module, $fieldname");
+	}}
