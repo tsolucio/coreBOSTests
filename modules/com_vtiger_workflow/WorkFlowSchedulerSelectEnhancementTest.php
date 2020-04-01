@@ -194,6 +194,21 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflowScheduler = new WorkFlowScheduler($adb);
 		$workflow = new Workflow();
 		$wfvals = $this->defaultWF;
+		//////////////////////
+		$wfvals['module_name'] = 'Potentials';
+		$wfvals['test'] = '';
+		$wfvals['select_expressions'] = '[{"fieldname":"related_to : (Accounts) accountname","operation":"is","value":"Accounts.accountname","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_accountrelated_to.accountname as accountsaccountname FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountrelated_to ON vtiger_accountrelated_to.accountid=vtiger_potential.related_to  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0";
+		$this->assertEquals($expected, $actual);
+		//////////////////////
+		$wfvals['select_expressions'] = '[{"fieldname":"related_to","operation":"is","value":"related_to","valuetype":"fieldname","joincondition":"and","groupid":0,"groupjoin":""},{"fieldname":"related_to : (Accounts) accountname","operation":"is","value":"Accounts.accountname","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_potential.related_to,vtiger_accountrelated_to.accountname as accountsaccountname FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_account  ON vtiger_potential.related_to = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_potential.related_to = vtiger_contactdetails.contactid LEFT JOIN vtiger_account AS vtiger_accountrelated_to ON vtiger_accountrelated_to.accountid=vtiger_potential.related_to  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0";
+		$this->assertEquals($expected, $actual);
+		//////////////////////
 		$wfvals['module_name'] = 'Contacts';
 		//////////////////////
 		$wfvals['test'] = '[{"fieldname":"account_id : (Accounts) accountname","operation":"starts with","value":"Chemex","valuetype":"raw","joincondition":"and","groupid":"0"}]';
