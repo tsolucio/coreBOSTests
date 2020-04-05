@@ -228,12 +228,54 @@ class testutils extends TestCase {
 	}
 
 	/**
+	 * Method getEmailFieldIdProvider
+	 * params
+	 */
+	public function getEmailFieldIdProvider() {
+		return array(
+			array('11x74', 9),
+			array('12x1084', 80),
+			array('19x5', 482),
+			array('13x5161', 676),
+			array('33x6377', 674),
+			array('17x2642', 677),
+			array('11x10074', 9), // should fail but since it only looks for module, it find one
+			array('29x4062', ''), // no email on this module
+			//array('290000x4062', ''), // inexistent module > throws exception, tested in testgetEmailFieldIdExceptionNoModule
+		);
+	}
+
+	/**
+	 * Method testgetEmailFieldId
+	 * @test
+	 * @dataProvider getEmailFieldIdProvider
+	 */
+	public function testgetEmailFieldId($crmid, $expected) {
+		global $current_user;
+		$referenceHandler = vtws_getModuleHandlerFromId($crmid, $current_user);
+		$referenceMeta = $referenceHandler->getMeta();
+		$this->assertEquals($expected, getEmailFieldId($referenceMeta, $crmid), 'getEmailFieldId');
+	}
+
+	/**
+	 * Method testgetEmailFieldIdExceptionNoModule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testgetEmailFieldIdExceptionNoModule() {
+		global $current_user;
+		$referenceHandler = vtws_getModuleHandlerFromId('290000x4062', $current_user);
+		$referenceHandler->getMeta();
+	}
+
+	/**
 	 * Method testgetModuleForField
 	 * @test
 	 */
 	public function testgetModuleForField() {
 		$this->assertEquals('Calendar', getModuleForField(254), 'Calendar Field');
 		$this->assertEquals('Contacts', getModuleForField(100), 'Contact Field');
+		$this->assertEquals('Accounts', getModuleForField(9), 'Account Field');
 		$this->assertEquals('Users', getModuleForField(482), 'Users Email Field');
 		$this->assertEquals('Users', getModuleForField(-1), 'Users Email Address specification');
 	}
