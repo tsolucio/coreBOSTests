@@ -145,6 +145,48 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_accountscf.cf_722, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_account vtiger_accountaccount_id  ON vtiger_account.parentid = vtiger_accountaccount_id.accountid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.website IS NOT NULL)  and ( trim(vtiger_accountaccount_id.accountname) IS NULL)  AND vtiger_account.accountid > 0");
 	}
 
+	public function testEqualsOwnerId() {
+		global $current_user,$adb;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('accountname', 'assigned_user_id', 'id'));
+		$queryGenerator->addCondition('assigned_user_id', 'null', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) IS NULL and vtiger_groups.groupname IS NULL))  AND vtiger_account.accountid > 0");
+
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('accountname', 'assigned_user_id', 'id'));
+		$queryGenerator->addCondition('assigned_user_id', '', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) IS NULL and vtiger_groups.groupname IS NULL))  AND vtiger_account.accountid > 0");
+
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('accountname', 'assigned_user_id', 'id'));
+		$queryGenerator->addCondition('assigned_user_id', '', 'e');
+		$queryGenerator->addCondition('accountname', 'ch', 'c', 'and');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) IS NULL and vtiger_groups.groupname IS NULL))  and ( vtiger_account.accountname LIKE '%ch%')  AND vtiger_account.accountid > 0");
+
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('accountname', 'assigned_user_id', 'id'));
+		$queryGenerator->addCondition('assigned_user_id', '', 'e');
+		$queryGenerator->addCondition('assigned_user_id', 'Administrator', 'e', 'or'); //current_user
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) IS NULL and vtiger_groups.groupname IS NULL))  or ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'Administrator' or vtiger_groups.groupname = 'Administrator'))  AND vtiger_account.accountid > 0");
+
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('accountname', 'assigned_user_id', 'id'));
+		$queryGenerator->addCondition('assigned_user_id', '', 'e');
+		$queryGenerator->addCondition('assigned_user_id', 'Administrator', 'e', 'or'); //current_user
+		$queryGenerator->addCondition('accountname', 'Hy Cite Corp', 'e', 'and');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) IS NULL and vtiger_groups.groupname IS NULL))  or ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'Administrator' or vtiger_groups.groupname = 'Administrator'))  and ( vtiger_account.accountname = 'Hy Cite Corp')  AND vtiger_account.accountid > 0");
+	}
+
 	public function testQueryWithCustomField() {
 		global $current_user,$adb;
 		$cnacc=$adb->getColumnNames('vtiger_accountscf');
