@@ -445,6 +445,13 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 				'http://myurl.tld/index.php?accountname=Chemex+Labs+Ltd',
 				'Accounts with URL and name'
 			),
+			array(
+				'http://myurl.tld/index.php?accountname=$accounts-accountname$&hasequal=has=equal',
+				74,
+				'Accounts',
+				'http://myurl.tld/index.php?accountname=Chemex+Labs+Ltd&hasequal=has%3Dequal',
+				'Accounts with URL, parameter with equal sign and name'
+			),
 			array('Description $leads-firstname$', 4260, 'Leads','Description Timothy', 'Lead name alone'),
 		);
 	}
