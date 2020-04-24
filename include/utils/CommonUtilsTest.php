@@ -459,6 +459,17 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	}
 
 	/**
+	 * Method testgetSingleFieldValue
+	 * @test
+	 */
+	public function testgetSingleFieldValue() {
+		$this->assertEquals(74, getSingleFieldValue('vtiger_account', 'accountid', 'accountid', 74), 'ID field itself');
+		$this->assertEquals('Chemex Labs Ltd', getSingleFieldValue('vtiger_account', 'accountname', 'accountid', 74), 'Name field');
+		$this->assertEquals('2015-11-16', getSingleFieldValue('vtiger_assets', 'datesold', 'assetsid', 4068), 'asset field');
+		$this->assertEquals('GlobalVariable', getSingleFieldValue('vtiger_audit_trial', 'module', 'auditid', 12), 'audit trail field');
+	}
+
+	/**
 	 * Method testgetReturnPathProvidor
 	 * params
 	 */
