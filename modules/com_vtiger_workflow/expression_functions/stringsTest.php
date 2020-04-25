@@ -116,5 +116,26 @@ class workflowfunctionsstringsTest extends TestCase {
 		$actual = __cb_coalesce(array('0',null,'default'));
 		$this->assertEquals('default', $actual);
 	}
+
+	/**
+	 * Method testhash
+	 * @test
+	 */
+	public function testhash() {
+		$actual = __cb_hash(array('2017-06-20 11:30:30','invalid algo'));
+		$this->assertEquals(sha1('2017-06-20 11:30:30'), $actual);
+		$actual = __cb_hash(array('','invalid algo','invalid array'));
+		$this->assertEquals(-1, $actual);
+		$actual = __cb_hash(array());
+		$this->assertEquals(-1, $actual);
+		$actual = __cb_hash(array('2017-06-20 11:30:30'));
+		$this->assertEquals(sha1('2017-06-20 11:30:30'), $actual);
+		$actual = __cb_hash(array('2017-06-20 11:30:30', 'sha1'));
+		$this->assertEquals(sha1('2017-06-20 11:30:30'), $actual);
+		$actual = __cb_hash(array('2017-06-20 11:30:30', 'crc32'));
+		$this->assertEquals(hash('crc32', '2017-06-20 11:30:30'), $actual);
+		$actual = __cb_hash(array('2017-06-20 11:30:30', 'md5'));
+		$this->assertEquals(md5('2017-06-20 11:30:30'), $actual);
+	}
 }
 ?>

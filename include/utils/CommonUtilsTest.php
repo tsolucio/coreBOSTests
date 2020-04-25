@@ -391,6 +391,92 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	}
 
 	/**
+	 * Method getMergedDescriptionForURLProvidor
+	 * params
+	 */
+	public function getMergedDescriptionForURLProvidor() {
+		return array(
+			array(
+				'http://myurl.tld/index.php?&shippingmethod=$assets-shippingmethod$&datesold=$assets-datesold$&assetname=$assets-assetname$&accountname=$accounts-accountname$',
+				4068,
+				'Assets',
+				'http://myurl.tld/index.php?shippingmethod=&datesold=2015-11-16&assetname=Central+Hrdwr+%26+Elec+Corp+%3A%3A+Professional+USB+Factory+Logo+Printed+Colorful+Bracelet+USB+Flash+Drive&accountname=Central+Hrdwr+%26+Elec+Corp',
+				'Assets and Account with ampersand'
+			),
+			array(
+				'http://myurl.tld/index.php',
+				4068,
+				'Assets',
+				'http://myurl.tld/index.php',
+				'Assets with URL'
+			),
+			array(
+				'http://myurl.tld',
+				4068,
+				'Assets',
+				'http://myurl.tld',
+				'Assets with URL no path'
+			),
+			array(
+				'https://myurl.tld',
+				4068,
+				'Assets',
+				'https://myurl.tld',
+				'Assets with URL https'
+			),
+			array(
+				'file://myurl.tld',
+				4068,
+				'Assets',
+				'file://myurl.tld',
+				'Assets with URL file'
+			),
+			array(
+				'//myurl.tld',
+				4068,
+				'Assets',
+				'//myurl.tld',
+				'Assets with URL no scheme'
+			),
+			array(
+				'http://myurl.tld/index.php?accountname=$accounts-accountname$',
+				74,
+				'Accounts',
+				'http://myurl.tld/index.php?accountname=Chemex+Labs+Ltd',
+				'Accounts with URL and name'
+			),
+			array(
+				'http://myurl.tld/index.php?accountname=$accounts-accountname$&hasequal=has=equal',
+				74,
+				'Accounts',
+				'http://myurl.tld/index.php?accountname=Chemex+Labs+Ltd&hasequal=has%3Dequal',
+				'Accounts with URL, parameter with equal sign and name'
+			),
+			array('Description $leads-firstname$', 4260, 'Leads','Description Timothy', 'Lead name alone'),
+		);
+	}
+
+	/**
+	 * Method testgetMergedDescriptionForURL
+	 * @test
+	 * @dataProvider getMergedDescriptionForURLProvidor
+	 */
+	public function testgetMergedDescriptionForURL($url, $id, $parent_type, $expected, $msg) {
+		$this->assertEquals($expected, getMergedDescriptionForURL($url, $id, $parent_type), $msg);
+	}
+
+	/**
+	 * Method testgetSingleFieldValue
+	 * @test
+	 */
+	public function testgetSingleFieldValue() {
+		$this->assertEquals(74, getSingleFieldValue('vtiger_account', 'accountid', 'accountid', 74), 'ID field itself');
+		$this->assertEquals('Chemex Labs Ltd', getSingleFieldValue('vtiger_account', 'accountname', 'accountid', 74), 'Name field');
+		$this->assertEquals('2015-11-16', getSingleFieldValue('vtiger_assets', 'datesold', 'assetsid', 4068), 'asset field');
+		$this->assertEquals('GlobalVariable', getSingleFieldValue('vtiger_audit_trial', 'module', 'auditid', 12), 'audit trail field');
+	}
+
+	/**
 	 * Method testgetReturnPathProvidor
 	 * params
 	 */

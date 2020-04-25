@@ -145,6 +145,46 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_accountscf.cf_722, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_account vtiger_accountaccount_id  ON vtiger_account.parentid = vtiger_accountaccount_id.accountid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.website IS NOT NULL)  and ( trim(vtiger_accountaccount_id.accountname) IS NULL)  AND vtiger_account.accountid > 0");
 	}
 
+	public function testEmptyReferenceField() {
+		global $current_user,$adb;
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('lastname', 'assigned_user_id', 'account_id', 'id'));
+		$queryGenerator->addCondition('account_id', '', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_contactdetails.lastname, vtiger_crmentity.smownerid, vtiger_contactdetails.accountid, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_contactdetails.accountid = vtiger_account.accountid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname)  IS NULL OR trim(vtiger_account.accountname) = '')  AND vtiger_contactdetails.contactid > 0");
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('lastname', 'assigned_user_id', 'account_id', 'id'));
+		$queryGenerator->addCondition('account_id', 'null', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_contactdetails.lastname, vtiger_crmentity.smownerid, vtiger_contactdetails.accountid, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_contactdetails.accountid = vtiger_account.accountid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname) IS NULL)  AND vtiger_contactdetails.contactid > 0");
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('lastname', 'assigned_user_id', 'account_id', 'id'));
+		$queryGenerator->addCondition('account_id', 'null', 'e');
+		$queryGenerator->addCondition('account_id', 'Atrium Marketing Inc', 'e', 'or');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_contactdetails.lastname, vtiger_crmentity.smownerid, vtiger_contactdetails.accountid, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_contactdetails.accountid = vtiger_account.accountid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname) IS NULL)  or ( trim(vtiger_account.accountname) = 'Atrium Marketing Inc')  AND vtiger_contactdetails.contactid > 0");
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('lastname', 'assigned_user_id', 'account_id', 'id'));
+		$queryGenerator->addCondition('account_id', 'Atrium Marketing Inc', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_contactdetails.lastname, vtiger_crmentity.smownerid, vtiger_contactdetails.accountid, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_contactdetails.accountid = vtiger_account.accountid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname) = 'Atrium Marketing Inc')  AND vtiger_contactdetails.contactid > 0");
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('lastname', 'assigned_user_id', 'account_id', 'id'));
+		$queryGenerator->addCondition('account_id', '', 'e');
+		$queryGenerator->addCondition('account_id', 'Atrium Marketing Inc', 'e', 'or');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_contactdetails.lastname, vtiger_crmentity.smownerid, vtiger_contactdetails.accountid, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_contactdetails.accountid = vtiger_account.accountid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname)  IS NULL OR trim(vtiger_account.accountname) = '')  or ( trim(vtiger_account.accountname) = 'Atrium Marketing Inc')  AND vtiger_contactdetails.contactid > 0");		
+	}
+
 	public function testQueryWithCustomField() {
 		global $current_user,$adb;
 		$cnacc=$adb->getColumnNames('vtiger_accountscf');
