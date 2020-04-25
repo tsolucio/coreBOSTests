@@ -185,6 +185,68 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals($query, "SELECT vtiger_contactdetails.lastname, vtiger_crmentity.smownerid, vtiger_contactdetails.accountid, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_contactdetails.accountid = vtiger_account.accountid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname)  IS NULL OR trim(vtiger_account.accountname) = '')  or ( trim(vtiger_account.accountname) = 'Atrium Marketing Inc')  AND vtiger_contactdetails.contactid > 0");		
 	}
 
+	public function testQueryWithTwoRelatedModules() {
+		global $current_user,$adb;
+		$queryGenerator = new QueryGenerator('HelpDesk', $current_user);
+		$queryGenerator->setFields(array('assigned_user_id','ticket_no','parent_id', 'id'));
+		$queryGenerator->addCondition('parent_id', 'null', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_crmentity.smownerid, vtiger_troubletickets.ticket_no, vtiger_troubletickets.parent_id, vtiger_troubletickets.ticketid FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_troubletickets.parent_id = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_troubletickets.parent_id = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname) IS NULL AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) IS NULL)  AND vtiger_troubletickets.ticketid > 0");
+
+		$queryGenerator = new QueryGenerator('HelpDesk', $current_user);
+		$queryGenerator->setFields(array('assigned_user_id','ticket_no','parent_id', 'id'));
+		$queryGenerator->addCondition('parent_id', '', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_crmentity.smownerid, vtiger_troubletickets.ticket_no, vtiger_troubletickets.parent_id, vtiger_troubletickets.ticketid FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_troubletickets.parent_id = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_troubletickets.parent_id = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname)  IS NULL AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname))  IS NULL OR trim(vtiger_account.accountname) = '' AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) = '')  AND vtiger_troubletickets.ticketid > 0");
+
+		$queryGenerator = new QueryGenerator('HelpDesk', $current_user);
+		$queryGenerator->setFields(array('assigned_user_id','ticket_no','parent_id', 'id'));
+		$queryGenerator->addCondition('parent_id', '', 'e');
+		$queryGenerator->addCondition('parent_id', 'null', 'e', 'or');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_crmentity.smownerid, vtiger_troubletickets.ticket_no, vtiger_troubletickets.parent_id, vtiger_troubletickets.ticketid FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_troubletickets.parent_id = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_troubletickets.parent_id = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname)  IS NULL AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname))  IS NULL OR trim(vtiger_account.accountname) = '' AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) = '')  or ( trim(vtiger_account.accountname) IS NULL AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) IS NULL)  AND vtiger_troubletickets.ticketid > 0");
+
+		$queryGenerator = new QueryGenerator('HelpDesk', $current_user);
+		$queryGenerator->setFields(array('assigned_user_id','ticket_no','parent_id', 'id'));
+		$queryGenerator->addCondition('parent_id', 'null', 'e');
+		$queryGenerator->addCondition('assigned_user_id', 'cbTest testdmy', 'e', 'and');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_crmentity.smownerid, vtiger_troubletickets.ticket_no, vtiger_troubletickets.parent_id, vtiger_troubletickets.ticketid FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_troubletickets.parent_id = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_troubletickets.parent_id = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname) IS NULL AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) IS NULL)  and ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'cbTest testdmy' or vtiger_groups.groupname = 'cbTest testdmy'))  AND vtiger_troubletickets.ticketid > 0");
+
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('accountname','assigned_user_id','account_id', 'id'));
+		$queryGenerator->addCondition('account_id', 'null', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_account.parentid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account vtiger_accountaccount_id  ON vtiger_account.parentid = vtiger_accountaccount_id.accountid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_accountaccount_id.accountname) IS NULL)  AND vtiger_account.accountid > 0");	
+		$queryGenerator = new QueryGenerator('cbSurveyAnswer', $current_user);
+		$queryGenerator->setFields(array('cbsurveyanswer_no','assigned_user_id','relatedwith', 'id'));
+		$queryGenerator->addCondition('relatedwith', 'null', 'e');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_cbsurveyanswer.cbsurveyanswer_no, vtiger_crmentity.smownerid, vtiger_cbsurveyanswer.relatedwith, vtiger_cbsurveyanswer.cbsurveyanswerid FROM vtiger_cbsurveyanswer  INNER JOIN vtiger_crmentity ON vtiger_cbsurveyanswer.cbsurveyanswerid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_leaddetails  ON vtiger_cbsurveyanswer.relatedwith = vtiger_leaddetails.leadid LEFT JOIN vtiger_account  ON vtiger_cbsurveyanswer.relatedwith = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_cbsurveyanswer.relatedwith = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND ( trim(CONCAT(vtiger_leaddetails.firstname,' ',vtiger_leaddetails.lastname)) IS NULL AND trim(vtiger_account.accountname) IS NULL AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) IS NULL)  AND vtiger_cbsurveyanswer.cbsurveyanswerid > 0");
+
+		$queryGenerator = new QueryGenerator('cbSurveyAnswer', $current_user);
+		$queryGenerator->setFields(array('cbsurveyanswer_no','assigned_user_id','relatedwith', 'id'));
+		$queryGenerator->addCondition('relatedwith', 'null', 'e');
+		$queryGenerator->addCondition('cbsurveydone', '', 'e', 'and');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_cbsurveyanswer.cbsurveyanswer_no, vtiger_crmentity.smownerid, vtiger_cbsurveyanswer.relatedwith, vtiger_cbsurveyanswer.cbsurveyanswerid FROM vtiger_cbsurveyanswer  INNER JOIN vtiger_crmentity ON vtiger_cbsurveyanswer.cbsurveyanswerid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_leaddetails  ON vtiger_cbsurveyanswer.relatedwith = vtiger_leaddetails.leadid LEFT JOIN vtiger_account  ON vtiger_cbsurveyanswer.relatedwith = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_cbsurveyanswer.relatedwith = vtiger_contactdetails.contactid LEFT JOIN vtiger_cbsurveydone  ON vtiger_cbsurveyanswer.cbsurveydone = vtiger_cbsurveydone.cbsurveydoneid  WHERE vtiger_crmentity.deleted=0 AND ( trim(CONCAT(vtiger_leaddetails.firstname,' ',vtiger_leaddetails.lastname)) IS NULL AND trim(vtiger_account.accountname) IS NULL AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) IS NULL)  and ( trim(vtiger_cbsurveydone.cbsurveydone_no)  IS NULL OR trim(vtiger_cbsurveydone.cbsurveydone_no) = '')  AND vtiger_cbsurveyanswer.cbsurveyanswerid > 0");
+
+		$queryGenerator = new QueryGenerator('HelpDesk', $current_user);
+		$queryGenerator->setFields(array('assigned_user_id','ticket_no','parent_id', 'id'));
+		$queryGenerator->addCondition('parent_id', 'null', 'e');
+		$queryGenerator->addCondition('parent_id', 'Chemex Labs Ltd', 'e', 'or');
+		$query = $queryGenerator->getQuery();
+
+		$this->assertEquals($query, "SELECT vtiger_crmentity.smownerid, vtiger_troubletickets.ticket_no, vtiger_troubletickets.parent_id, vtiger_troubletickets.ticketid FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account  ON vtiger_troubletickets.parent_id = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_troubletickets.parent_id = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND ( trim(vtiger_account.accountname) IS NULL AND trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) IS NULL)  or ( trim(vtiger_account.accountname) = 'Chemex Labs Ltd' OR trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) = 'Chemex Labs Ltd')  AND vtiger_troubletickets.ticketid > 0");
+	}
+
 	public function testQueryWithCustomField() {
 		global $current_user,$adb;
 		$cnacc=$adb->getColumnNames('vtiger_accountscf');
