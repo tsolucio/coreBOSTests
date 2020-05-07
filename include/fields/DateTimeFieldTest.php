@@ -654,29 +654,54 @@ class tstDateTimeField extends TestCase {
 	 * @test
 	 */
 	public function testformatDatebaseTimeString() {
-		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('01:15', 24), 'normal 24 time lt 12');
-		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('1:15', 24), 'missing number 24 time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('13:15', 24), 'normal 24 time gt 12');
-		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('01:15', 'am'), 'normal am time');
-		$this->assertEquals('01:15', DateTimeField::formatDatebaseTimeString('1:15', 'am'), 'missing number am time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('01:15', 'pm'), 'normal pm time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('1:15', 'pm'), 'missing number pm time');
-		$this->assertEquals('00:15', DateTimeField::formatDatebaseTimeString('12:15', 'am'), 'normal am 12 time');
-		$this->assertEquals('12:15', DateTimeField::formatDatebaseTimeString('12:15', 'pm'), 'normal pm 12 time');
-		$this->assertEquals('13:15', DateTimeField::formatDatebaseTimeString('13:15', 'pm'), 'incorrect pm 13 time');
-		$this->assertEquals('23:15', DateTimeField::formatDatebaseTimeString('23:15', 'pm'), 'incorrect pm 23 time');
 		//////////////////
-		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 24), 'normal 24 time lt 12');
-		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 24), 'missing number 24 time');
-		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 13:15', 24), 'normal 24 time gt 12');
-		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 'am'), 'normal am time');
-		$this->assertEquals('2017-09-02 01:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 'am'), 'missing number am time');
-		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 'pm'), 'normal pm time');
-		$this->assertEquals('2017-09-02 13:15', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 'pm'), 'missing number pm time');
-		$this->assertEquals('2017-09-02 00:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'am'), 'normal am 12 time');
-		$this->assertEquals('2017-09-02 12:15', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'pm'), 'normal pm 12 time');
-		$this->assertEquals('2020-01-28 13:00', DateTimeField::formatDatebaseTimeString('2020-01-28 13:00:00', 'pm'), 'incorrect pm 13 time');
-		$this->assertEquals('2020-01-28 23:10', DateTimeField::formatDatebaseTimeString('2020-01-28 23:10:00', 'pm'), 'incorrect pm 23 time');
+		$this->assertEquals('01:15:00', DateTimeField::formatDatebaseTimeString('01:15', 24), 'normal 24 time lt 12');
+		$this->assertEquals('01:15:00', DateTimeField::formatDatebaseTimeString('1:15', 24), 'missing number 24 time');
+		$this->assertEquals('13:15:00', DateTimeField::formatDatebaseTimeString('13:15', 24), 'normal 24 time gt 12');
+		$this->assertEquals('01:15:00', DateTimeField::formatDatebaseTimeString('01:15', 'am'), 'normal am time');
+		$this->assertEquals('01:15:00', DateTimeField::formatDatebaseTimeString('1:15', 'am'), 'missing number am time');
+		$this->assertEquals('13:15:00', DateTimeField::formatDatebaseTimeString('01:15', 'pm'), 'normal pm time');
+		$this->assertEquals('13:15:00', DateTimeField::formatDatebaseTimeString('1:15', 'pm'), 'missing number pm time');
+		$this->assertEquals('00:15:00', DateTimeField::formatDatebaseTimeString('12:15', 'am'), 'normal am 12 time');
+		$this->assertEquals('12:15:00', DateTimeField::formatDatebaseTimeString('12:15', 'pm'), 'normal pm 12 time');
+		$this->assertEquals('13:15:00', DateTimeField::formatDatebaseTimeString('13:15', 'pm'), 'incorrect pm 13 time');
+		$this->assertEquals('23:15:00', DateTimeField::formatDatebaseTimeString('23:15', 'pm'), 'incorrect pm 23 time');
+		//////////////////
+		$this->assertEquals('01:15:35', DateTimeField::formatDatebaseTimeString('01:15:35', 24), 'normal 24 time lt 12');
+		$this->assertEquals('01:15:35', DateTimeField::formatDatebaseTimeString('1:15:35', 24), 'missing number 24 time');
+		$this->assertEquals('13:15:35', DateTimeField::formatDatebaseTimeString('13:15:35', 24), 'normal 24 time gt 12');
+		$this->assertEquals('01:15:35', DateTimeField::formatDatebaseTimeString('01:15:35', 'am'), 'normal am time');
+		$this->assertEquals('01:15:35', DateTimeField::formatDatebaseTimeString('1:15:35', 'am'), 'missing number am time');
+		$this->assertEquals('13:15:35', DateTimeField::formatDatebaseTimeString('01:15:35', 'pm'), 'normal pm time');
+		$this->assertEquals('13:15:35', DateTimeField::formatDatebaseTimeString('1:15:35', 'pm'), 'missing number pm time');
+		$this->assertEquals('00:15:35', DateTimeField::formatDatebaseTimeString('12:15:35', 'am'), 'normal am 12 time');
+		$this->assertEquals('12:15:35', DateTimeField::formatDatebaseTimeString('12:15:35', 'pm'), 'normal pm 12 time');
+		$this->assertEquals('13:15:35', DateTimeField::formatDatebaseTimeString('13:15:35', 'pm'), 'incorrect pm 13 time');
+		$this->assertEquals('23:15:35', DateTimeField::formatDatebaseTimeString('23:15:35', 'pm'), 'incorrect pm 23 time');
+		//////////////////
+		$this->assertEquals('2017-09-02 01:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 24), 'normal 24 time lt 12');
+		$this->assertEquals('2017-09-02 01:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 24), 'missing number 24 time');
+		$this->assertEquals('2017-09-02 13:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 13:15', 24), 'normal 24 time gt 12');
+		$this->assertEquals('2017-09-02 01:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 'am'), 'normal am time');
+		$this->assertEquals('2017-09-02 01:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 'am'), 'missing number am time');
+		$this->assertEquals('2017-09-02 13:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15', 'pm'), 'normal pm time');
+		$this->assertEquals('2017-09-02 13:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15', 'pm'), 'missing number pm time');
+		$this->assertEquals('2017-09-02 00:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'am'), 'normal am 12 time');
+		$this->assertEquals('2017-09-02 12:15:00', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15', 'pm'), 'normal pm 12 time');
+		$this->assertEquals('2020-01-28 13:00:00', DateTimeField::formatDatebaseTimeString('2020-01-28 13:00:00', 'pm'), 'incorrect pm 13 time');
+		$this->assertEquals('2020-01-28 23:10:00', DateTimeField::formatDatebaseTimeString('2020-01-28 23:10:00', 'pm'), 'incorrect pm 23 time');
+		//////////////////
+		$this->assertEquals('2017-09-02 01:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15:24', 24), 'normal 24 time lt 12');
+		$this->assertEquals('2017-09-02 01:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15:24', 24), 'missing number 24 time');
+		$this->assertEquals('2017-09-02 13:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 13:15:24', 24), 'normal 24 time gt 12');
+		$this->assertEquals('2017-09-02 01:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15:24', 'am'), 'normal am time');
+		$this->assertEquals('2017-09-02 01:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15:24', 'am'), 'missing number am time');
+		$this->assertEquals('2017-09-02 13:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 01:15:24', 'pm'), 'normal pm time');
+		$this->assertEquals('2017-09-02 13:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 1:15:24', 'pm'), 'missing number pm time');
+		$this->assertEquals('2017-09-02 00:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15:24', 'am'), 'normal am 12 time');
+		$this->assertEquals('2017-09-02 12:15:24', DateTimeField::formatDatebaseTimeString('2017-09-02 12:15:24', 'pm'), 'normal pm 12 time');
+		$this->assertEquals('2020-01-28 13:00:24', DateTimeField::formatDatebaseTimeString('2020-01-28 13:00:24:00', 'pm'), 'incorrect pm 13 time');
+		$this->assertEquals('2020-01-28 23:10:24', DateTimeField::formatDatebaseTimeString('2020-01-28 23:10:24:00', 'pm'), 'incorrect pm 23 time');
 	}
 
 	/**
