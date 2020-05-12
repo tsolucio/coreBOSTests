@@ -21,6 +21,26 @@ use PHPUnit\Framework\TestCase;
 
 class testCRMEntity extends TestCase {
 
+	/****
+	 * TEST Users
+	 ****/
+	public $testusers = array(
+		'usradmin' => 1,
+		'usrtestdmy' => 5,
+		'usrtestmdy' => 6,
+		'usrtestymd' => 7,
+		'usrtesttz' => 10,
+		'usrnocreate' => 11,
+		'usrtestmcurrency' => 12
+	);
+	public $profiles = array(
+		'1' => 'Administrator',
+		'2' => 'Sales Profile',
+		'3' => 'Support Profile',
+		'4' => 'Guest Profile',
+		'5' => 'NoCreate',
+		'6' => 'TestUserDefaultProfile',
+	);
 	public $testrecords = array(
 		'Potentials' => array(
 			'crmid' => 5138,
@@ -156,5 +176,206 @@ class testCRMEntity extends TestCase {
 		$this->assertEquals('', $actual, 'getUUIDfromWSID Empty');
 		$actual = CRMEntity::getWSIDfromUUID('');
 		$this->assertEquals('', $actual, 'getWSIDfromUUID Empty');
+	}
+
+	/**
+	 * Method getNonAdminAccessQueryProvider
+	 */
+	public function getNonAdminAccessQueryProvider() {
+		return array(
+			////////////
+			array('Accounts', $this->testusers['usrnocreate'], 'getfromuser', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::H6::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('cbMap', $this->testusers['usrnocreate'], 'getfromuser', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::H6::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('CustomerPortal', $this->testusers['usrnocreate'], 'getfromuser', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::H6::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('Portal', $this->testusers['usrnocreate'], 'getfromuser', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::H6::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('Rss', $this->testusers['usrnocreate'], 'getfromuser', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::H6::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('Accounts', $this->testusers['usrtestdmy'], 'getfromuser', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('cbMap', $this->testusers['usrtestdmy'], 'getfromuser', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('CustomerPortal', $this->testusers['usrtestdmy'], 'getfromuser', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('Portal', $this->testusers['usrtestdmy'], 'getfromuser', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('Rss', $this->testusers['usrtestdmy'], 'getfromuser', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('Accounts', $this->testusers['usradmin'], 'getfromuser', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like '::%')"),
+			array('cbMap', $this->testusers['usradmin'], 'getfromuser', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like '::%')"),
+			array('CustomerPortal', $this->testusers['usradmin'], 'getfromuser', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like '::%')"),
+			array('Portal', $this->testusers['usradmin'], 'getfromuser', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like '::%')"),
+			array('Rss', $this->testusers['usradmin'], 'getfromuser', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like '::%')"),
+			////////////
+			array('Accounts', $this->testusers['usrnocreate'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('cbMap', $this->testusers['usrnocreate'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('CustomerPortal', $this->testusers['usrnocreate'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('Portal', $this->testusers['usrnocreate'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('Rss', $this->testusers['usrnocreate'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))"),
+			array('Accounts', $this->testusers['usrtestdmy'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('cbMap', $this->testusers['usrtestdmy'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('CustomerPortal', $this->testusers['usrtestdmy'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('Portal', $this->testusers['usrtestdmy'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('Rss', $this->testusers['usrtestdmy'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))"),
+			array('Accounts', $this->testusers['usradmin'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%')"),
+			array('cbMap', $this->testusers['usradmin'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%')"),
+			array('CustomerPortal', $this->testusers['usradmin'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%')"),
+			array('Portal', $this->testusers['usradmin'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%')"),
+			array('Rss', $this->testusers['usradmin'], 'H1::H2::H3', 'getfromuser',
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%')"),
+			////////////
+			array('Accounts', $this->testusers['usrnocreate'], 'H1::H2::H3', array(2,4),
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('cbMap', $this->testusers['usrnocreate'], 'H1::H2::H3', array(2,4),
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('CustomerPortal', $this->testusers['usrnocreate'], 'H1::H2::H3', array(2,4),
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('Portal', $this->testusers['usrnocreate'], 'H1::H2::H3', array(2,4),
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('Rss', $this->testusers['usrnocreate'], 'H1::H2::H3', array(2,4),
+				"(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('Accounts', $this->testusers['usrtestdmy'], 'H1::H2::H3', array(2,4),
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('cbMap', $this->testusers['usrtestdmy'], 'H1::H2::H3', array(2,4),
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('CustomerPortal', $this->testusers['usrtestdmy'], 'H1::H2::H3', array(2,4),
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('Portal', $this->testusers['usrtestdmy'], 'H1::H2::H3', array(2,4),
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('Rss', $this->testusers['usrtestdmy'], 'H1::H2::H3', array(2,4),
+				"(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('Accounts', $this->testusers['usradmin'], 'H1::H2::H3', array(2,4),
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('cbMap', $this->testusers['usradmin'], 'H1::H2::H3', array(2,4),
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('CustomerPortal', $this->testusers['usradmin'], 'H1::H2::H3', array(2,4),
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('Portal', $this->testusers['usradmin'], 'H1::H2::H3', array(2,4),
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+			array('Rss', $this->testusers['usradmin'], 'H1::H2::H3', array(2,4),
+				"(SELECT 1 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (2,4))"),
+		);
+	}
+
+	/**
+	 * Method testgetNonAdminAccessQuery
+	 * @test
+	 * @dataProvider getNonAdminAccessQueryProvider
+	 */
+	public function testgetNonAdminAccessQuery($module, $userid, $parentRole, $userGroups, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$userprivs = $user->getPrivileges();
+		if ($parentRole=='getfromuser') {
+			$parentRole = $userprivs->getParentRoleSequence();
+		}
+		if ($userGroups=='getfromuser') {
+			$userGroups = $userprivs->getGroups();
+		}
+		$crmentity = CRMEntity::getInstance('Accounts');
+		$this->assertEquals($expected, $crmentity->getNonAdminAccessQuery($module, $user, $parentRole, $userGroups));
+		$current_user = $hold_user;
+	}
+
+	/**
+	 * Method testgetNonAdminUserAccessQuery
+	 * @test
+	 */
+	public function testgetNonAdminUserAccessQuery() {
+		$this->assertTrue(true, 'tested in testgetNonAdminAccessQuery');
+	}
+
+	/**
+	 * Method testgetNonAdminModuleAccessQuery
+	 * @test
+	 */
+	public function testgetNonAdminModuleAccessQuery() {
+		$this->assertTrue(true, 'tested in testgetNonAdminAccessQuery');
+	}
+
+	/**
+	 * Method testsetupTemporaryTable
+	 * @test
+	 */
+	public function testsetupTemporaryTable() {
+		$this->assertTrue(true, 'tested in testgetNonAdminAccessQuery');
+	}
+
+	/**
+	 * Method getNonAdminAccessControlQueryProvider
+	 */
+	public function getNonAdminAccessControlQueryProvider() {
+		return array(
+			array('Accounts', $this->testusers['usrnocreate'], '', ' '),
+			array('cbMap', $this->testusers['usrnocreate'], '', ' INNER JOIN vt_tmp_u11 vt_tmp_u11 ON vt_tmp_u11.id = vtiger_crmentity.smownerid '),
+			array('CustomerPortal', $this->testusers['usrnocreate'], '', ' '),
+			array('Portal', $this->testusers['usrnocreate'], '', ' '),
+			array('Rss', $this->testusers['usrnocreate'], '', ' '),
+			array('Accounts', $this->testusers['usrtestdmy'], '', ' '),
+			array('cbMap', $this->testusers['usrtestdmy'], '', ' INNER JOIN vt_tmp_u5 vt_tmp_u5 ON vt_tmp_u5.id = vtiger_crmentity.smownerid '),
+			array('CustomerPortal', $this->testusers['usrtestdmy'], '', ' '),
+			array('Portal', $this->testusers['usrtestdmy'], '', ' '),
+			array('Rss', $this->testusers['usrtestdmy'], '', ' '),
+			array('Accounts', $this->testusers['usradmin'], '', ' '),
+			array('cbMap', $this->testusers['usradmin'], '', ' '),
+			array('CustomerPortal', $this->testusers['usradmin'], '', ' '),
+			array('Portal', $this->testusers['usradmin'], '', ' '),
+			array('Rss', $this->testusers['usradmin'], '', ' '),
+			///////////////
+			array('Accounts', $this->testusers['usrnocreate'], 'scp', ' '),
+			array('cbMap', $this->testusers['usrnocreate'], 'scp', ' INNER JOIN vt_tmp_u11_t58 vt_tmp_u11_t58scp ON vt_tmp_u11_t58scp.id = vtiger_crmentityscp.smownerid '),
+			array('CustomerPortal', $this->testusers['usrnocreate'], 'scp', ' '),
+			array('Portal', $this->testusers['usrnocreate'], 'scp', ' '),
+			array('Rss', $this->testusers['usrnocreate'], 'scp', ' '),
+			array('Accounts', $this->testusers['usrtestdmy'], 'scp', ' '),
+			array('cbMap', $this->testusers['usrtestdmy'], 'scp', ' INNER JOIN vt_tmp_u5_t58 vt_tmp_u5_t58scp ON vt_tmp_u5_t58scp.id = vtiger_crmentityscp.smownerid '),
+			array('CustomerPortal', $this->testusers['usrtestdmy'], 'scp', ' '),
+			array('Portal', $this->testusers['usrtestdmy'], 'scp', ' '),
+			array('Rss', $this->testusers['usrtestdmy'], 'scp', ' '),
+			array('Accounts', $this->testusers['usradmin'], 'scp', ' '),
+			array('cbMap', $this->testusers['usradmin'], 'scp', ' '),
+			array('CustomerPortal', $this->testusers['usradmin'], 'scp', ' '),
+			array('Portal', $this->testusers['usradmin'], 'scp', ' '),
+			array('Rss', $this->testusers['usradmin'], 'scp', ' '),
+		);
+	}
+
+	/**
+	 * Method testgetNonAdminAccessControlQuery
+	 * @test
+	 * @dataProvider getNonAdminAccessControlQueryProvider
+	 */
+	public function testgetNonAdminAccessControlQuery($module, $userid, $scope, $expected) {
+		global $current_user;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$crmentity = CRMEntity::getInstance('Accounts');
+		$this->assertEquals($expected, $crmentity->getNonAdminAccessControlQuery($module, $user, $scope));
+		$current_user = $hold_user;
 	}
 }
