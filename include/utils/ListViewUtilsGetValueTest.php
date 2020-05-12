@@ -230,8 +230,21 @@ class testListViewUtilsGetValue extends TestCase {
 			counterValue(true);
 		}
 		$focus->popup_type=$popuptype;
+		unset($_SESSION['internal_mailer']);
+		$_REQUEST['action'] = 'x';
 		$actual = getValue($field_result, $list_result, $fieldname, $focus, $module, $entity_id, $list_result_count, $mode, $popuptype);
-		$this->assertEquals($expected, $actual, $msg);
+		if ($fieldname=='email1') {
+			$this->assertEquals('<a href="mailto:'.$expected.'">'.$expected.'</a>', $actual, $msg);
+			$_SESSION['internal_mailer'] = 1;
+			$actual = getValue($field_result, $list_result, $fieldname, $focus, $module, $entity_id, $list_result_count, $mode, $popuptype);
+			if (empty($popuptype)) {
+				$this->assertEquals('<a href="javascript:InternalMailer(92,9,\'email1\',\'Accounts\',\'record_id\');">'.$expected.'</a>', $actual, $msg);
+			} else {
+				$this->assertEquals($expected, $actual, $msg);
+			}
+		} else {
+			$this->assertEquals($expected, $actual, $msg);
+		}
 	}
 
 	/**

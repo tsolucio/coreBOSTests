@@ -28,13 +28,14 @@ class RunWebserviceWorkflowTaskTest extends TestCase {
 	 * params
 	 */
 	public function substituteSettingProvidor() {
+		$lastLogin = coreBOS_Settings::getSetting('cbodLastLoginTime1', '');
 		return array(
 			array('http://url.tld/1', 'http://url.tld/1'),
-			array('getSetting(cbodLastLoginTime1)', '1588852622'),
-			array('thingsinfrontgetSetting(cbodLastLoginTime1)', 'thingsinfront1588852622'),
-			array('getSetting(cbodLastLoginTime1)thingsinback', '1588852622thingsinback'),
-			array('thingsinfrontgetSetting(cbodLastLoginTime1)thingsinback', 'thingsinfront1588852622thingsinback'),
-			array('thi(ng)sinfrontgetSetting(cbodLastLoginTime1)thing(si)nback', 'thi(ng)sinfront1588852622thing(si)nback'),
+			array('getSetting(cbodLastLoginTime1)', $lastLogin),
+			array('thingsinfrontgetSetting(cbodLastLoginTime1)', 'thingsinfront'.$lastLogin),
+			array('getSetting(cbodLastLoginTime1)thingsinback', $lastLogin.'thingsinback'),
+			array('thingsinfrontgetSetting(cbodLastLoginTime1)thingsinback', 'thingsinfront'.$lastLogin.'thingsinback'),
+			array('thi(ng)sinfrontgetSetting(cbodLastLoginTime1)thing(si)nback', 'thi(ng)sinfront'.$lastLogin.'thing(si)nback'),
 		);
 	}
 

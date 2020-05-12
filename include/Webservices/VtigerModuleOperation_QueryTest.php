@@ -499,7 +499,7 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select * from Workflow;', $meta, $queryRelatedModules);
 		$this->assertEquals(
-			"SELECT com_vtiger_workflows.workflow_id,com_vtiger_workflows.module_name,com_vtiger_workflows.summary,com_vtiger_workflows.test,com_vtiger_workflows.execution_condition,com_vtiger_workflows.defaultworkflow,com_vtiger_workflows.type,com_vtiger_workflows.schtypeid,com_vtiger_workflows.schtime,com_vtiger_workflows.schdayofmonth,com_vtiger_workflows.schdayofweek,com_vtiger_workflows.schannualdates,com_vtiger_workflows.nexttrigger_time,com_vtiger_workflows.schminuteinterval,com_vtiger_workflows.purpose,com_vtiger_workflows.relatemodule,com_vtiger_workflows.workflow_id FROM com_vtiger_workflows   LIMIT 100;",
+			"SELECT com_vtiger_workflows.workflow_id,com_vtiger_workflows.module_name,com_vtiger_workflows.summary,com_vtiger_workflows.test,com_vtiger_workflows.execution_condition,com_vtiger_workflows.defaultworkflow,com_vtiger_workflows.type,com_vtiger_workflows.schtypeid,com_vtiger_workflows.schtime,com_vtiger_workflows.schdayofmonth,com_vtiger_workflows.schdayofweek,com_vtiger_workflows.schannualdates,com_vtiger_workflows.nexttrigger_time,com_vtiger_workflows.schminuteinterval,com_vtiger_workflows.purpose,com_vtiger_workflows.relatemodule,com_vtiger_workflows.wfstarton,com_vtiger_workflows.wfendon,com_vtiger_workflows.active,com_vtiger_workflows.workflow_id FROM com_vtiger_workflows   LIMIT 100;",
 			$actual
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select * from AuditTrail;', $meta, $queryRelatedModules);

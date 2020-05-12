@@ -95,7 +95,6 @@ class ModuleTypesTest extends TestCase {
 			'Workflow',
 			'AuditTrail',
 			'LoginHistory',
-			'Zendesk',
 			),
 			'information' => array(
 			'Campaigns' => array(
@@ -357,11 +356,6 @@ class ModuleTypesTest extends TestCase {
 				'isEntity' => false,
 				'label' => 'LoginHistory',
 				'singular' => 'LoginHistory',
-			),
-			'Zendesk' => array(
-				'isEntity' => false,
-				'label' => 'Zendesk',
-				'singular' => 'Zendesk',
 			),
 			),
 		);
