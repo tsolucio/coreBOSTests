@@ -93,9 +93,15 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$this->assertEquals(11469.330000, $actual);
 		$actual = __cb_aggregation(array('sum','Invoice','sum_nettotal','',$entityData));
 		$this->assertEquals(9030.970000, $actual);
+		$actual = __cb_aggregation(array('group_concat','Invoice','subject','',$entityData));
+		$this->assertEquals('Sean Cassidy,Garth (Other Realm)', $actual);
+		$actual = __cb_aggregation(array('group_concat','Invoice','subject separator ";"','',$entityData));
+		$this->assertEquals('Sean Cassidy;Garth (Other Realm)', $actual);
 		////////////////
 		$currentModule = 'Potentials';
 		$entityData = $entityCache->forId('13x5900'); // Egestas Aliquam Fringilla Corp potential
+		$actual = __cb_aggregation(array('group_concat','Contacts','firstname','',$entityData));
+		$this->assertEquals(0, $actual);
 		$actual = __cb_aggregation(array('min','Potentials','amount','',$entityData));
 		$this->assertEquals(370.000000, $actual);
 		$actual = __cb_aggregation(array('max','Potentials','amount','[related_to,c,Chemex,or]',$entityData));
