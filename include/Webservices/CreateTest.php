@@ -732,6 +732,7 @@ class WSCreateTest extends TestCase {
 			'open' => '2',
 			'unsubscribe' => '0',
 			'description' => 'This is the body of the email áçèñtös.',
+			'filename' => '',
 		);
 		$email = $ObjectValues;
 		//$this->expectException('WebServiceException');
@@ -836,7 +837,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
-		unset($ObjectValues['filename']);
+		$ObjectValues['filename'] = 'Cron.png';
 		$this->assertEquals($ObjectValues, $actual, 'Create Documents');
 		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
 		$this->assertEquals($model_filename['content'], $sdoc[$actual['id']]['attachment'], 'Document Attachment');
@@ -886,7 +887,6 @@ class WSCreateTest extends TestCase {
 		);
 		$this->assertEquals($expected, $sdoc, 'Document Retrieve');
 		$sdoc['notes_title'] = $expected['notes_title'] = 'REST Test create doc UPDATED';
-		unset($sdoc['filename']);
 		$actual = vtws_update($sdoc, $current_user);
 		unset($actual['note_no'], $actual['modifiedtime'], $actual['_downloadurl']);
 		$this->assertEquals($expected, $actual, 'Document after Update');
