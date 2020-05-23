@@ -107,6 +107,9 @@ class testCommonUtilsgetRAC extends TestCase {
 			INNER JOIN vtiger_tab on vtiger_crmentity.setype = vtiger_tab.name
 			where deleted=0 and isentitytype=1 group by setype having setype!='Documents' and setype!='MsgTemplate'");
 		while ($rec = $adb->fetch_row($recs)) {
+			if (!isset($this->Accountsresults[$rec['id']])) {
+				continue;
+			}
 			$actual = getRelatedAccountContact($rec['id'], 'Accounts');
 			$expected = $this->Accountsresults[$rec['id']];
 			$this->assertEquals($expected, $actual, 'getRAC Accounts-'.$rec['setype'].' '.$rec['id']);
