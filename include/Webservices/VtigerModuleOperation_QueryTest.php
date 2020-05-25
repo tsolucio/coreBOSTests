@@ -125,6 +125,11 @@ class VtigerModuleOperation_QueryTest extends TestCase {
 								select translation_key
 								from vtiger_cbtranslation
 								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND (  (( vtiger_project.projectname LIKE '%n%') ) OR (( vtiger_project.project_no LIKE '%n%')) )) AND vtiger_project.projectid > 0  limit 0,10 ", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where (  projectname like '%555555555%' or doesnotexist like '%555555555%') and (projectstatus in ('prospecting','initiated')) limit 0,10;", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectname LIKE '%555555555%')  OR false ) AND (( vtiger_project.projectstatus IN (
+								select translation_key
+								from vtiger_cbtranslation
+								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) )) AND vtiger_project.projectid > 0  limit 0,10 ", $actual);
 	}
 
 	public function testControlCharacters() {
