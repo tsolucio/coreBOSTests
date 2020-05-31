@@ -242,7 +242,7 @@ class CustomViewTest extends TestCase {
 		$expected = "(( vtiger_potential.sales_stage = 'Closed Won' ) )";
 		$this->assertEquals($expected, $actual, 'getCVAdvFilterSQL Potential Won');
 		$actual = $cv->getCVAdvFilterSQL(17);
-		$expected = "(( vtiger_quotes.quotestage <> 'Accepted' and vtiger_quotes.quotestage <> 'Rejected' ) )";
+		$expected = "(( vtiger_quotes.quotestage != 'Accepted' and vtiger_quotes.quotestage != 'Rejected' ) )";
 		$this->assertEquals($expected, $actual, 'getCVAdvFilterSQL Quotes Stage');
 		$actual = $cv->getCVAdvFilterSQL(45);
 		$expected = "(( vtiger_cbupdater.execstate = 'Executed' ) )";
