@@ -205,9 +205,9 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		$this->assertEquals("select vtiger_account.accountid, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_account.accountname <> 'PK UNA') ) AND vtiger_account.accountid > 0  limit 10 ", $actual);
 
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select firstname, lastname,Accounts.accountname,Accounts.website from Contacts where firstname like '%o%' order by firstname desc limit 0,22;", $meta, $queryRelatedModules);
-		$this->assertEquals("select vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_accountaccount_id.accountname as accountsaccountname, vtiger_accountaccount_id.website as accountswebsite, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_contactdetails.firstname LIKE '%o%') ) AND vtiger_contactdetails.contactid > 0  order by firstname desc   limit 0,22 ", $actual);
+		$this->assertEquals("select vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_accountaccount_id.accountname as accountsaccountname, vtiger_accountaccount_id.website as accountswebsite, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_contactdetails.firstname LIKE '%o%') ) AND vtiger_contactdetails.contactid > 0  order by vtiger_contactdetails.firstname desc   limit 0,22 ", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select firstname, lastname,Accounts.accountname,Accounts.website from Contacts where firstname like '%o%' order by firstname asc", $meta, $queryRelatedModules);
-		$this->assertEquals("select vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_accountaccount_id.accountname as accountsaccountname, vtiger_accountaccount_id.website as accountswebsite, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_contactdetails.firstname LIKE '%o%') ) AND vtiger_contactdetails.contactid > 0  order by firstname asc  ", $actual);
+		$this->assertEquals("select vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_accountaccount_id.accountname as accountsaccountname, vtiger_accountaccount_id.website as accountswebsite, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_contactdetails.firstname LIKE '%o%') ) AND vtiger_contactdetails.contactid > 0  order by vtiger_contactdetails.firstname asc  ", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select firstname, lastname,Accounts.accountname,Accounts.website from Contacts where firstname like '%o%' limit 0,22;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_accountaccount_id.accountname as accountsaccountname, vtiger_accountaccount_id.website as accountswebsite, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_contactdetails.firstname LIKE '%o%') ) AND vtiger_contactdetails.contactid > 0  limit 0,22 ", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select firstname, lastname,Accounts.accountname,Accounts.website from Contacts where firstname like '%o%'", $meta, $queryRelatedModules);
@@ -452,12 +452,12 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id, account_no, accountname, Accounts.accountname from accounts where [{"fieldname":"assigned_user_id","operation":"is","value":"cbTest testtz","valuetype":"raw","joincondition":"and","groupid":"0"}] order by account_no', $meta, $queryRelatedModules);
 		$this->assertEquals(
-			"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid  WHERE vtiger_crmentity.deleted=0 AND   (  (( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'cbTest testtz' or vtiger_groups.groupname = 'cbTest testtz')) )) AND vtiger_account.accountid > 0 order by account_no",
+			"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid  WHERE vtiger_crmentity.deleted=0 AND   (  (( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'cbTest testtz' or vtiger_groups.groupname = 'cbTest testtz')) )) AND vtiger_account.accountid > 0 order by vtiger_account.account_no",
 			$actual
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id, account_no, accountname, Accounts.accountname from accounts where [{"fieldname":"assigned_user_id","operation":"is","value":"cbTest testtz","valuetype":"raw","joincondition":"and","groupid":"0"}] order by account_no desc limit 5', $meta, $queryRelatedModules);
 		$this->assertEquals(
-			"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid  WHERE vtiger_crmentity.deleted=0 AND   (  (( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'cbTest testtz' or vtiger_groups.groupname = 'cbTest testtz')) )) AND vtiger_account.accountid > 0 order by account_no desc limit 5",
+			"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid  WHERE vtiger_crmentity.deleted=0 AND   (  (( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'cbTest testtz' or vtiger_groups.groupname = 'cbTest testtz')) )) AND vtiger_account.accountid > 0 order by vtiger_account.account_no desc  limit 5",
 			$actual
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id, account_no, accountname, Accounts.accountname from accounts where [{"fieldname":"assigned_user_id","operation":"is","value":"cbTest testtz","valuetype":"raw","joincondition":"and","groupid":"0"}] limit 5', $meta, $queryRelatedModules);
@@ -482,12 +482,70 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('SELECT [{"fieldname":"countres","operation":"is","value":"count(ticket_title)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"ticketstatus","operation":"is","value":"ticketstatus","valuetype":"fieldname","joincondition":"and","groupid":"0"}] FROM HelpDesk WHERE [{"fieldname":"parent_id","operation":"is","value":"74","valuetype":"raw","joincondition":"and","groupid":"0"}] GROUP BY status;', $meta, $queryRelatedModules);
 		$this->assertEquals(
-			"SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_account  ON vtiger_troubletickets.parent_id = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_troubletickets.parent_id = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND   (  (( trim(vtiger_account.accountname) = '74' OR trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) = '74') )) AND vtiger_troubletickets.ticketid > 0 GROUP BY status",
+			"SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_account  ON vtiger_troubletickets.parent_id = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_troubletickets.parent_id = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND   (  (( trim(vtiger_account.accountname) = '74' OR trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) = '74') )) AND vtiger_troubletickets.ticketid > 0 group by status;",
 			$actual
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('SELECT [{"fieldname":"countres","operation":"is","value":"count(ticket_title)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"ticketstatus","operation":"is","value":"ticketstatus","valuetype":"fieldname","joincondition":"and","groupid":"0"}] FROM HelpDesk WHERE [{"fieldname":"$(parent_id : (Accounts) account_no)","operation":"is","value":"ACC1","valuetype":"raw","joincondition":"and","groupid":"0"}] GROUP BY status;', $meta, $queryRelatedModules);
 		$this->assertEquals(
-			"SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_troubletickets.parent_id  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_accountparent_id.account_no = 'ACC1') )) AND vtiger_troubletickets.ticketid > 0 GROUP BY status",
+			"SELECT COUNT(vtiger_troubletickets.title) AS countres,vtiger_troubletickets.status FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountparent_id ON vtiger_accountparent_id.accountid=vtiger_troubletickets.parent_id  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_accountparent_id.account_no = 'ACC1') )) AND vtiger_troubletickets.ticketid > 0 group by status;",
+			$actual
+		);
+	}
+
+	public function testOrderByLimit() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select firstname from contacts order by firstname;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_contactdetails.firstname,vtiger_contactdetails.contactid FROM vtiger_contactdetails LEFT JOIN vtiger_crmentity ON vtiger_contactdetails.contactid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 ORDER BY vtiger_contactdetails.firstname LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select firstname from contacts order by contact_no;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_contactdetails.firstname,vtiger_contactdetails.contactid FROM vtiger_contactdetails LEFT JOIN vtiger_crmentity ON vtiger_contactdetails.contactid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 ORDER BY vtiger_contactdetails.contact_no LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select firstname from contacts order by account_id;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_contactdetails.firstname,vtiger_contactdetails.contactid FROM vtiger_contactdetails LEFT JOIN vtiger_crmentity ON vtiger_contactdetails.contactid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 ORDER BY vtiger_contactdetails.accountid LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select firstname from contacts order by accountname;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_contactdetails.firstname,vtiger_contactdetails.contactid FROM vtiger_contactdetails LEFT JOIN vtiger_crmentity ON vtiger_contactdetails.contactid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select firstname from contacts order by Accounts.accountname;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"select vtiger_contactdetails.firstname, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid   WHERE vtiger_crmentity.deleted=0 AND vtiger_contactdetails.contactid > 0  order by vtiger_accountaccount_id.accountname ",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select firstname from contacts order by Users.first_name;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"select vtiger_contactdetails.firstname, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid  LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_contactdetails.contactid > 0  order by vtiger_users.first_name ",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select accountname from Accounts where Accounts.accountname='Chemex' order by cf_722;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"select vtiger_account.accountname, vtiger_account.accountid  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_accountaccount_id.accountname = 'Chemex') ) AND vtiger_account.accountid > 0  order by vtiger_accountscf.cf_722 ",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select accountname from Accounts order by cf_722;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_account.accountname,vtiger_account.accountid FROM vtiger_account LEFT JOIN vtiger_accountscf ON vtiger_account.accountid=vtiger_accountscf.accountid LEFT JOIN vtiger_crmentity ON vtiger_account.accountid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 ORDER BY vtiger_accountscf.cf_722 LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select accountname from Accounts order by id;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_account.accountname,vtiger_account.accountid FROM vtiger_account LEFT JOIN vtiger_crmentity ON vtiger_account.accountid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 ORDER BY vtiger_account.accountid LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select accountname from Accounts where [{"fieldname":"accountname","operation":"contains","value":"a","valuetype":"raw","joincondition":"and","groupid":"1425054943","groupjoin":""},{"fieldname":"employees","operation":"less than","value":"50","valuetype":"raw","joincondition":"or","groupid":"1425054943","groupjoin":""},{"fieldname":"accountname","operation":"does not contain","value":"a","valuetype":"raw","joincondition":"and","groupid":"21953977466","groupjoin":"or"},{"fieldname":"employees","operation":"greater than","value":"40","valuetype":"raw","joincondition":"","groupid":"21953977466","groupjoin":"or"}] order by employees ASC limit 0,25;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.accountname LIKE '%a%')  and ( vtiger_account.employees < 50) ) or (( vtiger_account.accountname NOT LIKE '%a%')  and ( vtiger_account.employees > 40) )) AND vtiger_account.accountid > 0 order by vtiger_account.employees asc  limit 0,25;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select accountname from Accounts where [{"fieldname":"accountname","operation":"contains","value":"a","valuetype":"raw","joincondition":"and","groupid":"1425054943","groupjoin":""},{"fieldname":"employees","operation":"less than","value":"50","valuetype":"raw","joincondition":"or","groupid":"1425054943","groupjoin":""},{"fieldname":"accountname","operation":"does not contain","value":"a","valuetype":"raw","joincondition":"and","groupid":"21953977466","groupjoin":"or"},{"fieldname":"employees","operation":"greater than","value":"40","valuetype":"raw","joincondition":"","groupid":"21953977466","groupjoin":"or"}] order by id ASC limit 0,25;', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.accountname LIKE '%a%')  and ( vtiger_account.employees < 50) ) or (( vtiger_account.accountname NOT LIKE '%a%')  and ( vtiger_account.employees > 40) )) AND vtiger_account.accountid > 0 order by vtiger_account.accountid asc  limit 0,25;",
 			$actual
 		);
 	}
@@ -510,7 +568,7 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select [{"fieldname":"countres","operation":"is","value":"count(accountname)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"bill_city","operation":"is","value":"bill_city","valuetype":"fieldname","joincondition":"and","groupid":"0"}] from accounts where [{"fieldname":"accountname","operation":"starts with","value":"a","valuetype":"raw","joincondition":"and","groupid":"0"}] group by bill_city;', $meta, $queryRelatedModules);
 		$this->assertEquals(
-			"SELECT COUNT(vtiger_account.accountname) AS countres,vtiger_accountbillads.bill_city FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.accountname LIKE 'a%') )) AND vtiger_account.accountid > 0 group by bill_city",
+			"SELECT COUNT(vtiger_account.accountname) AS countres,vtiger_accountbillads.bill_city FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.accountname LIKE 'a%') )) AND vtiger_account.accountid > 0 group by bill_city;",
 			$actual
 		);
 		/////
