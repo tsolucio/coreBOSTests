@@ -50,6 +50,18 @@ class VtigerModuleOperation_QueryTest extends TestCase {
 		$this->assertEquals("SELECT vtiger_crmentity.modifiedtime,vtiger_contactdetails.contactid FROM vtiger_contactdetails LEFT JOIN vtiger_crmentity ON vtiger_contactdetails.contactid=vtiger_crmentity.crmid   WHERE (vtiger_crmentity.modifiedtime >= '2018-07-20 08:36:38') AND  vtiger_crmentity.deleted=0 ORDER BY vtiger_crmentity.modifiedtime ASC LIMIT 10;", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select modifiedtime from Contacts where account_id is not null and modifiedtime >= '2018-07-20 08:36:38' order by modifiedtime asc limit 10;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_crmentity.modifiedtime, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account  ON vtiger_contactdetails.accountid = vtiger_account.accountid   WHERE vtiger_crmentity.deleted=0 AND   (( trim(vtiger_account.accountname) IS NOT NULL AND vtiger_contactdetails.accountid != '')  AND ( vtiger_crmentity.modifiedtime >= '2018-07-20 08:36:38') ) AND vtiger_contactdetails.contactid > 0  order by vtiger_crmentity.modifiedtime asc   limit 10 ", $actual);
+		global $current_user, $adb, $log;
+		$holdUser = $current_user;
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile(13); // testtz-3 'time_zone'=>'America/Argentina/Buenos_Aires'
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, 'Contacts');
+		$vtModuleOperation = new VtigerModuleOperation($webserviceObject, $current_user, $adb, $log);
+		$actual = $vtModuleOperation->wsVTQL2SQL("select modifiedtime from Contacts where account_id is not null and modifiedtime >= '2018-07-20 08:36:38' order by modifiedtime asc limit 10;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"select vtiger_crmentity.modifiedtime, vtiger_contactdetails.contactid  FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account  ON vtiger_contactdetails.accountid = vtiger_account.accountid   WHERE vtiger_crmentity.deleted=0 AND   (( trim(vtiger_account.accountname) IS NOT NULL AND vtiger_contactdetails.accountid != '')  AND ( vtiger_crmentity.modifiedtime >= '2018-07-20 11:36:38') ) AND vtiger_contactdetails.contactid > 0  order by vtiger_crmentity.modifiedtime asc   limit 10 ",
+			$actual
+		);
+		$current_user = $holdUser;
 	}
 
 	public function testInventoryModules() {
