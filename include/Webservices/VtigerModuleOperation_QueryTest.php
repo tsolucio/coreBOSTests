@@ -144,6 +144,20 @@ class VtigerModuleOperation_QueryTest extends TestCase {
 								select translation_key
 								from vtiger_cbtranslation
 								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where projectname like '%55%' or projectname like '%44%';", $meta, $queryRelatedModules);
+		$this->assertEquals("SELECT vtiger_project.projectid FROM vtiger_project LEFT JOIN vtiger_crmentity ON vtiger_project.projectid=vtiger_crmentity.crmid   WHERE (vtiger_project.projectname LIKE '%55%' or vtiger_project.projectname LIKE '%44%') AND  vtiger_crmentity.deleted=0 LIMIT 100;", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where (projectname like '%55%') or projectname like '%44%';", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectname LIKE '%55%') ) OR ( vtiger_project.projectname LIKE '%44%') ) AND vtiger_project.projectid > 0 ", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where (projectname like '%55%') or (projectname like '%44%');", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectname LIKE '%55%') ) OR (( vtiger_project.projectname LIKE '%44%') )) AND vtiger_project.projectid > 0 ", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where ((projectname like '%55%') or (projectname like '%44%'));", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (  (( vtiger_project.projectname LIKE '%55%') ) OR (( vtiger_project.projectname LIKE '%44%') ))) AND vtiger_project.projectid > 0 ", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where (projectname like '%55%' or projectname like '%44%');", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectname LIKE '%55%')  OR ( vtiger_project.projectname LIKE '%44%') )) AND vtiger_project.projectid > 0 ", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where ((projectname like '%55%' or projectname like '%44%'));", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (  (( vtiger_project.projectname LIKE '%55%')  OR ( vtiger_project.projectname LIKE '%44%') ))) AND vtiger_project.projectid > 0 ", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where (((projectname like '%55%' or projectname like '%44%')));", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (  (  (( vtiger_project.projectname LIKE '%55%')  OR ( vtiger_project.projectname LIKE '%44%') )))) AND vtiger_project.projectid > 0 ", $actual);
 	}
 
 	public function testControlCharacters() {
