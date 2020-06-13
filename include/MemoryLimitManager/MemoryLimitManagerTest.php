@@ -117,11 +117,11 @@ class MemoryLimitManagerTest extends TestCase {
 	public function testIsLimitReached() {
 		$manager = $this->getNewManager();
 		$manager->setBufferInMegaBytes(0);
-		$manager->setLimitInMegaBytes(32);
+		$manager->setLimitInMegaBytes(320);
 
 		$this->assertFalse($manager->isLimitReached());
 
-		$manager->setBufferInMegaBytes(32);
+		$manager->setBufferInMegaBytes(320);
 		$this->assertTrue($manager->isLimitReached());
 	}
 
