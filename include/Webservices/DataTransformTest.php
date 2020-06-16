@@ -355,6 +355,11 @@ class DataTransformTest extends TestCase {
 
 		$actual = DataTransform::sanitizeCurrencyFieldsForDB($rowcoma3dot, $meta);
 		$this->assertEquals($rowsql, $actual, 'sanitizeCurrencyFieldsForDB InventoryDetails usrcoma3dot');
+		$actual = DataTransform::sanitizeDateFieldsForDB($rowcoma3dot, $meta);
+		$expected = $rowcoma3dot;
+		$expected['createdtime'] = '2015-04-10 03:09';
+		$expected['modifiedtime'] = '2015-08-09 14:12';
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForDB InventoryDetails usrcoma3dot');
 
 		$current_user = new Users();
 		$current_user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
@@ -369,6 +374,78 @@ class DataTransformTest extends TestCase {
 
 		$actual = DataTransform::sanitizeCurrencyFieldsForDB($rowdota3com, $meta);
 		$this->assertEquals($rowsql, $actual, 'sanitizeCurrencyFieldsForDB InventoryDetails usrdotd3com');
+
+		$current_user = $hcu;
+	}
+
+	public function testsanitizeDateFields() {
+		global $current_user, $adb, $log;
+		$hcu = $current_user;
+		$current_user = Users::getActiveAdminUser(); // Y-m-d
+		$testrecord = 4062;
+		$testmodule = 'Assets';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$focus = CRMEntity::getInstance($testmodule);
+		$focus->id = $testrecord;
+		$focus->retrieve_entity_info($testrecord, $testmodule);
+		$expected = $focus->column_fields;
+		$expected['createdtime'] = '2015-04-20 21:07';
+		$expected['modifiedtime'] = '2016-06-09 23:33';
+		$actual = DataTransform::sanitizeDateFieldsForDB($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForDB Assets admin');
+		$actual = DataTransform::sanitizeDateFieldsForInsert($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForInsert Assets admin');
+
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy 2 decimal places
+		$actual = DataTransform::sanitizeDateFieldsForDB($focus->column_fields, $meta);
+		$expected['createdtime'] = '2015-04-20 21:07';
+		$expected['modifiedtime'] = '2016-06-09 23:33';
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForDB Assets usrdota0x');
+		$actual = DataTransform::sanitizeDateFieldsForInsert($focus->column_fields, $meta);
+		$expected['datesold'] = '13-05-2016';
+		$expected['dateinservice'] = '21-05-2015';
+		$expected['createdtime'] = '20-04-2015 21:07';
+		$expected['modifiedtime'] = '09-06-2016 23:33';
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForInsert Assets');
+		$formattedFor_dmy = $expected;
+		$actual = DataTransform::sanitizeDateFieldsForDB($expected, $meta);
+		$expected = $focus->column_fields;
+		$expected['createdtime'] = '2015-04-20 21:07';
+		$expected['modifiedtime'] = '2016-06-09 23:33';
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForDB Assets usrdota0x');
+
+		$current_user = new Users();
+		$current_user->retrieveCurrentUserInfoFromFile($this->usrcomd0x); // testmdy 3 decimal places
+		$actual = DataTransform::sanitizeDateFieldsForDB($focus->column_fields, $meta);
+		$expected = $focus->column_fields;
+		$expected['createdtime'] = '2015-04-20 21:07';
+		$expected['modifiedtime'] = '2016-06-09 23:33';
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForDB Assets usrcomd0x');
+		$actual = DataTransform::sanitizeDateFieldsForInsert($focus->column_fields, $meta);
+		$expected['datesold'] = '05-13-2016';
+		$expected['dateinservice'] = '05-21-2015';
+		$expected['createdtime'] = '04-20-2015 21:07';
+		$expected['modifiedtime'] = '06-09-2016 23:33';
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForInsert Assets');
+		$actual = DataTransform::sanitizeDateFieldsForDB($expected, $meta);
+		$expected = $focus->column_fields;
+		$expected['createdtime'] = '2015-04-20 21:07';
+		$expected['modifiedtime'] = '2016-06-09 23:33';
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForDB Assets usrdota0x');
+
+		// enters wrong > comes out wrong
+		$actual = DataTransform::sanitizeDateFieldsForInsert($formattedFor_dmy, $meta);
+		$expected['datesold'] = '05-2016-13';
+		$expected['dateinservice'] = '05-2015-21';
+		$expected['createdtime'] = '04-20-2015 21:07';
+		$expected['modifiedtime'] = '06-09-2016 23:33';
+		$this->assertEquals($expected, $actual, 'sanitizeDateFieldsForInsert Assets');
 
 		$current_user = $hcu;
 	}
