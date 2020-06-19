@@ -36,10 +36,10 @@ class testExportUtils extends TestCase {
 	private $usrdota3comdollar = 12; // testmcurrency 6 decimal places
 
 	/**
-	 * Method getPermittedBlocksProvidor
+	 * Method getPermittedBlocksProvider
 	 * params
 	 */
-	public function getPermittedBlocksProvidor() {
+	public function getPermittedBlocksProvider() {
 		return array(
 			array($this->usradmin, 'Accounts', 'create_view', '(9, 10, 127, 11, 12)'),
 			array($this->usradmin, 'Accounts', 'edit_view', '(9, 10, 127, 11, 12)'),
@@ -72,7 +72,7 @@ class testExportUtils extends TestCase {
 	/**
 	 * Method testgetPermittedBlocks
 	 * @test
-	 * @dataProvider getPermittedBlocksProvidor
+	 * @dataProvider getPermittedBlocksProvider
 	 */
 	public function testgetPermittedBlocks($userid, $module, $disp_view, $expected) {
 		global $current_user;
@@ -86,10 +86,10 @@ class testExportUtils extends TestCase {
 	}
 
 	/**
-	 * Method getPermittedFieldsQueryProvidor
+	 * Method getPermittedFieldsQueryProvider
 	 * params
 	 */
-	public function getPermittedFieldsQueryProvidor() {
+	public function getPermittedFieldsQueryProvider() {
 		$sqlAccounts = 'SELECT vtiger_field.columnname, vtiger_field.fieldlabel, vtiger_field.tablename
 			FROM vtiger_field
 			WHERE vtiger_field.tabid=6 AND vtiger_field.block IN (9, 10, 127, 11, 12) AND vtiger_field.displaytype IN (1,2,4) and vtiger_field.presence in (0,2)
@@ -183,7 +183,7 @@ class testExportUtils extends TestCase {
 	/**
 	 * Method testgetPermittedFieldsQuery
 	 * @test
-	 * @dataProvider getPermittedFieldsQueryProvidor
+	 * @dataProvider getPermittedFieldsQueryProvider
 	 */
 	public function testgetPermittedFieldsQuery($userid, $module, $disp_view, $expected) {
 		global $current_user;

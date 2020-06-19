@@ -24,10 +24,10 @@ include_once 'modules/Calendar4You/CalendarUtils.php';
 class CalendarUtilsTest extends TestCase {
 
 	/**
-	 * Method getaddITSEventPopupTimeProvidor
+	 * Method getaddITSEventPopupTimeProvider
 	 * params
 	 */
-	public function getaddITSEventPopupTimeProvidor() {
+	public function getaddITSEventPopupTimeProvider() {
 		return array(
 			array('09:31', '10:26', '12', array('startfmt'=>'am', 'starthour'=>'09', 'startmin'=>'31', 'endfmt'=>'am', 'endhour'=>'10', 'endmin'=>'26'), '12 am'),
 			array('21:31', '22:26', '12', array('startfmt'=>'pm', 'starthour'=>'09', 'startmin'=>'31', 'endfmt'=>'pm', 'endhour'=>'10', 'endmin'=>'26'), '12 pm'),
@@ -48,7 +48,7 @@ class CalendarUtilsTest extends TestCase {
 	/**
 	 * Method testgetaddITSEventPopupTime
 	 * @test
-	 * @dataProvider getaddITSEventPopupTimeProvidor
+	 * @dataProvider getaddITSEventPopupTimeProvider
 	 */
 	public function testgetaddITSEventPopupTime($starttime, $endtime, $format, $expected, $msg) {
 		$this->assertEquals($expected, getaddITSEventPopupTime($starttime, $endtime, $format), $msg);

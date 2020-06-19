@@ -196,10 +196,10 @@ class testCommonUtils extends TestCase {
 	}
 
 	/**
-	 * Method getbr2nlProvidor
+	 * Method getbr2nlProvider
 	 * params
 	 */
-	public function getbr2nlProvidor() {
+	public function getbr2nlProvider() {
 		return array(
 			array('line1','line1','br2nl one line'),
 			array('line1<br>line2','line1<br>line2','br2nl two lines <br>'),
@@ -223,7 +223,7 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 	/**
 	 * Method testbr2nl
 	 * @test
-	 * @dataProvider getbr2nlProvidor
+	 * @dataProvider getbr2nlProvider
 	 */
 	public function testbr2nl($input, $expected, $msg) {
 		$this->assertEquals($expected, br2nl($input), $msg);
@@ -274,10 +274,10 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 //	}
 
 	/**
-	 * Method getMergedDescriptionProvidor
+	 * Method getMergedDescriptionProvider
 	 * params
 	 */
-	public function getMergedDescriptionProvidor() {
+	public function getMergedDescriptionProvider() {
 		$lang = return_module_language('en_us', 'Reports');
 		$mes = date('m')-1;
 		return array(
@@ -380,7 +380,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	/**
 	 * Method testgetMergedDescription
 	 * @test
-	 * @dataProvider getMergedDescriptionProvidor
+	 * @dataProvider getMergedDescriptionProvider
 	 */
 	public function testgetMergedDescription($description, $id, $parent_type, $expected, $msg) {
 		if (strpos($description, 'scanQRCode->')) {
@@ -391,10 +391,10 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	}
 
 	/**
-	 * Method getMergedDescriptionForURLProvidor
+	 * Method getMergedDescriptionForURLProvider
 	 * params
 	 */
-	public function getMergedDescriptionForURLProvidor() {
+	public function getMergedDescriptionForURLProvider() {
 		return array(
 			array(
 				'http://myurl.tld/index.php?&shippingmethod=$assets-shippingmethod$&datesold=$assets-datesold$&assetname=$assets-assetname$&accountname=$accounts-accountname$',
@@ -459,7 +459,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	/**
 	 * Method testgetMergedDescriptionForURL
 	 * @test
-	 * @dataProvider getMergedDescriptionForURLProvidor
+	 * @dataProvider getMergedDescriptionForURLProvider
 	 */
 	public function testgetMergedDescriptionForURL($url, $id, $parent_type, $expected, $msg) {
 		$this->assertEquals($expected, getMergedDescriptionForURL($url, $id, $parent_type), $msg);
@@ -477,10 +477,10 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	}
 
 	/**
-	 * Method testgetReturnPathProvidor
+	 * Method testgetReturnPathProvider
 	 * params
 	 */
-	public function getReturnPathProvidor() {
+	public function getReturnPathProvider() {
 		return array(
 			array('tsolucio.com','','info@tsolucio.com','normal'),
 			array('ispconfig.tsolucio.com','','info@tsolucio.com','superdomain'),
@@ -517,17 +517,17 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	/**
 	 * Method testgetReturnPath
 	 * @test
-	 * @dataProvider getReturnPathProvidor
+	 * @dataProvider getReturnPathProvider
 	 */
 // 	function testgetReturnPath($host, $from_email, $expected, $msg) {
 // 		$this->assertEquals($expected, getReturnPath($host, $from_email), $msg);
 // 	}
 
 	/**
-	 * Method getrecurringObjValueProvidor
+	 * Method getrecurringObjValueProvider
 	 * params
 	 */
-	public function getrecurringObjValueProvidor() {
+	public function getrecurringObjValueProvider() {
 		return array(
 		array(null,null,null,null,null,null,
 			null,null,null,null,null,null,null,null,null,
@@ -606,7 +606,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	/**
 	 * Method testgetrecurringObjValue
 	 * @test
-	 * @dataProvider getrecurringObjValueProvidor
+	 * @dataProvider getrecurringObjValueProvider
 	 */
 	public function testgetrecurringObjValue(
 		$recurringtype, $date_start, $calendar_repeat_limit_date, $due_date, $time_start, $time_end,

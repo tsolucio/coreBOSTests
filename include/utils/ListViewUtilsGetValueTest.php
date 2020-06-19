@@ -92,10 +92,10 @@ class testListViewUtilsGetValue extends TestCase {
 	}
 
 	/**
-	 * Method getValueAccountProvidor
+	 * Method getValueAccountProvider
 	 * params
 	 */
-	public function getValueAccountProvidor() {
+	public function getValueAccountProvider() {
 		global $adb, $current_user;
 		$_REQUEST['return_module'] = 'Contacts';
 		$_REQUEST['form'] = 'hardcoded';
@@ -222,7 +222,7 @@ class testListViewUtilsGetValue extends TestCase {
 	/**
 	 * Method testgetValueAccount
 	 * @test
-	 * @dataProvider getValueAccountProvidor
+	 * @dataProvider getValueAccountProvider
 	 */
 	public function testgetValueAccount($field_result, $list_result, $fieldname, $focus, $module, $entity_id, $list_result_count, $mode, $popuptype, $expected) {
 		$msg = "getValue of $fieldname for $module $entity_id $mode $popuptype";
@@ -273,10 +273,10 @@ class testListViewUtilsGetValue extends TestCase {
 	}
 
 	/**
-	 * Method getValueProductProvidor
+	 * Method getValueProductProvider
 	 * params
 	 */
-	public function getValueProductProvidor() {
+	public function getValueProductProvider() {
 		global $adb, $current_user;
 		$_REQUEST['return_module'] = 'Potentials';
 		$_REQUEST['form'] = 'hardcoded';
@@ -338,7 +338,7 @@ class testListViewUtilsGetValue extends TestCase {
 	/**
 	 * Method testgetValueProduct
 	 * @test
-	 * @dataProvider getValueProductProvidor
+	 * @dataProvider getValueProductProvider
 	 */
 	public function testgetValueProduct($field_result, $list_result, $fieldname, $focus, $module, $entity_id, $list_result_count, $mode, $popuptype, $expected) {
 		$msg = "getValue of $fieldname for $module $entity_id $mode $popuptype";
@@ -385,10 +385,10 @@ class testListViewUtilsGetValue extends TestCase {
 	}
 
 	/**
-	 * Method getValueContactProvidor
+	 * Method getValueContactProvider
 	 * params
 	 */
-	public function getValueContactProvidor() {
+	public function getValueContactProvider() {
 		global $adb, $current_user;
 		$_REQUEST['return_module'] = 'Potentials';
 		$_REQUEST['form'] = 'hardcoded';
@@ -450,7 +450,7 @@ class testListViewUtilsGetValue extends TestCase {
 	/**
 	 * Method testgetValueContact
 	 * @test
-	 * @dataProvider getValueContactProvidor
+	 * @dataProvider getValueContactProvider
 	 */
 	public function testgetValueContact($field_result, $list_result, $fieldname, $focus, $module, $entity_id, $list_result_count, $mode, $popuptype, $expected) {
 		$msg = "getValue of $fieldname for $module $entity_id $mode $popuptype";
@@ -476,10 +476,10 @@ class testListViewUtilsGetValue extends TestCase {
 	}
 
 	/**
-	 * Method getValueEmailProvidor
+	 * Method getValueEmailProvider
 	 * params
 	 */
-	public function getValueEmailProvidor() {
+	public function getValueEmailProvider() {
 		global $adb, $current_user;
 		$_REQUEST['return_module'] = 'Potentials';
 		$_REQUEST['form'] = 'hardcoded';
@@ -536,7 +536,7 @@ class testListViewUtilsGetValue extends TestCase {
 	/**
 	 * Method testgetValueEmail
 	 * @test
-	 * @dataProvider getValueEmailProvidor
+	 * @dataProvider getValueEmailProvider
 	 */
 	public function testgetValueEmail($field_result, $list_result, $fieldname, $focus, $module, $entity_id, $list_result_count, $mode, $popuptype, $expected) {
 		$msg = "getValue of $fieldname for $module $entity_id $mode $popuptype";

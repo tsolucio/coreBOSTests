@@ -24,10 +24,10 @@ include_once 'modules/com_vtiger_workflow/tasks/RunWebserviceWorkflowTask.inc';
 class RunWebserviceWorkflowTaskTest extends TestCase {
 
 	/**
-	 * Method substituteSettingProvidor
+	 * Method substituteSettingProvider
 	 * params
 	 */
-	public function substituteSettingProvidor() {
+	public function substituteSettingProvider() {
 		$lastLogin = coreBOS_Settings::getSetting('cbodLastLoginTime1', '');
 		return array(
 			array('http://url.tld/1', 'http://url.tld/1'),
@@ -42,7 +42,7 @@ class RunWebserviceWorkflowTaskTest extends TestCase {
 	/**
 	 * Method testsubstituteSetting
 	 * @test
-	 * @dataProvider substituteSettingProvidor
+	 * @dataProvider substituteSettingProvider
 	 */
 	public function testsubstituteSetting($url, $expected) {
 		$rwftsk = new RunWebserviceWorkflowTask();

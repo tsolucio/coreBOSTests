@@ -35,10 +35,10 @@ class VtigerCRMObjectMetaTest extends TestCase {
 	}
 
 	/**
-	 * Method getNameFieldsProvidor
+	 * Method getNameFieldsProvider
 	 * params
 	 */
-	public function getNameFieldsProvidor() {
+	public function getNameFieldsProvider() {
 		return array(
 			array('11x74', 'accountname'),
 			array('12x1084', 'firstname,lastname'),
@@ -52,7 +52,7 @@ class VtigerCRMObjectMetaTest extends TestCase {
 	/**
 	 * Method testgetNameFields
 	 * @test
-	 * @dataProvider getNameFieldsProvidor
+	 * @dataProvider getNameFieldsProvider
 	 */
 	public function testgetNameFields($wsid, $expected) {
 		global $current_user, $adb;

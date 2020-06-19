@@ -90,10 +90,10 @@ class testUserInfoUtil_isPermittedTest extends TestCase {
 	);
 
 	/**
-	 * Method permittedActionsProvidor
+	 * Method permittedActionsProvider
 	 * params
 	 */
-	public function permittedActionsProvidor() {
+	public function permittedActionsProvider() {
 		global $adb;
 		$return = array();
 		foreach ($this->testusers as $uname => $uid) {
@@ -154,7 +154,7 @@ class testUserInfoUtil_isPermittedTest extends TestCase {
 	/**
 	 * Method testpermittedActions
 	 * @test
-	 * @dataProvider permittedActionsProvidor
+	 * @dataProvider permittedActionsProvider
 	 */
 	public function testpermittedActions($testuser, $actionname, $module, $crmid, $expected, $message) {
 		global $current_user;

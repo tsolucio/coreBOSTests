@@ -46,10 +46,10 @@ class testUserInfoUtil extends TestCase {
 	);
 
 	/**
-	 * Method getTabsPermissionProvidor
+	 * Method getTabsPermissionProvider
 	 * params
 	 */
-	public function getTabsPermissionProvidor() {
+	public function getTabsPermissionProvider() {
 		$return = array();
 		$profiles =  array(
 			1 => '0',
@@ -136,7 +136,7 @@ class testUserInfoUtil extends TestCase {
 	/**
 	 * Method testgetTabsPermission
 	 * @test
-	 * @dataProvider getTabsPermissionProvidor
+	 * @dataProvider getTabsPermissionProvider
 	 */
 	public function testgetTabsPermission($profile, $expected, $message) {
 		global $current_user;
@@ -145,10 +145,10 @@ class testUserInfoUtil extends TestCase {
 	}
 
 	/**
-	 * Method getAllTabsPermissionProvidor
+	 * Method getAllTabsPermissionProvider
 	 * params
 	 */
-	public function getAllTabsPermissionProvidor() {
+	public function getAllTabsPermissionProvider() {
 		$return = array();
 		$profiles =  array(
 			1 => '0',
@@ -242,7 +242,7 @@ class testUserInfoUtil extends TestCase {
 	/**
 	 * Method testgetAllTabsPermission
 	 * @test
-	 * @dataProvider getAllTabsPermissionProvidor
+	 * @dataProvider getAllTabsPermissionProvider
 	 */
 	public function testgetAllTabsPermission($profile, $expected, $message) {
 		global $current_user;

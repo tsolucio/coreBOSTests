@@ -32,10 +32,10 @@ class ModTrackerTest extends TestCase {
 	}
 
 	/**
-	 * Method getChangedRecordsProvidor
+	 * Method getChangedRecordsProvider
 	 * params
 	 */
-	public function getChangedRecordsProvidor() {
+	public function getChangedRecordsProvider() {
 		$estart3 = array(
 			'created' => array(
 				0 => array(
@@ -168,7 +168,7 @@ class ModTrackerTest extends TestCase {
 	/**
 	 * Method testgetChangedRecords
 	 * @test
-	 * @dataProvider getChangedRecordsProvidor
+	 * @dataProvider getChangedRecordsProvider
 	 */
 	public function testgetChangedRecords($uniqueId, $mtime, $limit, $expected) {
 		$mt = new ModTracker('');
@@ -178,10 +178,10 @@ class ModTrackerTest extends TestCase {
 	}
 
 	/**
-	 * Method getRecordFieldChangesProvidor
+	 * Method getRecordFieldChangesProvider
 	 * params
 	 */
-	public function getRecordFieldChangesProvidor() {
+	public function getRecordFieldChangesProvider() {
 		$esrv = array(
 			'2020-06-14 01:33:48' => array(
 			'website' => array(
@@ -239,7 +239,7 @@ class ModTrackerTest extends TestCase {
 	/**
 	 * Method testgetRecordFieldChanges
 	 * @test
-	 * @dataProvider getRecordFieldChangesProvidor
+	 * @dataProvider getRecordFieldChangesProvider
 	 */
 	public function testgetRecordFieldChanges($crmid, $mtime, $expected) {
 		$actual = ModTracker::getRecordFieldChanges($crmid, $mtime);
@@ -247,10 +247,10 @@ class ModTrackerTest extends TestCase {
 	}
 
 	/**
-	 * Method getRecordFieldHistoryProvidor
+	 * Method getRecordFieldHistoryProvider
 	 * params
 	 */
-	public function getRecordFieldHistoryProvidor() {
+	public function getRecordFieldHistoryProvider() {
 		$epdo = array(
 			array(
 				'from' => '',
@@ -278,7 +278,7 @@ class ModTrackerTest extends TestCase {
 	/**
 	 * Method testgetRecordFieldHistory
 	 * @test
-	 * @dataProvider getRecordFieldHistoryProvidor
+	 * @dataProvider getRecordFieldHistoryProvider
 	 */
 	public function testgetRecordFieldHistory($crmid, $field, $expected) {
 		$actual = ModTracker::getRecordFieldHistory($crmid, $field);

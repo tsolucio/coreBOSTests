@@ -34,10 +34,10 @@ class GetExtendedQueryTest extends TestCase {
 	private $usrdota3comdollar = 12; // testmcurrency 6 decimal places
 
 	/**
-	 * Method FQNProcessConditionProvidor
+	 * Method FQNProcessConditionProvider
 	 * params
 	 */
-	public function FQNProcessConditionProvidor() {
+	public function FQNProcessConditionProvider() {
 		return array(
 			array('productname=22','productname = 22'),
 			array('Products.productname=22','Products.productname = 22'),
@@ -64,7 +64,7 @@ class GetExtendedQueryTest extends TestCase {
 	/**
 	 * Method test__FQNExtendedQueryProcessCondition
 	 * @test
-	 * @dataProvider FQNProcessConditionProvidor
+	 * @dataProvider FQNProcessConditionProvider
 	 */
 	public function test__FQNExtendedQueryProcessCondition($condition, $expected) {
 		$this->assertEquals($expected, __FQNExtendedQueryProcessCondition($condition), 'ProcessCondition PriceBooks');

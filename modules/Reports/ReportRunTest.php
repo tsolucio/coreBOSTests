@@ -48,10 +48,10 @@ class ReportRunTest extends TestCase {
 	}
 
 	/**
-	 * Method getSelectedOrderbyListProvidor
+	 * Method getSelectedOrderbyListProvider
 	 * params
 	 */
-	public function getSelectedOrderbyListProvidor() {
+	public function getSelectedOrderbyListProvider() {
 		return array(
 			array(4, 'vtiger_leaddetails.leadsource ASC, vtiger_leaddetails.leadstatus DESC', 'vtiger_leaddetails.leadsource Leads_Lead_Source, vtiger_leaddetails.leadstatus Leads_Lead_Status'),
 			array(5, 'vtiger_leaddetails.leadstatus ASC', 'vtiger_leaddetails.leadstatus Leads_Lead_Status'),
@@ -63,7 +63,7 @@ class ReportRunTest extends TestCase {
 	/**
 	 * Method testgetSelectedOrderbyList
 	 * @test
-	 * @dataProvider getSelectedOrderbyListProvidor
+	 * @dataProvider getSelectedOrderbyListProvider
 	 */
 	public function testgetSelectedOrderbyList($reportid, $expected, $expectedobl) {
 		$rep = new ReportRun($reportid);
@@ -73,10 +73,10 @@ class ReportRunTest extends TestCase {
 	}
 
 	/**
-	 * Method getSelectedColumnsListProvidor
+	 * Method getSelectedColumnsListProvider
 	 * params
 	 */
-	public function getSelectedColumnsListProvidor() {
+	public function getSelectedColumnsListProvider() {
 		return array(
 			array(4, "vtiger_leaddetails.leadsource Leads_Lead_Source, vtiger_leaddetails.leadstatus Leads_Lead_Status, vtiger_leaddetails.firstname 'Leads_First_Name',vtiger_leaddetails.lastname 'Leads_Last_Name',vtiger_leaddetails.company 'Leads_Company',vtiger_leaddetails.email 'Leads_Email'"),
 			array(5, "vtiger_leaddetails.leadstatus Leads_Lead_Status, vtiger_leaddetails.firstname 'Leads_First_Name',vtiger_leaddetails.lastname 'Leads_Last_Name',vtiger_leaddetails.company 'Leads_Company',vtiger_leaddetails.email 'Leads_Email',vtiger_leaddetails.leadsource 'Leads_Lead_Source'"),
@@ -88,7 +88,7 @@ class ReportRunTest extends TestCase {
 	/**
 	 * Method testgetSelectedColumnsList
 	 * @test
-	 * @dataProvider getSelectedColumnsListProvidor
+	 * @dataProvider getSelectedColumnsListProvider
 	 */
 	public function testgetSelectedColumnsList($reportid, $expected) {
 		$rep = new ReportRun($reportid);

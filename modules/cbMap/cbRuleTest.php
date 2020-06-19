@@ -87,10 +87,10 @@ class cbRuleTest extends TestCase {
 	}
 
 	/**
-	 * Method ConditionQueryProvidor
+	 * Method ConditionQueryProvider
 	 * params
 	 */
-	public function ConditionQueryProvidor() {
+	public function ConditionQueryProvider() {
 		return array(
 			array(34038,'11x74','Chemex Labs Ltd','Accountname query'),
 			array(34039,'29x4062',array(
@@ -112,7 +112,7 @@ class cbRuleTest extends TestCase {
 	/**
 	 * Method testConditionQuery
 	 * @test
-	 * @dataProvider ConditionQueryProvidor
+	 * @dataProvider ConditionQueryProvider
 	 */
 	public function testConditionQuery($conditionid, $contextid, $expected, $msg) {
 		global $current_user;
@@ -121,10 +121,10 @@ class cbRuleTest extends TestCase {
 	}
 
 	/**
-	 * Method ConditionExpressionProvidor
+	 * Method ConditionExpressionProvider
 	 * params
 	 */
-	public function ConditionExpressionProvidor() {
+	public function ConditionExpressionProvider() {
 		return array(
 			array(27078,'17x2636','yes','RAC Ticket Depending on Products'),
 			array('Ticket Account','17x2637','Chemex Labs Ltd','Ticket account name'),
@@ -141,7 +141,7 @@ class cbRuleTest extends TestCase {
 	/**
 	 * Method testConditionExpression
 	 * @test
-	 * @dataProvider ConditionExpressionProvidor
+	 * @dataProvider ConditionExpressionProvider
 	 */
 	public function testConditionExpression($conditionid, $contextid, $expected, $msg) {
 		global $current_user;

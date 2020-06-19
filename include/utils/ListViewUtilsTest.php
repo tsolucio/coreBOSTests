@@ -77,10 +77,10 @@ class testListViewUtils extends TestCase {
 	}
 
 	/**
-	 * Method textlength_checkProvidor
+	 * Method textlength_checkProvider
 	 * params
 	 */
-	public function textlength_checkProvidor() {
+	public function textlength_checkProvider() {
 		return array(
 			array('smaller40', 0, 'smaller40'),
 			array('line1<br>line2', 0, 'line1line2'),
@@ -104,7 +104,7 @@ class testListViewUtils extends TestCase {
 	/**
 	 * Method testtextlength_check
 	 * @test
-	 * @dataProvider textlength_checkProvidor
+	 * @dataProvider textlength_checkProvider
 	 */
 	public function testtextlength_check($inputtext, $cutsize, $expected) {
 		$this->assertEquals($expected, textlength_check($inputtext, $cutsize), 'textlength_check: '.$inputtext);

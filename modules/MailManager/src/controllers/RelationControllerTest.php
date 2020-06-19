@@ -25,9 +25,9 @@ use PHPUnit\Framework\TestCase;
 class testMailManager_RelationController extends TestCase {
 
 	/**
-	 * Method getbuildSearchQueryProvidor
+	 * Method getbuildSearchQueryProvider
 	 */
-	public function getbuildSearchQueryProvidor() {
+	public function getbuildSearchQueryProvider() {
 		return array(
 			array('Potentials','text','EMAIL',"SELECT potentialname FROM Potentials WHERE  email LIKE '%text%'  order by createdtime desc limit 0,6;",'Potential search text'),
 			array('Potentials','1','BOOLEAN',"SELECT potentialname FROM Potentials WHERE  isconvertedfromlead LIKE '%1%'  order by createdtime desc limit 0,6;",'Potential search text'),
@@ -37,7 +37,7 @@ class testMailManager_RelationController extends TestCase {
 	/**
 	 * Method testbuildSearchQuery
 	 * @test
-	 * @dataProvider getbuildSearchQueryProvidor
+	 * @dataProvider getbuildSearchQueryProvider
 	 */
 	public function testbuildSearchQuery($module, $text, $type, $expected, $msg) {
 		$rc = new MailManager_RelationController();

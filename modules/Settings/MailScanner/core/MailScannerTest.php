@@ -23,10 +23,10 @@ use PHPUnit\Framework\TestCase;
 class MailScannerTest extends TestCase {
 
 	/**
-	 * Method toIntegerProvidor
+	 * Method toIntegerProvider
 	 * params
 	 */
-	public function toIntegerProvidor() {
+	public function toIntegerProvider() {
 		return array(
 			array('1', true),
 			array('2e', false),
@@ -44,7 +44,7 @@ class MailScannerTest extends TestCase {
 	/**
 	 * Method testtoInteger
 	 * @test
-	 * @dataProvider toIntegerProvidor
+	 * @dataProvider toIntegerProvider
 	 */
 	public function testtoInteger($val, $expected) {
 		$vtms = new Vtiger_MailScanner('');

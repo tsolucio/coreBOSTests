@@ -23,10 +23,10 @@ use PHPUnit\Framework\TestCase;
 class ReportsTest extends TestCase {
 
 	/**
-	 * Method sgetColumnstoTotalHTMLProvidor
+	 * Method sgetColumnstoTotalHTMLProvider
 	 * params
 	 */
-	public function sgetColumnstoTotalHTMLProvidor() {
+	public function sgetColumnstoTotalHTMLProvider() {
 		$accounts = array(
 			array(
 				'label' => array(
@@ -250,7 +250,7 @@ class ReportsTest extends TestCase {
 	/**
 	 * Method testsgetColumnstoTotalHTML
 	 * @test
-	 * @dataProvider sgetColumnstoTotalHTMLProvidor
+	 * @dataProvider sgetColumnstoTotalHTMLProvider
 	 */
 	public function testsgetColumnstoTotalHTML($module, $expected) {
 		$rep = new Reports('');
@@ -258,10 +258,10 @@ class ReportsTest extends TestCase {
 	}
 
 	/**
-	 * Method getColumnsListbyBlockProvidor
+	 * Method getColumnsListbyBlockProvider
 	 * params
 	 */
-	public function getColumnsListbyBlockProvidor() {
+	public function getColumnsListbyBlockProvider() {
 		$accounts = array(
 			'vtiger_account:accountname:Accounts_Account_Name:accountname:V' => 'Account Name',
 			'vtiger_account:account_no:Accounts_Account_No:account_no:V' => 'Account No',
@@ -412,7 +412,7 @@ class ReportsTest extends TestCase {
 	/**
 	 * Method testsgetColumnsListbyBlock
 	 * @test
-	 * @dataProvider getColumnsListbyBlockProvidor
+	 * @dataProvider getColumnsListbyBlockProvider
 	 */
 	public function testgetColumnsListbyBlock($module, $block, $expected) {
 		$rep = new Reports('');
@@ -420,10 +420,10 @@ class ReportsTest extends TestCase {
 	}
 
 	/**
-	 * Method getaccesfieldProvidor
+	 * Method getaccesfieldProvider
 	 * params
 	 */
-	public function getaccesfieldProvidor() {
+	public function getaccesfieldProvider() {
 		$accounts = array(
 			'campaignrelstatus',
 			'accountname',
@@ -680,7 +680,7 @@ class ReportsTest extends TestCase {
 	/**
 	 * Method testgetaccesfield
 	 * @test
-	 * @dataProvider getaccesfieldProvidor
+	 * @dataProvider getaccesfieldProvider
 	 */
 	public function testgetaccesfield($pmodule, $smodule, $expected) {
 		$rep = new Reports('');

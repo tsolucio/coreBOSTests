@@ -23,10 +23,10 @@ use PHPUnit\Framework\TestCase;
 class number2stringTest extends TestCase {
 
 	/**
-	 * Method ConvertProvidor
+	 * Method ConvertProvider
 	 * params
 	 */
-	public function ConvertProvidor() {
+	public function ConvertProvider() {
 		return array(
 			array('1', 'en', 'ONE'),
 			array('2', 'en', 'TWO'),
@@ -74,7 +74,7 @@ class number2stringTest extends TestCase {
 	/**
 	 * Method testconvert
 	 * @test
-	 * @dataProvider ConvertProvidor
+	 * @dataProvider ConvertProvider
 	 */
 	public function testconvert($num, $lang, $expected) {
 		$this->assertEquals($expected, number2string::convert($num, $lang));
