@@ -1430,19 +1430,19 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
 		$queryGenerator->initForCustomViewById(5); // Prospect Accounts
 		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.account_type IN (
+		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (  (( vtiger_account.account_type IN (
 								select translation_key
 								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') )) AND vtiger_account.accountid > 0";
+								where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') ))) AND vtiger_account.accountid > 0";
 		$this->assertEquals($sqlresult, $query, "Init CV Prospect Accounts (5)");
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
 		$queryGenerator->initForCustomViewById(5); // Prospect Accounts
 		$queryGenerator->addCondition('accountname', 'Hermar, Inc', 'e', QueryGenerator::$AND);
 		$query = $queryGenerator->getQuery();
-		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_account.account_type IN (
+		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (  (( vtiger_account.account_type IN (
 								select translation_key
 								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') )) AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
+								where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') ))) AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
 		$this->assertEquals($sqlresult, $query, "Init CV Prospect Accounts (5)");
 	}
 
