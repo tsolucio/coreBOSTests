@@ -173,6 +173,13 @@ class testutils extends TestCase {
 			array(5,'15/6/2016','2016-06-15','Mdom testdmy'),
 			array(6,'06/1/2016','2016-06-01','Fdom testmdy'),
 			array(6,'6/15/2016','2016-06-15','Mdom testmdy'),
+			///////////////////
+			array(7,'','','empty in empty out'),
+			array(7,'$','','$ in empty out'),
+			array(7,'20160601','','junk in empty out'),
+			array(7,'2016-0601','','junk in empty out'),
+			array(7,'20160.601','','junk in empty out'),
+			array(7,'201ç60601','','junk in empty out'),
 		);
 	}
 
