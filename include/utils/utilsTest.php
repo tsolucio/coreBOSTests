@@ -64,6 +64,29 @@ class testutils extends TestCase {
 	}
 
 	/**
+	 * Method vtws_getEntityIdProvider
+	 * params
+	 */
+	public function vtws_getEntityIdProvider() {
+		return array(
+			array('Contacts', '12', 'WS ID Contact'),
+			array('Accounts', '11', 'WS ID Account'),
+			array('Assets', '29', 'WS ID Assets'),
+			array('DoesNotExist', '0', 'WS ID DoesNotExist'),
+			array('', '0', 'WS ID empty'),
+		);
+	}
+
+	/**
+	 * Method testvtws_getEntityId
+	 * @test
+	 * @dataProvider vtws_getEntityIdProvider
+	 */
+	public function testvtws_getEntityId($module, $expected, $message) {
+		$this->assertEquals($expected, vtws_getEntityId($module), "vtws_getEntityId $message");
+	}
+
+	/**
 	 * Method testisRecordExists
 	 * @test
 	 */
