@@ -838,6 +838,9 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$ObjectValues['filename'] = 'Cron.png';
+		$ObjectValues['relations'] = array();
+		$ObjectValues['_downloadurl'] = $actual['_downloadurl']; // 'http://localhost/coreBOSTest/storage/2020/June/week3/44181_Cron.png';
+		$this->assertRegExp('/^http.+coreBOSTest\/storage.+\/week[0-5]?\/[0-9]+_Cron.png$/', $actual['_downloadurl']);
 		$this->assertEquals($ObjectValues, $actual, 'Create Documents');
 		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
 		$this->assertEquals($model_filename['content'], $sdoc[$actual['id']]['attachment'], 'Document Attachment');
