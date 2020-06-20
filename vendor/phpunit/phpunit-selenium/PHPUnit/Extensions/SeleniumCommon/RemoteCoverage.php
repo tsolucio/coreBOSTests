@@ -13,7 +13,7 @@ class PHPUnit_Extensions_SeleniumCommon_RemoteCoverage
             $url = sprintf(
               '%s?PHPUNIT_SELENIUM_TEST_ID=%s',
               $this->coverageScriptUrl,
-              $this->testId
+              urlencode($this->testId)
             );
 
             $buffer = @file_get_contents($url);
@@ -23,7 +23,7 @@ class PHPUnit_Extensions_SeleniumCommon_RemoteCoverage
                 if (is_array($coverageData)) {
                     return $this->matchLocalAndRemotePaths($coverageData);
                 } else {
-                    throw new Exception('Empty or invalid code coverage data received from url "' . $url . '"');
+                    throw new Exception('Empty or invalid code coverage data received from url "' . $url . '" (' . var_export($buffer, true) . ')');
                 }
             }
         }

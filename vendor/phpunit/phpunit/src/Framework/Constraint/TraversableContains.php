@@ -33,8 +33,6 @@ class TraversableContains extends Constraint
     private $value;
 
     /**
-     * @param mixed $value
-     *
      * @throws \PHPUnit\Framework\Exception
      */
     public function __construct($value, bool $checkForObjectIdentity = true, bool $checkForNonObjectIdentity = false)
@@ -78,6 +76,7 @@ class TraversableContains extends Constraint
                     return true;
                 }
 
+                /* @noinspection TypeUnsafeComparisonInspection */
                 if (!$this->checkForObjectIdentity && $element == $this->value) {
                     return true;
                 }
@@ -88,6 +87,7 @@ class TraversableContains extends Constraint
                     return true;
                 }
 
+                /* @noinspection TypeUnsafeComparisonInspection */
                 if (!$this->checkForNonObjectIdentity && $element == $this->value) {
                     return true;
                 }

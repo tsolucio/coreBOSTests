@@ -1,5 +1,7 @@
 <?php
-class Tests_Selenium2TestCase_Coverage_RemoteCoverageTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class Tests_Selenium2TestCase_Coverage_RemoteCoverageTest extends TestCase
 {
     public function testObtainsCodeCoverageInformationFromAPossiblyRemoteHttpServer()
     {
@@ -9,7 +11,7 @@ class Tests_Selenium2TestCase_Coverage_RemoteCoverageTest extends PHPUnit_Framew
             'dummyTestId'
         );
         $content = $coverage->get();
-        $dummyClassSourceFile = dirname(__FILE__) . '/DummyClass.php';
+        $dummyClassSourceFile = $this->classSourceFile('DummyClass', $content);
         $expectedCoverage = array(
             3 => 1,
             6 => 1,
@@ -20,5 +22,15 @@ class Tests_Selenium2TestCase_Coverage_RemoteCoverageTest extends PHPUnit_Framew
         );
         $this->assertTrue(isset($content[$dummyClassSourceFile]), "Coverage: " . var_export($content, true));
         $this->assertEquals($expectedCoverage, $content[$dummyClassSourceFile]);
+    }
+
+    private function classSourceFile($className, array $content)
+    {
+        foreach ($content as $file => $coverage) {
+            if (strstr($file, $className)) {
+                return $file;
+            }
+        }
+        $this->fail("Class $className not found in coverage: " . var_export($content, true));
     }
 }

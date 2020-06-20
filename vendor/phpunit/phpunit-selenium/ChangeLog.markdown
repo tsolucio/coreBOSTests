@@ -1,7 +1,79 @@
-PHPUnit_Selenium 1.2
-====================
+PHPUnit_Selenium
+================
 
-This is the list of changes for the PHPUnit_Selenium 1.2 release series.
+This is the list of changes made to PHPUnit_Selenium.
+
+PHPUnit_Selenium 7.0.0
+----------------------
+
+* #422: Add support for PHPUnit 7
+
+PHPUnit_Selenium 4.1.0
+----------------------
+
+* #409: Add keepSessionOnFailure()
+* #412, #413: Remove unnecessary dependencies
+
+PHPUnit_Selenium 4.0.0
+----------------------
+
+* #403, #411: Support PHPUnit 6
+* #400: Only collect code coverage when a coverage url has been configured
+* Dropped support for PHP 5.x and HHVM
+* Dropped support for PHPUnit 5
+
+PHPUnit_Selenium 3.0.3
+----------------------
+
+* Added rect() command
+* Revamp of testing VM using Java 8, PHP 5.6
+
+PHPUnit_Selenium 3.0.2
+----------------------
+
+* Bug fix of waitUntil()
+
+PHPUnit_Selenium 3.0.1
+----------------------
+
+* Configurability of waitUntil() timeout and sleep interval
+
+PHPUnit_Selenium 3.0.0
+----------------------
+
+* Only supports PHPUnit 5
+* Officially supports PHP 7
+
+PHPUnit_Selenium 2.0.1
+----------------------
+
+* Only supports PHPUnit 4
+
+PHPUnit_Selenium 2.0.0
+----------------------
+
+* Only Selenium2TestCase is supported in the 2.x releases
+* file() command
+* Windows compatibility of code coverage
+
+PHPUnit_Selenium 1.4.2
+----------------------
+
+* First release with new canonical repository giorgiosironi/phpunit-selenium
+
+PHPUnit_Selenium 1.4.1
+----------------------
+
+* PHPUnit 4.x is now supported
+
+PHPUnit_Selenium 1.4.0
+----------------------
+
+* PEAR is now not supported as an installation method, being deprecated from the PHPUnit parent project
+* phpunit_coverage.php does not realy on PEAR now but on finding an autoload.php file
+* A Vagrant VM is provided for contributors to easily run the tests
+* Supporting browsers() static method with same behavior as $browsers static property
+* Added $this->log() and $this->logTypes()
 
 PHPUnit_Selenium 1.3.3
 ----------------------
@@ -141,3 +213,4 @@ PHPUnit_Selenium 1.2.0
 * Introduced element manipulation in WebDriver API: text accessor, value mutator.
 * Introduced `by*()` quick selectors in WebDriver API.
 * Extracted a base command class for extending the supported session and element commands in WebDriver API.
+

@@ -20,7 +20,7 @@ class Count extends Constraint
     /**
      * @var int
      */
-    private $expectedCount = 0;
+    private $expectedCount;
 
     public function __construct(int $expected)
     {
@@ -40,8 +40,6 @@ class Count extends Constraint
     /**
      * Evaluates the constraint for parameter $other. Returns true if the
      * constraint is met, false otherwise.
-     *
-     * @param mixed $other
      */
     protected function matches($other): bool
     {
@@ -55,6 +53,10 @@ class Count extends Constraint
     {
         if ($other instanceof Countable || \is_array($other)) {
             return \count($other);
+        }
+
+        if ($other instanceof \EmptyIterator) {
+            return 0;
         }
 
         if ($other instanceof Traversable) {

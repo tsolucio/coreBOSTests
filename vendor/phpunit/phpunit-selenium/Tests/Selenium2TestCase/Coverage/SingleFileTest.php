@@ -1,9 +1,11 @@
 <?php
-class Tests_Selenium2TestCase_Coverage_SingleFileTest extends PHPUnit_Framework_TestCase
-{
-    private $dummyTestId = 'dummyTestId';
+use PHPUnit\Framework\TestCase;
 
-    public function setUp()
+class Tests_Selenium2TestCase_Coverage_SingleFileTest extends TestCase
+{
+    private $dummyTestId = 'ns_dummyTestId';
+
+    public function setUp(): void
     {
         if (!extension_loaded('xdebug')) {
             $this->markTestSkipped('Needs xdebug to run');

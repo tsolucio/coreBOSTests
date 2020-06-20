@@ -41,6 +41,9 @@
  * @link       http://www.phpunit.de/
  * @since      File available since Release 1.2.0
  */
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestResult;
+use PHPUnit\Util\InvalidArgumentHelper;
 
 /**
  * TestCase class that uses Selenium 2
@@ -61,6 +64,7 @@
  * @method \PHPUnit_Extensions_Selenium2TestCase_Element byCssSelector() byCssSelector($value)
  * @method \PHPUnit_Extensions_Selenium2TestCase_Element byId() byId($value)
  * @method \PHPUnit_Extensions_Selenium2TestCase_Element byLinkText() byLinkText($value)
+ * @method \PHPUnit_Extensions_Selenium2TestCase_Element byPartialLinkText() byPartialLinkText($value)
  * @method \PHPUnit_Extensions_Selenium2TestCase_Element byName() byName($value)
  * @method \PHPUnit_Extensions_Selenium2TestCase_Element byTag() byTag($value)
  * @method \PHPUnit_Extensions_Selenium2TestCase_Element byXPath() byXPath($value)
@@ -68,6 +72,7 @@
  * @method void clickOnElement() clickOnElement($id)
  * @method string currentScreenshot() BLOB of the image file
  * @method void dismissAlert() Press Cancel on an alert, or does not confirm a dialog
+ * @method void doubleclick() Double clicks (at the coordinates set by the last moveto command).
  * @method \PHPUnit_Extensions_Selenium2TestCase_Element element() element(\PHPUnit_Extensions_Selenium2TestCase_ElementCriteria $criteria) Retrieves an element
  * @method array elements() elements(\PHPUnit_Extensions_Selenium2TestCase_ElementCriteria $criteria) Retrieves an array of Element instances
  * @method string execute() execute($javaScriptCode) Injects arbitrary JavaScript in the page and returns the last
@@ -85,16 +90,18 @@
  * @method void window() window($name) Changes the focus to another window
  * @method string windowHandle() Retrieves the current window handle
  * @method string windowHandles() Retrieves a list of all available window handles
- * @method string keys() Send a sequence of key strokes to the active element.
+ * @method string keys($string) Send a sequence of key strokes to the active element.
  * @method string file($file_path) Upload a local file. Returns the fully qualified path to the transferred file.
  * @method array log(string $type) Get the log for a given log type. Log buffer is reset after each request.
  * @method array logTypes() Get available log types.
  * @method void closeWindow() Close the current window.
- * @method void close() Close the current window and clear session data.
+ * @method void stop() Close the current window and clear session data.
+ * @method \PHPUnit_Extensions_Selenium2TestCase_Element active() Get the element on the page that currently has focus.
+ * @method \PHPUnit_Extensions_Selenium2TestCase_Window currentWindow() get the current Window Object
  */
-abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_TestCase
+abstract class PHPUnit_Extensions_Selenium2TestCase extends TestCase
 {
-    const VERSION = '1.3.3';
+    const VERSION = '4.1.0';
 
     /**
      * @var string  override to provide code coverage data from the server
@@ -120,6 +127,20 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
      * @var PHPUnit_Extensions_Selenium2TestCase_SessionStrategy
      */
     protected static $browserSessionStrategy;
+
+    /**
+     * Default timeout for wait until, ms
+     *
+     * @var int
+     */
+    private static $defaultWaitUntilTimeout = 0;
+
+    /**
+     * Default timeout for wait until, ms
+     *
+     * @var int
+     */
+    private static $defaultWaitUntilSleepInterval = 500;
 
     /**
      * @var PHPUnit_Extensions_Selenium2TestCase_SessionStrategy
@@ -149,6 +170,11 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
     /**
      * @param boolean
      */
+    private static $keepSessionOnFailure = FALSE;
+
+    /**
+     * @param boolean
+     */
     public static function shareSession($shareSession)
     {
         if (!is_bool($shareSession)) {
@@ -157,8 +183,20 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
         if (!$shareSession) {
             self::$sessionStrategy = self::defaultSessionStrategy();
         } else {
-            self::$sessionStrategy = new PHPUnit_Extensions_Selenium2TestCase_SessionStrategy_Shared(self::defaultSessionStrategy());
+            self::$sessionStrategy = new PHPUnit_Extensions_Selenium2TestCase_SessionStrategy_Shared(
+              self::defaultSessionStrategy(), self::$keepSessionOnFailure
+              );
         }
+    }
+
+    public static function keepSessionOnFailure($keepSession)
+    {
+      if (!is_bool($keepSession)) {
+            throw new InvalidArgumentException("The keep session on fail support can only be switched on or off.");
+        }
+      if ($keepSession){
+            self::$keepSessionOnFailure = TRUE;
+      }
     }
 
     private static function sessionStrategy()
@@ -174,6 +212,41 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
         return new PHPUnit_Extensions_Selenium2TestCase_SessionStrategy_Isolated;
     }
 
+    /**
+     * Get the default timeout for WaitUntil
+     * @return int the default timeout
+     */
+    public static function defaultWaitUntilTimeout(){
+        return self::$defaultWaitUntilTimeout;
+    }
+
+    /**
+     * Set the default timeout for WaitUntil
+     * @param int $timeout the new default timeout
+     */
+    public static function setDefaultWaitUntilTimeout($timeout){
+        $timeout = (int) $timeout;
+        self::$defaultWaitUntilTimeout = $timeout > 0 ? $timeout : 0;
+    }
+
+    /**
+     * Get the default sleep delay for WaitUntil
+     * @return int
+     */
+    public static function defaultWaitUntilSleepInterval(){
+        return self::$defaultWaitUntilSleepInterval;
+    }
+
+    /**
+     * Set default sleep delay for WaitUntil
+     * @param int $sleepDelay the new default sleep delay
+     */
+    public static function setDefaultWaitUntilSleepInterval($sleepDelay){
+        $sleepDelay = (int) $sleepDelay;
+        self::$defaultWaitUntilSleepInterval = $sleepDelay > 0 ? $sleepDelay : 0;
+    }
+
+
     public function __construct($name = NULL, array $data = array(), $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
@@ -183,7 +256,8 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
             'browser' => NULL,
             'browserName' => NULL,
             'desiredCapabilities' => array(),
-            'seleniumServerRequestsTimeout' => 60
+            'seleniumServerRequestsTimeout' => 60,
+            'secure' => FALSE
         );
 
         $this->keysHolder = new PHPUnit_Extensions_Selenium2TestCase_KeysHolder();
@@ -191,6 +265,9 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
 
     public function setupSpecificBrowser($params)
     {
+        if (isset($params['keepSession'])) {
+            $this->keepSessionOnFailure(TRUE);
+        }
         $this->setUpSessionStrategy($params);
         $params = array_merge($this->parameters, $params);
         $this->setHost($params['host']);
@@ -218,7 +295,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
             } elseif ($strat == "isolated") {
                 self::$browserSessionStrategy = new PHPUnit_Extensions_Selenium2TestCase_SessionStrategy_Isolated;
             } else {
-                self::$browserSessionStrategy = new PHPUnit_Extensions_Selenium2TestCase_SessionStrategy_Shared(self::defaultSessionStrategy());
+                self::$browserSessionStrategy = new PHPUnit_Extensions_Selenium2TestCase_SessionStrategy_Shared(self::defaultSessionStrategy(), self::$keepSessionOnFailure);
             }
         } else {
             self::$browserSessionStrategy = self::defaultSessionStrategy();
@@ -249,7 +326,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
         return $this->session;
     }
 
-    public function run(PHPUnit_Framework_TestResult $result = NULL)
+    public function run(TestResult $result = NULL): TestResult
     {
         $this->testId = get_class($this) . '__' . $this->getName();
 
@@ -257,7 +334,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
             $result = $this->createResult();
         }
 
-        $this->collectCodeCoverageInformation = $result->getCollectCodeCoverageInformation();
+        $this->collectCodeCoverageInformation = $result->getCollectCodeCoverageInformation() && $this->coverageScriptUrl;
 
         parent::run($result);
 
@@ -279,6 +356,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
 
     /**
      * @throws RuntimeException
+     * @throws Exception
      */
     protected function runTest()
     {
@@ -287,7 +365,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
         $thrownException = NULL;
 
         if ($this->collectCodeCoverageInformation) {
-            $this->session->cookie()->remove('PHPUNIT_SELENIUM_TEST_ID');
+            $this->url($this->coverageScriptUrl);   // phpunit_coverage.php won't do anything if the cookie isn't set, which is exactly what we want
             $this->session->cookie()->add('PHPUNIT_SELENIUM_TEST_ID', $this->testId)->set();
         }
 
@@ -300,6 +378,10 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
             }
         } catch (Exception $e) {
             $thrownException = $e;
+        }
+
+        if ($this->collectCodeCoverageInformation) {
+            $this->session->cookie()->remove('PHPUNIT_SELENIUM_TEST_ID');
         }
 
         if (NULL !== $thrownException) {
@@ -315,7 +397,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
         return PHPUnit_Extensions_SeleniumTestSuite::fromTestCaseClass($className);
     }
 
-    public function onNotSuccessfulTest(Exception $e)
+    public function onNotSuccessfulTest(Throwable $e): void
     {
         $this->getStrategy()->notSuccessfulTest();
         parent::onNotSuccessfulTest($e);
@@ -347,7 +429,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
     public function setHost($host)
     {
         if (!is_string($host)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
+            throw InvalidArgumentHelper::factory(1, 'string');
         }
 
         $this->parameters['host'] = $host;
@@ -365,7 +447,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
     public function setPort($port)
     {
         if (!is_int($port)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'integer');
+            throw InvalidArgumentHelper::factory(1, 'integer');
         }
 
         $this->parameters['port'] = $port;
@@ -377,13 +459,31 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
     }
 
     /**
+     * @param boolean $secure
+     * @throws InvalidArgumentException
+     */
+    public function setSecure($secure)
+    {
+        if(!is_bool($secure)) {
+            throw InvalidArgumentHelper::factory(1, 'boolean');
+        }
+
+        $this->parameters['secure'] = $secure;
+    }
+
+    public function getSecure()
+    {
+        return $this->parameters['secure'];
+    }
+
+    /**
      * @param  string $browser
      * @throws InvalidArgumentException
      */
     public function setBrowser($browserName)
     {
         if (!is_string($browserName)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
+            throw InvalidArgumentHelper::factory(1, 'string');
         }
 
         $this->parameters['browserName'] = $browserName;
@@ -401,7 +501,7 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
     public function setBrowserUrl($browserUrl)
     {
         if (!is_string($browserUrl)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'string');
+            throw InvalidArgumentHelper::factory(1, 'string');
         }
 
         $this->parameters['browserUrl'] = new PHPUnit_Extensions_Selenium2TestCase_URL($browserUrl);
@@ -500,5 +600,18 @@ abstract class PHPUnit_Extensions_Selenium2TestCase extends PHPUnit_Framework_Te
     public function setUpPage()
     {
 
+    }
+
+    /**
+     * Check whether an alert box is present
+     */
+    public function alertIsPresent()
+    {
+        try {
+            $this->alertText();
+            return TRUE;
+        } catch (Exception $e) {
+            return NULL;
+        }
     }
 }

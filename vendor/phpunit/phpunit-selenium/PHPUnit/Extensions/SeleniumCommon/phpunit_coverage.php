@@ -42,8 +42,15 @@
  * @since      File available since Release 1.0.0
  */
 
-require_once 'File/Iterator/Autoload.php';
-require_once 'PHP/CodeCoverage/Autoload.php';
+$directory = realpath(__DIR__);
+while ($directory != '/') {
+    $autoloadCandidate = $directory . '/vendor/autoload.php';
+    if (file_exists($autoloadCandidate)) {
+        require_once $autoloadCandidate;
+        break;
+    }
+    $directory = realpath($directory . '/..');
+}
 
 // Set this to the directory that contains the code coverage files.
 // It defaults to getcwd(). If you have configured a different directory
@@ -51,10 +58,11 @@ require_once 'PHP/CodeCoverage/Autoload.php';
 $GLOBALS['PHPUNIT_COVERAGE_DATA_DIRECTORY'] = getcwd();
 
 if (isset($_GET['PHPUNIT_SELENIUM_TEST_ID'])) {
-    $facade = new File_Iterator_Facade;
+    $facade = new \SebastianBergmann\FileIterator\Facade();
+    $sanitizedCookieName = str_replace(array('\\'), '_', $_GET['PHPUNIT_SELENIUM_TEST_ID']);
     $files  = $facade->getFilesAsArray(
       $GLOBALS['PHPUNIT_COVERAGE_DATA_DIRECTORY'],
-      $_GET['PHPUNIT_SELENIUM_TEST_ID']
+      $sanitizedCookieName
     );
 
     $coverage = array();
@@ -63,7 +71,7 @@ if (isset($_GET['PHPUNIT_SELENIUM_TEST_ID'])) {
         $data = unserialize(file_get_contents($file));
         unlink($file);
         unset($file);
-        $filter = new PHP_CodeCoverage_Filter();
+        $filter = new \SebastianBergmann\CodeCoverage\Filter();
 
         foreach ($data as $file => $lines) {
             if ($filter->isFile($file)) {
