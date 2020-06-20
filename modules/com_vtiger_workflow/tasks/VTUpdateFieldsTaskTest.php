@@ -279,7 +279,7 @@ class VTUpdateFieldsTaskTest extends TestCase {
 		$this->assertEquals($preValues['Products'], $postValues['Products'], 'Products after update');
 		$this->assertEquals(223.00, $postPdoPrices[0]['curvalue'], 'Product Prices after update');
 		$postPdoPrices[0]['curvalue'] = $orgValProductsunit_price;
-		$this->assertEquals($prePdoPrices, $postPdoPrices, 'Product Prices after update');
+		$this->assertEquals((float) $prePdoPrices, (float) $postPdoPrices, 'Product Prices after update');
 		$this->assertEquals($preTaxDetails, $postTaxDetails, 'Product Taxes after update');
 		// Teardown
 		$adb->pquery('update vtiger_crmentity set smownerid=? where crmid=?', array('6', $cypid));

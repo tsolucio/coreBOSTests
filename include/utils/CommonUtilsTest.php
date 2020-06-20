@@ -56,14 +56,14 @@ class testCommonUtils extends TestCase {
 	public function testgetCurrencySymbolandCRate() {
 		$actual = getCurrencySymbolandCRate(1);
 		$expected = array(
-			'rate' => '1.0',
+			'rate' => '1.000000',
 			'symbol' => '&euro;',
 			'position' => '1.0$',
 		);
 		$this->assertEquals($expected, $actual, 'currency symrate 1');
 		$actual = getCurrencySymbolandCRate(2);
 		$expected = array(
-			'rate' => '1.10',
+			'rate' => '1.100000',
 			'symbol' => '$',
 			'position' => '$1.0',
 		);
@@ -1530,9 +1530,9 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			array('1', '1'),
 			array('1b', '1'),
 			array('1k', '1024'),
-			array('1m', '1048576.0'),
-			array('1g', '1073741824.0'),
-			array('1t', '1099511627776.0'),
+			array('1m', '1048576'),
+			array('1g', '1073741824'),
+			array('1t', '1099511627776'),
 			array('1p', '1.1258999068426E+15'),
 			array('1e', '1.1529215046068E+18'),
 			array('1z', '1.1805916207174E+21'),
@@ -1549,9 +1549,9 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			array('20y', '2.4178516392293E+25'),
 			array('100', '100'),
 			array('100b', '100'),
-			array('100k', '102400.0'),
-			array('100m', '104857600.0'),
-			array('100g', '107374182400.0'),
+			array('100k', '102400'),
+			array('100m', '104857600'),
+			array('100g', '107374182400'),
 			array('100t', '1.099511627776E+14'),
 			array('100p', '1.1258999068426E+17'),
 			array('100e', '1.1529215046068E+20'),
