@@ -1,0 +1,3 @@
+cd /var/www/coreBOSTest
+mkdir coverage
+build/coreBOSTests/phpunit -c build/coreBOSTests/phpunit.xml --prepend build/coreBOSTests/xdebug-filter.php --coverage-html coverage/

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<phpunit 
+<phpunit
 	convertNoticesToExceptions="false"
 	convertWarningsToExceptions="false"
 	backupGlobals="false">
@@ -61,8 +61,303 @@
 		<testsuite name="cbData">
 			<directory>./data</directory>
 		</testsuite>
+		<testsuite name="cbInclude">
+			<directory>./include</directory>
+		</testsuite>
+		<testsuite name="cbModules">
+			<directory>./modules</directory>
+		</testsuite>
 		<testsuite name="vtlib">
 			<directory>./vtlib</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
+			<directory suffix=".php">../../data/</directory>
+			<directory suffix=".php">../../cron/</directory>
+			<directory suffix=".service">../../cron/</directory>
+			<directory suffix=".php">../../include</directory>
+			<directory suffix=".inc">../../include/events</directory>
+			<directory suffix=".php">../../modules/com_vtiger_workflow</directory>
+			<directory suffix=".inc">../../modules/com_vtiger_workflow</directory>
+			<directory suffix=".php">../../modules/Calendar4You</directory>
+			<directory suffix=".php">../../modules/cbMap/processmap</directory>
+			<directory suffix=".php">../../modules/cbQuestion/actions</directory>
+			<directory suffix=".php">../../modules/evvtgendoc</directory>
+			<directory suffix=".php">../../modules/evvtMenu</directory>
+			<directory suffix=".php">../../modules/Import</directory>
+			<directory suffix=".php">../../modules/MailManager</directory>
+			<directory suffix=".php">../../modules/Mobile</directory>
+			<directory suffix=".php">../../modules/ModComments/models</directory>
+			<directory suffix=".php">../../modules/ModComments/widgets</directory>
+			<directory suffix=".php">../../modules/ModTracker/core</directory>
+			<directory suffix=".php">../../modules/ModTracker/lib</directory>
+			<directory suffix=".php">../../modules/PickList</directory>
+			<directory suffix=".php">../../modules/Reports</directory>
+			<directory suffix=".php">../../modules/Settings</directory>
+			<directory suffix=".php">../../modules/SMSNotifier/ext</directory>
+			<directory suffix=".php">../../modules/SMSNotifier/workflow</directory>
+			<directory suffix=".php">../../modules/Tooltip</directory>
+			<directory suffix=".php">../../modules/Users</directory>
+			<directory suffix=".php">../../modules/Utilities</directory>
+			<directory suffix=".php">../../modules/Vtiger</directory>
+			<directory suffix=".php">../../modules/VtigerBackup</directory>
+			<directory suffix=".php">../../modules/Webforms</directory>
+			<directory suffix=".php">../../modules/WSAPP</directory>
+			<directory suffix=".php">../../vtlib</directory>
+			<file>../../modules/Accounts/AccountHierarchy.php</file>
+			<file>../../modules/Accounts/Accounts.php</file>
+			<file>../../modules/Accounts/AccountsValidation.php</file>
+			<file>../../modules/Accounts/MailerExport.php</file>
+			<file>../../modules/Accounts/ListViewTop.php</file>
+			<file>../../modules/Accounts/SelectAccountAddress.php</file>
+			<file>../../modules/Accounts/Save.php</file>
+			<file>../../modules/BusinessActions/BusinessActions.php</file>
+			<file>../../modules/Campaigns/Campaigns.php</file>
+			<file>../../modules/cbCalendar/cbCalendar.php</file>
+			<file>../../modules/cbCalendar/addCloseOnListView.php</file>
+			<file>../../modules/cbCalendar/calendarops.php</file>
+			<file>../../modules/cbCalendar/cbCalendarValidation.php</file>
+			<file>../../modules/cbCalendar/DetailView.php</file>
+			<file>../../modules/cbCalendar/EditView.php</file>
+			<file>../../modules/cbCalendar/PublicInvitePermission.php</file>
+			<file>../../modules/cbCalendar/Save.php</file>
+			<file>../../modules/cbCompany/cbCompany.php</file>
+			<file>../../modules/cbCompany/cbCompanyValidation.php</file>
+			<file>../../modules/cbCVManagement/cbCVManagement.php</file>
+			<file>../../modules/cbCVManagement/SearchPermission.php</file>
+			<file>../../modules/cbMap/cbMap.php</file>
+			<file>../../modules/cbMap/cbMapcore.php</file>
+			<file>../../modules/cbMap/cbRule.php</file>
+			<file>../../modules/cbQuestion/cbQuestion.php</file>
+			<file>../../modules/cbtranslation/cbtranslation.php</file>
+			<file>../../modules/cbtranslation/number2string.php</file>
+			<file>../../modules/cbupdater/cbupdater.php</file>
+			<file>../../modules/cbupdater/cbupdaterHelper.php</file>
+			<file>../../modules/cbupdater/cbupdaterWidget.php</file>
+			<file>../../modules/cbupdater/cbupdaterWorker.php</file>
+			<file>../../modules/cbupdater/cbupdButtons.php</file>
+			<file>../../modules/cbupdater/Delete.php</file>
+			<file>../../modules/cbupdater/DetailViewAjax.php</file>
+			<file>../../modules/cbupdater/DetailView.php</file>
+			<file>../../modules/cbupdater/doworkcli.php</file>
+			<file>../../modules/cbupdater/dowork.php</file>
+			<file>../../modules/cbupdater/exportxml.php</file>
+			<file>../../modules/cbupdater/forcedButtons.php</file>
+			<file>../../modules/cbupdater/getupdatescli.php</file>
+			<file>../../modules/cbupdater/getupdates.php</file>
+			<file>../../modules/cbupdater/importxml.php</file>
+			<file>../../modules/cbupdater/loadapplychanges.php</file>
+			<file>../../modules/cbupdater/Save.php</file>
+			<file>../../modules/cbupdater/setBlock.php</file>
+			<file>../../modules/CobroPago/CobroPago.php</file>
+			<file>../../modules/Contacts/Contacts.php</file>
+			<file>../../modules/Contacts/ContactHierarchy.php</file>
+			<file>../../modules/Contacts/Accounts.php</file>
+			<file>../../modules/Contacts/SelectContactAddress.php</file>
+			<file>../../modules/CronTasks/CronTasks.php</file>
+			<file>../../modules/CronTasks/CronSequence.php</file>
+			<file>../../modules/CronTasks/cronWatcher.service</file>
+			<file>../../modules/CronTasks/EditCron.php</file>
+			<file>../../modules/CronTasks/ListCronJobs.php</file>
+			<file>../../modules/CronTasks/SaveCron.php</file>
+			<file>../../modules/CustomView/CustomView.php</file>
+			<file>../../modules/CustomView/ChangeStatus.php</file>
+			<file>../../modules/CustomView/CustomViewAjax.php</file>
+			<file>../../modules/CustomView/Delete.php</file>
+			<file>../../modules/CustomView/EditView.php</file>
+			<file>../../modules/CustomView/ListViewTop.php</file>
+			<file>../../modules/CustomView/PopulateCustomView.php</file>
+			<file>../../modules/CustomView/Save.php</file>
+			<file>../../modules/Documents/BasicSettings.php</file>
+			<file>../../modules/Documents/DeleteFolder.php</file>
+			<file>../../modules/Documents/DetailView.php</file>
+			<file>../../modules/Documents/Documents.php</file>
+			<file>../../modules/Documents/DocumentsUtils.php</file>
+			<file>../../modules/Documents/documentsWidget.php</file>
+			<file>../../modules/Documents/DownloadFile.php</file>
+			<file>../../modules/Documents/EditView.php</file>
+			<file>../../modules/Documents/EmailFile.php</file>
+			<file>../../modules/Documents/FoldersListView.php</file>
+			<file>../../modules/Documents/ListViewCalculations.php</file>
+			<file>../../modules/Documents/MoveFile.php</file>
+			<file>../../modules/Documents/SaveFile.php</file>
+			<file>../../modules/Documents/SaveFolder.php</file>
+			<file>../../modules/Documents/Save.php</file>
+			<file>../../modules/Documents/Settings.php</file>
+			<file>../../modules/Documents/StorageConfig.php</file>
+			<file>../../modules/Documents/WidgetUpload.php</file>
+			<file>../../modules/Emails/DetailView.php</file>
+			<file>../../modules/Emails/EditView.php</file>
+			<file>../../modules/Emails/EmailsAjax.php</file>
+			<file>../../modules/Emails/Emails.php</file>
+			<file>../../modules/Emails/evcbrcHandler.php</file>
+			<file>../../modules/Emails/mail.php</file>
+			<file>../../modules/Emails/mailSelect.php</file>
+			<file>../../modules/Emails/mailsend.php</file>
+			<file>../../modules/Emails/PrintEmail.php</file>
+			<file>../../modules/Emails/SaveBookmarklet.php</file>
+			<file>../../modules/Emails/Save.php</file>
+			<file>../../modules/Emails/TrackAccess.php</file>
+			<file>../../modules/Emails/updateRelations.php</file>
+			<file>../../modules/Emails/webmailsend.php</file>
+			<file>../../modules/EtiquetasOO/index.php</file>
+			<file>../../modules/GlobalVariable/GlobalVariable.php</file>
+			<file>../../modules/GlobalVariable/SearchGlobalVar.php</file>
+			<file>../../modules/GlobalVariable/SearchGlobalVarws.php</file>
+			<file>../../modules/HelpDesk/ConvertAsFAQ.php</file>
+			<file>../../modules/HelpDesk/HelpDesk.php</file>
+			<file>../../modules/HelpDesk/HelpDeskHandler.php</file>
+			<file>../../modules/HelpDesk/ListTickets.php</file>
+			<file>../../modules/InventoryDetails/InventoryDetails.php</file>
+			<file>../../modules/Invoice/EditView.php</file>
+			<file>../../modules/Invoice/Invoice.php</file>
+			<file>../../modules/Invoice/InvoiceValidation.php</file>
+			<file>../../modules/Invoice/ListTopInvoice.php</file>
+			<file>../../modules/Leads/ConvertLead.php</file>
+			<file>../../modules/Leads/ConvertLeadUI.php</file>
+			<file>../../modules/Leads/DetailView.php</file>
+			<file>../../modules/Leads/LeadConvertToEntities.php</file>
+			<file>../../modules/Leads/Leads.php</file>
+			<file>../../modules/ModComments/BasicSettings.php</file>
+			<file>../../modules/ModComments/DetailViewAjax.php</file>
+			<file>../../modules/ModComments/ModCommentsCore.php</file>
+			<file>../../modules/ModComments/ModComments.php</file>
+			<file>../../modules/ModComments/ModCommentsWidgetHandler.php</file>
+			<file>../../modules/ModComments/Settings.php</file>
+			<file>../../modules/ModTracker/BasicSettings.php</file>
+			<file>../../modules/ModTracker/ListView.php</file>
+			<file>../../modules/ModTracker/ModTrackerHandler.php</file>
+			<file>../../modules/ModTracker/ModTracker.php</file>
+			<file>../../modules/ModTracker/ModTrackerUtils.php</file>
+			<file>../../modules/ModTracker/Settings.php</file>
+			<file>../../modules/ModTracker/ShowDiff.php</file>
+			<file>../../modules/MsgTemplate/MsgTemplate.php</file>
+			<file>../../modules/MsgTemplate/TemplateMergeEmailTask.php</file>
+			<file>../../modules/MsgTemplate/TemplateMerge.php</file>
+			<file>../../modules/Potentials/Potentials.php</file>
+			<file>../../modules/Potentials/ListViewTop.php</file>
+			<file>../../modules/Potentials/EditView.php</file>
+			<file>../../modules/PriceBooks/PriceBooks.php</file>
+			<file>../../modules/ProductComponent/ProductComponent.php</file>
+			<file>../../modules/ProductComponent/Delete.php</file>
+			<file>../../modules/ProductComponent/handlers/prodsubprodhandlerevent.php</file>
+			<file>../../modules/Products/addPbProductRelToDB.php</file>
+			<file>../../modules/Products/AddProductsToPriceBook.php</file>
+			<file>../../modules/Products/AddProductToPriceBooks.php</file>
+			<file>../../modules/Products/CallRelatedList.php</file>
+			<file>../../modules/Products/Delete.php</file>
+			<file>../../modules/Products/DeletePriceBookProductRel.php</file>
+			<file>../../modules/Products/DetailView.php</file>
+			<file>../../modules/Products/EditListPrice.php</file>
+			<file>../../modules/Products/EditView.php</file>
+			<file>../../modules/Products/InventoryGroupTaxAjax.php</file>
+			<file>../../modules/Products/InventoryPriceAjax.php</file>
+			<file>../../modules/Products/InventoryTaxAjax.php</file>
+			<file>../../modules/Products/MassUploadImage.php</file>
+			<file>../../modules/Products/Products.php</file>
+			<file>../../modules/Products/QuickCreate.php</file>
+			<file>../../modules/Products/UpdateListPrice.php</file>
+			<file>../../modules/Products/UploadImage.php</file>
+			<file>../../modules/PurchaseOrder/DetailView.php</file>
+			<file>../../modules/PurchaseOrder/EditView.php</file>
+			<file>../../modules/PurchaseOrder/ListTopPurchaseOrder.php</file>
+			<file>../../modules/PurchaseOrder/PurchaseOrder.php</file>
+			<file>../../modules/PurchaseOrder/PurchaseOrderValidation.php</file>
+			<file>../../modules/Quotes/DetailView.php</file>
+			<file>../../modules/Quotes/EditView.php</file>
+			<file>../../modules/Quotes/ListTopQuotes.php</file>
+			<file>../../modules/Quotes/Quotes.php</file>
+			<file>../../modules/Quotes/QuotesValidation.php</file>
+			<file>../../modules/RecycleBin/EmptyRecyclebin.php</file>
+			<file>../../modules/RecycleBin/ListView.php</file>
+			<file>../../modules/RecycleBin/Recyclebin.php</file>
+			<file>../../modules/RecycleBin/RecyclebinUtild.php</file>
+			<file>../../modules/RecycleBin/Restoration.php</file>
+			<file>../../modules/SalesOrder/DetailView.php</file>
+			<file>../../modules/SalesOrder/EditView.php</file>
+			<file>../../modules/SalesOrder/ListTopSalesOrder.php</file>
+			<file>../../modules/SalesOrder/RecurringInvoiceHandler.php</file>
+			<file>../../modules/SalesOrder/SalesOrder.php</file>
+			<file>../../modules/SalesOrder/SalesOrderValidation.php</file>
+			<file>../../modules/ServiceContracts/EditView.php</file>
+			<file>../../modules/ServiceContracts/HDSync.php</file>
+			<file>../../modules/ServiceContracts/ServiceContractsHandler.php</file>
+			<file>../../modules/ServiceContracts/ServiceContracts.php</file>
+			<file>../../modules/SMSNotifier/sendsmsButton.php</file>
+			<file>../../modules/SMSNotifier/Settings.php</file>
+			<file>../../modules/SMSNotifier/SMSConfigServer.php</file>
+			<file>../../modules/SMSNotifier/SMSNotifierBase.php</file>
+			<file>../../modules/SMSNotifier/SMSNotifierComposeWizard.php</file>
+			<file>../../modules/SMSNotifier/SMSNotifier.php</file>
+			<file>../../modules/SMSNotifier/SMSNotifierSelectWizard.php</file>
+			<file>../../modules/SMSNotifier/SMSNotifierSend.php</file>
+			<file>../../modules/SMSNotifier/SMSNotifierStatusWidget.php</file>
+			<file>../../modules/Vendors/SelectVendorAddress.php</file>
+			<file>../../modules/Vendors/Vendors.php</file>
+			<exclude>
+				<file>../../include/QueryGenerator/PHPSQLCreator.php</file>
+				<file>../../include/QueryGenerator/PHPSQLParser.php</file>
+				<file>../../include/QueryGenerator/PHPSQLParserInclude.php</file>
+				<directory>../../modules/Calendar4You/class</directory>
+				<directory>../../modules/Calendar4You/fullcalendar</directory>
+				<directory>../../modules/PickList/PickListAjax.php</directory>
+				<directory>../../modules/Users/authTypes</directory>
+				<directory>../../modules/Reports/index.php</directory>
+				<directory>../../modules/Reports/ReportsAjax.php</directory>
+				<directory>../../modules/Tooltip/index.php</directory>
+				<directory>../../modules/Tooltip/TooltipAjax.php</directory>
+				<directory>../../modules/Utilities/index.php</directory>
+				<directory>../../modules/Utilities/ListView.php</directory>
+				<directory>../../modules/Utilities/UtilitiesAjax.php</directory>
+				<directory>../../modules/VtigerBackup/VtigerBackupAjax.php</directory>
+				<directory>../../modules/Webforms/WebformsAjax.php</directory>
+				<directory>../../modules/WSAPP/WSAPPAjax.php</directory>
+				<directory>../../modules/**/language</directory>
+				<directory>../../include/integrations/zendesk/vendor</directory>
+				<directory>../../include/integrations/sendgrid/vendor</directory>
+				<directory>../../include/integrations/sendgrid/lib</directory>
+				<directory>../../include/integrations/hubspot/vendor</directory>
+				<directory>../../include/QueryGenerator/builders</directory>
+				<directory>../../include/QueryGenerator/exceptions</directory>
+				<directory>../../include/QueryGenerator/lexer</directory>
+				<directory>../../include/QueryGenerator/positions</directory>
+				<directory>../../include/QueryGenerator/processors</directory>
+				<directory>../../include/QueryGenerator/utils</directory>
+				<directory>../../include/QueryGenerator/Options.php</directory>
+				<directory>../../include/adodb</directory>
+				<directory>../../include/antlr</directory>
+				<directory>../../include/bunnyjs</directory>
+				<directory>../../include/calculator</directory>
+				<directory>../../include/chart.js</directory>
+				<directory>../../include/ckeditor</directory>
+				<directory>../../include/clock</directory>
+				<directory>../../include/csrfmagic</directory>
+				<directory>../../include/dropzone</directory>
+				<directory>../../include/fpdf</directory>
+				<directory>../../include/fpdi</directory>
+				<directory>../../include/fpdi_protection</directory>
+				<directory>../../include/freetag</directory>
+				<directory>../../include/htmlpurifier</directory>
+				<directory>../../include/HTTP_Session2</directory>
+				<directory>../../include/install</directory>
+				<directory>../../include/jquery</directory>
+				<directory>../../include/js</directory>
+				<directory>../../include/language</directory>
+				<directory>../../include/LD</directory>
+				<directory>../../include/log4php</directory>
+				<directory>../../include/log4php.debug</directory>
+				<directory>../../include/nusoap</directory>
+				<directory>../../include/PhpSpreadsheet</directory>
+				<directory>../../include/simplepie</directory>
+				<directory>../../include/tcpdf</directory>
+				<directory>../../include/wsClient</directory>
+				<directory>../../include/MemoryLimitManager/example</directory>
+				<directory>../../include/cbmqtm/Core</directory>
+				<directory>../../include/Webservices/language</directory>
+				<directory>../../vtlib/ModuleDir</directory>
+				<directory>../../vtlib/thirdparty</directory>
+			</exclude>
+		</whitelist>
+	</filter>
 </phpunit>
