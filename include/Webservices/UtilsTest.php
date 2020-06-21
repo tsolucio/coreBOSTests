@@ -21,6 +21,87 @@ use PHPUnit\Framework\TestCase;
 
 class testWebservicesUtils extends TestCase {
 
+	/****
+	 * TEST Users decimal configuration
+	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
+	 ****/
+	private $usrdota0x = 5; // testdmy 2 decimal places
+	private $usrcomd0x = 6; // testmdy 3 decimal places
+	private $usrdotd3com = 7; // testymd 4 decimal places
+	private $usrcoma3dot = 10; // testtz 5 decimal places
+	private $usrdota3comdollar = 12; // testmcurrency 6 decimal places
+	private $usrinactive = 9; // inactive user
+	private $usrnocreate = 11; // restricted user
+
+	/**
+	 * Method vtws_getUsersInTheSameGroupProvider
+	 * params
+	 */
+	public function vtws_getUsersInTheSameGroupProvider() {
+		$grpsadmin = array(
+			5 => 'cbTest testdmy',
+			6 => 'cbTest testmdy',
+			7 => 'cbTest testymd',
+			8 => 'cbTest testes',
+			9 => 'cbTest testinactive',
+			10 => 'cbTest testtz',
+			12 => 'cbTest testmcurrency',
+			13 => 'cbTest testtz-3',
+			11 => 'nocreate cbTest',
+		);
+		$grpsusrcoma3dot = array(
+			5 => 'cbTest testdmy',
+			6 => 'cbTest testmdy',
+			7 => 'cbTest testymd',
+			8 => 'cbTest testes',
+			9 => 'cbTest testinactive',
+			12 => 'cbTest testmcurrency',
+			13 => 'cbTest testtz-3',
+			11 => 'nocreate cbTest',
+			1 => ' Administrator',
+		);
+		$grpsusrinactive = array(
+			5 => 'cbTest testdmy',
+			6 => 'cbTest testmdy',
+			7 => 'cbTest testymd',
+			8 => 'cbTest testes',
+			10 => 'cbTest testtz',
+			12 => 'cbTest testmcurrency',
+			13 => 'cbTest testtz-3',
+			11 => 'nocreate cbTest',
+			1 => ' Administrator',
+		);
+		$grpsusrnocreate = array(
+			5 => 'cbTest testdmy',
+			6 => 'cbTest testmdy',
+			7 => 'cbTest testymd',
+			8 => 'cbTest testes',
+			9 => 'cbTest testinactive',
+			12 => 'cbTest testmcurrency',
+			13 => 'cbTest testtz-3',
+			10 => 'cbTest testtz',
+			1 => ' Administrator',
+		);
+		$grps = array();
+		return array(
+			array('1', $grpsadmin),
+			array($this->usrcoma3dot, $grpsusrcoma3dot),
+			array($this->usrinactive, $grpsusrinactive),
+			array($this->usrnocreate, $grpsusrnocreate),
+			array('0', $grps),
+			array('', $grps),
+		);
+	}
+
+	/**
+	 * Method testvtws_getUsersInTheSameGroup
+	 * @test
+	 * @dataProvider vtws_getUsersInTheSameGroupProvider
+	 */
+	public function testvtws_getUsersInTheSameGroup($entityId, $expected) {
+		$this->assertEquals($expected, vtws_getUsersInTheSameGroup($entityId), "getUsersInTheSameGroup $entityId");
+	}
+
 	/**
 	 * Method vtws_getParameterProvider
 	 * params
@@ -197,7 +278,7 @@ class testWebservicesUtils extends TestCase {
 	 * @dataProvider vtws_getEntityNameProvider
 	 */
 	public function testvtws_getEntityName($entityId, $expected) {
-		$actual = vtws_getEntityName($entityId, $expected);
+		$actual = vtws_getEntityName($entityId);
 		$this->assertEquals($expected, $actual, "vtws_getEntityName $entityId");
 	}
 }
