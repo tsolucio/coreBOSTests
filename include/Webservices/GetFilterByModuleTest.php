@@ -148,13 +148,11 @@ class testWSGetFilterByModule extends TestCase {
 	 * @expectedException WebServiceException
 	 */
 	public function testnopermissionmodule() {
-		global $current_user;
-		// $this->expectException(WebServiceException::class);
-		// $this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
-		$this->markTestIncomplete(
-			'Have to configure a module with no access, update the DB and this test'
-		);
-		//getfiltersbymodule('Have to configure a module with no access, update the DB and this test', $current_user);
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate > no access to cbTermConditions
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		getfiltersbymodule('cbTermConditions', $user);
 	}
 }
 ?>
