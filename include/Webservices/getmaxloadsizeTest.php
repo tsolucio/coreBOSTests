@@ -20,13 +20,27 @@
 
 use PHPUnit\Framework\TestCase;
 
+include_once 'include/Webservices/getmaxloadsize.php';
+
 class testgetmaxloadsize extends TestCase {
 
 	/**
-	 * Method testgetmaxloadsize
+	 * Method testget_maxloadsize
+	 * @test
+	 */
+	public function testget_maxloadsize() {
+		global $current_user;
+		$maxsize = get_maxloadsize($current_user);
+		$expected = (parse_size(ini_get('post_max_size'))==$maxsize || parse_size(ini_get('upload_max_filesize'))==$maxsize);
+		$this->assertEquals($expected, $maxsize);
+	}
+
+	/**
+	 * Method testparse_size
 	 * @test
 	 */
 	public function testparse_size() {
+		parse_size(0);
 		$this->assertTrue(true, 'parse_size=numberBytes is tested in CommonUtils and the other function is almost pure PHP and hard to test without writing the function again');
 	}
 }
