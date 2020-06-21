@@ -25,6 +25,7 @@ class PickListUtilsTest extends TestCase {
 	private $role_salesman = 'H5';
 
 	private $expectedH3_picklists = array(
+	'Documents' => array(),
 	'Accounts' => array(
 	0 =>
 	array (
@@ -325,6 +326,7 @@ class PickListUtilsTest extends TestCase {
 	));
 
 	private $expectedH5_picklists = array(
+	'Documents' => array(),
 	'Accounts' => array(
 	0 =>
 	array (
@@ -623,7 +625,7 @@ class PickListUtilsTest extends TestCase {
 	 * @test
 	 */
 	public function testgetUserFldArray() {
-		$mods = array('Accounts','Contacts','HelpDesk');
+		$mods = array('Accounts','Contacts','HelpDesk','Documents');
 		foreach ($mods as $module) {
 			$actual = getUserFldArray($module, $this->role_vicepresident);
 			$this->assertEquals($this->expectedH3_picklists[$module], $actual, "$module > H3");
