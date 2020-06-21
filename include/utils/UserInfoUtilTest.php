@@ -119,12 +119,14 @@ class testUserInfoUtil extends TestCase {
 			77 => '0',
 			78 => '0',
 		);
+		$profilenocreate = $profiles;
+		$profilenocreate['62'] = '1';
 		$expected = array(
 			'1' => $profiles,
 			'2' => $profiles,
 			'3' => $profiles,
 			'4' => $profiles,
-			'5' => $profiles,
+			'5' => $profilenocreate,
 			'6' => $profiles,
 		);
 		foreach ($this->profiles as $pid => $pname) {
@@ -225,12 +227,14 @@ class testUserInfoUtil extends TestCase {
 		$prof4[45] = $prof4[52] = '1';
 		$prof56 = $prof4;
 		unset($prof56[3]);
+		$prof5 = $prof56;
+		$prof5[62] = '1';
 		$expected = array(
 			'1' => $profiles,
 			'2' => $profiles,
 			'3' => $profiles,
 			'4' => $prof4,
-			'5' => $prof56,
+			'5' => $prof5,
 			'6' => $prof56,
 		);
 		foreach ($this->profiles as $pid => $pname) {
@@ -965,9 +969,12 @@ class testUserInfoUtil extends TestCase {
 			65 => 'evvtgendoc',
 			66 => 'MsgTemplate',
 		);
+		$exp11 = $exp2;
+		unset($exp11[50]);
+		$exp11 = array_values($exp11);
 		return array(
 			array(1, $exp1),
-			array(11, $exp2),
+			array(11, $exp11),
 			array(5, $exp2),
 			array(9, $exp2),
 		);
@@ -1133,9 +1140,12 @@ class testUserInfoUtil extends TestCase {
 			65 => 77,
 			66 => 78,
 		);
+		$exp11 = $exp2;
+		unset($exp11[50]);
+		$exp11 = array_values($exp11);
 		return array(
 			array(1, $exp1),
-			array(11, $exp2),
+			array(11, $exp11),
 			array(5, $exp2),
 			array(9, $exp2),
 		);
