@@ -24,6 +24,150 @@ include_once 'include/Webservices/CustomerPortalWS.php';
 
 class testCustomerPortalWS extends TestCase {
 
+	/****
+	 * TEST Users decimal configuration
+	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}
+	 ****/
+	private $usrdota0x = 5; // testdmy 2 decimal places
+	private $usrcomd0x = 6; // testmdy 3 decimal places
+	private $usrdotd3com = 7; // testymd 4 decimal places
+	private $usrcoma3dot = 10; // testtz 5 decimal places
+	private $usrdota3comdollar = 12; // testmcurrency 6 decimal places
+	private $usrinactive = 9; // inactive user
+	private $usrnocreate = 11; // restricted user
+
+	/**
+	 * Method testgetPortalUserDateFormat
+	 * @test
+	 */
+	public function testgetPortalUserDateFormat() {
+		$user = Users::getActiveAdminUser();
+		$this->assertEquals('yyyy-mm-dd', vtws_getPortalUserDateFormat($user), 'getPortalUserDateFormat admin');
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // dmY
+		$this->assertEquals('dd-mm-yyyy', vtws_getPortalUserDateFormat($user), 'getPortalUserDateFormat testdmy');
+	}
+
+	/**
+	 * Method testgetPortalUserInfo
+	 * @test
+	 */
+	public function testgetPortalUserInfo() {
+		$user = Users::getActiveAdminUser();
+		$expected = array(
+			'date_format' => 'yyyy-mm-dd',
+			'first_name' => '',
+			'last_name' => 'Administrator',
+			'email1' => 'noreply@tsolucio.com',
+			'id' => '19x1',
+		);
+		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo admin');
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // dmY
+		$expected = array(
+			'date_format' => 'dd-mm-yyyy',
+			'first_name' => 'cbTest',
+			'last_name' => 'testdmy',
+			'email1' => 'noreply@tsolucio.com',
+			'id' => '19x'.$this->usrdota0x,
+		);
+		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo testdmy');
+	}
+
+	/**
+	 * Method getAssignedUserListProvider
+	 * params
+	 */
+	public function getAssignedUserListProvider() {
+		$usersadmin = '[{"userid":"19x1","username":"Administrator"},{"userid":"19x11","username":"nocreate cbTest"},{"userid":"19x5","username":"cbTest testdmy"},{"userid":"19x8","username":"cbTest testes"},{"userid":"19x12","username":"cbTest testmcurrency"},{"userid":"19x6","username":"cbTest testmdy"},{"userid":"19x10","username":"cbTest testtz"},{"userid":"19x13","username":"cbTest testtz-3"},{"userid":"19x7","username":"cbTest testymd"}]';
+		return array(
+			array('HelpDesk', 1, $usersadmin),
+			array('DoesNotExist', 1, $usersadmin),
+			array('', 1, $usersadmin),
+			array('HelpDesk', $this->usrdota0x, $usersadmin),
+			array('DoesNotExist', $this->usrdota0x, $usersadmin),
+			array('', $this->usrdota0x, $usersadmin),
+			array('HelpDesk', $this->usrinactive, $usersadmin),
+			array('DoesNotExist', $this->usrinactive, $usersadmin),
+			array('', $this->usrinactive, $usersadmin),
+			array('HelpDesk', $this->usrnocreate, $usersadmin),
+			array('DoesNotExist', $this->usrnocreate, $usersadmin),
+			array('', $this->usrnocreate, $usersadmin),
+		);
+	}
+
+	/**
+	 * Method testgetAssignedUserList
+	 * @test
+	 * @dataProvider getAssignedUserListProvider
+	 */
+	public function testgetAssignedUserList($module, $userid, $expected) {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$this->assertEquals($expected, vtws_getAssignedUserList($module, $user), 'getAssignedUserList');
+	}
+
+	/**
+	 * Method getAssignedGroupListProvider
+	 * params
+	 */
+	public function getAssignedGroupListProvider() {
+		$usersadmin = '[{"groupid":"20x3","groupname":"Marketing Group"},{"groupid":"20x4","groupname":"Support Group"},{"groupid":"20x2","groupname":"Team Selling"}]';
+		return array(
+			array('HelpDesk', 1, $usersadmin),
+			array('DoesNotExist', 1, $usersadmin),
+			array('', 1, $usersadmin),
+			array('HelpDesk', $this->usrdota0x, $usersadmin),
+			array('DoesNotExist', $this->usrdota0x, $usersadmin),
+			array('', $this->usrdota0x, $usersadmin),
+			array('HelpDesk', $this->usrinactive, $usersadmin),
+			array('DoesNotExist', $this->usrinactive, $usersadmin),
+			array('', $this->usrinactive, $usersadmin),
+			array('HelpDesk', $this->usrnocreate, $usersadmin),
+			array('DoesNotExist', $this->usrnocreate, $usersadmin),
+			array('', $this->usrnocreate, $usersadmin),
+		);
+	}
+
+	/**
+	 * Method testgetAssignedGroupList
+	 * @test
+	 * @dataProvider getAssignedGroupListProvider
+	 */
+	public function testgetAssignedGroupList($module, $userid, $expected) {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$this->assertEquals($expected, vtws_getAssignedGroupList($module, $user), 'getAssignedGroupList');
+	}
+
+	/**
+	 * Method getPicklistValuesProvider
+	 * params
+	 */
+	public function getPicklistValuesProvider() {
+		$docs = 'a:1:{s:8:"folderid";a:11:{s:4:"22x1";s:7:"Default";s:4:"22x2";s:8:"Avengers";s:4:"22x3";s:5:"X-Men";s:4:"22x4";s:13:"The Defenders";s:4:"22x5";s:12:"The Invaders";s:4:"22x6";s:14:"Fantastic Four";s:4:"22x7";s:9:"Guardians";s:4:"22x8";s:12:"Omega Flight";s:4:"22x9";s:12:"S.H.I.E.L.D.";s:5:"22x10";s:9:"Excalibur";s:5:"22x11";s:21:"Application Templates";}}';
+		$asset = 'a:1:{s:11:"assetstatus";a:2:{s:10:"In Service";s:10:"In Service";s:14:"Out-of-service";s:14:"Out-of-service";}}';
+		$hd = 'a:4:{s:16:"ticketcategories";a:3:{s:11:"Big Problem";s:11:"Big Problem";s:13:"Small Problem";s:13:"Small Problem";s:13:"Other Problem";s:13:"Other Problem";}s:16:"ticketpriorities";a:4:{s:3:"Low";s:3:"Low";s:6:"Normal";s:6:"Normal";s:4:"High";s:4:"High";s:6:"Urgent";s:6:"Urgent";}s:16:"ticketseverities";a:4:{s:5:"Minor";s:5:"Minor";s:5:"Major";s:5:"Major";s:7:"Feature";s:7:"Feature";s:8:"Critical";s:8:"Critical";}s:12:"ticketstatus";a:4:{s:4:"Open";s:4:"Open";s:11:"In Progress";s:11:"In Progress";s:17:"Wait For Response";s:17:"Wait For Response";s:6:"Closed";s:6:"Closed";}}';
+		$empty = 'a:0:{}';
+		return array(
+			array('Documents', $docs),
+			array('Assets', $asset),
+			array('HelpDesk', $hd),
+			array('DoesNotExist', $empty),
+			array('', $empty),
+		);
+	}
+
+	/**
+	 * Method testgetPicklistValues
+	 * @test
+	 * @dataProvider getPicklistValuesProvider
+	 */
+	public function testgetPicklistValues($module, $expected) {
+		global $current_user;
+		$this->assertEquals($expected, vtws_getPicklistValues($module, $current_user), 'getPicklistValues');
+	}
+
 	/**
 	 * Method vtyiicpng_getWSEntityIdProvider
 	 * params
@@ -45,6 +189,16 @@ class testCustomerPortalWS extends TestCase {
 	 */
 	public function testvtyiicpng_getWSEntityId($module, $expected, $message) {
 		$this->assertEquals($expected, vtyiicpng_getWSEntityId($module), "vtyiicpng_getWSEntityId $message");
+	}
+
+	/**
+	 * Method testfindByPortalUserName
+	 * @test
+	 */
+	public function testfindByPortalUserName() {
+		$this->assertTrue(vtws_findByPortalUserName('julieta@yahoo.com'), 'findByPortalUserName julieta');
+		$this->assertFalse(vtws_findByPortalUserName('notthere'), 'findByPortalUserName notthere');
+		$this->assertFalse(vtws_findByPortalUserName("hackit'; select 1;"), 'findByPortalUserName hackit');
 	}
 
 	/**
