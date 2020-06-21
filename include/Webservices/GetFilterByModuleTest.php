@@ -53,6 +53,11 @@ class testWSGetFilterByModule extends TestCase {
 			),
 			'linkfields' => array('assetname'),
 		);
+		$eusr = array(
+			'html' => '',
+			'filters' => array(),
+			'linkfields' => array('last_name'),
+		);
 		$ecto = array(
 			'html' => "<option value='7'>All</option><option value='8'>Contacts Address</option><option value='9'>Todays Birthday</option>",
 			'filters' => array(
@@ -79,6 +84,7 @@ class testWSGetFilterByModule extends TestCase {
 		);
 		return array(
 			array('Documents', $edoc, 'Documents'),
+			array('Users', $eusr, 'Users'),
 			array('Assets', $east, 'Assets'),
 			array('Contacts', $ecto, 'Contacts'),
 		);
