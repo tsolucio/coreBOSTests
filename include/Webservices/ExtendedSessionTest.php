@@ -20,20 +20,48 @@
 
 use PHPUnit\Framework\TestCase;
 
-include_once 'include/Webservices/Logout.php';
-require_once 'include/Webservices/WebServiceErrorCode.php';
+include_once 'include/Webservices/ExtendSession.php';
 
-class testWSLogout extends TestCase {
+class testWSExtendSession extends TestCase {
 
 	/**
-	 * Method testlogout
+	 * Method testNoSession
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testNoSession() {
+		global $application_unique_key;
+		$hid = isset($_SESSION['authenticated_user_id']) ? $_SESSION['authenticated_user_id'] : null;
+		unset($_SESSION['app_unique_key'], $_SESSION['authenticated_user_id']);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$AUTHFAILURE);
+		vtws_extendSession();
+		$_SESSION['authenticated_user_id'] = $hid;
+		$_SESSION['app_unique_key'] = $application_unique_key;
+	}
+
+	/**
+	 * Method testExtendSession
 	 * @test
 	 * @expectedException HTTP_Session2_Exception
 	 */
-	public function testlogout() {
-		global $current_user;
-		$actual = @vtws_logout('should be a session id', $current_user);
-		$this->assertEquals(array('message' => 'successfull'), $actual);
+	public function testExtendSession() {
+		global $API_VERSION, $current_user, $application_unique_key;
+		$hid = isset($_SESSION['authenticated_user_id']) ? $_SESSION['authenticated_user_id'] : null;
+		$_SESSION['authenticated_user_id'] = $current_user->id;
+		$_SESSION['app_unique_key'] = $application_unique_key;
+		$vtigerVersion = vtws_getVtigerVersion();
+		$actual = @vtws_extendSession();
+		$this->assertEquals(
+			array(
+				'sessionName' => $actual['sessionName'],
+				'userId' => vtws_getEntityId('Users').'x'.$current_user->id,
+				'version' => $API_VERSION,
+				'vtigerVersion' => $vtigerVersion,
+			),
+			$actual
+		);
+		$_SESSION['authenticated_user_id'] = $hid;
 	}
 }
 ?>

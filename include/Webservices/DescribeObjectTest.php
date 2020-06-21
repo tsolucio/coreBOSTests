@@ -209,7 +209,7 @@ class testWSDescribe extends TestCase {
 					'blocklabel' => 'LBL_ASSET_INFORMATION',
 					'blockname' => 'Asset Information',
 				),
-				'default' => date('Y-m-d'),
+				'default' => '',
 			),
 			5 => array(
 				'name' => 'dateinservice',
@@ -234,7 +234,7 @@ class testWSDescribe extends TestCase {
 					'blocklabel' => 'LBL_ASSET_INFORMATION',
 					'blockname' => 'Asset Information',
 				),
-				'default' => date('Y-m-d'),
+				'default' => '',
 			),
 			6 => array(
 				'name' => 'assetstatus',
@@ -930,6 +930,12 @@ class testWSDescribe extends TestCase {
 			),
 		),
 	);
+
+	public function __construct() {
+		$this->asset['fields'][4]['default'] = date('Y-m-d');
+		$this->asset['fields'][5]['default'] = date('Y-m-d');
+		parent::__construct();
+	}
 
 	/**
 	 * Method testonemodule
