@@ -20,78 +20,98 @@
 
 use PHPUnit\Framework\TestCase;
 
-include_once 'include/Webservices/GetRelatedModulesOneToMany.php';
-class GetRelatedModulesOneToManyTest extends TestCase {
+include_once 'include/Webservices/GetRelatedModulesManytoOne.php';
+class GetRelatedModulesManyToOneTest extends TestCase {
 	/**
-	 * Method testGetRelatedModulesOneToMany
+	 * Method testGetRelatedModulesManyToOne
 	 * @test
 	 */
-	public function testGetRelatedModulesOneToMany() {
+	public function testGetRelatedModulesManyToOne() {
 		global $current_user;
-		$currentModule = 'Accounts';
-		$actual = GetRelatedModulesOneToMany($currentModule, $current_user);
+		$currentModule = 'cbSurvey';
+		$actual = getRelatedModulesManytoOne($currentModule, $current_user);
 		$expected = array(
 			array(
-				'label' => 'Organizations',
-				'name' => 'Accounts',
-				'field' => 'account_id',
+				'label' => 'Survey Questions',
+				'name' => 'cbSurveyQuestion',
+				'field' => 'cbsurvey',
 			),
 			array(
-				'label' => 'Leads',
-				'name' => 'Leads',
-				'field' => 'convertedfromlead',
+				'label' => 'Surveys Done',
+				'name' => 'cbSurveyDone',
+				'field' => 'cbsurvey',
+			),
+			array(
+				'label' => 'Surveys Answer',
+				'name' => 'cbSurveyAnswer',
+				'field' => 'cbsurvey',
 			),
 		);
-		$this->assertEquals($expected, $actual, 'GetRelatedModulesOneToMany get accounts');
+		$this->assertEquals($expected, $actual, 'getRelatedModulesManytoOne get accounts');
 		$currentModule = 'Assets';
-		$actual = GetRelatedModulesOneToMany($currentModule, $current_user);
+		$actual = getRelatedModulesManytoOne($currentModule, $current_user);
 		$expected = array(
 			array(
-				'label' => 'Products',
-				'name' => 'Products',
-				'field' => 'product',
+				'label' => 'Payments',
+				'name' => 'CobroPago',
+				'field' => 'related_id',
 			),
 			array(
-				'label' => 'Invoice',
-				'name' => 'Invoice',
-				'field' => 'invoiceid',
-			),
-			array(
-				'label' => 'Organizations',
-				'name' => 'Accounts',
-				'field' => 'account',
+				'label' => 'Translations',
+				'name' => 'cbtranslation',
+				'field' => 'translates',
 			),
 		);
-		$this->assertEquals($expected, $actual, 'GetRelatedModulesOneToMany get assets');
+		$this->assertEquals($expected, $actual, 'getRelatedModulesManytoOne get assets');
 		$currentModule = 'Potentials';
-		$actual = GetRelatedModulesOneToMany($currentModule, $current_user);
+		$actual = getRelatedModulesManytoOne($currentModule, $current_user);
 		$expected = array(
 			array(
-				'label' => 'Organizations',
-				'name' => 'Accounts',
+				'label' => 'Tasks',
+				'name' => 'Calendar',
+				'field' => 'parent_id',
+			),
+			array(
+				'label' => 'Quotes',
+				'name' => 'Quotes',
+				'field' => 'potential_id',
+			),
+			array(
+				'label' => 'Sales Order',
+				'name' => 'SalesOrder',
+				'field' => 'potential_id',
+			),
+			array(
+				'label' => 'Payments',
+				'name' => 'CobroPago',
+				'field' => 'related_id',
+			),
+			array(
+				'label' => 'Comments',
+				'name' => 'ModComments',
 				'field' => 'related_to',
 			),
 			array(
-				'label' => 'Contacts',
-				'name' => 'Contacts',
-				'field' => 'related_to',
+				'label' => 'To Dos',
+				'name' => 'cbCalendar',
+				'field' => 'rel_id',
 			),
 			array(
-				'label' => 'Campaigns',
-				'name' => 'Campaigns',
-				'field' => 'campaignid',
+				'label' => 'Translations',
+				'name' => 'cbtranslation',
+				'field' => 'translates',
 			),
 			array(
-				'label' => 'Leads',
-				'name' => 'Leads',
-				'field' => 'convertedfromlead',
+				'label' => 'Messages',
+				'name' => 'Messages',
+				'field' => 'messagesrelatedto',
 			),
 		);
-		$this->assertEquals($expected, $actual, 'GetRelatedModulesOneToMany get Potentials');
+		$this->assertEquals($expected, $actual, 'getRelatedModulesManytoOne get Potentials');
 		$currentModule = 'Users';
-		$actual = GetRelatedModulesOneToMany($currentModule, $current_user);
+		$actual = getRelatedModulesManytoOne($currentModule, $current_user);
 		$expected = array();
-		$this->assertEquals($expected, $actual, 'GetRelatedModulesOneToMany get Users');
+		$this->assertEquals($expected, $actual, 'getRelatedModulesManytoOne get Users');
 	}
 
 	/**
@@ -103,7 +123,7 @@ class GetRelatedModulesOneToManyTest extends TestCase {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode('INVALID_MODULE');
-		GetRelatedModulesOneToMany('AuditTrail', $current_user);
+		getRelatedModulesManytoOne('AuditTrail', $current_user);
 	}
 
 	/**
@@ -115,7 +135,7 @@ class GetRelatedModulesOneToManyTest extends TestCase {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
-		GetRelatedModulesOneToMany('evvtMenu', $current_user);
+		getRelatedModulesManytoOne('evvtMenu', $current_user);
 	}
 
 	/**
@@ -127,7 +147,7 @@ class GetRelatedModulesOneToManyTest extends TestCase {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
-		GetRelatedModulesOneToMany('', $current_user);
+		getRelatedModulesManytoOne('', $current_user);
 	}
 
 	/**
@@ -139,7 +159,7 @@ class GetRelatedModulesOneToManyTest extends TestCase {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
-		GetRelatedModulesOneToMany('DoesNotExist', $current_user);
+		getRelatedModulesManytoOne('DoesNotExist', $current_user);
 	}
 
 	/**
@@ -152,6 +172,6 @@ class GetRelatedModulesOneToManyTest extends TestCase {
 		$user->retrieveCurrentUserInfoFromFile(11); // nocreate > no access to cbTermConditions
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
-		GetRelatedModulesOneToMany('cbTermConditions', $user);
+		getRelatedModulesManytoOne('cbTermConditions', $user);
 	}
 }

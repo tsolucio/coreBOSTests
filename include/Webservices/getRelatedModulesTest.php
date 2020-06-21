@@ -383,5 +383,70 @@ class getRelatedModulesTest extends TestCase {
 			)
 		);
 		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get assets');
+		$currentModule = 'Users';
+		$actual = getRelatedModulesInfomation($currentModule, $current_user);
+		$expected = array();
+		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get users');
+	}
+
+	/**
+	 * Method testactormodule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testactormodule() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
+		getRelatedModulesInfomation('AuditTrail', $current_user);
+	}
+
+	/**
+	 * Method testnonentitymodule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testnonentitymodule() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		getRelatedModulesInfomation('evvtMenu', $current_user);
+	}
+
+	/**
+	 * Method testemptymodule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testemptymodule() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		getRelatedModulesInfomation('', $current_user);
+	}
+
+	/**
+	 * Method testinexistentmodule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testinexistentmodule() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		getRelatedModulesInfomation('DoesNotExist', $current_user);
+	}
+
+	/**
+	 * Method testnopermissionmodule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testnopermissionmodule() {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate > no access to cbTermConditions
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		getRelatedModulesInfomation('cbTermConditions', $user);
 	}
 }
