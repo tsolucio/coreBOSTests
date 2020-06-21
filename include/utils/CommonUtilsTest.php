@@ -1531,6 +1531,8 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			array('1b', '1'),
 			array('1k', '1024'),
 			array('1m', '1048576'),
+			array('2m', '2097152'),
+			array('8m', '8388608'),
 			array('1g', '1073741824'),
 			array('1t', '1099511627776'),
 			array('1p', '1.1258999068426E+15'),
