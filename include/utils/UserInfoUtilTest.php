@@ -1156,5 +1156,25 @@ class testUserInfoUtil extends TestCase {
 		$this->assertEquals($expected, $actual, 'testgetPermittedModuleIdList');
 		$current_user = $hold_user;
 	}
+
+	/**
+	 * Method testgetAllUserName
+	 * @test
+	 */
+	public function testgetAllUserName() {
+		$expected = array(
+			1 => ' Administrator',
+			5 => 'cbTest testdmy',
+			6 => 'cbTest testmdy',
+			7 => 'cbTest testymd',
+			8 => 'cbTest testes',
+			9 => 'cbTest testinactive',
+			10 => 'cbTest testtz',
+			11 => 'nocreate cbTest',
+			12 => 'cbTest testmcurrency',
+			13 => 'cbTest testtz-3',
+		);
+		$this->assertEquals($expected, getAllUserName(), 'testgetAllUserName');
+	}
 }
 ?>

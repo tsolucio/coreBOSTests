@@ -170,5 +170,26 @@ class testCustomerPortalWS extends TestCase {
 		global $current_user;
 		$this->assertEquals($expected, vtws_getUItype($module, $current_user));
 	}
+
+	/**
+	 * Method testgetAllUserName
+	 * @test
+	 */
+	public function testgetAllUserName() {
+		global $current_user;
+		$expected = array(
+			'19x1' => ' Administrator',
+			'19x5' => 'cbTest testdmy',
+			'19x6' => 'cbTest testmdy',
+			'19x7' => 'cbTest testymd',
+			'19x8' => 'cbTest testes',
+			'19x9' => 'cbTest testinactive',
+			'19x10' => 'cbTest testtz',
+			'19x11' => 'nocreate cbTest',
+			'19x12' => 'cbTest testmcurrency',
+			'19x13' => 'cbTest testtz-3',
+		);
+		$this->assertEquals($expected, vtws_getAllUsers($current_user), 'testgetAllUserName');
+	}
 }
 ?>
