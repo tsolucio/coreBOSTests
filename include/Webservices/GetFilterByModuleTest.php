@@ -29,6 +29,7 @@ class testWSGetFilterByModule extends TestCase {
 	 * params
 	 */
 	public function getfiltersbymoduleProvider() {
+		$today = date('Y-m-d');
 		$edoc = array(
 			'html' => "<option value='22'>All</option>",
 			'filters' => array(
@@ -77,7 +78,7 @@ class testWSGetFilterByModule extends TestCase {
 					'name' => 'Todays Birthday',
 					'status' => '3',
 					'advcriteria' => '[]',
-					'stdcriteria' => "DATE_FORMAT(vtiger_contactsubdetails.birthday, '%m%d') BETWEEN DATE_FORMAT('2020-06-21 00:00:00', '%m%d') and DATE_FORMAT('2020-06-21 23:59:00', '%m%d')",
+					'stdcriteria' => "DATE_FORMAT(vtiger_contactsubdetails.birthday, '%m%d') BETWEEN DATE_FORMAT('".$today." 00:00:00', '%m%d') and DATE_FORMAT('".$today." 23:59:00', '%m%d')",
 				),
 			),
 			'linkfields' => array('firstname', 'lastname'),

@@ -116,7 +116,7 @@ class testWSGetViewsByModule extends TestCase {
 				),
 				8 => array(
 					'name' => 'Contacts Address',
-					'status' => '2',
+					'status' => '3',
 					'advcriteria' => '[]',
 					'stdcriteria' => '[]',
 					'advcriteriaWQL' => '',
@@ -136,7 +136,7 @@ class testWSGetViewsByModule extends TestCase {
 				),
 				9 => array(
 					'name' => 'Todays Birthday',
-					'status' => '2',
+					'status' => '3',
 					'advcriteria' => '[]',
 					'stdcriteria' => '[{"columnname":"birthday","comparator":"bw","value":"'.$today.','.$today.'","column_condition":""}]',
 					'advcriteriaWQL' => '',

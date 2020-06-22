@@ -24,13 +24,22 @@ include_once 'include/Webservices/getBusinessActions.php';
 
 class testWSgetBusinessActions extends TestCase {
 
+	private function stripLinkID($array) {
+		foreach ($array as $types => $tinfo) {
+			foreach ($tinfo as $idx => $lobj) {
+				$lobj->linkid=0;
+			}
+		}
+		return $array;
+	}
+
 	/**
 	 * Method getBusinessActionsProvider
 	 * params
 	 */
 	public function getBusinessActionsProvider() {
 		global $adb;
-		$edocl = array(
+		$edocl = $this->stripLinkID(array(
 			'LISTVIEWBASIC' => array(BusinessActions::convertToObject(8, array(
 				'businessactionsid' => '43094',
 				'elementtype_action' => 'LISTVIEWBASIC',
@@ -46,8 +55,8 @@ class testWSgetBusinessActions extends TestCase {
 			))),
 			'HEADERSCRIPT' => array(),
 			'HEADERCSS' => array(),
-		);
-		$edocd = array(
+		));
+		$edocd = $this->stripLinkID(array(
 			'DETAILVIEWBASIC' => array(),
 			'HEADERSCRIPT' => array(),
 			'HEADERCSS' => array(),
@@ -64,13 +73,13 @@ class testWSgetBusinessActions extends TestCase {
 				'handler' => '',
 				'onlyonmymodule' => '0',
 			))),
-		);
+		));
 		$eastl = array(
 			'LISTVIEWBASIC' => array(),
 			'HEADERSCRIPT' => array(),
 			'HEADERCSS' => array(),
 		);
-		$eastd = array(
+		$eastd = $this->stripLinkID(array(
 			'DETAILVIEWBASIC' => array(BusinessActions::convertToObject(43, array(
 				'businessactionsid' => '43086',
 				'elementtype_action' => 'DETAILVIEWBASIC',
@@ -87,8 +96,8 @@ class testWSgetBusinessActions extends TestCase {
 			'HEADERSCRIPT' => array(),
 			'HEADERCSS' => array(),
 			'DETAILVIEWWIDGET' => array(),
-		);
-		$ectol = array(
+		));
+		$ectol = $this->stripLinkID(array(
 			'LISTVIEWBASIC' => array(
 				BusinessActions::convertToObject(4, array(
 					'businessactionsid' => '44122',
@@ -144,8 +153,8 @@ class testWSgetBusinessActions extends TestCase {
 				'onlyonmymodule' => '1',
 			))),
 			'HEADERCSS' => array(),
-		);
-		$ectod = array(
+		));
+		$ectod = $this->stripLinkID(array(
 			'DETAILVIEWBASIC' => array(
 				BusinessActions::convertToObject(4, array(
 					'businessactionsid' => '44114',
@@ -253,7 +262,7 @@ class testWSgetBusinessActions extends TestCase {
 				'handler' => '',
 				'onlyonmymodule' => '0',
 			))),
-		);
+		));
 		$docrs = $adb->query('select notesid from vtiger_notes inner join vtiger_crmentity on crmid=notesid where deleted=0 limit 1');
 		$docid = $adb->query_result($docrs, 0, 'notesid');
 		$views = array(
@@ -302,8 +311,8 @@ class testWSgetBusinessActions extends TestCase {
 	 */
 	public function testgetBusinessActions($view, $module, $id, $linktype, $expected) {
 		global $current_user;
-		$actual = getBusinessActions($view, $module, $id, $linktype, $current_user);
-		$this->assertEquals($expected, $actual, 'getBusinessActions');
+		$actual = $this->stripLinkID(getBusinessActions($view, $module, $id, $linktype, $current_user));
+		$this->assertEqualsCanonicalizing($expected, $actual, 'getBusinessActions');
 	}
 
 	/**

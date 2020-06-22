@@ -133,5 +133,4 @@ class testModulePermissionQuery extends TestCase {
 		$this->assertEquals('', cbwsModulePermissionQuery($module, $user));
 		$current_user = $hold_user;
 	}
-
 }
