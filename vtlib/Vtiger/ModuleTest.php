@@ -26,12 +26,12 @@ class vtlibModuleTest extends TestCase {
 	 * @test
 	 */
 	public function testInstantiate() {
-		$module = VTiger_Module::getInstance('Accounts');
-		$this->assertInstanceOf(VTiger_Module::class, $module, 'testConstruct class VTiger_Module');
+		$module = Vtiger_Module::getInstance('Accounts');
+		$this->assertInstanceOf(Vtiger_Module::class, $module, 'testConstruct class Vtiger_Module');
 		$this->assertEquals(6, $module->id);
-		$module = VTiger_Module::getInstance('Contacts');
+		$module = Vtiger_Module::getInstance('Contacts');
 		$this->assertEquals(4, $module->id);
-		$module = VTiger_Module::getInstance('Potentials');
+		$module = Vtiger_Module::getInstance('Potentials');
 		$this->assertEquals(2, $module->id);
 	}
 }
