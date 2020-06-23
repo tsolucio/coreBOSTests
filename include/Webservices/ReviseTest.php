@@ -136,7 +136,7 @@ class WSReviseTest extends TestCase {
 		$expected['modifiedtime'] = $actual['modifiedtime'];
 		$expected['modifiedby'] = $actual['modifiedby'];
 		$this->assertEquals($expected, $actual, 'Test checkbox usrdota0x Correct');
-		$adb->pquery("update vtiger_contactsubdetails set otherphone='' where contactid=?", array(1150));
+		$adb->pquery("update vtiger_contactsubdetails set otherphone='' where contactsubscriptionid=?", array(1150));
 		$adb->pquery("update vtiger_contactdetails set donotcall='0', emailoptout='0', reference='0', notify_owner='0' where contactid=?", array(1150));
 		/// end
 		$current_user = $holduser;
