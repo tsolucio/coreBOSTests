@@ -372,104 +372,34 @@ class WSCreateTest extends TestCase {
 
 	/**
 	 * Method testCreateWithDatesWrong
-	 * As of August 2017 these creates do not work anymore.
-	 * Now they fail which I think is better than creating the records with incorrect date values.
+	 * @test
+	 * @expectedException WebServiceException
 	 */
-// 	public function testCreateWithDatesWrong() {
-// 		global $current_user;
-// 		$holduser = $current_user;
-// 		$user = new Users();
-// 		///  d-m-Y
-// 		$user->retrieveCurrentUserInfoFromFile(6); // testmdy
-// 		$current_user = $user;
-// 		$Module = 'Assets';
-// 		$cbUserID = '19x'.$current_user->id;
-// 		$ObjectValues = array(
-// 			'product'=>'14x2618',
-// 			'serialnumber'=>'123456789',
-// 			'datesold'=>'25-12-2015',  // dmY
-// 			'dateinservice'=>'25-12-2015',  // dmY
-// 			'assetstatus' => 'In Service',
-// 			'tagnumber' => 'tag1',
-// 			'invoiceid' => '7x2993',
-// 			'shippingmethod' => 'direct',
-// 			'shippingtrackingnumber' => '321654',
-// 			'assigned_user_id' => $cbUserID,
-// 			'created_user_id' => $cbUserID,
-// 			'assetname' => 'wfasset',
-// 			'account' => '11x174',
-// 			'modifiedby' => $cbUserID,
-// 			'description' => 'áçèñtös',
-// 		);
-// 		$actual = vtws_create($Module, $ObjectValues, $current_user);
-// 		$ObjectValues['asset_no'] = $actual['asset_no'];
-// 		$ObjectValues['id'] = $actual['id'];
-// 		$ObjectValues['datesold'] = $ObjectValues['dateinservice'] = '';
-// 		$ObjectValues['createdtime'] = $actual['createdtime'];
-// 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-// 		$this->assertEquals($ObjectValues, $actual,'Test d-m-Y Wrong');
-// 		///  m-d-Y
-// 		$user = new Users();
-// 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
-// 		$current_user = $user;
-// 		$Module = 'Assets';
-// 		$cbUserID = '19x'.$current_user->id;
-// 		$ObjectValues = array(
-// 			'product'=>'14x2618',
-// 			'serialnumber'=>'123456789',
-// 			'datesold'=>'12-25-2015',  // m-d-Y
-// 			'dateinservice'=>'12-25-2015',  // m-d-Y
-// 			'assetstatus' => 'In Service',
-// 			'tagnumber' => 'tag1',
-// 			'invoiceid' => '7x2993',
-// 			'shippingmethod' => 'direct',
-// 			'shippingtrackingnumber' => '321654',
-// 			'assigned_user_id' => $cbUserID,
-// 			'created_user_id' => $cbUserID,
-// 			'assetname' => 'wfasset',
-// 			'account' => '11x174',
-// 			'modifiedby' => $cbUserID,
-// 			'description' => 'áçèñtös',
-// 		);
-// 		$actual = vtws_create($Module, $ObjectValues, $current_user);
-// 		$ObjectValues['asset_no'] = $actual['asset_no'];
-// 		$ObjectValues['id'] = $actual['id'];
-// 		$ObjectValues['datesold'] = $ObjectValues['dateinservice'] = '';
-// 		$ObjectValues['createdtime'] = $actual['createdtime'];
-// 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-// 		$this->assertEquals($ObjectValues, $actual,'Test m-d-Y Wrong');
-// 		///  Y-m-d
-// 		$user = new Users();
-// 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
-// 		$current_user = $user;
-// 		$Module = 'Assets';
-// 		$cbUserID = '19x'.$current_user->id;
-// 		$ObjectValues = array(
-// 			'product'=>'14x2618',
-// 			'serialnumber'=>'123456789',
-// 			'datesold'=>'2015-12-25',  // Y-m-d
-// 			'dateinservice'=>'2015-12-25',  // Y-m-d
-// 			'assetstatus' => 'In Service',
-// 			'tagnumber' => 'tag1',
-// 			'invoiceid' => '7x2993',
-// 			'shippingmethod' => 'direct',
-// 			'shippingtrackingnumber' => '321654',
-// 			'assigned_user_id' => $cbUserID,
-// 			'created_user_id' => $cbUserID,
-// 			'assetname' => 'wfasset',
-// 			'account' => '11x174',
-// 			'modifiedby' => $cbUserID,
-// 			'description' => 'áçèñtös',
-// 		);
-// 		$actual = vtws_create($Module, $ObjectValues, $current_user);
-// 		$ObjectValues['asset_no'] = $actual['asset_no'];
-// 		$ObjectValues['id'] = $actual['id'];
-// 		$ObjectValues['createdtime'] = $actual['createdtime'];
-// 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
-// 		$this->assertEquals($ObjectValues, $actual,'Test Y-m-d Wrong');
-// 		/// end
-// 		$current_user = $holduser;
-// 	}
+	public function testCreateWithDatesWrong() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$DATABASEQUERYERROR);
+		$Module = 'Assets';
+		$cbUserID = '19x'.$current_user->id;
+		$ObjectValues = array(
+			'product'=>'14x2618',
+			'serialnumber'=>'123456789',
+			'datesold'=>'25-12-2015',  // dmY
+			'dateinservice'=>'25-12-2015',  // dmY
+			'assetstatus' => 'In Service',
+			'tagnumber' => 'tag1',
+			'invoiceid' => '7x2993',
+			'shippingmethod' => 'direct',
+			'shippingtrackingnumber' => '321654',
+			'assigned_user_id' => $cbUserID,
+			'created_user_id' => $cbUserID,
+			'assetname' => 'wfasset',
+			'account' => '11x174',
+			'modifiedby' => $cbUserID,
+			'description' => 'áçèñtös',
+		);
+		vtws_create($Module, $ObjectValues, $current_user);
+	}
 
 	/**
 	 * Method testCreateWithRelation
@@ -735,7 +665,6 @@ class WSCreateTest extends TestCase {
 			'filename' => '',
 		);
 		$email = $ObjectValues;
-		//$this->expectException('WebServiceException');
 		$_FILES=array();
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		$ObjectValues['id'] = $actual['id'];
@@ -898,6 +827,156 @@ class WSCreateTest extends TestCase {
 	}
 
 	/**
+	 * Method testCreateHelpDeskWithAttachment
+	 * @test
+	 */
+	public function testCreateHelpDeskWithAttachment() {
+		global $current_user,$adb;
+		$current_user = Users::getActiveAdminUser();
+		$Module = 'HelpDesk';
+		$cbUserID = '19x'.$current_user->id;
+		// We are going to take the long way around here
+		// we need HelpDesk to have an image field and we want to test the default picklist value (a picklist with no value in element but with a default value in the database)
+		// so we are going to test the vtlib CRUD on fields and blocks here
+		// we add an image field to the HelpDesk module
+		unset(VTCacheUtils::$_fieldinfo_cache[13], VTCacheUtils::$_module_columnfields_cache[$Module]);
+		$modhd = Vtiger_Module::getInstance($Module);
+		$blkhd = Vtiger_Block::getInstance('LBL_BLOCK_TEST', $modhd);
+		if ($blkhd) {
+			// already there so we delete it
+			$blkhd->delete(true);
+		}
+		$fldhd = Vtiger_Field::getInstance('hdimage', $modhd);
+		if ($fldhd) {
+			// already there so we delete it
+			$fldhd->delete(true);
+		}
+		unset(VTCacheUtils::$_fieldinfo_cache[13], VTCacheUtils::$_module_columnfields_cache[$Module]);
+		$hdBlocksBeforeAdding = Vtiger_Block::getAllForModule($modhd);
+		$hdColsBeforeAdding = array_keys(getColumnFields($Module));
+		$blkhd = new Vtiger_Block();
+		$blkhd->label = 'LBL_BLOCK_TEST';
+		$modhd->addBlock($blkhd);
+		$hdBlocksAfterAdding = Vtiger_Block::getAllForModule($modhd);
+		$expected = $hdBlocksBeforeAdding;
+		$expected[] = $blkhd;
+		$this->assertEquals($expected, $hdBlocksAfterAdding, 'Create Block');
+		$fieldInstance = new Vtiger_Field();
+		$fieldInstance->name = 'hdimage';
+		$fieldInstance->label = 'hdimage';
+		$fieldInstance->columntype = 'varchar(103)';
+		$fieldInstance->uitype = 69;
+		$fieldInstance->displaytype = 1;
+		$fieldInstance->typeofdata = 'V~O';
+		$fieldInstance->quickcreate = 0;
+		$blkhd->addField($fieldInstance);
+		$expected = $hdColsBeforeAdding;
+		$expected[] = 'hdimage';
+		unset(VTCacheUtils::$_fieldinfo_cache[13], VTCacheUtils::$_module_columnfields_cache[$Module]);
+		$hdColsAfterAdding = array_keys(getColumnFields($Module));
+		$this->assertEquals($expected, $hdColsAfterAdding, 'Create Field');
+		// we update the priority field by adding a default value
+		$adb->query("UPDATE vtiger_field SET defaultvalue='' where fieldid=158");
+		$priorityBeforeUpdate = Vtiger_Field::getInstance(158, $modhd);
+		$priorityBeforeUpdate->defaultvalue = 'High';
+		$priorityBeforeUpdate->save();
+		$priorityAfterUpdate = Vtiger_Field::getInstance(158, $modhd);
+		$this->assertEquals($priorityBeforeUpdate, $priorityAfterUpdate, 'Update Field');
+		$this->assertEquals('High', $priorityAfterUpdate->defaultvalue, 'Update Field');
+		// now we have the field and default value we can test web service create
+
+		// get file and file information
+		$finfo = finfo_open(FILEINFO_MIME); // return mime type ala mimetype extension.
+		$filename = 'themes/images/Cron.png';
+		$mtype = finfo_file($finfo, $filename);
+		$model_filename = array(
+			'name'=>basename($filename),  // no slash nor paths in the name
+			'size'=>filesize($filename),
+			'type'=>$mtype,
+			'content'=>base64_encode(file_get_contents($filename))
+		);
+		$ObjectValues = array(
+			'assigned_user_id' => $cbUserID,
+			'created_user_id' => $cbUserID,
+			'modifiedby' => $cbUserID,
+			'attachments'=>array('hdimage' => $model_filename),
+			'ticket_title' => 'WS Create Test with attachment',
+			'parent_id' => '11x74',
+			'product_id' => '14x2618',
+			//'ticketpriorities' => 'Urgent',  // test default picklist value
+			'ticketstatus' => 'Open',
+			'ticketseverities' => 'Major',
+			'hours' => '31.000000',
+			'ticketcategories' => 'Big Problem',
+			'days' => '3',
+			'from_portal' => '0',
+			'commentadded' => '',
+			'description' => 'Videamus animi partes, quarum est conspectus illustrior',
+			'solution' => '',
+		);
+		$_FILES=array();
+		unset(VTCacheUtils::$_fieldinfo_cache[13], VTCacheUtils::$_module_columnfields_cache[$Module]);
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$ObjectValues['ticket_no'] = $actual['ticket_no'];
+		$ObjectValues['assigned_user_id'] = '19x8';
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
+		$ObjectValues['ticketpriorities'] = 'High';
+		$ObjectValues['hdimage'] = 'Cron.png';
+		$ObjectValues['commentadded'] = '0';
+		$ObjectValues['from_mailscanner'] = '0';
+		$ObjectValues['email'] = 'lina@yahoo.com';
+		$this->assertEquals('Ticket created. Assigned to user  Administrator -- ', substr($actual['update_log'], 0, 51), 'Create HelpDesk update log');
+		$ObjectValues['update_log'] = $actual['update_log'];
+		unset($ObjectValues['attachments']);
+		$this->assertEquals($ObjectValues, $actual, 'Create HelpDesk');
+		$shd = vtws_retrieve($actual['id'], $current_user);
+		$ObjectValues['parent_idename'] = array(
+			'module' => 'Accounts',
+			'reference' => 'Chemex Labs Ltd',
+			'cbuuid' => 'b0857db0c1dee95300a10982853f5fb1d4e981c1',
+		);
+		$ObjectValues['product_idename'] = array(
+			'module' => 'Products',
+			'reference' => 'Protective Case Cover for iPhone 6',
+			'cbuuid' => '668d624d92e450119f769142036e7e235ec030c7',
+		);
+		$ObjectValues['modifiedbyename'] = array(
+			'module' => 'Users',
+			'reference' => ' Administrator',
+			'cbuuid' => '',
+		);
+		$ObjectValues['created_user_idename'] = array(
+			'module' => 'Users',
+			'reference' => ' Administrator',
+			'cbuuid' => '',
+		);
+		$ObjectValues['assigned_user_idename'] = array(
+			'module' => 'Users',
+			'reference' => 'cbTest testes',
+			'cbuuid' => '',
+		);
+		$this->assertEquals('storage/20', substr($shd['hdimageimageinfo']['path'], 0, 10), 'Create HelpDesk image');
+		$this->assertEquals('Cron.png', $shd['hdimageimageinfo']['name'], 'Create HelpDesk image');
+		$this->assertEquals('_Cron.png', substr($shd['hdimageimageinfo']['fullpath'], -9), 'Create HelpDesk image');
+		$this->assertEquals('image/png; charset=binary', $shd['hdimageimageinfo']['type'], 'Create HelpDesk image');
+		$ObjectValues['hdimageimageinfo'] = $shd['hdimageimageinfo'];
+		$this->assertEquals($ObjectValues, $shd, 'Create HelpDesk');
+		// now we have to test the delete block and field API
+		$fldhd = Vtiger_Field::getInstance('hdimage', $modhd);
+		$fldhd->delete(true);
+		$blkhd->delete(false);
+		unset(VTCacheUtils::$_fieldinfo_cache[13], VTCacheUtils::$_module_columnfields_cache[$Module]);
+		$hdColsAfterDeleting = array_keys(getColumnFields($Module));
+		$hdBlocksAfterDeleting = Vtiger_Block::getAllForModule($modhd);
+		$this->assertEqualsCanonicalizing($hdColsBeforeAdding, $hdColsAfterDeleting, 'Delete Field');
+		$this->assertEqualsCanonicalizing($hdBlocksBeforeAdding, $hdBlocksAfterDeleting, 'Delete Block');
+		$adb->query("UPDATE vtiger_field SET defaultvalue='' where fieldid=158");
+	}
+
+	/**
 	 * Method testCreateExceptionNoWrite
 	 * @test
 	 * @expectedException WebServiceException
@@ -929,7 +1008,41 @@ class WSCreateTest extends TestCase {
 			'description' => 'áçèñtös',
 		);
 		$_FILES=array();
-		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		vtws_create($Module, $ObjectValues, $current_user);
+		/// end
+		$current_user = $holduser;
+	}
+
+	/**
+	 * Method testCreateExceptionNoPermission
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testCreateExceptionNoPermission() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		///  nocreate
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$current_user = $user;
+		$Module = 'cbTermConditions';
+		$cbUserID = '19x'.$current_user->id;
+		$ObjectValues = array(
+			'reference'=>'create test',
+			'formodule'=>'Invoice',
+			'isdefault' => '0',
+			'assigned_user_id' => $cbUserID,
+			'created_user_id' => $cbUserID,
+			'modifiedby' => $cbUserID,
+			'tandc' => 'áçèñtös',
+			'description' => 'áçèñtös',
+		);
+		$_FILES=array();
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		vtws_create($Module, $ObjectValues, $current_user);
 		/// end
 		$current_user = $holduser;
 	}
