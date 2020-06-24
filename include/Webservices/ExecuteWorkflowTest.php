@@ -55,20 +55,27 @@ class testExecuteWorkflow extends TestCase {
 		cbwsExecuteWorkflow(27, '["'.$wsid.'2642"]', $current_user);
 		$rs = $adb->pquery('select smownerid from vtiger_crmentity where crmid=?', array(2642));
 		$ownerafter = $adb->query_result($rs, 0, 0);
-		$this->assertEquals(8, $ownerafter, 'task count');
+		$this->assertEquals(8, $ownerafter, 'update field on ticket with workflow');
 		$current_user = $holduser;
 	}
 
 	public function testInvalidParameter1() {
 		global $current_user;
 		$this->expectException('WebServiceException');
-		$actual = cbwsExecuteWorkflow('xx', '', $current_user);
+		cbwsExecuteWorkflow('xx', '', $current_user);
 	}
 
 	public function testInvalidParameter2() {
 		global $current_user;
 		$this->expectException('WebServiceException');
-		$actual = cbwsExecuteWorkflow(26, '{"module":"', $current_user);
+		cbwsExecuteWorkflow(26, '{"module":"', $current_user);
+	}
+
+	public function testInvalidContext() {
+		global $current_user;
+		$wsid = vtws_getEntityId('HelpDesk').'x';
+		$this->expectException('WebServiceException');
+		cbwsExecuteWorkflowWithContext(27, '["'.$wsid.'2642"]', '{"module":"', $current_user);
 	}
 }
 ?>
