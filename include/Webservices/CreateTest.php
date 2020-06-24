@@ -831,15 +831,21 @@ class WSCreateTest extends TestCase {
 	 * @test
 	 */
 	public function testCreateHelpDeskWithAttachment() {
-		global $current_user,$adb;
+		global $current_user,$adb, $log;
 		$current_user = Users::getActiveAdminUser();
 		$Module = 'HelpDesk';
 		$cbUserID = '19x'.$current_user->id;
+		// empty cache
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, 'HelpDesk');
+		$handlerPath = $webserviceObject->getHandlerPath();
+		require_once $handlerPath;
+		$handler = new VtigerModuleOperation($webserviceObject, $current_user, $adb, $log);
+		$handler->emptyCache();
+		unset(VTCacheUtils::$_fieldinfo_cache[13], VTCacheUtils::$_module_columnfields_cache[$Module]);
 		// We are going to take the long way around here
 		// we need HelpDesk to have an image field and we want to test the default picklist value (a picklist with no value in element but with a default value in the database)
 		// so we are going to test the vtlib CRUD on fields and blocks here
 		// we add an image field to the HelpDesk module
-		unset(VTCacheUtils::$_fieldinfo_cache[13], VTCacheUtils::$_module_columnfields_cache[$Module]);
 		$modhd = Vtiger_Module::getInstance($Module);
 		$blkhd = Vtiger_Block::getInstance('LBL_BLOCK_TEST', $modhd);
 		if ($blkhd) {
@@ -974,6 +980,7 @@ class WSCreateTest extends TestCase {
 		$this->assertEqualsCanonicalizing($hdColsBeforeAdding, $hdColsAfterDeleting, 'Delete Field');
 		$this->assertEqualsCanonicalizing($hdBlocksBeforeAdding, $hdBlocksAfterDeleting, 'Delete Block');
 		$adb->query("UPDATE vtiger_field SET defaultvalue='' where fieldid=158");
+		$handler->emptyCache();
 	}
 
 	/**
