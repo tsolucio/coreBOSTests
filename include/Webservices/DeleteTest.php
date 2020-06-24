@@ -46,5 +46,59 @@ class testWSDelete extends TestCase {
 		$this->assertEquals(1, $rs->fields['deleted']);
 		$rs = $adb->query('UPDATE vtiger_crmentity set deleted=0 where crmid=18907');
 	}
+
+	/**
+	 * Method testDeleteUser
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testDeleteUser() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		vtws_delete('19x5', $current_user);
+	}
+
+	/**
+	 * Method testDeleteExceptionNoModuleAccess
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testDeleteExceptionNoModuleAccess() {
+		$user = new Users();
+		///  nocreate
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		vtws_delete(vtws_getEntityId('cbTermConditions').'x27153', $user);
+	}
+
+	/**
+	 * Method testDeleteExceptionNoPermission
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testDeleteExceptionNoPermission() {
+		$user = new Users();
+		///  nocreate
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		vtws_delete(vtws_getEntityId('Campaigns').'x4789', $user);
+	}
+
+	/**
+	 * Method testDeleteExceptionWrongID
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testDeleteExceptionWrongID() {
+		$user = new Users();
+		///  nocreate
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
+		vtws_delete(vtws_getEntityId('cbQuestion').'x74', $user);
+	}
 }
 ?>
