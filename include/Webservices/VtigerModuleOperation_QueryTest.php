@@ -346,6 +346,35 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 	}
 
+	public function testRelationsWithIncorrectSyntax() {
+		global $GetRelatedList_ReturnOnlyQuery;
+		$GetRelatedList_ReturnOnlyQuery = true;
+		///////////  THIS ONE IS INCORRECT BUT PRODUCES CORRECT SQL  !!
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projecttaskname from projecttask where related.project='33x6613; limit 3", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"select vtiger_projecttask.projecttaskname,vtiger_crmentity.cbuuid  FROM vtiger_projecttask INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_projecttask.projecttaskid INNER JOIN vtiger_projecttaskcf ON vtiger_projecttaskcf.projecttaskid = vtiger_projecttask.projecttaskid INNER JOIN vtiger_project ON (vtiger_project.projectid = vtiger_projecttask.projectid) LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid WHERE vtiger_crmentity.deleted=0 AND vtiger_project.projectid = 6613 limit 3 ",
+			$actual
+		);
+		///////////  THIS ONE IS INCORRECT BUT PRODUCES CORRECT SQL  !!
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projecttaskname from projecttask where related.project='33x6613'; limit 3", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"select vtiger_projecttask.projecttaskname,vtiger_crmentity.cbuuid  FROM vtiger_projecttask INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_projecttask.projecttaskid INNER JOIN vtiger_projecttaskcf ON vtiger_projecttaskcf.projecttaskid = vtiger_projecttask.projecttaskid INNER JOIN vtiger_project ON (vtiger_project.projectid = vtiger_projecttask.projectid) LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid WHERE vtiger_crmentity.deleted=0 AND vtiger_project.projectid = 6613 limit 3 ",
+			$actual
+		);
+		///////////  THIS ONE IS INCORRECT BUT PRODUCES CORRECT SQL WITH AN UNDESIRED RESULT !!
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projecttaskname from projecttask where project.id='33x6613; limit 3", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"select vtiger_projecttask.projecttaskname, vtiger_projecttask.projecttaskid  FROM vtiger_projecttask  INNER JOIN vtiger_crmentity ON vtiger_projecttask.projecttaskid = vtiger_crmentity.crmid LEFT JOIN vtiger_project AS vtiger_projectprojectid ON vtiger_projectprojectid.projectid=vtiger_projecttask.projectid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_projectprojectid.projectid = '6613; limit 3') ) AND vtiger_projecttask.projecttaskid > 0 ",
+			$actual
+		);
+		///////////  THIS ONE IS INCORRECT BUT PRODUCES CORRECT SQL
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projecttaskname from projecttask where project.id='33x6613'; limit 3", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"select vtiger_projecttask.projecttaskname, vtiger_projecttask.projecttaskid  FROM vtiger_projecttask  INNER JOIN vtiger_crmentity ON vtiger_projecttask.projecttaskid = vtiger_crmentity.crmid LEFT JOIN vtiger_project AS vtiger_projectprojectid ON vtiger_projectprojectid.projectid=vtiger_projecttask.projectid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_projectprojectid.projectid = '6613') ) AND vtiger_projecttask.projecttaskid > 0  limit 0,3",
+			$actual
+		);
+	}
+
 	public function testRelations() {
 		global $GetRelatedList_ReturnOnlyQuery;
 		$GetRelatedList_ReturnOnlyQuery = true;
