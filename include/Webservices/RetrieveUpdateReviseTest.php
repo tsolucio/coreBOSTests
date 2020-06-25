@@ -168,19 +168,59 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	}
 
 	/**
-	 * Method testRetrieveException
+	 * Method testRetrieveExceptionNoAccessRecord
 	 * @test
 	 * @expectedException WebServiceException
 	 */
-	public function testRetrieveException() {
+	public function testRetrieveExceptionNoAccessRecord() {
 		global $current_user;
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
 		$current_user = $user;
 		$pdoID = vtws_getEntityId('Products');
-		$actual = vtws_retrieve($pdoID.'x2633', $user);
-		$current_user = $holduser;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		try {
+			vtws_retrieve($pdoID.'x2633', $user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
+	}
+
+	/**
+	 * Method testRetrieveExceptionNoAccessModule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testRetrieveExceptionNoAccessModule() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // no create
+		$current_user = $user;
+		$pdoID = vtws_getEntityId('cbTermConditions');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		try {
+			vtws_retrieve($pdoID.'x27153', $user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
+	}
+
+	/**
+	 * Method testRetrieveExceptionEmptyID
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testRetrieveExceptionEmptyID() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
+		vtws_retrieve('', $current_user);
 	}
 
 	/** Method to restore test update record to it's original values */
@@ -509,11 +549,125 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	}
 
 	/**
-	 * Method testUpdateException
+	 * Method testUpdateHelpDeskUpdateLog
+	 * @test
+	 */
+	public function testUpdateHelpDeskUpdateLog() {
+		global $current_user, $adb;
+		$current_user = Users::getActiveAdminUser();
+		$ctoID = vtws_getEntityId('HelpDesk');
+		$beforeCto = vtws_retrieve($ctoID.'x2728', $current_user);
+		$expected = 'Ticket created. Assigned to  user  Administrator -- Monday 15th February 2016 12:01:27 AM by admin--//--';
+		$this->assertEquals($expected, $beforeCto['update_log']);
+		$updateCto = $beforeCto;
+		$updateCto['ticketpriorities'] = 'Low';
+		$date = date('l dS F Y h:i:s A');
+		vtws_update($updateCto, $current_user);
+		$actual = vtws_retrieve($ctoID.'x2728', $current_user);
+		$this->assertEquals('Low', $actual['ticketpriorities'], 'update ticketpriorities');
+		$this->assertEquals($expected.' Priority Changed to Low\. -- '.$date.' by admin--//--', $actual['update_log']);
+		$adb->pquery("update vtiger_troubletickets set priority='High', update_log=? where ticketid=2728", array($expected));
+		$actual = vtws_retrieve($ctoID.'x2728', $current_user);
+		unset($beforeCto['modifiedby'], $beforeCto['modifiedtime'], $beforeCto['commentadded'], $actual['commentadded'], $actual['modifiedby'], $actual['modifiedtime']);
+		$this->assertEquals($beforeCto, $actual);
+	}
+
+	/**
+	 * Method testUpdateProductLines
+	 * @test
+	 */
+	public function testUpdateProductLines() {
+		global $current_user;
+		$current_user = Users::getActiveAdminUser();
+		$ctoID = vtws_getEntityId('Quotes');
+		$beforeCto = vtws_retrieve($ctoID.'x12560', $current_user);
+		$this->assertEquals(1124.950000, $beforeCto['hdnGrandTotal']);
+		$this->assertEquals(4, count($beforeCto['pdoInformation']));
+		$updateCto = $beforeCto;
+		$updateCto['pdoInformation'] = array(array(
+			'productid' => '2620',
+			'wsproductid' => '14x2620',
+			'linetype' => 'Products',
+			'comment' => '',
+			'qty' => '10.000',
+			'listprice' => '10.0000',
+			'discount' => 0,
+			'discount_type' => 0,
+			'discount_percentage' => 0,
+			'discount_amount' => 10,
+		));
+		$this->emptyProductLineRequest('Quotes', count($beforeCto['pdoInformation']));
+		vtws_update($updateCto, $current_user);
+		$actual = vtws_retrieve($ctoID.'x12560', $current_user);
+		$this->assertEquals(127, $actual['hdnGrandTotal']);
+		$this->assertEquals(1, count($actual['pdoInformation']));
+		vtws_update($beforeCto, $current_user);
+		$actual = vtws_retrieve($ctoID.'x12560', $current_user);
+		unset(
+			$beforeCto['modifiedby'],
+			$beforeCto['modifiedtime'],
+			$beforeCto['assigned_user_id1'],
+			$beforeCto['assigned_user_id1ename'],
+			$actual['modifiedby'],
+			$actual['modifiedtime'],
+			$actual['assigned_user_id1'],
+			$actual['assigned_user_id1ename']
+		);
+		$this->assertEquals($beforeCto, $actual);
+		$this->emptyProductLineRequest('Quotes', count($beforeCto['pdoInformation']));
+	}
+
+	/**
+	 * Method testUpdateContactWithImage
+	 * @test
+	 */
+	public function testUpdateContactWithImage() {
+		global $current_user, $adb;
+		$current_user = Users::getActiveAdminUser();
+		$ctoID = vtws_getEntityId('Contacts');
+		$beforeCto = vtws_retrieve($ctoID.'x1561', $current_user);
+		$this->assertFalse(isset($beforeCto['imagenameimageinfo']), 'has no image information');
+		$this->assertEquals($beforeCto['lastname'], 'Saltman');
+		// get file and file information
+		$finfo = finfo_open(FILEINFO_MIME); // return mime type ala mimetype extension.
+		$filename = 'themes/images/Cron.png';
+		$mtype = finfo_file($finfo, $filename);
+		$model_filename = array(
+			'name'=>basename($filename),  // no slash nor paths in the name
+			'size'=>filesize($filename),
+			'type'=>$mtype,
+			'content'=>base64_encode(file_get_contents($filename))
+		);
+		$updateCto = $beforeCto;
+		$updateCto['attachments'] = array('imagename' => $model_filename);
+		$updateCto['lastname'] = 'áçèñtös';
+		vtws_update($updateCto, $current_user);
+		$actual = vtws_retrieve($ctoID.'x1561', $current_user);
+		$this->assertTrue(isset($actual['imagenameimageinfo']), 'has image information');
+		$this->assertEquals('Cron.png', $actual['imagenameimageinfo']['name'], 'name of image info is Cron');
+		$this->assertEquals('image/png; charset=binary', $actual['imagenameimageinfo']['type'], 'image type');
+		$this->assertEquals('Cron.png', $actual['imagename'], 'name of image is Cron');
+		$this->assertEquals('áçèñtös', $actual['lastname'], 'last name of contact');
+		// Restore record
+		include_once 'include/utils/DelImage.php';
+		$_REQUEST['recordid'] = '1561';
+		$_REQUEST['ImageModule'] = 'Contacts';
+		$_REQUEST['fieldname'] = 'imagename';
+		$_REQUEST['attachmentname'] = 'Cron.png';
+		DelImage('1561');
+		$adb->query("update vtiger_contactdetails set lastname='Saltman', imagename='' where contactid=1561");
+		$actual = vtws_retrieve($ctoID.'x1561', $current_user);
+		$this->assertFalse(isset($actual['imagenameimageinfo']), 'has no image information');
+		unset($beforeCto['modifiedby'], $beforeCto['modifiedtime'], $actual['modifiedby'], $actual['modifiedtime']);
+		$this->assertEquals($beforeCto, $actual);
+	}
+
+	/**
+	 * Method testUpdateExceptionMissingFields
 	 * @test
 	 * @expectedException WebServiceException
 	 */
-	public function testUpdateException() {
+	public function testUpdateExceptionMissingFields() {
 		global $current_user;
 		$holduser = $current_user;
 		$user = new Users();
@@ -527,10 +681,71 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 			'description' => '<p><IMG SRC=javascript:alert(String.fromCharCode(88,83,83))/><<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>script>alert("Ahh, once again bypassed your system, sorry :( *evil laugh*");<<SCRIPT>alert("XSS");//<</SCRIPT><IMG """><SCRIPT>alert("XSS")</SCRIPT>/script><img SRC="jav ascript:alert(\'XSS\');" style="height:512px;width:512px;" alt="human_head_reference_picture_front - Copy.jpg" /><img onerror="sfs" aalt="" src="http://{siteURL}.com/assets/images/human_head_reference_picture_front%20-%20Copy.jpg" style="height:512px; width:512px" /></p>',
 			'id' => '1x4985',
 		);
-		// Partial
-		vtws_update($newValuesPartial, $user);
-		/// end
-		$current_user = $holduser;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$MANDFIELDSMISSING);
+		try {
+			// Partial
+			vtws_update($newValuesPartial, $user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
+	}
+
+	/**
+	 * Method testUpdateExceptionNoAccessRecord
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testUpdateExceptionNoAccessRecord() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$current_user = $user;
+		$pdoID = vtws_getEntityId('Products');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		try {
+			vtws_update(array('id' => $pdoID.'x2633', 'assigned_user_id'=>'19x11'), $user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
+	}
+
+	/**
+	 * Method testUpdateExceptionNoAccessModule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testUpdateExceptionNoAccessModule() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // no create
+		$current_user = $user;
+		$pdoID = vtws_getEntityId('cbTermConditions');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		try {
+			vtws_update(array('id' => $pdoID.'x27153', 'assigned_user_id' => '19x11'), $user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
+	}
+
+	/**
+	 * Method testUpdateExceptionEmptyID
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testUpdateExceptionEmptyID() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
+		vtws_update(array('f1'=>'v1', 'f2'=>'v2', 'f3'=>'v3'), $current_user);
 	}
 
 	/**
@@ -740,24 +955,179 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$current_user = $holduser;
 	}
 
-	/**
-	 * Method testUpdateWithWrongValues
-	 * @test
-	 */
-	public function testUpdateWithWrongValues() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+	private function emptyProductLineRequest($module, $numlines) {
+		unset($_REQUEST['taxtype'], $_REQUEST['subtotal'], $_REQUEST['shipping_handling_charge'], $_REQUEST['adjustment']);
+		unset($_REQUEST['action'], $_REQUEST['totalProductCount'], $_REQUEST['recordid'], $_REQUEST['total']);
+		$cbMap = cbMap::getMapByName($module.'InventoryDetails', 'MasterDetailLayout');
+		if ($cbMap!=null) {
+			$cbMapFields = $cbMap->MasterDetailLayout();
+		}
+		for ($i = 0; $i<$numlines; $i++) {
+			unset($_REQUEST['deleted'.$i], $_REQUEST['comment'.$i], $_REQUEST['hdnProductId'.$i], $_REQUEST['qty'.$i], $_REQUEST['listPrice'.$i]);
+			unset($_REQUEST["discount$i"], $_REQUEST["discount_type$i"], $_REQUEST["discount_amount$i"], $_REQUEST["discount_percentage$i"]);
+			if ($cbMap!=null) {
+				foreach ($cbMapFields['detailview']['fieldnames'] as $mdfield) {
+					unset($_REQUEST[$mdfield.$i]);
+				}
+			}
+		}
+		$keys2delete = array();
+		foreach ($_REQUEST as $key => $value) {
+			if (preg_match('/.+_percentage[0-9]+/', $key) || preg_match('/.+_sh_percent/', $key)) {
+				$keys2delete[] = $key;
+			}
+		}
+		foreach ($keys2delete as $key) {
+			unset($_REQUEST[$key]);
+		}
 	}
 
 	/**
-	 * Method testUpdateInventoryModule
+	 * Method testReviseProductLines
 	 * @test
 	 */
-	public function testUpdateInventoryModule() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+	public function testReviseProductLines() {
+		global $current_user;
+		$current_user = Users::getActiveAdminUser();
+		$ctoID = vtws_getEntityId('Quotes');
+		$beforeCto = vtws_retrieve($ctoID.'x12560', $current_user);
+		$this->assertEquals(1124.950000, $beforeCto['hdnGrandTotal']);
+		$this->assertEquals(4, count($beforeCto['pdoInformation']));
+		$updateCto = array('id' => $ctoID.'x12560');
+		$updateCto['pdoInformation'] = array(array(
+			'productid' => '2620',
+			'wsproductid' => '14x2620',
+			'linetype' => 'Products',
+			'comment' => '',
+			'qty' => '10.000',
+			'listprice' => '10.0000',
+			'discount' => 0,
+			'discount_type' => 0,
+			'discount_percentage' => 0,
+			'discount_amount' => 10,
+		));
+		$this->emptyProductLineRequest('Quotes', count($beforeCto['pdoInformation']));
+		vtws_revise($updateCto, $current_user);
+		$actual = vtws_retrieve($ctoID.'x12560', $current_user);
+		$this->assertEquals($beforeCto['subject'], $actual['subject']);
+		$this->assertEquals(127, $actual['hdnGrandTotal']);
+		$this->assertEquals(1, count($actual['pdoInformation']));
+		vtws_update($beforeCto, $current_user);
+		$actual = vtws_retrieve($ctoID.'x12560', $current_user);
+		unset(
+			$beforeCto['modifiedby'],
+			$beforeCto['modifiedtime'],
+			$beforeCto['assigned_user_id1'],
+			$beforeCto['assigned_user_id1ename'],
+			$actual['modifiedby'],
+			$actual['modifiedtime'],
+			$actual['assigned_user_id1'],
+			$actual['assigned_user_id1ename']
 		);
+		$this->assertEquals($beforeCto, $actual);
+		$this->emptyProductLineRequest('Quotes', count($beforeCto['pdoInformation']));
+	}
+
+	/**
+	 * Method testReviseContactWithImage
+	 * @test
+	 */
+	public function testReviseContactWithImage() {
+		global $current_user, $adb;
+		$current_user = Users::getActiveAdminUser();
+		$ctoID = vtws_getEntityId('Contacts');
+		$beforeCto = vtws_retrieve($ctoID.'x1561', $current_user);
+		$this->assertFalse(isset($beforeCto['imagenameimageinfo']), 'has no image information');
+		$this->assertEquals($beforeCto['lastname'], 'Saltman');
+		// get file and file information
+		$finfo = finfo_open(FILEINFO_MIME); // return mime type ala mimetype extension.
+		$filename = 'themes/images/Cron.png';
+		$mtype = finfo_file($finfo, $filename);
+		$model_filename = array(
+			'name'=>basename($filename),  // no slash nor paths in the name
+			'size'=>filesize($filename),
+			'type'=>$mtype,
+			'content'=>base64_encode(file_get_contents($filename))
+		);
+		$updateCto = array('id' => $ctoID.'x1561');
+		$updateCto['attachments'] = array('imagename' => $model_filename);
+		$updateCto['lastname'] = 'áçèñtös';
+		vtws_revise($updateCto, $current_user);
+		$actual = vtws_retrieve($ctoID.'x1561', $current_user);
+		$this->assertTrue(isset($actual['imagenameimageinfo']), 'has image information');
+		$this->assertEquals('Cron.png', $actual['imagenameimageinfo']['name'], 'name of image info is Cron');
+		$this->assertEquals('image/png; charset=binary', $actual['imagenameimageinfo']['type'], 'image type');
+		$this->assertEquals('Cron.png', $actual['imagename'], 'name of image is Cron');
+		$this->assertEquals('áçèñtös', $actual['lastname'], 'last name of contact');
+		$this->assertEquals($beforeCto['firstname'], $actual['firstname']);
+		// Restore record
+		include_once 'include/utils/DelImage.php';
+		$_REQUEST['recordid'] = '1561';
+		$_REQUEST['ImageModule'] = 'Contacts';
+		$_REQUEST['fieldname'] = 'imagename';
+		$_REQUEST['attachmentname'] = 'Cron.png';
+		DelImage('1561');
+		$adb->query("update vtiger_contactdetails set lastname='Saltman', imagename='' where contactid=1561");
+		$actual = vtws_retrieve($ctoID.'x1561', $current_user);
+		$this->assertFalse(isset($actual['imagenameimageinfo']), 'has no image information');
+		unset($beforeCto['modifiedby'], $beforeCto['modifiedtime'], $actual['modifiedby'], $actual['modifiedtime']);
+		$this->assertEquals($beforeCto, $actual);
+	}
+
+	/**
+	 * Method testReviseExceptionNoAccessRecord
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testReviseExceptionNoAccessRecord() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
+		$current_user = $user;
+		$pdoID = vtws_getEntityId('Products');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		try {
+			vtws_revise(array('id' => $pdoID.'x2633', 'assigned_user_id'=>'19x11'), $user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
+	}
+
+	/**
+	 * Method testReviseExceptionNoAccessModule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testReviseExceptionNoAccessModule() {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // no create
+		$current_user = $user;
+		$pdoID = vtws_getEntityId('cbTermConditions');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		try {
+			vtws_revise(array('id' => $pdoID.'x27153', 'assigned_user_id' => '19x11'), $user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
+	}
+
+	/**
+	 * Method testReviseExceptionEmptyID
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testReviseExceptionEmptyID() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
+		vtws_revise(array('f1'=>'v1', 'f2'=>'v2', 'f3'=>'v3'), $current_user);
 	}
 }
 ?>
