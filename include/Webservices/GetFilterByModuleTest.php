@@ -38,9 +38,14 @@ class testWSGetFilterByModule extends TestCase {
 					'status' => '0',
 					'advcriteria' => '[]',
 					'stdcriteria' => '',
+					'advcriteriaWQL' => '',
+					'advcriteriaEVQL' => '',
+					'stdcriteriaWQL' => '',
+					'stdcriteriaEVQL' => '',
 				),
 			),
 			'linkfields' => array('notes_title'),
+			'pagesize' => 40
 		);
 		$east = array(
 			'html' => "<option value='53'>All</option>",
@@ -50,14 +55,20 @@ class testWSGetFilterByModule extends TestCase {
 					'status' => '0',
 					'advcriteria' => '[]',
 					'stdcriteria' => '',
+					'advcriteriaWQL' => '',
+					'advcriteriaEVQL' => '',
+					'stdcriteriaWQL' => '',
+					'stdcriteriaEVQL' => '',
 				),
 			),
 			'linkfields' => array('assetname'),
+			'pagesize' => 40
 		);
 		$eusr = array(
 			'html' => '',
 			'filters' => array(),
 			'linkfields' => array('last_name'),
+			'pagesize' => 40
 		);
 		$ecto = array(
 			'html' => "<option value='7'>All</option><option value='8'>Contacts Address</option><option value='9'>Todays Birthday</option>",
@@ -67,21 +78,34 @@ class testWSGetFilterByModule extends TestCase {
 					'status' => '0',
 					'advcriteria' => '[]',
 					'stdcriteria' => '',
-				),
+					'advcriteriaWQL' => '',
+					'advcriteriaEVQL' => '',
+					'stdcriteriaWQL' => '',
+					'stdcriteriaEVQL' => '',
+					),
 				8 => array(
 					'name' => 'Contacts Address',
 					'status' => '3',
 					'advcriteria' => '[]',
 					'stdcriteria' => '',
-				),
+					'advcriteriaWQL' => '',
+					'advcriteriaEVQL' => '',
+					'stdcriteriaWQL' => '',
+					'stdcriteriaEVQL' => '',
+					),
 				9 => array(
 					'name' => 'Todays Birthday',
 					'status' => '3',
 					'advcriteria' => '[]',
 					'stdcriteria' => "DATE_FORMAT(vtiger_contactsubdetails.birthday, '%m%d') BETWEEN DATE_FORMAT('".$today." 00:00:00', '%m%d') and DATE_FORMAT('".$today." 23:59:00', '%m%d')",
-				),
+					'advcriteriaWQL' => '',
+					'advcriteriaEVQL' => '',
+					'stdcriteriaWQL' => "DATE_FORMAT(vtiger_contactsubdetails.birthday, '%m%d') BETWEEN DATE_FORMAT('".$today." 00:00:00', '%m%d') and DATE_FORMAT('".$today." 23:59:00', '%m%d')",
+					'stdcriteriaEVQL' => '{"fieldname":"birthday","operation":"between","value":"'.$today.','.$today.'","valuetype":"rawtext","joincondition":"and","groupid":1297208112}',
+					),
 			),
 			'linkfields' => array('firstname', 'lastname'),
+			'pagesize' => 40
 		);
 		return array(
 			array('Documents', $edoc, 'Documents'),
@@ -98,7 +122,14 @@ class testWSGetFilterByModule extends TestCase {
 	 */
 	public function testgetfiltersbymodule($module, $expected, $message) {
 		global $current_user;
-		$this->assertEquals($expected, getfiltersbymodule($module, $current_user), "getfiltersbymodule $message");
+		$actual = getfiltersbymodule($module, $current_user);
+		if ($module == 'Contacts') {
+			$aEVQL = json_decode($actual['filters'][9]['stdcriteriaEVQL'], true);
+			$eEVQL = json_decode($expected['filters'][9]['stdcriteriaEVQL'], true);
+			$eEVQL['groupid'] = $aEVQL['groupid'];
+			$expected['filters'][9]['stdcriteriaEVQL'] = json_encode($eEVQL);
+		}
+		$this->assertEquals($expected, $actual, "getfiltersbymodule $message");
 	}
 
 	/**
