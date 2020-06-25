@@ -56,6 +56,7 @@ class testExecuteWorkflow extends TestCase {
 		$rs = $adb->pquery('select smownerid from vtiger_crmentity where crmid=?', array(2642));
 		$ownerafter = $adb->query_result($rs, 0, 0);
 		$this->assertEquals(8, $ownerafter, 'update field on ticket with workflow');
+		$rs = $adb->pquery('update vtiger_crmentity set smownerid=? where crmid=?', array($ownerbefore, 2642));
 		$current_user = $holduser;
 	}
 

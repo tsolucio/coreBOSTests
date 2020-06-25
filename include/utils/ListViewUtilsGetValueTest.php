@@ -232,6 +232,7 @@ class testListViewUtilsGetValue extends TestCase {
 		$focus->popup_type=$popuptype;
 		unset($_SESSION['internal_mailer']);
 		$_REQUEST['action'] = 'x';
+		unset($_REQUEST['recordid']);
 		$actual = getValue($field_result, $list_result, $fieldname, $focus, $module, $entity_id, $list_result_count, $mode, $popuptype);
 		if ($fieldname=='email1') {
 			$this->assertEquals('<a href="mailto:'.$expected.'">'.$expected.'</a>', $actual, $msg);
