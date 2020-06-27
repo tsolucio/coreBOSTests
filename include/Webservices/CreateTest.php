@@ -1017,9 +1017,12 @@ class WSCreateTest extends TestCase {
 		$_FILES=array();
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
-		vtws_create($Module, $ObjectValues, $current_user);
-		/// end
-		$current_user = $holduser;
+		try {
+			vtws_create($Module, $ObjectValues, $current_user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
 	}
 
 	/**
@@ -1049,9 +1052,12 @@ class WSCreateTest extends TestCase {
 		$_FILES=array();
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
-		vtws_create($Module, $ObjectValues, $current_user);
-		/// end
-		$current_user = $holduser;
+		try {
+			vtws_create($Module, $ObjectValues, $current_user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
 	}
 
 	/**
