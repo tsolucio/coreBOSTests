@@ -46,6 +46,8 @@ class testCustomerPortalWS extends TestCase {
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // dmY
 		$this->assertEquals('dd-mm-yyyy', vtws_getPortalUserDateFormat($user), 'getPortalUserDateFormat testdmy');
+		$user->column_fields['date_format'] = '';
+		$this->assertEquals('yyyy-mm-dd', vtws_getPortalUserDateFormat($user), 'getPortalUserDateFormat testdmy with no defined format');
 	}
 
 	/**
@@ -199,6 +201,21 @@ class testCustomerPortalWS extends TestCase {
 		$this->assertTrue(vtws_findByPortalUserName('julieta@yahoo.com'), 'findByPortalUserName julieta');
 		$this->assertFalse(vtws_findByPortalUserName('notthere'), 'findByPortalUserName notthere');
 		$this->assertFalse(vtws_findByPortalUserName("hackit'; select 1;"), 'findByPortalUserName hackit');
+	}
+
+	/**
+	 * Method testAuthenticateContact
+	 * @test
+	 */
+	public function testAuthenticateContact() {
+		$this->assertEquals('12x1085', vtws_AuthenticateContact('julieta@yahoo.com', '5ub1ipv3'), 'AuthenticateContact OK');
+		$this->assertFalse(vtws_AuthenticateContact('julieta@yahoo.com', 's'), 'AuthenticateContact incorrect password');
+		$this->assertFalse(vtws_AuthenticateContact("hackit'; select 1;", '5ub1ipv3'), 'AuthenticateContact incorrect user');
+		vtws_changePortalUserPassword('julieta@yahoo.com', '$newPass');
+		$this->assertFalse(vtws_AuthenticateContact('julieta@yahoo.com', '5ub1ipv3'), 'AuthenticateContact NOK');
+		$this->assertEquals('12x1085', vtws_AuthenticateContact('julieta@yahoo.com', '$newPass'), 'AuthenticateContact OK');
+		vtws_changePortalUserPassword('julieta@yahoo.com', '5ub1ipv3');
+		$this->assertEquals('12x1085', vtws_AuthenticateContact('julieta@yahoo.com', '5ub1ipv3'), 'AuthenticateContact OK');
 	}
 
 	/**
