@@ -219,6 +219,14 @@ class testCustomerPortalWS extends TestCase {
 	}
 
 	/**
+	 * Method testchangePortalUserPassword
+	 * @test
+	 */
+	public function testchangePortalUserPassword() {
+		$this->assertFalse(vtws_changePortalUserPassword("hackit'; select 1;", '$newPass'), 'changePortalUserPassword NOK');
+	}
+
+	/**
 	 * Method vtws_getReferenceValueProvider
 	 * params
 	 */
@@ -235,13 +243,35 @@ class testCustomerPortalWS extends TestCase {
 	}
 
 	/**
-	 * Method testvtyiicpng_getWSEntityId
+	 * Method testvtws_getReferenceValue
 	 * @test
 	 * @dataProvider vtws_getReferenceValueProvider
 	 */
 	public function testvtws_getReferenceValue($ids, $expected) {
 		global $current_user;
 		$this->assertEquals($expected, vtws_getReferenceValue($ids, $current_user));
+	}
+
+	/**
+	 * Method evvt_strip_html_linksProvider
+	 * params
+	 */
+	public function evvt_strip_html_linksProvider() {
+		return array(
+			array('no url in this text', 'no url in this text'),
+			array('this one <a href="has a link">right here</a>', 'this one right here'),
+			array('this one <a href="has a link">right here</a> and another one <a href=\'single quoted\'>here</a>', 'this one right here and another one here'),
+			array('', ''),
+		);
+	}
+
+	/**
+	 * Method testevvt_strip_html_links
+	 * @test
+	 * @dataProvider evvt_strip_html_linksProvider
+	 */
+	public function testevvt_strip_html_links($text, $expected) {
+		$this->assertEquals($expected, evvt_strip_html_links($text));
 	}
 
 	/**
@@ -361,6 +391,123 @@ class testCustomerPortalWS extends TestCase {
 			'19x13' => 'cbTest testtz-3',
 		);
 		$this->assertEquals($expected, vtws_getAllUsers($current_user), 'testgetAllUserName');
+	}
+
+	/**
+	 * Method PortalModuleRestrictionsProvider
+	 * params
+	 */
+	public function PortalModuleRestrictionsProvider() {
+		$accountId = '74';
+		$contactId = '1084';
+		return array(
+			array('Contacts', '74', '1084', "vtiger_contactdetails.accountid=$accountId"),
+			array('Accounts', '74', '1084', "vtiger_account.accountid=$accountId"),
+			array('Quotes', '74', '1084', "vtiger_quotes.accountid=$accountId or vtiger_quotes.contactid=$contactId"),
+			array('SalesOrder', '74', '1084', "vtiger_salesorder.accountid=$accountId or vtiger_salesorder.contactid=$contactId"),
+			array('ServiceContracts', '74', '1084', "vtiger_servicecontracts.sc_related_to=$accountId or vtiger_servicecontracts.sc_related_to=$contactId"),
+			array('Invoice', '74', '1084', "vtiger_invoice.accountid=$accountId or vtiger_invoice.contactid=$contactId"),
+			array('HelpDesk', '74', '1084', "vtiger_troubletickets.parent_id=$accountId or vtiger_troubletickets.parent_id=$contactId"),
+			array('Assets', '74', '1084', "vtiger_assets.account=$accountId"),
+			array('Project', '74', '1084', "vtiger_project.linktoaccountscontacts=$accountId or vtiger_project.linktoaccountscontacts=$contactId"),
+			array('Products', '74', '1084', ''),
+			array('Services', '74', '1084', ''),
+			array('Faq', '74', '1084', "faqstatus='Published'"),
+			array('Documents', '74', '1084', ''),
+			array('AnythingElse', '74', '1084', ''),
+		);
+	}
+
+	/**
+	 * Method testPortalModuleRestrictions
+	 * @test
+	 * @dataProvider PortalModuleRestrictionsProvider
+	 */
+	public function testPortalModuleRestrictions($module, $accountId, $contactId, $expected) {
+		$this->assertEquals($expected, evvt_PortalModuleRestrictions($module, $accountId, $contactId));
+	}
+
+	/**
+	 * Method getSearchResultsProvider
+	 * params
+	 */
+	public function getSearchResultsProvider() {
+		$eaccpdouser1 = array(
+			array(
+				'Account No' => 'ACC1',
+				'Account Name' => 'Chemex Labs Ltd',
+				'City' => 'Els Poblets',
+				'Website' => 'http://www.chemexlabsltd.com.au',
+				'Phone' => '03-3608-5660',
+				'Assigned To' => 'cbTest testtz',
+				'id' => '11x74',
+				'search_module_name' => 'Accounts',
+			),
+			array(
+				'Product No' => 'PRO7',
+				'Product Name' => 'cheap in stock muti-color lipstick',
+				'Part Number' => '',
+				'Commission Rate' => '0.000',
+				'Quantity In Stock' => '282.000',
+				'Qty/Unit' => '0.00',
+				'Unit Price' => '&euro;177.51',
+				'id' => '14x2622',
+				'search_module_name' => 'Products',
+			),
+		);
+		$eaccpdouser5 = array(
+			array(
+				'Account No' => 'ACC1',
+				'Account Name' => 'Chemex Labs Ltd',
+				'City' => 'Els Poblets',
+				'Website' => 'http://www.chemexlabsltd.com.au',
+				'Phone' => '03-3608-5660',
+				'Assigned To' => 'cbTest testtz',
+				'id' => '11x74',
+				'search_module_name' => 'Accounts',
+			),
+		);
+		$edocs = array();
+		return array(
+			array('', '', 'put anything here', 1, array()),
+			array('che', '', '', 1, array()),
+			array('che', '', 'not an array', 1, array()),
+			array('che', '', array('userId' => '', 'accountId' => '11x0', 'contactId' => '12x0'), 1, array()),
+			array('che', '', array('userId' => '19x1', 'accountId' => '', 'contactId' => '12x0'), 1, array()),
+			array('che', '', array('userId' => '19x1', 'accountId' => '11x0', 'contactId' => ''), 1, array()),
+			array('che', '', array('userId' => '19x1', 'accountId' => '11x0', 'contactId' => '12x0'), 5, array()),
+			///
+			array('che', 'Accounts,Products', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084'), 1, $eaccpdouser1),
+			array('che', 'Accounts,Products', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), 5, $eaccpdouser5),
+			array('che', 'Documents', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), 5, $edocs),
+		);
+	}
+
+	/**
+	 * Method testgetSearchResults
+	 * @test
+	 * @dataProvider getSearchResultsProvider
+	 */
+	public function testgetSearchResults($query, $search_onlyin, $restrictionids, $userid, $expected) {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$this->assertEquals($expected, cbwsgetSearchResults($query, $search_onlyin, $restrictionids, $user));
+	}
+
+	/**
+	 * Method testgetSearchResultsLimit
+	 * @test
+	 */
+	public function testgetSearchResultsLimit() {
+		global $current_user;
+		$current_user = Users::getActiveAdminUser();
+		$actual = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
+		$this->assertGreaterThan(600, count($actual));
+		$actual1 = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084', 'limit' => 50), $current_user);
+		$this->assertEquals(50, count($actual1));
+		$actual2 = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084', 'limit' => 50), $current_user);
+		$this->assertEquals(50, count($actual2));
+		$this->assertNotEquals($actual1, $actual2);
 	}
 }
 ?>
