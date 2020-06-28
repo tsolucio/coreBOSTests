@@ -43,7 +43,6 @@ class testWSExtendSession extends TestCase {
 	/**
 	 * Method testExtendSession
 	 * @test
-	 * @expectedException HTTP_Session2_Exception
 	 */
 	public function testExtendSession() {
 		global $API_VERSION, $current_user, $application_unique_key;
@@ -51,10 +50,16 @@ class testWSExtendSession extends TestCase {
 		$_SESSION['authenticated_user_id'] = $current_user->id;
 		$_SESSION['app_unique_key'] = $application_unique_key;
 		$vtigerVersion = vtws_getVtigerVersion();
-		$actual = @vtws_extendSession();
+		$SessionManagerStub = $this->createMock(SessionManager::class);
+		$SessionManagerStub->method('getSessionId')->willReturn('SmgrStubSessionID');
+		$SessionManagerStub->expects($this->once())
+			->method('set')
+			->with($this->equalTo('authenticatedUserId'), $this->equalTo($current_user->id));
+
+		$actual = vtws_extendSession($SessionManagerStub);
 		$this->assertEquals(
 			array(
-				'sessionName' => $actual['sessionName'],
+				'sessionName' => 'SmgrStubSessionID',
 				'userId' => vtws_getEntityId('Users').'x'.$current_user->id,
 				'version' => $API_VERSION,
 				'vtigerVersion' => $vtigerVersion,

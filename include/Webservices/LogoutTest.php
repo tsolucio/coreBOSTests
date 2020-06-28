@@ -26,14 +26,43 @@ require_once 'include/Webservices/WebServiceErrorCode.php';
 class testWSLogout extends TestCase {
 
 	/**
-	 * Method testlogout
+	 * Method testlogoutValid
 	 * @test
-	 * @expectedException HTTP_Session2_Exception
 	 */
-	public function testlogout() {
+	public function testlogoutValid() {
 		global $current_user;
-		$actual = @vtws_logout('should be a session id', $current_user);
+		$SessionManagerStub = $this->createMock(SessionManager::class);
+		$SessionManagerStub->method('isValid')->willReturn(true);
+		$actual = vtws_logout('should be a session id', $current_user, $SessionManagerStub);
 		$this->assertEquals(array('message' => 'successfull'), $actual);
+	}
+
+	/**
+	 * Method testlogoutEmptySession
+	 * @test
+	 */
+	public function testlogoutEmptySession() {
+		global $current_user;
+		$SessionManagerStub = $this->createMock(SessionManager::class);
+		$SessionManagerStub->method('isValid')->willReturn(true);
+		$SessionManagerStub->method('getError')->willReturn('getError called');
+		$SessionManagerStub->expects($this->once())->method('getError');
+		$actual = vtws_logout('', $current_user, $SessionManagerStub);
+		$this->assertEquals('getError called', $actual);
+	}
+
+	/**
+	 * Method testlogoutNotValid
+	 * @test
+	 */
+	public function testlogoutNotValid() {
+		global $current_user;
+		$SessionManagerStub = $this->createMock(SessionManager::class);
+		$SessionManagerStub->method('isValid')->willReturn(false);
+		$SessionManagerStub->method('getError')->willReturn('getError called');
+		$SessionManagerStub->expects($this->once())->method('getError');
+		$actual = vtws_logout('should be a session id', $current_user, $SessionManagerStub);
+		$this->assertEquals('getError called', $actual);
 	}
 }
 ?>
