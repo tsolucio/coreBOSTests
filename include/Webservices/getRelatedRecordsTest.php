@@ -836,6 +836,7 @@ class testWSgetRelatedRecords extends TestCase {
 			'quantity' => '1',
 			'description' => '',
 			'instructions' => '',
+			'cbuuid' => '6cebe554cba001a58c6347b80bd49be4eb700c23'
 		);
 		vtws_upsert('ProductComponent', $element, 'frompdo,topdo', 'frompdo,topdo,relmode,relfrom,relto,quantity,description,instructions', $current_user);
 		$element = array(
@@ -847,6 +848,7 @@ class testWSgetRelatedRecords extends TestCase {
 			'quantity' => '1',
 			'description' => '',
 			'instructions' => '',
+			'cbuuid' => '1f6f67cda5d84e91ba4bfa399d4550b4597d1f62'
 		);
 		vtws_upsert('ProductComponent', $element, 'frompdo,topdo', 'frompdo,topdo,relmode,relfrom,relto,quantity,description,instructions', $current_user);
 		/////////////////////////
