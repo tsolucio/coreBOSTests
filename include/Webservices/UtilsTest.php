@@ -258,6 +258,63 @@ class testWebservicesUtils extends TestCase {
 	}
 
 	/**
+	 * Method testgetWSIDInvalidID
+	 * @test
+	 */
+	public function testgetWSIDInvalidID() {
+		$this->assertEquals('0x0', vtws_getWSID('testgetWSIDInvalidID'), 'getWSID invalid ID');
+	}
+
+	/**
+	 * Method testrunQueryAsTransaction
+	 * @test
+	 */
+	public function testrunQueryAsTransaction() {
+		$actual = vtws_runQueryAsTransaction(
+			'select accountname from vtiger_account where accountid=?',
+			['74'],
+			$result
+		);
+		$this->assertTrue($actual);
+		$this->assertEquals('Chemex Labs Ltd', $result->fields['accountname']);
+		$actual = vtws_runQueryAsTransaction(
+			'select accountname fromvtiger_accountwhere accountid=?',
+			['74'],
+			$result
+		);
+		$this->assertFalse($actual);
+		$this->assertFalse($result);
+	}
+
+	/**
+	 * Method testgetOwnerType
+	 * @test
+	 */
+	public function testgetOwnerType() {
+		$this->assertEquals('Groups', vtws_getOwnerType(3));
+		$this->assertEquals('Users', vtws_getOwnerType(11));
+	}
+
+	/**
+	 * Method testgetOwnerTypeException
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testgetOwnerTypeException() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
+		vtws_getOwnerType(74);
+	}
+
+	/**
+	 * Method testgetCalendarEntityType
+	 * @test
+	 */
+	public function testgetCalendarEntityType() {
+		$this->assertEquals('cbCalendar', vtws_getCalendarEntityType('testgetWSIDInvalidID'), 'testgetCalendarEntityType');
+	}
+
+	/**
 	 * Method vtws_getEntityNameProvider
 	 * params
 	 */
@@ -280,6 +337,63 @@ class testWebservicesUtils extends TestCase {
 	public function testvtws_getEntityName($entityId, $expected) {
 		$actual = vtws_getEntityName($entityId);
 		$this->assertEquals($expected, $actual, "vtws_getEntityName $entityId");
+	}
+
+	/**
+	 * Method testgetActorModules
+	 * @test
+	 */
+	public function testgetActorModules() {
+		$expected = array(
+			0 => 'Groups',
+			1 => 'Currency',
+			2 => 'DocumentFolders',
+			3 => 'Workflow',
+			4 => 'AuditTrail',
+			5 => 'LoginHistory',
+		);
+		$this->assertEquals($expected, vtws_getActorModules(), 'vtws_getActorModules');
+	}
+
+	/**
+	 * Method testisRoleBasedPicklist
+	 * @test
+	 */
+	public function testisRoleBasedPicklist() {
+		$this->assertFalse(vtws_isRoleBasedPicklist('payment_duration'), 'isRoleBasedPicklist');
+		$this->assertFalse(vtws_isRoleBasedPicklist('currency_symbol_placement'), 'isRoleBasedPicklist');
+		$this->assertFalse(vtws_isRoleBasedPicklist('email2'), 'isRoleBasedPicklist');
+		$this->assertTrue(vtws_isRoleBasedPicklist('opportunity_type'), 'isRoleBasedPicklist');
+		$this->assertTrue(vtws_isRoleBasedPicklist('paymentmode'), 'isRoleBasedPicklist');
+	}
+
+	/**
+	 * Method testgetWebserviceTranslatedStringForLanguage
+	 * @test
+	 */
+	public function testgetWebserviceTranslatedStringForLanguage() {
+		$this->assertNull(vtws_getWebserviceTranslatedStringForLanguage('DoesNotExist', 'fr_fr'));
+	}
+
+	/**
+	 * Method testgetWebserviceCurrentLanguage
+	 * @test
+	 */
+	public function testgetWebserviceCurrentLanguage() {
+		global $default_language, $current_language;
+		$originalCurLang = $current_language;
+		$current_language = '';
+		$this->assertEquals($default_language, vtws_getWebserviceCurrentLanguage());
+		$current_language = $originalCurLang;
+	}
+
+	/**
+	 * Method testgetWebserviceDefaultLanguage
+	 * @test
+	 */
+	public function testgetWebserviceDefaultLanguage() {
+		global $default_language;
+		$this->assertEquals($default_language, vtws_getWebserviceDefaultLanguage());
 	}
 }
 ?>
