@@ -509,5 +509,98 @@ class testCustomerPortalWS extends TestCase {
 		$this->assertEquals(50, count($actual2));
 		$this->assertNotEquals($actual1, $actual2);
 	}
+
+	/**
+	 * Method testgetSearchResultsSerialized
+	 * @test
+	 */
+	public function testgetSearchResultsSerialized() {
+		global $current_user;
+		$current_user = Users::getActiveAdminUser();
+		$eaccpdouser5 = array(
+			array(
+				'Account No' => 'ACC1',
+				'Account Name' => 'Chemex Labs Ltd',
+				'City' => 'Els Poblets',
+				'Website' => 'http://www.chemexlabsltd.com.au',
+				'Phone' => '03-3608-5660',
+				'Assigned To' => 'cbTest testtz',
+				'id' => '11x74',
+				'search_module_name' => 'Accounts',
+			),
+		);
+		$actual = vtws_getSearchResults('che', 'Accounts,Products', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
+		$this->assertEquals(serialize($eaccpdouser5), $actual);
+		$actual = vtws_getSearchResults('che', 'Documents', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
+		$this->assertEquals(serialize(array()), $actual);
+	}
+
+	/**
+	 * Method testgetSearchResultsWithTotals
+	 * @test
+	 */
+	public function testgetSearchResultsWithTotals() {
+		global $current_user;
+		$current_user = Users::getActiveAdminUser();
+		$eaccpdouser1 = array(
+			'records' => array(
+				array(
+					'Account No' => 'ACC1',
+					'Account Name' => 'Chemex Labs Ltd',
+					'City' => 'Els Poblets',
+					'Website' => 'http://www.chemexlabsltd.com.au',
+					'Phone' => '03-3608-5660',
+					'Assigned To' => 'cbTest testtz',
+					'id' => '11x74',
+					'search_module_name' => 'Accounts',
+				),
+				array(
+					'Product No' => 'PRO7',
+					'Product Name' => 'cheap in stock muti-color lipstick',
+					'Part Number' => '',
+					'Commission Rate' => '0.000',
+					'Quantity In Stock' => '282.000',
+					'Qty/Unit' => '0.00',
+					'Unit Price' => '&euro;177.51',
+					'id' => '14x2622',
+					'search_module_name' => 'Products',
+				),
+			),
+			'totals' => array(
+				'Accounts' => 1,
+				'Products' => 1,
+			),
+		);
+		$eaccpdouser5 = array(
+			'records' => array(
+				array(
+					'Account No' => 'ACC1',
+					'Account Name' => 'Chemex Labs Ltd',
+					'City' => 'Els Poblets',
+					'Website' => 'http://www.chemexlabsltd.com.au',
+					'Phone' => '03-3608-5660',
+					'Assigned To' => 'cbTest testtz',
+					'id' => '11x74',
+					'search_module_name' => 'Accounts',
+				),
+			),
+			'totals' => array(
+				'Accounts' => 1,
+				'Products' => 0,
+			),
+		);
+		$edocs = array(
+			'records' => array(),
+			'totals' => array(
+				'Documents' => 0,
+			),
+		);
+		$actual = cbwsgetSearchResultsWithTotals('che', 'Accounts,Products', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
+		$this->assertEquals($eaccpdouser1, $actual);
+		$actual = cbwsgetSearchResultsWithTotals('che', 'Accounts,Products', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
+		$this->assertEquals($eaccpdouser5, $actual);
+		$actual = cbwsgetSearchResultsWithTotals('che', 'Documents', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
+		$this->assertEquals($edocs, $actual);
+	}
 }
 ?>
