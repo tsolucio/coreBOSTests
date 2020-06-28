@@ -69,18 +69,19 @@ class testWSLogin extends TestCase {
 	 */
 	public function testnokey() {
 		global $adb;
-		$usr = $adb->query('Select accesskey FROM vtiger_users WHERE id=9');
+		$usr = $adb->query('Select accesskey FROM vtiger_users WHERE id=5');
 		$accesskey = $usr->fields['accesskey'];
-		$adb->query('update vtiger_users set accesskey="" WHERE id=9');
+		$adb->query('update vtiger_users set accesskey="" WHERE id=5');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSKEYUNDEFINED);
 		try {
-			vtws_login('testinactive', 'invalid token');
+			vtws_getchallenge('testdmy');
+			vtws_login('testdmy', 'invalid token');
 		} catch (\Throwable $th) {
-			$adb->pquery('update vtiger_users set accesskey=? WHERE id=9', array($accesskey));
+			$adb->pquery('update vtiger_users set accesskey=? WHERE id=5', array($accesskey));
 			throw $th;
 		}
-		$adb->pquery('update vtiger_users set accesskey=? WHERE id=9', array($accesskey));
+		$adb->pquery('update vtiger_users set accesskey=? WHERE id=5', array($accesskey));
 	}
 
 	/**
