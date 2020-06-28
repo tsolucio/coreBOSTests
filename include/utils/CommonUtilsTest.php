@@ -1570,4 +1570,64 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	public function testnumberBytes($size, $e) {
 		$this->assertEquals($e, (string)numberBytes($size), "numberBytes $size");
 	}
+
+	/**
+	 * Method getSearchModulesCommonProvider
+	 * params
+	 */
+	public function getSearchModulesCommonProvider() {
+		$e1 = array(
+			'Accounts' => 'Accounts',
+			'Leads' => 'Leads',
+			'Contacts' => 'Contacts',
+			'Potentials' => 'Potentials',
+			'Campaigns' => 'Campaigns',
+			'HelpDesk' => 'HelpDesk',
+			'Products' => 'Products',
+			'Documents' => 'Documents',
+			'Emails' => 'Emails',
+			'Faq' => 'Faq',
+			'Vendors' => 'Vendors',
+			'PriceBooks' => 'PriceBooks',
+			'Quotes' => 'Quotes',
+			'PurchaseOrder' => 'PurchaseOrder',
+			'SalesOrder' => 'SalesOrder',
+			'Invoice' => 'Invoice',
+			'ServiceContracts' => 'ServiceContracts',
+			'Services' => 'Services',
+			'CobroPago' => 'CobroPago',
+			'Assets' => 'Assets',
+			'ModComments' => 'ModComments',
+			'ProjectMilestone' => 'ProjectMilestone',
+			'ProjectTask' => 'ProjectTask',
+			'Project' => 'Project',
+			'InventoryDetails' => 'InventoryDetails',
+			'cbTermConditions' => 'cbTermConditions',
+			'cbCalendar' => 'cbCalendar',
+			'cbSurvey' => 'cbSurvey',
+			'cbSurveyQuestion' => 'cbSurveyQuestion',
+			'cbSurveyDone' => 'cbSurveyDone',
+			'cbSurveyAnswer' => 'cbSurveyAnswer',
+			'cbCompany' => 'cbCompany',
+			'cbQuestion' => 'cbQuestion',
+			'ProductComponent' => 'ProductComponent',
+			'Messages' => 'Messages',
+			'cbPulse' => 'cbPulse',
+			'MsgTemplate' => 'MsgTemplate',
+		);
+		return array(
+			array(array(), $e1),
+			array(array('Accounts'), array('Accounts' => 'Accounts')),
+			array(array('Accounts','cbupdater','EtiquetasOO'), array('Accounts' => 'Accounts')),
+		);
+	}
+
+	/**
+	 * Method testgetSearchModulesCommon
+	 * @test
+	 * @dataProvider getSearchModulesCommonProvider
+	 */
+	public function testgetSearchModulesCommon($filter, $expected) {
+		$this->assertEquals($expected, getSearchModulesCommon($filter));
+	}
 }
