@@ -827,6 +827,10 @@ class testWSgetRelatedRecords extends TestCase {
 	 */
 	public function testProductsProducts() {
 		global $adb, $current_user;
+		$rs = $adb->query("select count(*) as cnt from vtiger_productcomponent inner join vtiger_crmentity on crmid=productcomponentid where deleted=0 and frompdo=2631 and topdo=2632");
+		$this->assertTrue(($rs->fields['cnt']==0 || $rs->fields['cnt']==1));
+		$rs = $adb->query("select count(*) as cnt from vtiger_productcomponent inner join vtiger_crmentity on crmid=productcomponentid where deleted=0 and frompdo=2631 and topdo=2633");
+		$this->assertTrue(($rs->fields['cnt']==0 || $rs->fields['cnt']==1));
 		$element = array(
 			'frompdo' => '14x2631',
 			'topdo' => '14x2632',
@@ -851,6 +855,10 @@ class testWSgetRelatedRecords extends TestCase {
 			'cbuuid' => '1f6f67cda5d84e91ba4bfa399d4550b4597d1f62'
 		);
 		vtws_upsert('ProductComponent', $element, 'frompdo,topdo', 'frompdo,topdo,relmode,relfrom,relto,quantity,description,instructions', $current_user);
+		$rs = $adb->query("select count(*) as cnt from vtiger_productcomponent inner join vtiger_crmentity on crmid=productcomponentid where deleted=0 and frompdo=2631 and topdo=2632");
+		$this->assertTrue(($rs->fields['cnt']==0 || $rs->fields['cnt']==1));
+		$rs = $adb->query("select count(*) as cnt from vtiger_productcomponent inner join vtiger_crmentity on crmid=productcomponentid where deleted=0 and frompdo=2631 and topdo=2633");
+		$this->assertTrue(($rs->fields['cnt']==0 || $rs->fields['cnt']==1));
 		/////////////////////////
 		$qparams = array(
 			'productDiscriminator' => 'ProductBundle',
