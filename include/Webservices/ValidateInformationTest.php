@@ -91,6 +91,7 @@ class testValidateInformation extends TestCase {
 			'wssuccess' => false,
 		);
 		$this->assertEquals($expected, $actual, 'cbwsValidateInformation');
+		////////////////////
 		$actual = cbwsValidateInformation('{"module":"Accounts","record":"74","cbcustominfo1":"","cbcustominfo2":"","accountname":"nom e x","account_no":"AUTO GEN ON SAVE","website":"","phone":"","tickersymbol":"","fax":"","account_name":"","account_id":"","otherphone":"","employees":"22","email1":"","email2":"","ownership":"","industry":"Apparel","rating":"--None--","accounttype":"","siccode":"","emailoptout":false,"annual_revenue":"0","assigntype":"U","assigned_user_id":"1","assigned_group_id":"3","notify_owner":false,"cf_718":"","cf_719":"0","cf_720":"0","cf_721":"0","cf_722":"","cf_723":"","cf_724":"","cf_725":"","cf_726":false,"cf_727":"","cf_728":"","cf_729":"one","cf_730":"oneone","cf_731":"oneoneone","cf_732[]":"","bill_street":"","ship_street":"","bill_pobox":"","ship_pobox":"","bill_city":"","ship_city":"","bill_state":"","ship_state":"","bill_code":"","ship_code":"","bill_country":"","ship_country":"","description":""}', $current_user);
 		$expected = array(
 			'wsresult' => array(
@@ -100,33 +101,95 @@ class testValidateInformation extends TestCase {
 			'wssuccess' => false,
 		);
 		$this->assertEquals($expected, $actual, 'cbwsValidateInformation');
-		$actual = cbwsValidateInformation('{"module":"Accounts","record":"","cbcustominfo1":"","cbcustominfo2":"","accountname":"nomex","account_no":"AUTO GEN ON SAVE","website":"","phone":"","tickersymbol":"","fax":"","account_name":"","account_id":"","otherphone":"","employees":"22","email1":"","email2":"","ownership":"","industry":"NOT_THERE","rating":"--None--","accounttype":"","siccode":"","emailoptout":false,"annual_revenue":"0","assigntype":"U","assigned_user_id":"1","assigned_group_id":"3","notify_owner":false,"cf_718":"","cf_719":"0","cf_720":"0","cf_721":"0","cf_722":"","cf_723":"","cf_724":"","cf_725":"","cf_726":false,"cf_727":"","cf_728":"","cf_729":"one","cf_730":"oneone","cf_731":"oneoneone","cf_732[]":"","bill_street":"","ship_street":"","bill_pobox":"","ship_pobox":"","bill_city":"","ship_city":"","bill_state":"","ship_state":"","bill_code":"","ship_code":"","bill_country":"","ship_country":"","description":""}', $current_user);
-		$expected = true;
+		////////////////////
+		$actual = cbwsValidateInformation('{"module":"Accounts","record":"11x74","cbcustominfo1":"","cbcustominfo2":"","accountname":"nom e x","account_no":"AUTO GEN ON SAVE","website":"","phone":"","tickersymbol":"","fax":"","account_name":"","account_id":"","otherphone":"","employees":"22","email1":"","email2":"","ownership":"","industry":"Apparel","rating":"--None--","accounttype":"","siccode":"","emailoptout":false,"annual_revenue":"0","assigntype":"U","assigned_user_id":"1","assigned_group_id":"3","notify_owner":false,"cf_718":"","cf_719":"0","cf_720":"0","cf_721":"0","cf_722":"","cf_723":"","cf_724":"","cf_725":"","cf_726":false,"cf_727":"","cf_728":"","cf_729":"one","cf_730":"oneone","cf_731":"oneoneone","cf_732[]":"","bill_street":"","ship_street":"","bill_pobox":"","ship_pobox":"","bill_city":"","ship_city":"","bill_state":"","ship_state":"","bill_code":"","ship_code":"","bill_country":"","ship_country":"","description":""}', $current_user);
+		$expected = array(
+			'wsresult' => array(
+				'accountname' => array('Organization Name must contain mex'),
+				'industry' => array('Industry Columns cannot be duplicated'),
+			),
+			'wssuccess' => false,
+		);
 		$this->assertEquals($expected, $actual, 'cbwsValidateInformation');
+		////////////////////
+		$actual = cbwsValidateInformation('{"record":"74","cbcustominfo1":"","cbcustominfo2":"","accountname":"nom e x","account_no":"AUTO GEN ON SAVE","website":"","phone":"","tickersymbol":"","fax":"","account_name":"","account_id":"","otherphone":"","employees":"22","email1":"","email2":"","ownership":"","industry":"Apparel","rating":"--None--","accounttype":"","siccode":"","emailoptout":false,"annual_revenue":"0","assigntype":"U","assigned_user_id":"1","assigned_group_id":"3","notify_owner":false,"cf_718":"","cf_719":"0","cf_720":"0","cf_721":"0","cf_722":"","cf_723":"","cf_724":"","cf_725":"","cf_726":false,"cf_727":"","cf_728":"","cf_729":"one","cf_730":"oneone","cf_731":"oneoneone","cf_732[]":"","bill_street":"","ship_street":"","bill_pobox":"","ship_pobox":"","bill_city":"","ship_city":"","bill_state":"","ship_state":"","bill_code":"","ship_code":"","bill_country":"","ship_country":"","description":""}', $current_user);
+		$expected = array(
+			'wsresult' => array(
+				'accountname' => array('Organization Name must contain mex'),
+				'industry' => array('Industry Columns cannot be duplicated'),
+			),
+			'wssuccess' => false,
+		);
+		$this->assertEquals($expected, $actual, 'cbwsValidateInformation');
+		////////////////////
+		$actual = cbwsValidateInformation('{"record":"11x74","cbcustominfo1":"","cbcustominfo2":"","accountname":"nom e x","account_no":"AUTO GEN ON SAVE","website":"","phone":"","tickersymbol":"","fax":"","account_name":"","account_id":"","otherphone":"","employees":"22","email1":"","email2":"","ownership":"","industry":"Apparel","rating":"--None--","accounttype":"","siccode":"","emailoptout":false,"annual_revenue":"0","assigntype":"U","assigned_user_id":"1","assigned_group_id":"3","notify_owner":false,"cf_718":"","cf_719":"0","cf_720":"0","cf_721":"0","cf_722":"","cf_723":"","cf_724":"","cf_725":"","cf_726":false,"cf_727":"","cf_728":"","cf_729":"one","cf_730":"oneone","cf_731":"oneoneone","cf_732[]":"","bill_street":"","ship_street":"","bill_pobox":"","ship_pobox":"","bill_city":"","ship_city":"","bill_state":"","ship_state":"","bill_code":"","ship_code":"","bill_country":"","ship_country":"","description":""}', $current_user);
+		$expected = array(
+			'wsresult' => array(
+				'accountname' => array('Organization Name must contain mex'),
+				'industry' => array('Industry Columns cannot be duplicated'),
+			),
+			'wssuccess' => false,
+		);
+		$this->assertEquals($expected, $actual, 'cbwsValidateInformation');
+		////////////////////
+		$actual = cbwsValidateInformation('{"module":"Accounts","record":"","cbcustominfo1":"","cbcustominfo2":"","accountname":"nomex","account_no":"AUTO GEN ON SAVE","website":"","phone":"","tickersymbol":"","fax":"","account_name":"","account_id":"","otherphone":"","employees":"22","email1":"","email2":"","ownership":"","industry":"NOT_THERE","rating":"--None--","accounttype":"","siccode":"","emailoptout":false,"annual_revenue":"0","assigntype":"U","assigned_user_id":"1","assigned_group_id":"3","notify_owner":false,"cf_718":"","cf_719":"0","cf_720":"0","cf_721":"0","cf_722":"","cf_723":"","cf_724":"","cf_725":"","cf_726":false,"cf_727":"","cf_728":"","cf_729":"one","cf_730":"oneone","cf_731":"oneoneone","cf_732[]":"","bill_street":"","ship_street":"","bill_pobox":"","ship_pobox":"","bill_city":"","ship_city":"","bill_state":"","ship_state":"","bill_code":"","ship_code":"","bill_country":"","ship_country":"","description":""}', $current_user);
+		$this->assertTrue($actual, 'cbwsValidateInformation');
+		////////////////////
+		$actual = cbwsValidateInformation('{"module":"Quotes","record":"11923","subject":"","pdoInformation":[],"description":""}', $current_user);
+		$expected = array(
+			'wsresult' => array(
+				'subject' => array('Subject is required'),
+				'quotestage' => array('Quote Stage is required', 'Quote Stage must not exceed 200 characters'),
+				'account_id' => array('Organization Name is required'),
+				'assigned_user_id' => array('Assigned To is required'),
+				'bill_street' => array(
+					'Billing Address is required',
+					'Billing Address must not exceed 250 characters',
+				),
+				'ship_street' => array(
+					'Shipping Address is required',
+					'Shipping Address must not exceed 250 characters',
+				),
+			),
+			'wssuccess' => false,
+		);
+		$this->assertEquals($expected, $actual, 'cbwsValidateInformation');
+	}
+
+	public function testAccessDenied() {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		cbwsValidateInformation('{"module":"cbTermConditions","record":"27153"}', $user);
 	}
 
 	public function testInvalidParameter1() {
 		global $current_user;
-		$this->expectException('WebServiceException');
-		$actual = cbwsValidateInformation('', $current_user);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		cbwsValidateInformation('', $current_user);
 	}
 
 	public function testInvalidParameter2() {
 		global $current_user;
-		$this->expectException('WebServiceException');
-		$actual = cbwsValidateInformation('{"module":"', $current_user);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		cbwsValidateInformation('{"module":"', $current_user);
 	}
 
 	public function testInvalidParameter3() {
 		global $current_user;
-		$this->expectException('WebServiceException');
-		$actual = cbwsValidateInformation('{"module":"Accounts","cbcustominfo1":""}', $current_user);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		cbwsValidateInformation('{"module":"Accounts","cbcustominfo1":""}', $current_user);
 	}
 
 	public function testIncorrectModule() {
 		global $current_user;
-		$this->expectException('WebServiceException');
-		$actual = cbwsValidateInformation('{"module":"Accounts","record":"1084","cbcustominfo1":"","cbcustominfo2":"","accountname":"nomex","account_no":"AUTO GEN ON SAVE","website":"","phone":"","tickersymbol":"","fax":"","account_name":"","account_id":"","otherphone":"","employees":"22","email1":"","email2":"","ownership":"","industry":"NOT_THERE","rating":"--None--","accounttype":"","siccode":"","emailoptout":false,"annual_revenue":"0","assigntype":"U","assigned_user_id":"1","assigned_group_id":"3","notify_owner":false,"cf_718":"","cf_719":"0","cf_720":"0","cf_721":"0","cf_722":"","cf_723":"","cf_724":"","cf_725":"","cf_726":false,"cf_727":"","cf_728":"","cf_729":"one","cf_730":"oneone","cf_731":"oneoneone","cf_732[]":"","bill_street":"","ship_street":"","bill_pobox":"","ship_pobox":"","bill_city":"","ship_city":"","bill_state":"","ship_state":"","bill_code":"","ship_code":"","bill_country":"","ship_country":"","description":""}', $current_user);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$RECORDNOTFOUND);
+		cbwsValidateInformation('{"module":"Accounts","record":"1084","cbcustominfo1":"","cbcustominfo2":"","accountname":"nomex","account_no":"AUTO GEN ON SAVE","website":"","phone":"","tickersymbol":"","fax":"","account_name":"","account_id":"","otherphone":"","employees":"22","email1":"","email2":"","ownership":"","industry":"NOT_THERE","rating":"--None--","accounttype":"","siccode":"","emailoptout":false,"annual_revenue":"0","assigntype":"U","assigned_user_id":"1","assigned_group_id":"3","notify_owner":false,"cf_718":"","cf_719":"0","cf_720":"0","cf_721":"0","cf_722":"","cf_723":"","cf_724":"","cf_725":"","cf_726":false,"cf_727":"","cf_728":"","cf_729":"one","cf_730":"oneone","cf_731":"oneoneone","cf_732[]":"","bill_street":"","ship_street":"","bill_pobox":"","ship_pobox":"","bill_city":"","ship_city":"","bill_state":"","ship_state":"","bill_code":"","ship_code":"","bill_country":"","ship_country":"","description":""}', $current_user);
 	}
 }
 ?>
