@@ -95,6 +95,7 @@ class ModuleTypesTest extends TestCase {
 			'Workflow',
 			'AuditTrail',
 			'LoginHistory',
+			'ModTracker'
 			),
 			'information' => array(
 			'Campaigns' => array(
@@ -356,6 +357,11 @@ class ModuleTypesTest extends TestCase {
 				'isEntity' => false,
 				'label' => 'LoginHistory',
 				'singular' => 'LoginHistory',
+			),
+			'ModTracker' => array(
+				'isEntity' => false,
+				'label' => 'ModTracker',
+				'singular' => 'ModTracker',
 			),
 			),
 		);

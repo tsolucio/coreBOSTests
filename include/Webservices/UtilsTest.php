@@ -351,6 +351,7 @@ class testWebservicesUtils extends TestCase {
 			3 => 'Workflow',
 			4 => 'AuditTrail',
 			5 => 'LoginHistory',
+			6 => 'ModTracker',
 		);
 		$this->assertEquals($expected, vtws_getActorModules(), 'vtws_getActorModules');
 	}
