@@ -30,44 +30,44 @@ class testWSaddTicketFaqComment extends TestCase {
 	 */
 	public function testaddHDcomment() {
 		global $current_user, $adb;
-		$comms = $adb->query('select count(*) as cnt from vtiger_ticketcomments WHERE ticketid=2775');
+		$comms = $adb->query('select count(*) as cnt from vtiger_ticketcomments WHERE ticketid=2776');
 		$commsbefore = $comms->fields['cnt'];
 		$values = array(
 			'from_portal' => 1,
 			'parent_id' => '12x1084',
 			'comments' => 'my unit test comment',
 		);
-		vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2775', $values, $current_user);
-		$comms = $adb->query('select * from vtiger_ticketcomments WHERE ticketid=2775');
+		vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2776', $values, $current_user);
+		$comms = $adb->query('select * from vtiger_ticketcomments WHERE ticketid=2776');
 		$commsafter = $adb->num_rows($comms);
 		$this->assertEquals($commsbefore+1, $commsafter);
 		$this->assertEquals(1084, $adb->query_result($comms, $commsafter-1, 'ownerid'));
 		$this->assertEquals('my unit test comment', $adb->query_result($comms, $commsafter-1, 'comments'));
 		$this->assertEquals('customer', $adb->query_result($comms, $commsafter-1, 'ownertype'));
 		//////////////////
-		$comms = $adb->query('select count(*) as cnt from vtiger_ticketcomments WHERE ticketid=2775');
+		$comms = $adb->query('select count(*) as cnt from vtiger_ticketcomments WHERE ticketid=2776');
 		$commsbefore = $comms->fields['cnt'];
 		$values = array(
 			'from_portal' => 1,
 			'parent_id' => '1085',
 			'comments' => 'my unit test comment no wsid',
 		);
-		vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2775', $values, $current_user);
-		$comms = $adb->query('select * from vtiger_ticketcomments WHERE ticketid=2775');
+		vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2776', $values, $current_user);
+		$comms = $adb->query('select * from vtiger_ticketcomments WHERE ticketid=2776');
 		$commsafter = $adb->num_rows($comms);
 		$this->assertEquals($commsbefore+1, $commsafter);
 		$this->assertEquals(1085, $adb->query_result($comms, $commsafter-1, 'ownerid'));
 		$this->assertEquals('my unit test comment no wsid', $adb->query_result($comms, $commsafter-1, 'comments'));
 		$this->assertEquals('customer', $adb->query_result($comms, $commsafter-1, 'ownertype'));
 		//////////////////
-		$comms = $adb->query('select count(*) as cnt from vtiger_ticketcomments WHERE ticketid=2775');
+		$comms = $adb->query('select count(*) as cnt from vtiger_ticketcomments WHERE ticketid=2776');
 		$commsbefore = $comms->fields['cnt'];
 		$values = array(
 			'from_portal' => 0,
 			'comments' => 'my unit test user comment',
 		);
-		vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2775', $values, $current_user);
-		$comms = $adb->query('select * from vtiger_ticketcomments WHERE ticketid=2775');
+		vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2776', $values, $current_user);
+		$comms = $adb->query('select * from vtiger_ticketcomments WHERE ticketid=2776');
 		$commsafter = $adb->num_rows($comms);
 		$this->assertEquals($commsbefore+1, $commsafter);
 		$this->assertEquals($current_user->id, $adb->query_result($comms, $commsafter-1, 'ownerid'));
@@ -81,14 +81,14 @@ class testWSaddTicketFaqComment extends TestCase {
 	 */
 	public function testaddFAQcomment() {
 		global $current_user, $adb;
-		$comms = $adb->query('select count(*) as cnt from vtiger_faqcomments WHERE faqid=4686');
+		$comms = $adb->query('select count(*) as cnt from vtiger_faqcomments WHERE faqid=4687');
 		$commsbefore = $comms->fields['cnt'];
 		$values = array(
 			'from_portal' => 1,
 			'comments' => 'my unit test comment',
 		);
-		vtws_addTicketFaqComment(vtws_getEntityId('Faq').'x4686', $values, $current_user);
-		$comms = $adb->query('select * from vtiger_faqcomments WHERE faqid=4686');
+		vtws_addTicketFaqComment(vtws_getEntityId('Faq').'x4687', $values, $current_user);
+		$comms = $adb->query('select * from vtiger_faqcomments WHERE faqid=4687');
 		$commsafter = $adb->num_rows($comms);
 		$this->assertEquals($commsbefore+1, $commsafter);
 		$this->assertEquals('my unit test comment', $adb->query_result($comms, $commsafter-1, 'comments'));
@@ -130,7 +130,7 @@ class testWSaddTicketFaqComment extends TestCase {
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		try {
-			vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2775', $values, $current_user);
+			vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2776', $values, $current_user);
 		} catch (\Throwable $th) {
 			$current_user = $holduser;
 			throw $th;
@@ -152,7 +152,7 @@ class testWSaddTicketFaqComment extends TestCase {
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
 		try {
-			vtws_addTicketFaqComment(vtws_getEntityId('Faq').'x2775', $values, $current_user);
+			vtws_addTicketFaqComment(vtws_getEntityId('Faq').'x2776', $values, $current_user);
 		} catch (\Throwable $th) {
 			throw $th;
 		}
@@ -199,7 +199,7 @@ class testWSaddTicketFaqComment extends TestCase {
 		);
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$MANDFIELDSMISSING);
-		vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2775', $values, $current_user);
+		vtws_addTicketFaqComment(vtws_getEntityId('HelpDesk').'x2776', $values, $current_user);
 	}
 }
 ?>

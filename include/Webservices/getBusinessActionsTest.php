@@ -56,24 +56,6 @@ class testWSgetBusinessActions extends TestCase {
 			'HEADERSCRIPT' => array(),
 			'HEADERCSS' => array(),
 		));
-		$edocd = $this->stripLinkID(array(
-			'DETAILVIEWBASIC' => array(),
-			'HEADERSCRIPT' => array(),
-			'HEADERCSS' => array(),
-			'DETAILVIEWWIDGET' => array(BusinessActions::convertToObject(8, array(
-				'businessactionsid' => '43151',
-				'elementtype_action' => 'DETAILVIEWWIDGET',
-				'linklabel' => 'Document actions',
-				'linkurl' => 'module=Documents&action=DocumentsAjax&file=documentsWidget&record=44094',
-				'linkicon' => '',
-				'sequence' => '0',
-				'status' => false,
-				'handler_path' => '',
-				'handler_class' => '',
-				'handler' => '',
-				'onlyonmymodule' => '0',
-			))),
-		));
 		$eastl = array(
 			'LISTVIEWBASIC' => array(),
 			'HEADERSCRIPT' => array(),
@@ -265,6 +247,24 @@ class testWSgetBusinessActions extends TestCase {
 		));
 		$docrs = $adb->query('select notesid from vtiger_notes inner join vtiger_crmentity on crmid=notesid where deleted=0 limit 1');
 		$docid = $adb->query_result($docrs, 0, 'notesid');
+		$edocd = $this->stripLinkID(array(
+			'DETAILVIEWBASIC' => array(),
+			'HEADERSCRIPT' => array(),
+			'HEADERCSS' => array(),
+			'DETAILVIEWWIDGET' => array(BusinessActions::convertToObject(8, array(
+				'businessactionsid' => '43151',
+				'elementtype_action' => 'DETAILVIEWWIDGET',
+				'linklabel' => 'Document actions',
+				'linkurl' => 'module=Documents&action=DocumentsAjax&file=documentsWidget&record='.$docid,
+				'linkicon' => '',
+				'sequence' => '0',
+				'status' => false,
+				'handler_path' => '',
+				'handler_class' => '',
+				'handler' => '',
+				'onlyonmymodule' => '0',
+			))),
+		));
 		$views = array(
 			'ListView' => array(
 				'types' => 'LISTVIEWBASIC,HEADERSCRIPT,HEADERCSS',
