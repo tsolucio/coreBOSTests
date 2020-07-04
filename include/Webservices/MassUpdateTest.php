@@ -30,6 +30,7 @@ class testWSMassUpdate extends TestCase {
 	 */
 	public function testMassDelete() {
 		global $current_user, $adb;
+		$current_user = Users::getActiveAdminUser();
 		$scrs = $adb->query('select total_units,contract_status from vtiger_servicecontracts where servicecontractsid in (10132,10134)');
 		$sc10132TUBefore = $adb->query_result($scrs, 0, 'total_units');
 		$sc10132CSBefore = $adb->query_result($scrs, 0, 'contract_status');
