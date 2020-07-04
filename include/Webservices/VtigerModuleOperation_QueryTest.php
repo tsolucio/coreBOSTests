@@ -346,6 +346,29 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		);
 	}
 
+	public function testEmailQueries() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select * from Emails;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_activity.date_start,vtiger_emaildetails.from_email,vtiger_activity.semodule,vtiger_emaildetails.to_email,vtiger_activity.activitytype,vtiger_emaildetails.cc_email,vtiger_emaildetails.bcc_email,vtiger_crmentity.smownerid,vtiger_emaildetails.idlists,vtiger_email_track.access_count,vtiger_emaildetails.email_flag,vtiger_crmentity.modifiedtime,vtiger_crmentity.modifiedby,vtiger_emaildetails.bounce,vtiger_emaildetails.clicked,vtiger_emaildetails.spamreport,vtiger_emaildetails.delivered,vtiger_emaildetails.dropped,vtiger_emaildetails.open,vtiger_emaildetails.unsubscribe,vtiger_crmentity.createdtime,vtiger_activity.subject,vtiger_attachments.name,vtiger_activity.time_start,vtiger_crmentity.description,vtiger_activity.activityid FROM vtiger_activity LEFT JOIN vtiger_emaildetails ON vtiger_activity.activityid=vtiger_emaildetails.emailid LEFT JOIN vtiger_crmentity ON vtiger_activity.activityid=vtiger_crmentity.crmid LEFT JOIN vtiger_email_track ON vtiger_activity.activityid=vtiger_email_track.mailid LEFT JOIN vtiger_seattachmentsrel ON vtiger_seattachmentsrel.crmid=vtiger_activity.activityid LEFT JOIN vtiger_attachments ON vtiger_seattachmentsrel.attachmentsid=vtiger_attachments.attachmentsid   WHERE  activitytype='Emails' AND  vtiger_crmentity.deleted=0 LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id,from_email, unsubscribe from Emails;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_activity.activityid,vtiger_emaildetails.from_email,vtiger_emaildetails.unsubscribe FROM vtiger_activity LEFT JOIN vtiger_emaildetails ON vtiger_activity.activityid=vtiger_emaildetails.emailid LEFT JOIN vtiger_crmentity ON vtiger_activity.activityid=vtiger_crmentity.crmid   WHERE  activitytype='Emails' AND  vtiger_crmentity.deleted=0 LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id,from_email,parent_type from Emails;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_activity.activityid,vtiger_emaildetails.from_email,vtiger_activity.semodule FROM vtiger_activity LEFT JOIN vtiger_emaildetails ON vtiger_activity.activityid=vtiger_emaildetails.emailid LEFT JOIN vtiger_crmentity ON vtiger_activity.activityid=vtiger_crmentity.crmid   WHERE  activitytype='Emails' AND  vtiger_crmentity.deleted=0 LIMIT 100;",
+			$actual
+		);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id,from_email, filename from Emails;", $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_activity.activityid,vtiger_emaildetails.from_email,vtiger_attachments.name FROM vtiger_activity LEFT JOIN vtiger_emaildetails ON vtiger_activity.activityid=vtiger_emaildetails.emailid LEFT JOIN vtiger_seattachmentsrel ON vtiger_seattachmentsrel.crmid=vtiger_activity.activityid LEFT JOIN vtiger_attachments ON vtiger_seattachmentsrel.attachmentsid=vtiger_attachments.attachmentsid LEFT JOIN vtiger_crmentity ON vtiger_activity.activityid=vtiger_crmentity.crmid   WHERE  activitytype='Emails' AND  vtiger_crmentity.deleted=0 LIMIT 100;",
+			$actual
+		);
+	}
+
 	public function testRelationsWithIncorrectSyntax() {
 		global $GetRelatedList_ReturnOnlyQuery;
 		$GetRelatedList_ReturnOnlyQuery = true;
