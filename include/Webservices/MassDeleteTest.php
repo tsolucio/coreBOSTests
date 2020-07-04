@@ -58,7 +58,7 @@ class testWSMassDelete extends TestCase {
 			array('going to be deleted')
 		);
 		$this->assertEquals(1, $adb->num_rows($crs));
-		$dels = MassDelete($acc['id'].','.$cto['id'].',11x99999999', $current_user);
+		$dels = MassDelete($acc['id'].','.$cto['id'].',,11x99999999', $current_user);
 		$expected = array(
 			'success_deletes' => array($acc['id'], $cto['id']),
 			'failed_deletes' => array(array(
