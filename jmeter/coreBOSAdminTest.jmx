@@ -12465,6 +12465,127 @@ if (Failure) {
           </JSONPathAssertion>
           <hashTree/>
         </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="coreBOS Question" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="operation" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">cbQuestionAnswer</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">operation</stringProp>
+              </elementProp>
+              <elementProp name="sessionName" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__P(sessionName)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">sessionName</stringProp>
+              </elementProp>
+              <elementProp name="qid" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">48x44079</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">qid</stringProp>
+              </elementProp>
+              <elementProp name="params" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.value">{&quot;record_id&quot;:&quot;74&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">params</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Success" enabled="true">
+            <stringProp name="JSON_PATH">$.success</stringProp>
+            <stringProp name="EXPECTED_VALUE">true</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">false</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Result" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="1549339592">{&quot;success&quot;:true,&quot;result&quot;:{&quot;module&quot;:&quot;Workflow&quot;,&quot;columns&quot;:&quot;id,module_name,summary&quot;,&quot;title&quot;:&quot;workflow&quot;,&quot;type&quot;:&quot;Table&quot;,&quot;properties&quot;:&quot;&quot;,&quot;answer&quot;:[{&quot;id&quot;:&quot;50x1&quot;,&quot;module_name&quot;:&quot;Invoice&quot;,&quot;summary&quot;:&quot;UpdateInventoryProducts On Every Save&quot;},{&quot;id&quot;:&quot;50x2&quot;,&quot;module_name&quot;:&quot;Accounts&quot;,&quot;summary&quot;:&quot;Send Email to user when Notifyowner is True&quot;},{&quot;id&quot;:&quot;50x3&quot;,&quot;module_name&quot;:&quot;Contacts&quot;,&quot;summary&quot;:&quot;Send Email to user when Notifyowner is True&quot;},{&quot;id&quot;:&quot;50x4&quot;,&quot;module_name&quot;:&quot;Contacts&quot;,&quot;summary&quot;:&quot;Send Email to user when Portal User is True&quot;},{&quot;id&quot;:&quot;50x5&quot;,&quot;module_name&quot;:&quot;Potentials&quot;,&quot;summary&quot;:&quot;Send Email to users on Potential creation&quot;},{&quot;id&quot;:&quot;50x6&quot;,&quot;module_name&quot;:&quot;Contacts&quot;,&quot;summary&quot;:&quot;Workflow for Contact Creation or Modification&quot;},{&quot;id&quot;:&quot;50x7&quot;,&quot;module_name&quot;:&quot;HelpDesk&quot;,&quot;summary&quot;:&quot;Workflow for Ticket Created from Portal&quot;},{&quot;id&quot;:&quot;50x8&quot;,&quot;module_name&quot;:&quot;HelpDesk&quot;,&quot;summary&quot;:&quot;Workflow for Ticket Updated from Portal&quot;},{&quot;id&quot;:&quot;50x9&quot;,&quot;module_name&quot;:&quot;HelpDesk&quot;,&quot;summary&quot;:&quot;Workflow for Ticket Change, not from the Portal&quot;},{&quot;id&quot;:&quot;50x12&quot;,&quot;module_name&quot;:&quot;Potentials&quot;,&quot;summary&quot;:&quot;Calculate or Update forecast amount&quot;},{&quot;id&quot;:&quot;50x13&quot;,&quot;module_name&quot;:&quot;InventoryDetails&quot;,&quot;summary&quot;:&quot;Line Completed&quot;},{&quot;id&quot;:&quot;50x14&quot;,&quot;module_name&quot;:&quot;PurchaseOrder&quot;,&quot;summary&quot;:&quot;UpdateInventoryProducts On Every Save&quot;},{&quot;id&quot;:&quot;50x15&quot;,&quot;module_name&quot;:&quot;HelpDesk&quot;,&quot;summary&quot;:&quot;RAC Tickets&quot;},{&quot;id&quot;:&quot;50x18&quot;,&quot;module_name&quot;:&quot;Products&quot;,&quot;summary&quot;:&quot;Product Support Starting&quot;},{&quot;id&quot;:&quot;50x19&quot;,&quot;module_name&quot;:&quot;Products&quot;,&quot;summary&quot;:&quot;Product Support Ended&quot;},{&quot;id&quot;:&quot;50x20&quot;,&quot;module_name&quot;:&quot;Contacts&quot;,&quot;summary&quot;:&quot;Client End Support Notification 1 month&quot;},{&quot;id&quot;:&quot;50x21&quot;,&quot;module_name&quot;:&quot;Contacts&quot;,&quot;summary&quot;:&quot;Client End Support Notification 1 week&quot;},{&quot;id&quot;:&quot;50x22&quot;,&quot;module_name&quot;:&quot;cbCalendar&quot;,&quot;summary&quot;:&quot;Workflow for Calendar when Send Notification is True&quot;},{&quot;id&quot;:&quot;50x23&quot;,&quot;module_name&quot;:&quot;cbCalendar&quot;,&quot;summary&quot;:&quot;Create Calendar Follow Up&quot;},{&quot;id&quot;:&quot;50x24&quot;,&quot;module_name&quot;:&quot;cbCalendar&quot;,&quot;summary&quot;:&quot;Notify when a task is delayed beyond 24 hrs&quot;},{&quot;id&quot;:&quot;50x25&quot;,&quot;module_name&quot;:&quot;cbCalendar&quot;,&quot;summary&quot;:&quot;Workflow for Events when Send Notification is True&quot;},{&quot;id&quot;:&quot;50x26&quot;,&quot;module_name&quot;:&quot;cbCalendar&quot;,&quot;summary&quot;:&quot;Send Reminder Template&quot;},{&quot;id&quot;:&quot;50x27&quot;,&quot;module_name&quot;:&quot;HelpDesk&quot;,&quot;summary&quot;:&quot;Update AssignedTo&quot;},{&quot;id&quot;:&quot;50x28&quot;,&quot;module_name&quot;:&quot;cbCalendar&quot;,&quot;summary&quot;:&quot;Create Calendar Follow Up on create&quot;},{&quot;id&quot;:&quot;50x29&quot;,&quot;module_name&quot;:&quot;Invoice&quot;,&quot;summary&quot;:&quot;Update Financial fields on every save&quot;},{&quot;id&quot;:&quot;50x30&quot;,&quot;module_name&quot;:&quot;SalesOrder&quot;,&quot;summary&quot;:&quot;Update Financial fields on every save&quot;},{&quot;id&quot;:&quot;50x31&quot;,&quot;module_name&quot;:&quot;Quotes&quot;,&quot;summary&quot;:&quot;Update Financial fields on every save&quot;},{&quot;id&quot;:&quot;50x32&quot;,&quot;module_name&quot;:&quot;PurchaseOrder&quot;,&quot;summary&quot;:&quot;Update Financial fields on every save&quot;},{&quot;id&quot;:&quot;50x33&quot;,&quot;module_name&quot;:&quot;CobroPago&quot;,&quot;summary&quot;:&quot;Update related records&quot;},{&quot;id&quot;:&quot;50x34&quot;,&quot;module_name&quot;:&quot;InventoryDetails&quot;,&quot;summary&quot;:&quot;update rel pdo\/srv&quot;},{&quot;id&quot;:&quot;50x35&quot;,&quot;module_name&quot;:&quot;cbCVManagement&quot;,&quot;summary&quot;:&quot;Send email on public filter&quot;}]}}</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="coreBOS Question no params" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="operation" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">cbQuestionAnswer</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">operation</stringProp>
+              </elementProp>
+              <elementProp name="sessionName" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__P(sessionName)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">sessionName</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Success" enabled="true">
+            <stringProp name="JSON_PATH">$.success</stringProp>
+            <stringProp name="EXPECTED_VALUE">false</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">false</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Result" enabled="true">
+            <stringProp name="JSON_PATH">$.error.code</stringProp>
+            <stringProp name="EXPECTED_VALUE">ACCESS_DENIED</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">false</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Other Operations" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
