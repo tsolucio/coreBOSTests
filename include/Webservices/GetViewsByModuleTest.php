@@ -157,11 +157,52 @@ class testWSGetViewsByModule extends TestCase {
 			'linkfields' => array('firstname', 'lastname'),
 			'pagesize' => 40
 		);
+		$eacc = array(
+			'filters' => array(
+				92 => array(
+					'name' => 'Group Condition',
+					'status' => '1',
+					'advcriteria' => '[{"columnname":"accountname","comparator":"c","value":"a","column_condition":"and"},{"columnname":"employees","comparator":"l","value":"50","column_condition":""}]',
+					'stdcriteria' => '[]',
+					'advcriteriaWQL' => "( accountname like '%a%' and employees < '50' )  or ( accountname not like '%a%' and employees > '40' ) ",
+					'advcriteriaEVQL' => '[{"fieldname":"accountname","operation":"contains","value":"a","valuetype":"rawtext","joincondition":"and","groupid":"11656755855","groupjoin":""},{"fieldname":"employees","operation":"less than","value":"50","valuetype":"rawtext","joincondition":"or","groupid":"11656755855","groupjoin":""},{"fieldname":"accountname","operation":"does not contain","value":"a","valuetype":"rawtext","joincondition":"and","groupid":"22113513261","groupjoin":"or"},{"fieldname":"employees","operation":"greater than","value":"40","valuetype":"rawtext","joincondition":"","groupid":"22113513261","groupjoin":"or"}]',
+					'stdcriteriaWQL' => '',
+					'stdcriteriaEVQL' => '',
+					'fields' => array(
+						0 => 'accountname',
+						1 => 'assigned_user_id',
+					),
+					'default' => false,
+				),
+				4 => array(
+					'name' => 'All',
+					'status' => '0',
+					'advcriteria' => '[]',
+					'stdcriteria' => '[]',
+					'advcriteriaWQL' => '',
+					'advcriteriaEVQL' => '',
+					'stdcriteriaWQL' => '',
+					'stdcriteriaEVQL' => '',
+					'fields' => array(
+						0 => 'account_no',
+						1 => 'accountname',
+						2 => 'bill_city',
+						3 => 'website',
+						4 => 'phone',
+						5 => 'assigned_user_id',
+					),
+					'default' => true,
+				),
+			),
+			'linkfields' => array('accountname'),
+			'pagesize' => 40
+		);
 		return array(
 			array('Documents', $edoc, 'Documents'),
 			array('Users', $eusr, 'Users'),
 			array('Assets', $east, 'Assets'),
 			array('Contacts', $ecto, 'Contacts'),
+			array('Accounts', $eacc, 'Accounts'),
 		);
 	}
 
@@ -178,6 +219,14 @@ class testWSGetViewsByModule extends TestCase {
 			$eEVQL = json_decode($expected['filters'][9]['stdcriteriaEVQL'], true);
 			$eEVQL['groupid'] = $aEVQL['groupid'];
 			$expected['filters'][9]['stdcriteriaEVQL'] = json_encode($eEVQL);
+		}
+		if ($module == 'Accounts') {
+			$aEVQL = json_decode($actual['filters'][92]['advcriteriaEVQL'], true);
+			$eEVQL = json_decode($expected['filters'][92]['advcriteriaEVQL'], true);
+			foreach ($aEVQL as $gidx => $cond) {
+				$eEVQL[$gidx]['groupid'] = $cond['groupid'];
+			}
+			$expected['filters'][92]['advcriteriaEVQL'] = json_encode($eEVQL);
 		}
 		$this->assertEquals($expected, $actual, "getViewsByModule $message");
 	}
