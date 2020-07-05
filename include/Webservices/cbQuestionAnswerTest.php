@@ -25,7 +25,7 @@ include_once 'include/Webservices/cbQuestion.php';
 class testWScoreBOSQuestion extends TestCase {
 
 	/**
-	 * Method testrule
+	 * Method testquestion
 	 * @test
 	 */
 	public function testquestion() {

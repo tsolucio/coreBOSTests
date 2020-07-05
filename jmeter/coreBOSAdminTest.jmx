@@ -12764,6 +12764,127 @@ if (Failure) {
           </JSONPathAssertion>
           <hashTree/>
         </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Execute Business Action" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="operation" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">executeBusinessAction</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">operation</stringProp>
+              </elementProp>
+              <elementProp name="sessionName" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__P(sessionName)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">sessionName</stringProp>
+              </elementProp>
+              <elementProp name="businessactionid" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">41x43061</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">businessactionid</stringProp>
+              </elementProp>
+              <elementProp name="context" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                <stringProp name="Argument.value">{&quot;RECORD&quot;:&quot;11x74&quot;,&quot;MODE&quot;:&quot;DETAILVIEW&quot;}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">context</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Success" enabled="true">
+            <stringProp name="JSON_PATH">$.success</stringProp>
+            <stringProp name="EXPECTED_VALUE">true</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">false</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Result" enabled="true">
+            <collectionProp name="Asserion.test_strings">
+              <stringProp name="-780842884">{&quot;success&quot;:true,&quot;result&quot;:&quot;&lt;table class=\&quot;small\&quot; border=\&quot;0\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; width=\&quot;100%\&quot;&gt; &lt;tr class=\&quot;detailview_block_header comments_block_header\&quot;&gt; &lt;td colspan=\&quot;4\&quot; class=\&quot;dvInnerHeader\&quot;&gt; &lt;div style=\&quot;float: left; font-weight: bold;\&quot;&gt; &lt;div style=\&quot;float: left;\&quot;&gt; &lt;a href=\&quot;javascript:showHideStatus(&apos;tblModCommentsDetailViewBlockCommentWidget&apos;,&apos;aidModCommentsDetailViewBlockCommentWidget&apos;,&apos;$IMAGE_PATH&apos;);\&quot;&gt; &lt;span class=\&quot;exp_coll_block inactivate\&quot;&gt;&lt;img id=\&quot;aidModCommentsDetailViewBlockCommentWidget\&quot; src=\&quot;themes\/images\/activate.gif\&quot; style=\&quot;border: 0px solid rgb(0, 0, 0);\&quot; alt=\&quot;Hide\&quot; title=\&quot;Hide\&quot;&gt;&lt;\/span&gt;&lt;\/a&gt; &lt;\/span&gt;&lt;\/a&gt; &lt;\/div&gt;&lt;b&gt;&amp;nbsp;Comments Information&lt;\/b&gt;&lt;\/div&gt; &lt;span style=\&quot;float: right;\&quot;&gt; &lt;img src=\&quot;themes\/softed\/images\/vtbusy.gif\&quot; border=0 id=\&quot;indicatorModCommentsDetailViewBlockCommentWidget\&quot; style=\&quot;display:none;\&quot;&gt;\n\t\tShow : &lt;select class=\&quot;small\&quot; onchange=\&quot;ModCommentsCommon.reloadContentWithFiltering(&apos;DetailViewBlockCommentWidget&apos;, &apos;74&apos;, this.value, &apos;tblModCommentsDetailViewBlockCommentWidget&apos;, &apos;indicatorModCommentsDetailViewBlockCommentWidget&apos;);\&quot;&gt; &lt;option value=\&quot;All\&quot; selected&gt;All&lt;\/option&gt; &lt;option value=\&quot;Last5\&quot; &gt;Last 5&lt;\/option&gt; &lt;option value=\&quot;Mine\&quot; &gt;Mine&lt;\/option&gt; &lt;\/select&gt; &lt;\/span&gt; &lt;\/td&gt; &lt;\/tr&gt; &lt;\/table&gt; &lt;div id=\&quot;tblModCommentsDetailViewBlockCommentWidget\&quot; style=\&quot;display: block;\&quot;&gt; &lt;table class=\&quot;small\&quot; border=\&quot;0\&quot; cellpadding=\&quot;0\&quot; cellspacing=\&quot;0\&quot; width=\&quot;100%\&quot;&gt; &lt;tr style=\&quot;height: 25px;\&quot;&gt; &lt;td colspan=\&quot;4\&quot; align=\&quot;left\&quot; class=\&quot;dvtCellInfo commentCell\&quot;&gt; &lt;div id=\&quot;contentwrap_ModCommentsDetailViewBlockCommentWidget\&quot; style=\&quot;overflow: auto; margin-bottom: 20px; width: 100%; word-break: break-all;\&quot;&gt; &lt;\/div&gt; &lt;\/td&gt; &lt;\/tr&gt; &lt;tr style=\&quot;height: 25px;\&quot; class=&apos;noprint&apos;&gt; &lt;td class=\&quot;dvtCellLabel\&quot; align=\&quot;right\&quot;&gt;\n\t\tAdd Comment\n\t&lt;\/td&gt; &lt;td width=\&quot;100%\&quot; colspan=\&quot;3\&quot; class=\&quot;dvtCellInfo\&quot; align=\&quot;left\&quot;&gt; &lt;div id=\&quot;editarea_ModCommentsDetailViewBlockCommentWidget\&quot;&gt; &lt;textarea id=\&quot;txtbox_ModCommentsDetailViewBlockCommentWidget\&quot; class=\&quot;detailedViewTextBox\&quot; onFocus=\&quot;this.className=&apos;detailedViewTextBoxOn&apos;\&quot; onBlur=\&quot;this.className=&apos;detailedViewTextBox&apos;\&quot; cols=\&quot;90\&quot; rows=\&quot;8\&quot;&gt;&lt;\/textarea&gt; &lt;br&gt;&lt;a href=\&quot;javascript:;\&quot; class=\&quot;detailview_ajaxbutton ajax_save_detailview\&quot; onclick=\&quot;ModCommentsCommon.addComment(&apos;ModCommentsDetailViewBlockCommentWidget&apos;, &apos;74&apos;);\&quot;&gt;Save&lt;\/a&gt; &lt;a href=\&quot;javascript:;\&quot; onclick=\&quot;document.getElementById(&apos;txtbox_ModCommentsDetailViewBlockCommentWidget&apos;).value=&apos;&apos;;\&quot; class=\&quot;detailview_ajaxbutton ajax_cancelsave_detailview\&quot;&gt;Clear&lt;\/a&gt; &lt;\/div&gt; &lt;\/td&gt; &lt;\/tr&gt; &lt;\/table&gt; &lt;\/div&gt;&quot;}</stringProp>
+            </collectionProp>
+            <stringProp name="Assertion.custom_message"></stringProp>
+            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+            <boolProp name="Assertion.assume_success">false</boolProp>
+            <intProp name="Assertion.test_type">8</intProp>
+          </ResponseAssertion>
+          <hashTree/>
+        </hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Execute Business Action No Params" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="operation" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">executeBusinessAction</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">operation</stringProp>
+              </elementProp>
+              <elementProp name="sessionName" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">${__P(sessionName)}</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">sessionName</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Success" enabled="true">
+            <stringProp name="JSON_PATH">$.success</stringProp>
+            <stringProp name="EXPECTED_VALUE">false</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">false</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Result" enabled="true">
+            <stringProp name="JSON_PATH">$.error.code</stringProp>
+            <stringProp name="EXPECTED_VALUE">INVALID_PARAMETER</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">false</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+        </hashTree>
       </hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Other Operations" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
