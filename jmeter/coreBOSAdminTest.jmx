@@ -5998,6 +5998,184 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Doc with Attachment" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="operation" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">create</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">operation</stringProp>
+                </elementProp>
+                <elementProp name="sessionName" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${__P(sessionName)}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">sessionName</stringProp>
+                </elementProp>
+                <elementProp name="element" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                  <stringProp name="Argument.value">{&quot;assigned_user_id&quot;:&quot;19x7&quot;,&quot;notes_title&quot;:&quot;jmeter doc&quot;,&quot;filetype&quot;:&quot;image\/png; charset=binary&quot;,&quot;filesize&quot;:&quot;5271&quot;,&quot;filename&quot;:{&quot;name&quot;:&quot;Cron.png&quot;,&quot;size&quot;:5271,&quot;type&quot;:&quot;image\/png; charset=binary&quot;,&quot;content&quot;:&quot;iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN+wAADfsBC3c1mwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAABQUSURBVGiBxZp5eFzFme5\/dXqRWupuSS11S9ZmSbZs7Ra2bNnyopYxNgSMPSwGZogTCBCWywB3CEM8DJZunMQJyQzkZpLcZJLBJDyZAUJMwAvEtmRjy7u8aLVlSda+2NrV6lZ3n6r5o2VjbjC5hPDcr596Tp\/Tdaret+rbqqqFUoovWrZvf8996lSNOzNzVmlSUpL7xPHj9PT0YrVaSEpKrEpLT98\/OyOD2XOyyj9r2+KLJPDGG9vLvd7Jf3I4oo0RFjMezzgGTRBpsSClnC4ghMLvDzI56cFqt1eZwiwVq1atqvr\/RmDLlq1uo8G0OStrtntmaiL9fb1ERkTi8UwSHh6GZ8JDS8sFuvt6iI6K4YbCQgBOnqyhqKiIyclJbHZ71YTXV7F+\/fpPJfJXJ\/Czn\/6iMiIiwp2Xk8nY6AhGkwkhDOzZt5e6hjomPWO44mJxxDpAKS5dGsRkNGIwaBQXF3P8+ClcrniWLFnK8NAgAwOXyp5+9tnrkvirEfD7\/bkvvfTKj3Nz5rpnpiYw5fUipeLUqZNUHviQhQuLkDLI7WtvwxphISraztjYOL29\/cQ4HNSePUtdXS1SQlHRDdTU1KKUgYL8fJKTkysWlZSUf6EEfvJvP1cuZyzZWemMjY7h90+xa\/cu5hXOY\/78G5BSJzUlGSEE1YdPUJCfQ4zDgZJBpqamaGpqQjMa6OkZoLOzjZJFi+ju6afxXCtZWVmYwyMqVq9e\/SckDOXln0jsM8m3Kr5dGR\/vTFu4IJeR4VH6+\/t4b+dOli1fQcG8PMxmA7My5nD42DHQDDz6+N\/T3t6ByWSkt2+AU6fPMm9ePmkz07BYwrFa7dTUnCYxKZ6RoWHOnWshym5zt11s3z9nzpyL1\/b9uWfgfz7zXGV2Tra7MH82Sofaulrauzp48sn\/QZzTyYGq\/QR1PytKSxFIDAYjRpON0hWlvL\/7d+hB0DQ4ePAwp87UkjV3LgX5WXg8Xl7b9huWlBTR3TNAR3s3i4oXs\/6OO8W1\/Rs\/D\/hvfrPCHWY2uxcuyGJywkdPTxedXR08\/sTjxMbGYTBY0IMTCCVRSqIQoDSUghWlKzh46DBLS0pAKZYvXwIGA3Nmz8LlctLb083adWv54we7mTNnLpcjh2iobyDKZq8su+mmsisYtM9DwGzWKtetvxWpg9FopKWlhYcfeYTY2Ghe+\/VveP\/9HehKorQw0DQ0Qj7\/0Ucf5eSJExQXl4SeaQJQDF4ewul00NPTQ3x8AikpiRQVFdHR0c7crEx8U5MMDQ26t7\/1lvtzE3j44SfKnXGxWCPM6EHF795+E\/fKlcxImsHRo6f4ylfuo6e3G03TEEKhECjNwNDwCD6fj4hIK5cGehCaQBDSioiICAQwI8HF+QsXiHXEkpGRTkpKMlLqpKencPzECcLCwjZ\/bgICtTk9LQWvx0N\/fy+r19xMVk42v\/3PN1lashAhNOw2O1IqRkZHEZpAoYhxRKMHg+Rk55CakgpCIYRACAOuOAdSKhAac2fPYttrvyY5JZk4VxxtLW2YjWaiY6LweCbcXV1d7r+YwMNfe6zc6XQyc2YiSsGhwwdIS0+jpaWV++7dgJqm+Dd\/sw6jwUiU3QZKIkRIVYLBINODHgKvhUjcML8gNGMo0AQPfu0BvrXlJfLzCrHZInDGO5g7N4OOzi727dvzlxOIjYvdPGt2KiPDw9Q3NrBwUTF9\/ZcpKChECIWmaYQQKkAiBAhhREx35\/V6p58LhAg9ExpX3xVC4\/XX3+DNN39PTm4mJpOBBUXzaaw\/j8PhwOOZwG6zlf5FBF5++cfuvr5+CuflEW620D\/Qz6JFS\/j3f\/8Vv\/\/9OwhhpLu7Hz2oUFJDqWu9noZSikmvF6V0Qn7JME2Eq1eU5P77\/5aEeBcuZzxWq42ISBsJCXG44uOw2sLxen1\/2QwcP3rcnZ+fg2dsHAQkJiZit9vZuPHL3HXXnUgp2Pbaa2z59ndQAlAaXCExDdLr9aLrOggNJT4eh4QQGAwGXnyxgszMTMrKSvngj3uw2ez4fFPY7THoukQqSXV1dfnH4sCvfvVqeWpqWtWxY0fcdnt0aVFRYcXixYurrq2TmjazNN4Vx+Skl57ebpJSUrDaoih1L0MIUEiCAYnRaAyNJqDU9MiiEMLA1JQfqQNCoJREw4BSCoFCCYlSsOVbLyKlRClFvMtF0O9HMwi8k5N86dab+WD3PgKBwMdn4NjRo5tbLzRV5uXM3TzpmXCHmwyV5S9uqdy6dav7Sp2GhgZ3Z0cHDoeDoaEh0jMy+PDAAQSCpqYm2lpb+cY3\/oFNmzZNu8fQCCt5xS5CNuD3+0GpacO+Mvwfv4ZUSlFYmI89yobJFE7t2VpQgvPNzZjN5lAkfvyxJyvnzJnrjnW4SEiYQUpyPNXVhzhy9AhlK5e4bVar+0qzszLSWFKyGIWO1zeFzWqlubmFFaXLyZo7F6UkXPHsCgQaChW6UYKg1BkeHiKoB6fRaoCcnipx1VOF1M1Aa2sXHR0XWb6ihGBQR+qTRFotTHgmQMoQgejoKEZHB7lnw1rOX2jhlX\/7OdWHqjEajaSmJvPgVzcyMjJenpiciDPOzrhnhJMnGrg0OIzH4+XBBx9A6QGEwTg9cnw08mL6gVKA4N4N9xEdZeNUzUmOHDnJkiXzp+uG6l9ZpSmpCOpTdHR1caD6CG1t7dhskVgirDhiExBCEAwG0b6\/9QflrW0X3cPDY1xs7+Ct3\/+B\/VX7KXWXEgwEOFlzhg8PHSQmyra5va1t85Q\/QE9PD709fTQ0NGIyauyr3EdzSytV+w98TCVCiaIk5DIlnV0dTEyMM3\/+PFwuJ5ue\/yZKV0ilo5BIpYcYq9C7AX+AiIgI1ty0ki9vvI+pKT9C09B1edX9akEZpHjRAu6\/7y5Onj5D7dlamprq+elPf0Jefi5Rdht79lQRFhbOqTNnKkwmI2NjHubk5OF0JrBp0\/9ianKSl77\/CpV7K6mrrcPjGUepYChAMW2cCpKTk8mcPZuevj5MJjOxzjju3\/gQQjN9RBqFQoKQmMNM5OVkMjoywuVLg0g9gCXCxvDgMGaTMTQDmzY9X+7zefB6PfzXf\/4XE+PjGI1G9GCQxAQXUkrS09Px+\/3MnZO92RIRRUd7P+++u5vHHnmYpUsXk5gQzy2rV5KXm8342Cj7Kw9w+szZa1RDhfIhIfm7W29n\/cIlJCfEY7fZcLlmsGDhUnbs2BNSHSWRUr\/qgTShERUdhT8whdFooKBgHrqUpKSk4PP7MfT3Xyrv7u5zu5xx1Dc0gDAgBPzo5X+hvqGBKX+AOZmZzJmdzq7dHyD1ABvuXsfyZUuQUjIj3gkYiI62Y4+KQuqSMLOZy4NDNDacw+GIxmIJA11x8ugRmnfs5v7vvsDNq1Zy+9rbMJlMvLdzFxGRNp77x00U5OeRlJgw7VbFtAOAgD9AX38\/xYuXc+jgAZRUxDgc+7WnnnqyymIxVeXn5bBm9Wp0pfjXl\/83NWfr6ekdYNWNN7L2tlu42N5BVlYWxYsWEgwG8XgmOVh9mFd+\/FPuu\/8rPPL433PHXffw7q7dvLtjF9aISKJsUTQ1NNPZ3YNE0rX3IPd9pxyTmjZZIVm5soQzJ6sZGxvh7Nl6Vq5ah1IKqeD48RPouuRcUzMGgwE5bRudnR0oIbj33r8tN2ZlZVU9\/sTTPPXMM+4nHnuQORlp2KKi6ejoJHVhMjNTk5mZksRwlB2bxYIQGn39A\/zyP7YxOjrG5ctDGI1GvD4f9ugYtr+zg+TkZJqaz1NWWkpuTjYtja28+d2XueP+e5AaGHR5xVZRUiGV5KXvVbDhrtvZu7cKXUokRuobzhEMSubPn09zcxMpKWlomobBYCA83AJMr4kTElwX2zu6xNzMWe5FCxcQZjYTbjZQ5i7FERPFsWPHCTOZiY6O5o3fvc2x4zU0NjYx6fWFchg01Efen\/GxMTq7ujBoGpomcMbFkpA+k8LlS9AESBXS7yvLWSlDcSApKZFl06r52q9\/w+Skl5HRcVJTUrjY1krevCLGx0bZ\/vbbREbaKooXL666uqgvLV1eFeeK3\/vWW291upyx7uTkNA4fPkxtXT3r163DER3Nf2x7nY6uHhobG6\/67ZDbFNjtVjRNIxjUEYA5LJz6hkYGB4coLCzEbLagjBAdbbvqapVSV4312iKVZF5eHvn585j0eLBZw+nuHWBJyXJ27ngXS5iFSY+nYtmKFRc\/lkrYbLaDL7y4uXzjAw+J7e\/sqOrpvURebi7BoJ\/O7m5GxydovtAC0x2JULhEE5A5O4O4OAdXUjOlFDGOWPr6ejl96hQBFSAyzAyaEakECu3q9UoRmhElBaAhpcaxoydISZrBuaYLZOfmEQgE6ersIswSyfMvvFB1JY5\/olhtVpzOOObfUMjo6Ch\/3FdFbV0tmgEWLiwiYUYCAT3ATatuZHZmGgazkY6O7o8FMgGMj0\/wy1e34fcHOXGijvaLA5jM0ZjM0YSFOwi3xGKJCJWh4Sms9niiomcwOuHjlltvY2x8HI\/PS0H+fPZX7SM6JprwiLCKK318IoFnnnn2XPP58+7enh50PciUP8DBQ4dRCpSE\/v5L+Hx+Hnrwq7RdaMRiMREbE8mXbrkRpzOGj7IyMBrN5OTmsmPnTjQNMjIyEH\/ygYaGBn7x8\/8DQicQ8JGYGE9zcyMnTpykePEypvw+zjXWsnDRDWzc+NXyTyWwZs2q3xYtnMdjjz6Irkt+8ctfYhBXTFTR2tbKXXeu4+jRapQQdLRdZHx4hNvWriUiLAwpJbk5cxFCYDKbaaivJz4hgWBQUl9\/lqZzjRw\/eQQIAH4UQTRNUrJ0MUKEgl5Ly3nqa89SULiAOZlZ7Nr1LllZczFqhoprsX4igVdffbXUEh7JyMgo\/f39LCgqxuF0Eud04XIlsGHD3aSkpDDp9RIIBjCFmelsakXpAVJSksjPzyEyMoLIyEhiYmIJDw8nKyuLqSkf4eFhNDc3MTo6iiKAwg8EyM7OpLr6COXl5XS0t3L8yDHONbdStvJGamqO093VjtVqrcorWFR+LdZP3NiKcUS7A0Efa9et5uc\/+xXdvX1ExcSGMkohiIq2c88999La0sK77\/0BIwKz00Hlnn1YrZHMzszmw4PVJCYmI9CY8npInOEiOdGFwaBYUHQDCfHxoIIoJTl48DC6rtj8z8\/R1dXN22+\/g2dinH\/c9AJ9vf1UVe5h2bISJid8Ff831k8koAlDxZfWlG32+3z4A34GBwcxmswILTRhFks4ABu\/8gCHj1TT3dOFLRjgwsU2YmJcRNljMBrNAEz5p9AMgpSUVKJsRkxh4ZytbeD8uUakVHi9kxQW5OOfCrBr1\/vU1TXiGR\/nqaefYnLSx49e+QFr134Jf5Ay96qbq\/4E6ycR6Ojo3Fyx5aVQbq5CSzwBLFuyGAMwNjqOlJCYlMiWLd8hacYMMtLT0ISZoaERKvfvv9rWpHcSoQkOHTqIz+enrq4RKSV6UCdjZipmk5GBgUvs\/mAv7\/xhJ3GxsTz00EN4vD6+v3ULq250Ez8j5dlly9x\/Av66BJKTE6u+9sCX0aUeCiQ2K1Ipqg4cQJeS4ydr6OvrRiAoKCjk29\/+AW1t3Xgn\/dy0ahU+f+BqW1LqrFm9mpHhIXQZJC42hugoG1M+H\/sPHKSpqZWt3\/sXurt6ufvOuygrK6PhXBMvv\/yvrFl9Iylp6U\/MmpX1w0\/CCdfZXt+2bVv7yMjIV4sXFaFLSTCo0TcwML1nA1JBX28PTmccUurs3fMBzRfOMXNmKk1N5xgeGcFsDqnQ0NBlBgZ6eO4bT9Pc3Mqu9\/fw4cHDtLd3097eiVKCkiUlFBbk43I52fbaNsbGRigrXU6UI7YiN3fBS9cDD9exAbPZ7G5pbafm1FkWFy9g69aXcSXNDP04HahOnK6luaWNpoazhIeFs2r1LZyurcM3NkJYWAQAk54JUpITufvOtXgmPNScqkPXjSQmphNljyI22kpsrIPe\/h7+sPM9IiMslJUtQ+rawTnZed9ISko78mng4Toq9Prrr5dnZ2VWFS+aTzCo88zTTyCDgY\/VUUqRkZ6OMz6FKGciJ06dRklFWKQNkzkMg8HA5cEBrJERJCXHg9ApXlgITNHd1UJn1wUGBvt4573t+P0+bnQvY\/68fHy+YMXNt65fnpSUdqSiouLP7ltd94DjkUcfq2ysq3f\/6JUtmMPCeebZf8YcbuWj+oLRkWHsNhua0YAmNFAKTTOClHT3dJKdnUlZaQkFeVlcujxMdLQVgRGvbwqfz4dSiv6B\/pOOmNj3GppaX3n++eeH\/xzg\/2cCAHfccXvlD763xS1VgL17q3nt9TeJcsSiCRFKn6\/Je7Tp7wJBZ8dFbigswOGwccf62xBC0NraVvF3X364YsGCBVfVNiMjQ77xxhv6ZwV9rXzqCU18fFLFo48\/637m6a9T5i7BFR\/HkaNnqKk5RViE9Wo9IQRSSoYuX2ZkZJA1N60iJSWB4kULGBsbr1K6vqW5pbtShUYrcP0eP7v82TOym8pucj\/x5IOVs9LTEBqcOdvAm29tx+fXmRgfJxDQ8XoniIy0kpiUQE52NtlZGaSlzsTr8xEeYX5p6dLVz\/01QX8mAgB79ux2b9mydfPPfvJDt5I6wWCQsfFxdux4HykVmmbAao2grGwFUtdRCvyBABdaeyK\/\/vWve9UX+H+Gz3RK2dRQU75\/\/4fzFi9euD4YDICUyOnXg8EgQtMIBoMfCoGupFLLSm9e+QXhvip\/7pTSAniv3GTlzC+vOV27wuPxjQ9evvRbo9m4UyC+awkPW6agWij8mlFTy1bcsvlT2vyryuc6J96wYYMhNzdX5OTkqLvvvlsCX5iqXE\/+G6Y6CnjtQDIPAAAAAElFTkSuQmCC&quot;},&quot;fileversion&quot;:&quot;3&quot;,&quot;filelocationtype&quot;:&quot;I&quot;,&quot;filestatus&quot;:&quot;1&quot;,&quot;folderid&quot;:&quot;22x2&quot;,&quot;notecontent&quot;:&quot;áçèñtös&quot;}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">element</stringProp>
+                </elementProp>
+                <elementProp name="elementType" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">Documents</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">elementType</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Success" enabled="true">
+              <stringProp name="JSON_PATH">$.success</stringProp>
+              <stringProp name="EXPECTED_VALUE">true</stringProp>
+              <boolProp name="JSONVALIDATION">true</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">false</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Result" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1112797836">{&quot;success&quot;:true,&quot;result&quot;:{&quot;notes_title&quot;:&quot;jmeter doc&quot;,&quot;folderid&quot;:&quot;22x2&quot;,&quot;note_no</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <boolProp name="Assertion.assume_success">false</boolProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Result Filename" enabled="true">
+              <stringProp name="JSON_PATH">$.result.filename</stringProp>
+              <stringProp name="EXPECTED_VALUE">Cron.png</stringProp>
+              <boolProp name="JSONVALIDATION">true</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">false</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Result FileSize" enabled="true">
+              <stringProp name="JSON_PATH">$.result.filesize</stringProp>
+              <stringProp name="EXPECTED_VALUE">5271</stringProp>
+              <boolProp name="JSONVALIDATION">true</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">false</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPostProcessor guiclass="JSONPostProcessorGui" testclass="JSONPostProcessor" testname="getDocID" enabled="true">
+              <stringProp name="JSONPostProcessor.referenceNames">DocumentID</stringProp>
+              <stringProp name="JSONPostProcessor.jsonPathExprs">$.result.id</stringProp>
+              <stringProp name="JSONPostProcessor.match_numbers"></stringProp>
+              <stringProp name="Sample.scope">all</stringProp>
+            </JSONPostProcessor>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Retieve Doc Attachment" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="operation" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">retrievedocattachment</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">operation</stringProp>
+                </elementProp>
+                <elementProp name="sessionName" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${__P(sessionName)}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">sessionName</stringProp>
+                </elementProp>
+                <elementProp name="id" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">${DocumentID}</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">id</stringProp>
+                </elementProp>
+                <elementProp name="returnfile" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">1</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">returnfile</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Success" enabled="true">
+              <stringProp name="JSON_PATH">$.success</stringProp>
+              <stringProp name="EXPECTED_VALUE">true</stringProp>
+              <boolProp name="JSONVALIDATION">true</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">false</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Result Filename" enabled="true">
+              <stringProp name="JSON_PATH">$.result.${DocumentID}.filename</stringProp>
+              <stringProp name="EXPECTED_VALUE">Cron.png</stringProp>
+              <boolProp name="JSONVALIDATION">true</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">false</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Result File" enabled="true">
+              <stringProp name="JSON_PATH">$.result.${DocumentID}.attachment</stringProp>
+              <stringProp name="EXPECTED_VALUE">iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAN+wAADfsBC3c1mwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAABQUSURBVGiBxZp5eFzFme5\/dXqRWupuSS11S9ZmSbZs7Ra2bNnyopYxNgSMPSwGZogTCBCWywB3CEM8DJZunMQJyQzkZpLcZJLBJDyZAUJMwAvEtmRjy7u8aLVlSda+2NrV6lZ3n6r5o2VjbjC5hPDcr596Tp\/Tdaret+rbqqqFUoovWrZvf8996lSNOzNzVmlSUpL7xPHj9PT0YrVaSEpKrEpLT98\/OyOD2XOyyj9r2+KLJPDGG9vLvd7Jf3I4oo0RFjMezzgGTRBpsSClnC4ghMLvDzI56cFqt1eZwiwVq1atqvr\/RmDLlq1uo8G0OStrtntmaiL9fb1ERkTi8UwSHh6GZ8JDS8sFuvt6iI6K4YbCQgBOnqyhqKiIyclJbHZ71YTXV7F+\/fpPJfJXJ\/Czn\/6iMiIiwp2Xk8nY6AhGkwkhDOzZt5e6hjomPWO44mJxxDpAKS5dGsRkNGIwaBQXF3P8+ClcrniWLFnK8NAgAwOXyp5+9tnrkvirEfD7\/bkvvfTKj3Nz5rpnpiYw5fUipeLUqZNUHviQhQuLkDLI7WtvwxphISraztjYOL29\/cQ4HNSePUtdXS1SQlHRDdTU1KKUgYL8fJKTkysWlZSUf6EEfvJvP1cuZyzZWemMjY7h90+xa\/cu5hXOY\/78G5BSJzUlGSEE1YdPUJCfQ4zDgZJBpqamaGpqQjMa6OkZoLOzjZJFi+ju6afxXCtZWVmYwyMqVq9e\/SckDOXln0jsM8m3Kr5dGR\/vTFu4IJeR4VH6+\/t4b+dOli1fQcG8PMxmA7My5nD42DHQDDz6+N\/T3t6ByWSkt2+AU6fPMm9ePmkz07BYwrFa7dTUnCYxKZ6RoWHOnWshym5zt11s3z9nzpyL1\/b9uWfgfz7zXGV2Tra7MH82Sofaulrauzp48sn\/QZzTyYGq\/QR1PytKSxFIDAYjRpON0hWlvL\/7d+hB0DQ4ePAwp87UkjV3LgX5WXg8Xl7b9huWlBTR3TNAR3s3i4oXs\/6OO8W1\/Rs\/D\/hvfrPCHWY2uxcuyGJywkdPTxedXR08\/sTjxMbGYTBY0IMTCCVRSqIQoDSUghWlKzh46DBLS0pAKZYvXwIGA3Nmz8LlctLb083adWv54we7mTNnLpcjh2iobyDKZq8su+mmsisYtM9DwGzWKtetvxWpg9FopKWlhYcfeYTY2Ghe+\/VveP\/9HehKorQw0DQ0Qj7\/0Ucf5eSJExQXl4SeaQJQDF4ewul00NPTQ3x8AikpiRQVFdHR0c7crEx8U5MMDQ26t7\/1lvtzE3j44SfKnXGxWCPM6EHF795+E\/fKlcxImsHRo6f4ylfuo6e3G03TEEKhECjNwNDwCD6fj4hIK5cGehCaQBDSioiICAQwI8HF+QsXiHXEkpGRTkpKMlLqpKencPzECcLCwjZ\/bgICtTk9LQWvx0N\/fy+r19xMVk42v\/3PN1lashAhNOw2O1IqRkZHEZpAoYhxRKMHg+Rk55CakgpCIYRACAOuOAdSKhAac2fPYttrvyY5JZk4VxxtLW2YjWaiY6LweCbcXV1d7r+YwMNfe6zc6XQyc2YiSsGhwwdIS0+jpaWV++7dgJqm+Dd\/sw6jwUiU3QZKIkRIVYLBINODHgKvhUjcML8gNGMo0AQPfu0BvrXlJfLzCrHZInDGO5g7N4OOzi727dvzlxOIjYvdPGt2KiPDw9Q3NrBwUTF9\/ZcpKChECIWmaYQQKkAiBAhhREx35\/V6p58LhAg9ExpX3xVC4\/XX3+DNN39PTm4mJpOBBUXzaaw\/j8PhwOOZwG6zlf5FBF5++cfuvr5+CuflEW620D\/Qz6JFS\/j3f\/8Vv\/\/9OwhhpLu7Hz2oUFJDqWu9noZSikmvF6V0Qn7JME2Eq1eU5P77\/5aEeBcuZzxWq42ISBsJCXG44uOw2sLxen1\/2QwcP3rcnZ+fg2dsHAQkJiZit9vZuPHL3HXXnUgp2Pbaa2z59ndQAlAaXCExDdLr9aLrOggNJT4eh4QQGAwGXnyxgszMTMrKSvngj3uw2ez4fFPY7THoukQqSXV1dfnH4sCvfvVqeWpqWtWxY0fcdnt0aVFRYcXixYurrq2TmjazNN4Vx+Skl57ebpJSUrDaoih1L0MIUEiCAYnRaAyNJqDU9MiiEMLA1JQfqQNCoJREw4BSCoFCCYlSsOVbLyKlRClFvMtF0O9HMwi8k5N86dab+WD3PgKBwMdn4NjRo5tbLzRV5uXM3TzpmXCHmwyV5S9uqdy6dav7Sp2GhgZ3Z0cHDoeDoaEh0jMy+PDAAQSCpqYm2lpb+cY3\/oFNmzZNu8fQCCt5xS5CNuD3+0GpacO+Mvwfv4ZUSlFYmI89yobJFE7t2VpQgvPNzZjN5lAkfvyxJyvnzJnrjnW4SEiYQUpyPNXVhzhy9AhlK5e4bVar+0qzszLSWFKyGIWO1zeFzWqlubmFFaXLyZo7F6UkXPHsCgQaChW6UYKg1BkeHiKoB6fRaoCcnipx1VOF1M1Aa2sXHR0XWb6ihGBQR+qTRFotTHgmQMoQgejoKEZHB7lnw1rOX2jhlX\/7OdWHqjEajaSmJvPgVzcyMjJenpiciDPOzrhnhJMnGrg0OIzH4+XBBx9A6QGEwTg9cnw08mL6gVKA4N4N9xEdZeNUzUmOHDnJkiXzp+uG6l9ZpSmpCOpTdHR1caD6CG1t7dhskVgirDhiExBCEAwG0b6\/9QflrW0X3cPDY1xs7+Ct3\/+B\/VX7KXWXEgwEOFlzhg8PHSQmyra5va1t85Q\/QE9PD709fTQ0NGIyauyr3EdzSytV+w98TCVCiaIk5DIlnV0dTEyMM3\/+PFwuJ5ue\/yZKV0ilo5BIpYcYq9C7AX+AiIgI1ty0ki9vvI+pKT9C09B1edX9akEZpHjRAu6\/7y5Onj5D7dlamprq+elPf0Jefi5Rdht79lQRFhbOqTNnKkwmI2NjHubk5OF0JrBp0\/9ianKSl77\/CpV7K6mrrcPjGUepYChAMW2cCpKTk8mcPZuevj5MJjOxzjju3\/gQQjN9RBqFQoKQmMNM5OVkMjoywuVLg0g9gCXCxvDgMGaTMTQDmzY9X+7zefB6PfzXf\/4XE+PjGI1G9GCQxAQXUkrS09Px+\/3MnZO92RIRRUd7P+++u5vHHnmYpUsXk5gQzy2rV5KXm8342Cj7Kw9w+szZa1RDhfIhIfm7W29n\/cIlJCfEY7fZcLlmsGDhUnbs2BNSHSWRUr\/qgTShERUdhT8whdFooKBgHrqUpKSk4PP7MfT3Xyrv7u5zu5xx1Dc0gDAgBPzo5X+hvqGBKX+AOZmZzJmdzq7dHyD1ABvuXsfyZUuQUjIj3gkYiI62Y4+KQuqSMLOZy4NDNDacw+GIxmIJA11x8ugRmnfs5v7vvsDNq1Zy+9rbMJlMvLdzFxGRNp77x00U5OeRlJgw7VbFtAOAgD9AX38\/xYuXc+jgAZRUxDgc+7WnnnqyymIxVeXn5bBm9Wp0pfjXl\/83NWfr6ekdYNWNN7L2tlu42N5BVlYWxYsWEgwG8XgmOVh9mFd+\/FPuu\/8rPPL433PHXffw7q7dvLtjF9aISKJsUTQ1NNPZ3YNE0rX3IPd9pxyTmjZZIVm5soQzJ6sZGxvh7Nl6Vq5ah1IKqeD48RPouuRcUzMGgwE5bRudnR0oIbj33r8tN2ZlZVU9\/sTTPPXMM+4nHnuQORlp2KKi6ejoJHVhMjNTk5mZksRwlB2bxYIQGn39A\/zyP7YxOjrG5ctDGI1GvD4f9ugYtr+zg+TkZJqaz1NWWkpuTjYtja28+d2XueP+e5AaGHR5xVZRUiGV5KXvVbDhrtvZu7cKXUokRuobzhEMSubPn09zcxMpKWlomobBYCA83AJMr4kTElwX2zu6xNzMWe5FCxcQZjYTbjZQ5i7FERPFsWPHCTOZiY6O5o3fvc2x4zU0NjYx6fWFchg01Efen\/GxMTq7ujBoGpomcMbFkpA+k8LlS9AESBXS7yvLWSlDcSApKZFl06r52q9\/w+Skl5HRcVJTUrjY1krevCLGx0bZ\/vbbREbaKooXL666uqgvLV1eFeeK3\/vWW291upyx7uTkNA4fPkxtXT3r163DER3Nf2x7nY6uHhobG6\/67ZDbFNjtVjRNIxjUEYA5LJz6hkYGB4coLCzEbLagjBAdbbvqapVSV4312iKVZF5eHvn585j0eLBZw+nuHWBJyXJ27ngXS5iFSY+nYtmKFRc\/lkrYbLaDL7y4uXzjAw+J7e\/sqOrpvURebi7BoJ\/O7m5GxydovtAC0x2JULhEE5A5O4O4OAdXUjOlFDGOWPr6ejl96hQBFSAyzAyaEakECu3q9UoRmhElBaAhpcaxoydISZrBuaYLZOfmEQgE6ersIswSyfMvvFB1JY5\/olhtVpzOOObfUMjo6Ch\/3FdFbV0tmgEWLiwiYUYCAT3ATatuZHZmGgazkY6O7o8FMgGMj0\/wy1e34fcHOXGijvaLA5jM0ZjM0YSFOwi3xGKJCJWh4Sms9niiomcwOuHjlltvY2x8HI\/PS0H+fPZX7SM6JprwiLCKK318IoFnnnn2XPP58+7enh50PciUP8DBQ4dRCpSE\/v5L+Hx+Hnrwq7RdaMRiMREbE8mXbrkRpzOGj7IyMBrN5OTmsmPnTjQNMjIyEH\/ygYaGBn7x8\/8DQicQ8JGYGE9zcyMnTpykePEypvw+zjXWsnDRDWzc+NXyTyWwZs2q3xYtnMdjjz6Irkt+8ctfYhBXTFTR2tbKXXeu4+jRapQQdLRdZHx4hNvWriUiLAwpJbk5cxFCYDKbaaivJz4hgWBQUl9\/lqZzjRw\/eQQIAH4UQTRNUrJ0MUKEgl5Ly3nqa89SULiAOZlZ7Nr1LllZczFqhoprsX4igVdffbXUEh7JyMgo\/f39LCgqxuF0Eud04XIlsGHD3aSkpDDp9RIIBjCFmelsakXpAVJSksjPzyEyMoLIyEhiYmIJDw8nKyuLqSkf4eFhNDc3MTo6iiKAwg8EyM7OpLr6COXl5XS0t3L8yDHONbdStvJGamqO093VjtVqrcorWFR+LdZP3NiKcUS7A0Efa9et5uc\/+xXdvX1ExcSGMkohiIq2c88999La0sK77\/0BIwKz00Hlnn1YrZHMzszmw4PVJCYmI9CY8npInOEiOdGFwaBYUHQDCfHxoIIoJTl48DC6rtj8z8\/R1dXN22+\/g2dinH\/c9AJ9vf1UVe5h2bISJid8Ff831k8koAlDxZfWlG32+3z4A34GBwcxmswILTRhFks4ABu\/8gCHj1TT3dOFLRjgwsU2YmJcRNljMBrNAEz5p9AMgpSUVKJsRkxh4ZytbeD8uUakVHi9kxQW5OOfCrBr1\/vU1TXiGR\/nqaefYnLSx49e+QFr134Jf5Ay96qbq\/4E6ycR6Ojo3Fyx5aVQbq5CSzwBLFuyGAMwNjqOlJCYlMiWLd8hacYMMtLT0ISZoaERKvfvv9rWpHcSoQkOHTqIz+enrq4RKSV6UCdjZipmk5GBgUvs\/mAv7\/xhJ3GxsTz00EN4vD6+v3ULq250Ez8j5dlly9x\/Av66BJKTE6u+9sCX0aUeCiQ2K1Ipqg4cQJeS4ydr6OvrRiAoKCjk29\/+AW1t3Xgn\/dy0ahU+f+BqW1LqrFm9mpHhIXQZJC42hugoG1M+H\/sPHKSpqZWt3\/sXurt6ufvOuygrK6PhXBMvv\/yvrFl9Iylp6U\/MmpX1w0\/CCdfZXt+2bVv7yMjIV4sXFaFLSTCo0TcwML1nA1JBX28PTmccUurs3fMBzRfOMXNmKk1N5xgeGcFsDqnQ0NBlBgZ6eO4bT9Pc3Mqu9\/fw4cHDtLd3097eiVKCkiUlFBbk43I52fbaNsbGRigrXU6UI7YiN3fBS9cDD9exAbPZ7G5pbafm1FkWFy9g69aXcSXNDP04HahOnK6luaWNpoazhIeFs2r1LZyurcM3NkJYWAQAk54JUpITufvOtXgmPNScqkPXjSQmphNljyI22kpsrIPe\/h7+sPM9IiMslJUtQ+rawTnZed9ISko78mng4Toq9Prrr5dnZ2VWFS+aTzCo88zTTyCDgY\/VUUqRkZ6OMz6FKGciJ06dRklFWKQNkzkMg8HA5cEBrJERJCXHg9ApXlgITNHd1UJn1wUGBvt4573t+P0+bnQvY\/68fHy+YMXNt65fnpSUdqSiouLP7ltd94DjkUcfq2ysq3f\/6JUtmMPCeebZf8YcbuWj+oLRkWHsNhua0YAmNFAKTTOClHT3dJKdnUlZaQkFeVlcujxMdLQVgRGvbwqfz4dSiv6B\/pOOmNj3GppaX3n++eeH\/xzg\/2cCAHfccXvlD763xS1VgL17q3nt9TeJcsSiCRFKn6\/Je7Tp7wJBZ8dFbigswOGwccf62xBC0NraVvF3X364YsGCBVfVNiMjQ77xxhv6ZwV9rXzqCU18fFLFo48\/637m6a9T5i7BFR\/HkaNnqKk5RViE9Wo9IQRSSoYuX2ZkZJA1N60iJSWB4kULGBsbr1K6vqW5pbtShUYrcP0eP7v82TOym8pucj\/x5IOVs9LTEBqcOdvAm29tx+fXmRgfJxDQ8XoniIy0kpiUQE52NtlZGaSlzsTr8xEeYX5p6dLVz\/01QX8mAgB79ux2b9mydfPPfvJDt5I6wWCQsfFxdux4HykVmmbAao2grGwFUtdRCvyBABdaeyK\/\/vWve9UX+H+Gz3RK2dRQU75\/\/4fzFi9euD4YDICUyOnXg8EgQtMIBoMfCoGupFLLSm9e+QXhvip\/7pTSAniv3GTlzC+vOV27wuPxjQ9evvRbo9m4UyC+awkPW6agWij8mlFTy1bcsvlT2vyryuc6J96wYYMhNzdX5OTkqLvvvlsCX5iqXE\/+G6Y6CnjtQDIPAAAAAElFTkSuQmCC</stringProp>
+              <boolProp name="JSONVALIDATION">false</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">false</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+            <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Result FileSize" enabled="true">
+              <stringProp name="JSON_PATH">$.result.${DocumentID}.filesize</stringProp>
+              <stringProp name="EXPECTED_VALUE">5271</stringProp>
+              <boolProp name="JSONVALIDATION">true</boolProp>
+              <boolProp name="EXPECT_NULL">false</boolProp>
+              <boolProp name="INVERT">false</boolProp>
+              <boolProp name="ISREGEX">false</boolProp>
+            </JSONPathAssertion>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create HelpDesk" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
               <collectionProp name="Arguments.arguments">

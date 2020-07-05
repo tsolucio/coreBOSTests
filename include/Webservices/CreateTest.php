@@ -720,6 +720,7 @@ class WSCreateTest extends TestCase {
 	/**
 	 * Method testCreateDocumentWithAttachment
 	 * @test
+	 * @expectedException WebServiceException
 	 */
 	public function testCreateDocumentWithAttachment() {
 		global $current_user,$adb;
@@ -769,6 +770,8 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['filename'] = 'Cron.png';
 		$ObjectValues['relations'] = array();
 		$ObjectValues['_downloadurl'] = $actual['_downloadurl']; // 'http://localhost/coreBOSTest/storage/2020/June/week3/44181_Cron.png';
+		$filelocation = substr($actual['_downloadurl'], strpos($actual['_downloadurl'], 'storage'));
+		$docid = $actual['id'];
 		$this->assertRegExp('/^http.+coreBOSTest\/storage.+\/week[0-5]?\/[0-9]+_Cron.png$/', $actual['_downloadurl']);
 		$this->assertEquals($ObjectValues, $actual, 'Create Documents');
 		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
@@ -824,6 +827,10 @@ class WSCreateTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'Document after Update');
 		/// end
 		$current_user = $holduser;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		@unlink($filelocation);
+		vtws_retrievedocattachment($docid, true, $current_user);
 	}
 
 	/**
