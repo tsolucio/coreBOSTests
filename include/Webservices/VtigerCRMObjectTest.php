@@ -34,6 +34,18 @@ class VtigerCRMObjectTest extends TestCase {
 	}
 
 	/**
+	 * Method testgetSEType
+	 * @test
+	 */
+	public function testgetSEType() {
+		$obj = new VtigerCRMObject('Accounts');
+		$this->assertEquals('Accounts', $obj->getSEType('74'), 'Accounts setype');
+		$this->assertEquals('CobroPago', $obj->getSEType('14335'), 'Payment setype');
+		$this->assertEquals('Contacts', $obj->getSEType('1090'), 'Contacts setype');
+		$this->assertNull($obj->getSEType('-1'), 'invalid setype');
+	}
+
+	/**
 	 * Method testexists
 	 * @test
 	 */

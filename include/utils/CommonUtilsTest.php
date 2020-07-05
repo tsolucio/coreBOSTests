@@ -647,6 +647,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 		$this->assertEquals('Accounts', getSalesEntityType('74'), 'Accounts setype');
 		$this->assertEquals('CobroPago', getSalesEntityType('14335'), 'Payment setype');
 		$this->assertEquals('Contacts', getSalesEntityType('1090'), 'Contacts setype');
+		$this->assertEquals('', getSalesEntityType('-1'), 'invalid setype');
 	}
 
 	/**
