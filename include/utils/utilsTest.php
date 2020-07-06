@@ -2221,4 +2221,33 @@ class testutils extends TestCase {
 	 */
 	public function testgetTableNameForField($module, $fieldname, $expected) {
 		$this->assertEquals($expected, getTableNameForField($module, $fieldname), "getTableNameForField $module, $fieldname");
-	}}
+	}
+
+	/**
+	 * Method hasEmailFieldProvider
+	 * params
+	 */
+	public function hasEmailFieldProvider() {
+		return array(
+			array('Assets', false),
+			array('Accounts', true),
+			array('HelpDesk', true),
+			array('Project', true),
+			array('cbupdater', false),
+			array('Calendar', false),
+			array('cbCalendar', false),
+			array('InexistentModule', false),
+			array('', false),
+			array('EtiquetasOO', false),
+		);
+	}
+
+	/**
+	 * Method testhasEmailField
+	 * @test
+	 * @dataProvider hasEmailFieldProvider
+	 */
+	public function testhasEmailField($module, $expected) {
+		$this->assertEquals($expected, hasEmailField($module), "hasEmailField $module");
+	}
+}
