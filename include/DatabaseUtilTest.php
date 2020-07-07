@@ -43,7 +43,7 @@ class testDatabaseUtil extends TestCase {
 		$db_password = $dbconfig['db_password'];
 		$conn = NewADOConnection('mysqli');
 		$conn->Connect($db_hostname, $db_username, $db_password);
-		if (get_db_charset($conn)=='utf8') {
+		if (get_db_charset($conn)=='utf8' || get_db_charset($conn)=='utf8mb4') {
 			$this->assertTrue(check_db_utf8_support($conn), 'testcheck_db_utf8_support');
 		} else {
 			$this->assertFalse(check_db_utf8_support($conn), 'testcheck_db_utf8_support');
@@ -63,7 +63,7 @@ class testDatabaseUtil extends TestCase {
 		$conn = NewADOConnection('mysqli');
 		$conn->Connect($db_hostname, $db_username, $db_password);
 		// counting here that the DB configuration is correct
-		$this->assertContains(get_db_charset($conn), array('utf8', 'latin1'), 'testget_db_charset');
+		$this->assertContains(get_db_charset($conn), array('utf8', 'latin1', 'utf8mb4'), 'testget_db_charset');
 		$conn->Close();
 	}
 
