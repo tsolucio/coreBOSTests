@@ -118,4 +118,27 @@ class testVtlibUtils extends TestCase {
 	public function testvtlib_isEntityModule($mname, $expected) {
 		$this->assertEquals($expected, vtlib_isEntityModule($mname), "vtlib_isEntityModule $mname");
 	}
+
+	/**
+	 * Method isModuleActiveProvider
+	 * params
+	 */
+	public function isModuleActiveProvider() {
+		return array(
+			array('Accounts', true),
+			array('Assets', true),
+			array('EtiquetasOO', true),
+			array('SMSNotifier', false),
+			array('cbAuditTrail', true),
+		);
+	}
+
+	/**
+	 * Method testisModuleActive
+	 * @test
+	 * @dataProvider isModuleActiveProvider
+	 */
+	public function testisModuleActive($mname, $expected) {
+		$this->assertEquals($expected, vtlib_isModuleActive($mname), "vtlib_isModuleActive $mname");
+	}
 }
