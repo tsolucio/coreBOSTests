@@ -25,10 +25,10 @@ include_once 'include/Webservices/upsert.php';
 class testWSUpsert extends TestCase {
 
 	/**
-	 * Method testupsertcreate
+	 * Method testupsert
 	 * @test
 	 */
-	public function testupsertcreate() {
+	public function testupsert() {
 		global $current_user, $adb;
 		$aname = uniqid();
 		$rs = $adb->pquery('select count(*) as cnt from vtiger_account where accountname=?', array($aname));
@@ -37,11 +37,48 @@ class testWSUpsert extends TestCase {
 			'accountname' => $aname,
 			'phone' => 'mystrange_phone_number',
 			'assigned_user_id' => '19x1',
-			'id' => '11x74',
+			'account_id' => '11x74',
+			'id' => '11x74', // this is ignored as we create
 		);
-		vtws_upsert('Accounts', $element, 'accountname', 'accountname,phone', $current_user);
+		$rec = vtws_upsert('Accounts', $element, 'accountname', 'accountname,phone', $current_user);
 		$rs = $adb->pquery('select count(*) as cnt from vtiger_account where accountname=?', array($aname));
 		$this->assertTrue($rs->fields['cnt']==1);
+		$element = array(
+			'accountname' => 'updated with upsert',
+			'phone' => 'phone_number_strange',
+			'assigned_user_id' => '19x1',
+			'id' => $rec['id'],
+		);
+		$rec = vtws_upsert('Accounts', $element, 'id', 'accountname,phone', $current_user);
+		$rs = $adb->pquery('select count(*) as cnt from vtiger_account where accountname=?', array($aname));
+		$this->assertTrue($rs->fields['cnt']==0);
+		$rs = $adb->pquery('select count(*) as cnt from vtiger_account where accountname=? and phone=?', array('updated with upsert', 'phone_number_strange'));
+		$this->assertTrue($rs->fields['cnt']>0);
+		$element = array(
+			'accountname' => 'updated with upsert cbuuid',
+			'phone' => 'phone_number_strange',
+			'assigned_user_id' => '19x1',
+			'cbuuid' => $rec['cbuuid'],
+		);
+		$rec = vtws_upsert('Accounts', $element, 'cbuuid', 'accountname,phone', $current_user);
+		$rs = $adb->pquery('select count(*) as cnt from vtiger_account where accountname=?', array('updated with upsert'));
+		$this->assertTrue($rs->fields['cnt']==0);
+		$rs = $adb->pquery('select count(*) as cnt from vtiger_account where accountname=? and phone=?', array('updated with upsert cbuuid', 'phone_number_strange'));
+		$this->assertTrue($rs->fields['cnt']>0);
+		$element = array(
+			'accountname' => 'updated with upsert account_id',
+			'phone' => 'phone_number_strange',
+			'assigned_user_id' => '19x1',
+			'account_id' => '11x74',
+			'cbuuid' => $rec['cbuuid'],
+		);
+		$rec = vtws_upsert('Accounts', $element, 'account_id,phone', 'accountname,phone', $current_user);
+		$rs = $adb->pquery('select count(*) as cnt from vtiger_account where accountname=?', array('updated with upsert cbuuid'));
+		$this->assertTrue($rs->fields['cnt']==0);
+		$rs = $adb->pquery('select count(*) as cnt from vtiger_account where accountname=? and phone=?', array('updated with upsert account_id', 'phone_number_strange'));
+		$this->assertTrue($rs->fields['cnt']>0);
+		list($wsid, $crmid) = explode('x', $rec['id']);
+		$adb->pquery('update vtiger_account set accountname=?,phone=? where accountid=?', array($aname, $aname, $crmid)); // change it so we can repeate the test
 	}
 
 	/**
