@@ -396,5 +396,75 @@ class testWebservicesUtils extends TestCase {
 		global $default_language;
 		$this->assertEquals($default_language, vtws_getWebserviceDefaultLanguage());
 	}
+
+	/**
+	 * Method testgetWebserviceEntities
+	 * @test
+	 */
+	public function testgetWebserviceEntities() {
+		$expected = array(
+			'module'=>array(
+				0 => 'Campaigns',
+				1 => 'Vendors',
+				2 => 'Faq',
+				3 => 'Quotes',
+				4 => 'PurchaseOrder',
+				5 => 'SalesOrder',
+				6 => 'Invoice',
+				7 => 'PriceBooks',
+				8 => 'Calendar',
+				9 => 'Leads',
+				10 => 'Accounts',
+				11 => 'Contacts',
+				12 => 'Potentials',
+				13 => 'Products',
+				14 => 'Documents',
+				15 => 'Emails',
+				16 => 'HelpDesk',
+				17 => 'Users',
+				18 => 'PBXManager',
+				19 => 'ServiceContracts',
+				20 => 'Services',
+				21 => 'cbupdater',
+				22 => 'CobroPago',
+				23 => 'Assets',
+				24 => 'ModComments',
+				25 => 'ProjectMilestone',
+				26 => 'ProjectTask',
+				27 => 'Project',
+				28 => 'SMSNotifier',
+				29 => 'GlobalVariable',
+				30 => 'InventoryDetails',
+				31 => 'cbMap',
+				32 => 'cbTermConditions',
+				33 => 'cbCalendar',
+				34 => 'cbtranslation',
+				35 => 'BusinessActions',
+				36 => 'cbSurvey',
+				37 => 'cbSurveyQuestion',
+				38 => 'cbSurveyDone',
+				39 => 'cbSurveyAnswer',
+				40 => 'cbCompany',
+				41 => 'cbCVManagement',
+				42 => 'cbQuestion',
+				43 => 'ProductComponent',
+				44 => 'Messages',
+				45 => 'cbPulse',
+				46 => 'MsgTemplate',
+			),
+			'entity'=>array(
+				0 => 'Groups',
+				1 => 'Currency',
+				2 => 'DocumentFolders',
+				3 => 'CompanyDetails',
+				4 => 'Workflow',
+				5 => 'AuditTrail',
+				6 => 'LoginHistory',
+				7 => 'Zendesk',
+				8 => 'ModTracker',
+			),
+		);
+		$this->assertEquals($expected, vtws_getWebserviceEntities());
+	}
 }
 ?>
