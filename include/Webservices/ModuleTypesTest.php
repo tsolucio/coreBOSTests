@@ -39,7 +39,7 @@ class ModuleTypesTest extends TestCase {
 	 */
 	public function testvtws_listtypesNull() {
 		global $current_user;
-		$current_user->retrieveCurrentUserInfoFromFile($this->usradmin);
+		$current_user = Users::getActiveAdminUser();
 		$actual = vtws_listtypes(null, $current_user);
 		$expected = array (
 			'types' => array (
@@ -367,14 +367,15 @@ class ModuleTypesTest extends TestCase {
 		);
 		$this->assertEquals($expected, $actual, 'null admin');
 		///////////////
-		$current_user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy
-		$actual = vtws_listtypes(null, $current_user);
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x); // testdmy
+		$actual = vtws_listtypes(null, $user);
 		array_splice($expected['types'], 16, 1);
 		unset($expected['information']['Users']);
 		$this->assertEquals($expected, $actual, 'null user');
 		///////////////
-		// $current_user->retrieveCurrentUserInfoFromFile($this->usrinactive);
-		// $actual = vtws_listtypes(null, $current_user);
+		// $user->retrieveCurrentUserInfoFromFile($this->usrinactive);
+		// $actual = vtws_listtypes(null, $user);
 		// $this->assertEquals($expected, $actual, 'null user');
 		$current_user = Users::getActiveAdminUser();
 	}
