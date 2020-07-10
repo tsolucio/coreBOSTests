@@ -397,25 +397,6 @@ class testWSModTrackerOperation extends TestCase {
 	}
 
 	/**
-	 * Method testNotActive
-	 * @test
-	 * @expectedException WebServiceException
-	 */
-	public function testNotActive() {
-		global $current_user, $adb, $log;
-		vtlib_toggleModuleAccess('ModTracker', false, true);
-		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode(WebServiceErrorCode::$UNKNOWNENTITY);
-		try {
-			$webserviceObject = VtigerWebserviceObject::fromName($adb, 'ModTracker');
-			$obj = new ModTrackerOperation($webserviceObject, $current_user, $adb, $log);
-		} catch (\Throwable $th) {
-			vtlib_toggleModuleAccess('ModTracker', true, true);
-			throw $th;
-		}
-	}
-
-	/**
 	 * Method testCreateException
 	 * @test
 	 * @expectedException WebServiceException
