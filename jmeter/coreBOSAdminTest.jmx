@@ -33,17 +33,17 @@
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
         <stringProp name="HTTPSampler.domain">localhost</stringProp>
-        <stringProp name="HTTPSampler.port"></stringProp>
+        <stringProp name="HTTPSampler.port">8081</stringProp>
         <stringProp name="HTTPSampler.protocol"></stringProp>
         <stringProp name="HTTPSampler.contentEncoding">UTF-8</stringProp>
-        <stringProp name="HTTPSampler.path">coreBOSTest/webservice.php</stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
         <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
         <stringProp name="HTTPSampler.connect_timeout"></stringProp>
         <stringProp name="HTTPSampler.response_timeout"></stringProp>
       </ConfigTestElement>
       <hashTree/>
       <SetupThreadGroup guiclass="SetupThreadGroupGui" testclass="SetupThreadGroup" testname="Login" enabled="true">
-        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">stoptest</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
           <stringProp name="LoopController.loops">1</stringProp>
@@ -56,6 +56,14 @@
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </SetupThreadGroup>
       <hashTree>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="Empty props" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">props.remove(&quot;sessionName&quot;)</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
         <OnceOnlyController guiclass="OnceOnlyControllerGui" testclass="OnceOnlyController" testname="doLogin" enabled="true"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getChallenge wrong" enabled="true">
@@ -13218,15 +13226,23 @@ if (Failure) {
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Result" enabled="true">
-            <collectionProp name="Asserion.test_strings">
-              <stringProp name="464163583">Unknown operation requested</stringProp>
-            </collectionProp>
-            <stringProp name="Assertion.custom_message"></stringProp>
-            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
-            <boolProp name="Assertion.assume_success">false</boolProp>
-            <intProp name="Assertion.test_type">8</intProp>
-          </ResponseAssertion>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Success" enabled="true">
+            <stringProp name="JSON_PATH">$.success</stringProp>
+            <stringProp name="EXPECTED_VALUE">false</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">false</boolProp>
+          </JSONPathAssertion>
+          <hashTree/>
+          <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="Assert Result" enabled="true">
+            <stringProp name="JSON_PATH">$.error.code</stringProp>
+            <stringProp name="EXPECTED_VALUE">UNKNOWN_OPERATION</stringProp>
+            <boolProp name="JSONVALIDATION">true</boolProp>
+            <boolProp name="EXPECT_NULL">false</boolProp>
+            <boolProp name="INVERT">false</boolProp>
+            <boolProp name="ISREGEX">true</boolProp>
+          </JSONPathAssertion>
           <hashTree/>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get Login Page No Params" enabled="true">
@@ -13265,7 +13281,7 @@ if (Failure) {
         <hashTree>
           <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Result" enabled="true">
             <collectionProp name="Asserion.test_strings">
-              <stringProp name="1191707575">Sorry! Attempt to access restricted file.&lt;br&gt;We are looking for this file path: include/language/.lang.php&lt;br&gt;We are looking here:&lt;br&gt; Real file path: &lt;br&gt;Root dir path: /var/www/coreBOSTest/&lt;br&gt;</stringProp>
+              <stringProp name="1394933769">{&quot;success&quot;:true,&quot;result&quot;:&quot;&lt;!DOCTYPE html PUBLIC \&quot;-\/\/W3C\/\/DTD html 4.01 Transitional\/\/EN\&quot;&gt; &lt;html&gt; &lt;head&gt; &lt;meta http-equiv=\&quot;Content-Type\&quot; content=\&quot;text\/html; charset=UTF-8\&quot;&gt; &lt;meta name=\&quot;robots\&quot; content=\&quot;noindex\&quot;&gt; &lt;title&gt;coreBOS&lt;\/title&gt; &lt;link REL=\&quot;SHORTCUT ICON\&quot; HREF=\&quot;themes\/images\/favicon.ico\&quot;&gt; &lt;script type=\&quot;text\/javascript\&quot; src=\&quot;themes\/login\/login.js\&quot;&gt;&lt;\/script&gt; &lt;link rel=\&quot;stylesheet\&quot; href=\&quot;themes\/login\/lds\/sfdc_210.css\&quot;&gt; &lt;style type=\&quot;text\/css\&quot;&gt;\na {\n\tcolor: #0070d2;\n}\n\nbody {\n\tbackground-color: #F4F6F9;\n}\n\n#content, .container {\n\tbackground-color: #ffffff;\n}\n\n#header {\n\tcolor: #16325c;\n}\n\nbody {\n\tdisplay: table;\n\twidth: 100%;\n}\n\n#content {\n\tmargin-bottom: 24px;\n}\n\n#wrap {\n\theight: 100%;\n}\n\n#right {\n\tvertical-align: middle;\n}\n\n.errorMessage {\n\tfont-size: 12px;\n\tcolor: #982121;\n}\n&lt;\/style&gt; &lt;\/head&gt; &lt;body onload=\&quot;set_focus()\&quot; data-gr-c-s-loaded=\&quot;true\&quot;&gt; &lt;div id=\&quot;left\&quot; class=\&quot;pr\&quot;&gt; &lt;div id=\&quot;wrap\&quot;&gt; &lt;div id=\&quot;main\&quot;&gt; &lt;div id=\&quot;wrapper\&quot;&gt; &lt;div id=\&quot;logo_wrapper\&quot; class=\&quot;standard_logo_wrapper mb24\&quot;&gt; &lt;h1 style=\&quot;height: 100%; display: table-cell; vertical-align: bottom;\&quot;&gt; &lt;img id=\&quot;logo\&quot; class=\&quot;standard_logo\&quot; src=\&quot;storage\/2018\/November\/week1\/43030_app-logo.png\&quot; alt=\&quot;coreBOS\&quot; border=\&quot;0\&quot; name=\&quot;logo\&quot;&gt; &lt;\/h1&gt; &lt;\/div&gt; &lt;h2 id=\&quot;header\&quot; class=\&quot;mb12\&quot; style=\&quot;display: none;\&quot;&gt;&lt;\/h2&gt; &lt;div id=\&quot;content\&quot; style=\&quot;display: block;\&quot;&gt; &lt;div id=\&quot;chooser\&quot; style=\&quot;display: none\&quot;&gt; &lt;div class=\&quot;loginError\&quot; id=\&quot;chooser_error\&quot; style=\&quot;display: block;\&quot;&gt;&lt;\/div&gt; &lt;\/div&gt; &lt;div id=\&quot;theloginform\&quot; style=\&quot;display: block;\&quot;&gt; &lt;form method=\&quot;post\&quot; id=\&quot;login_form\&quot; action=\&quot;index.php\&quot; target=\&quot;_top\&quot; autocomplete=\&quot;off\&quot; novalidate=\&quot;novalidate\&quot;&gt; &lt;input type=\&quot;hidden\&quot; name=\&quot;module\&quot; value=\&quot;Users\&quot; \/&gt; &lt;input type=\&quot;hidden\&quot; name=\&quot;action\&quot; value=\&quot;Authenticate\&quot; \/&gt; &lt;input type=\&quot;hidden\&quot; name=\&quot;return_module\&quot; value=\&quot;Users\&quot; \/&gt; &lt;input type=\&quot;hidden\&quot; name=\&quot;return_action\&quot; value=\&quot;Login\&quot; \/&gt; &lt;div id=\&quot;usernamegroup\&quot; class=\&quot;inputgroup\&quot;&gt; &lt;label for=\&quot;username\&quot; class=\&quot;label\&quot;&gt;User Name&lt;\/label&gt; &lt;div id=\&quot;username_container\&quot;&gt; &lt;input class=\&quot;input r4 wide mb16 mt8 username\&quot; type=\&quot;email\&quot; value=\&quot;\&quot; name=\&quot;user_name\&quot; id=\&quot;username\&quot; style=\&quot;display: block;\&quot;&gt; &lt;\/div&gt; &lt;\/div&gt; &lt;label for=\&quot;password\&quot; class=\&quot;label\&quot;&gt;Password&lt;\/label&gt; &lt;input class=\&quot;input r4 wide mb16 mt8 password\&quot; type=\&quot;password\&quot; id=\&quot;password\&quot; name=\&quot;user_password\&quot; onkeypress=\&quot;checkCaps(event)\&quot; autocomplete=\&quot;off\&quot;&gt; &lt;div id=\&quot;pwcaps\&quot; class=\&quot;mb16\&quot; style=\&quot;display: none\&quot;&gt; &lt;img id=\&quot;pwcapsicon\&quot; alt=\&quot;CapsLock is active\&quot; width=\&quot;12\&quot; src=\&quot;themes\/login\/lds\/capslock_blue.png\&quot;&gt;\n\t\t\t\t\t\t\t\t\tCapsLock is active\n\t\t\t\t\t\t\t\t&lt;\/div&gt; &lt;input class=\&quot;button r4 wide primary\&quot; type=\&quot;submit\&quot; id=\&quot;Login\&quot; name=\&quot;Login\&quot; value=\&quot;Start Session\&quot;&gt; &lt;\/form&gt; &lt;\/div&gt; &lt;\/div&gt; &lt;\/div&gt; &lt;\/div&gt; &lt;div id=\&quot;footer\&quot;&gt;\n\t\t\t\t\u00a9 Powered by coreBOS.\n\t\t\t&lt;\/div&gt; &lt;\/div&gt; &lt;\/div&gt; &lt;\/body&gt; &lt;\/html&gt;&quot;}</stringProp>
             </collectionProp>
             <stringProp name="Assertion.custom_message"></stringProp>
             <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
@@ -13303,7 +13319,7 @@ if (Failure) {
                 </elementProp>
                 <elementProp name="sessionName" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">${__P(sessionName)}</stringProp>
+                  <stringProp name="Argument.value">${__P(sessionName,)}</stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                   <boolProp name="HTTPArgument.use_equals">true</boolProp>
                   <stringProp name="Argument.name">sessionName</stringProp>
