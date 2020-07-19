@@ -62,6 +62,12 @@ class testCustomerPortalWS extends TestCase {
 			'last_name' => 'Administrator',
 			'email1' => 'noreply@tsolucio.com',
 			'id' => '19x1',
+			'is_admin' => 'on',
+			'language' => 'en_us',
+			'currency_grouping_pattern' => '123,456,789',
+			'currency_decimal_separator' => '.',
+			'currency_grouping_separator' => ',',
+			'currency_symbol_placement' => '$1.0',
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo admin');
 		$user = new Users();
@@ -72,6 +78,12 @@ class testCustomerPortalWS extends TestCase {
 			'last_name' => 'testdmy',
 			'email1' => 'noreply@tsolucio.com',
 			'id' => '19x'.$this->usrdota0x,
+			'is_admin' => 'off',
+			'language' => 'en_us',
+			'currency_grouping_pattern' => '123456789',
+			'currency_decimal_separator' => '.',
+			'currency_grouping_separator' => ',',
+			'currency_symbol_placement' => '$1.0',
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo testdmy');
 	}
