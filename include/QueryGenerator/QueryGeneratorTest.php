@@ -1331,6 +1331,31 @@ class QueryGeneratorTest extends TestCase {
 			$queryGenerator->addCondition('startdate', '04-04-1997', 'a');
 			$query = $queryGenerator->getQuery();
 			$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname, vtiger_crmentity.createdtime FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate > '1997-04-04')  AND vtiger_project.projectid > 0", $query, "test incompatible fecha g dmY");
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname'));
+			$queryGenerator->addCondition('startdate', 'like', 'dnew');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate NOT LIKE '%like')  AND vtiger_project.projectid > 0", $query, 'test like operators');
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname'));
+			$queryGenerator->addCondition('startdate', 'like', 'k');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate NOT LIKE '%like%')  AND vtiger_project.projectid > 0", $query, 'test like operators');
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname'));
+			$queryGenerator->addCondition('startdate', 'like', 'ew');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate LIKE '%like')  AND vtiger_project.projectid > 0", $query, 'test like operators');
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname'));
+			$queryGenerator->addCondition('startdate', 'like', 's');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate LIKE 'like%')  AND vtiger_project.projectid > 0", $query, 'test like operators');
+			$queryGenerator = new QueryGenerator('Project', $user);
+			$queryGenerator->setFields(array('id','projectname'));
+			$queryGenerator->addCondition('startdate', 'like', 'c');
+			$query = $queryGenerator->getQuery();
+			$this->assertEquals("SELECT vtiger_project.projectid, vtiger_project.projectname FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_project.startdate LIKE '%like%')  AND vtiger_project.projectid > 0", $query, 'test like operators');
 			$current_user = $holduser;
 		}
 	}
