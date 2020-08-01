@@ -74,5 +74,19 @@ class testWSAuthToken extends TestCase {
 		$this->assertNotEquals($actual['expireTime'], $actualupd['expireTime']);
 		$this->assertNotEquals($actual['serverTime'], $actualupd['serverTime']);
 	}
+
+	/**
+	 * Method testContact
+	 * @test
+	 */
+	public function testContact() {
+		global $adb;
+		$adb->query('DELETE FROM vtiger_ws_userauthtoken WHERE userid=-1085');
+		$actual = vtws_getchallenge('julieta@yahoo.com');
+		$this->assertEquals(array('token', 'serverTime', 'expireTime'), array_keys($actual));
+		$get_token = $adb->pquery('SELECT * FROM vtiger_ws_userauthtoken WHERE userid=?', array(-1085));
+		$this->assertEquals($get_token->fields['token'], $actual['token']);
+		$this->assertEquals($get_token->fields['expiretime'], $actual['expireTime']);
+	}
 }
 ?>
