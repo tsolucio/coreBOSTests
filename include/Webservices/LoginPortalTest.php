@@ -91,6 +91,18 @@ class testWSLoginPortal extends TestCase {
 	}
 
 	/**
+	 * Method testnoemployeemodule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testnoemployeemodule() {
+		global $adb;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDUSERPWD);
+		vtws_loginportal('julieta@yahoo.com', '5ub1ipv3', 'employee');
+	}
+
+	/**
 	 * Method testlogin
 	 * @test
 	 */
@@ -108,27 +120,30 @@ class testWSLoginPortal extends TestCase {
 			'user' => array(
 				'id' => '19x5',
 				'user_name' => 'testdmy',
-				'accesskey' => 'oz1vYHSiEazsWHxJ',
 				'contactid' => '12x1085',
 				'language' => 'es',
 			)
 		);
+		unset($actual['user']['accesskey']);
 		$this->assertEquals($expected, $actual);
 		///////////////////////////
 		$adb->query("UPDATE vtiger_contactdetails SET portalpasswordtype='sha256',template_language='fr' WHERE contactid=1085");
 		$token = vtws_getchallenge('julieta@yahoo.com');
 		$actual = vtws_loginportal('julieta@yahoo.com', hash('sha256', $token['token'].'5ub1ipv3'), 'Contacts', $SessionManagerStub);
+		unset($actual['user']['accesskey']);
 		$expected['user']['language'] = 'fr';
 		$this->assertEquals($expected, $actual);
 		///////////////////////////
 		$adb->query("UPDATE vtiger_contactdetails SET portalpasswordtype='sha512',template_language='fr' WHERE contactid=1085");
 		$token = vtws_getchallenge('julieta@yahoo.com');
 		$actual = vtws_loginportal('julieta@yahoo.com', hash('sha512', $token['token'].'5ub1ipv3'), 'Contacts', $SessionManagerStub);
+		unset($actual['user']['accesskey']);
 		$this->assertEquals($expected, $actual);
 		///////////////////////////
 		$adb->query("UPDATE vtiger_contactdetails SET portalpasswordtype='plaintext',template_language='fr' WHERE contactid=1085");
 		$token = vtws_getchallenge('julieta@yahoo.com');
 		$actual = vtws_loginportal('julieta@yahoo.com', $token['token'].'5ub1ipv3', 'Contacts', $SessionManagerStub);
+		unset($actual['user']['accesskey']);
 		$this->assertEquals($expected, $actual);
 	}
 }

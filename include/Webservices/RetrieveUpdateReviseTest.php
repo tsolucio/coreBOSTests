@@ -1070,6 +1070,7 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$adb->query("update vtiger_contactdetails set lastname='Saltman', imagename='' where contactid=1561");
 		$actual = vtws_retrieve($ctoID.'x1561', $current_user);
 		$this->assertFalse(isset($actual['imagenameimageinfo']), 'has no image information');
+		$beforeCto['portalloginuser'] = '19x0';
 		unset($beforeCto['modifiedby'], $beforeCto['modifiedtime'], $actual['modifiedby'], $actual['modifiedtime']);
 		$this->assertEquals($beforeCto, $actual);
 	}

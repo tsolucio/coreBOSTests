@@ -650,6 +650,13 @@ class testWSMassRetrieve extends TestCase {
 				'mailingcountry' => '',
 				'othercountry' => '',
 				'imagename' => '',
+				'portalpasswordtype' => '',
+				'portalloginuser' => '19x',
+				'portalloginuserename' => array(
+					'module' => 'Users',
+					'reference' => '',
+					'cbuuid' => '',
+				),
 			),
 		);
 		// junk in > junk out

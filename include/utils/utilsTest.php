@@ -534,6 +534,8 @@ class testutils extends TestCase {
 			array('Converted From Lead', '0', '10', '0', '755', '3', 'V~O'),
 			array('Created By', '0', '52', '0', '763', '2', 'V~O'),
 			array('Template Language', '0', '15', '0', '1135', '1', 'V~O'),
+			array('portalpasswordtype', '0', '16', '0', '1150', '1', 'V~O'),
+			array('portalloginuser', '0', '77', '0', '1151', '1', 'I~O'),
 		);
 		return array(
 			array('cbtranslation', '1', $expected_cbtranslation_module_fields),
@@ -695,6 +697,8 @@ class testutils extends TestCase {
 			46 => array(0 => 'Converted From Lead', 1 => '0', 2 => '10', 3 => '0', 4 => '755', 5 => '3', 6 => 'V~O', 7 => 'B',),
 			47 => array(0 => 'Created By', 1 => '0', 2 => '52', 3 => '0', 4 => '763', 5 => '2', 6 => 'V~O', 7 => 'B',),
 			48 => array(0 => 'Template Language', 1 => '0', 2 => '15', 3 => '0', 4 => '1135', 5 => '1', 6 => 'V~O', 7 => 'B',),
+			49 => array(0 => 'portalpasswordtype', 1 => '0', 2 => '16', 3 => '0', 4 => '1150', 5 => '1', 6 => 'V~O', 7 => 'B',),
+			50 => array(0 => 'portalloginuser', 1 => '0', 2 => '77', 3 => '0', 4 => '1151', 5 => '1', 6 => 'I~O', 7 => 'B',),
 		);
 		$expected_assets_module_fields = array(
 			0 => array(0 => 'Asset No', 1 => '0', 2 => '4', 3 => '0', 4 => '602', 5 => '1', 6 => 'V~O', 7 => 'B',),

@@ -1264,6 +1264,14 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 				0 => 'Contacts: Template Language',
 				1 => '$contacts-template_language$',
 			),
+			49 => array(
+				0 => 'Contacts: Password Encoding',
+				1 => '$contacts-portalpasswordtype$',
+			),
+			50 => array(
+				0 => 'Contacts: Portal Login User',
+				1 => '$contacts-portalloginuser$',
+			),
 		);
 		$this->assertEquals($expected, getEmailTemplateVariables(array('Contacts')), 'getEmailTemplateVariables contacts');
 		$expected = $base;

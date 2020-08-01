@@ -192,7 +192,7 @@ class PearDatabaseTest extends TestCase {
 		$expected_array  = array(
 			'contactid','contact_no','accountid','salutation','firstname','lastname','email','phone','mobile',
 			'title','department','fax','reportsto','training','otheremail','secondaryemail','donotcall','emailoptout',
-			'imagename','reference','notify_owner','isconvertedfromlead','convertedfromlead','template_language'
+			'imagename','reference','notify_owner','isconvertedfromlead','convertedfromlead','template_language','portalpasswordtype','portalloginuser',
 		);
 		$this->assertEquals($expected_array, $fields_array);
 	}
@@ -212,7 +212,7 @@ class PearDatabaseTest extends TestCase {
 	 */
 	public function test_num_fields($adb, $result) {
 		$num_fields = $adb->num_fields($result);
-		$this->assertEquals(24, $num_fields);
+		$this->assertEquals(26, $num_fields);
 	}
 
 	/**
@@ -532,9 +532,9 @@ class PearDatabaseTest extends TestCase {
 					12 => '1971',
 					'reportsto' => '1971',
 					13 => '',
-					'training' => '',
+					'training' => null,
 					14 => '',
-					'otheremail' => '',
+					'otheremail' => null,
 					15 => '',
 					'secondaryemail' => '',
 					16 => '0',
@@ -553,6 +553,10 @@ class PearDatabaseTest extends TestCase {
 					'convertedfromlead' => null,
 					23 => null,
 					'template_language' => null,
+					24 => null,
+					'portalpasswordtype' => null,
+					25 => null,
+					'portalloginuser' => null,
 				),
 			),
 		);
@@ -622,6 +626,10 @@ class PearDatabaseTest extends TestCase {
 					'convertedfromlead' => null,
 					23 => null,
 					'template_language' => null,
+					24 => null,
+					'portalpasswordtype' => null,
+					25 => null,
+					'portalloginuser' => null,
 				)
 			),
 			array(1,
@@ -674,6 +682,10 @@ class PearDatabaseTest extends TestCase {
 					'convertedfromlead' => null,
 					23 => null,
 					'template_language' => null,
+					24 => null,
+					'portalpasswordtype' => null,
+					25 => null,
+					'portalloginuser' => null,
 				),
 			),
 		);
@@ -707,6 +719,8 @@ class PearDatabaseTest extends TestCase {
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
 					'template_language' => '',
+					'portalpasswordtype' => '',
+					'portalloginuser' => '',
 			)
 			),
 			array(1,
@@ -735,6 +749,8 @@ class PearDatabaseTest extends TestCase {
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
 					'template_language' => '',
+					'portalpasswordtype' => '',
+					'portalloginuser' => '',
 				),
 			),
 			array(2,
@@ -763,6 +779,8 @@ class PearDatabaseTest extends TestCase {
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
 					'template_language' => '',
+					'portalpasswordtype' => '',
+					'portalloginuser' => '',
 				),
 			),
 			array(3,
@@ -791,6 +809,8 @@ class PearDatabaseTest extends TestCase {
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
 					'template_language' => '',
+					'portalpasswordtype' => '',
+					'portalloginuser' => '',
 				),
 			),
 			array(4,
@@ -819,6 +839,8 @@ class PearDatabaseTest extends TestCase {
 					'isconvertedfromlead' => '',
 					'convertedfromlead' => '',
 					'template_language' => '',
+					'portalpasswordtype' => '',
+					'portalloginuser' => '',
 				),
 			)
 		);
@@ -826,20 +848,20 @@ class PearDatabaseTest extends TestCase {
 
 	public function tablesProvider() {
 		return array(
-			array("vtiger_activitytype",
+			array('vtiger_activitytype',
 				array(
-					0 => "activitytypeid",
-					1 => "activitytype",
-					2 => "presence",
-					3 => "picklist_valueid",
+					0 => 'activitytypeid',
+					1 => 'activitytype',
+					2 => 'presence',
+					3 => 'picklist_valueid',
 				)
 			),
-			array("vtiger_activity_view",
+			array('vtiger_activity_view',
 				array(
-					0 => "activity_viewid",
-					1 => "activity_view",
-					2 => "sortorderid",
-					3 => "presence",
+					0 => 'activity_viewid',
+					1 => 'activity_view',
+					2 => 'sortorderid',
+					3 => 'presence',
 				)
 			),
 		);
