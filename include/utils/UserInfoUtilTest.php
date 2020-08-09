@@ -646,6 +646,18 @@ class testUserInfoUtil extends TestCase {
 	}
 
 	/**
+	 * Method testfetchUserGroupids
+	 * @test
+	 * @dataProvider getCurrentUserGroupListProvider
+	 */
+	public function testfetchUserGroupids($userid, $expected) {
+		if ($userid==1) {
+			$expected = array(3);
+		}
+		$this->assertEquals(implode(',', $expected), fetchUserGroupids($userid), 'testfetchUserGroupids');
+	}
+
+	/**
 	 * Method getSubordinateUsersListProvider
 	 * params
 	 */
