@@ -1102,5 +1102,54 @@ class testWSDescribe extends TestCase {
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		vtws_describe('', $current_user);
 	}
+
+	/**
+	 * Method testnopermissiononemodule
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testnopermissiononemodule() {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		vtws_describe('cbTermConditions', $user);
+	}
+
+	/**
+	 * Method testnopermissiontwomodules
+	 * @test
+	 */
+	public function testnopermissiontwomodules() {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$actual = vtws_describe('Assets,cbTermConditions', $user);
+		$expected = array('Assets' => $this->asset);
+		$expected['Assets']['createable'] = false;
+		$expected['Assets']['updateable'] = false;
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * Method testnopermissionthreemodules
+	 * @test
+	 */
+	public function testnopermissionthreemodules() {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$actual = vtws_describe('Assets,cbTermConditions,Faq', $user);
+		$expa = $this->asset;
+		$expa['createable'] = false;
+		$expa['updateable'] = false;
+		$expf = $this->faq;
+		$expf['createable'] = false;
+		$expf['updateable'] = false;
+		$expf['deleteable'] = false;
+		$expected = array(
+			'Assets' => $expa,
+			'Faq' => $expf,
+		);
+		$this->assertEquals($expected, $actual);
+	}
 }
 ?>
