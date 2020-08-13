@@ -86,6 +86,22 @@ class testCustomerPortalWS extends TestCase {
 			'currency_symbol_placement' => '$1.0',
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo testdmy');
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(8); // testes
+		$expected = array(
+			'date_format' => 'dd-mm-yyyy',
+			'first_name' => 'cbTest',
+			'last_name' => 'testes',
+			'email1' => 'noreply@tsolucio.com',
+			'id' => '19x8',
+			'is_admin' => 'off',
+			'language' => 'es_es',
+			'currency_grouping_pattern' => '123,456,789',
+			'currency_decimal_separator' => ',',
+			'currency_grouping_separator' => '.',
+			'currency_symbol_placement' => '$1.0',
+		);
+		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo testdmy');
 	}
 
 	/**
