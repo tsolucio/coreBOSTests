@@ -35,6 +35,8 @@ class testWScoreBOSRule extends TestCase {
 		));
 		$actual = cbws_cbRule(vtws_getEntityId('cbMap').'x34033', $params, $current_user);
 		$this->assertEquals(141, $actual, 'cbRule');
+		$actual = cbws_cbRule('employee + 10', $params, $current_user);
+		$this->assertEquals(141, $actual, 'cbRule');
 	}
 
 	/**
@@ -47,6 +49,30 @@ class testWScoreBOSRule extends TestCase {
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		cbws_cbRule('11x74', array(), $current_user);
+	}
+
+	/**
+	 * Method testinvalidmapnameexceptionnotexist
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testinvalidmapnameexceptionnotexist() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		cbws_cbRule('map does not exist', array(), $current_user);
+	}
+
+	/**
+	 * Method testinvalidcbuuidmapnameexception
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testinvalidcbuuidmapnameexception() {
+		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		cbws_cbRule('0123456789012345678901234567890123456789', array(), $current_user);
 	}
 
 	/**
