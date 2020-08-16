@@ -508,6 +508,7 @@ class testCustomerPortalWS extends TestCase {
 			array('che', 'Accounts,Products', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084'), 1, $eaccpdouser1),
 			array('che', 'Accounts,Products', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), 5, $eaccpdouser5),
 			array('che', 'Documents', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), 5, $edocs),
+			array('he', 'Accounts,cbTermConditions', array('userId' => '19x11', 'accountId' => '11x74', 'contactId' => '12x1084'), 11, $eaccpdouser5),
 		);
 	}
 
