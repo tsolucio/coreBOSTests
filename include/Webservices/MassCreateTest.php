@@ -21,6 +21,8 @@
 use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/MassCreate.php';
+include_once 'include/Webservices/Delete.php';
+require_once 'include/Webservices/WebServiceErrorCode.php';
 
 class testWSMassCreate extends TestCase {
 	/**
@@ -28,13 +30,13 @@ class testWSMassCreate extends TestCase {
 	 * @test
 	 */
 	public function testMassCreate() {
-		global $current_user;
+		global $current_user, $adb;
 		$elements = array (
 			array (
 				'elementType' => 'HelpDesk',
 				'referenceId' => '',
 				'element' => array (
-					'ticket_title' => 'support ticket 1',
+					'ticket_title' => 'support ticket MassCreate Test 1',
 					'parent_id' => '@{refAccount1.id}',
 					'assigned_user_id' => '19x5',
 					'product_id' => '@{refProduct.id}',
@@ -52,7 +54,7 @@ class testWSMassCreate extends TestCase {
 				'elementType' => 'HelpDesk',
 				'referenceId' => '',
 				'element' => array (
-					'ticket_title' => 'support ticket 2',
+					'ticket_title' => 'support ticket MassCreate Test 2',
 					'parent_id' => '@{refAccount2.id}',
 					'assigned_user_id' => '19x5',
 					'product_id' => '@{refProduct.id}',
@@ -70,7 +72,7 @@ class testWSMassCreate extends TestCase {
 				'elementType' => 'HelpDesk',
 				'referenceId' => '',
 				'element' => array (
-					'ticket_title' => 'support ticket 3',
+					'ticket_title' => 'support ticket MassCreate Test 3',
 					'parent_id' => '@{refAccount1.id}',
 					'assigned_user_id' => '19x5',
 					'product_id' => '14x2617',
@@ -116,7 +118,7 @@ class testWSMassCreate extends TestCase {
 			),
 			array (
 				'elementType' => 'Products',
-				'referenceId' => '',
+				'referenceId' => 'refProduct',
 				'element' => array (
 					'productname' => 'MassCreate Test',
 					'website' => 'https://corebos.org',
@@ -125,11 +127,58 @@ class testWSMassCreate extends TestCase {
 			  ),
 			),
 		);
+		$accounts_res = $adb->pquery(
+			'select accountid from vtiger_account inner join vtiger_crmentity on crmid=accountid where deleted=0 and accountname like \'%MassCreate Test%\'',
+			array()
+		);
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%MassCreate Test%\'',
+			array()
+		);
+		$products_res = $adb->pquery(
+			'select productid from vtiger_products inner join vtiger_crmentity on crmid=productid where deleted=0 and productname like \'%MassCreate Test%\'',
+			array()
+		);
+
+		$this->assertEquals(0, $adb->num_rows($accounts_res));
+		$this->assertEquals(0, $adb->num_rows($helpdesk_res));
+		$this->assertEquals(0, $adb->num_rows($products_res));
+
 		$actual = MassCreate($elements, $current_user);
-		$expected_success = 7;
-		$expected_fail = 0;
-		$this->assertEquals($expected_success, count($actual['success_creates']), 'MassCreate with Reference - Success');
-		$this->assertEquals($expected_fail, count($actual['failed_creates']), 'MassCreate with Reference -  Failed');
+
+		$accounts_res = $adb->pquery(
+			'select accountid from vtiger_account inner join vtiger_crmentity on crmid=accountid where deleted=0 and accountname like \'%MassCreate Test%\'',
+			array()
+		);
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%MassCreate Test%\'',
+			array()
+		);
+		$products_res = $adb->pquery(
+			'select productid from vtiger_products inner join vtiger_crmentity on crmid=productid where deleted=0 and productname like \'%MassCreate Test%\'',
+			array()
+		);
+
+		$this->assertEquals(3, $adb->num_rows($accounts_res));
+		$this->assertEquals(3, $adb->num_rows($helpdesk_res));
+		$this->assertEquals(1, $adb->num_rows($products_res));
+
+		// Cleaning
+		if ($accounts_res && $adb->num_rows($accounts_res) > 0) {
+			while ($row = $adb->fetch_array($accounts_res)) {
+				vtws_delete('11x'.$row['accountid'], $current_user);
+			}
+		}
+		if ($helpdesk_res && $adb->num_rows($helpdesk_res) > 0) {
+			while ($row = $adb->fetch_array($helpdesk_res)) {
+				vtws_delete('17x'.$row['ticketid'], $current_user);
+			}
+		}
+		if ($products_res && $adb->num_rows($products_res) > 0) {
+			while ($row = $adb->fetch_array($products_res)) {
+				vtws_delete('14x'.$row['productid'], $current_user);
+			}
+		}
 	}
 
 	/**
@@ -234,11 +283,9 @@ class testWSMassCreate extends TestCase {
 			  ),
 			),
 		);
-		$actual = MassCreate($elements, $current_user);
-		$expected_success = 5;
-		$expected_fail = 2;
-		$this->assertEquals($expected_success, count($actual['success_creates']), 'MassCreate with Wrong Reference - Success');
-		$this->assertEquals($expected_fail, count($actual['failed_creates']), 'MassCreate with Wrong Reference -  Failed');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		MassCreate($elements, $current_user);
 	}
 
 	/**
@@ -273,12 +320,129 @@ class testWSMassCreate extends TestCase {
 				),
 			),
 		);
-		$actual = MassCreate($elements, $current_user);
-		$expected_success = 2;
-		$expected_fail = 0;
-		$this->assertEquals($expected_success, count($actual['success_creates']), 'MassCreate cbCalendar - Success');
-		$this->assertEquals($expected_fail, count($actual['failed_creates']), 'MassCreate cbCalendar -  Failed');
-		$this->assertEquals("", $actual['success_creates'][0]['relatedwith'], 'MassCreate cbCalendar -  Empty relation');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		MassCreate($elements, $current_user);
+	}
+
+	/**
+	 * Method testMassCreateExceptionNoPermission
+	 * @test
+	 */
+	public function testMassCreateExceptionNoPermission() {
+		global $current_user, $adb;
+		$holduser = $current_user;
+		$user = new Users();
+		///  nocreate
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$current_user = $user;
+
+		$elements = array (
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 1',
+					'parent_id' => '@{refAccount1.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 1',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 2',
+					'parent_id' => '@{refAccount2.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 2',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 3',
+					'parent_id' => '@{refAccount1.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 3',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount1',
+				'element' => array (
+					'accountname' => 'MassCreate Test 1',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass create test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount2',
+				'element' => array (
+					'accountname' => 'MassCreate Test 2',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass create test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => '',
+				'element' => array (
+					'accountname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create just another account with no relations',
+			  ),
+			),
+			array (
+				'elementType' => 'Products',
+				'referenceId' => '',
+				'element' => array (
+					'productname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create product test',
+			  ),
+			),
+		);
+
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		MassCreate($elements, $current_user);
+		try {
+			MassCreate($elements, $current_user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
 	}
 }
 ?>
