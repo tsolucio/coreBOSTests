@@ -280,7 +280,7 @@ class testWSMassCreate extends TestCase {
 					'website' => 'https://corebos.org',
 					'assigned_user_id' => '19x1',
 					'description' => 'mass create product test',
-			  ),
+				),
 			),
 		);
 		$this->expectException(WebServiceException::class);
@@ -289,10 +289,98 @@ class testWSMassCreate extends TestCase {
 	}
 
 	/**
-	 * Method testMassCreatecbCalendar
+	 * Method testMassCreateReferenceIndex0
 	 * @test
 	 */
-	public function testMassCreatecbCalendar() {
+	public function testMassCreateReferenceIndex0() {
+		global $current_user;
+		$elements = array (
+			array (
+				'elementType' => 'Products',
+				'referenceId' => 'refProduct',
+				'element' => array (
+					'productname' => 'MassCreate Test Index0',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create product test',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket Index0',
+					'parent_id' => '11x74',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 1',
+					'solution' => '',
+				),
+			),
+		);
+		// $this->expectException(WebServiceException::class);
+		// $this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		MassCreate($elements, $current_user);
+	}
+
+	/**
+	 * Method testMassCreateCyclicReference
+	 * @test
+	 */
+	public function testMassCreateCyclicReference() {
+		global $current_user;
+		$elements = array (
+			array (
+				'elementType' => 'Products',
+				'referenceId' => '',
+				'element' => array (
+					'productname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create product test',
+				),
+			),
+			array (
+				'elementType' => 'cbCalendar',
+				'referenceId' => 'cbcal1',
+				'element' => array (
+					'subject' => 'MassCreate Test 1',
+					'dtstart' => '2020-08-10 02:49',
+					'dtend' => '2020-08-10 12:49',
+					'assigned_user_id' => '19x1',
+					'relatedwith' => '@{cbcal2.id}',
+					'description' => 'mass create product test',
+				),
+			),
+			array (
+				'elementType' => 'cbCalendar',
+				'referenceId' => 'cbcal2',
+				'element' => array (
+					'subject' => 'MassCreate Test 2',
+					'dtstart' => '2020-08-10 02:49',
+					'dtend' => '2020-08-10 12:49',
+					'assigned_user_id' => '19x1',
+					'relatedwith' => '@{cbcal1.id}',
+					'description' => 'mass create product test',
+				),
+			),
+		);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		MassCreate($elements, $current_user);
+	}
+
+	/**
+	 * Method testMassCreateCyclicReferenceIndex0
+	 * @test
+	 */
+	public function testMassCreateCyclicReferenceIndex0() {
 		global $current_user;
 		$elements = array (
 			array (
