@@ -99,6 +99,61 @@ class workflowfunctionsdatetimeTest extends TestCase {
 	}
 
 	/**
+	 * Method testnetworkholidaydays
+	 * @test
+	 */
+	public function testnetworkholidaydays() {
+		$actual = __cb_networkdays(array('2017-06-21','2017-06-20', ''));
+		$this->assertEquals(2, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-20', 0, ''));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-20', 1, ''));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_networkdays(array('2017-06-20','2017-06-21', ''));
+		$this->assertEquals(2, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-20','2017-06-21', 0, ''));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-20','2017-06-21', 1, ''));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_networkdays(array('2017-06-21','2017-06-21', ''));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-21', 0, ''));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-21', 1, ''));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_networkdays(array('2017-06-24','2017-06-24', ''));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-24','2017-06-24', 0, ''));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-24','2017-06-24', 1, ''));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_networkdays(array('2017-06-24','2017-06-25', ''));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-24','2017-06-25', 0, ''));
+		$this->assertEquals(0, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-24','2017-06-25', 1, ''));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_networkdays(array('2017-06-25','2017-06-21', ''));
+		$this->assertEquals(3, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-25','2017-06-21', 0, ''));
+		$this->assertEquals(3, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-25','2017-06-21', 1, ''));
+		$this->assertEquals(4, $actual);
+		$actual = __cb_networkdays(array('2017-06-21','2017-06-25', ''));
+		$this->assertEquals(3, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-25', 0, ''));
+		$this->assertEquals(3, $actual);
+		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-25', 1, ''));
+		$this->assertEquals(4, $actual);
+		$actual = __cb_networkdays(array('2017-07-01','2017-07-17', ''));
+		$this->assertEquals(11, $actual);
+		$actual = __cb_holidaydifference(array('2017-07-01','2017-07-17', 0, ''));
+		$this->assertEquals(10, $actual);
+		$actual = __cb_holidaydifference(array('2017-07-01','2017-07-17', 1, ''));
+		$this->assertEquals(13, $actual);
+	}
+
+	/**
 	 * Method testaddDays
 	 * @test
 	 */
