@@ -326,123 +326,93 @@ class testWSMassCreate extends TestCase {
 	}
 
 	/**
-	 * Method testMassCreateExceptionNoPermission
+	 * Method testMassCreateNoPermissionToCreate
 	 * @test
 	 */
-	public function testMassCreateExceptionNoPermission() {
-		global $current_user, $adb;
-		$holduser = $current_user;
+	public function testMassCreateNoPermissionToCreate() {
 		$user = new Users();
 		///  nocreate
 		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
-		$current_user = $user;
 
 		$elements = array (
 			array (
 				'elementType' => 'HelpDesk',
 				'referenceId' => '',
 				'element' => array (
-					'ticket_title' => 'support ticket MassCreate Test 1',
-					'parent_id' => '@{refAccount1.id}',
+					'ticket_title' => 'support ticket MassCreate Test ss',
+					'parent_id' => '11x74',
 					'assigned_user_id' => '19x5',
-					'product_id' => '@{refProduct.id}',
+					'product_id' => '@{refProduct}',
 					'ticketpriorities' => 'Low',
 					'ticketstatus' => 'Open',
 					'ticketseverities' => 'Minor',
 					'hours' => '1.1',
 					'ticketcategories' => 'Small Problem',
 					'days' => '1',
-					'description' => 'ST mass create test 1',
+					'description' => 'ST mass create test ss',
 					'solution' => '',
 				),
-			),
-			array (
-				'elementType' => 'HelpDesk',
-				'referenceId' => '',
-				'element' => array (
-					'ticket_title' => 'support ticket MassCreate Test 2',
-					'parent_id' => '@{refAccount2.id}',
-					'assigned_user_id' => '19x5',
-					'product_id' => '@{refProduct.id}',
-					'ticketpriorities' => 'Low',
-					'ticketstatus' => 'Open',
-					'ticketseverities' => 'Minor',
-					'hours' => '1.1',
-					'ticketcategories' => 'Small Problem',
-					'days' => '1',
-					'description' => 'ST mass create test 2',
-					'solution' => '',
-				),
-			),
-			array (
-				'elementType' => 'HelpDesk',
-				'referenceId' => '',
-				'element' => array (
-					'ticket_title' => 'support ticket MassCreate Test 3',
-					'parent_id' => '@{refAccount1.id}',
-					'assigned_user_id' => '19x5',
-					'product_id' => '14x2617',
-					'ticketpriorities' => 'Low',
-					'ticketstatus' => 'Open',
-					'ticketseverities' => 'Minor',
-					'hours' => '1.1',
-					'ticketcategories' => 'Small Problem',
-					'days' => '1',
-					'description' => 'ST mass create test 3',
-					'solution' => '',
-				),
-			),
-			array (
-				'elementType' => 'Accounts',
-				'referenceId' => 'refAccount1',
-				'element' => array (
-					'accountname' => 'MassCreate Test 1',
-					'website' => 'https://corebos.org',
-					'assigned_user_id' => '19x5',
-					'description' => 'mass create test',
-				),
-			),
-			array (
-				'elementType' => 'Accounts',
-				'referenceId' => 'refAccount2',
-				'element' => array (
-					'accountname' => 'MassCreate Test 2',
-					'website' => 'https://corebos.org',
-					'assigned_user_id' => '19x5',
-					'description' => 'mass create test',
-				),
-			),
-			array (
-				'elementType' => 'Accounts',
-				'referenceId' => '',
-				'element' => array (
-					'accountname' => 'MassCreate Test',
-					'website' => 'https://corebos.org',
-					'assigned_user_id' => '19x1',
-					'description' => 'mass create just another account with no relations',
-			  ),
 			),
 			array (
 				'elementType' => 'Products',
-				'referenceId' => '',
+				'referenceId' => 'refProduct',
 				'element' => array (
-					'productname' => 'MassCreate Test',
+					'productname' => 'MassCreate ssss',
 					'website' => 'https://corebos.org',
 					'assigned_user_id' => '19x1',
 					'description' => 'mass create product test',
-			  ),
+				),
 			),
 		);
 
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
-		MassCreate($elements, $current_user);
-		try {
-			MassCreate($elements, $current_user);
-		} catch (\Throwable $th) {
-			$current_user = $holduser;
-			throw $th;
-		}
+		MassCreate($elements, $user);
+	}
+
+	/**
+	 * Method testMassCreateNoPermissionToAccess
+	 * @test
+	 */
+	public function testMassCreateNoPermissionToAccess() {
+		$user = new Users();
+		///  nocreate
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+
+		$elements = array (
+			array (
+				'elementType' => 'cbTermConditions',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test ss',
+					'parent_id' => '11x74',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x95',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test ss',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'Products',
+				'referenceId' => 'refProduct',
+				'element' => array (
+					'productname' => 'MassCreate ssss',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create product test',
+				),
+			),
+		);
+
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		MassCreate($elements, $user);
 	}
 }
 ?>
