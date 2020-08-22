@@ -1,0 +1,448 @@
+<?php
+/*************************************************************************************************
+ * Copyright 2020 JPL TSolucio, S.L. -- This file is a part of TSOLUCIO coreBOS Tests.
+ * The MIT License (MIT)
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *************************************************************************************************/
+
+use PHPUnit\Framework\TestCase;
+
+include_once 'include/Webservices/MassCreate.php';
+include_once 'include/Webservices/Delete.php';
+require_once 'include/Webservices/WebServiceErrorCode.php';
+
+class testWSMassCreate extends TestCase {
+	/**
+	 * Method testMassCreate
+	 * @test
+	 */
+	public function testMassCreate() {
+		global $current_user, $adb;
+		$elements = array (
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 1',
+					'parent_id' => '@{refAccount1.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 1',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 2',
+					'parent_id' => '@{refAccount2.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 2',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 3',
+					'parent_id' => '@{refAccount1.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 3',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount1',
+				'element' => array (
+					'accountname' => 'MassCreate Test 1',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass create test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount2',
+				'element' => array (
+					'accountname' => 'MassCreate Test 2',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass create test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => '',
+				'element' => array (
+					'accountname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create just another account with no relations',
+			  ),
+			),
+			array (
+				'elementType' => 'Products',
+				'referenceId' => 'refProduct',
+				'element' => array (
+					'productname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create product test',
+			  ),
+			),
+		);
+		$accounts_res = $adb->pquery(
+			'select accountid from vtiger_account inner join vtiger_crmentity on crmid=accountid where deleted=0 and accountname like \'%MassCreate Test%\'',
+			array()
+		);
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%MassCreate Test%\'',
+			array()
+		);
+		$products_res = $adb->pquery(
+			'select productid from vtiger_products inner join vtiger_crmentity on crmid=productid where deleted=0 and productname like \'%MassCreate Test%\'',
+			array()
+		);
+
+		$this->assertEquals(0, $adb->num_rows($accounts_res));
+		$this->assertEquals(0, $adb->num_rows($helpdesk_res));
+		$this->assertEquals(0, $adb->num_rows($products_res));
+
+		$actual = MassCreate($elements, $current_user);
+
+		$accounts_res = $adb->pquery(
+			'select accountid from vtiger_account inner join vtiger_crmentity on crmid=accountid where deleted=0 and accountname like \'%MassCreate Test%\'',
+			array()
+		);
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%MassCreate Test%\'',
+			array()
+		);
+		$products_res = $adb->pquery(
+			'select productid from vtiger_products inner join vtiger_crmentity on crmid=productid where deleted=0 and productname like \'%MassCreate Test%\'',
+			array()
+		);
+
+		$this->assertEquals(3, $adb->num_rows($accounts_res));
+		$this->assertEquals(3, $adb->num_rows($helpdesk_res));
+		$this->assertEquals(1, $adb->num_rows($products_res));
+
+		// Cleaning
+		if ($accounts_res && $adb->num_rows($accounts_res) > 0) {
+			while ($row = $adb->fetch_array($accounts_res)) {
+				vtws_delete('11x'.$row['accountid'], $current_user);
+			}
+		}
+		if ($helpdesk_res && $adb->num_rows($helpdesk_res) > 0) {
+			while ($row = $adb->fetch_array($helpdesk_res)) {
+				vtws_delete('17x'.$row['ticketid'], $current_user);
+			}
+		}
+		if ($products_res && $adb->num_rows($products_res) > 0) {
+			while ($row = $adb->fetch_array($products_res)) {
+				vtws_delete('14x'.$row['productid'], $current_user);
+			}
+		}
+	}
+
+	/**
+	 * Method testMassCreateWrongReference
+	 * @test
+	 */
+	public function testMassCreateWrongReference() {
+		global $current_user;
+		$elements = array (
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket 1',
+					'parent_id' => '@{refAccount1XX.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 1',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket 2',
+					'parent_id' => '@{refAccount2.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 2',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket 3',
+					'parent_id' => '@{refAccount1XX.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 3',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount1',
+				'element' => array (
+					'accountname' => 'MassCreate Test 1',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass create test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount2',
+				'element' => array (
+					'accountname' => 'MassCreate Test 2',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass create test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => '',
+				'element' => array (
+					'accountname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create just another account with no relations',
+			  ),
+			),
+			array (
+				'elementType' => 'Products',
+				'referenceId' => '',
+				'element' => array (
+					'productname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create product test',
+			  ),
+			),
+		);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		MassCreate($elements, $current_user);
+	}
+
+	/**
+	 * Method testMassCreatecbCalendar
+	 * @test
+	 */
+	public function testMassCreatecbCalendar() {
+		global $current_user;
+		$elements = array (
+			array (
+				'elementType' => 'cbCalendar',
+				'referenceId' => 'cbcal1',
+				'element' => array (
+					'subject' => 'MassCreate Test 1',
+					'dtstart' => '2020-08-10 02:49',
+					'dtend' => '2020-08-10 12:49',
+					'assigned_user_id' => '19x1',
+					'relatedwith' => '@{cbcal2.id}',
+					'description' => 'mass create product test',
+				),
+			),
+			array (
+				'elementType' => 'cbCalendar',
+				'referenceId' => 'cbcal2',
+				'element' => array (
+					'subject' => 'MassCreate Test 2',
+					'dtstart' => '2020-08-10 02:49',
+					'dtend' => '2020-08-10 12:49',
+					'assigned_user_id' => '19x1',
+					'relatedwith' => '@{cbcal1.id}',
+					'description' => 'mass create product test',
+				),
+			),
+		);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		MassCreate($elements, $current_user);
+	}
+
+	/**
+	 * Method testMassCreateExceptionNoPermission
+	 * @test
+	 */
+	public function testMassCreateExceptionNoPermission() {
+		global $current_user, $adb;
+		$holduser = $current_user;
+		$user = new Users();
+		///  nocreate
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$current_user = $user;
+
+		$elements = array (
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 1',
+					'parent_id' => '@{refAccount1.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 1',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 2',
+					'parent_id' => '@{refAccount2.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '@{refProduct.id}',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 2',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassCreate Test 3',
+					'parent_id' => '@{refAccount1.id}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass create test 3',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount1',
+				'element' => array (
+					'accountname' => 'MassCreate Test 1',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass create test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount2',
+				'element' => array (
+					'accountname' => 'MassCreate Test 2',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass create test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => '',
+				'element' => array (
+					'accountname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create just another account with no relations',
+			  ),
+			),
+			array (
+				'elementType' => 'Products',
+				'referenceId' => '',
+				'element' => array (
+					'productname' => 'MassCreate Test',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x1',
+					'description' => 'mass create product test',
+			  ),
+			),
+		);
+
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		MassCreate($elements, $current_user);
+		try {
+			MassCreate($elements, $current_user);
+		} catch (\Throwable $th) {
+			$current_user = $holduser;
+			throw $th;
+		}
+	}
+}
+?>
