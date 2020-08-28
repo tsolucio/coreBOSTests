@@ -144,7 +144,7 @@ class testWSMassCreate extends TestCase {
 		$this->assertEquals(0, $adb->num_rows($helpdesk_res));
 		$this->assertEquals(0, $adb->num_rows($products_res));
 
-		$actual = MassCreate($elements, $current_user);
+		MassCreate($elements, $current_user);
 
 		$accounts_res = $adb->pquery(
 			'select accountid from vtiger_account inner join vtiger_crmentity on crmid=accountid where deleted=0 and accountname like \'%MassCreate Test%\'',
@@ -284,7 +284,7 @@ class testWSMassCreate extends TestCase {
 			),
 		);
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		$this->expectExceptionCode(WebServiceErrorCode::$REFERENCEINVALID);
 		MassCreate($elements, $current_user);
 	}
 
