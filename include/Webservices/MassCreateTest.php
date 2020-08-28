@@ -293,7 +293,7 @@ class testWSMassCreate extends TestCase {
 	 * @test
 	 */
 	public function testMassCreateReferenceIndex0() {
-		global $current_user;
+		global $current_user, $adb;
 		$elements = array (
 			array (
 				'elementType' => 'Products',
@@ -324,9 +324,44 @@ class testWSMassCreate extends TestCase {
 				),
 			),
 		);
-		// $this->expectException(WebServiceException::class);
-		// $this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%support ticket Index0%\'',
+			array()
+		);
+		$products_res = $adb->pquery(
+			'select productid from vtiger_products inner join vtiger_crmentity on crmid=productid where deleted=0 and productname like \'%MassCreate Test Index0%\'',
+			array()
+		);
+
+		$this->assertEquals(0, $adb->num_rows($helpdesk_res));
+		$this->assertEquals(0, $adb->num_rows($products_res));
+
 		MassCreate($elements, $current_user);
+
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%support ticket Index0%\'',
+			array()
+		);
+		$products_res = $adb->pquery(
+			'select productid from vtiger_products inner join vtiger_crmentity on crmid=productid where deleted=0 and productname like \'%MassCreate Test Index0%\'',
+			array()
+		);
+
+		$this->assertEquals(1, $adb->num_rows($helpdesk_res));
+		$this->assertEquals(1, $adb->num_rows($products_res));
+
+		// Cleaning
+		if ($helpdesk_res && $adb->num_rows($helpdesk_res) > 0) {
+			while ($row = $adb->fetch_array($helpdesk_res)) {
+				vtws_delete('17x'.$row['ticketid'], $current_user);
+			}
+		}
+		if ($products_res && $adb->num_rows($products_res) > 0) {
+			while ($row = $adb->fetch_array($products_res)) {
+				vtws_delete('14x'.$row['productid'], $current_user);
+			}
+		}
 	}
 
 	/**
@@ -372,7 +407,7 @@ class testWSMassCreate extends TestCase {
 			),
 		);
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		$this->expectExceptionCode(WebServiceErrorCode::$REFERENCEINVALID);
 		MassCreate($elements, $current_user);
 	}
 
@@ -409,7 +444,7 @@ class testWSMassCreate extends TestCase {
 			),
 		);
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
+		$this->expectExceptionCode(WebServiceErrorCode::$REFERENCEINVALID);
 		MassCreate($elements, $current_user);
 	}
 
