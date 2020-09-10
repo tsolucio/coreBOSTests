@@ -42,6 +42,7 @@ class AvoidClearingLinesTest extends TestCase {
 
 		$_REQUEST['action'] = 'SomethingThatWontMeanAjax';
 		$_REQUEST['ajxaction'] = 'SomethingThatWontMeanAjax';
+		$_REQUEST['taxtype'] = 'group';
 
 		$so->save('SalesOrder');
 		$q = "SELECT COUNT(*) AS nooflines FROM vtiger_inventoryproductrel WHERE id = ?";
