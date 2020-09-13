@@ -19,16 +19,19 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class AvoidClearingLinesTest extends TestCase {
+class checkLineQtyOnAjaxSaveTest extends TestCase {
 
 	/**
-	 * Method saveSalesOrderAjaxWithoutLines
+	 * Method checkLineQtyOnAjaxSaveTest
 	 * @test
 	 */
-	public function saveSalesOrderAjaxWithoutLines() {
+	public function doTest() {
 		global $current_user, $adb;
 		$record = '10569';
-		$expected = 0;
+
+		$q = "SELECT COUNT(*) AS nooflines FROM vtiger_inventoryproductrel WHERE id = ?";
+		$r = $adb->pquery($q, array($record));
+		$expected = (int)$adb->query_result($r, 0, 'nooflines');
 
 		include_once 'modules/SalesOrder/SalesOrder.php';
 		$so = new SalesOrder();
@@ -49,10 +52,10 @@ class AvoidClearingLinesTest extends TestCase {
 		$r = $adb->pquery($q, array($record));
 		$actual = (int)$adb->query_result($r, 0, 'nooflines');
 
-		$this->assertGreaterThan(
+		$this->assertEquals(
 			$expected,
 			$actual,
-			'SO1 has no inventorylines. The inventorylines are not protected from badly formed AJAX actions'
+			'SO1 has doesn\'t have the same no. of lines after an AJAX save as it had before.'
 		);
 	}
 }
