@@ -98,90 +98,90 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT pow(vtiger_invoice.sum_nettotal,2) AS powerres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"roundres","operation":"is","value":"round(sum_nettotal, 1)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT round(vtiger_invoice.sum_nettotal,1) AS roundres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"ceilres","operation":"is","value":"ceil(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT CEILING(vtiger_invoice.sum_nettotal) AS ceilres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"floorres","operation":"is","value":"floor(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT FLOOR(vtiger_invoice.sum_nettotal) AS floorres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"modulores","operation":"is","value":"modulo(exciseduty,txtadjustment)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT MOD(vtiger_invoice.exciseduty,vtiger_invoice.adjustment) AS modulores FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"substringres","operation":"is","value":"substring(subject, 2, 4)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT SUBSTRING(vtiger_invoice.subject,2,4) AS substringres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"stringlengthres","operation":"is","value":"stringlength(subject)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT LENGTH(vtiger_invoice.subject) AS stringlengthres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"lowercaseres","operation":"is","value":"lowercase(subject)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT LOWER(vtiger_invoice.subject) AS lowercaseres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"stringpositionres","operation":"is","value":"stringposition(subject, \'x\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT INSTR(vtiger_invoice.subject,\'x\') AS stringpositionres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"stringreplaceres","operation":"is","value":"stringreplace(subject, \'x\', \'a\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT REPLACE(vtiger_invoice.subject,\'x\',\'a\') AS stringreplaceres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -289,63 +289,63 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT vtiger_invoice.adjustment+vtiger_invoice.exciseduty AS sumres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"subres","operation":"is","value":"txtadjustment-exciseduty","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT vtiger_invoice.adjustment-vtiger_invoice.exciseduty AS subres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"divres","operation":"is","value":"txtadjustment/exciseduty","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT vtiger_invoice.adjustment/vtiger_invoice.exciseduty AS divres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"mulres","operation":"is","value":"txtadjustment*exciseduty","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT vtiger_invoice.adjustment*vtiger_invoice.exciseduty AS mulres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"combres","operation":"is","value":"(txtadjustment+exciseduty)*2","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT (vtiger_invoice.adjustment+vtiger_invoice.exciseduty)*2 AS combres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"boolres","operation":"is","value":"(txtadjustment>=exciseduty)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT (vtiger_invoice.adjustment>=vtiger_invoice.exciseduty) AS boolres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"ceilres","operation":"is","value":"ceil(txtadjustment+exciseduty)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT CEILING((vtiger_invoice.adjustment+vtiger_invoice.exciseduty)) AS ceilres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -364,36 +364,36 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT IF((vtiger_invoice.adjustment>=vtiger_invoice.exciseduty),1,2) AS ifelseres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"ifelseres","operation":"is","value":"ifelse(txtadjustment>=exciseduty, exciseduty, txtadjustment)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT IF((vtiger_invoice.adjustment>=vtiger_invoice.exciseduty),vtiger_invoice.exciseduty,vtiger_invoice.adjustment) AS ifelseres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"ifelseres","operation":"is","value":"ifelse(1>=2, 1, 2)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT IF((1>=2),1,2) AS ifelseres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"ifelseres","operation":"is","value":"ifelse(1>2, ifelse(1>2, \'a\', \'b\'), ifelse(\'c\'>\'d\', \'e\', \'f\'))","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT IF((1>2),IF((1>2),\'a\',\'b\'),IF((\'c\'>\'d\'),\'e\',\'f\')) AS ifelseres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -412,18 +412,18 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT UPPER(concat(vtiger_invoice.subject,\' \',vtiger_invoice.invoice_no)) AS recursiveres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"recursiveres","operation":"is","value":"power(modulo(exciseduty,txtadjustment),2)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT pow(MOD(vtiger_invoice.exciseduty,vtiger_invoice.adjustment),2) AS recursiveres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -442,108 +442,108 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT timediff(vtiger_invoice.duedate,vtiger_invoice.invoicedate) AS timediffres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"timediffres","operation":"is","value":"time_diff(createdtime)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT timediff(now(),vtiger_crmentity.createdtime) AS timediffres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"timediffdaysres","operation":"is","value":"time_diffdays(duedate, invoicedate)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT datediff(vtiger_invoice.duedate,vtiger_invoice.invoicedate) AS timediffdaysres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"timediffdaysres","operation":"is","value":"time_diffdays(createdtime)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT datediff(now(),vtiger_crmentity.createdtime) AS timediffdaysres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"timediffyearsres","operation":"is","value":"time_diffyears(duedate,createdtime)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT TIMESTAMPDIFF(YEAR,vtiger_invoice.duedate,vtiger_crmentity.createdtime) AS timediffyearsres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"timediffyearsres","operation":"is","value":"time_diffyears(createdtime)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT TIMESTAMPDIFF(YEAR,now(),vtiger_crmentity.createdtime) AS timediffyearsres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"adddaysres","operation":"is","value":"add_days(duedate, 10)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT ADDDATE(vtiger_invoice.duedate,10) AS adddaysres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"subdaysres","operation":"is","value":"sub_days(duedate, 10)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT SUBDATE(vtiger_invoice.duedate,10) AS subdaysres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"addmonthsres","operation":"is","value":"add_months(duedate,5)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT DATE_ADD(vtiger_invoice.duedate,INTERVAL 5 month) AS addmonthsres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"submonthesres","operation":"is","value":"sub_months(duedate,5)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT DATE_SUB(vtiger_invoice.duedate,INTERVAL 5 month) AS submonthesres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"addtimeres","operation":"is","value":"add_time(duedate,30)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT DATE_ADD(vtiger_invoice.duedate,INTERVAL 30 MINUTE) AS addtimeres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"subtimeres","operation":"is","value":"sub_time(duedate,30)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT DATE_SUB(vtiger_invoice.duedate,INTERVAL 30 MINUTE) AS subtimeres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -562,63 +562,63 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT SUM(vtiger_invoice.sum_nettotal) AS sumres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"minres","operation":"is","value":"min(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT MIN(vtiger_invoice.sum_nettotal) AS minres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"maxres","operation":"is","value":"max(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT MAX(vtiger_invoice.sum_nettotal) AS maxres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"avgres","operation":"is","value":"avg(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT AVG(vtiger_invoice.sum_nettotal) AS avgres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"sumres","operation":"is","value":"sum(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"minres","operation":"is","value":"min(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"maxres","operation":"is","value":"max(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"},{"fieldname":"avgres","operation":"is","value":"avg(sum_nettotal)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT SUM(vtiger_invoice.sum_nettotal) AS sumres,MIN(vtiger_invoice.sum_nettotal) AS minres,MAX(vtiger_invoice.sum_nettotal) AS maxres,AVG(vtiger_invoice.sum_nettotal) AS avgres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"countres","operation":"is","value":"count(subject)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT COUNT(vtiger_invoice.subject) AS countres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"concatres","operation":"is","value":"group_concat(subject)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT GROUP_CONCAT(vtiger_invoice.subject) AS concatres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 	}
 
@@ -677,25 +677,25 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT REPLACE(REPLACE(REPLACE(FORMAT(vtiger_invoice.sum_nettotal, 3), ".", "@"), ",", \',\'), "@", \'.\') AS numfmt FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		$wfvals['select_expressions'] = '[{"fieldname":"numfmt","operation":"is","value":"number_format(sum_nettotal, 2, \"h\", \"i\")","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT REPLACE(REPLACE(REPLACE(FORMAT(vtiger_invoice.sum_nettotal, 2), ".", "@"), ",", \'i\'), "@", \'h\') AS numfmt FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 		$wfvals['select_expressions'] = '[{"fieldname":"numfmt","operation":"is","value":"number_format(sum_nettotal, 4, \'.\', \',\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT REPLACE(REPLACE(REPLACE(FORMAT(vtiger_invoice.sum_nettotal, 4), ".", "@"), ",", \',\'), "@", \'.\') AS numfmt FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
 	}
 
