@@ -49,6 +49,10 @@ class testVtlibUtils extends TestCase {
 			array(array('&amp;&aacute;&lt;&gt;&ntilde;','<script>...NEVER PUT UNTRUSTED DATA HERE...</script>'),false,array('&á&lt;&gt;ñ',''),'array test'),
 			array('<div onclick="alert(\'hi\')" />',false,'<div></div>','XSS div onclick attribute'),
 			array('<div onmousemove="alert(\'hi\')" />',false,'<div></div>','XSS div onmousemove attribute'),
+			array('<div onreset="alert(\'hi\')" />',false,'<div></div>','XSS div onreset attribute'),
+			array('<div ondblclick="alert(\'hi\')" />',false,'<div></div>','XSS div ondblclick attribute'),
+			array('<div onscroll="alert(\'hi\')" />',false,'<div></div>','XSS div onscroll attribute'),
+			array('<div onfinish="alert(\'hi\')" />',false,'<div></div>','XSS div onfinish attribute'),
 
 			array('Normal string (T)',true,'Normal string (T)','normal string (true)'),
 			array('Numbers 012-345,678.9 (T)',true,'Numbers 012-345,678.9 (T)','Numbers 012-345,678.9 (true)'),
