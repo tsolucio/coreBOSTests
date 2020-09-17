@@ -139,4 +139,34 @@ class testListViewUtils extends TestCase {
 	public function testgetFirstModule($module, $fieldname, $expected) {
 		$this->assertEquals($expected, getFirstModule($module, $fieldname), 'getFirstModule');
 	}
+
+	/**
+	 * Method getFirstFieldForModuleProvider
+	 * params
+	 */
+	public function getFirstFieldForModuleProvider() {
+		return array(
+			array('', '', ''),
+			array('', 'doesnotexist', ''),
+			array('doesnotexist', '', ''),
+			array('doesnotexist', 'doesnotexist', ''),
+			array('cbCalendar', 'doesnotexist', ''),
+			array('doesnotexist', 'cbCalendar', ''),
+			array('cbCalendar', 'cbCalendar', 'relatedwith'),
+			array('cbCalendar', 'Accounts', 'rel_id'),
+			array('Potentials', 'Accounts', 'related_to'),
+			array('Potentials', 'Campaigns', 'campaignid'),
+			array('CobroPago', 'Invoice', 'related_id'),
+			array('HelpDesk', 'Accounts', 'parent_id'),
+		);
+	}
+
+	/**
+	 * Method testgetFirstFieldForModule
+	 * @test
+	 * @dataProvider getFirstFieldForModuleProvider
+	 */
+	public function testgetFirstFieldForModule($module, $relmodule, $expected) {
+		$this->assertEquals($expected, getFirstFieldForModule($module, $relmodule), 'getFirstFieldForModule');
+	}
 }
