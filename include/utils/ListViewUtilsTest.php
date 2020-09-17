@@ -109,4 +109,34 @@ class testListViewUtils extends TestCase {
 	public function testtextlength_check($inputtext, $cutsize, $expected) {
 		$this->assertEquals($expected, textlength_check($inputtext, $cutsize), 'textlength_check: '.$inputtext);
 	}
+
+	/**
+	 * Method getFirstModuleProvider
+	 * params
+	 */
+	public function getFirstModuleProvider() {
+		return array(
+			array('', '', ''),
+			array('', 'doesnotexist', ''),
+			array('doesnotexist', '', ''),
+			array('doesnotexist', 'doesnotexist', ''),
+			array('cbCalendar', 'doesnotexist', ''),
+			array('doesnotexist', 'dtend', ''),
+			array('cbCalendar', 'dtend', ''),
+			array('cbCalendar', 'rel_id', 'Accounts'),
+			array('Potentials', 'related_to', 'Accounts'),
+			array('Potentials', 'campaignid', 'Campaigns'),
+			array('CobroPago', 'related_id', 'Invoice'),
+			array('HelpDesk', 'parent_id', 'Accounts'),
+		);
+	}
+
+	/**
+	 * Method testgetFirstModule
+	 * @test
+	 * @dataProvider getFirstModuleProvider
+	 */
+	public function testgetFirstModule($module, $fieldname, $expected) {
+		$this->assertEquals($expected, getFirstModule($module, $fieldname), 'getFirstModule');
+	}
 }
