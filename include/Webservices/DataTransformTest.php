@@ -132,6 +132,30 @@ class DataTransformTest extends TestCase {
 		$expected['modifiedby'] = '19x1';
 		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
 		$this->assertEquals($expected, $actual, 'sanitizeReferences Emails');
+		///////////////
+		$testrecord = 14340;
+		$testmodule = 'CobroPago';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$focus = CRMEntity::getInstance($testmodule);
+		$focus->id = $testrecord;
+		$focus->retrieve_entity_info($testrecord, $testmodule);
+		$expected = $focus->column_fields;
+		$expected['parent_id'] = '11x87';
+		$expected['related_id'] = '7x3349';
+		$expected['reports_to_id'] = '';
+		$expected['created_user_id'] = '19x1';
+		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferences CobroPago');
+		// test empty uitype 101
+		$focus->column_fields['reports_to_id'] = '';
+		$expected['reports_to_id'] = '';
+		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferences CobroPago');
 	}
 
 	/**
