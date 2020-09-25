@@ -158,6 +158,8 @@ class testListViewUtils extends TestCase {
 			array('Potentials', 'Campaigns', 'campaignid'),
 			array('CobroPago', 'Invoice', 'related_id'),
 			array('HelpDesk', 'Accounts', 'parent_id'),
+			array('InventoryDetails', 'Invoice', 'related_to'),
+			array('InventoryDetails', 'PurchaseOrder', 'related_to'),
 		);
 	}
 
