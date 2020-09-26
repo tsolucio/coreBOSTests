@@ -451,6 +451,7 @@ class testWebservicesUtils extends TestCase {
 				44 => 'Messages',
 				45 => 'cbPulse',
 				46 => 'MsgTemplate',
+				47 => 'cbCredentials',
 			),
 			'entity'=>array(
 				0 => 'Groups',

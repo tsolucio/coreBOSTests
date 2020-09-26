@@ -506,7 +506,6 @@ class CustomViewTest extends TestCase {
 		$expected_blckHD = array('vtiger_troubletickets:solution:solution:HelpDesk_Solution:V' => 'Solution');
 		$expected_blck_cal = array(
 			'vtiger_activity:activitytype:activitytype:Calendar_Activity_Type:V' => 'Activity Type',
-			'vtiger_cntactivityrel:contactid:contact_id:Calendar_Contact_Name:V' => 'Contact Name',
 			'vtiger_activity:subject:subject:Calendar_Subject:V' => 'Subject',
 			'vtiger_activity_reminder:reminder_time:reminder_time:Calendar_Send_Reminder:I' => 'Send Reminder',
 			'vtiger_crmentity:smownerid:assigned_user_id:Calendar_Assigned_To:V' => 'Assigned To',
@@ -516,7 +515,6 @@ class CustomViewTest extends TestCase {
 			'vtiger_activity:time_end:time_end:Calendar_End_Time:T' => 'End Time',
 			'vtiger_activity:due_date:due_date:Calendar_Due_Date:D' => 'Due Date',
 			'vtiger_activity:recurringtype:recurringtype:Calendar_Recurrence:O' => 'Recurrence',
-			'vtiger_seactivityrel:crmid:parent_id:Calendar_Related_to:V' => 'Related To',
 			'vtiger_activity:eventstatus:eventstatus:Calendar_Status:V' => 'Status',
 			'vtiger_activity:priority:taskpriority:Calendar_Priority:V' => 'Priority',
 			'vtiger_activity:sendnotification:sendnotification:Calendar_Send_Notification:C' => 'Send Notification',

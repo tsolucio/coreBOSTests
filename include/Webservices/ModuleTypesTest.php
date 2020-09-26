@@ -88,6 +88,7 @@ class ModuleTypesTest extends TestCase {
 			'Messages',
 			'cbPulse',
 			'MsgTemplate',
+			'cbCredentials',
 			'Groups',
 			'Currency',
 			'DocumentFolders',
@@ -362,6 +363,11 @@ class ModuleTypesTest extends TestCase {
 				'isEntity' => false,
 				'label' => 'ModTracker',
 				'singular' => 'ModTracker',
+			),
+			'cbCredentials' => array(
+				'isEntity' => true,
+				'label' => 'Credentials',
+				'singular' => 'Credential',
 			),
 			),
 		);

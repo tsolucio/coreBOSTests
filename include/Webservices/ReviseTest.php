@@ -117,12 +117,7 @@ class WSReviseTest extends TestCase {
 				'cbuuid' => '',
 			),
 			'portalpasswordtype' => '',
-			'portalloginuser' => '19x0',
-			'portalloginuserename' => array(
-				'module' => 'Users',
-				'reference' => '',
-				'cbuuid' => '',
-			),
+			'portalloginuser' => '',
 		);
 		$updateValues = array(
 			'otherphone' => '123456789',

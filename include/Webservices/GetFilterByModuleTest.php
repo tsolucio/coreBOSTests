@@ -165,6 +165,7 @@ class testWSGetFilterByModule extends TestCase {
 	 */
 	public function testgetfiltersbymodule($module, $expected, $message) {
 		global $current_user;
+		$current_user = Users::getActiveAdminUser();
 		$actual = getfiltersbymodule($module, $current_user);
 		if ($module == 'Contacts') {
 			$aEVQL = json_decode($actual['filters'][9]['stdcriteriaEVQL'], true);

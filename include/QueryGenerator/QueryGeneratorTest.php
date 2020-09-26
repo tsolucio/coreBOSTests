@@ -619,9 +619,9 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals(
 			$query,
 			"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND ( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = '20x21199' or vtiger_groups.groupname = '20x21199'))  and ( vtiger_account.rating IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"accounts::rating\" and i18n = 'Active') OR vtiger_account.rating = 'Active')  AND vtiger_account.accountid > 0"
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"accounts::rating\" and i18n = 'Active') OR vtiger_account.rating = 'Active')  AND vtiger_account.accountid > 0"
 		);
 
 		$queryGenerator = new QueryGenerator('accounts', $current_user);
@@ -632,9 +632,9 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals(
 			$query,
 			"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid  LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid   WHERE vtiger_crmentity.deleted=0 AND (vtiger_users.email1 = 'myemail@mydomain.tld')  and ( vtiger_account.rating IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"accounts::rating\" and i18n = 'Active') OR vtiger_account.rating = 'Active')  AND vtiger_account.accountid > 0"
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"accounts::rating\" and i18n = 'Active') OR vtiger_account.rating = 'Active')  AND vtiger_account.accountid > 0"
 		);
 
 		$queryGenerator = new QueryGenerator('accounts', $current_user);
@@ -645,9 +645,9 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals(
 			$query,
 			"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid  LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid   WHERE vtiger_crmentity.deleted=0 AND (vtiger_users.id = '20x21199' or vtiger_groups.groupid = '20x21199')  and ( vtiger_account.rating IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"accounts::rating\" and i18n = 'Active') OR vtiger_account.rating = 'Active')  AND vtiger_account.accountid > 0"
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"accounts::rating\" and i18n = 'Active') OR vtiger_account.rating = 'Active')  AND vtiger_account.accountid > 0"
 		);
 
 		$queryGenerator = new QueryGenerator('accounts', $current_user);
@@ -936,12 +936,12 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals(
 			$query,
 			"SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid INNER JOIN vtiger_contactsubdetails ON vtiger_contactdetails.contactid = vtiger_contactsubdetails.contactsubscriptionid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_contactdetails.firstname = 'joe')  AND ( vtiger_contactsubdetails.leadsource IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Contacts::leadsource\" and i18n NOT LIKE '%133%') AND vtiger_contactsubdetails.leadsource NOT LIKE '%133%' AND vtiger_contactsubdetails.leadsource IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Contacts::leadsource\" and i18n NOT LIKE '%144%') AND vtiger_contactsubdetails.leadsource NOT LIKE '%144%')  AND vtiger_contactdetails.contactid > 0"
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Contacts::leadsource\" and i18n NOT LIKE '%133%') AND vtiger_contactsubdetails.leadsource NOT LIKE '%133%' AND vtiger_contactsubdetails.leadsource IN (
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Contacts::leadsource\" and i18n NOT LIKE '%144%') AND vtiger_contactsubdetails.leadsource NOT LIKE '%144%')  AND vtiger_contactdetails.contactid > 0"
 		);
 
 		$queryGenerator = new QueryGenerator('Contacts', $current_user);
@@ -952,12 +952,12 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals(
 			$query,
 			"SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid INNER JOIN vtiger_contactsubdetails ON vtiger_contactdetails.contactid = vtiger_contactsubdetails.contactsubscriptionid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_contactdetails.firstname = 'joe')  AND ( vtiger_contactsubdetails.leadsource IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Contacts::leadsource\" and i18n <> '133') AND vtiger_contactsubdetails.leadsource <> '133' AND vtiger_contactsubdetails.leadsource IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Contacts::leadsource\" and i18n <> '144') AND vtiger_contactsubdetails.leadsource <> '144')  AND vtiger_contactdetails.contactid > 0"
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Contacts::leadsource\" and i18n <> '133') AND vtiger_contactsubdetails.leadsource <> '133' AND vtiger_contactsubdetails.leadsource IN (
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Contacts::leadsource\" and i18n <> '144') AND vtiger_contactsubdetails.leadsource <> '144')  AND vtiger_contactdetails.contactid > 0"
 		);
 
 		$queryGenerator = new QueryGenerator('accounts', $current_user);
@@ -1456,18 +1456,18 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->initForCustomViewById(5); // Prospect Accounts
 		$query = $queryGenerator->getQuery();
 		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (  (( vtiger_account.account_type IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') ))) AND vtiger_account.accountid > 0";
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') ))) AND vtiger_account.accountid > 0";
 		$this->assertEquals($sqlresult, $query, "Init CV Prospect Accounts (5)");
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
 		$queryGenerator->initForCustomViewById(5); // Prospect Accounts
 		$queryGenerator->addCondition('accountname', 'Hermar, Inc', 'e', QueryGenerator::$AND);
 		$query = $queryGenerator->getQuery();
 		$sqlresult = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid  WHERE vtiger_crmentity.deleted=0 AND   (  (  (( vtiger_account.account_type IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') ))) AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') ))) AND ( vtiger_account.accountname = 'Hermar, Inc')  AND vtiger_account.accountid > 0";
 		$this->assertEquals($sqlresult, $query, "Init CV Prospect Accounts (5)");
 	}
 
@@ -1730,9 +1730,9 @@ class QueryGeneratorTest extends TestCase {
 		$condsafter = $queryGenerator->getWhereClause();
 		$this->assertEquals(
 			" WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_quotes.subject = 'anyval')  or ( vtiger_quotes.pl_gross_total > 20) ) and   (( vtiger_quotes.quotestage IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Quotes::quotestage\" and i18n <> 'anyval') AND vtiger_quotes.quotestage <> 'anyval') )) AND vtiger_quotes.quoteid > 0",
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Quotes::quotestage\" and i18n <> 'anyval') AND vtiger_quotes.quotestage <> 'anyval') )) AND vtiger_quotes.quoteid > 0",
 			$condsafter
 		);
 	}

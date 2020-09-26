@@ -1623,6 +1623,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			'Messages' => 'Messages',
 			'cbPulse' => 'cbPulse',
 			'MsgTemplate' => 'MsgTemplate',
+			'cbCredentials' => 'cbCredentials',
 		);
 		return array(
 			array(array(), $e1),

@@ -68,6 +68,8 @@ class testCustomerPortalWS extends TestCase {
 			'currency_decimal_separator' => '.',
 			'currency_grouping_separator' => ',',
 			'currency_symbol_placement' => '$1.0',
+			'roleid' => 'H2',
+			'rolename' => 'CEO',
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo admin');
 		$user = new Users();
@@ -84,6 +86,8 @@ class testCustomerPortalWS extends TestCase {
 			'currency_decimal_separator' => '.',
 			'currency_grouping_separator' => ',',
 			'currency_symbol_placement' => '$1.0',
+			'roleid' => 'H3',
+			'rolename' => 'Vice President',
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo testdmy');
 		$user = new Users();
@@ -100,6 +104,8 @@ class testCustomerPortalWS extends TestCase {
 			'currency_decimal_separator' => ',',
 			'currency_grouping_separator' => '.',
 			'currency_symbol_placement' => '$1.0',
+			'roleid' => 'H3',
+			'rolename' => 'Vice President',
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo testdmy');
 	}

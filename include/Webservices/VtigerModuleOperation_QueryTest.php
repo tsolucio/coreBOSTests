@@ -106,44 +106,44 @@ class VtigerModuleOperation_QueryTest extends TestCase {
 		}
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projectname from Project where projectstatus in ('prospecting','initiated') and (projectname like '%n%' or project_no like '%n%') limit 0,10;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_project.projectname, vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_project.projectstatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated'))  AND (( vtiger_project.projectname LIKE '%n%')  OR ( vtiger_project.project_no LIKE '%n%') )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated'))  AND (( vtiger_project.projectname LIKE '%n%')  OR ( vtiger_project.project_no LIKE '%n%') )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projectname from Project where (projectname like '%n%' or project_no like '%n%' ) and projectstatus in ('prospecting','initiated') limit 0,10;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_project.projectname, vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectname LIKE '%n%')  OR ( vtiger_project.project_no LIKE '%n%') ) AND ( vtiger_project.projectstatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND vtiger_project.projectid > 0  limit 0,10", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projectname from Project where (projectname like '%n%' or project_no like '%n%') and projectstatus in ('prospecting','initiated') limit 0,10;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_project.projectname, vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectname LIKE '%n%')  OR ( vtiger_project.project_no LIKE '%n%') ) AND ( vtiger_project.projectstatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND vtiger_project.projectid > 0  limit 0,10", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projectname from Project where (projectstatus in ('prospecting','initiated')) and (projectname like '%n%' or project_no like '%n%') limit 0,10;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_project.projectname, vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectstatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND (( vtiger_project.projectname LIKE '%n%')  OR ( vtiger_project.project_no LIKE '%n%') )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND (( vtiger_project.projectname LIKE '%n%')  OR ( vtiger_project.project_no LIKE '%n%') )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projectname from Project where (projectstatus in ('prospecting','initiated')) and ((projectname like '%n%' or project_no like '%n%')) limit 0,10;", $meta, $queryRelatedModules);
 		$this->assertNotEquals("select vtiger_project.projectname, vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectstatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND ((( vtiger_project.projectname LIKE '%n%')  OR ( vtiger_project.project_no LIKE '%n%') ))) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND ((( vtiger_project.projectname LIKE '%n%')  OR ( vtiger_project.project_no LIKE '%n%') ))) AND vtiger_project.projectid > 0  limit 0,10", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projectname from Project where (projectstatus in ('prospecting','initiated')) and ((projectname like '%n%') or project_no like '%n%') limit 0,10;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_project.projectname, vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectstatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND (  (( vtiger_project.projectname LIKE '%n%') ) OR ( vtiger_project.project_no LIKE '%n%') )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND (  (( vtiger_project.projectname LIKE '%n%') ) OR ( vtiger_project.project_no LIKE '%n%') )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select projectname from Project where (projectstatus in ('prospecting','initiated')) and ((projectname like '%n%') or (project_no like '%n%')) limit 0,10;", $meta, $queryRelatedModules);
 		$this->assertNotEquals("select vtiger_project.projectname, vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectstatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND (  (( vtiger_project.projectname LIKE '%n%') ) OR (( vtiger_project.project_no LIKE '%n%')) )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) ) AND (  (( vtiger_project.projectname LIKE '%n%') ) OR (( vtiger_project.project_no LIKE '%n%')) )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where (  projectname like '%555555555%' or doesnotexist like '%555555555%') and (projectstatus in ('prospecting','initiated')) limit 0,10;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_project.projectid  FROM vtiger_project  INNER JOIN vtiger_crmentity ON vtiger_project.projectid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_project.projectname LIKE '%555555555%')  OR false ) AND (( vtiger_project.projectstatus IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Project::projectstatus\" and i18n IN ('prospecting','initiated')) OR vtiger_project.projectstatus IN ('prospecting','initiated')) )) AND vtiger_project.projectid > 0  limit 0,10", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where projectname like '%55%' or projectname like '%44%';", $meta, $queryRelatedModules);
 		$this->assertEquals("SELECT vtiger_project.projectid FROM vtiger_project LEFT JOIN vtiger_crmentity ON vtiger_project.projectid=vtiger_crmentity.crmid   WHERE (vtiger_project.projectname LIKE '%55%' or vtiger_project.projectname LIKE '%44%') AND  vtiger_crmentity.deleted=0 LIMIT 100;", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from Project where (projectname like '%55%') or projectname like '%44%';", $meta, $queryRelatedModules);
@@ -305,25 +305,25 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id, account_no, accountname, accounts.accountname from accounts where assigned_user_id !='cbTest testtz' and cf_729 = 'one' limit 0, 10;", $meta, $queryRelatedModules);
 		$this->assertEquals(
 			"select vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid   WHERE vtiger_crmentity.deleted=0 AND   (( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) <> 'cbTest testtz' or vtiger_groups.groupname <> 'cbTest testtz'))  AND ( vtiger_accountscf.cf_729 IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n = 'one') OR vtiger_accountscf.cf_729 = 'one') ) AND vtiger_account.accountid > 0  limit 0,10",
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n = 'one') OR vtiger_accountscf.cf_729 = 'one') ) AND vtiger_account.accountid > 0  limit 0,10",
 			$actual
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id, account_no, accountname, accounts.accountname from accounts where assigned_user_id='cbTest testtz' and cf_729='one' limit 0, 100;", $meta, $queryRelatedModules);
 		$this->assertEquals(
 			"select vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid   WHERE vtiger_crmentity.deleted=0 AND   (( (trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) = 'cbTest testtz' or vtiger_groups.groupname = 'cbTest testtz'))  AND ( vtiger_accountscf.cf_729 IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n = 'one') OR vtiger_accountscf.cf_729 = 'one') ) AND vtiger_account.accountid > 0  limit 0,100",
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n = 'one') OR vtiger_accountscf.cf_729 = 'one') ) AND vtiger_account.accountid > 0  limit 0,100",
 			$actual
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id, account_no, accountname, accounts.accountname from accounts where Users.id='20x21199' and cf_729='one' limit 0, 100;", $meta, $queryRelatedModules);
 		$this->assertEquals(
 			"select vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid  LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid  LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid   WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_users.id = '21199' or vtiger_groups.groupid = '21199')  AND ( vtiger_accountscf.cf_729 IN (
-								select translation_key
-								from vtiger_cbtranslation
-								where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n = 'one') OR vtiger_accountscf.cf_729 = 'one') ) AND vtiger_account.accountid > 0  limit 0,100",
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n = 'one') OR vtiger_accountscf.cf_729 = 'one') ) AND vtiger_account.accountid > 0  limit 0,100",
 			$actual
 		);
 	}

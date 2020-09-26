@@ -798,13 +798,13 @@ class testutils extends TestCase {
 			array('normal.ext', 'normal.ext', 'normal.ext'),
 			array('name with spaces.ext', 'name_with_spaces.ext', 'spaces'),
 			array('normal.ext\\', 'normal.ext', 'normal.ext\\'),
-			array('normal.ext/', 'normal.ext', 'normal.ext/'),
-			array('normal.php/', 'normal.phpfile.txt', 'normal.PHP'),
+			array('normal.ext/', 'normal.ext_', 'normal.ext/'),
+			array('normal.php/', 'normal.php_', 'normal.PHP'),
 			array('normal.php', 'normal.phpfile.txt', 'normal.PHP'),
-			array('normal.ext/..', 'normal.ext/..', 'normal.ext'),
+			array('normal.ext/..', 'normal.ext_..', 'normal.ext'),
 			array('\\normal.ext', '\\normal.ext', '\\normal.ext'),
-			array('/normal.ext', '/normal.ext', '/normal.ext'), // this is DANGEROUS
-			array('../normal.ext', '../normal.ext', 'normal.ext'), // this is DANGEROUS
+			array('/normal.ext', '_normal.ext', '/normal.ext'),
+			array('../normal.ext', '.._normal.ext', 'normal.ext'),
 		);
 	}
 

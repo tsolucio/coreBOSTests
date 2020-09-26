@@ -67,11 +67,6 @@ class GetRelatedModulesManyToOneTest extends TestCase {
 		$actual = getRelatedModulesManytoOne($currentModule, $current_user);
 		$expected = array(
 			array(
-				'label' => 'Tasks',
-				'name' => 'Calendar',
-				'field' => 'parent_id',
-			),
-			array(
 				'label' => 'Quotes',
 				'name' => 'Quotes',
 				'field' => 'potential_id',

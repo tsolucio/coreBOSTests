@@ -154,6 +154,9 @@ class testgetentitynumwsmethod extends TestCase {
 			'MsgTemplate' => array(
 				'MSGT-'
 			),
+			'cbCredentials' => array(
+				'CRED-'
+			),
 		));
 		$this->assertEquals($expected, vtws_get_entitynum($current_user));
 	}

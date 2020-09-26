@@ -122,6 +122,7 @@ class testWSQuery extends TestCase {
 				'description' => " Cur deinde Metrodori liberos commendas? Si quae forte-possumus. Quae contraria sunt his, malane? Quis suae urbis conservatorem Codrum, quis Erechthei filias non maxime laudat? Primum quid tu dicis breve? Habent enim et bene longam et satis litigiosam disputationem. Duo Reges: constructio interrete. Cur, nisi quod turpis oratio est? Iis igitur est difficilius satis facere, qui se Latina scripta dicunt contemnere. \n\n",
 				'solution' => '',
 				'id' => '17x2636',
+				'hdimagefullpath' => '',
 			),
 		);
 		$this->assertEquals($expected, $actualafter, 'normal query all fields after modification');

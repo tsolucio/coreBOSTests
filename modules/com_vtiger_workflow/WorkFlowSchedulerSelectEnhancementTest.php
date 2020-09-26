@@ -401,7 +401,7 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$wfvals['select_expressions'] = '[{"fieldname":"ifelseres","operation":"is","value":"ifelse(substring(firstname,1,2)==\'IT\',\'\',substring(firstname,1,2))","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
-		$expected = "SELECT IF(SUBSTRING(vtiger_contactdetails.firstname,1,2)=='IT','',SUBSTRING(vtiger_contactdetails.firstname,1,2)) AS ifelseres FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_contactdetails.firstname > UPPER(vtiger_contactdetails.lastname)) )) AND vtiger_contactdetails.contactid > 0";
+		$expected = "SELECT IF(SUBSTRING(vtiger_contactdetails.firstname,1,2)='IT','',SUBSTRING(vtiger_contactdetails.firstname,1,2)) AS ifelseres FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_contactdetails.contactid > 0";
 		$this->assertEquals($expected, $actual);
 	}
 
