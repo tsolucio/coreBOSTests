@@ -309,7 +309,7 @@ Location : Hamburg';
 		$this->assertEquals($expected, $actual, 'concat related info');
 		// Access current user name in full
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) '."getCurrentUserName('full') ) ");
-		$expected = 'Administrator';
+		$expected = 'cbTest testinactive';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual, 'get full user name');
 		// Access current user email
