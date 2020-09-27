@@ -504,26 +504,6 @@ class CustomViewTest extends TestCase {
 			'Customer Name' => 'M',
 		);
 		$expected_blckHD = array('vtiger_troubletickets:solution:solution:HelpDesk_Solution:V' => 'Solution');
-		$expected_blck_cal = array(
-			'vtiger_activity:activitytype:activitytype:Calendar_Activity_Type:V' => 'Activity Type',
-			'vtiger_activity:subject:subject:Calendar_Subject:V' => 'Subject',
-			'vtiger_activity_reminder:reminder_time:reminder_time:Calendar_Send_Reminder:I' => 'Send Reminder',
-			'vtiger_crmentity:smownerid:assigned_user_id:Calendar_Assigned_To:V' => 'Assigned To',
-			'vtiger_activity:time_start::Calendar_Start_Time:I' => 'Start Time',
-			'vtiger_activity:date_start:date_start:Calendar_Start_Date:DT' => 'Start Date',
-			'vtiger_activity:time_start:time_start:Calendar_Time_Start:T' => 'Time Start',
-			'vtiger_activity:time_end:time_end:Calendar_End_Time:T' => 'End Time',
-			'vtiger_activity:due_date:due_date:Calendar_Due_Date:D' => 'Due Date',
-			'vtiger_activity:recurringtype:recurringtype:Calendar_Recurrence:O' => 'Recurrence',
-			'vtiger_activity:eventstatus:eventstatus:Calendar_Status:V' => 'Status',
-			'vtiger_activity:priority:taskpriority:Calendar_Priority:V' => 'Priority',
-			'vtiger_activity:sendnotification:sendnotification:Calendar_Send_Notification:C' => 'Send Notification',
-			'vtiger_crmentity:createdtime:createdtime:Calendar_Created_Time:DT' => 'Created Time',
-			'vtiger_crmentity:modifiedtime:modifiedtime:Calendar_Modified_Time:DT' => 'Modified Time',
-			'vtiger_activity:visibility:visibility:Calendar_Visibility:V' => 'Visibility',
-			'vtiger_activity:location:location:Calendar_Location:V' => 'Location',
-			'vtiger_crmentity:modifiedby:modifiedby:Calendar_Last_Modified_By:V' => 'Last Modified By',
-		);
 		$expected_blck_cbcal = array(
 			'vtiger_activity:subject:subject:cbCalendar_Subject:V' => 'Subject',
 			'vtiger_activity_reminder:reminder_time:reminder_time:cbCalendar_Send_Reminder:I' => 'Send Reminder',
@@ -563,7 +543,6 @@ class CustomViewTest extends TestCase {
 			array('Assets', 103, false, 5, $expected_blck_asset, null, null, null, 'asset user not mandatory'),
 			array('HelpDesk', 29, true, 1, $expected_blckHD, null, null, null, 'helpdesk admin mandatory'),
 			array('HelpDesk', 29, false, 1, $expected_blckHD, null, null, null, 'helpdesk admin not mandatory'),
-			array('Calendar', 19, false, 1, $expected_blck_cal, null, null, null, 'calendar admin not mandatory'),
 			array('cbCalendar', 135, false, 1, $expected_blck_cbcal, null, null, null, 'cbcalendar admin not mandatory'),
 		);
 	}

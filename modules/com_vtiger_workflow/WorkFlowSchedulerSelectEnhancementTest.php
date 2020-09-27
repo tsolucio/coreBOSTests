@@ -721,17 +721,17 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getEntityType(related_to)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
-		$expected = 'SELECT (select setype from vtiger_crmentity where vtiger_crmentity.crmid=vtiger_potential.related_to) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$expected = 'SELECT (select setype from vtiger_crmobject where vtiger_crmobject.crmid=vtiger_potential.related_to) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
 		$this->assertEquals($expected, $actual);
 		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getEntityType(id)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
-		$expected = 'SELECT (select setype from vtiger_crmentity where vtiger_crmentity.crmid=0) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$expected = 'SELECT (select setype from vtiger_crmobject where vtiger_crmobject.crmid=0) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
 		$this->assertEquals($expected, $actual);
 		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getEntityType(nonexistentfield)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
-		$expected = 'SELECT (select setype from vtiger_crmentity where vtiger_crmentity.crmid=nonexistentfield) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$expected = 'SELECT (select setype from vtiger_crmobject where vtiger_crmobject.crmid=nonexistentfield) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
 		$this->assertEquals($expected, $actual);
 	}
 

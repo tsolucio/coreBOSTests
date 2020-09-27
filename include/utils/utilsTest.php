@@ -105,6 +105,7 @@ class testutils extends TestCase {
 		$this->assertEquals(true, $actual, "testisRecordExists deleted User record Webservice");
 		// Deleted Records
 		$adb->query('update vtiger_crmentity set deleted=1 where crmid=80');
+		$adb->query('update vtiger_crmobject set deleted=1 where crmid=80');
 		$adb->query('update vtiger_users set deleted=1 where id=5');
 		$actual = isRecordExists(80);
 		$this->assertEquals(false, $actual, "testisRecordExists deleted CRM record");
@@ -121,6 +122,7 @@ class testutils extends TestCase {
 		$this->assertEquals(false, $actual, "testisRecordExists deleted User record Webservice");
 		// restore DB
 		$adb->query('update vtiger_crmentity set deleted=0 where crmid=80');
+		$adb->query('update vtiger_crmobject set deleted=0 where crmid=80');
 		$adb->query('update vtiger_users set deleted=0 where id=5');
 	}
 
@@ -303,7 +305,7 @@ class testutils extends TestCase {
 	 * @test
 	 */
 	public function testgetModuleForField() {
-		$this->assertEquals('Calendar', getModuleForField(254), 'Calendar Field');
+		$this->assertEquals('cbCalendar', getModuleForField(810), 'Calendar Field');
 		$this->assertEquals('Contacts', getModuleForField(100), 'Contact Field');
 		$this->assertEquals('Accounts', getModuleForField(9), 'Account Field');
 		$this->assertEquals('Users', getModuleForField(482), 'Users Email Field');

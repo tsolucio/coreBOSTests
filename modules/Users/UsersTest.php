@@ -58,7 +58,7 @@ class UsersTest extends TestCase {
 			'phone_work' => '',
 			'department' => '',
 			'phone_mobile' => '',
-			'reports_to_id' => '',
+			'reports_to_id' => '0',
 			'phone_other' => '',
 			'email2' => '',
 			'phone_fax' => '',

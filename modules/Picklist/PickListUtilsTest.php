@@ -645,7 +645,6 @@ class PickListUtilsTest extends TestCase {
 			'Contacts' => 'Contacts',
 			'Accounts' => 'Accounts',
 			'Leads' => 'Leads',
-			'Calendar' => 'Calendar',
 			'HelpDesk' => 'HelpDesk',
 			'Products' => 'Products',
 			'Faq' => 'Faq',

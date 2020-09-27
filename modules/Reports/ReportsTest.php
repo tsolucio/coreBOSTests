@@ -177,63 +177,6 @@ class ReportsTest extends TestCase {
 				),
 			),
 		);
-		$calendar = array(
-			array(
-				'label' => array(
-					0 => 'Tasks -Send Reminder'
-				),
-				'checkboxes' => array(
-					0 => array('name' => 'cb:vtiger_activity_reminder:reminder_time:Send Reminder_SUM:2'),
-					1 => array('name' => 'cb:vtiger_activity_reminder:reminder_time:Send Reminder_AVG:3'),
-					2 => array('name' => 'cb:vtiger_activity_reminder:reminder_time:Send Reminder_MIN:4'),
-					3 => array('name' => 'cb:vtiger_activity_reminder:reminder_time:Send Reminder_MAX:5'),
-				),
-			),
-			array(
-				'label' => array(
-					0 => 'Tasks -Time Start'
-				),
-				'checkboxes' => array(
-					0 => array('name' => 'cb:vtiger_activity:time_start:Time Start_SUM:2'),
-					1 => array('name' => 'cb:vtiger_activity:time_start:Time Start_AVG:3'),
-					2 => array('name' => 'cb:vtiger_activity:time_start:Time Start_MIN:4'),
-					3 => array('name' => 'cb:vtiger_activity:time_start:Time Start_MAX:5'),
-				),
-			),
-			array(
-				'label' => array(
-					0 => 'Tasks -End Time'
-				),
-				'checkboxes' => array(
-					0 => array('name' => 'cb:vtiger_activity:time_end:End Time_SUM:2'),
-					1 => array('name' => 'cb:vtiger_activity:time_end:End Time_AVG:3'),
-					2 => array('name' => 'cb:vtiger_activity:time_end:End Time_MIN:4'),
-					3 => array('name' => 'cb:vtiger_activity:time_end:End Time_MAX:5'),
-				),
-			),
-			array(
-				'label' => array(
-					0 => 'Tasks -Duration'
-				),
-				'checkboxes' => array(
-					0 => array('name' => 'cb:vtiger_activity:duration_hours:Duration_SUM:2'),
-					1 => array('name' => 'cb:vtiger_activity:duration_hours:Duration_AVG:3'),
-					2 => array('name' => 'cb:vtiger_activity:duration_hours:Duration_MIN:4'),
-					3 => array('name' => 'cb:vtiger_activity:duration_hours:Duration_MAX:5'),
-				),
-			),
-			array(
-				'label' => array(
-					0 => 'Tasks -Duration Minutes'
-				),
-				'checkboxes' => array(
-					0 => array('name' => 'cb:vtiger_activity:duration_minutes:Duration Minutes_SUM:2'),
-					1 => array('name' => 'cb:vtiger_activity:duration_minutes:Duration Minutes_AVG:3'),
-					2 => array('name' => 'cb:vtiger_activity:duration_minutes:Duration Minutes_MIN:4'),
-					3 => array('name' => 'cb:vtiger_activity:duration_minutes:Duration Minutes_MAX:5'),
-				),
-			),
-		);
 		$empty = array();
 		$notexist = array();
 		return array(
@@ -241,7 +184,6 @@ class ReportsTest extends TestCase {
 			array('HelpDesk', $helpdesk),
 			array('Assets', $assets),
 			array('cbCalendar', $cbcalendar),
-			array('Calendar', $calendar),
 			array('', $empty),
 			array('DoesNotExist', $notexist),
 		);
@@ -371,28 +313,6 @@ class ReportsTest extends TestCase {
 			'vtiger_crmentitycbCalendar:smcreatorid:cbCalendar_Created_By:created_user_id:V' => 'Created By',
 			'vtiger_crmentitycbCalendar:modifiedby:cbCalendar_Last_Modified_By:modifiedby:V' => 'Last Modified By',
 		);
-		$calendar = array(
-			'vtiger_activity:subject:Calendar_Subject:subject:V' => 'Subject',
-			'vtiger_activity_reminder:reminder_time:Calendar_Send_Reminder:reminder_time:I' => 'Send Reminder',
-			'vtiger_usersCalendar:user_name:Calendar_Assigned_To:assigned_user_id:V' => 'Assigned To',
-			'vtiger_activity:date_start:Calendar_Start_Date_and_Time:date_start:DT' => 'Start Date & Time',
-			'vtiger_activity:time_start:Calendar_Time_Start:time_start:T' => 'Time Start',
-			'vtiger_activity:time_end:Calendar_End_Time:time_end:T' => 'End Time',
-			'vtiger_activity:due_date:Calendar_Due_Date:due_date:D' => 'Due Date',
-			'vtiger_activity:recurringtype:Calendar_Recurrence:recurringtype:O' => 'Recurrence',
-			'vtiger_activity:priority:Calendar_Priority:taskpriority:V' => 'Priority',
-			'vtiger_activity:sendnotification:Calendar_Send_Notification:sendnotification:C' => 'Send Notification',
-			'vtiger_crmentityCalendar:createdtime:Calendar_Created_Time:createdtime:DT' => 'Created Time',
-			'vtiger_crmentityCalendar:modifiedtime:Calendar_Modified_Time:modifiedtime:DT' => 'Modified Time',
-			'vtiger_activity:activitytype:Calendar_Activity_Type:activitytype:V' => 'Activity Type',
-			'vtiger_activity:visibility:Calendar_Visibility:visibility:V' => 'Visibility',
-			'vtiger_activity:duration_hours:Calendar_Duration:duration_hours:I' => 'Duration',
-			'vtiger_activity:duration_minutes:Calendar_Duration_Minutes:duration_minutes:I' => 'Duration Minutes',
-			'vtiger_activity:location:Calendar_Location:location:V' => 'Location',
-			'vtiger_activity:notime:Calendar_No_Time:notime:C' => 'No Time',
-			'vtiger_crmentityCalendar:modifiedby:Calendar_Last_Modified_By:modifiedby:V' => 'Last Modified By',
-			'vtiger_activity:eventstatus:Calendar_Status:eventstatus:V' => 'Status'
-		);
 		$empty = array();
 		$notexist = array();
 		return array(
@@ -401,7 +321,6 @@ class ReportsTest extends TestCase {
 			array('HelpDesk', '25,29', $helpdesk2),
 			array('Invoice', 70, $invoice),
 			array('cbCalendar', 135, $cbcalendar),
-			array('Calendar', 19, $calendar),
 			array('', 0, $empty),
 			array('DoesNotExist', 0, $notexist),
 		);
@@ -636,29 +555,6 @@ class ReportsTest extends TestCase {
 			'followuptype',
 			'followupcreate',
 		);
-		$calendar = array(
-			'activitytype',
-			'assigned_user_id',
-			'createdtime',
-			'date_start',
-			'description',
-			'due_date',
-			'duration_hours',
-			'duration_minutes',
-			'eventstatus',
-			'location',
-			'modifiedby',
-			'modifiedtime',
-			'notime',
-			'recurringtype',
-			'reminder_time',
-			'sendnotification',
-			'subject',
-			'taskpriority',
-			'time_end',
-			'time_start',
-			'visibility',
-		);
 		$empty = array();
 		$notexist = array();
 		return array(
@@ -667,7 +563,6 @@ class ReportsTest extends TestCase {
 			array('Accounts', 'HelpDesk', $accountshelpdesk),
 			array('Assets', '', $assets),
 			array('cbCalendar', '', $cbcalendar),
-			array('Calendar', '', $calendar),
 			array('', '', $empty),
 			array('DoesNotExist', 'DoesNotExist', $notexist),
 		);

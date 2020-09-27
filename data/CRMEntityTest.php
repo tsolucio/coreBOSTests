@@ -105,10 +105,10 @@ class testCRMEntity extends TestCase {
 	public function testbuildSearchQueryForFieldTypes() {
 		$crmentity = CRMEntity::getInstance('Accounts');
 		$actual = $crmentity->buildSearchQueryForFieldTypes(11, '123-654-987');
-		$expected = "select crmid as id, phone,fax,otherphone,cf_724, accountname as name  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid AND deleted = 0  INNER JOIN vtiger_accountscf on vtiger_account.accountid = vtiger_accountscf.accountid WHERE phone = '123-654-987' OR fax = '123-654-987' OR otherphone = '123-654-987' OR cf_724 = '123-654-987'";
+		$expected = "select crmid as id, phone,fax,otherphone,cf_724, accountname as name  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid AND vtiger_crmentity.deleted = 0  INNER JOIN vtiger_accountscf on vtiger_account.accountid = vtiger_accountscf.accountid WHERE phone = '123-654-987' OR fax = '123-654-987' OR otherphone = '123-654-987' OR cf_724 = '123-654-987'";
 		$this->assertEquals($expected, $actual, 'testbuildSearchQueryForFieldTypes account phone');
 		$actual = $crmentity->buildSearchQueryForFieldTypes(56, '1');
-		$expected = "select crmid as id, emailoptout,notify_owner,cf_726,isconvertedfromlead, accountname as name  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid AND deleted = 0  INNER JOIN vtiger_accountscf on vtiger_account.accountid = vtiger_accountscf.accountid WHERE emailoptout = '1' OR notify_owner = '1' OR cf_726 = '1' OR isconvertedfromlead = '1'";
+		$expected = "select crmid as id, emailoptout,notify_owner,cf_726,isconvertedfromlead, accountname as name  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid AND vtiger_crmentity.deleted = 0  INNER JOIN vtiger_accountscf on vtiger_account.accountid = vtiger_accountscf.accountid WHERE emailoptout = '1' OR notify_owner = '1' OR cf_726 = '1' OR isconvertedfromlead = '1'";
 		$this->assertEquals($expected, $actual, 'testbuildSearchQueryForFieldTypes account checkbox');
 	}
 
