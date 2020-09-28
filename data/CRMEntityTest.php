@@ -378,4 +378,17 @@ class testCRMEntity extends TestCase {
 		$this->assertEquals($expected, $crmentity->getNonAdminAccessControlQuery($module, $user, $scope));
 		$current_user = $hold_user;
 	}
+
+	/**
+	 * Method testcheckIfCustomTableExists
+	 * @test
+	 */
+	public function testcheckIfCustomTableExists() {
+		$crmentity = CRMEntity::getInstance('Accounts');
+		$this->assertEquals(true, $crmentity->checkIfCustomTableExists('vtiger_account'));
+		$this->assertEquals(true, $crmentity->checkIfCustomTableExists('vtiger_assetscf'));
+		$this->assertEquals(false, $crmentity->checkIfCustomTableExists('doesnotexist'));
+		$this->assertEquals(false, $crmentity->checkIfCustomTableExists('does not exist'));
+		$this->assertEquals(false, $crmentity->checkIfCustomTableExists(''));
+	}
 }
