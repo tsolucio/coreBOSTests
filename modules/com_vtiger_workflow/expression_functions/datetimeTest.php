@@ -372,5 +372,21 @@ class workflowfunctionsdatetimeTest extends TestCase {
 		$actual = __cb_add_workdays(array('2017-07-01',10,0,'2017-06-27,2017-07-04'));
 		$this->assertEquals('2017-07-17', $actual);
 	}
+
+	/**
+	 * Method testsubworkdays
+	 * @test
+	 */
+	public function testsubworkdays() {
+		$actual = __cb_sub_workdays(array('2020-10-02',10,1,''));
+		$this->assertEquals('2020-09-21', $actual);
+		$actual = __cb_sub_workdays(array('2020-10-02',10,0,''));
+		$this->assertEquals('2020-09-18', $actual);
+		/////////////
+		$actual = __cb_sub_workdays(array('2020-10-02',10,1,'2020-09-28,2020-10-01'));
+		$this->assertEquals('2020-09-18', $actual);
+		$actual = __cb_sub_workdays(array('2020-10-02',10,0,'2020-09-28,2020-10-01'));
+		$this->assertEquals('2020-09-16', $actual);
+	}
 }
 ?>
