@@ -204,6 +204,18 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 		$expected = "SELECT vtiger_invoice.invoiceid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.subject = subdate(CURDATE(),1)) )) AND vtiger_invoice.invoiceid > 0";
 		$this->assertEquals($expected, $actual, 'CURDATE YESTERDAY');
 		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"duedate","operation":"is","value":"get_date(\'yesterday\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_invoice.invoiceid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.duedate = subdate(CURDATE(),1)) )) AND vtiger_invoice.invoiceid > 0";
+		$this->assertEquals($expected, $actual, 'CURDATE YESTERDAY');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"salesorder_id : (SalesOrder) duedate","operation":"is","value":"get_date(\'yesterday\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_invoice.invoiceid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid LEFT JOIN vtiger_salesorder AS vtiger_salesordersalesorder_id ON vtiger_salesordersalesorder_id.salesorderid=vtiger_invoice.salesorderid  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_salesordersalesorder_id.duedate = subdate(CURDATE(),1)) )) AND vtiger_invoice.invoiceid > 0";
+		$this->assertEquals($expected, $actual, 'CURDATE YESTERDAY');
+		//////////////////////
 		$wfvals['test'] = '[{"fieldname":"subject","operation":"is","value":"hash(subject,\'md5\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
