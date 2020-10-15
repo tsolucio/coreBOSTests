@@ -479,17 +479,17 @@ where projectname like '%o%'  and modifiedtime>'2016-06-30 19:11:59';", $meta, $
 
 	public function testIncorrectModule() {
 		$this->expectException('WebServiceException');
-		$actual = self::$vtModuleOperation->wsVTQL2SQL('select nofield from NoModule;', $meta, $queryRelatedModules);
+		self::$vtModuleOperation->wsVTQL2SQL('select nofield from NoModule;', $meta, $queryRelatedModules);
 	}
 
 	public function testIncorrectField() {
 		$this->expectException('WebServiceException');
-		$actual = self::$vtModuleOperation->wsVTQL2SQL('select accountname,nofield from Accounts;', $meta, $queryRelatedModules);
+		self::$vtModuleOperation->wsVTQL2SQL('select accountname,nofield from Accounts;', $meta, $queryRelatedModules);
 	}
 
 	public function testIncorrectQuote() {
 		$this->expectException('Exception');
-		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id,firstname,lastname from Contacts where firstname LIKE "%ele%" LIMIT 0, 250;', $meta, $queryRelatedModules);
+		self::$vtModuleOperation->wsVTQL2SQL('select id,firstname,lastname from Contacts where firstname LIKE "%ele%" LIMIT 0, 250;', $meta, $queryRelatedModules);
 	}
 
 	public function testExtendedConditionQuery() {
@@ -665,6 +665,20 @@ where projectname like '%o%'  and modifiedtime>'2016-06-30 19:11:59';", $meta, $
 			"SELECT vtiger_loginhistory.login_id,vtiger_loginhistory.user_name,vtiger_loginhistory.user_ip,vtiger_loginhistory.logout_time,vtiger_loginhistory.login_time,vtiger_loginhistory.status,vtiger_loginhistory.login_id FROM vtiger_loginhistory   LIMIT 100;",
 			$actual
 		);
+	}
+
+	public function testDistinctEVTQL() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select distinct firstname, lastname from Leads where (true) order by firstname desc limit 0,2;', $meta, $queryRelatedModules);
+		$this->assertEquals("select distinct vtiger_leaddetails.firstname, vtiger_leaddetails.lastname  FROM vtiger_leaddetails  INNER JOIN vtiger_crmentity ON vtiger_leaddetails.leadid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 and vtiger_leaddetails.converted=0 AND vtiger_leaddetails.leadid > 0  order by vtiger_leaddetails.firstname DESC limit 0,2", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select distinct accountname from Accounts where (true);', $meta, $queryRelatedModules);
+		$this->assertEquals("select distinct vtiger_account.accountname  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0 ", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select distinct account_id, Accounts.account_id from accounts;', $meta, $queryRelatedModules);
+		$this->assertEquals("select distinct vtiger_account.parentid, vtiger_accountaccount_id.parentid as accountsparentid  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid   WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0 ", $actual);
+	}
+
+	public function testDistinctVTQL() {
+		$this->expectException('WebServiceException');
+		self::$vtModuleOperation->wsVTQL2SQL('select distinct firstname, lastname from Leads;', $meta, $queryRelatedModules);
 	}
 }
 ?>

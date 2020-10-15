@@ -403,7 +403,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			4 => 'Array
 (
     [0] => 2016-05-22
-    [1] => 2,00000
+    [1] => 2.00
     [2] =>  
     [3] => 1
 )
@@ -435,7 +435,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			4 => 'Array
 (
     [0] => 2016-05-22
-    [1] => 2,00000
+    [1] => 2.00
     [2] => 
     [3] => 1
 )
@@ -676,6 +676,52 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$exprEvaluation = $exprEvaluater->evaluate($entity);
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertEquals(132, $exprEvaluation);
+		/////////////////////////
+		$testexpression = "annual_revenue + 1";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => annual_revenue
+    [type] => string
+)
+',
+			1 => '1',
+			2 => 'Array
+(
+    [0] => 3045164.000000
+    [1] => 1
+)
+'
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(3045165.0, $exprEvaluation);
+		/////////////////////////
+		$testexpression = "$(account_id : (Accounts) annual_revenue) + 1";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(account_id : (Accounts) annual_revenue)
+    [type] => string
+)
+',
+			1 => '1',
+			2 => 'Array
+(
+    [0] => 4969781.000000
+    [1] => 1
+)
+'
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(4969782.0, $exprEvaluation);
 		/////////////////////////
 		$testexpression = "1 - employees";
 		$expectedresult = array(
