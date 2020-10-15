@@ -65,6 +65,10 @@ class VtigerModuleOperation_QueryTest extends TestCase {
 	}
 
 	public function testInventoryModules() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select vendor_id, pl_net_total, hdnGrandTotal from purchaseorder where (duedate >= '2012-01-01' and duedate <= '2020-12-31');", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_purchaseorder.vendorid, vtiger_purchaseorder.pl_net_total, vtiger_purchaseorder.total, vtiger_purchaseorder.purchaseorderid  FROM vtiger_purchaseorder  INNER JOIN vtiger_crmentity ON vtiger_purchaseorder.purchaseorderid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_purchaseorder.duedate >= '2012-01-01')  AND ( vtiger_purchaseorder.duedate <= '2020-12-31') )) AND vtiger_purchaseorder.purchaseorderid > 0 ", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select vendor_id, pl_net_total, hdnGrandTotal from purchaseorder;', $meta, $queryRelatedModules);
+		$this->assertEquals("SELECT vtiger_purchaseorder.vendorid,vtiger_purchaseorder.pl_net_total,vtiger_purchaseorder.total,vtiger_purchaseorder.purchaseorderid FROM vtiger_purchaseorder LEFT JOIN vtiger_crmentity ON vtiger_purchaseorder.purchaseorderid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 LIMIT 100;", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select subject from SalesOrder;', $meta, $queryRelatedModules);
 		$this->assertEquals("SELECT vtiger_salesorder.subject,vtiger_salesorder.salesorderid FROM vtiger_salesorder LEFT JOIN vtiger_crmentity ON vtiger_salesorder.salesorderid=vtiger_crmentity.crmid   WHERE  vtiger_crmentity.deleted=0 LIMIT 100;", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select subject from Quotes;', $meta, $queryRelatedModules);

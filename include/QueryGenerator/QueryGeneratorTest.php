@@ -128,6 +128,18 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals($query, "SELECT vtiger_account.accountname, vtiger_crmentity.smownerid, vtiger_accountscf.cf_722, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_account vtiger_accountaccount_id  ON vtiger_account.parentid = vtiger_accountaccount_id.accountid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.website IS NOT NULL)  and ( trim(vtiger_accountaccount_id.accountname) IS NULL)  AND vtiger_account.accountid > 0");
 	}
 
+	public function testInventoryModules() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('PurchaseOrder', $current_user);
+		$queryGenerator->setFields(array('vendor_id', 'pl_net_total', 'hdnGrandTotal'));
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query, 'SELECT vtiger_purchaseorder.vendorid, vtiger_purchaseorder.pl_net_total, vtiger_purchaseorder.total FROM vtiger_purchaseorder  INNER JOIN vtiger_crmentity ON vtiger_purchaseorder.purchaseorderid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_purchaseorder.purchaseorderid > 0');
+		$queryGenerator = new QueryGenerator('PurchaseOrder', $current_user);
+		$queryGenerator->setFields(array('id'));
+		$query = $queryGenerator->getQuery(true);
+		$this->assertEquals($query, 'SELECT DISTINCT vtiger_purchaseorder.purchaseorderid FROM vtiger_purchaseorder  INNER JOIN vtiger_crmentity ON vtiger_purchaseorder.purchaseorderid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_purchaseorder.purchaseorderid > 0');
+	}
+
 	public function testEmptyReferenceField() {
 		global $current_user,$adb;
 		$queryGenerator = new QueryGenerator('Contacts', $current_user);
