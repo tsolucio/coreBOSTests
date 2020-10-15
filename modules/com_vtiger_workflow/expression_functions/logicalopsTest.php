@@ -99,6 +99,13 @@ class workflowfunctionslogicalopsTest extends TestCase {
 		$this->assertFalse(__cb_existsrelated($params), 'exists related false');
 		$params = array('Assets', 'assetname', 'No asset related', $entityData);
 		$this->assertFalse(__cb_existsrelated($params), 'exists related false');
+		////////////////
+		$params = array('Contacts', 'title', 'VP Supply Chain', $entityData);
+		$this->assertTrue(__cb_existsrelated($params), 'exists related VP Supply Chain');
+		$params = array('Contacts', 'title', 'VP Supply Chain', '[firstname,e,Lina,or]', $entityData);
+		$this->assertTrue(__cb_existsrelated($params), 'exists related VP Supply Chain with firstname true');
+		$params = array('Contacts', 'title', 'VP Supply Chain', '[firstname,c,s,or]', $entityData);
+		$this->assertFalse(__cb_existsrelated($params), 'exists related VP Supply Chain with firstname false');
 	}
 
 	/**
@@ -115,6 +122,13 @@ class workflowfunctionslogicalopsTest extends TestCase {
 		$this->assertTrue(__cb_allrelatedare($params), 'all related are true');
 		$params = array('Assets', 'assetname', 'No asset related', $entityData);
 		$this->assertTrue(__cb_allrelatedare($params), 'all related are false');
+		////////////////
+		$params = array('Contacts', 'title', 'VP Supply Chain', $entityData);
+		$this->assertFalse(__cb_allrelatedare($params), 'all related are VP Supply Chain');
+		$params = array('Contacts', 'title', 'VP Supply Chain', '[lastname,c,w,or]', $entityData);
+		$this->assertTrue(__cb_allrelatedare($params), 'all related are VP Supply Chain with lastname contains w true');
+		$params = array('Contacts', 'title', 'VP Supply Chain', '[firstname,c,a,and],[firstname,k,nar,and]', $entityData);
+		$this->assertTrue(__cb_allrelatedare($params), 'all related are VP Supply Chain with firstname false');
 	}
 
 	/**

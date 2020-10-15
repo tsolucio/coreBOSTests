@@ -403,7 +403,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			4 => 'Array
 (
     [0] => 2016-05-22
-    [1] => 2,00000
+    [1] => 2.00
     [2] =>  
     [3] => 1
 )
@@ -435,7 +435,7 @@ class VTExpressionEvaluaterTest extends TestCase {
 			4 => 'Array
 (
     [0] => 2016-05-22
-    [1] => 2,00000
+    [1] => 2.00
     [2] => 
     [3] => 1
 )
