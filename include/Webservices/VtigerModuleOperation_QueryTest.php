@@ -276,6 +276,22 @@ where (email='j@t.tld' or secondaryemail='j@t.tld') and createdtime>='2016-01-01
 		$this->assertEquals("select vtiger_productsproduct.productname as productsproductname, vtiger_assets.assetname, vtiger_assets.assetsid  FROM vtiger_assets  INNER JOIN vtiger_crmentity ON vtiger_assets.assetsid = vtiger_crmentity.crmid LEFT JOIN vtiger_products AS vtiger_productsproduct ON vtiger_productsproduct.productid=vtiger_assets.product   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_assets.assetname LIKE '%exy%') ) AND vtiger_assets.assetsid > 0 ", $actual);
 	}
 
+	/**
+	 * Method testINOperatorWithSpaces
+	 * @test
+	 */
+	public function testINOperatorWithSpaces() {
+		global $current_user;
+		$actualnospace = self::$vtModuleOperation->wsVTQL2SQL("SELECT id, date_start, time_start, time_end, eventstatus, Contacts.firstname FROM cbCalendar WHERE eventstatus IN ('Not Held','Held')", $meta, $queryRelatedModules);
+		$actualspace = self::$vtModuleOperation->wsVTQL2SQL("SELECT id, date_start, time_start, time_end, eventstatus, Contacts.firstname FROM cbCalendar WHERE eventstatus IN ('Not Held', 'Held')", $meta, $queryRelatedModules);
+		$expected = "select vtiger_activity.activityid, vtiger_activity.date_start, vtiger_activity.time_start, vtiger_activity.time_end, vtiger_activity.eventstatus, vtiger_contactdetailscto_id.firstname as contactsfirstname  FROM vtiger_activity  INNER JOIN vtiger_crmentity ON vtiger_activity.activityid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailscto_id ON vtiger_contactdetailscto_id.contactid=vtiger_activity.cto_id   WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_activity.eventstatus IN (
+									select translation_key
+									from vtiger_cbtranslation
+									where locale=\"en_us\" and forpicklist=\"cbCalendar::eventstatus\" and i18n IN ('Not Held','Held')) OR vtiger_activity.eventstatus IN ('Not Held','Held')) ) AND vtiger_activity.activityid > 0 ";
+		$this->assertEquals($actualnospace, $actualspace);
+		$this->assertEquals($expected, $actualspace);
+	}
+
 	public function testQueryOnManyRelation() {
 		// it is not supported so it eliminates all references to modules it cannot reach
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select productname,Assets.assetname from Products where Assets.assetname LIKE '%exy%';", $meta, $queryRelatedModules);
