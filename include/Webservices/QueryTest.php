@@ -192,5 +192,18 @@ class testWSQuery extends TestCase {
 			throw $th;
 		}
 	}
+
+	/**
+	 * Method testINOperatorWithSpaces
+	 * @test
+	 */
+	public function testINOperatorWithSpaces() {
+		global $current_user;
+		$result = vtwsQueryWithTotal("SELECT id, date_start, time_start, time_end, eventstatus, Contacts.firstname FROM cbCalendar WHERE eventstatus IN ('Not Held','Held')", $current_user);
+		$expected = $result['wsmoreinfo']['totalrows'];
+		$result = vtwsQueryWithTotal("SELECT id, date_start, time_start, time_end, eventstatus, Contacts.firstname FROM cbCalendar WHERE eventstatus IN ('Not Held', 'Held')", $current_user);
+		$actual = $result['wsmoreinfo']['totalrows'];
+		$this->assertEquals($expected, $actual);
+	}
 }
 ?>
