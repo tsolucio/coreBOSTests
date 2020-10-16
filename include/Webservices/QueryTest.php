@@ -199,10 +199,8 @@ class testWSQuery extends TestCase {
 	 */
 	public function testINOperatorWithSpaces() {
 		global $current_user;
-		$result = vtwsQueryWithTotal("SELECT id, date_start, time_start, time_end, eventstatus, Contacts.firstname FROM cbCalendar WHERE eventstatus IN ('Not Held','Held')", $current_user);
-		$expected = $result['wsmoreinfo']['totalrows'];
-		$result = vtwsQueryWithTotal("SELECT id, date_start, time_start, time_end, eventstatus, Contacts.firstname FROM cbCalendar WHERE eventstatus IN ('Not Held', 'Held')", $current_user);
-		$actual = $result['wsmoreinfo']['totalrows'];
+		$expected = vtws_query("SELECT id, date_start, time_start, time_end, eventstatus, Contacts.firstname FROM cbCalendar WHERE eventstatus IN ('Not Held','Held')", $current_user);
+		$actual = vtws_query("SELECT id, date_start, time_start, time_end, eventstatus, Contacts.firstname FROM cbCalendar WHERE eventstatus IN ('Not Held', 'Held')", $current_user);
 		$this->assertEquals($expected, $actual);
 	}
 }
