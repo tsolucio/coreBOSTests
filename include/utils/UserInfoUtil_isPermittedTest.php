@@ -75,7 +75,8 @@ class testUserInfoUtil_isPermittedTest extends TestCase {
 		'Documents',
 		'Products',
 		'Quotes',
-		'PriceBooks'
+		'PriceBooks',
+		'cbTermConditions',
 	);
 	private $testrecords = array(
 		'Potentials' => array(5138),
@@ -110,7 +111,7 @@ class testUserInfoUtil_isPermittedTest extends TestCase {
 					if ($uname == 'usrnocreate' && in_array($action, array('Import', 'Export')) && in_array($mname, array('Quotes','PriceBooks'))) {
 						$expected = 'yes';
 					}
-					if ($mname=='Documents' && $action=='Import') {
+					if (($mname=='Documents' && $action=='Import') || ($mname=='cbTermConditions' && $uname == 'usrnocreate')) {
 						$expected = 'no';
 					}
 					$test = array($uid,$action,$mname,'',$expected,$uname.' > '. $mname.' '.$action);
