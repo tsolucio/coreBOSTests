@@ -39,8 +39,7 @@ function __FQNExtendedQueryGetQuery($q, $user) {
 	 * @test
 	 */
 	public function test__FQNExtendedQueryGetQuery() {
-		global $current_user;
-		$user = $current_user;
+		$user = Users::getActiveAdminUser();
 		/////////////////////////
 		$q = 'select accountname from Accounts';
 		$actual = __FQNExtendedQueryGetQuery($q, $user);

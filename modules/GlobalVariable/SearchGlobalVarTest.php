@@ -39,7 +39,8 @@ class SearchGlobalVarTest extends TestCase {
 		include 'modules/GlobalVariable/SearchGlobalVar.php';
 		$actual = ob_get_contents();
 		ob_clean();
-		$this->assertEquals('{"Application_Default_Module":"Home","validation":["search for variable \'Application_Default_Module\' with default value of \'Accounts\'","variable found in cache","<h2 align=\'center\'>RESULT: Home<\/H2>"],"timespent":0}', $actual);
+		$expected = '{"Application_Default_Module":"Home","validation":["search for variable \'Application_Default_Module\' with default value of \'Accounts\'","variable found in cache","<h2 align=\'center\'>RESULT: Home<\/H2>"],"timespent":0';
+		$this->assertEquals($expected, substr($actual, 0, strlen($expected)));
 		////////////////////
 		unset($_REQUEST['gvname'], $_REQUEST['gvuserid'], $_REQUEST['gvmodule'], $_REQUEST['returnvalidation']);
 		$_REQUEST['gvdefault'] = 'default';

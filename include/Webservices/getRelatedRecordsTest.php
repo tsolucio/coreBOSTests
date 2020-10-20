@@ -618,7 +618,7 @@ class testWSgetRelatedRecords extends TestCase {
 		$user->retrieveCurrentUserInfoFromFile($userid);
 		$current_user = $user;
 		$actual = getRelatedRecords($id, $module, $relatedModule, $queryParameters, $current_user);
-		$this->assertEquals($expected, $actual, $msg);
+		$this->assertEqualsCanonicalizing($expected, $actual, $msg);
 		$current_user = $holduser;
 	}
 

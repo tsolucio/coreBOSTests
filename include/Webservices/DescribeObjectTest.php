@@ -1149,7 +1149,7 @@ class testWSDescribe extends TestCase {
 			'Assets' => $expa,
 			'Faq' => $expf,
 		);
-		$this->assertEquals($expected, $actual);
+		$this->assertEqualsCanonicalizing($expected, $actual);
 	}
 }
 ?>
