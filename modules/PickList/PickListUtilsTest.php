@@ -732,11 +732,10 @@ class PickListUtilsTest extends TestCase {
 	/**
 	 * Method testgetAllPickListValues
 	 * @test
+	 * @dataProvider getAllPicklistValuesProvider
 	 */
-	public function testgetAllPickListValues() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+	public function testgetAllPickListValues($fieldname, $lang, $expected_picklists_values) {
+		$this->assertEquals($expected_picklists_values, getAllPickListValues($fieldname, $lang), "Test getAllPicklistValues Method on $fieldname");
 	}
 
 	/**
@@ -744,9 +743,18 @@ class PickListUtilsTest extends TestCase {
 	 * @test
 	 */
 	public function testgetEditablePicklistValues() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		global $adb;
+		$expected = array(
+			'Prospecting' => 'Prospecting',
+			'Qualification' => 'Qualification',
+			'Needs Analysis' => 'Needs Analysis',
+			'Value Proposition' => 'Value Proposition',
+			'Id. Decision Makers' => 'Id. Decision Makers',
+			'Perception Analysis' => 'Perception Analysis',
+			'Proposal/Price Quote' => 'Proposal/Price Quote',
+			'Negotiation/Review' => 'Negotiation/Review',
 		);
+		$this->assertEquals($expected, getEditablePicklistValues('sales_stage', array(), $adb), "Test getEditablePicklistValues Method on Potentials sales_stage");
 	}
 
 	/**
@@ -754,8 +762,82 @@ class PickListUtilsTest extends TestCase {
 	 * @test
 	 */
 	public function testgetNonEditablePicklistValues() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		global $adb;
+		$expected = array('Closed Won', 'Closed Lost');
+		$this->assertEquals($expected, getNonEditablePicklistValues('sales_stage', array(), $adb), "Test getEditablePicklistValues Method on Potentials sales_stage");
+		$expected[1] = 'Cerrado Ganado';
+		$this->assertEquals(
+			$expected,
+			getNonEditablePicklistValues('sales_stage', array('Closed Lost' => 'Cerrado Ganado'), $adb),
+			"Test getEditablePicklistValues Method on Potentials sales_stage with translation"
+		);
+	}
+
+	/**
+	 * Method getAllPicklistValuesProvider
+	 * params
+	 */
+	public function getAllPicklistValuesProvider() {
+		$expected_accounttype_picklist_values = array(
+			'--None--' => '--None--',
+			'Analyst' => 'Analyst',
+			'Competitor' => 'Competitor',
+			'Customer' => 'Customer',
+			'Integrator' => 'Integrator',
+			'Investor' => 'Investor',
+			'Partner' => 'Partner',
+			'Press' => 'Press',
+			'Prospect' => 'Prospect',
+			'Reseller' => 'Reseller',
+			'Other' => 'Other'
+		);
+		$expected_industry_picklist_values = array(
+			'--None--' => '--None--',
+			'Apparel' => 'Apparel',
+			'Banking' => 'Banking',
+			'Biotechnology' => 'Biotechnology',
+			'Chemicals' => 'Chemicals',
+			'Communications'=> 'Communications',
+			'Construction' => 'Construction',
+			'Consulting' => 'Consulting',
+			'Education' => 'Education',
+			'Electronics' => 'Electronics',
+			'Energy' => 'Energy',
+			'Engineering' => 'Engineering',
+			'Entertainment' => 'Entertainment',
+			'Environmental' => 'Environmental',
+			'Finance' => 'Finance',
+			'Government' => 'Government',
+			'Healthcare' => 'Healthcare',
+			'Hospitality' => 'Hospitality',
+			'Insurance' => 'Insurance',
+			'Machinery' => 'Machinery',
+			'Manufacturing' => 'Manufacturing',
+			'Media' => 'Media',
+			'Not For Profit' => 'Not For Profit',
+			'Recreation' => 'Recreation',
+			'Retail' => 'Retail',
+			'Shipping' => 'Shipping',
+			'Technology' => 'Technology',
+			'Telecommunications' => 'Telecommunications',
+			'Transportation' => 'Transportation',
+			'Utilities' => 'Utilities',
+			'Other' => 'Other',
+			'Food &amp; Beverage' => 'Food &amp; Beverage',
+		);
+		$expected_ticketcategories_picklist_values = array(
+			'Big Problem'=> 'Big Problem',
+			'Small Problem'=> 'Small Problem',
+			'Other Problem'=> 'Other Problem'
+		);
+		$expected_industry_picklist_values_translated = $expected_industry_picklist_values;
+		$expected_industry_picklist_values_translated['Food &amp; Beverage'] = 'Food & Beverage';
+		return array(
+			array('accounttype', array(), $expected_accounttype_picklist_values),
+			array('industry', array(), $expected_industry_picklist_values),
+			array('industry', array('Food &amp; Beverage' => 'Food & Beverage'), $expected_industry_picklist_values_translated),
+			array('ticketcategories', array(), $expected_ticketcategories_picklist_values),
+
 		);
 	}
 
@@ -1795,9 +1877,160 @@ class PickListUtilsTest extends TestCase {
 	 * @test
 	 */
 	public function testgetAllowedPicklistModules() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		global $current_user;
+		$actual = getAllowedPicklistModules();
+		$expected = array(
+			1 => 'Potentials',
+			3 => 'Contacts',
+			4 => 'Accounts',
+			5 => 'Leads',
+			6 => 'Documents',
+			7 => 'Calendar',
+			8 => 'Emails',
+			9 => 'HelpDesk',
+			10 => 'Products',
+			11 => 'Faq',
+			12 => 'Vendors',
+			13 => 'PriceBooks',
+			14 => 'Quotes',
+			15 => 'PurchaseOrder',
+			16 => 'SalesOrder',
+			17 => 'Invoice',
+			20 => 'Campaigns',
+			28 => 'PBXManager',
+			29 => 'ServiceContracts',
+			30 => 'Services',
+			33 => 'cbupdater',
+			34 => 'CobroPago',
+			35 => 'Assets',
+			37 => 'ModComments',
+			38 => 'ProjectMilestone',
+			39 => 'ProjectTask',
+			40 => 'Project',
+			45 => 'GlobalVariable',
+			46 => 'InventoryDetails',
+			47 => 'cbMap',
+			51 => 'cbTermConditions',
+			52 => 'cbCalendar',
+			53 => 'cbtranslation',
+			54 => 'BusinessActions',
+			55 => 'cbSurvey',
+			56 => 'cbSurveyQuestion',
+			57 => 'cbSurveyDone',
+			58 => 'cbSurveyAnswer',
+			59 => 'cbCompany',
+			60 => 'cbCVManagement',
+			61 => 'cbQuestion',
+			62 => 'ProductComponent',
+			63 => 'Messages',
+			64 => 'cbPulse',
+			67 => 'MsgTemplate',
+			68 => 'cbCredentials',
 		);
+		$this->assertEquals($expected, $actual, "Test getAllowedPicklistModules admin no non-entities");
+		$expected = $expected + array(
+			0 => 'Dashboard',
+			2 => 'Home',
+			19 => 'Reports',
+			21 => 'Portal',
+			22 => 'Users',
+			23 => 'ConfigEditor',
+			24 => 'Import',
+			25 => 'MailManager',
+			26 => 'Mobile',
+			27 => 'ModTracker',
+			31 => 'VtigerBackup',
+			32 => 'WSAPP',
+			36 => 'CronTasks',
+			42 => 'Tooltip',
+			43 => 'Webforms',
+			44 => 'Calendar4You',
+			48 => 'evvtMenu',
+			49 => 'cbAuditTrail',
+			50 => 'cbLoginHistory',
+			65 => 'EtiquetasOO',
+			66 => 'evvtgendoc',
+		);
+		$actual = getAllowedPicklistModules(1);
+		$this->assertEquals($expected, $actual, "Test getAllowedPicklistModules admin with non-entities");
+		$hold = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11);
+		$current_user = $user;
+		$expected = array(
+			1 => 'Potentials',
+			3 => 'Contacts',
+			4 => 'Accounts',
+			5 => 'Leads',
+			6 => 'Documents',
+			7 => 'Calendar',
+			8 => 'Emails',
+			9 => 'HelpDesk',
+			10 => 'Products',
+			11 => 'Faq',
+			12 => 'Vendors',
+			13 => 'PriceBooks',
+			14 => 'Quotes',
+			15 => 'PurchaseOrder',
+			16 => 'SalesOrder',
+			17 => 'Invoice',
+			20 => 'Campaigns',
+			27 => 'PBXManager',
+			28 => 'ServiceContracts',
+			29 => 'Services',
+			32 => 'cbupdater',
+			33 => 'CobroPago',
+			34 => 'Assets',
+			36 => 'ModComments',
+			37 => 'ProjectMilestone',
+			38 => 'ProjectTask',
+			39 => 'Project',
+			44 => 'GlobalVariable',
+			45 => 'InventoryDetails',
+			46 => 'cbMap',
+			50 => 'cbCalendar',
+			51 => 'cbtranslation',
+			52 => 'BusinessActions',
+			53 => 'cbSurvey',
+			54 => 'cbSurveyQuestion',
+			55 => 'cbSurveyDone',
+			56 => 'cbSurveyAnswer',
+			57 => 'cbCompany',
+			58 => 'cbCVManagement',
+			59 => 'cbQuestion',
+			60 => 'ProductComponent',
+			61 => 'Messages',
+			62 => 'cbPulse',
+			65 => 'MsgTemplate',
+			66 => 'cbCredentials',
+		);
+		$actual = getAllowedPicklistModules();
+		$this->assertEquals($expected, $actual, "Test getAllowedPicklistModules nocreate with non-entities");
+		$expected = $expected + array(
+			0 => 'Dashboard',
+			2 => 'Home',
+			19 => 'Reports',
+			21 => 'Portal',
+			22 => 'ConfigEditor',
+			23 => 'Import',
+			24 => 'MailManager',
+			25 => 'Mobile',
+			26 => 'ModTracker',
+			31 => 'WSAPP',
+			42 => 'Webforms',
+			43 => 'Calendar4You',
+			48 => 'cbAuditTrail',
+			49 => 'cbLoginHistory',
+			30 => 'VtigerBackup',
+			35 => 'CronTasks',
+			41 => 'Tooltip',
+			47 => 'evvtMenu',
+			63 => 'EtiquetasOO',
+			64 => 'evvtgendoc',
+		);
+		$actual = getAllowedPicklistModules(1);
+		$this->assertEquals($expected, $actual, "Test getAllowedPicklistModules nocreate with non-entities");
+		$current_user = $hold;
 	}
 
 	/**
