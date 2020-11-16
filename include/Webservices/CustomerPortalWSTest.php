@@ -637,5 +637,63 @@ class testCustomerPortalWS extends TestCase {
 		$actual = cbwsgetSearchResultsWithTotals('che', 'Documents', array('userId' => '19x5', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
 		$this->assertEquals($edocs, $actual);
 	}
+
+	/**
+	 * Method getFieldAutocompleteProvider
+	 * params
+	 */
+	public function getFieldAutocompleteProvider() {
+		$admin = Users::getActiveAdminUser();
+		$ruser = new Users();
+		$ruser->retrieveCurrentUserInfoFromFile($this->usrnocreate);
+		$ea1 = array(
+			array('crmid' => '11x74', 'crmfields' => array('accountname' => 'Chemex Labs Ltd')),
+			array('crmid' => '11x148', 'crmfields' => array('accountname' => 'Deloitte & Touche')),
+			array('crmid' => '11x235', 'crmfields' => array('accountname' => 'Cheek, John D Esq')),
+			array('crmid' => '11x352', 'crmfields' => array('accountname' => 'Orourke, Denise Michelle Esq')),
+			array('crmid' => '11x427', 'crmfields' => array('accountname' => 'Cheyenne Business Equipment')),
+		);
+		$ea2 = array(
+			array('crmid' => '11x74', 'crmfields' => array('accountname' => 'Chemex Labs Ltd')),
+			array('crmid' => '11x75', 'crmfields' => array('accountname' => 'Atrium Marketing Inc')),
+			array('crmid' => '11x76', 'crmfields' => array('accountname' => 'American Speedy Printing Ctrs')),
+			array('crmid' => '11x77', 'crmfields' => array('accountname' => 'Sherpa Corp')),
+		);
+		$ec1 = array(
+			array('crmid' => '12x1084', 'crmfields' => array('firstname' => 'Lina', 'lastname' => 'Schwiebert')),
+			array('crmid' => '12x1630', 'crmfields' => array('firstname' => 'Maile', 'lastname' => 'Linahan')),
+		);
+		$ec2 = array(
+			array('crmid' => '12x1084', 'crmfields' => array('lastname' => 'Schwiebert')),
+			array('crmid' => '12x1630', 'crmfields' => array('lastname' => 'Linahan')),
+		);
+		$eh1 = array(
+			array('crmid' => '17x2636', 'crmfields' => array('ticket_title' => 'Problem about cannot hear your salesperson on asterix calls')),
+			array('crmid' => '17x2640', 'crmfields' => array('ticket_title' => 'Problem about product quality not as expected')),
+		);
+		return array(
+			array('', '', '', '', '', '', $admin, array()),
+			array('', '', 'Accounts', '', '', '', $admin, array()),
+			array('', '', 'SMSNotifier', '', '', '', $admin, array()),
+			array('', '', 'AnythingElse', '', '', '', $admin, array()),
+			array('', '', 'cbTermConditions', 'reference', '', '', $ruser, array()),
+			array('che', 'contains', 'Accounts', 'accountname', '', 5, $admin, $ea1),
+			array('', '', 'Accounts', 'accountname', '', 4, $admin, $ea2),
+			array('che', 'eq', 'Accounts', 'accountname', '', 4, $admin, array()),
+			array('lina', 'startswith', 'Contacts', 'firstname,lastname', '', 4, $admin, $ec1),
+			array('lina', 'startswith', 'Contacts', 'firstname,lastname', 'lastname', 0, $admin, $ec2),
+			array('lina Schwie', 'startswith', 'Contacts', 'firstname,lastname', '', 4, $admin, array()),
+			array('Problem', 'contains', 'HelpDesk', 'ticket_title', '', 2, $admin, $eh1),
+		);
+	}
+
+	/**
+	 * Method testgetFieldAutocomplete
+	 * @test
+	 * @dataProvider getFieldAutocompleteProvider
+	 */
+	public function testgetFieldAutocomplete($term, $filter, $searchinmodule, $fields, $returnfields, $limit, $user, $expected) {
+		$this->assertEquals($expected, getFieldAutocomplete($term, $filter, $searchinmodule, $fields, $returnfields, $limit, $user));
+	}
 }
 ?>
