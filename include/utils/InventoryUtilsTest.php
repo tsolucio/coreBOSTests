@@ -581,4 +581,28 @@ class testInventoryUtils extends TestCase {
 		$this->assertEquals('group', getInventoryTaxType('PurchaseOrder', 13378), 'PurchaseOrder group');
 		$this->assertEquals('', getInventoryTaxType('PurchaseOrder', 1), 'NotExist');
 	}
+
+	/**
+	 * Method testgetBaseConversionRateForProduct
+	 * @test
+	 */
+	public function testgetBaseConversionRateForProduct() {
+		global $current_user, $adb;
+		$hold_user = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(12);
+		$current_user = $user;
+		$this->assertEquals(0.9090909090909091, getBaseConversionRateForProduct(2620, 'create', 'Products'));
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(1);
+		$current_user = $user;
+		$this->assertEquals(1, getBaseConversionRateForProduct(2620, 'create', 'Products'));
+		$this->assertEquals(1, getBaseConversionRateForProduct(2620, 'edit', 'Products'));
+		$adb->query('update vtiger_products set currency_id=2 where productid=2620');
+		$this->assertEquals(0.9090909090909091, getBaseConversionRateForProduct(2620, 'edit', 'Products'));
+		$adb->query('update vtiger_products set currency_id=1 where productid=2620'); // leave it as it was
+		$this->assertEquals(1, getBaseConversionRateForProduct(9716, 'edit', 'Services'));
+		$this->assertEquals(1, getBaseConversionRateForProduct(9716, 'edit', 'Products'), 'this one triggers the empty conversion rate');
+		$current_user = $hold_user;
+	}
 }
