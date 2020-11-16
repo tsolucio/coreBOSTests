@@ -695,5 +695,40 @@ class testCustomerPortalWS extends TestCase {
 	public function testgetFieldAutocomplete($term, $filter, $searchinmodule, $fields, $returnfields, $limit, $user, $expected) {
 		$this->assertEquals($expected, getFieldAutocomplete($term, $filter, $searchinmodule, $fields, $returnfields, $limit, $user));
 	}
+
+	/**
+	 * Method getFieldAutocompleteQueryProvider
+	 * params
+	 */
+	public function getFieldAutocompleteQueryProvider() {
+		$admin = Users::getActiveAdminUser();
+		$ruser = new Users();
+		$ruser->retrieveCurrentUserInfoFromFile($this->usrnocreate);
+		$ea1 = "SELECT vtiger_account.accountname, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_account.accountname LIKE '%che%') ) AND vtiger_account.accountid > 0 limit 0, 5";
+		$ea2 = "SELECT vtiger_account.accountname, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_account.accountname LIKE '%%%') ) AND vtiger_account.accountid > 0 limit 0, 4";
+		$ea3 = "SELECT vtiger_account.accountname, vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_account.accountname = 'che') ) AND vtiger_account.accountid > 0 limit 0, 4";
+		$ec1 = "SELECT vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_contactdetails.firstname LIKE 'lina%')  OR ( vtiger_contactdetails.lastname LIKE 'lina%') ) AND vtiger_contactdetails.contactid > 0 limit 0, 4";
+		$ec2 = "SELECT vtiger_contactdetails.lastname, vtiger_contactdetails.firstname, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_contactdetails.firstname LIKE 'lina%')  OR ( vtiger_contactdetails.lastname LIKE 'lina%') ) AND vtiger_contactdetails.contactid > 0 limit 0, 30";
+		$ec3 = "SELECT vtiger_contactdetails.firstname, vtiger_contactdetails.lastname, vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_contactdetails.firstname LIKE 'lina Schwie%')  OR ( vtiger_contactdetails.lastname LIKE 'lina Schwie%') ) AND vtiger_contactdetails.contactid > 0 limit 0, 4";
+		$eh1 = "SELECT vtiger_troubletickets.title, vtiger_troubletickets.ticketid FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (( vtiger_troubletickets.title LIKE '%Problem%') ) AND vtiger_troubletickets.ticketid > 0 limit 0, 2";
+		return array(
+			array('che', 'contains', 'Accounts', 'accountname', '', 5, $admin, $ea1),
+			array('', '', 'Accounts', 'accountname', '', 4, $admin, $ea2),
+			array('che', 'eq', 'Accounts', 'accountname', '', 4, $admin, $ea3),
+			array('lina', 'startswith', 'Contacts', 'firstname,lastname', '', 4, $admin, $ec1),
+			array('lina', 'startswith', 'Contacts', 'firstname,lastname', 'lastname', 0, $admin, $ec2),
+			array('lina Schwie', 'startswith', 'Contacts', 'firstname,lastname', '', 4, $admin, $ec3),
+			array('Problem', 'contains', 'HelpDesk', 'ticket_title', '', 2, $admin, $eh1),
+		);
+	}
+
+	/**
+	 * Method testgetFieldAutocompleteQuery
+	 * @test
+	 * @dataProvider getFieldAutocompleteQueryProvider
+	 */
+	public function testgetFieldAutocompleteQuery($term, $filter, $searchinmodule, $fields, $returnfields, $limit, $user, $expected) {
+		$this->assertEquals($expected, getFieldAutocompleteQuery($term, $filter, $searchinmodule, $fields, $returnfields, $limit, $user));
+	}
 }
 ?>
