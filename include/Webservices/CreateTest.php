@@ -672,6 +672,7 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['saved_toid'] = '["julieta@yahoo.com","felix_hirpara@cox.net","lina@yahoo.com"]';
 		$ObjectValues['ccmail'] = '["noemail@domain.tld"]';
 		$ObjectValues['bccmail'] = '[""]';
+		$ObjectValues['replyto'] = 'noreply@tsolucio.com';
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
