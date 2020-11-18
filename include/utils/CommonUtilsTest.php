@@ -1640,4 +1640,17 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	public function testgetSearchModulesCommon($filter, $expected) {
 		$this->assertEquals($expected, getSearchModulesCommon($filter));
 	}
+
+	/**
+	 * Method testfetchCurrency
+	 * @test
+	 */
+	public function testfetchCurrency() {
+		global $adb;
+		$this->assertEquals(1, fetchCurrency(1));
+		$adb->query('update vtiger_users set currency_id=2 where id=1');
+		$this->assertEquals(1, fetchCurrency(1), 'cached value does not see the previous update');
+		$adb->query('update vtiger_users set currency_id=1 where id=1'); // leave it as it was
+		$this->assertEquals(2, fetchCurrency(12));
+	}
 }

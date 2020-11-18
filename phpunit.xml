@@ -25,6 +25,10 @@
 		<testsuite name="incUtils">
 			<directory>./include/utils</directory>
 		</testsuite>
+		<testsuite name="isPermitted">
+			<file>./include/utils/UserInfoUtil_isPermittedTest.php</file>
+			<file>./include/utils/UserInfoUtil_isPermittedRACTest.php</file>
+		</testsuite>
 		<testsuite name="WSTest">
 			<directory>./include/Webservices</directory>
 		</testsuite>

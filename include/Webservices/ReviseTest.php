@@ -303,5 +303,24 @@ class WSReviseTest extends TestCase {
 		/// end
 		$current_user = $holduser;
 	}
+
+	/**
+	 * Method testReviseExceptionWrongAsignedUserId
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testReviseExceptionWrongAsignedUserId() {
+		global $current_user;
+		$cbUserID = '11x1084';
+		$projectID = '33x5989';
+		$updateValues = array(
+			'id' => $projectID,
+			'projectname'=>'Test WS Revise',
+			'assigned_user_id' => $cbUserID
+		);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$REFERENCEINVALID);
+		vtws_revise($updateValues, $current_user);
+	}
 }
 ?>

@@ -1103,5 +1103,23 @@ class WSCreateTest extends TestCase {
 		/// end
 		$current_user = $holduser;
 	}
+
+	/**
+	 * Method testCreateExceptionWrongAsignedUserId
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testCreateExceptionWrongAsignedUserId() {
+		global $current_user;
+		$Module = 'Project';
+		$cbUserID = '11x1084';
+		$ObjectValues = array(
+			'projectname'=>'Test WS Create',
+			'assigned_user_id' => $cbUserID
+		);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$REFERENCEINVALID);
+		vtws_create($Module, $ObjectValues, $current_user);
+	}
 }
 ?>

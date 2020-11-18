@@ -34,6 +34,43 @@ class GetExtendedQueryTest extends TestCase {
 	private $usrdota3comdollar = 12; // testmcurrency 6 decimal places
 
 	/**
+	 * Method test__FQNExtendedQueryGetQuery
+function __FQNExtendedQueryGetQuery($q, $user) {
+	 * @test
+	 */
+	public function test__FQNExtendedQueryGetQuery() {
+		$user = Users::getActiveAdminUser();
+		/////////////////////////
+		$q = 'select accountname from Accounts';
+		$actual = __FQNExtendedQueryGetQuery($q, $user);
+		$expected = 'select vtiger_account.accountname, vtiger_account.accountid  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid   WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0 ';
+		$this->assertEquals($expected, $actual[0], 'query');
+		$this->assertIsArray($actual[1]);
+		$this->assertEquals(0, count($actual[1]));
+		/////////////////////////
+		$q = 'select accountname,Users.first_name from Accounts';
+		$actual = __FQNExtendedQueryGetQuery($q, $user);
+		$expected = 'select vtiger_account.accountname, vtiger_users.first_name, vtiger_account.accountid  FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid  LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0 ';
+		$this->assertEquals($expected, $actual[0], 'query with user');
+		$this->assertIsArray($actual[1]);
+		$this->assertArrayHasKey('Users', $actual[1]);
+		/////////////////////////
+		$q = 'select amount,UsersSec.first_name from CobroPago';
+		$actual = __FQNExtendedQueryGetQuery($q, $user);
+		$expected = 'select vtiger_cobropago.amount, vtiger_usersreports_to_id.first_name as userssecfirst_name, vtiger_cobropago.cobropagoid  FROM vtiger_cobropago  INNER JOIN vtiger_crmentity ON vtiger_cobropago.cobropagoid = vtiger_crmentity.crmid LEFT JOIN vtiger_users AS vtiger_usersreports_to_id ON vtiger_usersreports_to_id.id=vtiger_cobropago.comercialid   WHERE vtiger_crmentity.deleted=0 AND vtiger_cobropago.cobropagoid > 0 ';
+		$this->assertEquals($expected, $actual[0], 'query with second user');
+		$this->assertIsArray($actual[1]);
+		$this->assertArrayHasKey('Users', $actual[1]);
+		/////////////////////////
+		$q = 'select amount,Users.first_name, UsersSec.first_name from CobroPago';
+		$actual = __FQNExtendedQueryGetQuery($q, $user);
+		$expected = 'select vtiger_cobropago.amount, vtiger_users.first_name, vtiger_usersreports_to_id.first_name as userssecfirst_name, vtiger_cobropago.cobropagoid  FROM vtiger_cobropago  INNER JOIN vtiger_crmentity ON vtiger_cobropago.cobropagoid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid  LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid  LEFT JOIN vtiger_users AS vtiger_usersreports_to_id ON vtiger_usersreports_to_id.id=vtiger_cobropago.comercialid   WHERE vtiger_crmentity.deleted=0 AND vtiger_cobropago.cobropagoid > 0 ';
+		$this->assertEquals($expected, $actual[0], 'query with both users user');
+		$this->assertIsArray($actual[1]);
+		$this->assertArrayHasKey('Users', $actual[1]);
+	}
+
+	/**
 	 * Method FQNProcessConditionProvider
 	 * params
 	 */
@@ -46,6 +83,7 @@ class GetExtendedQueryTest extends TestCase {
 			array("firstname like '%o%'","firstname like '%o%'"),
 			array(" website in ('www.edfggrouplimited.com','www.gooduivtiger.com')"," website in ('www.edfggrouplimited.com','www.gooduivtiger.com')"),
 			array(" website in('www.edfggrouplimited.com','www.gooduivtiger.com')"," website in('www.edfggrouplimited.com','www.gooduivtiger.com')"),
+			array(" website in('www.edfggrouplimited.com', 'www.gooduivtiger.com')"," website in('www.edfggrouplimited.com', 'www.gooduivtiger.com')"),
 			array(" Accounts.website in ('www.edfggrouplimited.com','www.gooduivtiger.com')"," Accounts.website in ('www.edfggrouplimited.com','www.gooduivtiger.com')"),
 			array("accountname != 'PK UNA'","accountname != 'PK UNA'"),
 			array("id not in ('12x1084','12x1085')","id not in ('12x1084','12x1085')"),
