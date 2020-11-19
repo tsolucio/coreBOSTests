@@ -2034,10 +2034,1739 @@ class PickListUtilsTest extends TestCase {
 	}
 
 	/**
-	 * Method testgetPicklistValuesSpecialUitypes
+	 * Method testgetPicklistValuesSpecialUitypes16131614
 	 * @test
 	 */
-	public function testgetPicklistValuesSpecialUitypes() {
+	public function testgetPicklistValuesSpecialUitypes16131614() {
+		$expected = array(
+			0 => array(
+				0 => 'Opportunities',
+				1 => 'Potentials',
+				2 => '',
+			),
+			2 => array(
+				0 => 'Organizations',
+				1 => 'Accounts',
+				2 => '',
+			),
+			19 => array(
+				0 => 'Services',
+				1 => 'Services',
+				2 => '',
+			),
+			21 => array(
+				0 => 'Payments',
+				1 => 'CobroPago',
+				2 => '',
+			),
+			22 => array(
+				0 => 'Assets',
+				1 => 'Assets',
+				2 => '',
+			),
+			23 => array(
+				0 => 'Comments',
+				1 => 'ModComments',
+				2 => '',
+			),
+			24 => array(
+				0 => 'Project Milestones',
+				1 => 'ProjectMilestone',
+				2 => '',
+			),
+			25 => array(
+				0 => 'Project Tasks',
+				1 => 'ProjectTask',
+				2 => '',
+			),
+			26 => array(
+				0 => 'Projects',
+				1 => 'Project',
+				2 => '',
+			),
+			31 => array(
+				0 => 'To Dos',
+				1 => 'cbCalendar',
+				2 => '',
+			),
+			42 => array(
+				0 => 'Messages',
+				1 => 'Messages',
+				2 => '',
+			),
+			43 => array(
+				0 => 'Pulses',
+				1 => 'cbPulse',
+				2 => '',
+			),
+			30 => array(
+				0 => 'Terms and Conditions',
+				1 => 'cbTermConditions',
+				2 => '',
+			),
+			35 => array(
+				0 => 'Survey Questions',
+				1 => 'cbSurveyQuestion',
+				2 => '',
+			),
+			41 => array(
+				0 => 'Product Components',
+				1 => 'ProductComponent',
+				2 => '',
+			),
+			33 => array(
+				0 => 'Business Actions',
+				1 => 'BusinessActions',
+				2 => '',
+			),
+			29 => array(
+				0 => 'Business Maps',
+				1 => 'cbMap',
+				2 => '',
+			),
+			40 => array(
+				0 => 'Business Question',
+				1 => 'cbQuestion',
+				2 => '',
+			),
+			16 => array(
+				0 => 'Campaigns',
+				1 => 'Campaigns',
+				2 => '',
+			),
+			38 => array(
+				0 => 'Companies',
+				1 => 'cbCompany',
+				2 => '',
+			),
+			1 => array(
+				0 => 'Contacts',
+				1 => 'Contacts',
+				2 => '',
+			),
+			20 => array(
+				0 => 'coreBOS Updater',
+				1 => 'cbupdater',
+				2 => '',
+			),
+			45 => array(
+				0 => 'Credentials',
+				1 => 'cbCredentials',
+				2 => '',
+			),
+			4 => array(
+				0 => 'Documents',
+				1 => 'Documents',
+				2 => '',
+			),
+			6 => array(
+				0 => 'Email',
+				1 => 'Emails',
+				2 => '',
+			),
+			9 => array(
+				0 => 'FAQ',
+				1 => 'Faq',
+				2 => '',
+			),
+			27 => array(
+				0 => 'Global Variables',
+				1 => 'GlobalVariable',
+				2 => '',
+			),
+			28 => array(
+				0 => 'Inventory Details',
+				1 => 'InventoryDetails',
+				2 => '',
+			),
+			15 => array(
+				0 => 'Invoice',
+				1 => 'Invoice',
+				2 => '',
+			),
+			3 => array(
+				0 => 'Leads',
+				1 => 'Leads',
+				2 => '',
+			),
+			44 => array(
+				0 => 'Message Templates',
+				1 => 'MsgTemplate',
+				2 => '',
+			),
+			17 => array(
+				0 => 'PBX Manager',
+				1 => 'PBXManager',
+				2 => '',
+			),
+			11 => array(
+				0 => 'Price Books',
+				1 => 'PriceBooks',
+				2 => '',
+			),
+			8 => array(
+				0 => 'Products',
+				1 => 'Products',
+				2 => '',
+			),
+			13 => array(
+				0 => 'Purchase Order',
+				1 => 'PurchaseOrder',
+				2 => '',
+			),
+			12 => array(
+				0 => 'Quotes',
+				1 => 'Quotes',
+				2 => '',
+			),
+			14 => array(
+				0 => 'Sales Order',
+				1 => 'SalesOrder',
+				2 => '',
+			),
+			18 => array(
+				0 => 'Service Contracts',
+				1 => 'ServiceContracts',
+				2 => '',
+			),
+			7 => array(
+				0 => 'Support Tickets',
+				1 => 'HelpDesk',
+				2 => '',
+			),
+			34 => array(
+				0 => 'Surveys',
+				1 => 'cbSurvey',
+				2 => '',
+			),
+			37 => array(
+				0 => 'Surveys Answer',
+				1 => 'cbSurveyAnswer',
+				2 => '',
+			),
+			36 => array(
+				0 => 'Surveys Done',
+				1 => 'cbSurveyDone',
+				2 => '',
+			),
+			5 => array(
+				0 => 'Tasks',
+				1 => 'Calendar',
+				2 => '',
+			),
+			32 => array(
+				0 => 'Translations',
+				1 => 'cbtranslation',
+				2 => '',
+			),
+			10 => array(
+				0 => 'Vendors',
+				1 => 'Vendors',
+				2 => '',
+			),
+			39 => array(
+				0 => 'View Permissions',
+				1 => 'cbCVManagement',
+				2 => '',
+			),
+		);
+		$actual = getPicklistValuesSpecialUitypes('1613', '*', '', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 1613");
+		$expected[16][2] = 'selected';
+		$actual = getPicklistValuesSpecialUitypes('1613', '*', 'Campaigns', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 1613");
+		$_REQUEST['file'] = 'QuickCreate';
+		$actual = getPicklistValuesSpecialUitypes('1613', '*', 'Campaigns', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 1613");
+		$expected = array(
+			0 => array(
+				0 => 'Dashboards',
+				1 => 'Dashboard',
+				2 => '',
+			),
+			1 => array(
+				0 => 'Opportunities',
+				1 => 'Potentials',
+				2 => '',
+			),
+			2 => array(
+				0 => 'Home',
+				1 => 'Home',
+				2 => '',
+			),
+			3 => array(
+				0 => 'Contacts',
+				1 => 'Contacts',
+				2 => '',
+			),
+			4 => array(
+				0 => 'Organizations',
+				1 => 'Accounts',
+				2 => '',
+			),
+			5 => array(
+				0 => 'Leads',
+				1 => 'Leads',
+				2 => '',
+			),
+			6 => array(
+				0 => 'Documents',
+				1 => 'Documents',
+				2 => '',
+			),
+			7 => array(
+				0 => 'Tasks',
+				1 => 'Calendar',
+				2 => '',
+			),
+			8 => array(
+				0 => 'Email',
+				1 => 'Emails',
+				2 => '',
+			),
+			9 => array(
+				0 => 'Support Tickets',
+				1 => 'HelpDesk',
+				2 => '',
+			),
+			10 => array(
+				0 => 'Products',
+				1 => 'Products',
+				2 => '',
+			),
+			11 => array(
+				0 => 'FAQ',
+				1 => 'Faq',
+				2 => '',
+			),
+			12 => array(
+				0 => 'Vendors',
+				1 => 'Vendors',
+				2 => '',
+			),
+			13 => array(
+				0 => 'Price Books',
+				1 => 'PriceBooks',
+				2 => '',
+			),
+			14 => array(
+				0 => 'Quotes',
+				1 => 'Quotes',
+				2 => '',
+			),
+			15 => array(
+				0 => 'Purchase Order',
+				1 => 'PurchaseOrder',
+				2 => '',
+			),
+			16 => array(
+				0 => 'Sales Order',
+				1 => 'SalesOrder',
+				2 => '',
+			),
+			17 => array(
+				0 => 'Invoice',
+				1 => 'Invoice',
+				2 => '',
+			),
+			18 => array(
+				0 => 'Reports',
+				1 => 'Reports',
+				2 => '',
+			),
+			19 => array(
+				0 => 'Campaigns',
+				1 => 'Campaigns',
+				2 => '',
+			),
+			21 => array(
+				0 => 'Users',
+				1 => 'Users',
+				2 => '',
+			),
+			22 => array(
+				0 => 'ConfigEditor',
+				1 => 'ConfigEditor',
+				2 => '',
+			),
+			23 => array(
+				0 => 'Import',
+				1 => 'Import',
+				2 => '',
+			),
+			27 => array(
+				0 => 'PBX Manager',
+				1 => 'PBXManager',
+				2 => '',
+			),
+			28 => array(
+				0 => 'Service Contracts',
+				1 => 'ServiceContracts',
+				2 => '',
+			),
+			29 => array(
+				0 => 'Services',
+				1 => 'Services',
+				2 => '',
+			),
+			30 => array(
+				0 => 'Backups',
+				1 => 'VtigerBackup',
+				2 => '',
+			),
+			32 => array(
+				0 => 'coreBOS Updater',
+				1 => 'cbupdater',
+				2 => '',
+			),
+			33 => array(
+				0 => 'Payments',
+				1 => 'CobroPago',
+				2 => '',
+			),
+			34 => array(
+				0 => 'Assets',
+				1 => 'Assets',
+				2 => '',
+			),
+			36 => array(
+				0 => 'Comments',
+				1 => 'ModComments',
+				2 => '',
+			),
+			37 => array(
+				0 => 'Project Milestones',
+				1 => 'ProjectMilestone',
+				2 => '',
+			),
+			38 => array(
+				0 => 'Project Tasks',
+				1 => 'ProjectTask',
+				2 => '',
+			),
+			39 => array(
+				0 => 'Projects',
+				1 => 'Project',
+				2 => '',
+			),
+			50 => array(
+				0 => 'To Dos',
+				1 => 'cbCalendar',
+				2 => '',
+			),
+			61 => array(
+				0 => 'Messages',
+				1 => 'Messages',
+				2 => '',
+			),
+			62 => array(
+				0 => 'Pulses',
+				1 => 'cbPulse',
+				2 => '',
+			),
+			49 => array(
+				0 => 'Terms and Conditions',
+				1 => 'cbTermConditions',
+				2 => '',
+			),
+			54 => array(
+				0 => 'Survey Questions',
+				1 => 'cbSurveyQuestion',
+				2 => '',
+			),
+			60 => array(
+				0 => 'Product Components',
+				1 => 'ProductComponent',
+				2 => '',
+			),
+			52 => array(
+				0 => 'Business Actions',
+				1 => 'BusinessActions',
+				2 => '',
+			),
+			45 => array(
+				0 => 'Business Maps',
+				1 => 'cbMap',
+				2 => '',
+			),
+			59 => array(
+				0 => 'Business Question',
+				1 => 'cbQuestion',
+				2 => '',
+			),
+			40 => array(
+				0 => 'ToolTip',
+				1 => 'Tooltip',
+				2 => '',
+			),
+			57 => array(
+				0 => 'Companies',
+				1 => 'cbCompany',
+				2 => '',
+			),
+			66 => array(
+				0 => 'Credentials',
+				1 => 'cbCredentials',
+				2 => '',
+			),
+			43 => array(
+				0 => 'Global Variables',
+				1 => 'GlobalVariable',
+				2 => '',
+			),
+			44 => array(
+				0 => 'Inventory Details',
+				1 => 'InventoryDetails',
+				2 => '',
+			),
+			65 => array(
+				0 => 'Message Templates',
+				1 => 'MsgTemplate',
+				2 => '',
+			),
+			53 => array(
+				0 => 'Surveys',
+				1 => 'cbSurvey',
+				2 => '',
+			),
+			56 => array(
+				0 => 'Surveys Answer',
+				1 => 'cbSurveyAnswer',
+				2 => '',
+			),
+			55 => array(
+				0 => 'Surveys Done',
+				1 => 'cbSurveyDone',
+				2 => '',
+			),
+			51 => array(
+				0 => 'Translations',
+				1 => 'cbtranslation',
+				2 => '',
+			),
+			58 => array(
+				0 => 'View Permissions',
+				1 => 'cbCVManagement',
+				2 => '',
+			),
+			42 => array(
+				0 => 'Calendar',
+				1 => 'Calendar4You',
+				2 => '',
+			),
+			35 => array(
+				0 => 'Cron Tasks',
+				1 => 'CronTasks',
+				2 => '',
+			),
+			64 => array(
+				0 => 'Generate Documents',
+				1 => 'evvtgendoc',
+				2 => '',
+			),
+			24 => array(
+				0 => 'Mail Manager',
+				1 => 'MailManager',
+				2 => '',
+			),
+			46 => array(
+				0 => 'Menu Editor',
+				1 => 'evvtMenu',
+				2 => '',
+			),
+			63 => array(
+				0 => 'Merge Labels',
+				1 => 'EtiquetasOO',
+				2 => '',
+			),
+			25 => array(
+				0 => 'Mobile',
+				1 => 'Mobile',
+				2 => '',
+			),
+			26 => array(
+				0 => 'ModTracker',
+				1 => 'ModTracker',
+				2 => '',
+			),
+			20 => array(
+				0 => 'Our Sites',
+				1 => 'Portal',
+				2 => '',
+			),
+			47 => array(
+				0 => 'User Audit Trail',
+				1 => 'cbAuditTrail',
+				2 => '',
+			),
+			48 => array(
+				0 => 'User Login History',
+				1 => 'cbLoginHistory',
+				2 => '',
+			),
+			41 => array(
+				0 => 'Webforms',
+				1 => 'Webforms',
+				2 => '',
+			),
+			31 => array(
+				0 => 'WSAPP',
+				1 => 'WSAPP',
+				2 => '',
+			),
+		);
+		$actual = getPicklistValuesSpecialUitypes('1614', '*', '', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 1613");
+	}
+
+	/**
+	 * Method testgetPicklistValuesSpecialUitypes1615
+	 * @test
+	 */
+	public function testgetPicklistValuesSpecialUitypes1615() {
+		$expected = array(
+			0 => array(
+				0 => 'Organizations',
+				1 => 'Accounts',
+				2 => '',
+				3 => array(
+					'accounttype' => 'Type',
+					'industry' => 'Industry',
+					'rating' => 'Rating',
+					'cf_729' => 'PLMain',
+					'cf_730' => 'PLDep1',
+					'cf_731' => 'PLDep2',
+					'cf_732' => 'Planets',
+				),
+			),
+			1 => array(
+				0 => 'Leads',
+				1 => 'Leads',
+				2 => '',
+				3 => array(
+					'industry' => 'Industry',
+					'leadsource' => 'Lead Source',
+					'leadstatus' => 'Lead Status',
+					'rating' => 'Rating',
+					'salutationtype' => 'Salutation ',
+				),
+			),
+			2 => array(
+				0 => 'Contacts',
+				1 => 'Contacts',
+				2 => '',
+				3 => array(
+					'leadsource' => 'Lead Source',
+					'salutationtype' => 'Salutation ',
+					'template_language' => 'Template Language',
+				),
+			),
+			3 => array(
+				0 => 'Opportunities',
+				1 => 'Potentials',
+				2 => '',
+				3 => array(
+					'leadsource' => 'Lead Source',
+					'opportunity_type' => 'Type',
+					'sales_stage' => 'Sales Stage',
+				),
+			),
+			4 => array(
+				0 => 'Campaigns',
+				1 => 'Campaigns',
+				2 => '',
+				3 => array(
+					'campaignstatus' => 'Campaign Status',
+					'campaigntype' => 'Campaign Type',
+					'expectedresponse' => 'Expected Response',
+				),
+			),
+			5 => array(
+				0 => 'Support Tickets',
+				1 => 'HelpDesk',
+				2 => '',
+				3 => array(
+					'ticketcategories' => 'Category',
+					'ticketpriorities' => 'Priority',
+					'ticketseverities' => 'Severity',
+					'ticketstatus' => 'Status',
+				),
+			),
+			6 => array(
+				0 => 'Products',
+				1 => 'Products',
+				2 => '',
+				3 => array(
+					'glacct' => 'GL Account',
+					'manufacturer' => 'Manufacturer',
+					'productcategory' => 'Product Category',
+					'usageunit' => 'Usage Unit',
+				),
+			),
+			7 => array(
+				0 => 'Tasks',
+				1 => 'Calendar',
+				2 => '',
+				3 => array(
+					'activitytype' => 'Activity Type',
+					'eventstatus' => 'Status',
+					'taskpriority' => 'Priority',
+				),
+			),
+			8 => array(
+				0 => 'FAQ',
+				1 => 'Faq',
+				2 => '',
+				3 => array(
+					'faqcategories' => 'Category',
+					'faqstatus' => 'Status',
+				),
+			),
+			9 => array(
+				0 => 'Vendors',
+				1 => 'Vendors',
+				2 => '',
+				3 => array(
+					'glacct' => 'GL Account'
+				),
+			),
+			10 => array(
+				0 => 'Quotes',
+				1 => 'Quotes',
+				2 => '',
+				3 => array(
+					'carrier' => 'Carrier',
+					'quotestage' => 'Quote Stage',
+				),
+			),
+			11 => array(
+				0 => 'Purchase Order',
+				1 => 'PurchaseOrder',
+				2 => '',
+				3 => array(
+					'carrier' => 'Carrier',
+					'postatus' => 'Status',
+				),
+			),
+			12 => array(
+				0 => 'Sales Order',
+				1 => 'SalesOrder',
+				2 => '',
+				3 => array(
+					'carrier' => 'Carrier',
+					'invoicestatus' => 'Invoice Status',
+					'sostatus' => 'Status',
+				),
+			),
+			13 => array(
+				0 => 'Invoice',
+				1 => 'Invoice',
+				2 => '',
+				3 => array(
+					'invoicestatus' => 'Status'
+				),
+			),
+			14 => array(
+				0 => 'Service Contracts',
+				1 => 'ServiceContracts',
+				2 => '',
+				3 => array(
+					'tracking_unit' => 'Tracking Unit',
+					'contract_status' => 'Status',
+					'contract_priority' => 'Priority',
+					'contract_type' => 'Type',
+				),
+			),
+			15 => array(
+				0 => 'Services',
+				1 => 'Services',
+				2 => '',
+				3 => array(
+					'service_usageunit' => 'Usage Unit',
+					'servicecategory' => 'Service Category',
+				),
+			),
+			16 => array(
+				0 => 'coreBOS Updater',
+				1 => 'cbupdater',
+				2 => '',
+				3 => array(
+					'execstate' => 'execstate'
+				),
+			),
+			17 => array(
+				0 => 'Payments',
+				1 => 'CobroPago',
+				2 => '',
+				3 => array(
+					'paymentmode' => 'PaymentMode',
+					'paymentcategory' => 'Category',
+				),
+			),
+			18 => array(
+				0 => 'Assets',
+				1 => 'Assets',
+				2 => '',
+				3 => array(
+					'assetstatus' => 'Status'
+				),
+			),
+			19 => array(
+				0 => 'Project Milestones',
+				1 => 'ProjectMilestone',
+				2 => '',
+				3 => array(
+					'projectmilestonetype' => 'Type'
+				),
+			),
+			20 => array(
+				0 => 'Project Tasks',
+				1 => 'ProjectTask',
+				2 => '',
+				3 => array(
+					'projecttasktype' => 'Type',
+					'projecttaskpriority' => 'Priority',
+					'projecttaskprogress' => 'Progress',
+					'projecttaskstatus' => 'Status',
+				),
+			),
+			21 => array(
+				0 => 'Projects',
+				1 => 'Project',
+				2 => '',
+				3 => array(
+					'projectstatus' => 'Status',
+					'projecttype' => 'Type',
+					'projectpriority' => 'Priority',
+					'progress' => 'Progress',
+				),
+			),
+			22 => array(
+				0 => 'Global Variables',
+				1 => 'GlobalVariable',
+				2 => '',
+				3 => array(
+					'gvname' => 'Name',
+					'category' => 'Category',
+				),
+			),
+			23 => array(
+				0 => 'Business Maps',
+				1 => 'cbMap',
+				2 => '',
+				3 => array(
+					'maptype' => 'Map Type'
+				),
+			),
+			24 => array(
+				0 => 'Terms and Conditions',
+				1 => 'cbTermConditions',
+				2 => '',
+				3 => array(
+					'formodule' => 'formodule'
+				),
+			),
+			25 => array(
+				0 => 'To Dos',
+				1 => 'cbCalendar',
+				2 => '',
+				3 => array(
+					'activitytype' => 'Activity Type',
+					'eventstatus' => 'Status',
+					'taskpriority' => 'Priority',
+					'followuptype' => 'Tipo Seguimiento',
+				),
+			),
+			26 => array(
+				0 => 'Business Actions',
+				1 => 'BusinessActions',
+				2 => '',
+				3 => array(
+					'linktype' => 'linktype'
+				),
+			),
+			27 => array(
+				0 => 'Business Question',
+				1 => 'cbQuestion',
+				2 => '',
+				3 => array(
+					'qtype' => 'qtype',
+					'qstatus' => 'qstatus',
+				),
+			),
+			28 => array(
+				0 => 'Product Components',
+				1 => 'ProductComponent',
+				2 => '',
+				3 => array(
+					'relmode' => 'Relation Mode'
+				),
+			),
+			29 => array(
+				0 => 'Messages',
+				1 => 'Messages',
+				2 => '',
+				3 => array(
+					'messagetype' => 'Message Type',
+					'status_message' => 'Status',
+				),
+			),
+			30 => array(
+				0 => 'Pulses',
+				1 => 'cbPulse',
+				2 => '',
+				3 => array(
+					'sendmethod' => 'sendmethod',
+					'schtypeid' => 'schtypeid',
+				),
+			),
+			31 => array(
+				0 => 'Message Templates',
+				1 => 'MsgTemplate',
+				2 => '',
+				3 => array(
+					'msgt_type' => 'msgt_type',
+					'msgt_status' => 'msgt_status',
+					'msgt_language' => 'msgt_language',
+					'msgt_category' => 'message category',
+				),
+			),
+		);
+		$actual = getPicklistValuesSpecialUitypes('1615', '*', '', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 1615");
+	}
+
+	/**
+	 * Method testgetPicklistValuesSpecialUitypes1616
+	 * @test
+	 */
+	public function testgetPicklistValuesSpecialUitypes1616() {
+		$expected = array(
+			1 => array(
+				0 => 'ActiveColumnProducts',
+				1 => '61',
+				2 => 'ActiveColumn (Products)',
+				3 => '',
+			),
+			0 => array(
+				0 => 'ActiveColumnServices',
+				1 => '62',
+				2 => 'ActiveColumn (Services)',
+				3 => '',
+			),
+			22 => array(
+				0 => 'AllAssets',
+				1 => '53',
+				2 => 'All (Assets)',
+				3 => '',
+			),
+			7 => array(
+				0 => 'AllBusiness Actions',
+				1 => '70',
+				2 => 'All (Business Actions)',
+				3 => '',
+			),
+			12 => array(
+				0 => 'AllBusiness Maps',
+				1 => '63',
+				2 => 'All (Business Maps)',
+				3 => '',
+			),
+			26 => array(
+				0 => 'AllBusiness Question',
+				1 => '79',
+				2 => 'All (Business Question)',
+				3 => '',
+			),
+			3 => array(
+				0 => 'AllCampaigns',
+				1 => '29',
+				2 => 'All (Campaigns)',
+				3 => '',
+			),
+			23 => array(
+				0 => 'AllComments',
+				1 => '54',
+				2 => 'All (Comments)',
+				3 => '',
+			),
+			38 => array(
+				0 => 'AllCompanies',
+				1 => '75',
+				2 => 'All (Companies)',
+				3 => '',
+			),
+			31 => array(
+				0 => 'AllContacts',
+				1 => '7',
+				2 => 'All (Contacts)',
+				3 => '',
+			),
+			15 => array(
+				0 => 'AllcoreBOS Updater',
+				1 => '44',
+				2 => 'All (coreBOS Updater)',
+				3 => '',
+			),
+			27 => array(
+				0 => 'AllCredentials',
+				1 => '93',
+				2 => 'All (Credentials)',
+				3 => '',
+			),
+			43 => array(
+				0 => 'AllDocuments',
+				1 => '22',
+				2 => 'All (Documents)',
+				3 => '',
+			),
+			41 => array(
+				0 => 'AllEmail',
+				1 => '20',
+				2 => 'All (Email)',
+				3 => '',
+			),
+			13 => array(
+				0 => 'AllFAQ',
+				1 => '28',
+				2 => 'All (FAQ)',
+				3 => '',
+			),
+			17 => array(
+				0 => 'AllGlobal Variables',
+				1 => '59',
+				2 => 'All (Global Variables)',
+				3 => '',
+			),
+			16 => array(
+				0 => 'AllInventory Details',
+				1 => '60',
+				2 => 'All (Inventory Details)',
+				3 => '',
+			),
+			42 => array(
+				0 => 'AllInvoice',
+				1 => '21',
+				2 => 'All (Invoice)',
+				3 => '',
+			),
+			18 => array(
+				0 => 'AllLeads',
+				1 => '1',
+				2 => 'All (Leads)',
+				3 => '',
+			),
+			28 => array(
+				0 => 'AllMessage Templates',
+				1 => '91',
+				2 => 'All (Message Templates)',
+				3 => '',
+			),
+			33 => array(
+				0 => 'AllMessages',
+				1 => '83',
+				2 => 'All (Messages)',
+				3 => '',
+			),
+			32 => array(
+				0 => 'AllOpportunities',
+				1 => '10',
+				2 => 'All (Opportunities)',
+				3 => '',
+			),
+			29 => array(
+				0 => 'AllOrganizations',
+				1 => '4',
+				2 => 'All (Organizations)',
+				3 => '',
+			),
+			20 => array(
+				0 => 'AllPayments',
+				1 => '51',
+				2 => 'All (Payments)',
+				3 => '',
+			),
+			11 => array(
+				0 => 'AllPBX Manager',
+				1 => '38',
+				2 => 'All (PBX Manager)',
+				3 => '',
+			),
+			46 => array(
+				0 => 'AllPrice Books',
+				1 => '23',
+				2 => 'All (Price Books)',
+				3 => '',
+			),
+			34 => array(
+				0 => 'AllProduct Components',
+				1 => '80',
+				2 => 'All (Product Components)',
+				3 => '',
+			),
+			47 => array(
+				0 => 'AllProducts',
+				1 => '24',
+				2 => 'All (Products)',
+				3 => '',
+			),
+			24 => array(
+				0 => 'AllProject Milestones',
+				1 => '55',
+				2 => 'All (Project Milestones)',
+				3 => '',
+			),
+			25 => array(
+				0 => 'AllProject Tasks',
+				1 => '56',
+				2 => 'All (Project Tasks)',
+				3 => '',
+			),
+			21 => array(
+				0 => 'AllProjects',
+				1 => '57',
+				2 => 'All (Projects)',
+				3 => '',
+			),
+			30 => array(
+				0 => 'AllPulses',
+				1 => '90',
+				2 => 'All (Pulses)',
+				3 => '',
+			),
+			48 => array(
+				0 => 'AllPurchase Order',
+				1 => '25',
+				2 => 'All (Purchase Order)',
+				3 => '',
+			),
+			44 => array(
+				0 => 'AllQuotes',
+				1 => '16',
+				2 => 'All (Quotes)',
+				3 => '',
+			),
+			45 => array(
+				0 => 'AllSales Order',
+				1 => '26',
+				2 => 'All (Sales Order)',
+				3 => '',
+			),
+			2 => array(
+				0 => 'AllService Contracts',
+				1 => '42',
+				2 => 'All (Service Contracts)',
+				3 => '',
+			),
+			14 => array(
+				0 => 'AllServices',
+				1 => '43',
+				2 => 'All (Services)',
+				3 => '',
+			),
+			19 => array(
+				0 => 'AllSMSNotifier',
+				1 => '58',
+				2 => 'All (SMSNotifier)',
+				3 => '',
+			),
+			35 => array(
+				0 => 'AllSupport Tickets',
+				1 => '13',
+				2 => 'All (Support Tickets)',
+				3 => '',
+			),
+			5 => array(
+				0 => 'AllSurvey Questions',
+				1 => '72',
+				2 => 'All (Survey Questions)',
+				3 => '',
+			),
+			6 => array(
+				0 => 'AllSurveys',
+				1 => '71',
+				2 => 'All (Surveys)',
+				3 => '',
+			),
+			39 => array(
+				0 => 'AllSurveys Answer',
+				1 => '74',
+				2 => 'All (Surveys Answer)',
+				3 => '',
+			),
+			4 => array(
+				0 => 'AllSurveys Done',
+				1 => '73',
+				2 => 'All (Surveys Done)',
+				3 => '',
+			),
+			40 => array(
+				0 => 'AllTasks',
+				1 => '19',
+				2 => 'All (Tasks)',
+				3 => '',
+			),
+			10 => array(
+				0 => 'AllTerms and Conditions',
+				1 => '65',
+				2 => 'All (Terms and Conditions)',
+				3 => '',
+			),
+			9 => array(
+				0 => 'AllTo Dos',
+				1 => '66',
+				2 => 'All (To Dos)',
+				3 => '',
+			),
+			8 => array(
+				0 => 'AllTranslations',
+				1 => '67',
+				2 => 'All (Translations)',
+				3 => '',
+			),
+			36 => array(
+				0 => 'AllVendors',
+				1 => '27',
+				2 => 'All (Vendors)',
+				3 => '',
+			),
+			37 => array(
+				0 => 'AllView Permissions',
+				1 => '76',
+				2 => 'All (View Permissions)',
+				3 => '',
+			),
+			49 => array(
+				0 => 'AppliedcoreBOS Updater',
+				1 => '45',
+				2 => 'Applied (coreBOS Updater)',
+				3 => '',
+			),
+			50 => array(
+				0 => 'BlockedcoreBOS Updater',
+				1 => '49',
+				2 => 'Blocked (coreBOS Updater)',
+				3 => '',
+			),
+			51 => array(
+				0 => 'BounceMessages',
+				1 => '85',
+				2 => 'Bounce (Messages)',
+				3 => '',
+			),
+			52 => array(
+				0 => 'ClickedMessages',
+				1 => '84',
+				2 => 'Clicked (Messages)',
+				3 => '',
+			),
+			53 => array(
+				0 => 'Contacts AddressContacts',
+				1 => '8',
+				2 => 'Contacts Address (Contacts)',
+				3 => '',
+			),
+			54 => array(
+				0 => 'ContinuouscoreBOS Updater',
+				1 => '48',
+				2 => 'Continuous (coreBOS Updater)',
+				3 => '',
+			),
+			56 => array(
+				0 => 'current_userOrganizations',
+				1 => '82',
+				2 => 'current_user (Organizations)',
+				3 => '',
+			),
+			55 => array(
+				0 => 'current_userPayments',
+				1 => '81',
+				2 => 'current_user (Payments)',
+				3 => '',
+			),
+			57 => array(
+				0 => 'Default ViewsView Permissions',
+				1 => '77',
+				2 => 'Default Views (View Permissions)',
+				3 => '',
+			),
+			58 => array(
+				0 => 'DeliveredMessages',
+				1 => '88',
+				2 => 'Delivered (Messages)',
+				3 => '',
+			),
+			59 => array(
+				0 => 'DialedPBX Manager',
+				1 => '40',
+				2 => 'Dialed (PBX Manager)',
+				3 => '',
+			),
+			60 => array(
+				0 => 'Drafted FAQFAQ',
+				1 => '31',
+				2 => 'Drafted FAQ (FAQ)',
+				3 => '',
+			),
+			61 => array(
+				0 => 'DroppedMessages',
+				1 => '89',
+				2 => 'Dropped (Messages)',
+				3 => '',
+			),
+			62 => array(
+				0 => 'ErrorcoreBOS Updater',
+				1 => '47',
+				2 => 'Error (coreBOS Updater)',
+				3 => '',
+			),
+			63 => array(
+				0 => 'FilenameQuotes',
+				1 => '64',
+				2 => 'Filename (Quotes)',
+				3 => '',
+			),
+			64 => array(
+				0 => 'Group ConditionOrganizations',
+				1 => '92',
+				2 => 'Group Condition (Organizations)',
+				3 => '',
+			),
+			65 => array(
+				0 => 'High Prioriy TicketsSupport Tickets',
+				1 => '15',
+				2 => 'High Prioriy Tickets (Support Tickets)',
+				3 => '',
+			),
+			66 => array(
+				0 => 'Hot LeadsLeads',
+				1 => '2',
+				2 => 'Hot Leads (Leads)',
+				3 => '',
+			),
+			67 => array(
+				0 => 'MissedPBX Manager',
+				1 => '39',
+				2 => 'Missed (PBX Manager)',
+				3 => '',
+			),
+			68 => array(
+				0 => 'New This WeekOrganizations',
+				1 => '6',
+				2 => 'New This Week (Organizations)',
+				3 => '',
+			),
+			70 => array(
+				0 => 'Open InvoicesInvoice',
+				1 => '35',
+				2 => 'Open Invoices (Invoice)',
+				3 => '',
+			),
+			71 => array(
+				0 => 'Open Purchase OrdersPurchase Order',
+				1 => '33',
+				2 => 'Open Purchase Orders (Purchase Order)',
+				3 => '',
+			),
+			72 => array(
+				0 => 'Open QuotesQuotes',
+				1 => '17',
+				2 => 'Open Quotes (Quotes)',
+				3 => '',
+			),
+			73 => array(
+				0 => 'Open TicketsSupport Tickets',
+				1 => '14',
+				2 => 'Open Tickets (Support Tickets)',
+				3 => '',
+			),
+			69 => array(
+				0 => 'OpenMessages',
+				1 => '86',
+				2 => 'Open (Messages)',
+				3 => '',
+			),
+			74 => array(
+				0 => 'Paid InvoicesInvoice',
+				1 => '36',
+				2 => 'Paid Invoices (Invoice)',
+				3 => '',
+			),
+			75 => array(
+				0 => 'payviewPayments',
+				1 => '52',
+				2 => 'payview (Payments)',
+				3 => '',
+			),
+			77 => array(
+				0 => 'Pending Sales OrdersSales Order',
+				1 => '37',
+				2 => 'Pending Sales Orders (Sales Order)',
+				3 => '',
+			),
+			76 => array(
+				0 => 'PendingcoreBOS Updater',
+				1 => '46',
+				2 => 'Pending (coreBOS Updater)',
+				3 => '',
+			),
+			78 => array(
+				0 => 'PermissionsView Permissions',
+				1 => '78',
+				2 => 'Permissions (View Permissions)',
+				3 => '',
+			),
+			79 => array(
+				0 => 'PerspectivecoreBOS Updater',
+				1 => '50',
+				2 => 'Perspective (coreBOS Updater)',
+				3 => '',
+			),
+			80 => array(
+				0 => 'PicklistTranslations',
+				1 => '69',
+				2 => 'Picklist (Translations)',
+				3 => '',
+			),
+			81 => array(
+				0 => 'Potentials WonOpportunities',
+				1 => '11',
+				2 => 'Potentials Won (Opportunities)',
+				3 => '',
+			),
+			82 => array(
+				0 => 'Prospect AccountsOrganizations',
+				1 => '5',
+				2 => 'Prospect Accounts (Organizations)',
+				3 => '',
+			),
+			83 => array(
+				0 => 'ProspectingOpportunities',
+				1 => '12',
+				2 => 'Prospecting (Opportunities)',
+				3 => '',
+			),
+			84 => array(
+				0 => 'Published FAQFAQ',
+				1 => '32',
+				2 => 'Published FAQ (FAQ)',
+				3 => '',
+			),
+			86 => array(
+				0 => 'Received Purchase OrdersPurchase Order',
+				1 => '34',
+				2 => 'Received Purchase Orders (Purchase Order)',
+				3 => '',
+			),
+			85 => array(
+				0 => 'ReceivedPBX Manager',
+				1 => '41',
+				2 => 'Received (PBX Manager)',
+				3 => '',
+			),
+			87 => array(
+				0 => 'Rejected QuotesQuotes',
+				1 => '18',
+				2 => 'Rejected Quotes (Quotes)',
+				3 => '',
+			),
+			88 => array(
+				0 => 'This Month LeadsLeads',
+				1 => '3',
+				2 => 'This Month Leads (Leads)',
+				3 => '',
+			),
+			89 => array(
+				0 => 'Todays BirthdayContacts',
+				1 => '9',
+				2 => 'Todays Birthday (Contacts)',
+				3 => '',
+			),
+			90 => array(
+				0 => 'UnsubscribeMessages',
+				1 => '87',
+				2 => 'Unsubscribe (Messages)',
+				3 => '',
+			),
+			91 => array(
+				0 => 'UsersTranslations',
+				1 => '68',
+				2 => 'Users (Translations)',
+				3 => '',
+			),
+		);
+		$actual = getPicklistValuesSpecialUitypes('1616', '*', '', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 1616");
+		$actual = getPicklistValuesSpecialUitypes('1616', '*', '87', '*');
+		$expected[90][3]='selected';
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 1616");
+	}
+
+	/**
+	 * Method testgetPicklistValuesSpecialUitypes33133314
+	 * @test
+	 */
+	public function testgetPicklistValuesSpecialUitypes33133314() {
+		$expected = array(
+			0 => array(
+				0 => 'Opportunities',
+				1 => 'Potentials',
+				2 => '',
+			),
+			2 => array(
+				0 => 'Organizations',
+				1 => 'Accounts',
+				2 => '',
+			),
+			19 => array(
+				0 => 'Services',
+				1 => 'Services',
+				2 => '',
+			),
+			21 => array(
+				0 => 'Payments',
+				1 => 'CobroPago',
+				2 => '',
+			),
+			22 => array(
+				0 => 'Assets',
+				1 => 'Assets',
+				2 => '',
+			),
+			23 => array(
+				0 => 'Comments',
+				1 => 'ModComments',
+				2 => '',
+			),
+			24 => array(
+				0 => 'Project Milestones',
+				1 => 'ProjectMilestone',
+				2 => '',
+			),
+			25 => array(
+				0 => 'Project Tasks',
+				1 => 'ProjectTask',
+				2 => '',
+			),
+			26 => array(
+				0 => 'Projects',
+				1 => 'Project',
+				2 => '',
+			),
+			31 => array(
+				0 => 'To Dos',
+				1 => 'cbCalendar',
+				2 => '',
+			),
+			42 => array(
+				0 => 'Messages',
+				1 => 'Messages',
+				2 => '',
+			),
+			43 => array(
+				0 => 'Pulses',
+				1 => 'cbPulse',
+				2 => '',
+			),
+			30 => array(
+				0 => 'Terms and Conditions',
+				1 => 'cbTermConditions',
+				2 => '',
+			),
+			35 => array(
+				0 => 'Survey Questions',
+				1 => 'cbSurveyQuestion',
+				2 => '',
+			),
+			41 => array(
+				0 => 'Product Components',
+				1 => 'ProductComponent',
+				2 => '',
+			),
+			33 => array(
+				0 => 'Business Actions',
+				1 => 'BusinessActions',
+				2 => '',
+			),
+			29 => array(
+				0 => 'Business Maps',
+				1 => 'cbMap',
+				2 => '',
+			),
+			40 => array(
+				0 => 'Business Question',
+				1 => 'cbQuestion',
+				2 => '',
+			),
+			16 => array(
+				0 => 'Campaigns',
+				1 => 'Campaigns',
+				2 => '',
+			),
+			38 => array(
+				0 => 'Companies',
+				1 => 'cbCompany',
+				2 => '',
+			),
+			1 => array(
+				0 => 'Contacts',
+				1 => 'Contacts',
+				2 => '',
+			),
+			20 => array(
+				0 => 'coreBOS Updater',
+				1 => 'cbupdater',
+				2 => '',
+			),
+			45 => array(
+				0 => 'Credentials',
+				1 => 'cbCredentials',
+				2 => '',
+			),
+			4 => array(
+				0 => 'Documents',
+				1 => 'Documents',
+				2 => '',
+			),
+			6 => array(
+				0 => 'Email',
+				1 => 'Emails',
+				2 => '',
+			),
+			9 => array(
+				0 => 'FAQ',
+				1 => 'Faq',
+				2 => '',
+			),
+			27 => array(
+				0 => 'Global Variables',
+				1 => 'GlobalVariable',
+				2 => '',
+			),
+			28 => array(
+				0 => 'Inventory Details',
+				1 => 'InventoryDetails',
+				2 => '',
+			),
+			15 => array(
+				0 => 'Invoice',
+				1 => 'Invoice',
+				2 => '',
+			),
+			3 => array(
+				0 => 'Leads',
+				1 => 'Leads',
+				2 => '',
+			),
+			44 => array(
+				0 => 'Message Templates',
+				1 => 'MsgTemplate',
+				2 => '',
+			),
+			17 => array(
+				0 => 'PBX Manager',
+				1 => 'PBXManager',
+				2 => '',
+			),
+			11 => array(
+				0 => 'Price Books',
+				1 => 'PriceBooks',
+				2 => '',
+			),
+			8 => array(
+				0 => 'Products',
+				1 => 'Products',
+				2 => '',
+			),
+			13 => array(
+				0 => 'Purchase Order',
+				1 => 'PurchaseOrder',
+				2 => '',
+			),
+			12 => array(
+				0 => 'Quotes',
+				1 => 'Quotes',
+				2 => '',
+			),
+			14 => array(
+				0 => 'Sales Order',
+				1 => 'SalesOrder',
+				2 => '',
+			),
+			18 => array(
+				0 => 'Service Contracts',
+				1 => 'ServiceContracts',
+				2 => '',
+			),
+			7 => array(
+				0 => 'Support Tickets',
+				1 => 'HelpDesk',
+				2 => '',
+			),
+			34 => array(
+				0 => 'Surveys',
+				1 => 'cbSurvey',
+				2 => '',
+			),
+			37 => array(
+				0 => 'Surveys Answer',
+				1 => 'cbSurveyAnswer',
+				2 => '',
+			),
+			36 => array(
+				0 => 'Surveys Done',
+				1 => 'cbSurveyDone',
+				2 => '',
+			),
+			5 => array(
+				0 => 'Tasks',
+				1 => 'Calendar',
+				2 => '',
+			),
+			32 => array(
+				0 => 'Translations',
+				1 => 'cbtranslation',
+				2 => '',
+			),
+			10 => array(
+				0 => 'Vendors',
+				1 => 'Vendors',
+				2 => '',
+			),
+			39 => array(
+				0 => 'View Permissions',
+				1 => 'cbCVManagement',
+				2 => '',
+			),
+		);
+		$actual = getPicklistValuesSpecialUitypes('3313', '*', '', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 3313");
+		$_REQUEST['file'] = 'QuickCreate';
+		$actual = getPicklistValuesSpecialUitypes('3313', '*', '', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 3313");
+		$expected[16][2] = 'selected';
+		$actual = getPicklistValuesSpecialUitypes('3313', '*', 'Campaigns', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 3313");
+		$expected[2][2] = 'selected';
+		$actual = getPicklistValuesSpecialUitypes('3313', '*', 'Campaigns |##| Accounts', '*');
+		$this->assertEquals($expected, $actual, "Test getPicklistValuesSpecialUitypes 3313");
+	}
+
+	/**
+	 * Method testgetPicklistValuesSpecialUitypes1024
+	 * @test
+	 */
+	public function testgetPicklistValuesSpecialUitypes1024() {
+		$this->markTestIncomplete(
+			'This test has not been implemented yet.'
+		);
+	}
+
+	/**
+	 * Method testgetPicklistValuesSpecialUitypes1025
+	 * @test
+	 */
+	public function testgetPicklistValuesSpecialUitypes1025() {
 		$this->markTestIncomplete(
 			'This test has not been implemented yet.'
 		);
