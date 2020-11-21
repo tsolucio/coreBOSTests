@@ -37,6 +37,7 @@ class testWSDelete extends TestCase {
 		$rs = $adb->query('SELECT deleted from vtiger_crmentity where crmid=18907');
 		$this->assertEquals(1, $rs->fields['deleted']);
 		$rs = $adb->query('UPDATE vtiger_crmentity set deleted=0 where crmid=18907');
+		$rs = $adb->query('UPDATE vtiger_crmobject set deleted=0 where crmid=18907');
 		//////// cbuuid
 		$id = 'bce42373c7b4c5f4e1a283c8d6bbb4beaf0e72cc'; // ModComments
 		$rs = $adb->query('SELECT deleted from vtiger_crmentity where crmid=18907');
@@ -45,6 +46,7 @@ class testWSDelete extends TestCase {
 		$rs = $adb->query('SELECT deleted from vtiger_crmentity where crmid=18907');
 		$this->assertEquals(1, $rs->fields['deleted']);
 		$rs = $adb->query('UPDATE vtiger_crmentity set deleted=0 where crmid=18907');
+		$rs = $adb->query('UPDATE vtiger_crmobject set deleted=0 where crmid=18907');
 	}
 
 	/**
