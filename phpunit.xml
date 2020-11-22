@@ -74,6 +74,9 @@
 		<testsuite name="vtlib">
 			<directory>./vtlib</directory>
 		</testsuite>
+		<testsuite name="integrations">
+			<directory>./include/integrations</directory>
+		</testsuite>
 	</testsuites>
 	<filter>
 		<whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
