@@ -824,6 +824,24 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'related_to', 'phone', '', 'y');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals("SELECT vtiger_potential.potentialid, vtiger_potential.potentialname, vtiger_contactdetailsrelated_to.firstname as contactsfirstname FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailsrelated_to ON vtiger_contactdetailsrelated_to.contactid=vtiger_potential.related_to  WHERE vtiger_crmentity.deleted=0 AND (vtiger_contactdetailsrelated_to.phone IS NULL OR vtiger_contactdetailsrelated_to.phone = '')  AND vtiger_potential.potentialid > 0", $query);
+
+		$queryGenerator = new QueryGenerator('Potentials', $current_user);
+		$queryGenerator->setFields(array('id'));
+		$queryGenerator->startGroup($queryGenerator::$AND);
+		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'related_to', 'id', '9999', 'e');
+		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'related_to', 'id', '', 'y', $queryGenerator::$OR);
+		$queryGenerator->endGroup();
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_potential.potentialid FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_contactdetails AS vtiger_contactdetailsrelated_to ON vtiger_contactdetailsrelated_to.contactid=vtiger_potential.related_to  WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_contactdetailsrelated_to.contactid = '9999')  OR (vtiger_contactdetailsrelated_to.contactid IS NULL OR vtiger_contactdetailsrelated_to.contactid = '' OR vtiger_contactdetailsrelated_to.contactid = '0') ) AND vtiger_potential.potentialid > 0", $query);
+
+		$queryGenerator = new QueryGenerator('Potentials', $current_user);
+		$queryGenerator->setFields(array('id'));
+		$queryGenerator->startGroup($queryGenerator::$AND);
+		$queryGenerator->addReferenceModuleFieldCondition('Contacts', 'related_to', 'id', '9999', 'e');
+		$queryGenerator->addCondition('related_to', '', 'y', $queryGenerator::$OR);
+		$queryGenerator->endGroup();
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_potential.potentialid FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_account  ON vtiger_potential.related_to = vtiger_account.accountid LEFT JOIN vtiger_contactdetails  ON vtiger_potential.related_to = vtiger_contactdetails.contactid  WHERE vtiger_crmentity.deleted=0 AND   ((vtiger_contactdetails.contactid = '9999')  OR ( trim(vtiger_account.accountname) IS NULL OR vtiger_potential.related_to = '' OR trim(CONCAT(vtiger_contactdetails.firstname,' ',vtiger_contactdetails.lastname)) IS NULL OR vtiger_potential.related_to = '') ) AND vtiger_potential.potentialid > 0", $query);
 	}
 
 	public function testMultiValueQueryConditions() {
