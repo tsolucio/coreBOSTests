@@ -978,6 +978,47 @@ class WSCreateTest extends TestCase {
 		$this->assertEquals('image/png; charset=binary', $shd['hdimageimageinfo']['type'], 'Create HelpDesk image');
 		$ObjectValues['hdimageimageinfo'] = $shd['hdimageimageinfo'];
 		$this->assertEquals($ObjectValues, $shd, 'Create HelpDesk');
+		///////////////////////////////////////////
+		///////////////////////////////////////////
+		// now we test with an Invalid/Insecure Image
+		try {
+			$filename = 'build/coreBOSTests/database/924495-agri90.png';
+			$mtype = finfo_file($finfo, $filename);
+			$model_filename = array(
+				'name'=>basename($filename),  // no slash nor paths in the name
+				'size'=>filesize($filename),
+				'type'=>$mtype,
+				'content'=>base64_encode(file_get_contents($filename))
+			);
+			$ObjectValues = array(
+				'assigned_user_id' => $cbUserID,
+				'created_user_id' => $cbUserID,
+				'modifiedby' => $cbUserID,
+				'attachments'=>array('hdimage' => $model_filename),
+				'ticket_title' => 'WS Create Test with insecure attachment',
+				'parent_id' => '11x74',
+				'product_id' => '14x2618',
+				//'ticketpriorities' => 'Urgent',  // test default picklist value
+				'ticketstatus' => 'Open',
+				'ticketseverities' => 'Major',
+				'hours' => '31.000000',
+				'ticketcategories' => 'Big Problem',
+				'days' => '3',
+				'from_portal' => '0',
+				'commentadded' => '',
+				'description' => 'Videamus animi partes, quarum est conspectus illustrior',
+				'solution' => '',
+			);
+			$_FILES=array();
+			unset(VTCacheUtils::$_fieldinfo_cache[13], VTCacheUtils::$_module_columnfields_cache[$Module]);
+			vtws_create($Module, $ObjectValues, $current_user);
+			$this->assertTrue(false);
+		} catch (WebServiceException $e) {
+			$this->assertEquals($e->code, WebServiceErrorCode::$VALIDATION_FAILED, 'Create HelpDesk insecure image exception');
+			$this->assertEquals($e->message, getTranslatedString('LBL_IMAGESECURITY_ERROR'), 'Create HelpDesk insecure image exception');
+		}
+		///////////////////////////////////////////
+		///////////////////////////////////////////
 		// now we have to test the delete block and field API
 		$fldhd = Vtiger_Field::getInstance('hdimage', $modhd);
 		$fldhd->delete(true);
