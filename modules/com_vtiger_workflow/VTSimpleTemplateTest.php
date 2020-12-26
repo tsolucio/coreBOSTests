@@ -285,6 +285,22 @@ Location : Hamburg';
 		$util = new VTWorkflowUtils();
 		$adminUser = $util->adminUser();
 		$entityCache = new VTEntityCache($adminUser);
+		// if expression
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) if 1 then firstname else lastname end ) ) ');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('Corazon', $actual, 'uppercase(firstname )');
+		// if expression
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) if 0 then firstname else lastname end ) ) ');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('Grafenstein', $actual, 'uppercase(firstname )');
+		// if expression
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) if stringposition(lastname, \'raf\') then firstname else lastname end ) ) ');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('Corazon', $actual, 'uppercase(firstname )');
+		// if expression
+		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) if stringposition(lastname, \'raf\')!=1 then firstname else lastname end ) ) ');
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals('Grafenstein', $actual, 'uppercase(firstname )');
 		// Contact first name uppercase
 		$ct = new VTSimpleTemplate('$(general : (__WorkflowFunction__) uppercase(firstname ) ) ');
 		$actual = $ct->render($entityCache, $entityId);
