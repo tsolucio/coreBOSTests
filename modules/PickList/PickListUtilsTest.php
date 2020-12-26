@@ -26,8 +26,35 @@ class PickListUtilsTest extends TestCase {
 
 	private $expectedH3_picklists = array(
 	'Documents' => array(),
+	'PBXManager' => array(
+		array(
+			'fieldlabel' => 'Status',
+			'generatedtype' => '',
+			'columnname' => 'status',
+			'fieldname' => 'status',
+			'uitype' => '16',
+			'value' =>
+			array (
+				'Active' => 'Active',
+				'Inactive' => 'Inactive',
+			),
+		)
+	),
 	'Accounts' => array(
-	0 =>
+	0 => array(
+		'fieldlabel' => 'Status',
+		'generatedtype' => '',
+		'columnname' => 'campaignrelstatus',
+		'fieldname' => 'campaignrelstatus',
+		'uitype' => '16',
+		'value' => array(
+			'--None--' => '--None--',
+			'Contacted - Never Contact Again' => 'Contacted - Never Contact Again',
+			'Contacted - Successful' => 'Contacted - Successful',
+			'Contacted - Unsuccessful' => 'Contacted - Unsuccessful',
+		),
+	),
+	1 =>
 	array (
 	'fieldlabel' => 'Type',
 	'generatedtype' => '',
@@ -49,7 +76,7 @@ class PickListUtilsTest extends TestCase {
 		'Other' => 'Other',
 	),
 	),
-	1 =>
+	2 =>
 	array (
 	'fieldlabel' => 'industry',
 	'generatedtype' => '',
@@ -92,7 +119,7 @@ class PickListUtilsTest extends TestCase {
 		'Other' => 'Other',
 	),
 	),
-	2 =>
+	3 =>
 	array (
 	'fieldlabel' => 'Rating',
 	'generatedtype' => '',
@@ -109,7 +136,7 @@ class PickListUtilsTest extends TestCase {
 		'Shutdown' => 'Shutdown',
 	),
 	),
-	3 =>
+	4 =>
 	array (
 	'fieldlabel' => 'PLMain',
 	'generatedtype' => '',
@@ -123,7 +150,7 @@ class PickListUtilsTest extends TestCase {
 		'three' => 'three',
 	),
 	),
-	4 =>
+	5 =>
 	array (
 	'fieldlabel' => 'PLDep1',
 	'generatedtype' => '',
@@ -140,7 +167,7 @@ class PickListUtilsTest extends TestCase {
 		'threetwo' => 'threetwo',
 	),
 	),
-	5 =>
+	6 =>
 	array (
 	'fieldlabel' => 'PLDep2',
 	'generatedtype' => '',
@@ -163,7 +190,7 @@ class PickListUtilsTest extends TestCase {
 		'threetwotwo' => 'threetwotwo',
 	),
 	),
-	6 =>
+	7 =>
 	array (
 	'fieldlabel' => 'Planets',
 	'generatedtype' => '',
@@ -202,7 +229,33 @@ class PickListUtilsTest extends TestCase {
 	),
 	),
 	'Contacts' => array(
-	0 =>
+	0 => array(
+		'fieldlabel' => 'Status',
+		'generatedtype' => '',
+		'columnname' => 'campaignrelstatus',
+		'fieldname' => 'campaignrelstatus',
+		'uitype' => '16',
+		'value' => array(
+			'--None--' => '--None--',
+			'Contacted - Never Contact Again' => 'Contacted - Never Contact Again',
+			'Contacted - Successful' => 'Contacted - Successful',
+			'Contacted - Unsuccessful' => 'Contacted - Unsuccessful',
+		),
+	),
+	1 => array(
+		'fieldlabel' => 'portalpasswordtype',
+		'generatedtype' => '',
+		'columnname' => 'portalpasswordtype',
+		'fieldname' => 'portalpasswordtype',
+		'uitype' => '16',
+		'value' => array(
+			'sha512' => 'sha512',
+			'sha256' => 'sha256',
+			'md5' => 'md5',
+			'plaintext' => 'plaintext',
+		),
+	),
+	2 =>
 	array (
 	'fieldlabel' => 'Lead Source',
 	'generatedtype' => '',
@@ -226,7 +279,7 @@ class PickListUtilsTest extends TestCase {
 		'Other' => 'Other',
 	),
 	),
-	1 =>
+	3 =>
 	array (
 	'fieldlabel' => 'Salutation',
 	'generatedtype' => '',
@@ -243,7 +296,7 @@ class PickListUtilsTest extends TestCase {
 		'Prof.' => 'Prof.',
 	),
 	),
-	2 =>
+	4 =>
 	array (
 	'fieldlabel' => 'Template Language',
 	'generatedtype' => '',
@@ -327,8 +380,35 @@ class PickListUtilsTest extends TestCase {
 
 	private $expectedH5_picklists = array(
 	'Documents' => array(),
+	'PBXManager' => array(
+		array(
+			'fieldlabel' => 'Status',
+			'generatedtype' => '',
+			'columnname' => 'status',
+			'fieldname' => 'status',
+			'uitype' => '16',
+			'value' =>
+			array (
+				'Active' => 'Active',
+				'Inactive' => 'Inactive',
+			),
+		)
+	),
 	'Accounts' => array(
-	0 =>
+	0 => array(
+		'fieldlabel' => 'Status',
+		'generatedtype' => '',
+		'columnname' => 'campaignrelstatus',
+		'fieldname' => 'campaignrelstatus',
+		'uitype' => '16',
+		'value' => array(
+			'--None--' => '--None--',
+			'Contacted - Never Contact Again' => 'Contacted - Never Contact Again',
+			'Contacted - Successful' => 'Contacted - Successful',
+			'Contacted - Unsuccessful' => 'Contacted - Unsuccessful',
+		),
+	),
+	1 =>
 	array (
 	'fieldlabel' => 'Type',
 	'generatedtype' => '',
@@ -349,7 +429,7 @@ class PickListUtilsTest extends TestCase {
 		'Reseller' => 'Reseller',
 	),
 	),
-	1 =>
+	2 =>
 	array (
 	'fieldlabel' => 'industry',
 	'generatedtype' => '',
@@ -392,7 +472,7 @@ class PickListUtilsTest extends TestCase {
 		'Other' => 'Other',
 	),
 	),
-	2 =>
+	3 =>
 	array (
 	'fieldlabel' => 'Rating',
 	'generatedtype' => '',
@@ -407,7 +487,7 @@ class PickListUtilsTest extends TestCase {
 		'Market Failed' => 'Market Failed',
 	),
 	),
-	3 =>
+	4 =>
 	array (
 	'fieldlabel' => 'PLMain',
 	'generatedtype' => '',
@@ -421,7 +501,7 @@ class PickListUtilsTest extends TestCase {
 		'three' => 'three',
 	),
 	),
-	4 =>
+	5 =>
 	array (
 	'fieldlabel' => 'PLDep1',
 	'generatedtype' => '',
@@ -438,7 +518,7 @@ class PickListUtilsTest extends TestCase {
 		'threetwo' => 'threetwo',
 	),
 	),
-	5 =>
+	6 =>
 	array (
 	'fieldlabel' => 'PLDep2',
 	'generatedtype' => '',
@@ -461,7 +541,7 @@ class PickListUtilsTest extends TestCase {
 		'threetwotwo' => 'threetwotwo',
 	),
 	),
-	6 =>
+	7 =>
 	array (
 	'fieldlabel' => 'Planets',
 	'generatedtype' => '',
@@ -500,7 +580,33 @@ class PickListUtilsTest extends TestCase {
 	),
 	),
 	'Contacts' => array(
-	0 =>
+	0 => array(
+		'fieldlabel' => 'Status',
+		'generatedtype' => '',
+		'columnname' => 'campaignrelstatus',
+		'fieldname' => 'campaignrelstatus',
+		'uitype' => '16',
+		'value' => array(
+			'--None--' => '--None--',
+			'Contacted - Never Contact Again' => 'Contacted - Never Contact Again',
+			'Contacted - Successful' => 'Contacted - Successful',
+			'Contacted - Unsuccessful' => 'Contacted - Unsuccessful',
+		),
+	),
+	1 => array(
+		'fieldlabel' => 'portalpasswordtype',
+		'generatedtype' => '',
+		'columnname' => 'portalpasswordtype',
+		'fieldname' => 'portalpasswordtype',
+		'uitype' => '16',
+		'value' => array(
+			'sha512' => 'sha512',
+			'sha256' => 'sha256',
+			'md5' => 'md5',
+			'plaintext' => 'plaintext',
+		),
+	),
+	2 =>
 	array (
 	'fieldlabel' => 'Lead Source',
 	'generatedtype' => '',
@@ -523,7 +629,7 @@ class PickListUtilsTest extends TestCase {
 		'Word of mouth' => 'Word of mouth',
 	),
 	),
-	1 =>
+	3 =>
 	array (
 	'fieldlabel' => 'Salutation',
 	'generatedtype' => '',
@@ -540,7 +646,7 @@ class PickListUtilsTest extends TestCase {
 		'Prof.' => 'Prof.',
 	),
 	),
-	2 =>
+	4 =>
 	array (
 	'fieldlabel' => 'Template Language',
 	'generatedtype' => '',
@@ -625,7 +731,7 @@ class PickListUtilsTest extends TestCase {
 	 * @test
 	 */
 	public function testgetUserFldArray() {
-		$mods = array('Accounts','Contacts','HelpDesk','Documents');
+		$mods = array('Accounts','Contacts','HelpDesk','Documents','PBXManager');
 		foreach ($mods as $module) {
 			$actual = getUserFldArray($module, $this->role_vicepresident);
 			$this->assertEquals($this->expectedH3_picklists[$module], $actual, "$module > H3");
@@ -697,9 +803,9 @@ class PickListUtilsTest extends TestCase {
 	 * @test
 	 */
 	public function testgetAvailableModulePicklist() {
-		$mods = array('Accounts','Contacts','HelpDesk');
+		$mods = array('Accounts','Contacts','HelpDesk','PBXManager');
 		$expectedPLs = array(
-			'Accounts' => array (
+			'Accounts' => array(
 				'accounttype' => 'Type',
 				'industry' => 'Industry',
 				'rating' => 'Rating',
@@ -707,18 +813,25 @@ class PickListUtilsTest extends TestCase {
 				'cf_730' => 'PLDep1',
 				'cf_731' => 'PLDep2',
 				'cf_732' => 'Planets',
-			),
-			'Contacts' => array (
+				'campaignrelstatus' => 'Status',
+							),
+			'Contacts' => array(
 				'leadsource' => 'Lead Source',
 				'salutationtype' => 'Salutation ',
 				'template_language' => 'Template Language',
+				'campaignrelstatus' => 'Status',
+				'portalpasswordtype' => 'portalpasswordtype',
 			),
-			'HelpDesk' => array (
+			'HelpDesk' => array(
 				'ticketcategories' => 'Category',
 				'ticketpriorities' => 'Priority',
 				'ticketseverities' => 'Severity',
 				'ticketstatus' => 'Status',
-			));
+			),
+			'PBXManager' => array(
+				'status' => 'Status',
+			),
+		);
 		foreach ($mods as $module) {
 			$plentries = getUserFldArray($module, $this->role_vicepresident);
 			$actual = get_available_module_picklist($plentries);
@@ -2624,6 +2737,7 @@ class PickListUtilsTest extends TestCase {
 					'cf_730' => 'PLDep1',
 					'cf_731' => 'PLDep2',
 					'cf_732' => 'Planets',
+					'campaignrelstatus' => 'Status',
 				),
 			),
 			1 => array(
@@ -2636,6 +2750,7 @@ class PickListUtilsTest extends TestCase {
 					'leadstatus' => 'Lead Status',
 					'rating' => 'Rating',
 					'salutationtype' => 'Salutation ',
+					'campaignrelstatus' => 'Status',
 				),
 			),
 			2 => array(
@@ -2646,6 +2761,8 @@ class PickListUtilsTest extends TestCase {
 					'leadsource' => 'Lead Source',
 					'salutationtype' => 'Salutation ',
 					'template_language' => 'Template Language',
+					'campaignrelstatus' => 'Status',
+					'portalpasswordtype' => 'portalpasswordtype',
 				),
 			),
 			3 => array(
@@ -2666,6 +2783,7 @@ class PickListUtilsTest extends TestCase {
 					'campaignstatus' => 'Campaign Status',
 					'campaigntype' => 'Campaign Type',
 					'expectedresponse' => 'Expected Response',
+					'campaignrelstatus' => 'Status',
 				),
 			),
 			5 => array(
@@ -2714,6 +2832,7 @@ class PickListUtilsTest extends TestCase {
 				3 => array(
 					'carrier' => 'Carrier',
 					'quotestage' => 'Quote Stage',
+					'hdnTaxType' => 'Tax Type',
 				),
 			),
 			10 => array(
@@ -2723,6 +2842,7 @@ class PickListUtilsTest extends TestCase {
 				3 => array(
 					'carrier' => 'Carrier',
 					'postatus' => 'Status',
+					'hdnTaxType' => 'Tax Type',
 				),
 			),
 			11 => array(
@@ -2733,6 +2853,9 @@ class PickListUtilsTest extends TestCase {
 					'carrier' => 'Carrier',
 					'invoicestatus' => 'Invoice Status',
 					'sostatus' => 'Status',
+					'hdnTaxType' => 'Tax Type',
+					'recurring_frequency' => 'Frequency',
+					'payment_duration' => 'Payment Duration',
 				),
 			),
 			12 => array(
@@ -2740,10 +2863,27 @@ class PickListUtilsTest extends TestCase {
 				1 => 'Invoice',
 				2 => '',
 				3 => array(
-					'invoicestatus' => 'Status'
+					'invoicestatus' => 'Status',
+					'hdnTaxType' => 'Tax Type',
 				),
 			),
 			13 => array(
+				0 => 'Email',
+				1 => 'Emails',
+				2 => '',
+				3 => array(
+					'email_flag' => 'Email Flag',
+				),
+			),
+			14 => array(
+				0 => 'PBX Manager',
+				1 => 'PBXManager',
+				2 => '',
+				3 => array(
+					'status' => 'Status',
+				),
+			),
+			15 => array(
 				0 => 'Service Contracts',
 				1 => 'ServiceContracts',
 				2 => '',
@@ -2754,7 +2894,7 @@ class PickListUtilsTest extends TestCase {
 					'contract_type' => 'Type',
 				),
 			),
-			14 => array(
+			16 => array(
 				0 => 'Services',
 				1 => 'Services',
 				2 => '',
@@ -2763,7 +2903,7 @@ class PickListUtilsTest extends TestCase {
 					'servicecategory' => 'Service Category',
 				),
 			),
-			15 => array(
+			17 => array(
 				0 => 'coreBOS Updater',
 				1 => 'cbupdater',
 				2 => '',
@@ -2771,7 +2911,7 @@ class PickListUtilsTest extends TestCase {
 					'execstate' => 'execstate'
 				),
 			),
-			16 => array(
+			18 => array(
 				0 => 'Payments',
 				1 => 'CobroPago',
 				2 => '',
@@ -2780,7 +2920,7 @@ class PickListUtilsTest extends TestCase {
 					'paymentcategory' => 'Category',
 				),
 			),
-			17 => array(
+			19 => array(
 				0 => 'Assets',
 				1 => 'Assets',
 				2 => '',
@@ -2788,7 +2928,7 @@ class PickListUtilsTest extends TestCase {
 					'assetstatus' => 'Status'
 				),
 			),
-			18 => array(
+			20 => array(
 				0 => 'Project Milestones',
 				1 => 'ProjectMilestone',
 				2 => '',
@@ -2796,7 +2936,7 @@ class PickListUtilsTest extends TestCase {
 					'projectmilestonetype' => 'Type'
 				),
 			),
-			19 => array(
+			21 => array(
 				0 => 'Project Tasks',
 				1 => 'ProjectTask',
 				2 => '',
@@ -2807,7 +2947,7 @@ class PickListUtilsTest extends TestCase {
 					'projecttaskstatus' => 'Status',
 				),
 			),
-			20 => array(
+			22 => array(
 				0 => 'Projects',
 				1 => 'Project',
 				2 => '',
@@ -2818,7 +2958,7 @@ class PickListUtilsTest extends TestCase {
 					'progress' => 'Progress',
 				),
 			),
-			21 => array(
+			23 => array(
 				0 => 'Global Variables',
 				1 => 'GlobalVariable',
 				2 => '',
@@ -2827,7 +2967,7 @@ class PickListUtilsTest extends TestCase {
 					'category' => 'Category',
 				),
 			),
-			22 => array(
+			24 => array(
 				0 => 'Business Maps',
 				1 => 'cbMap',
 				2 => '',
@@ -2835,7 +2975,7 @@ class PickListUtilsTest extends TestCase {
 					'maptype' => 'Map Type'
 				),
 			),
-			23 => array(
+			25 => array(
 				0 => 'Terms and Conditions',
 				1 => 'cbTermConditions',
 				2 => '',
@@ -2843,7 +2983,7 @@ class PickListUtilsTest extends TestCase {
 					'formodule' => 'formodule'
 				),
 			),
-			24 => array(
+			26 => array(
 				0 => 'To Dos',
 				1 => 'cbCalendar',
 				2 => '',
@@ -2852,9 +2992,12 @@ class PickListUtilsTest extends TestCase {
 					'eventstatus' => 'Status',
 					'taskpriority' => 'Priority',
 					'followuptype' => 'Tipo Seguimiento',
+					'visibility' => 'Visibility',
+					'duration_minutes' => 'Duration Minutes',
+					'recurringtype' => 'Recurrence',
 				),
 			),
-			25 => array(
+			27 => array(
 				0 => 'Business Actions',
 				1 => 'BusinessActions',
 				2 => '',
@@ -2862,7 +3005,7 @@ class PickListUtilsTest extends TestCase {
 					'linktype' => 'linktype'
 				),
 			),
-			26 => array(
+			28 => array(
 				0 => 'Business Question',
 				1 => 'cbQuestion',
 				2 => '',
@@ -2871,7 +3014,7 @@ class PickListUtilsTest extends TestCase {
 					'qstatus' => 'qstatus',
 				),
 			),
-			27 => array(
+			29 => array(
 				0 => 'Product Components',
 				1 => 'ProductComponent',
 				2 => '',
@@ -2879,7 +3022,7 @@ class PickListUtilsTest extends TestCase {
 					'relmode' => 'Relation Mode'
 				),
 			),
-			28 => array(
+			30 => array(
 				0 => 'Messages',
 				1 => 'Messages',
 				2 => '',
@@ -2888,7 +3031,7 @@ class PickListUtilsTest extends TestCase {
 					'status_message' => 'Status',
 				),
 			),
-			29 => array(
+			31 => array(
 				0 => 'Pulses',
 				1 => 'cbPulse',
 				2 => '',
@@ -2897,7 +3040,7 @@ class PickListUtilsTest extends TestCase {
 					'schtypeid' => 'schtypeid',
 				),
 			),
-			30 => array(
+			32 => array(
 				0 => 'Message Templates',
 				1 => 'MsgTemplate',
 				2 => '',
@@ -2906,6 +3049,16 @@ class PickListUtilsTest extends TestCase {
 					'msgt_status' => 'msgt_status',
 					'msgt_language' => 'msgt_language',
 					'msgt_category' => 'message category',
+					'msgt_fields' => 'msgt_fields',
+					'msgt_metavars' => 'msgt_metavars',
+				),
+			),
+			33 => array(
+				0 => 'Credentials',
+				1 => 'cbCredentials',
+				2 => '',
+				3 => array(
+					'adapter' => 'Adapter',
 				),
 			),
 		);
