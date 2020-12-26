@@ -265,7 +265,7 @@ class testDetailViewUtils extends TestCase {
 		$relationInfo = getRelatedListInfoById(36);
 		$expected = array(
 			'relatedTabId' => '22',
-			'functionName' => 'get_salesorder',
+			'functionName' => 'get_dependents_list',
 			'label' => 'Sales Order',
 			'actions' => 'add',
 			'relationId' => '36',
