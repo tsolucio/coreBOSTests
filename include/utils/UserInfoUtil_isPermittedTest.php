@@ -111,7 +111,10 @@ class testUserInfoUtil_isPermittedTest extends TestCase {
 					if ($uname == 'usrnocreate' && in_array($action, array('Import', 'Export')) && in_array($mname, array('Quotes','PriceBooks'))) {
 						$expected = 'yes';
 					}
-					if (($mname=='Documents' && $action=='Import') || ($mname=='cbTermConditions' && $uname == 'usrnocreate')) {
+					if (($mname=='Documents' && $action=='Import')
+						|| ($mname=='cbTermConditions' && $uname == 'usrnocreate')
+						|| ($mname=='Quotes' && $action == 'DuplicatesHandling')
+					) {
 						$expected = 'no';
 					}
 					$test = array($uid,$action,$mname,'',$expected,$uname.' > '. $mname.' '.$action);
