@@ -26,7 +26,7 @@ class workflowfunctionsaggregationTest extends TestCase {
 	 * @test
 	 */
 	public function testaggregationfunctions() {
-		global $adb, $current_user, $currentModule;
+		global $current_user, $currentModule;
 		$holdModule = $currentModule;
 		$currentModule = 'Invoice';
 		$entityCache = new VTEntityCache($current_user);
@@ -116,6 +116,40 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$this->assertEquals(0, $actual, 'unknown operation');
 		$actual = __cb_aggregation(array('sum','Potentials','inexistentfield','',$entityData));
 		$this->assertEquals(0, $actual, 'unknown field');
+		$currentModule = $holdModule;
+	}
+
+	/**
+	 * Method testaggregationQuery
+	 * @test
+	 */
+	public function testaggregationQuery() {
+		global $current_user, $currentModule;
+		$holdModule = $currentModule;
+		$entityCache = new VTEntityCache($current_user);
+		$currentModule = 'Accounts';
+		$entityData = $entityCache->forId('11x2005');
+		$actual = __cb_aggregation_getQuery(array('sum','Potentials','amount','',$entityData));
+		$expected = 'select sum(amount) as aggop  FROM vtiger_potential    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid    LEFT JOIN vtiger_account ON vtiger_account.accountid = vtiger_potential.related_to    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.related_to=2005';
+		$this->assertEquals($expected, $actual);
+		$actual = __cb_aggregation_getQuery(array('sum','Potentials','amount','[amount,l,1000,or]',$entityData));
+		$expected = 'select sum(amount) as aggop  FROM vtiger_potential    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid    LEFT JOIN vtiger_account ON vtiger_account.accountid = vtiger_potential.related_to    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.related_to=2005 and (vtiger_crmentity.deleted=0 AND   (( vtiger_potential.amount < 1000) ) AND vtiger_potential.potentialid > 0)';
+		$this->assertEquals($expected, $actual);
+		$actual = __cb_aggregation_getQuery(array('sum','Potentials','amount','[amount,l,1000,and]',$entityData));
+		$expected = 'select sum(amount) as aggop  FROM vtiger_potential    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid    LEFT JOIN vtiger_account ON vtiger_account.accountid = vtiger_potential.related_to    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.related_to=2005 and (vtiger_crmentity.deleted=0 AND   (( vtiger_potential.amount < 1000) ) AND vtiger_potential.potentialid > 0)';
+		$this->assertEquals($expected, $actual);
+		$actual = __cb_aggregation_getQuery(array('sum','Potentials','amount','[amount,l,71000,or],[amount,e,10,or]',$entityData));
+		$expected = 'select sum(amount) as aggop  FROM vtiger_potential    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid    LEFT JOIN vtiger_account ON vtiger_account.accountid = vtiger_potential.related_to    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.related_to=2005 and (vtiger_crmentity.deleted=0 AND   (( vtiger_potential.amount < 71000)  or ( vtiger_potential.amount = 10) ) AND vtiger_potential.potentialid > 0)';
+		$this->assertEquals($expected, $actual);
+		$actual = __cb_aggregation_getQuery(array('sum','Potentials','amount','[amount,l,71000,and],[amount,e,10,or]',$entityData));
+		$expected = 'select sum(amount) as aggop  FROM vtiger_potential    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid    LEFT JOIN vtiger_account ON vtiger_account.accountid = vtiger_potential.related_to    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.related_to=2005 and (vtiger_crmentity.deleted=0 AND   (( vtiger_potential.amount < 71000)  or ( vtiger_potential.amount = 10) ) AND vtiger_potential.potentialid > 0)';
+		$this->assertEquals($expected, $actual);
+		$actual = __cb_aggregation_getQuery(array('sum','Potentials','amount','[amount,l,71000,or],[amount,e,10,and]',$entityData));
+		$expected = 'select sum(amount) as aggop  FROM vtiger_potential    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid    LEFT JOIN vtiger_account ON vtiger_account.accountid = vtiger_potential.related_to    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.related_to=2005 and (vtiger_crmentity.deleted=0 AND   (( vtiger_potential.amount < 71000)  and ( vtiger_potential.amount = 10) ) AND vtiger_potential.potentialid > 0)';
+		$this->assertEquals($expected, $actual);
+		$actual = __cb_aggregation_getQuery(array('sum','Potentials','amount','[amount,l,71000,and],[amount,e,10,and]',$entityData));
+		$expected = 'select sum(amount) as aggop  FROM vtiger_potential    INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid    LEFT JOIN vtiger_account ON vtiger_account.accountid = vtiger_potential.related_to    LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id    LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid    WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.related_to=2005 and (vtiger_crmentity.deleted=0 AND   (( vtiger_potential.amount < 71000)  and ( vtiger_potential.amount = 10) ) AND vtiger_potential.potentialid > 0)';
+		$this->assertEquals($expected, $actual);
 		$currentModule = $holdModule;
 	}
 }
