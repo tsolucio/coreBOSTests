@@ -17,6 +17,7 @@
  * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *************************************************************************************************/
+include_once 'modules/com_vtiger_workflow/expression_functions/cbexpSQL.php';
 use PHPUnit\Framework\TestCase;
 
 class workflowfunctionsdatetimeTest extends TestCase {
@@ -103,54 +104,174 @@ class workflowfunctionsdatetimeTest extends TestCase {
 	 * @test
 	 */
 	public function testnetworkholidaydays() {
+		global $adb;
 		$actual = __cb_networkdays(array('2017-06-21','2017-06-20', ''));
 		$this->assertEquals(2, $actual);
+		$s = new VTEXpressionSymbol('2017-06-21', 'string');
+		$e = new VTEXpressionSymbol('2017-06-20', 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals(2, $adb->query_result($rdo, 0, 0));
 		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-20', 0, ''));
 		$this->assertEquals(1, $actual);
 		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-20', 1, ''));
 		$this->assertEquals(1, $actual);
 		$actual = __cb_networkdays(array('2017-06-20','2017-06-21', ''));
 		$this->assertEquals(2, $actual);
+		$s = new VTEXpressionSymbol('2017-06-20', 'string');
+		$e = new VTEXpressionSymbol('2017-06-21', 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals(2, $adb->query_result($rdo, 0, 0));
 		$actual = __cb_holidaydifference(array('2017-06-20','2017-06-21', 0, ''));
 		$this->assertEquals(1, $actual);
 		$actual = __cb_holidaydifference(array('2017-06-20','2017-06-21', 1, ''));
 		$this->assertEquals(1, $actual);
 		$actual = __cb_networkdays(array('2017-06-21','2017-06-21', ''));
 		$this->assertEquals(1, $actual);
+		$s = new VTEXpressionSymbol('2017-06-21', 'string');
+		$e = new VTEXpressionSymbol('2017-06-21', 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals(1, $adb->query_result($rdo, 0, 0));
 		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-21', 0, ''));
 		$this->assertEquals(0, $actual);
 		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-21', 1, ''));
 		$this->assertEquals(0, $actual);
 		$actual = __cb_networkdays(array('2017-06-24','2017-06-24', ''));
 		$this->assertEquals(0, $actual);
+		$s = new VTEXpressionSymbol('2017-06-24', 'string');
+		$e = new VTEXpressionSymbol('2017-06-24', 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals(0, $adb->query_result($rdo, 0, 0));
 		$actual = __cb_holidaydifference(array('2017-06-24','2017-06-24', 0, ''));
 		$this->assertEquals(0, $actual);
 		$actual = __cb_holidaydifference(array('2017-06-24','2017-06-24', 1, ''));
 		$this->assertEquals(0, $actual);
 		$actual = __cb_networkdays(array('2017-06-24','2017-06-25', ''));
 		$this->assertEquals(0, $actual);
+		$s = new VTEXpressionSymbol('2017-06-24', 'string');
+		$e = new VTEXpressionSymbol('2017-06-25', 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals(0, $adb->query_result($rdo, 0, 0));
 		$actual = __cb_holidaydifference(array('2017-06-24','2017-06-25', 0, ''));
 		$this->assertEquals(0, $actual);
 		$actual = __cb_holidaydifference(array('2017-06-24','2017-06-25', 1, ''));
 		$this->assertEquals(1, $actual);
 		$actual = __cb_networkdays(array('2017-06-25','2017-06-21', ''));
 		$this->assertEquals(3, $actual);
+		$s = new VTEXpressionSymbol('2017-06-25', 'string');
+		$e = new VTEXpressionSymbol('2017-06-21', 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals(3, $adb->query_result($rdo, 0, 0));
 		$actual = __cb_holidaydifference(array('2017-06-25','2017-06-21', 0, ''));
 		$this->assertEquals(3, $actual);
 		$actual = __cb_holidaydifference(array('2017-06-25','2017-06-21', 1, ''));
 		$this->assertEquals(4, $actual);
 		$actual = __cb_networkdays(array('2017-06-21','2017-06-25', ''));
 		$this->assertEquals(3, $actual);
+		$s = new VTEXpressionSymbol('2017-06-21', 'string');
+		$e = new VTEXpressionSymbol('2017-06-25', 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals(3, $adb->query_result($rdo, 0, 0));
 		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-25', 0, ''));
 		$this->assertEquals(3, $actual);
 		$actual = __cb_holidaydifference(array('2017-06-21','2017-06-25', 1, ''));
 		$this->assertEquals(4, $actual);
 		$actual = __cb_networkdays(array('2017-07-01','2017-07-17', ''));
 		$this->assertEquals(11, $actual);
+		$s = new VTEXpressionSymbol('2017-07-01', 'string');
+		$e = new VTEXpressionSymbol('2017-07-17', 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals(11, $adb->query_result($rdo, 0, 0));
 		$actual = __cb_holidaydifference(array('2017-07-01','2017-07-17', 0, ''));
 		$this->assertEquals(10, $actual);
 		$actual = __cb_holidaydifference(array('2017-07-01','2017-07-17', 1, ''));
 		$this->assertEquals(13, $actual);
+	}
+
+	/**
+	 * Method networkdaysprovidor
+	 */
+	public function networkdaysprovidor() {
+		$p1d = new DateInterval('P1D');
+		$st = new DateTime('2017-06-19');
+		$ed = new DateTime('2017-06-27');
+		$results = array(
+			1,2,3,4,5,5,5,6, // L
+			2,1,2,3,4,4,4,5, // M
+			3,2,1,2,3,3,3,4, // X
+			4,3,2,1,2,2,2,3, // J
+			5,4,3,2,1,1,1,2, // V
+			5,4,3,2,1,0,0,1, // S
+			5,4,3,2,1,0,0,1, // D
+			6,5,4,3,2,1,1,1, // L
+		);
+		$tests = array();
+		$sdaterange = new DatePeriod($st, $p1d, $ed);
+		$edaterange = new DatePeriod($st, $p1d, $ed);
+		$r = 0;
+		foreach ($sdaterange as $sdate) {
+			foreach ($edaterange as $edate) {
+				$tests[] = array($sdate->format('Y-m-d'), $edate->format('Y-m-d'), $results[$r]);
+				$r++;
+			}
+		}
+		$st = new DateTime('2017-07-01');
+		$ed = new DateTime('2017-07-21');
+		$results = array(
+			0,0,1,2,3,4,5,5,5,6,7,8,9,10,10,10,11,12,13,14,
+			0,1,2,3,4,5,5,5,6,7,8,9,10,10,10,11,12,13,14,
+			1,2,3,4,5,5,5,6,7,8,9,10,10,10,11,12,13,14,
+			1,2,3,4,4,4,5,6,7,8,9,9,9,10,11,12,13,
+			1,2,3,3,3,4,5,6,7,8,8,8,9,10,11,12,
+			1,2,2,2,3,4,5,6,7,7,7,8,9,10,11,
+			1,1,1,2,3,4,5,6,6,6,7,8,9,10,
+			0,0,1,2,3,4,5,5,5,6,7,8,9,
+			0,1,2,3,4,5,5,5,6,7,8,9,
+			1,2,3,4,5,5,5,6,7,8,9,
+			1,2,3,4,4,4,5,6,7,8,
+			1,2,3,3,3,4,5,6,7,
+			1,2,2,2,3,4,5,6,
+			1,1,1,2,3,4,5,
+			0,0,1,2,3,4,
+			0,1,2,3,4,
+			1,2,3,4,
+			1,2,3,
+			1,2,
+			1,
+		);
+		$sdaterange = new DatePeriod($st, $p1d, $ed);
+		$r = 0;
+		foreach ($sdaterange as $sdate) {
+			$edaterange = new DatePeriod($sdate, $p1d, $ed);
+			foreach ($edaterange as $edate) {
+				$tests[] = array($sdate->format('Y-m-d'), $edate->format('Y-m-d'), $results[$r]);
+				$r++;
+			}
+		}
+		return $tests;
+	}
+
+	/**
+	 * Method testnetworkdays
+	 * @test
+	 * @dataProvider networkdaysprovidor
+	 */
+	public function testnetworkdays($st, $ed, $expected) {
+		global $adb;
+		$actual = __cb_networkdays(array($st,$ed, ''));
+		$this->assertEquals($expected, $actual);
+		$s = new VTEXpressionSymbol($st, 'string');
+		$e = new VTEXpressionSymbol($ed, 'string');
+		$sql = cbexpsql_networkdays(array($s,$e, ''), '');
+		$rdo = $adb->query($sql);
+		$this->assertEquals($expected, $adb->query_result($rdo, 0, 0));
 	}
 
 	/**
