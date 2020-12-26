@@ -663,6 +663,32 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	}
 
 	/**
+	 * Method testUpdateExceptionInvalidImage
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testUpdateExceptionInvalidImage() {
+		global $current_user, $adb;
+		$current_user = Users::getActiveAdminUser();
+		$ctoID = vtws_getEntityId('Contacts');
+		$beforeCto = vtws_retrieve($ctoID.'x1561', $current_user);
+		// get file and file information
+		$finfo = finfo_open(FILEINFO_MIME); // return mime type ala mimetype extension.
+		$filename = 'build/coreBOSTests/database/924495-agri90.png';
+		$mtype = finfo_file($finfo, $filename);
+		$model_filename = array(
+			'name'=>basename($filename),  // no slash nor paths in the name
+			'size'=>filesize($filename),
+			'type'=>$mtype,
+			'content'=>base64_encode(file_get_contents($filename))
+		);
+		$updateCto = $beforeCto;
+		$updateCto['attachments'] = array('imagename' => $model_filename);
+		$updateCto['lastname'] = 'áçèñtös';
+		vtws_update($updateCto, $current_user);
+	}
+
+	/**
 	 * Method testUpdateExceptionMissingFields
 	 * @test
 	 * @expectedException WebServiceException
