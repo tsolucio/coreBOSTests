@@ -19,6 +19,8 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
+include_once 'include/Webservices/Delete.php';
+
 class WSReviseTest extends TestCase {
 
 	/****
@@ -305,9 +307,27 @@ class WSReviseTest extends TestCase {
 	}
 
 	/**
+	 * Method testReviseDeletedRecord
+	 * @test
+	 */
+	public function testReviseDeletedRecord() {
+		global $current_user, $adb;
+		$adb->query('update vtiger_crmentity set deleted=0 where crmid=12836');
+		$quoteid = vtws_getEntityId('Quotes').'x12836';
+		$_REQUEST['action'] = 'QuotesAjax';
+		vtws_delete($quoteid, $current_user);
+		$updateValues = array(
+			'id' => $quoteid,
+			'subject'=>'Test WS Revise',
+		);
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		vtws_revise($updateValues, $current_user);
+	}
+
+	/**
 	 * Method testReviseExceptionWrongAsignedUserId
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReviseExceptionWrongAsignedUserId() {
 		global $current_user;
