@@ -31,6 +31,10 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$currentModule = 'Invoice';
 		$entityCache = new VTEntityCache($current_user);
 		$entityData = $entityCache->forId('11x74');
+		$actual = __cb_aggregation(array('sum','Quotes','hdnSubTotal','[cf_747,y,,or]',$entityData));
+		$this->assertEquals(3854.100000, $actual);
+		$actual = __cb_aggregation(array('sum','Quotes','hdnSubTotal','',$entityData));
+		$this->assertEquals(3854.100000, $actual);
 		$actual = __cb_aggregation(array('sum','Invoice','hdnSubTotal','',$entityData));
 		$this->assertEquals(3854.100000, $actual);
 		$actual = __cb_aggregation(array('sum','Invoice','hdnGrandTotal','',$entityData));

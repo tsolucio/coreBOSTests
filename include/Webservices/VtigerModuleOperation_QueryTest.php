@@ -390,6 +390,20 @@ where projectname like '%o%'  and modifiedtime>'2016-06-30 19:11:59';", $meta, $
 	public function testRelations() {
 		global $GetRelatedList_ReturnOnlyQuery;
 		$GetRelatedList_ReturnOnlyQuery = true;
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select vendor_id,subject from purchaseorder where related.products = 14x2620", $meta, $queryRelatedModules);
+		$this->assertEquals("select vtiger_purchaseorder.subject,vtiger_purchaseorder.vendorid,vtiger_crmentity.cbuuid FROM vtiger_purchaseorder INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_purchaseorder.purchaseorderid INNER JOIN vtiger_inventoryproductrel ON vtiger_inventoryproductrel.id = vtiger_purchaseorder.purchaseorderid INNER JOIN vtiger_products ON vtiger_products.productid = vtiger_inventoryproductrel.productid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid left join vtiger_pobillads on vtiger_pobillads.pobilladdressid = vtiger_purchaseorder.purchaseorderid left join vtiger_poshipads on vtiger_poshipads.poshipaddressid = vtiger_purchaseorder.purchaseorderid left join vtiger_purchaseordercf on vtiger_purchaseordercf.purchaseorderid = vtiger_purchaseorder.purchaseorderid  WHERE vtiger_crmentity.deleted = 0 AND vtiger_products.productid = 2620", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select * from products where related.purchaseorder=5x13215", $meta, $queryRelatedModules);
+		$this->assertEquals("select  * ,sequence_no FROM vtiger_inventoryproductrel
+					left join vtiger_service on serviceid=vtiger_inventoryproductrel.productid
+					left join vtiger_products on vtiger_products.productid=vtiger_inventoryproductrel.productid where id=13215", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select id from products where related.purchaseorder=5x13215", $meta, $queryRelatedModules);
+		$this->assertEquals("select  vtiger_inventoryproductrel.productid as id ,sequence_no FROM vtiger_inventoryproductrel
+					left join vtiger_service on serviceid=vtiger_inventoryproductrel.productid
+					left join vtiger_products on vtiger_products.productid=vtiger_inventoryproductrel.productid where id=13215", $actual);
+		$actual = self::$vtModuleOperation->wsVTQL2SQL("select productid from products where related.purchaseorder=5x13215", $meta, $queryRelatedModules);
+		$this->assertEquals("select  vtiger_inventoryproductrel.productid ,sequence_no FROM vtiger_inventoryproductrel
+					left join vtiger_service on serviceid=vtiger_inventoryproductrel.productid
+					left join vtiger_products on vtiger_products.productid=vtiger_inventoryproductrel.productid where id=13215", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select potentialname,Accounts.accountname from Potentials;", $meta, $queryRelatedModules);
 		$this->assertEquals("select vtiger_potential.potentialname, vtiger_accountrelated_to.accountname as accountsaccountname, vtiger_potential.potentialid  FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountrelated_to ON vtiger_accountrelated_to.accountid=vtiger_potential.related_to   WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0 ", $actual);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL("select potentialname,Accounts.accountname,Contacts.lastname from Potentials;", $meta, $queryRelatedModules);
