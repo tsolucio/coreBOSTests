@@ -419,14 +419,12 @@ class testutils extends TestCase {
 			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_cbtranslation.cbtranslationid INNER JOIN (SELECT vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale  FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid=vtiger_cbtranslation.cbtranslationid INNER JOIN tempcbtranslation122 temptab2 ON temptab2.id=vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
 			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 and (vtiger_crmentity.smownerid=12 or vtiger_crmentity.smownerid in (select vtiger_user2role.userid
 					from vtiger_user2role
-					inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 					inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 					where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in (select shareduserid
 					from vtiger_tmp_read_user_sharing_per where userid=12 and tabid=64) or ( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=12 and tabid=64))) GROUP BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_cbtranslation.i18n,'null') = ifnull(temp.i18n,'null') and  ifnull(vtiger_cbtranslation.locale,'null') = ifnull(temp.locale,'null') WHERE vtiger_crmentity.deleted = 0 and (vtiger_crmentity.smownerid=12 or vtiger_crmentity.smownerid in (select vtiger_user2role.userid
 					from vtiger_user2role
-					inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 					inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 					where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in (select shareduserid
 					from vtiger_tmp_read_user_sharing_per where userid=12 and tabid=64) or ( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid

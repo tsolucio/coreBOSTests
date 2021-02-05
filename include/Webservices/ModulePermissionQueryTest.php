@@ -52,7 +52,7 @@ class testModulePermissionQuery extends TestCase {
 			array('cbMap', $this->testusers['usrnocreate'],
 				array(
 					'permissonTable' => 'vt_tmp_u11',
-					'permissionQuery' => "(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::H6::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))",
+					'permissionQuery' => "(SELECT 11 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::H6::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (3,4))",
 					'permissionJoin' => ' INNER JOIN vt_tmp_u11 vt_tmp_u11 ON vt_tmp_u11.id = vtiger_crmentity.smownerid ',
 				),
 			),
@@ -66,7 +66,7 @@ class testModulePermissionQuery extends TestCase {
 			array('cbMap', $this->testusers['usrtestdmy'],
 				array(
 					'permissonTable' => 'vt_tmp_u5',
-					'permissionQuery' => "(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_users ON vtiger_users.id=vtiger_user2role.userid INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))",
+					'permissionQuery' => "(SELECT 5 as id) UNION (SELECT vtiger_user2role.userid AS userid FROM vtiger_user2role INNER JOIN vtiger_role ON vtiger_role.roleid=vtiger_user2role.roleid WHERE vtiger_role.parentrole like 'H1::H2::H3::%') UNION (SELECT groupid FROM vtiger_groups where groupid in (4,3))",
 					'permissionJoin' => ' INNER JOIN vt_tmp_u5 vt_tmp_u5 ON vt_tmp_u5.id = vtiger_crmentity.smownerid ',
 				),
 			),

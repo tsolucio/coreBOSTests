@@ -696,84 +696,72 @@ class testUserInfoUtil extends TestCase {
 		return array(
 			array(1, 'Leads', " and (vtiger_crmentityLeads.smownerid=1 or vtiger_crmentityLeads.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like '::%') or vtiger_crmentityLeads.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=7) or ( vtiger_groupsLeads.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=1 and tabid=7))) "),
 			array(1, 'Accounts', " and (vtiger_crmentityAccounts.smownerid=1 or vtiger_crmentityAccounts.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like '::%') or vtiger_crmentityAccounts.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=6) or ( vtiger_groupsAccounts.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=1 and tabid=6))) "),
 			array(1, 'Campaigns', " and (vtiger_crmentityCampaigns.smownerid=1 or vtiger_crmentityCampaigns.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like '::%') or vtiger_crmentityCampaigns.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=26) or ( vtiger_groupsCampaigns.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=1 and tabid=26))) "),
 			array(1, 'Assets', " and (vtiger_crmentityAssets.smownerid=1 or vtiger_crmentityAssets.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like '::%') or vtiger_crmentityAssets.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=1 and tabid=43) or ( vtiger_groupsAssets.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=1 and tabid=43))) "),
 			array(11, 'Leads', " and (vtiger_crmentityLeads.smownerid=11 or vtiger_crmentityLeads.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentityLeads.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=7) or ( vtiger_groupsLeads.groupid in (3,4) or  vtiger_groupsLeads.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=11 and tabid=7))) "),
 			array(11, 'Accounts', " and (vtiger_crmentityAccounts.smownerid=11 or vtiger_crmentityAccounts.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentityAccounts.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=6) or ( vtiger_groupsAccounts.groupid in (3,4) or  vtiger_groupsAccounts.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=11 and tabid=6))) "),
 			array(11, 'Campaigns', " and (vtiger_crmentityCampaigns.smownerid=11 or vtiger_crmentityCampaigns.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentityCampaigns.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=26) or ( vtiger_groupsCampaigns.groupid in (3,4) or  vtiger_groupsCampaigns.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=11 and tabid=26))) "),
 			array(11, 'Assets', " and (vtiger_crmentityAssets.smownerid=11 or vtiger_crmentityAssets.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentityAssets.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=43) or ( vtiger_groupsAssets.groupid in (3,4) or  vtiger_groupsAssets.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=11 and tabid=43))) "),
 			array(5, 'Leads', " and (vtiger_crmentityLeads.smownerid=5 or vtiger_crmentityLeads.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentityLeads.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=7) or ( vtiger_groupsLeads.groupid in (4,3) or  vtiger_groupsLeads.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=5 and tabid=7))) "),
 			array(5, 'Accounts', " and (vtiger_crmentityAccounts.smownerid=5 or vtiger_crmentityAccounts.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentityAccounts.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=6) or ( vtiger_groupsAccounts.groupid in (4,3) or  vtiger_groupsAccounts.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=5 and tabid=6))) "),
 			array(5, 'Campaigns', " and (vtiger_crmentityCampaigns.smownerid=5 or vtiger_crmentityCampaigns.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentityCampaigns.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=26) or ( vtiger_groupsCampaigns.groupid in (4,3) or  vtiger_groupsCampaigns.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
 				where userid=5 and tabid=26))) "),
 			array(5, 'Assets', " and (vtiger_crmentityAssets.smownerid=5 or vtiger_crmentityAssets.smownerid in (select vtiger_user2role.userid
 				from vtiger_user2role
-				inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 				inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 				where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentityAssets.smownerid in (select shareduserid from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=43) or ( vtiger_groupsAssets.groupid in (4,3) or  vtiger_groupsAssets.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
 				from vtiger_tmp_read_group_sharing_per
@@ -812,7 +800,6 @@ class testUserInfoUtil extends TestCase {
 			array(11, 'Leads', ''),
 			array(11, 'HelpDesk', " and (vtiger_crmentity.smownerid=11 or vtiger_crmentity.smownerid in (select vtiger_user2role.userid
 					from vtiger_user2role
-					inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 					inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 					where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentity.smownerid in (select shareduserid
 					from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=13) or ( vtiger_groups.groupid in (3,4) or  vtiger_groups.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
@@ -823,7 +810,6 @@ class testUserInfoUtil extends TestCase {
 			array(11, 'Assets', ''),
 			array(11, 'CobroPago', " and (vtiger_crmentity.smownerid=11 or vtiger_crmentity.smownerid in (select vtiger_user2role.userid
 					from vtiger_user2role
-					inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 					inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 					where vtiger_role.parentrole like 'H1::H2::H3::H6::%') or vtiger_crmentity.smownerid in (select shareduserid
 					from vtiger_tmp_read_user_sharing_per where userid=11 and tabid=42) or ( vtiger_groups.groupid in (3,4) or  vtiger_groups.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
@@ -832,7 +818,6 @@ class testUserInfoUtil extends TestCase {
 			array(5, 'Leads', ''),
 			array(5, 'HelpDesk', " and (vtiger_crmentity.smownerid=5 or vtiger_crmentity.smownerid in (select vtiger_user2role.userid
 					from vtiger_user2role
-					inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 					inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 					where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in (select shareduserid
 					from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=13) or ( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
@@ -842,7 +827,6 @@ class testUserInfoUtil extends TestCase {
 			array(5, 'Assets', ''),
 			array(5, 'CobroPago', " and (vtiger_crmentity.smownerid=5 or vtiger_crmentity.smownerid in (select vtiger_user2role.userid
 					from vtiger_user2role
-					inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
 					inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
 					where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in (select shareduserid
 					from vtiger_tmp_read_user_sharing_per where userid=5 and tabid=42) or ( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
