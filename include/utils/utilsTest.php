@@ -365,6 +365,7 @@ class testutils extends TestCase {
 	public function getDuplicateQueryProvider() {
 		return array(
 		array(
+			1,
 			'cbtranslation',
 			'vtiger_cbtranslation.i18n.i18n,vtiger_cbtranslation.locale.locale',
 			array('i18n'=> '19', 'locale'=> '32'),
@@ -373,6 +374,7 @@ class testutils extends TestCase {
 			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_cbtranslation.i18n,'null') = ifnull(temp.i18n,'null') and  ifnull(vtiger_cbtranslation.locale,'null') = ifnull(temp.locale,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale,vtiger_cbtranslation.cbtranslationid ASC",
 		),
 		array(
+			1,
 			'Assets',
 			'vtiger_assets.product.product,vtiger_assets.serialnumber.serialnumber',
 			array('product'=> '10', 'serialnumber'=> '1'),
@@ -381,6 +383,7 @@ class testutils extends TestCase {
 			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_assets.product,vtiger_assets.serialnumber HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_assets.product,'null') = ifnull(temp.product,'null') and  ifnull(vtiger_assets.serialnumber,'null') = ifnull(temp.serialnumber,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_assets.product,vtiger_assets.serialnumber,vtiger_assets.assetsid ASC",
 		),
 		array(
+			1,
 			'Contacts',
 			'vtiger_contactdetails.firstname.firstname,vtiger_contactsubdetails.email2.email2',
 			array('firstname'=> '1', 'email2'=> '13'),
@@ -389,12 +392,89 @@ class testutils extends TestCase {
 			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2 HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_contactdetails.firstname,'null') = ifnull(temp.firstname,'null') and  ifnull(vtiger_contactsubdetails.email2,'null') = ifnull(temp.email2,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2,vtiger_contactdetails.contactid ASC",
 		),
 		array(
+			1,
 			'Potentials',
 			'vtiger_potentials.amount.amount,vtiger_potentials.forecast.forecast',
 			array('amount'=> '71', 'forecast'=> '9'),
 			"SELECT vtiger_potential.potentialid AS recordid, vtiger_users_last_import.deleted,vtiger_potentials.amount,vtiger_potentials.forecast FROM vtiger_potential INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid INNER JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid=vtiger_potential.potentialid INNER JOIN temppotentials1 temptab ON temptab.id=vtiger_potential.potentialid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
 			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_potential.potentialid INNER JOIN (SELECT vtiger_potentials.amount,vtiger_potentials.forecast  FROM vtiger_potential INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid INNER JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid=vtiger_potential.potentialid INNER JOIN temppotentials12 temptab2 ON temptab2.id=vtiger_potential.potentialid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
 			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_potentials.amount,vtiger_potentials.forecast HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_potentials.amount,'null') = ifnull(temp.amount,'null') and  ifnull(vtiger_potentials.forecast,'null') = ifnull(temp.forecast,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_potentials.amount,vtiger_potentials.forecast,vtiger_potential.potentialid ASC",
+		),
+		array(
+			1,
+			'Accounts',
+			'vtiger_account.industry.industry,vtiger_account.phone.phone',
+			array('industry'=> '15', 'phone'=> '11'),
+			"SELECT vtiger_account.accountid AS recordid, vtiger_users_last_import.deleted,vtiger_account.industry,vtiger_account.phone FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_account.accountid INNER JOIN vtiger_accountscf ON vtiger_accountscf.accountid=vtiger_account.accountid INNER JOIN tempaccounts1 temptab ON temptab.id=vtiger_account.accountid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_account.accountid INNER JOIN (SELECT vtiger_account.industry,vtiger_account.phone  FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_account.accountid INNER JOIN vtiger_accountscf ON vtiger_accountscf.accountid=vtiger_account.accountid INNER JOIN tempaccounts12 temptab2 ON temptab2.id=vtiger_account.accountid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_account.industry,vtiger_account.phone HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_account.industry,'null') = ifnull(temp.industry,'null') and  ifnull(vtiger_account.phone,'null') = ifnull(temp.phone,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_account.industry,vtiger_account.phone,vtiger_account.accountid ASC",
+		),
+		///////////////////////////////
+		array(
+			12,
+			'cbtranslation',
+			'vtiger_cbtranslation.i18n.i18n,vtiger_cbtranslation.locale.locale',
+			array('i18n'=> '19', 'locale'=> '32'),
+			"SELECT vtiger_cbtranslation.cbtranslationid AS recordid, vtiger_users_last_import.deleted,vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid=vtiger_cbtranslation.cbtranslationid INNER JOIN tempcbtranslation12 temptab ON temptab.id=vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_cbtranslation.cbtranslationid INNER JOIN (SELECT vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale  FROM vtiger_cbtranslation INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_cbtranslation.cbtranslationid INNER JOIN vtiger_cbtranslationcf ON vtiger_cbtranslationcf.cbtranslationid=vtiger_cbtranslation.cbtranslationid INNER JOIN tempcbtranslation122 temptab2 ON temptab2.id=vtiger_cbtranslation.cbtranslationid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 and (vtiger_crmentity.smownerid=12 or vtiger_crmentity.smownerid in (select vtiger_user2role.userid
+					from vtiger_user2role
+					inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
+					inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
+					where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in (select shareduserid
+					from vtiger_tmp_read_user_sharing_per where userid=12 and tabid=64) or ( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
+				from vtiger_tmp_read_group_sharing_per
+				where userid=12 and tabid=64))) GROUP BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_cbtranslation.i18n,'null') = ifnull(temp.i18n,'null') and  ifnull(vtiger_cbtranslation.locale,'null') = ifnull(temp.locale,'null') WHERE vtiger_crmentity.deleted = 0 and (vtiger_crmentity.smownerid=12 or vtiger_crmentity.smownerid in (select vtiger_user2role.userid
+					from vtiger_user2role
+					inner join vtiger_users on vtiger_users.id=vtiger_user2role.userid
+					inner join vtiger_role on vtiger_role.roleid=vtiger_user2role.roleid
+					where vtiger_role.parentrole like 'H1::H2::H3::%') or vtiger_crmentity.smownerid in (select shareduserid
+					from vtiger_tmp_read_user_sharing_per where userid=12 and tabid=64) or ( vtiger_groups.groupid in (4,3) or  vtiger_groups.groupid in (select vtiger_tmp_read_group_sharing_per.sharedgroupid
+				from vtiger_tmp_read_group_sharing_per
+				where userid=12 and tabid=64))) ORDER BY vtiger_cbtranslation.i18n,vtiger_cbtranslation.locale,vtiger_cbtranslation.cbtranslationid ASC",
+		),
+		array(
+			12,
+			'Assets',
+			'vtiger_assets.product.product,vtiger_assets.serialnumber.serialnumber',
+			array('product'=> '10', 'serialnumber'=> '1'),
+			"SELECT vtiger_assets.assetsid AS recordid, vtiger_users_last_import.deleted,vtiger_assets.product,vtiger_assets.serialnumber FROM vtiger_assets INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_assets.assetsid INNER JOIN vtiger_assetscf ON vtiger_assetscf.assetsid=vtiger_assets.assetsid INNER JOIN tempassets12 temptab ON temptab.id=vtiger_assets.assetsid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_assets.assetsid INNER JOIN (SELECT vtiger_assets.product,vtiger_assets.serialnumber  FROM vtiger_assets INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_assets.assetsid INNER JOIN vtiger_assetscf ON vtiger_assetscf.assetsid=vtiger_assets.assetsid INNER JOIN tempassets122 temptab2 ON temptab2.id=vtiger_assets.assetsid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_assets.product,vtiger_assets.serialnumber HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_assets.product,'null') = ifnull(temp.product,'null') and  ifnull(vtiger_assets.serialnumber,'null') = ifnull(temp.serialnumber,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_assets.product,vtiger_assets.serialnumber,vtiger_assets.assetsid ASC",
+		),
+		array(
+			12,
+			'Contacts',
+			'vtiger_contactdetails.firstname.firstname,vtiger_contactsubdetails.email2.email2',
+			array('firstname'=> '1', 'email2'=> '13'),
+			"SELECT vtiger_contactdetails.contactid AS recordid, vtiger_users_last_import.deleted,vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2 FROM vtiger_contactdetails INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_contactdetails.contactid INNER JOIN vtiger_contactscf ON vtiger_contactscf.contactid=vtiger_contactdetails.contactid INNER JOIN tempcontacts12 temptab ON temptab.id=vtiger_contactdetails.contactid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_contactdetails.contactid INNER JOIN (SELECT vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2  FROM vtiger_contactdetails INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_contactdetails.contactid INNER JOIN vtiger_contactscf ON vtiger_contactscf.contactid=vtiger_contactdetails.contactid INNER JOIN tempcontacts122 temptab2 ON temptab2.id=vtiger_contactdetails.contactid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2 HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_contactdetails.firstname,'null') = ifnull(temp.firstname,'null') and  ifnull(vtiger_contactsubdetails.email2,'null') = ifnull(temp.email2,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_contactdetails.firstname,vtiger_contactsubdetails.email2,vtiger_contactdetails.contactid ASC",
+		),
+		array(
+			12,
+			'Accounts',
+			'vtiger_account.industry.industry,vtiger_account.phone.phone',
+			array('industry'=> '15', 'phone'=> '11'),
+			"SELECT vtiger_account.accountid AS recordid, vtiger_users_last_import.deleted,vtiger_account.industry,vtiger_account.phone FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_account.accountid INNER JOIN vtiger_accountscf ON vtiger_accountscf.accountid=vtiger_account.accountid INNER JOIN tempaccounts12 temptab ON temptab.id=vtiger_account.accountid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_account.accountid INNER JOIN (SELECT vtiger_account.industry,vtiger_account.phone  FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_account.accountid INNER JOIN vtiger_accountscf ON vtiger_accountscf.accountid=vtiger_account.accountid INNER JOIN tempaccounts122 temptab2 ON temptab2.id=vtiger_account.accountid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_account.industry,vtiger_account.phone HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_account.industry,'null') = ifnull(temp.industry,'null') and  ifnull(vtiger_account.phone,'null') = ifnull(temp.phone,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_account.industry,vtiger_account.phone,vtiger_account.accountid ASC",
+		),
+		array(
+			12,
+			'Potentials',
+			'vtiger_potentials.amount.amount,vtiger_potentials.forecast.forecast',
+			array('amount'=> '71', 'forecast'=> '9'),
+			"SELECT vtiger_potential.potentialid AS recordid, vtiger_users_last_import.deleted,vtiger_potentials.amount,vtiger_potentials.forecast FROM vtiger_potential INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid INNER JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid=vtiger_potential.potentialid INNER JOIN temppotentials12 temptab ON temptab.id=vtiger_potential.potentialid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid LEFT JOIN vtiger_users_last_import ON vtiger_users_last_import.bean_id=vtiger_potential.potentialid INNER JOIN (SELECT vtiger_potentials.amount,vtiger_potentials.forecast  FROM vtiger_potential INNER JOIN vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_potential.potentialid INNER JOIN vtiger_potentialscf ON vtiger_potentialscf.potentialid=vtiger_potential.potentialid INNER JOIN temppotentials122 temptab2 ON temptab2.id=vtiger_potential.potentialid LEFT JOIN vtiger_users ON vtiger_users.id=vtiger_crmentity.smownerid
+			LEFT JOIN vtiger_groups ON vtiger_groups.groupid=vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted = 0 GROUP BY vtiger_potentials.amount,vtiger_potentials.forecast HAVING COUNT(*)>1) AS temp ON  ifnull(vtiger_potentials.amount,'null') = ifnull(temp.amount,'null') and  ifnull(vtiger_potentials.forecast,'null') = ifnull(temp.forecast,'null') WHERE vtiger_crmentity.deleted = 0 ORDER BY vtiger_potentials.amount,vtiger_potentials.forecast,vtiger_potential.potentialid ASC",
+		),
+		array(
+			1,
+			'evvtMenu',
+			'vtiger_evvtmenu.mtype.mtype,vtiger_evvtmenu.mvalue.mvalue',
+			array('mtype'=> '1', 'mvalue'=> '1'),
+			'',
 		),
 		);
 	}
@@ -404,11 +484,14 @@ class testutils extends TestCase {
 	 * @test
 	 * @dataProvider getDuplicateQueryProvider
 	 */
-	public function testgetDuplicateQuery($module, $field_values, $ui_type_arr, $expected) {
+	public function testgetDuplicateQuery($userid, $module, $field_values, $ui_type_arr, $expected) {
 		global $current_user;
-		$current_user = Users::getActiveAdminUser();
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
 		$actual = getDuplicateQuery($module, $field_values, $ui_type_arr);
 		$this->assertEquals($expected, $actual, "Test getDuplicatesQuery Method on $module Module");
+		$current_user = Users::getActiveAdminUser();
 	}
 
 	/**
