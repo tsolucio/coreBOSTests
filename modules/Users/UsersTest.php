@@ -95,6 +95,9 @@ class UsersTest extends TestCase {
 			'conv_rate' => '1.000000',
 			'imagenameimageinfo' => '',
 		);
+		if (empty($user->column_fields['reports_to_id'])) { // can be empty string or null too
+			$user->column_fields['reports_to_id']= '0';
+		}
 		$this->assertEquals($expected, $user->column_fields, 'retrieveCurrentUserInfoFromFile admin');
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(8);

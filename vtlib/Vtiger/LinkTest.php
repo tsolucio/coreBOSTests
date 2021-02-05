@@ -78,7 +78,9 @@ class vtlibLinkTest extends TestCase {
 	public function testaddLink() {
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$expectedLinks = $module_contacts->getLinks();
-
+		usort($expectedLinks, function ($a, $b) {
+			return $a->linkid > $b->linkid;
+		});
 		// Link attributes
 		$tabid = getTabid('Contacts');
 		$linktype = 'LISTVIEWBASIC';
@@ -94,6 +96,9 @@ class vtlibLinkTest extends TestCase {
 		// Adding link
 		$module_contacts->addLink($linktype, $linklabel, $linkurl);
 		$actualLinks = $module_contacts->getLinks();
+		usort($actualLinks, function ($a, $b) {
+			return $a->linkid > $b->linkid;
+		});
 
 		// Getting linkid
 		$lastLink = end($actualLinks);

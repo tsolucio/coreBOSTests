@@ -313,6 +313,7 @@ class WSReviseTest extends TestCase {
 	public function testReviseDeletedRecord() {
 		global $current_user, $adb;
 		$adb->query('update vtiger_crmentity set deleted=0 where crmid=12836');
+		$adb->query('update vtiger_crmobject set deleted=0 where crmid=12836');
 		$quoteid = vtws_getEntityId('Quotes').'x12836';
 		$_REQUEST['action'] = 'QuotesAjax';
 		vtws_delete($quoteid, $current_user);
