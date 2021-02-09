@@ -866,7 +866,21 @@ class PickListUtilsTest extends TestCase {
 			'Proposal/Price Quote' => 'Proposal/Price Quote',
 			'Negotiation/Review' => 'Negotiation/Review',
 		);
-		$this->assertEquals($expected, getEditablePicklistValues('sales_stage', array(), $adb), "Test getEditablePicklistValues Method on Potentials sales_stage");
+		$this->assertEquals($expected, getEditablePicklistValues('sales_stage', false, $adb), "Test getEditablePicklistValues Method on Potentials sales_stage");
+		global $current_language;
+		$current_language = 'es_es';
+		$expected = array(
+			'Prospecting' => 'Investigando',
+			'Qualification' => 'Valorando',
+			'Needs Analysis' => 'Necesita Análisis',
+			'Value Proposition' => 'Valorando Proposición',
+			'Id. Decision Makers' => 'Identificando Responsable',
+			'Perception Analysis' => 'Analizando',
+			'Proposal/Price Quote' => 'Presupuesto Propuesto',
+			'Negotiation/Review' => 'Negociando/Revisando',
+		);
+		$this->assertEquals($expected, getEditablePicklistValues('sales_stage', true, $adb), "Test getEditablePicklistValues Method on Potentials sales_stage ES_ES");
+		$current_language = 'en_us';
 	}
 
 	/**
@@ -876,12 +890,12 @@ class PickListUtilsTest extends TestCase {
 	public function testgetNonEditablePicklistValues() {
 		global $adb;
 		$expected = array('Closed Won', 'Closed Lost');
-		$this->assertEquals($expected, getNonEditablePicklistValues('sales_stage', array(), $adb), "Test getEditablePicklistValues Method on Potentials sales_stage");
+		$this->assertEquals($expected, getNonEditablePicklistValues('sales_stage', array(), $adb), "Test getNonEditablePicklistValues Method on Potentials sales_stage");
 		$expected[1] = 'Cerrado Ganado';
 		$this->assertEquals(
 			$expected,
 			getNonEditablePicklistValues('sales_stage', array('Closed Lost' => 'Cerrado Ganado'), $adb),
-			"Test getEditablePicklistValues Method on Potentials sales_stage with translation"
+			"Test getNonEditablePicklistValues Method on Potentials sales_stage with translation"
 		);
 	}
 
