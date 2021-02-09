@@ -27,6 +27,19 @@ include_once 'include/Webservices/Login.php';
 class testWSchangePassword extends TestCase {
 
 	/**
+	 * Method testinsecurepassword
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testinsecurepassword() {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode(WebServiceErrorCode::$PASSWORDNOTSTRONG);
+		vtws_changePassword('19x5', 'incorrect', 'newPassword', 'confirmPassword', $user);
+	}
+
+	/**
 	 * Method testincorrectoldpassword
 	 * @test
 	 * @expectedException WebServiceException
@@ -36,7 +49,7 @@ class testWSchangePassword extends TestCase {
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDOLDPASSWORD);
-		vtws_changePassword('19x5', 'incorrect', 'newPassword', 'confirmPassword', $user);
+		vtws_changePassword('19x5', 'incorrect', 'newPa$$wo4d', 'confirmPassword', $user);
 	}
 
 	/**
@@ -49,7 +62,7 @@ class testWSchangePassword extends TestCase {
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDOLDPASSWORD);
-		vtws_changePassword('19x5', '', 'newPassword', 'confirmPassword', $user);
+		vtws_changePassword('19x5', '', 'newPa$$wo4d', 'confirmPassword', $user);
 	}
 
 	/**
@@ -98,7 +111,7 @@ class testWSchangePassword extends TestCase {
 		$user = Users::getActiveAdminUser();
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$CHANGEPASSWORDFAILURE);
-		vtws_changePassword('19x5', 'testdmy', 'newPassword', 'confirmPassword', $user);
+		vtws_changePassword('19x5', 'testdmy', 'newPa$$wo4d', 'confirmPassword', $user);
 	}
 
 	/**
@@ -111,11 +124,11 @@ class testWSchangePassword extends TestCase {
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$accesskey = vtws_getUserAccessKey(5);
 		$this->assertTrue($user->verifyPassword('testdmy'));
-		$actual = vtws_changePassword('19x5', 'testdmy', 'newPassword', 'newPassword', $user);
+		$actual = vtws_changePassword('19x5', 'testdmy', 'newPa$$wo4d', 'newPa$$wo4d', $user);
 		$expected = array('message' => 'Changed password successfully');
 		$this->assertEquals($expected, $actual);
-		$this->assertTrue($user->verifyPassword('newPassword'));
-		vtws_changePassword('19x5', 'newPassword', 'testdmy', 'testdmy', $user);
+		$this->assertTrue($user->verifyPassword('newPa$$wo4d'));
+		$user->change_password('newPa$$wo4d', 'testdmy', false);
 		$this->assertTrue($user->verifyPassword('testdmy'));
 		// restore accesskey
 		$adb->pquery('update vtiger_users set accesskey=? where id=5', array($accesskey));
