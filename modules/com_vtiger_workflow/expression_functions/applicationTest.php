@@ -44,5 +44,34 @@ class workflowfunctionsapplicationTest extends TestCase {
 		$actual = __cb_evaluateRule(array(11, 11, $entityData));
 		$this->assertEquals(0, $actual, 'account name query');
 	}
+
+	/**
+	 * Method testgetfromcontextvalueinarrayobject
+	 * @test
+	 */
+	public function testgetfromcontextvalueinarrayobject() {
+		$array = array(
+			'one' => 1,
+			'two' => array(
+				'two' => 2,
+			),
+			'three' => array(
+				'three' => array(
+					'three' => 3,
+				),
+			),
+		);
+		$this->assertEquals(1, __cb_getfromcontextvalueinarrayobject($array, 'one'));
+		$this->assertEquals(2, __cb_getfromcontextvalueinarrayobject($array, 'two.two'));
+		$this->assertEquals(3, __cb_getfromcontextvalueinarrayobject($array, 'three.three.three'));
+		$this->assertEquals('', __cb_getfromcontextvalueinarrayobject(array(), 'one.two'));
+		$this->assertEquals('', __cb_getfromcontextvalueinarrayobject($array, 'one.two'));
+		$object = json_decode('{"one":1,"two" :[{"two":2}],"three":[[{"three":3}]]}');
+		$this->assertEquals(1, __cb_getfromcontextvalueinarrayobject($object, 'one'));
+		$this->assertEquals(2, __cb_getfromcontextvalueinarrayobject($object, 'two.0.two'));
+		$this->assertEquals(3, __cb_getfromcontextvalueinarrayobject($object, 'three.0.three.0.three'));
+		$this->assertEquals('', __cb_getfromcontextvalueinarrayobject(false, 'one.two'));
+		$this->assertEquals('', __cb_getfromcontextvalueinarrayobject($object, 'one.two'));
+	}
 }
 ?>
