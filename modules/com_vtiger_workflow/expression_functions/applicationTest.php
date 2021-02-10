@@ -46,6 +46,30 @@ class workflowfunctionsapplicationTest extends TestCase {
 	}
 
 	/**
+	 * Method testgetfromcontext
+	 * @test
+	 */
+	public function testgetfromcontext() {
+		$this->assertTrue(true, 'tested in wfExecExpressionTest.php');
+	}
+
+	/**
+	 * Method testgetfromcontextsearching
+	 * @test
+	 */
+	public function testgetfromcontextsearching() {
+		$this->assertTrue(true, 'tested in wfExecExpressionTest.php');
+	}
+
+	/**
+	 * Method testsetfromcontext
+	 * @test
+	 */
+	public function testsetfromcontext() {
+		$this->assertTrue(true, 'tested in wfExecExpressionTest.php');
+	}
+
+	/**
 	 * Method testgetfromcontextvalueinarrayobject
 	 * @test
 	 */

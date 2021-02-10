@@ -333,4 +333,101 @@ class wfExecExpressionTest extends TestCase {
 		$rwftsk->doTask($entity);
 		$this->assertEquals($expected, $entity->WorkflowContext);
 	}
+
+	/**
+	 * Method complexJSONSearchProvider
+	 * params
+	 */
+	public function complexJSONSearchProvider() {
+		$context = array(
+			'response' => json_decode($this->JSONResponse, true),
+		);
+		return array(
+			array(
+				'[{"exp":"getFromContextSearching(\'response.data.0.fields.custom_field\', \'label\', \'payment_method\', \'data\')","typ":"expression","var":"avar"}]',
+				'11x74',
+				$context,
+				array('response' => json_decode($this->JSONResponse, true), 'avar' => 8)
+				// array('response' => json_decode($this->JSONResponse, true), 'avar' => array(
+				// 	0 => array(
+				// 		'label' => 'total_fare',
+				// 		'display_name' => 'total fare',
+				// 		'data_type' => 'Number',
+				// 		'app_side' => '2',
+				// 		'required' => 0,
+				// 		'value' => 0,
+				// 		'data' => '8.42',
+				// 		'input' => '',
+				// 		'before_start' => 0,
+				// 		'template_id' => 'Pickup',
+				// 	),
+				// 	1 => array(
+				// 		'label' => 'payment_method',
+				// 		'display_name' => 'payment method',
+				// 		'data_type' => 'Text',
+				// 		'app_side' => '2',
+				// 		'required' => 0,
+				// 		'value' => 0,
+				// 		'data' => '8',
+				// 		'input' => '',
+				// 		'before_start' => 0,
+				// 		'template_id' => 'Pickup',
+				// 	),
+				// 	2 => array(
+				// 		'label' => 'Payment_Type',
+				// 		'display_name' => 'Payment Type',
+				// 		'data_type' => 'Dropdown',
+				// 		'app_side' => '2',
+				// 		'required' => 0,
+				// 		'value' => 0,
+				// 		'data' => 'Pay by cash,Pay by card',
+				// 		'input' => 'Pay by cash,Pay by card',
+				// 		'before_start' => 0,
+				// 		'template_id' => 'Pickup',
+				// 		'dropdown' => array(
+				// 			0 => array(
+				// 				'id' => 0,
+				// 				'value' => 'Pay by cash',
+				// 			),
+				// 			1 => array(
+				// 				'id' => 1,
+				// 				'value' => 'Pay by card',
+				// 			),
+				// 		),
+				// 		'fleet_data' => 'Pay by cash',
+				// 	),
+				//))
+			),
+			array(
+				'[{"exp":"getFromContextSearching(\'response.data.0.fields.custom_field\', \'label\', \'Payment_Type\', \'dropdown.1.value\')","typ":"expression","var":"avar"}]',
+				'11x74',
+				$context,
+				array('response' => json_decode($this->JSONResponse, true), 'avar' => 'Pay by card')
+			),
+			array(
+				'[{"exp":"getFromContextSearching(\'response.data.0.fields.custom_field\', \'label\', \'Payment_Type\', \'fleet_data\')","typ":"expression","var":"avar"}]',
+				'11x74',
+				$context,
+				array('response' => json_decode($this->JSONResponse, true), 'avar' => 'Pay by cash')
+			),
+		);
+	}
+
+	/**
+	 * Method testComplexJSONSearch
+	 * @test
+	 * @dataProvider complexJSONSearchProvider
+	 */
+	public function testComplexJSONSearch($expression, $entityId, $context, $expected) {
+		global $current_user;
+		$rwftsk = new wfExecExpression();
+		$rwftsk->wfexeexps = $expression;
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$current_user = $adminUser;
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$entity->WorkflowContext = $context;
+		$rwftsk->doTask($entity);
+		$this->assertEquals($expected, $entity->WorkflowContext);
+	}
 }
