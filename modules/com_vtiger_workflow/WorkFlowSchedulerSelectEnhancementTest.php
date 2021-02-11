@@ -736,6 +736,24 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 	}
 
 	/**
+	 * Method testgetIDof
+	 * @test
+	 */
+	public function testgetIDof() {
+		global $adb;
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Potentials';
+		$wfvals['test'] = '';
+		$wfvals['select_expressions'] = '[{"fieldname":"reltype","operation":"is","value":"getIDof(\'Accounts\',\'siccode\',\'doesnotexist\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT coalesce((SELECT vtiger_account.accountid FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.siccode = \'doesnotexist\')  AND vtiger_account.accountid > 0 limit 0, 1), 0) AS reltype FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
 	 * Method testgetSetting
 	 * @test
 	 */

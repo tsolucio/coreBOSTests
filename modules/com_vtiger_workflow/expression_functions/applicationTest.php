@@ -97,5 +97,15 @@ class workflowfunctionsapplicationTest extends TestCase {
 		$this->assertEquals('', __cb_getfromcontextvalueinarrayobject(false, 'one.two'));
 		$this->assertEquals('', __cb_getfromcontextvalueinarrayobject($object, 'one.two'));
 	}
+
+	/**
+	 * Method testgetidof
+	 * @test
+	 */
+	public function testgetidof() {
+		$this->assertEquals(74, __cb_getidof(array('Accounts', 'accountname', 'Chemex Labs Ltd')), 'accounts');
+		$this->assertEquals(1094, __cb_getidof(array('Contacts', 'mobile', '561-951-9734')), 'contacts');
+		$this->assertEquals(0, __cb_getidof(array('Contacts', 'mobile', 'does not exist')), 'contacts');
+	}
 }
 ?>
