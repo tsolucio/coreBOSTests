@@ -30,6 +30,7 @@ class PickListUtilsTest extends TestCase {
 		array(
 			'fieldlabel' => 'Status',
 			'generatedtype' => '',
+			'multii18n' => '1',
 			'columnname' => 'status',
 			'fieldname' => 'status',
 			'uitype' => '16',
@@ -44,6 +45,7 @@ class PickListUtilsTest extends TestCase {
 	0 => array(
 		'fieldlabel' => 'Status',
 		'generatedtype' => '',
+		'multii18n' => '1',
 		'columnname' => 'campaignrelstatus',
 		'fieldname' => 'campaignrelstatus',
 		'uitype' => '16',
@@ -58,6 +60,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Type',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'account_type',
 	'fieldname' => 'accounttype',
 	'uitype' => '15',
@@ -80,6 +83,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'industry',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'industry',
 	'fieldname' => 'industry',
 	'uitype' => '15',
@@ -123,6 +127,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Rating',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'rating',
 	'fieldname' => 'rating',
 	'uitype' => '15',
@@ -140,6 +145,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'PLMain',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'cf_729',
 	'fieldname' => 'cf_729',
 	'uitype' => '15',
@@ -154,6 +160,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'PLDep1',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'cf_730',
 	'fieldname' => 'cf_730',
 	'uitype' => '15',
@@ -171,6 +178,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'PLDep2',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'cf_731',
 	'fieldname' => 'cf_731',
 	'uitype' => '15',
@@ -194,6 +202,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Planets',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'cf_732',
 	'fieldname' => 'cf_732',
 	'uitype' => '33',
@@ -232,6 +241,7 @@ class PickListUtilsTest extends TestCase {
 	0 => array(
 		'fieldlabel' => 'Status',
 		'generatedtype' => '',
+		'multii18n' => '1',
 		'columnname' => 'campaignrelstatus',
 		'fieldname' => 'campaignrelstatus',
 		'uitype' => '16',
@@ -245,6 +255,7 @@ class PickListUtilsTest extends TestCase {
 	1 => array(
 		'fieldlabel' => 'portalpasswordtype',
 		'generatedtype' => '',
+		'multii18n' => '1',
 		'columnname' => 'portalpasswordtype',
 		'fieldname' => 'portalpasswordtype',
 		'uitype' => '16',
@@ -259,6 +270,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Lead Source',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'leadsource',
 	'fieldname' => 'leadsource',
 	'uitype' => '15',
@@ -283,6 +295,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Salutation',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'salutation',
 	'fieldname' => 'salutationtype',
 	'uitype' => '55',
@@ -300,6 +313,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Template Language',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'template_language',
 	'fieldname' => 'template_language',
 	'uitype' => '15',
@@ -321,6 +335,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Category',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'category',
 	'fieldname' => 'ticketcategories',
 	'uitype' => '15',
@@ -335,6 +350,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Priority',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'priority',
 	'fieldname' => 'ticketpriorities',
 	'uitype' => '15',
@@ -350,6 +366,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Severity',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'severity',
 	'fieldname' => 'ticketseverities',
 	'uitype' => '15',
@@ -365,6 +382,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Status',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'status',
 	'fieldname' => 'ticketstatus',
 	'uitype' => '15',
@@ -384,6 +402,7 @@ class PickListUtilsTest extends TestCase {
 		array(
 			'fieldlabel' => 'Status',
 			'generatedtype' => '',
+			'multii18n' => '1',
 			'columnname' => 'status',
 			'fieldname' => 'status',
 			'uitype' => '16',
@@ -398,6 +417,7 @@ class PickListUtilsTest extends TestCase {
 	0 => array(
 		'fieldlabel' => 'Status',
 		'generatedtype' => '',
+		'multii18n' => '1',
 		'columnname' => 'campaignrelstatus',
 		'fieldname' => 'campaignrelstatus',
 		'uitype' => '16',
@@ -412,6 +432,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Type',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'account_type',
 	'fieldname' => 'accounttype',
 	'uitype' => '15',
@@ -433,6 +454,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'industry',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'industry',
 	'fieldname' => 'industry',
 	'uitype' => '15',
@@ -476,6 +498,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Rating',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'rating',
 	'fieldname' => 'rating',
 	'uitype' => '15',
@@ -491,6 +514,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'PLMain',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'cf_729',
 	'fieldname' => 'cf_729',
 	'uitype' => '15',
@@ -505,6 +529,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'PLDep1',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'cf_730',
 	'fieldname' => 'cf_730',
 	'uitype' => '15',
@@ -522,6 +547,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'PLDep2',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'cf_731',
 	'fieldname' => 'cf_731',
 	'uitype' => '15',
@@ -545,6 +571,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Planets',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'cf_732',
 	'fieldname' => 'cf_732',
 	'uitype' => '33',
@@ -583,6 +610,7 @@ class PickListUtilsTest extends TestCase {
 	0 => array(
 		'fieldlabel' => 'Status',
 		'generatedtype' => '',
+		'multii18n' => '1',
 		'columnname' => 'campaignrelstatus',
 		'fieldname' => 'campaignrelstatus',
 		'uitype' => '16',
@@ -596,6 +624,7 @@ class PickListUtilsTest extends TestCase {
 	1 => array(
 		'fieldlabel' => 'portalpasswordtype',
 		'generatedtype' => '',
+		'multii18n' => '1',
 		'columnname' => 'portalpasswordtype',
 		'fieldname' => 'portalpasswordtype',
 		'uitype' => '16',
@@ -610,6 +639,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Lead Source',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'leadsource',
 	'fieldname' => 'leadsource',
 	'uitype' => '15',
@@ -633,6 +663,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Salutation',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'salutation',
 	'fieldname' => 'salutationtype',
 	'uitype' => '55',
@@ -650,6 +681,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Template Language',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'template_language',
 	'fieldname' => 'template_language',
 	'uitype' => '15',
@@ -671,6 +703,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Category',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'category',
 	'fieldname' => 'ticketcategories',
 	'uitype' => '15',
@@ -685,6 +718,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Priority',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'priority',
 	'fieldname' => 'ticketpriorities',
 	'uitype' => '15',
@@ -699,6 +733,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Severity',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'severity',
 	'fieldname' => 'ticketseverities',
 	'uitype' => '15',
@@ -714,6 +749,7 @@ class PickListUtilsTest extends TestCase {
 	array (
 	'fieldlabel' => 'Status',
 	'generatedtype' => '',
+	'multii18n' => '1',
 	'columnname' => 'status',
 	'fieldname' => 'ticketstatus',
 	'uitype' => '15',
@@ -897,6 +933,29 @@ class PickListUtilsTest extends TestCase {
 			getNonEditablePicklistValues('sales_stage', array('Closed Lost' => 'Cerrado Ganado'), $adb),
 			"Test getNonEditablePicklistValues Method on Potentials sales_stage with translation"
 		);
+	}
+
+	/**
+	 * Method testhasMultiLanguageSupport
+	 * @test
+	 */
+	public function testhasMultiLanguageSupport() {
+		global $adb;
+		$this->assertTrue(hasMultiLanguageSupport('sales_stage'), "Test testhasMultiLanguageSupport Method on Potentials sales_stage TRUE");
+		$adb->pquery('update vtiger_picklist set multii18n=0 where name=?', array('sales_stage'));
+		$this->assertFalse(hasMultiLanguageSupport('sales_stage'), "Test testhasMultiLanguageSupport Method on Potentials sales_stage FALSE");
+		$adb->pquery('update vtiger_picklist set multii18n=1 where name=?', array('sales_stage'));
+	}
+
+	/**
+	 * Method testhasNonEditablePicklistValues
+	 * @test
+	 */
+	public function testhasNonEditablePicklistValues() {
+		$this->assertTrue(hasNonEditablePicklistValues('sales_stage'), "Test testhasNonEditablePicklistValues Method on Potentials sales_stage");
+		$this->assertFalse(hasNonEditablePicklistValues('industry'), "Test testhasNonEditablePicklistValues Method on Accounts industry");
+		$this->assertTrue(hasNonEditablePicklistValues('status'), "Test testhasNonEditablePicklistValues Method on uitype 16 picklist");
+		$this->assertFalse(hasNonEditablePicklistValues('doesnotexist'), "Test testhasNonEditablePicklistValues Method on inexistent picklist");
 	}
 
 	/**
