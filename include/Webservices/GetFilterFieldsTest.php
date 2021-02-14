@@ -37,12 +37,16 @@ class testWSGetFilterFields extends TestCase {
 			'pagesize' => intval(GlobalVariable::getVariable('Application_ListView_PageSize', 20, 'Users')),
 		);
 		$this->assertEquals($expected, vtws_getfilterfields('Users', $current_user), 'GetFilterFields');
-		$expected = array(
-			'fields'=>'',
-			'linkfields'=>'',
-			'pagesize' => intval(GlobalVariable::getVariable('Application_ListView_PageSize', 20, 'evvtMenu')),
-		);
-		$this->assertEquals($expected, vtws_getfilterfields('evvtMenu', $current_user), 'GetFilterFields');
+	}
+
+	/**
+	 * Method testextension
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testextension() {
+		global $current_user;
+		$this->assertEquals('', vtws_getfilterfields('evvtMenu', $current_user), 'GetFilterFields on extension');
 	}
 }
 ?>
