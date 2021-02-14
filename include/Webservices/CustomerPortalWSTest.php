@@ -118,17 +118,18 @@ class testCustomerPortalWS extends TestCase {
 		$usersadmin = '[{"userid":"19x1","username":"Administrator"},{"userid":"19x11","username":"nocreate cbTest"},{"userid":"19x5","username":"cbTest testdmy"},{"userid":"19x8","username":"cbTest testes"},{"userid":"19x12","username":"cbTest testmcurrency"},{"userid":"19x6","username":"cbTest testmdy"},{"userid":"19x10","username":"cbTest testtz"},{"userid":"19x13","username":"cbTest testtz-3"},{"userid":"19x7","username":"cbTest testymd"}]';
 		return array(
 			array('HelpDesk', 1, $usersadmin),
-			array('DoesNotExist', 1, $usersadmin),
-			array('', 1, $usersadmin),
+			array('DoesNotExist', 1, '[]'),
+			array('', 1, '[]'),
 			array('HelpDesk', $this->usrdota0x, $usersadmin),
-			array('DoesNotExist', $this->usrdota0x, $usersadmin),
-			array('', $this->usrdota0x, $usersadmin),
+			array('DoesNotExist', $this->usrdota0x, '[]'),
+			array('', $this->usrdota0x, '[]'),
 			array('HelpDesk', $this->usrinactive, $usersadmin),
-			array('DoesNotExist', $this->usrinactive, $usersadmin),
-			array('', $this->usrinactive, $usersadmin),
+			array('DoesNotExist', $this->usrinactive, '[]'),
+			array('', $this->usrinactive, '[]'),
 			array('HelpDesk', $this->usrnocreate, $usersadmin),
-			array('DoesNotExist', $this->usrnocreate, $usersadmin),
-			array('', $this->usrnocreate, $usersadmin),
+			array('cbTermConditions', $this->usrnocreate, '[]'),
+			array('DoesNotExist', $this->usrnocreate, '[]'),
+			array('', $this->usrnocreate, '[]'),
 		);
 	}
 
@@ -151,17 +152,18 @@ class testCustomerPortalWS extends TestCase {
 		$usersadmin = '[{"groupid":"20x3","groupname":"Marketing Group"},{"groupid":"20x4","groupname":"Support Group"},{"groupid":"20x2","groupname":"Team Selling"}]';
 		return array(
 			array('HelpDesk', 1, $usersadmin),
-			array('DoesNotExist', 1, $usersadmin),
-			array('', 1, $usersadmin),
+			array('DoesNotExist', 1, '[]'),
+			array('', 1, '[]'),
 			array('HelpDesk', $this->usrdota0x, $usersadmin),
-			array('DoesNotExist', $this->usrdota0x, $usersadmin),
-			array('', $this->usrdota0x, $usersadmin),
+			array('DoesNotExist', $this->usrdota0x, '[]'),
+			array('', $this->usrdota0x, '[]'),
 			array('HelpDesk', $this->usrinactive, $usersadmin),
-			array('DoesNotExist', $this->usrinactive, $usersadmin),
-			array('', $this->usrinactive, $usersadmin),
+			array('DoesNotExist', $this->usrinactive, '[]'),
+			array('', $this->usrinactive, '[]'),
 			array('HelpDesk', $this->usrnocreate, $usersadmin),
-			array('DoesNotExist', $this->usrnocreate, $usersadmin),
-			array('', $this->usrnocreate, $usersadmin),
+			array('cbTermConditions', $this->usrnocreate, '[]'),
+			array('DoesNotExist', $this->usrnocreate, '[]'),
+			array('', $this->usrnocreate, '[]'),
 		);
 	}
 
