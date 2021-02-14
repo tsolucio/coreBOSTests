@@ -27,7 +27,8 @@ class testSearchUtils extends TestCase {
 	 * @test
 	 */
 	public function testgetAdvancedSearchValue() {
-		global $currentModule, $current_user;
+		global $currentModule, $current_user, $adb;
+		$adb->pquery('update vtiger_picklist set multii18n=1 where name=?', array('industry'));
 		$ulang = $current_user->language;
 		$current_user->language = 'en_us';
 		$currentModule = 'Accounts';
@@ -55,5 +56,32 @@ class testSearchUtils extends TestCase {
 		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'c', 'Ropa', 'V');
 		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
 		$current_user->language = $ulang;
+	}
+
+	/**
+	 * Method testgetAdvancedSearchValueMultii18n
+	 * @test
+	 */
+	public function testgetAdvancedSearchValueMultii18n() {
+		global $currentModule, $current_user, $adb;
+		$adb->pquery('update vtiger_picklist set multii18n=0 where name=?', array('industry'));
+		$ulang = $current_user->language;
+		$current_user->language = 'en_us';
+		$currentModule = 'Accounts';
+		$expected = "vtiger_account.industry = 'Apparel'";
+		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'e', 'Apparel', 'V');
+		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
+		$current_user->language = 'es_es';
+		$expected = "vtiger_account.industry = 'Apparel'";
+		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'e', 'Apparel', 'V');
+		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
+		$expected = "vtiger_account.industry = 'Ropa'";
+		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'e', 'Ropa', 'V');
+		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
+		$expected = "vtiger_account.industry like '%Ropa%'";
+		$actual = getAdvancedSearchValue('vtiger_account', 'industry', 'c', 'Ropa', 'V');
+		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
+		$current_user->language = $ulang;
+		$adb->pquery('update vtiger_picklist set multii18n=1 where name=?', array('industry'));
 	}
 }
