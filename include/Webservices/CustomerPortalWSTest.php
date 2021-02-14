@@ -435,20 +435,91 @@ class testCustomerPortalWS extends TestCase {
 		$accountId = '74';
 		$contactId = '1084';
 		return array(
-			array('Contacts', '74', '1084', "vtiger_contactdetails.accountid=$accountId"),
-			array('Accounts', '74', '1084', "vtiger_account.accountid=$accountId"),
-			array('Quotes', '74', '1084', "vtiger_quotes.accountid=$accountId or vtiger_quotes.contactid=$contactId"),
-			array('SalesOrder', '74', '1084', "vtiger_salesorder.accountid=$accountId or vtiger_salesorder.contactid=$contactId"),
-			array('ServiceContracts', '74', '1084', "vtiger_servicecontracts.sc_related_to=$accountId or vtiger_servicecontracts.sc_related_to=$contactId"),
-			array('Invoice', '74', '1084', "vtiger_invoice.accountid=$accountId or vtiger_invoice.contactid=$contactId"),
-			array('HelpDesk', '74', '1084', "vtiger_troubletickets.parent_id=$accountId or vtiger_troubletickets.parent_id=$contactId"),
-			array('Assets', '74', '1084', "vtiger_assets.account=$accountId"),
-			array('Project', '74', '1084', "vtiger_project.linktoaccountscontacts=$accountId or vtiger_project.linktoaccountscontacts=$contactId"),
-			array('Products', '74', '1084', ''),
-			array('Services', '74', '1084', ''),
-			array('Faq', '74', '1084', "faqstatus='Published'"),
-			array('Documents', '74', '1084', ''),
-			array('AnythingElse', '74', '1084', ''),
+			array('Contacts', '74', '1084', 0, "vtiger_contactdetails.accountid=$accountId"),
+			array('Accounts', '74', '1084', 0, "vtiger_account.accountid=$accountId"),
+			array('Quotes', '74', '1084', 0, "vtiger_quotes.accountid=$accountId or vtiger_quotes.contactid=$contactId"),
+			array('SalesOrder', '74', '1084', 0, "vtiger_salesorder.accountid=$accountId or vtiger_salesorder.contactid=$contactId"),
+			array('ServiceContracts', '74', '1084', 0, "vtiger_servicecontracts.sc_related_to=$accountId or vtiger_servicecontracts.sc_related_to=$contactId"),
+			array('Invoice', '74', '1084', 0, "vtiger_invoice.accountid=$accountId or vtiger_invoice.contactid=$contactId"),
+			array('HelpDesk', '74', '1084', 0, "vtiger_troubletickets.parent_id=$accountId or vtiger_troubletickets.parent_id=$contactId"),
+			array('Assets', '74', '1084', 0, "vtiger_assets.account=$accountId"),
+			array('Project', '74', '1084', 0, "vtiger_project.linktoaccountscontacts=$accountId or vtiger_project.linktoaccountscontacts=$contactId"),
+			array('Products', '74', '1084', 0, ''),
+			array('Services', '74', '1084', 0, ''),
+			array('Faq', '74', '1084', 0, "faqstatus='Published'"),
+			array('Documents', '74', '1084', 0, ''),
+			array('Potentials', '74', '1084', 0, 'vtiger_potential.related_to=74 or vtiger_potential.related_to=1084'),
+			array('CobroPago', '74', '1084', 0, 'vtiger_cobropago.parent_id=74 or vtiger_cobropago.parent_id=1084'),
+			array('AnythingElse', '74', '1084', 0, ''),
+			////////////////
+			array('Contacts', '74', '1084', 1, "vtiger_contactdetails.accountid=$accountId"),
+			array('Accounts', '74', '1084', 1, "vtiger_account.accountid=$accountId"),
+			array('Quotes', '74', '1084', 1, "vtiger_quotes.accountid=$accountId or vtiger_quotes.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('SalesOrder', '74', '1084', 1, "vtiger_salesorder.accountid=$accountId or vtiger_salesorder.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('ServiceContracts', '74', '1084', 1, "vtiger_servicecontracts.sc_related_to=$accountId or vtiger_servicecontracts.sc_related_to IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Invoice', '74', '1084', 1, "vtiger_invoice.accountid=$accountId or vtiger_invoice.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('HelpDesk', '74', '1084', 1, "vtiger_troubletickets.parent_id=$accountId or vtiger_troubletickets.parent_id IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Assets', '74', '1084', 1, "vtiger_assets.account=$accountId"),
+			array('Project', '74', '1084', 1, "vtiger_project.linktoaccountscontacts=$accountId or vtiger_project.linktoaccountscontacts IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Products', '74', '1084', 1, ''),
+			array('Services', '74', '1084', 1, ''),
+			array('Faq', '74', '1084', 1, "faqstatus='Published'"),
+			array('Documents', '74', '1084', 1, ''),
+			array('Potentials', '74', '1084', 1, "vtiger_potential.related_to=74 or vtiger_potential.related_to IN ('1084','1086','1088','1090','1092','1094')"),
+			array('CobroPago', '74', '1084', 1, "vtiger_cobropago.parent_id=74 or vtiger_cobropago.parent_id IN ('1084','1086','1088','1090','1092','1094')"),
+			array('AnythingElse', '74', '1084', 1, ''),
+			////////////////
+			array('Contacts', '74', '1084', 2, "vtiger_contactdetails.accountid IN ('74','746')"),
+			array('Accounts', '74', '1084', 2, "vtiger_account.accountid IN ('74','746')"),
+			array('Quotes', '74', '1084', 2, "vtiger_quotes.accountid IN ('74','746') or vtiger_quotes.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('SalesOrder', '74', '1084', 2, "vtiger_salesorder.accountid IN ('74','746') or vtiger_salesorder.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('ServiceContracts', '74', '1084', 2, "vtiger_servicecontracts.sc_related_to IN ('74','746') or vtiger_servicecontracts.sc_related_to IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Invoice', '74', '1084', 2, "vtiger_invoice.accountid IN ('74','746') or vtiger_invoice.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('HelpDesk', '74', '1084', 2, "vtiger_troubletickets.parent_id IN ('74','746') or vtiger_troubletickets.parent_id IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Assets', '74', '1084', 2, "vtiger_assets.account IN ('74','746')"),
+			array('Project', '74', '1084', 2, "vtiger_project.linktoaccountscontacts IN ('74','746') or vtiger_project.linktoaccountscontacts IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Products', '74', '1084', 2, ''),
+			array('Services', '74', '1084', 2, ''),
+			array('Faq', '74', '1084', 2, "faqstatus='Published'"),
+			array('Documents', '74', '1084', 2, ''),
+			array('Potentials', '74', '1084', 2, "vtiger_potential.related_to IN ('74','746') or vtiger_potential.related_to IN ('1084','1086','1088','1090','1092','1094')"),
+			array('CobroPago', '74', '1084', 2, "vtiger_cobropago.parent_id IN ('74','746') or vtiger_cobropago.parent_id IN ('1084','1086','1088','1090','1092','1094')"),
+			array('AnythingElse', '74', '1084', 2, ''),
+			////////////////
+			array('Contacts', '74', '1084', 3, "vtiger_contactdetails.accountid IN ('74','746')"),
+			array('Accounts', '74', '1084', 3, "vtiger_account.accountid IN ('74','746')"),
+			array('Quotes', '74', '1084', 3, "vtiger_quotes.accountid IN ('74','746') or vtiger_quotes.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('SalesOrder', '74', '1084', 3, "vtiger_salesorder.accountid IN ('74','746') or vtiger_salesorder.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('ServiceContracts', '74', '1084', 3, "vtiger_servicecontracts.sc_related_to IN ('74','746') or vtiger_servicecontracts.sc_related_to IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Invoice', '74', '1084', 3, "vtiger_invoice.accountid IN ('74','746') or vtiger_invoice.contactid IN ('1084','1086','1088','1090','1092','1094')"),
+			array('HelpDesk', '74', '1084', 3, "vtiger_troubletickets.parent_id IN ('74','746') or vtiger_troubletickets.parent_id IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Assets', '74', '1084', 3, "vtiger_assets.account IN ('74','746')"),
+			array('Project', '74', '1084', 3, "vtiger_project.linktoaccountscontacts IN ('74','746') or vtiger_project.linktoaccountscontacts IN ('1084','1086','1088','1090','1092','1094')"),
+			array('Products', '74', '1084', 3, ''),
+			array('Services', '74', '1084', 3, ''),
+			array('Faq', '74', '1084', 3, "faqstatus='Published'"),
+			array('Documents', '74', '1084', 3, ''),
+			array('Potentials', '74', '1084', 3, "vtiger_potential.related_to IN ('74','746') or vtiger_potential.related_to IN ('1084','1086','1088','1090','1092','1094')"),
+			array('CobroPago', '74', '1084', 3, "vtiger_cobropago.parent_id IN ('74','746') or vtiger_cobropago.parent_id IN ('1084','1086','1088','1090','1092','1094')"),
+			array('AnythingElse', '74', '1084', 3, ''),
+			////////////////
+			array('Contacts', '74', '1084', 4, "vtiger_contactdetails.accountid IN ('74','746')"),
+			array('Accounts', '74', '1084', 4, "vtiger_account.accountid IN ('74','746')"),
+			array('Quotes', '74', '1084', 4, "vtiger_quotes.accountid IN ('74','746') or vtiger_quotes.contactid IN ('1084','1086','1088','1090','1092','1094','1829')"),
+			array('SalesOrder', '74', '1084', 4, "vtiger_salesorder.accountid IN ('74','746') or vtiger_salesorder.contactid IN ('1084','1086','1088','1090','1092','1094','1829')"),
+			array('ServiceContracts', '74', '1084', 4, "vtiger_servicecontracts.sc_related_to IN ('74','746') or vtiger_servicecontracts.sc_related_to IN ('1084','1086','1088','1090','1092','1094','1829')"),
+			array('Invoice', '74', '1084', 4, "vtiger_invoice.accountid IN ('74','746') or vtiger_invoice.contactid IN ('1084','1086','1088','1090','1092','1094','1829')"),
+			array('HelpDesk', '74', '1084', 4, "vtiger_troubletickets.parent_id IN ('74','746') or vtiger_troubletickets.parent_id IN ('1084','1086','1088','1090','1092','1094','1829')"),
+			array('Assets', '74', '1084', 4, "vtiger_assets.account IN ('74','746')"),
+			array('Project', '74', '1084', 4, "vtiger_project.linktoaccountscontacts IN ('74','746') or vtiger_project.linktoaccountscontacts IN ('1084','1086','1088','1090','1092','1094','1829')"),
+			array('Products', '74', '1084', 4, ''),
+			array('Services', '74', '1084', 4, ''),
+			array('Faq', '74', '1084', 4, "faqstatus='Published'"),
+			array('Documents', '74', '1084', 4, ''),
+			array('Potentials', '74', '1084', 4, "vtiger_potential.related_to IN ('74','746') or vtiger_potential.related_to IN ('1084','1086','1088','1090','1092','1094','1829')"),
+			array('CobroPago', '74', '1084', 4, "vtiger_cobropago.parent_id IN ('74','746') or vtiger_cobropago.parent_id IN ('1084','1086','1088','1090','1092','1094','1829')"),
+			array('AnythingElse', '74', '1084', 4, ''),
+			////////////////
 		);
 	}
 
@@ -457,8 +528,8 @@ class testCustomerPortalWS extends TestCase {
 	 * @test
 	 * @dataProvider PortalModuleRestrictionsProvider
 	 */
-	public function testPortalModuleRestrictions($module, $accountId, $contactId, $expected) {
-		$this->assertEquals($expected, evvt_PortalModuleRestrictions($module, $accountId, $contactId));
+	public function testPortalModuleRestrictions($module, $accountId, $contactId, $companyAccess, $expected) {
+		$this->assertEquals($expected, evvt_PortalModuleRestrictions($module, $accountId, $contactId, $companyAccess));
 	}
 
 	/**
@@ -537,7 +608,7 @@ class testCustomerPortalWS extends TestCase {
 		global $current_user;
 		$current_user = Users::getActiveAdminUser();
 		$actual = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
-		$this->assertGreaterThan(600, count($actual));
+		$this->assertGreaterThan(190, count($actual));
 		$actual1 = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084', 'limit' => 50), $current_user);
 		$this->assertEquals(50, count($actual1));
 		$actual2 = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084', 'limit' => 50), $current_user);
