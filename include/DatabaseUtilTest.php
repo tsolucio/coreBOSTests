@@ -247,7 +247,6 @@ class testDatabaseUtil extends TestCase {
 		$this->assertTrue($rs !== false);
 	}
 
-
 	/**
 	 * Method stripTailCommandsFromQueryProvider
 	 */
@@ -353,5 +352,111 @@ class testDatabaseUtil extends TestCase {
 	 */
 	public function teststripTailCommandsFromQuery($query, $groupby, $expected) {
 		$this->assertEquals($expected, stripTailCommandsFromQuery($query, $groupby));
+	}
+
+	/**
+	 * Method appendFromClauseToQueryProvider
+	 */
+	public function appendFromClauseToQueryProvider() {
+		return array(
+			array(
+				"SELECT vtiger_account.account_no, vtiger_account.accountname, vtiger_accountbillads.bill_city, vtiger_account.website, vtiger_account.phone, vtiger_crmentity.smownerid, vtiger_crmentity.crmid FROM vtiger_account INNER JOIN vtiger_crmentity AS vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_account.accountid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid INNER JOIN vtiger_accountshipads ON vtiger_account.accountid = vtiger_accountshipads.accountaddressid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid LEFT JOIN vtiger_account vtiger_account2 ON vtiger_account.parentid = vtiger_account2.accountid WHERE vtiger_account.accountid>0 AND vtiger_crmentity.deleted = 0 and (vtiger_account.accountname LIKE '%che%' OR vtiger_account.account_no LIKE '%che%' OR vtiger_account.phone LIKE '%che%' OR vtiger_account.website LIKE '%che%' OR vtiger_account.fax LIKE '%che%' OR vtiger_account.tickersymbol LIKE '%che%' OR vtiger_account.otherphone LIKE '%che%' OR vtiger_account.parentid LIKE '%che%' OR vtiger_account.email1 LIKE '%che%' OR vtiger_account.employees LIKE '%che%' OR vtiger_account.email2 LIKE '%che%' OR vtiger_account.ownership LIKE '%che%' OR (vtiger_account.rating IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::rating\" and i18n LIKE \"%che%\") OR vtiger_account.rating LIKE \"%che%\") OR (vtiger_account.industry IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::industry\" and i18n LIKE \"%che%\") OR vtiger_account.industry LIKE \"%che%\") OR vtiger_account.siccode LIKE '%che%' OR (vtiger_account.account_type IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n LIKE \"%che%\") OR vtiger_account.account_type LIKE \"%che%\") OR vtiger_account.annualrevenue LIKE '%che%' OR vtiger_account.emailoptout LIKE '%che%' OR vtiger_account.notify_owner LIKE '%che%' OR vtiger_crmentity.smownerid LIKE '%che%' OR vtiger_crmentity.createdtime LIKE '%che%' OR vtiger_crmentity.modifiedtime LIKE '%che%' OR vtiger_crmentity.modifiedby LIKE '%che%' OR vtiger_accountbillads.bill_street LIKE '%che%' OR vtiger_accountshipads.ship_street LIKE '%che%' OR vtiger_accountbillads.bill_city LIKE '%che%' OR vtiger_accountshipads.ship_city LIKE '%che%' OR vtiger_accountbillads.bill_state LIKE '%che%' OR vtiger_accountshipads.ship_state LIKE '%che%' OR vtiger_accountbillads.bill_code LIKE '%che%' OR vtiger_accountshipads.ship_code LIKE '%che%' OR vtiger_accountbillads.bill_country LIKE '%che%' OR vtiger_accountshipads.ship_country LIKE '%che%' OR vtiger_accountbillads.bill_pobox LIKE '%che%' OR vtiger_accountshipads.ship_pobox LIKE '%che%' OR vtiger_crmentity.description LIKE '%che%' OR vtiger_accountscf.cf_718 LIKE '%che%' OR vtiger_accountscf.cf_719 LIKE '%che%' OR vtiger_accountscf.cf_720 LIKE '%che%' OR vtiger_accountscf.cf_721 LIKE '%che%' OR vtiger_accountscf.cf_722 LIKE '%che%' OR vtiger_accountscf.cf_723 LIKE '%che%' OR vtiger_accountscf.cf_724 LIKE '%che%' OR vtiger_accountscf.cf_725 LIKE '%che%' OR vtiger_accountscf.cf_726 LIKE '%che%' OR vtiger_accountscf.cf_727 LIKE '%che%' OR vtiger_accountscf.cf_728 LIKE '%che%' OR (vtiger_accountscf.cf_729 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_729 LIKE \"%che%\") OR (vtiger_accountscf.cf_730 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_730\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_730 LIKE \"%che%\") OR (vtiger_accountscf.cf_731 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_731\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_731 LIKE \"%che%\") OR vtiger_accountscf.cf_732 LIKE '%che%' OR vtiger_account.isconvertedfromlead LIKE '%che%' OR vtiger_account.convertedfromlead LIKE '%che%' OR vtiger_crmentity.smcreatorid LIKE '%che%')",
+				'inner join with any string',
+				"SELECT vtiger_account.account_no, vtiger_account.accountname, vtiger_accountbillads.bill_city, vtiger_account.website, vtiger_account.phone, vtiger_crmentity.smownerid, vtiger_crmentity.crmid FROM vtiger_account INNER JOIN vtiger_crmentity AS vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_account.accountid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid INNER JOIN vtiger_accountshipads ON vtiger_account.accountid = vtiger_accountshipads.accountaddressid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid LEFT JOIN vtiger_account vtiger_account2 ON vtiger_account.parentid = vtiger_account2.accountid inner join with any string WHERE vtiger_account.accountid>0 AND vtiger_crmentity.deleted = 0 and (vtiger_account.accountname LIKE '%che%' OR vtiger_account.account_no LIKE '%che%' OR vtiger_account.phone LIKE '%che%' OR vtiger_account.website LIKE '%che%' OR vtiger_account.fax LIKE '%che%' OR vtiger_account.tickersymbol LIKE '%che%' OR vtiger_account.otherphone LIKE '%che%' OR vtiger_account.parentid LIKE '%che%' OR vtiger_account.email1 LIKE '%che%' OR vtiger_account.employees LIKE '%che%' OR vtiger_account.email2 LIKE '%che%' OR vtiger_account.ownership LIKE '%che%' OR (vtiger_account.rating IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::rating\" and i18n LIKE \"%che%\") OR vtiger_account.rating LIKE \"%che%\") OR (vtiger_account.industry IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::industry\" and i18n LIKE \"%che%\") OR vtiger_account.industry LIKE \"%che%\") OR vtiger_account.siccode LIKE '%che%' OR (vtiger_account.account_type IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n LIKE \"%che%\") OR vtiger_account.account_type LIKE \"%che%\") OR vtiger_account.annualrevenue LIKE '%che%' OR vtiger_account.emailoptout LIKE '%che%' OR vtiger_account.notify_owner LIKE '%che%' OR vtiger_crmentity.smownerid LIKE '%che%' OR vtiger_crmentity.createdtime LIKE '%che%' OR vtiger_crmentity.modifiedtime LIKE '%che%' OR vtiger_crmentity.modifiedby LIKE '%che%' OR vtiger_accountbillads.bill_street LIKE '%che%' OR vtiger_accountshipads.ship_street LIKE '%che%' OR vtiger_accountbillads.bill_city LIKE '%che%' OR vtiger_accountshipads.ship_city LIKE '%che%' OR vtiger_accountbillads.bill_state LIKE '%che%' OR vtiger_accountshipads.ship_state LIKE '%che%' OR vtiger_accountbillads.bill_code LIKE '%che%' OR vtiger_accountshipads.ship_code LIKE '%che%' OR vtiger_accountbillads.bill_country LIKE '%che%' OR vtiger_accountshipads.ship_country LIKE '%che%' OR vtiger_accountbillads.bill_pobox LIKE '%che%' OR vtiger_accountshipads.ship_pobox LIKE '%che%' OR vtiger_crmentity.description LIKE '%che%' OR vtiger_accountscf.cf_718 LIKE '%che%' OR vtiger_accountscf.cf_719 LIKE '%che%' OR vtiger_accountscf.cf_720 LIKE '%che%' OR vtiger_accountscf.cf_721 LIKE '%che%' OR vtiger_accountscf.cf_722 LIKE '%che%' OR vtiger_accountscf.cf_723 LIKE '%che%' OR vtiger_accountscf.cf_724 LIKE '%che%' OR vtiger_accountscf.cf_725 LIKE '%che%' OR vtiger_accountscf.cf_726 LIKE '%che%' OR vtiger_accountscf.cf_727 LIKE '%che%' OR vtiger_accountscf.cf_728 LIKE '%che%' OR (vtiger_accountscf.cf_729 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_729 LIKE \"%che%\") OR (vtiger_accountscf.cf_730 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_730\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_730 LIKE \"%che%\") OR (vtiger_accountscf.cf_731 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_731\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_731 LIKE \"%che%\") OR vtiger_accountscf.cf_732 LIKE '%che%' OR vtiger_account.isconvertedfromlead LIKE '%che%' OR vtiger_account.convertedfromlead LIKE '%che%' OR vtiger_crmentity.smcreatorid LIKE '%che%')",
+			),
+			array(
+				'SELECT * FROM vtiger_accounts WHERE accountname like "%t%"',
+				'inner join with any string',
+				'SELECT * FROM vtiger_accounts inner join with any string WHERE accountname like "%t%"',
+			),
+			array(
+				'SELECT * FROM vtiger_accounts',
+				'inner join with any string',
+				'SELECT * FROM vtiger_accounts inner join with any string',
+			),
+			array(
+				'SELECT * FROM vtiger_accounts',
+				'',
+				'SELECT * FROM vtiger_accounts',
+			),
+			array(
+				'SELECT  *  FROM  vtiger_accounts  ',
+				'   ',
+				'SELECT * FROM vtiger_accounts ',
+			),
+			array(
+				'SELECT * FROM vtiger_accounts where xx in (select somefield from sometable where thereisanotherwhere=true)',
+				'inner join with any string',
+				'SELECT * FROM vtiger_accounts inner join with any string where xx in (select somefield from sometable where thereisanotherwhere=true)',
+			),
+		);
+	}
+
+	/**
+	 * Method testappendFromClauseToQuery
+	 * @test
+	 * @dataProvider appendFromClauseToQueryProvider
+	 */
+	public function testappendFromClauseToQuery($query, $condClause, $expected) {
+		$this->assertEquals($expected, appendFromClauseToQuery($query, $condClause));
+	}
+
+	/**
+	 * Method appendConditionClauseToQueryProvider
+	 */
+	public function appendConditionClauseToQueryProvider() {
+		return array(
+			array(
+				"SELECT vtiger_account.account_no, vtiger_account.accountname, vtiger_accountbillads.bill_city, vtiger_account.website, vtiger_account.phone, vtiger_crmentity.smownerid, vtiger_crmentity.crmid FROM vtiger_account INNER JOIN vtiger_crmentity AS vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_account.accountid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid INNER JOIN vtiger_accountshipads ON vtiger_account.accountid = vtiger_accountshipads.accountaddressid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid LEFT JOIN vtiger_account vtiger_account2 ON vtiger_account.parentid = vtiger_account2.accountid WHERE vtiger_account.accountid>0 AND vtiger_crmentity.deleted = 0 and (vtiger_account.accountname LIKE '%che%' OR vtiger_account.account_no LIKE '%che%' OR vtiger_account.phone LIKE '%che%' OR vtiger_account.website LIKE '%che%' OR vtiger_account.fax LIKE '%che%' OR vtiger_account.tickersymbol LIKE '%che%' OR vtiger_account.otherphone LIKE '%che%' OR vtiger_account.parentid LIKE '%che%' OR vtiger_account.email1 LIKE '%che%' OR vtiger_account.employees LIKE '%che%' OR vtiger_account.email2 LIKE '%che%' OR vtiger_account.ownership LIKE '%che%' OR (vtiger_account.rating IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::rating\" and i18n LIKE \"%che%\") OR vtiger_account.rating LIKE \"%che%\") OR (vtiger_account.industry IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::industry\" and i18n LIKE \"%che%\") OR vtiger_account.industry LIKE \"%che%\") OR vtiger_account.siccode LIKE '%che%' OR (vtiger_account.account_type IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n LIKE \"%che%\") OR vtiger_account.account_type LIKE \"%che%\") OR vtiger_account.annualrevenue LIKE '%che%' OR vtiger_account.emailoptout LIKE '%che%' OR vtiger_account.notify_owner LIKE '%che%' OR vtiger_crmentity.smownerid LIKE '%che%' OR vtiger_crmentity.createdtime LIKE '%che%' OR vtiger_crmentity.modifiedtime LIKE '%che%' OR vtiger_crmentity.modifiedby LIKE '%che%' OR vtiger_accountbillads.bill_street LIKE '%che%' OR vtiger_accountshipads.ship_street LIKE '%che%' OR vtiger_accountbillads.bill_city LIKE '%che%' OR vtiger_accountshipads.ship_city LIKE '%che%' OR vtiger_accountbillads.bill_state LIKE '%che%' OR vtiger_accountshipads.ship_state LIKE '%che%' OR vtiger_accountbillads.bill_code LIKE '%che%' OR vtiger_accountshipads.ship_code LIKE '%che%' OR vtiger_accountbillads.bill_country LIKE '%che%' OR vtiger_accountshipads.ship_country LIKE '%che%' OR vtiger_accountbillads.bill_pobox LIKE '%che%' OR vtiger_accountshipads.ship_pobox LIKE '%che%' OR vtiger_crmentity.description LIKE '%che%' OR vtiger_accountscf.cf_718 LIKE '%che%' OR vtiger_accountscf.cf_719 LIKE '%che%' OR vtiger_accountscf.cf_720 LIKE '%che%' OR vtiger_accountscf.cf_721 LIKE '%che%' OR vtiger_accountscf.cf_722 LIKE '%che%' OR vtiger_accountscf.cf_723 LIKE '%che%' OR vtiger_accountscf.cf_724 LIKE '%che%' OR vtiger_accountscf.cf_725 LIKE '%che%' OR vtiger_accountscf.cf_726 LIKE '%che%' OR vtiger_accountscf.cf_727 LIKE '%che%' OR vtiger_accountscf.cf_728 LIKE '%che%' OR (vtiger_accountscf.cf_729 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_729 LIKE \"%che%\") OR (vtiger_accountscf.cf_730 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_730\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_730 LIKE \"%che%\") OR (vtiger_accountscf.cf_731 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_731\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_731 LIKE \"%che%\") OR vtiger_accountscf.cf_732 LIKE '%che%' OR vtiger_account.isconvertedfromlead LIKE '%che%' OR vtiger_account.convertedfromlead LIKE '%che%' OR vtiger_crmentity.smcreatorid LIKE '%che%')",
+				'vtiger_account.accountid=74',
+				'and',
+				"SELECT vtiger_account.account_no, vtiger_account.accountname, vtiger_accountbillads.bill_city, vtiger_account.website, vtiger_account.phone, vtiger_crmentity.smownerid, vtiger_crmentity.crmid FROM vtiger_account INNER JOIN vtiger_crmentity AS vtiger_crmentity ON vtiger_crmentity.crmid = vtiger_account.accountid INNER JOIN vtiger_accountbillads ON vtiger_account.accountid = vtiger_accountbillads.accountaddressid INNER JOIN vtiger_accountshipads ON vtiger_account.accountid = vtiger_accountshipads.accountaddressid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid LEFT JOIN vtiger_account vtiger_account2 ON vtiger_account.parentid = vtiger_account2.accountid WHERE (vtiger_account.accountid=74) and vtiger_account.accountid>0 AND vtiger_crmentity.deleted = 0 and (vtiger_account.accountname LIKE '%che%' OR vtiger_account.account_no LIKE '%che%' OR vtiger_account.phone LIKE '%che%' OR vtiger_account.website LIKE '%che%' OR vtiger_account.fax LIKE '%che%' OR vtiger_account.tickersymbol LIKE '%che%' OR vtiger_account.otherphone LIKE '%che%' OR vtiger_account.parentid LIKE '%che%' OR vtiger_account.email1 LIKE '%che%' OR vtiger_account.employees LIKE '%che%' OR vtiger_account.email2 LIKE '%che%' OR vtiger_account.ownership LIKE '%che%' OR (vtiger_account.rating IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::rating\" and i18n LIKE \"%che%\") OR vtiger_account.rating LIKE \"%che%\") OR (vtiger_account.industry IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::industry\" and i18n LIKE \"%che%\") OR vtiger_account.industry LIKE \"%che%\") OR vtiger_account.siccode LIKE '%che%' OR (vtiger_account.account_type IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::accounttype\" and i18n LIKE \"%che%\") OR vtiger_account.account_type LIKE \"%che%\") OR vtiger_account.annualrevenue LIKE '%che%' OR vtiger_account.emailoptout LIKE '%che%' OR vtiger_account.notify_owner LIKE '%che%' OR vtiger_crmentity.smownerid LIKE '%che%' OR vtiger_crmentity.createdtime LIKE '%che%' OR vtiger_crmentity.modifiedtime LIKE '%che%' OR vtiger_crmentity.modifiedby LIKE '%che%' OR vtiger_accountbillads.bill_street LIKE '%che%' OR vtiger_accountshipads.ship_street LIKE '%che%' OR vtiger_accountbillads.bill_city LIKE '%che%' OR vtiger_accountshipads.ship_city LIKE '%che%' OR vtiger_accountbillads.bill_state LIKE '%che%' OR vtiger_accountshipads.ship_state LIKE '%che%' OR vtiger_accountbillads.bill_code LIKE '%che%' OR vtiger_accountshipads.ship_code LIKE '%che%' OR vtiger_accountbillads.bill_country LIKE '%che%' OR vtiger_accountshipads.ship_country LIKE '%che%' OR vtiger_accountbillads.bill_pobox LIKE '%che%' OR vtiger_accountshipads.ship_pobox LIKE '%che%' OR vtiger_crmentity.description LIKE '%che%' OR vtiger_accountscf.cf_718 LIKE '%che%' OR vtiger_accountscf.cf_719 LIKE '%che%' OR vtiger_accountscf.cf_720 LIKE '%che%' OR vtiger_accountscf.cf_721 LIKE '%che%' OR vtiger_accountscf.cf_722 LIKE '%che%' OR vtiger_accountscf.cf_723 LIKE '%che%' OR vtiger_accountscf.cf_724 LIKE '%che%' OR vtiger_accountscf.cf_725 LIKE '%che%' OR vtiger_accountscf.cf_726 LIKE '%che%' OR vtiger_accountscf.cf_727 LIKE '%che%' OR vtiger_accountscf.cf_728 LIKE '%che%' OR (vtiger_accountscf.cf_729 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_729\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_729 LIKE \"%che%\") OR (vtiger_accountscf.cf_730 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_730\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_730 LIKE \"%che%\") OR (vtiger_accountscf.cf_731 IN (select translation_key from vtiger_cbtranslation where locale=\"en_us\" and forpicklist=\"Accounts::cf_731\" and i18n LIKE \"%che%\") OR vtiger_accountscf.cf_731 LIKE \"%che%\") OR vtiger_accountscf.cf_732 LIKE '%che%' OR vtiger_account.isconvertedfromlead LIKE '%che%' OR vtiger_account.convertedfromlead LIKE '%che%' OR vtiger_crmentity.smcreatorid LIKE '%che%')",
+			),
+			array(
+				'SELECT * FROM vtiger_accounts WHERE accountname like "%t%"',
+				'true',
+				'and',
+				'SELECT * FROM vtiger_accounts WHERE (true) and accountname like "%t%"',
+			),
+			array(
+				'SELECT * FROM vtiger_accounts',
+				'true',
+				'and',
+				'SELECT * FROM vtiger_accounts WHERE true',
+			),
+			array(
+				'SELECT * FROM vtiger_accounts',
+				'',
+				'and',
+				'SELECT * FROM vtiger_accounts',
+			),
+			array(
+				'SELECT  *  FROM  vtiger_accounts  ',
+				'   ',
+				'and',
+				'SELECT * FROM vtiger_accounts ',
+			),
+			array(
+				'SELECT * FROM vtiger_accounts where xx in (select somefield from sometable where thereisanotherwhere=true)',
+				'true',
+				'and',
+				'SELECT * FROM vtiger_accounts WHERE (true) and xx in (select somefield from sometable where thereisanotherwhere=true)',
+			),
+			array(
+				'SELECT * FROM vtiger_accounts where xx in (select somefield from sometable where thereisanotherwhere=true)',
+				'anything != 5',
+				'or',
+				'SELECT * FROM vtiger_accounts WHERE (anything != 5) or xx in (select somefield from sometable where thereisanotherwhere=true)',
+			),
+		);
+	}
+
+	/**
+	 * Method testappendConditionClauseToQuery
+	 * @test
+	 * @dataProvider appendConditionClauseToQueryProvider
+	 */
+	public function testappendConditionClauseToQuery($query, $condClause, $glue, $expected) {
+		$this->assertEquals($expected, appendConditionClauseToQuery($query, $condClause, $glue));
 	}
 }
