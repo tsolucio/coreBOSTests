@@ -437,6 +437,10 @@ class testCustomerPortalWS extends TestCase {
 		$accountId = '74';
 		$contactId = '1084';
 		return array(
+			array('Contacts', '', '1084', 0, "vtiger_contactdetails.accountid=-1"),
+			array('Accounts', '', '1084', 0, "vtiger_account.accountid=-1"),
+			array('AnythingElse', '', '1084', 0, ''),
+			////////////////
 			array('Contacts', '74', '1084', 0, "vtiger_contactdetails.accountid=$accountId"),
 			array('Accounts', '74', '1084', 0, "vtiger_account.accountid=$accountId"),
 			array('Quotes', '74', '1084', 0, "vtiger_quotes.accountid=$accountId or vtiger_quotes.contactid=$contactId"),
