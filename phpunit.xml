@@ -32,6 +32,10 @@
 		<testsuite name="WSTest">
 			<directory>./include/Webservices</directory>
 		</testsuite>
+		<testsuite name="WSQueryTest">
+			<file>./include/Webservices/VtigerModuleOperation_QueryCPTest.php</file>
+			<file>./include/Webservices/VtigerModuleOperation_QueryTest.php</file>
+		</testsuite>
 		<testsuite name="WFTest">
 			<directory>./modules/com_vtiger_workflow</directory>
 		</testsuite>
