@@ -453,7 +453,10 @@ class testCustomerPortalWS extends TestCase {
 			array('Products', '74', '1084', 0, ''),
 			array('Services', '74', '1084', 0, ''),
 			array('Faq', '74', '1084', 0, "faqstatus='Published'"),
-			array('Documents', '74', '1084', 0, ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,1084)'),
+			array('Documents', '74', '1084', 0, array(
+				'clause' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,1084)',
+				'noconditions' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid',
+			)),
 			array('Potentials', '74', '1084', 0, 'vtiger_potential.related_to=74 or vtiger_potential.related_to=1084'),
 			array('CobroPago', '74', '1084', 0, 'vtiger_cobropago.parent_id=74 or vtiger_cobropago.parent_id=1084'),
 			array('AnythingElse', '74', '1084', 0, ''),
@@ -470,7 +473,10 @@ class testCustomerPortalWS extends TestCase {
 			array('Products', '74', '1084', 1, ''),
 			array('Services', '74', '1084', 1, ''),
 			array('Faq', '74', '1084', 1, "faqstatus='Published'"),
-			array('Documents', '74', '1084', 1, ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,1084,1086,1088,1090,1092,1094)'),
+			array('Documents', '74', '1084', 1, array(
+				'clause' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,1084,1086,1088,1090,1092,1094)',
+				'noconditions' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid',
+			)),
 			array('Potentials', '74', '1084', 1, "vtiger_potential.related_to=74 or vtiger_potential.related_to IN (1084,1086,1088,1090,1092,1094)"),
 			array('CobroPago', '74', '1084', 1, "vtiger_cobropago.parent_id=74 or vtiger_cobropago.parent_id IN (1084,1086,1088,1090,1092,1094)"),
 			array('AnythingElse', '74', '1084', 1, ''),
@@ -487,7 +493,10 @@ class testCustomerPortalWS extends TestCase {
 			array('Products', '74', '1084', 2, ''),
 			array('Services', '74', '1084', 2, ''),
 			array('Faq', '74', '1084', 2, "faqstatus='Published'"),
-			array('Documents', '74', '1084', 2, ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,746,1084,1086,1088,1090,1092,1094)'),
+			array('Documents', '74', '1084', 2, array(
+				'clause' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,746,1084,1086,1088,1090,1092,1094)',
+				'noconditions' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid',
+			)),
 			array('Potentials', '74', '1084', 2, "vtiger_potential.related_to IN (74,746) or vtiger_potential.related_to IN (1084,1086,1088,1090,1092,1094)"),
 			array('CobroPago', '74', '1084', 2, "vtiger_cobropago.parent_id IN (74,746) or vtiger_cobropago.parent_id IN (1084,1086,1088,1090,1092,1094)"),
 			array('AnythingElse', '74', '1084', 2, ''),
@@ -504,7 +513,10 @@ class testCustomerPortalWS extends TestCase {
 			array('Products', '74', '1084', 3, ''),
 			array('Services', '74', '1084', 3, ''),
 			array('Faq', '74', '1084', 3, "faqstatus='Published'"),
-			array('Documents', '74', '1084', 3, ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,746,1084,1086,1088,1090,1092,1094)'),
+			array('Documents', '74', '1084', 3, array(
+				'clause' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,746,1084,1086,1088,1090,1092,1094)',
+				'noconditions' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid',
+			)),
 			array('Potentials', '74', '1084', 3, "vtiger_potential.related_to IN (74,746) or vtiger_potential.related_to IN (1084,1086,1088,1090,1092,1094)"),
 			array('CobroPago', '74', '1084', 3, "vtiger_cobropago.parent_id IN (74,746) or vtiger_cobropago.parent_id IN (1084,1086,1088,1090,1092,1094)"),
 			array('AnythingElse', '74', '1084', 3, ''),
@@ -521,7 +533,10 @@ class testCustomerPortalWS extends TestCase {
 			array('Products', '74', '1084', 4, ''),
 			array('Services', '74', '1084', 4, ''),
 			array('Faq', '74', '1084', 4, "faqstatus='Published'"),
-			array('Documents', '74', '1084', 4, ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,746,1084,1086,1088,1090,1092,1094,1829)'),
+			array('Documents', '74', '1084', 4, array(
+				'clause' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,746,1084,1086,1088,1090,1092,1094,1829)',
+				'noconditions' => ' inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid',
+			)),
 			array('Potentials', '74', '1084', 4, "vtiger_potential.related_to IN (74,746) or vtiger_potential.related_to IN (1084,1086,1088,1090,1092,1094,1829)"),
 			array('CobroPago', '74', '1084', 4, "vtiger_cobropago.parent_id IN (74,746) or vtiger_cobropago.parent_id IN (1084,1086,1088,1090,1092,1094,1829)"),
 			array('AnythingElse', '74', '1084', 4, ''),
@@ -614,7 +629,7 @@ class testCustomerPortalWS extends TestCase {
 		global $current_user;
 		$current_user = Users::getActiveAdminUser();
 		$actual = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084'), $current_user);
-		$this->assertGreaterThan(190, count($actual));
+		$this->assertGreaterThan(100, count($actual));
 		$actual1 = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084', 'limit' => 50), $current_user);
 		$this->assertEquals(50, count($actual1));
 		$actual2 = cbwsgetSearchResults('che', '', array('userId' => '19x1', 'accountId' => '11x74', 'contactId' => '12x1084', 'limit' => 50), $current_user);
