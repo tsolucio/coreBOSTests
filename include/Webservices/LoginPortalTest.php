@@ -109,7 +109,11 @@ class testWSLoginPortal extends TestCase {
 	public function testlogin() {
 		global $adb;
 		$SessionManagerStub = $this->createMock(SessionManager::class);
-		$SessionManagerStub->method('set')->with($this->equalTo('authenticatedUserId'), $this->equalTo(5));
+		$SessionManagerStub->method('set')->withConsecutive(
+			[$this->equalTo('authenticatedUserId'), $this->equalTo(5)],
+			[$this->equalTo('authenticatedUserIsPortalUser'), $this->equalTo(1)],
+			[$this->equalTo('authenticatedUserPortalContact'), $this->equalTo(1085)],
+		);
 		$SessionManagerStub->method('startSession')->willReturn(true);
 		$SessionManagerStub->method('getSessionId')->willReturn('SmgrStubSessionID');
 		$adb->query("UPDATE vtiger_contactdetails SET portalpasswordtype='md5',portalloginuser=5,template_language='es' WHERE contactid=1085");
