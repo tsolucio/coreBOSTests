@@ -36,6 +36,10 @@
 			<file>./include/Webservices/VtigerModuleOperation_QueryCPTest.php</file>
 			<file>./include/Webservices/VtigerModuleOperation_QueryTest.php</file>
 		</testsuite>
+		<testsuite name="WSRelatedRecordsTest">
+			<file>./include/Webservices/getRelatedRecordsCPTest.php</file>
+			<file>./include/Webservices/getRelatedRecordsTest.php</file>
+		</testsuite>
 		<testsuite name="WFTest">
 			<directory>./modules/com_vtiger_workflow</directory>
 		</testsuite>
