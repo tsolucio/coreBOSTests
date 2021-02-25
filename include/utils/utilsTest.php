@@ -493,6 +493,86 @@ class testutils extends TestCase {
 	}
 
 	/**
+	 * Method getActionidProvider
+	 * params
+	 */
+	public function getActionidProvider() {
+		return array(
+			array('SavePriceBook', 0),
+			array('PriceBookEditView', 1),
+			array('VendorEditView', 1),
+			array('DuplicatesHandling', 10),
+			array('DoesNotExist', ''),
+			array('', ''),
+		);
+	}
+
+	/**
+	 * Method testgetActionid
+	 * @test
+	 * @dataProvider getActionidProvider
+	 */
+	public function testgetActionid($action, $expected) {
+		$this->assertEquals($expected, getActionid($action), "Test getActionid Method on $action");
+	}
+
+	/**
+	 * Method getActionnameProvider
+	 * params
+	 */
+	public function getActionnameProvider() {
+		return array(
+			array(0, 'Save'),
+			array(1, 'EditView'),
+			array(3, 'index'),
+			array(10, 'DuplicatesHandling'),
+			array('', ''),
+			array(3000, ''),
+		);
+	}
+
+	/**
+	 * Method testgetActionname
+	 * @test
+	 * @dataProvider getActionnameProvider
+	 */
+	public function testgetActionname($actionid, $expected) {
+		$this->assertEquals($expected, getActionname($actionid), "Test getActionname Method on $actionid");
+	}
+
+	/**
+	 * Method getRecordOwnerIdProvider
+	 * params
+	 */
+	public function getRecordOwnerIdProvider() {
+		return array(
+			array(10, array('Users' => 12)),
+			array(3106, array('Users' => 9)),
+			array(3107, array('Groups' => 2)),
+			array(32, array('Users' => 6)),
+			array(1084, array('Users' => 11)),
+			array('', array()),
+			array(3000000000000, array()),
+		);
+	}
+
+	/**
+	 * Method testgetRecordOwnerId
+	 * @test
+	 * @dataProvider getRecordOwnerIdProvider
+	 */
+	public function testgetRecordOwnerId($record, $expected) {
+		if ($record==3107) {
+			global $adb;
+			$adb->query('update vtiger_crmentity set smownerid=2 where crmid=3107');
+		}
+		$this->assertEquals($expected, getRecordOwnerId($record), 'Test getRecordOwnerId');
+		if ($record==3107) {
+			$adb->query('update vtiger_crmentity set smownerid=5 where crmid=3107');
+		}
+	}
+
+	/**
 	 * Method getProfile2FieldPermissionListProvider
 	 * params
 	 */
