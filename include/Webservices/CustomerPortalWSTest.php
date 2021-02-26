@@ -437,11 +437,11 @@ class testCustomerPortalWS extends TestCase {
 		$accountId = '74';
 		$contactId = '1084';
 		return array(
-			array('Contacts', '', '1084', 0, "vtiger_contactdetails.accountid=-1"),
+			array('Contacts', '', '1084', 0, "(vtiger_contactdetails.accountid=-1 or vtiger_contactdetails.contactid=1084)"),
 			array('Accounts', '', '1084', 0, "vtiger_account.accountid=-1"),
 			array('AnythingElse', '', '1084', 0, ''),
 			////////////////
-			array('Contacts', '74', '1084', 0, "vtiger_contactdetails.accountid=$accountId"),
+			array('Contacts', '74', '1084', 0, "(vtiger_contactdetails.accountid=$accountId or vtiger_contactdetails.contactid=1084)"),
 			array('Accounts', '74', '1084', 0, "vtiger_account.accountid=$accountId"),
 			array('Quotes', '74', '1084', 0, "vtiger_quotes.accountid=$accountId or vtiger_quotes.contactid=$contactId"),
 			array('SalesOrder', '74', '1084', 0, "vtiger_salesorder.accountid=$accountId or vtiger_salesorder.contactid=$contactId"),
@@ -461,7 +461,7 @@ class testCustomerPortalWS extends TestCase {
 			array('CobroPago', '74', '1084', 0, 'vtiger_cobropago.parent_id=74 or vtiger_cobropago.parent_id=1084'),
 			array('AnythingElse', '74', '1084', 0, ''),
 			////////////////
-			array('Contacts', '74', '1084', 1, "vtiger_contactdetails.accountid=$accountId"),
+			array('Contacts', '74', '1084', 1, "(vtiger_contactdetails.accountid=$accountId or vtiger_contactdetails.contactid IN (1084,1086,1088,1090,1092,1094))"),
 			array('Accounts', '74', '1084', 1, "vtiger_account.accountid=$accountId"),
 			array('Quotes', '74', '1084', 1, "vtiger_quotes.accountid=$accountId or vtiger_quotes.contactid IN (1084,1086,1088,1090,1092,1094)"),
 			array('SalesOrder', '74', '1084', 1, "vtiger_salesorder.accountid=$accountId or vtiger_salesorder.contactid IN (1084,1086,1088,1090,1092,1094)"),
@@ -481,7 +481,7 @@ class testCustomerPortalWS extends TestCase {
 			array('CobroPago', '74', '1084', 1, "vtiger_cobropago.parent_id=74 or vtiger_cobropago.parent_id IN (1084,1086,1088,1090,1092,1094)"),
 			array('AnythingElse', '74', '1084', 1, ''),
 			////////////////
-			array('Contacts', '74', '1084', 2, "vtiger_contactdetails.accountid IN (74,746)"),
+			array('Contacts', '74', '1084', 2, "(vtiger_contactdetails.accountid IN (74,746) or vtiger_contactdetails.contactid IN (1084,1086,1088,1090,1092,1094))"),
 			array('Accounts', '74', '1084', 2, "vtiger_account.accountid IN (74,746)"),
 			array('Quotes', '74', '1084', 2, "vtiger_quotes.accountid IN (74,746) or vtiger_quotes.contactid IN (1084,1086,1088,1090,1092,1094)"),
 			array('SalesOrder', '74', '1084', 2, "vtiger_salesorder.accountid IN (74,746) or vtiger_salesorder.contactid IN (1084,1086,1088,1090,1092,1094)"),
@@ -501,7 +501,7 @@ class testCustomerPortalWS extends TestCase {
 			array('CobroPago', '74', '1084', 2, "vtiger_cobropago.parent_id IN (74,746) or vtiger_cobropago.parent_id IN (1084,1086,1088,1090,1092,1094)"),
 			array('AnythingElse', '74', '1084', 2, ''),
 			////////////////
-			array('Contacts', '74', '1084', 3, "vtiger_contactdetails.accountid IN (74,746)"),
+			array('Contacts', '74', '1084', 3, "(vtiger_contactdetails.accountid IN (74,746) or vtiger_contactdetails.contactid IN (1084,1086,1088,1090,1092,1094))"),
 			array('Accounts', '74', '1084', 3, "vtiger_account.accountid IN (74,746)"),
 			array('Quotes', '74', '1084', 3, "vtiger_quotes.accountid IN (74,746) or vtiger_quotes.contactid IN (1084,1086,1088,1090,1092,1094)"),
 			array('SalesOrder', '74', '1084', 3, "vtiger_salesorder.accountid IN (74,746) or vtiger_salesorder.contactid IN (1084,1086,1088,1090,1092,1094)"),
@@ -521,7 +521,7 @@ class testCustomerPortalWS extends TestCase {
 			array('CobroPago', '74', '1084', 3, "vtiger_cobropago.parent_id IN (74,746) or vtiger_cobropago.parent_id IN (1084,1086,1088,1090,1092,1094)"),
 			array('AnythingElse', '74', '1084', 3, ''),
 			////////////////
-			array('Contacts', '74', '1084', 4, "vtiger_contactdetails.accountid IN (74,746)"),
+			array('Contacts', '74', '1084', 4, "(vtiger_contactdetails.accountid IN (74,746) or vtiger_contactdetails.contactid IN (1084,1086,1088,1090,1092,1094,1829))"),
 			array('Accounts', '74', '1084', 4, "vtiger_account.accountid IN (74,746)"),
 			array('Quotes', '74', '1084', 4, "vtiger_quotes.accountid IN (74,746) or vtiger_quotes.contactid IN (1084,1086,1088,1090,1092,1094,1829)"),
 			array('SalesOrder', '74', '1084', 4, "vtiger_salesorder.accountid IN (74,746) or vtiger_salesorder.contactid IN (1084,1086,1088,1090,1092,1094,1829)"),
