@@ -216,6 +216,9 @@ class UsersTest extends TestCase {
 			'conv_rate' => '1.000000',
 			'imagenameimageinfo' => '',
 		);
+		if ($user->column_fields['currency_symbol']=='€') {
+			$expected['currency_symbol']='€';
+		}
 		$this->assertEquals($expected, $user->column_fields, 'retrieveCurrentUserInfoFromFile inactive');
 	}
 }

@@ -524,7 +524,7 @@ class DataTransformTest extends TestCase {
 			'vendor_id' => 0,
 			'sequence_no' => '7',
 			'lineitem_id' => '7',
-			'quantity' => '10',
+			'quantity' => '10,000000',
 			'listprice' => 78.700000, // does not have access to this field
 			'tax_percent' => 0,
 			'extgross' => '787,000000',
