@@ -1229,7 +1229,7 @@ class WSCreateTest extends TestCase {
 			'invoiced' => 0,
 			'pdoInformation' => array(
 			  array(
-				"productid"=>2618,
+				"productid"=>2633,
 				"comment"=>'cmt1',
 				"qty"=>1,
 				"listprice"=>10,
@@ -1239,7 +1239,7 @@ class WSCreateTest extends TestCase {
 				"discount_amount"=>0,  // not needed nor used if type is percentage
 			  ),
 			  array(
-				"productid"=>2619,
+				"productid"=>9752,
 				"qty"=>2,
 				"comment"=>'cmt2',
 				"listprice"=>10,
@@ -1267,28 +1267,28 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['createdtime'] = $actual['createdtime'];
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$ObjectValues['txtAdjustment'] = '40.000000';
-		$ObjectValues['hdnGrandTotal'] = '90.030000';
-		$ObjectValues['hdnSubTotal'] = '29.600000';
+		$ObjectValues['hdnGrandTotal'] = '117.130000';
+		$ObjectValues['hdnSubTotal'] = '67.700000';
 		$ObjectValues['hdnTaxType'] = 'individual';
 		$ObjectValues['hdnS_H_Amount'] = '15.000000';
 		$ObjectValues['tandc'] = '';
 		$ObjectValues['pl_gross_total'] = '30.000000';
 		$ObjectValues['pl_dto_line'] = '0.400000';
-		$ObjectValues['pl_dto_total'] = '3.360000';
-		$ObjectValues['pl_dto_global'] = '2.960000';
-		$ObjectValues['pl_net_total'] = '26.640000';
+		$ObjectValues['pl_dto_total'] = '7.170000';
+		$ObjectValues['pl_dto_global'] = '6.770000';
+		$ObjectValues['pl_net_total'] = '22.830000';
 		$ObjectValues['sum_nettotal'] = '29.600000';
-		$ObjectValues['sum_taxtotal'] = '7.192800';
-		$ObjectValues['sum_tax1'] = '1.198800';
+		$ObjectValues['sum_taxtotal'] = '37.592000';
+		$ObjectValues['sum_tax1'] = '4.292000';
 		$ObjectValues['sum_taxtotalretention'] = '0.000000';
-		$ObjectValues['sum_tax2'] = '2.664000';
+		$ObjectValues['sum_tax2'] = '0.000000';
 		$ObjectValues['pl_sh_total'] = '15.000000';
-		$ObjectValues['sum_tax3'] = '3.330000';
+		$ObjectValues['sum_tax3'] = '33.300000';
 		$ObjectValues['pl_sh_tax'] = '1.200000';
-		$ObjectValues['pl_grand_total'] = '90.030000';
+		$ObjectValues['pl_grand_total'] = '117.130000';
 		$ObjectValues['pl_adjustment'] = '40.000000';
 		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
-		$this->assertNotEquals($ObjectValues, $actual, 'Create salesorder');
+		$this->assertEquals($ObjectValues, $actual, 'Create salesorder');
 		/// end
 		$current_user = $holduser;
 	}
