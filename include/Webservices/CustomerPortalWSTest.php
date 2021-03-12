@@ -247,19 +247,31 @@ class testCustomerPortalWS extends TestCase {
 		$this->assertEquals('12x1085', vtws_AuthenticateContact('julieta@yahoo.com', '5ub1ipv3'), 'AuthenticateContact OK');
 		$this->assertFalse(vtws_AuthenticateContact('julieta@yahoo.com', 's'), 'AuthenticateContact incorrect password');
 		$this->assertFalse(vtws_AuthenticateContact("hackit'; select 1;", '5ub1ipv3'), 'AuthenticateContact incorrect user');
-		vtws_changePortalUserPassword('julieta@yahoo.com', '$newPass');
+		vtws_changePortalUserPassword('julieta@yahoo.com', '$newPass', '5ub1ipv3');
 		$this->assertFalse(vtws_AuthenticateContact('julieta@yahoo.com', '5ub1ipv3'), 'AuthenticateContact NOK');
 		$this->assertEquals('12x1085', vtws_AuthenticateContact('julieta@yahoo.com', '$newPass'), 'AuthenticateContact OK');
-		vtws_changePortalUserPassword('julieta@yahoo.com', '5ub1ipv3');
+		vtws_changePortalUserPassword('julieta@yahoo.com', '5ub1ipv3', '$newPass');
 		$this->assertEquals('12x1085', vtws_AuthenticateContact('julieta@yahoo.com', '5ub1ipv3'), 'AuthenticateContact OK');
 	}
 
 	/**
 	 * Method testchangePortalUserPassword
 	 * @test
+	 * @expectedException WebServiceException
 	 */
 	public function testchangePortalUserPassword() {
-		$this->assertFalse(vtws_changePortalUserPassword("hackit'; select 1;", '$newPass'), 'changePortalUserPassword NOK');
+		$this->expectException(WebServiceException::class);
+		vtws_changePortalUserPassword("hackit'; select 1;", '$newPass', '5ub1ipv3');
+	}
+
+	/**
+	 * Method testchangePortalUserPasswordWrongOldPassword
+	 * @test
+	 * @expectedException WebServiceException
+	 */
+	public function testchangePortalUserPasswordWrongOldPassword() {
+		$this->expectException(WebServiceException::class);
+		vtws_changePortalUserPassword('julieta@yahoo.com', '$newPass', 'notoldpassword');
 	}
 
 	/**
