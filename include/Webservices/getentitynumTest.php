@@ -101,7 +101,7 @@ class testgetentitynumwsmethod extends TestCase {
 				'glb-'
 			),
 			'InventoryDetails' => array(
-				'', 'InvDet-'
+				'InvDet-'
 			),
 			'Assets' => array(
 				'AST-'
