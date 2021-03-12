@@ -1290,6 +1290,10 @@ class WSCreateTest extends TestCase {
 		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$this->assertEquals($ObjectValues, $actual, 'Create salesorder');
 		/// end
+		// undo workflow
+		$adb->pquery('update vtiger_service set website=? where serviceid=?', array('', 9752));
+		$adb->pquery('update vtiger_crmentity set modifiedby=1 where crmid=?', array(9752));
+		$adb->pquery('update vtiger_products set mfr_part_no=? where productid=?', array('', 2633));
 		$current_user = $holduser;
 	}
 }
