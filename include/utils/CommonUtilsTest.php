@@ -1682,4 +1682,15 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 		$adb->query('update vtiger_users set currency_id=1 where id=1'); // leave it as it was
 		$this->assertEquals(2, fetchCurrency(12));
 	}
+
+	/**
+	 * Method testgetDenormalizedModules
+	 * @test
+	 */
+	public function testgetDenormalizedModules() {
+		$this->assertEquals(['vtiger_cbcredentials'], getDenormalizedModules());
+		$this->assertEquals(['vtiger_cbcredentials'], getDenormalizedModules('cbCredentials'));
+		$this->assertEquals([], getDenormalizedModules('DoesNotExist'));
+		$this->assertEquals([], getDenormalizedModules('Accounts'));
+	}
 }
