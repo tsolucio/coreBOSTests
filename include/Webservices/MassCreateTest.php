@@ -168,32 +168,138 @@ class testWSMassCreate extends TestCase {
 		while ($acc = $adb->fetch_array($accounts_res)) {
 			$accids[] = $acc['accountid'];
 		}
-		$pdoids = array(2617);
+		$pdoids = array();
 		while ($pdo = $adb->fetch_array($products_res)) {
 			$pdoids[] = $pdo['productid'];
 		}
 		$helpdesk_res = $adb->pquery(
 			'select ticketid from vtiger_troubletickets
 			inner join vtiger_crmentity on crmid=ticketid
-			where deleted=0 and title like ? and parent_id in (?,?,?) and product_id in (?,?)',
+			where deleted=0 and title like ? and parent_id in (?,?,?) and product_id in (2617,?)',
 			array_merge(array('%MassCreate Test%'), $accids, $pdoids)
 		);
 		$this->assertEquals(3, $adb->num_rows($helpdesk_res));
 
 		// Cleaning
-		if ($accounts_res && $adb->num_rows($accounts_res) > 0) {
-			while ($row = $adb->fetch_array($accounts_res)) {
-				vtws_delete('11x'.$row['accountid'], $current_user);
-			}
+		foreach ($accids as $accid) {
+			vtws_delete('11x'.$accid, $current_user);
 		}
 		if ($helpdesk_res && $adb->num_rows($helpdesk_res) > 0) {
 			while ($row = $adb->fetch_array($helpdesk_res)) {
 				vtws_delete('17x'.$row['ticketid'], $current_user);
 			}
 		}
-		if ($products_res && $adb->num_rows($products_res) > 0) {
-			while ($row = $adb->fetch_array($products_res)) {
-				vtws_delete('14x'.$row['productid'], $current_user);
+		foreach ($pdoids as $pdoid) {
+			vtws_delete('14x'.$pdoid, $current_user);
+		}
+	}
+
+	/**
+	 * Method testMassUpsert
+	 * @test
+	 */
+	public function testMassUpsert() {
+		global $current_user, $adb;
+		$elements = array (
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'element' => array (
+					'ticket_title' => 'support ticket MassUpsert Test 1',
+					'parent_id' => '@{refAccount1}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass upsert test 1',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'searchon' => 'ticket_title,product_id',
+				'element' => array (
+					'ticket_title' => 'support ticket MassUpsert Test 1',
+					'parent_id' => '@{refAccount2}',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Normal',
+					'ticketstatus' => 'Closed',
+					'ticketseverities' => 'Major',
+					'hours' => '2.2',
+					'ticketcategories' => 'Big Problem',
+					'days' => '2',
+					'description' => 'ST mass upsert test 2',
+					'solution' => '2',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount1',
+				'element' => array (
+					'accountname' => 'MassUpsert Test 1',
+					'website' => 'https://corebos.org',
+					'assigned_user_id' => '19x5',
+					'description' => 'mass upsert test',
+				),
+			),
+			array (
+				'elementType' => 'Accounts',
+				'referenceId' => 'refAccount2',
+				'searchon' => 'accountname',
+				'element' => array (
+					'accountname' => 'Kvoo Radio',
+					'cf_725' => 'https://corebos.org',
+					'cf_718' => 'mass upsert test',
+				),
+			),
+		);
+		$accounts_res = $adb->pquery(
+			'select accountid from vtiger_account inner join vtiger_crmentity on crmid=accountid where deleted=0 and accountname like \'%MassUpsert Test%\'',
+			array()
+		);
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%MassUpsert Test%\'',
+			array()
+		);
+
+		$this->assertEquals(0, $adb->num_rows($accounts_res));
+		$this->assertEquals(0, $adb->num_rows($helpdesk_res));
+
+		MassCreate($elements, $current_user);
+
+		$accounts_res = $adb->pquery(
+			'select accountid from vtiger_account inner join vtiger_crmentity on crmid=accountid where deleted=0 and accountname like \'%MassUpsert Test%\'',
+			array()
+		);
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%MassUpsert Test%\'',
+			array()
+		);
+
+		// test have been created
+		$this->assertEquals(1, $adb->num_rows($accounts_res));
+		$this->assertEquals(1, $adb->num_rows($helpdesk_res));
+		// test have been related
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets
+			inner join vtiger_crmentity on crmid=ticketid
+			where deleted=0 and title like ? and parent_id=885 and product_id=2617',
+			array('%MassUpsert Test%')
+		);
+		$this->assertEquals(1, $adb->num_rows($helpdesk_res));
+
+		// Cleaning
+		$acc = $adb->fetch_array($accounts_res);
+		vtws_delete('11x'.$acc['accountid'], $current_user);
+		if ($helpdesk_res && $adb->num_rows($helpdesk_res) > 0) {
+			while ($row = $adb->fetch_array($helpdesk_res)) {
+				vtws_delete('17x'.$row['ticketid'], $current_user);
 			}
 		}
 	}
