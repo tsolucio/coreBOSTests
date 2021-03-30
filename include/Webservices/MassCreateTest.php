@@ -26,10 +26,10 @@ require_once 'include/Webservices/WebServiceErrorCode.php';
 
 class testWSMassCreate extends TestCase {
 	/**
-	 * Method testMassCreate
+	 * Method testMassCreateCorrect
 	 * @test
 	 */
-	public function testMassCreate() {
+	public function testMassCreateCorrect() {
 		global $current_user, $adb;
 		$elements = array (
 			array (
@@ -159,9 +159,26 @@ class testWSMassCreate extends TestCase {
 			array()
 		);
 
+		// test have been created
 		$this->assertEquals(3, $adb->num_rows($accounts_res));
 		$this->assertEquals(3, $adb->num_rows($helpdesk_res));
 		$this->assertEquals(1, $adb->num_rows($products_res));
+		// test have been related
+		$accids = array();
+		while ($acc = $adb->fetch_array($accounts_res)) {
+			$accids[] = $acc['accountid'];
+		}
+		$pdoids = array(2617);
+		while ($pdo = $adb->fetch_array($products_res)) {
+			$pdoids[] = $pdo['productid'];
+		}
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets
+			inner join vtiger_crmentity on crmid=ticketid
+			where deleted=0 and title like ? and parent_id in (?,?,?) and product_id in (?,?)',
+			array_merge(array('%MassCreate Test%'), $accids, $pdoids)
+		);
+		$this->assertEquals(3, $adb->num_rows($helpdesk_res));
 
 		// Cleaning
 		if ($accounts_res && $adb->num_rows($accounts_res) > 0) {
