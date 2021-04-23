@@ -475,6 +475,38 @@ class VTExpressionEvaluaterTest extends TestCase {
 		/////////////////////////
 		$entityId = '11x74'; // Account
 		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "stringposition(cf_732, ' |##| ')+1";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => cf_732
+    [type] => string
+)
+',
+			1 => ' |##| ',
+			2 => 'Array
+(
+    [0] => Adipose 3 |##| Chronos |##| Earth
+    [1] =>  |##| 
+)
+',
+			3 => '1',
+			4 => 'Array
+(
+    [0] => 9
+    [1] => 1
+)
+'
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(10, $exprEvaluation);
+		/////////////////////////
+		$entityId = '11x74'; // Account
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
 		$testexpression = "stringreplace(' |##| ', ', ',cf_732 )";
 		$expectedresult = array(
 			0 => ' |##| ',
