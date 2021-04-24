@@ -125,7 +125,10 @@ class testWSchangePassword extends TestCase {
 		$accesskey = vtws_getUserAccessKey(5);
 		$this->assertTrue($user->verifyPassword('testdmy'));
 		$actual = vtws_changePassword('19x5', 'testdmy', 'newPa$$wo4d', 'newPa$$wo4d', $user);
-		$expected = array('message' => 'Changed password successfully');
+		$expected = array(
+			'message' => 'Changed password successfully. Save your new Access Key, you will not see it again.',
+			'accesskey' => getSingleFieldValue('vtiger_users', 'accesskey', 'id', 5),
+		);
 		$this->assertEquals($expected, $actual);
 		$this->assertTrue($user->verifyPassword('newPa$$wo4d'));
 		$user->change_password('newPa$$wo4d', 'testdmy', false);
