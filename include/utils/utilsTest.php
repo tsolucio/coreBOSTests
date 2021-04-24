@@ -1117,6 +1117,7 @@ class testutils extends TestCase {
 			  'uitype' => '2',
 			  'typeofdata' => 'V~M',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			1 => array(
 			  'tabid' => '6',
@@ -1128,6 +1129,7 @@ class testutils extends TestCase {
 			  'uitype' => '4',
 			  'typeofdata' => 'V~O',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			2 => array(
 			  'tabid' => '6',
@@ -1139,6 +1141,7 @@ class testutils extends TestCase {
 			  'uitype' => '11',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			3 => array(
 			  'tabid' => '6',
@@ -1150,6 +1153,7 @@ class testutils extends TestCase {
 			  'uitype' => '17',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			4 => array(
 			  'tabid' => '6',
@@ -1161,6 +1165,7 @@ class testutils extends TestCase {
 			  'uitype' => '11',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			5 => array(
 			  'tabid' => '6',
@@ -1172,6 +1177,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			6 => array(
 			  'tabid' => '6',
@@ -1183,6 +1189,7 @@ class testutils extends TestCase {
 			  'uitype' => '11',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			7 => array(
 			  'tabid' => '6',
@@ -1194,6 +1201,7 @@ class testutils extends TestCase {
 			  'uitype' => '10',
 			  'typeofdata' => 'I~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			8 => array(
 			  'tabid' => '6',
@@ -1205,6 +1213,7 @@ class testutils extends TestCase {
 			  'uitype' => '13',
 			  'typeofdata' => 'E~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			9 => array(
 			  'tabid' => '6',
@@ -1216,6 +1225,7 @@ class testutils extends TestCase {
 			  'uitype' => '7',
 			  'typeofdata' => 'I~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			10 => array(
 			  'tabid' => '6',
@@ -1227,6 +1237,7 @@ class testutils extends TestCase {
 			  'uitype' => '13',
 			  'typeofdata' => 'E~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			11 => array(
 			  'tabid' => '6',
@@ -1238,6 +1249,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			12 => array(
 			  'tabid' => '6',
@@ -1249,6 +1261,7 @@ class testutils extends TestCase {
 			  'uitype' => '15',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			13 => array(
 			  'tabid' => '6',
@@ -1260,6 +1273,7 @@ class testutils extends TestCase {
 			  'uitype' => '15',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			14 => array(
 			  'tabid' => '6',
@@ -1271,6 +1285,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			15 => array(
 			  'tabid' => '6',
@@ -1282,6 +1297,7 @@ class testutils extends TestCase {
 			  'uitype' => '15',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			16 => array(
 			  'tabid' => '6',
@@ -1293,6 +1309,7 @@ class testutils extends TestCase {
 			  'uitype' => '71',
 			  'typeofdata' => 'N~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			17 => array(
 			  'tabid' => '6',
@@ -1304,6 +1321,7 @@ class testutils extends TestCase {
 			  'uitype' => '56',
 			  'typeofdata' => 'C~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			18 => array(
 			  'tabid' => '6',
@@ -1315,6 +1333,7 @@ class testutils extends TestCase {
 			  'uitype' => '56',
 			  'typeofdata' => 'C~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			19 => array(
 			  'tabid' => '6',
@@ -1326,6 +1345,7 @@ class testutils extends TestCase {
 			  'uitype' => '53',
 			  'typeofdata' => 'V~M',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			20 => array(
 			  'tabid' => '6',
@@ -1337,6 +1357,7 @@ class testutils extends TestCase {
 			  'uitype' => '70',
 			  'typeofdata' => 'DT~O',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			21 => array(
 			  'tabid' => '6',
@@ -1348,6 +1369,7 @@ class testutils extends TestCase {
 			  'uitype' => '70',
 			  'typeofdata' => 'DT~O',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			22 => array(
 			  'tabid' => '6',
@@ -1359,6 +1381,7 @@ class testutils extends TestCase {
 			  'uitype' => '52',
 			  'typeofdata' => 'V~O',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			23 => array(
 			  'tabid' => '6',
@@ -1370,6 +1393,7 @@ class testutils extends TestCase {
 			  'uitype' => '21',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			24 => array(
 			  'tabid' => '6',
@@ -1381,6 +1405,7 @@ class testutils extends TestCase {
 			  'uitype' => '21',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			25 => array(
 			  'tabid' => '6',
@@ -1392,6 +1417,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			26 => array(
 			  'tabid' => '6',
@@ -1403,6 +1429,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			27 => array(
 			  'tabid' => '6',
@@ -1414,6 +1441,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			28 => array(
 			  'tabid' => '6',
@@ -1425,6 +1453,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			29 => array(
 			  'tabid' => '6',
@@ -1436,6 +1465,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			30 => array(
 			  'tabid' => '6',
@@ -1447,6 +1477,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			31 => array(
 			  'tabid' => '6',
@@ -1458,6 +1489,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			32 => array(
 			  'tabid' => '6',
@@ -1469,6 +1501,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			33 => array(
 			  'tabid' => '6',
@@ -1480,6 +1513,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			34 => array(
 			  'tabid' => '6',
@@ -1491,6 +1525,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			35 => array(
 			  'tabid' => '6',
@@ -1502,6 +1537,7 @@ class testutils extends TestCase {
 			  'uitype' => '19',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			36 => array(
 			  'tabid' => '6',
@@ -1513,6 +1549,7 @@ class testutils extends TestCase {
 			  'uitype' => '16',
 			  'typeofdata' => 'V~O',
 			  'presence' => '0',
+			  'defaultvalue' => '0',
 			),
 			37 => array(
 			  'tabid' => '6',
@@ -1524,6 +1561,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~O~LE~50',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			38 => array(
 			  'tabid' => '6',
@@ -1535,6 +1573,7 @@ class testutils extends TestCase {
 			  'uitype' => '7',
 			  'typeofdata' => 'NN~O~8,2',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			39 => array(
 			  'tabid' => '6',
@@ -1546,6 +1585,7 @@ class testutils extends TestCase {
 			  'uitype' => '9',
 			  'typeofdata' => 'N~O~2~2',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			40 => array(
 			  'tabid' => '6',
@@ -1557,6 +1597,7 @@ class testutils extends TestCase {
 			  'uitype' => '71',
 			  'typeofdata' => 'N~O~8,2',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			41 => array(
 			  'tabid' => '6',
@@ -1568,6 +1609,7 @@ class testutils extends TestCase {
 			  'uitype' => '5',
 			  'typeofdata' => 'D~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			42 => array(
 			  'tabid' => '6',
@@ -1579,6 +1621,7 @@ class testutils extends TestCase {
 			  'uitype' => '13',
 			  'typeofdata' => 'E~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			43 => array(
 			  'tabid' => '6',
@@ -1590,6 +1633,7 @@ class testutils extends TestCase {
 			  'uitype' => '11',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			44 => array(
 			  'tabid' => '6',
@@ -1601,6 +1645,7 @@ class testutils extends TestCase {
 			  'uitype' => '17',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			45 => array(
 			  'tabid' => '6',
@@ -1612,6 +1657,7 @@ class testutils extends TestCase {
 			  'uitype' => '56',
 			  'typeofdata' => 'C~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			46 => array(
 			  'tabid' => '6',
@@ -1623,6 +1669,7 @@ class testutils extends TestCase {
 			  'uitype' => '85',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			47 => array(
 			  'tabid' => '6',
@@ -1634,6 +1681,7 @@ class testutils extends TestCase {
 			  'uitype' => '14',
 			  'typeofdata' => 'T~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			48 => array(
 			  'tabid' => '6',
@@ -1645,6 +1693,7 @@ class testutils extends TestCase {
 			  'uitype' => '15',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			49 => array(
 			  'tabid' => '6',
@@ -1656,6 +1705,7 @@ class testutils extends TestCase {
 			  'uitype' => '15',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			50 => array(
 			  'tabid' => '6',
@@ -1667,6 +1717,7 @@ class testutils extends TestCase {
 			  'uitype' => '15',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			51 => array(
 			  'tabid' => '6',
@@ -1678,6 +1729,7 @@ class testutils extends TestCase {
 			  'uitype' => '33',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			52 => array(
 			  'tabid' => '6',
@@ -1689,6 +1741,7 @@ class testutils extends TestCase {
 			  'uitype' => '56',
 			  'typeofdata' => 'C~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			53 => array(
 			  'tabid' => '6',
@@ -1700,6 +1753,7 @@ class testutils extends TestCase {
 			  'uitype' => '10',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			54 => array(
 			  'tabid' => '6',
@@ -1711,6 +1765,7 @@ class testutils extends TestCase {
 			  'uitype' => '52',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 		);
 		$astfinfo = array(
@@ -1744,6 +1799,7 @@ class testutils extends TestCase {
 			  'uitype' => '4',
 			  'typeofdata' => 'V~O',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			1 => array(
 			  'tabid' => '43',
@@ -1755,6 +1811,7 @@ class testutils extends TestCase {
 			  'uitype' => '10',
 			  'typeofdata' => 'V~M',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			2 => array(
 			  'tabid' => '43',
@@ -1766,6 +1823,7 @@ class testutils extends TestCase {
 			  'uitype' => '2',
 			  'typeofdata' => 'V~M',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			3 => array(
 			  'tabid' => '43',
@@ -1777,6 +1835,7 @@ class testutils extends TestCase {
 			  'uitype' => '5',
 			  'typeofdata' => 'D~M',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			4 => array(
 			  'tabid' => '43',
@@ -1788,6 +1847,7 @@ class testutils extends TestCase {
 			  'uitype' => '5',
 			  'typeofdata' => 'D~M~OTH~GE~datesold~Date Sold',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			5 => array(
 			  'tabid' => '43',
@@ -1799,6 +1859,7 @@ class testutils extends TestCase {
 			  'uitype' => '15',
 			  'typeofdata' => 'V~M',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			6 => array(
 			  'tabid' => '43',
@@ -1810,6 +1871,7 @@ class testutils extends TestCase {
 			  'uitype' => '2',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			7 => array(
 			  'tabid' => '43',
@@ -1821,6 +1883,7 @@ class testutils extends TestCase {
 			  'uitype' => '10',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			8 => array(
 			  'tabid' => '43',
@@ -1832,6 +1895,7 @@ class testutils extends TestCase {
 			  'uitype' => '2',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			9 => array(
 			  'tabid' => '43',
@@ -1843,6 +1907,7 @@ class testutils extends TestCase {
 			  'uitype' => '2',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			10 => array(
 			  'tabid' => '43',
@@ -1854,6 +1919,7 @@ class testutils extends TestCase {
 			  'uitype' => '53',
 			  'typeofdata' => 'V~M',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			11 => array(
 			  'tabid' => '43',
@@ -1865,6 +1931,7 @@ class testutils extends TestCase {
 			  'uitype' => '1',
 			  'typeofdata' => 'V~M',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			12 => array(
 			  'tabid' => '43',
@@ -1876,6 +1943,7 @@ class testutils extends TestCase {
 			  'uitype' => '10',
 			  'typeofdata' => 'V~M',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			13 => array(
 			  'tabid' => '43',
@@ -1887,6 +1955,7 @@ class testutils extends TestCase {
 			  'uitype' => '70',
 			  'typeofdata' => 'DT~O',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			14 => array(
 			  'tabid' => '43',
@@ -1898,6 +1967,7 @@ class testutils extends TestCase {
 			  'uitype' => '70',
 			  'typeofdata' => 'DT~O',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			15 => array(
 			  'tabid' => '43',
@@ -1909,6 +1979,7 @@ class testutils extends TestCase {
 			  'uitype' => '52',
 			  'typeofdata' => 'V~O',
 			  'presence' => '0',
+			  'defaultvalue' => '',
 			),
 			16 => array(
 			  'tabid' => '43',
@@ -1920,6 +1991,7 @@ class testutils extends TestCase {
 			  'uitype' => '19',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 			17 => array(
 			  'tabid' => '43',
@@ -1931,6 +2003,7 @@ class testutils extends TestCase {
 			  'uitype' => '52',
 			  'typeofdata' => 'V~O',
 			  'presence' => '2',
+			  'defaultvalue' => '',
 			),
 		);
 		$hdfinfo = array(
@@ -1969,6 +2042,7 @@ class testutils extends TestCase {
 				'uitype' => '4',
 				'typeofdata' => 'V~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			1 =>  array(
 				'tabid' => '13',
@@ -1980,6 +2054,7 @@ class testutils extends TestCase {
 				'uitype' => '53',
 				'typeofdata' => 'V~M',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			2 =>  array(
 				'tabid' => '13',
@@ -1991,6 +2066,7 @@ class testutils extends TestCase {
 				'uitype' => '10',
 				'typeofdata' => 'I~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			3 =>  array(
 				'tabid' => '13',
@@ -2002,6 +2078,7 @@ class testutils extends TestCase {
 				'uitype' => '15',
 				'typeofdata' => 'V~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			4 =>  array(
 				'tabid' => '13',
@@ -2013,6 +2090,7 @@ class testutils extends TestCase {
 				'uitype' => '10',
 				'typeofdata' => 'I~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			5 =>  array(
 				'tabid' => '13',
@@ -2024,6 +2102,7 @@ class testutils extends TestCase {
 				'uitype' => '15',
 				'typeofdata' => 'V~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			6 =>  array(
 				'tabid' => '13',
@@ -2035,6 +2114,7 @@ class testutils extends TestCase {
 				'uitype' => '15',
 				'typeofdata' => 'V~M',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			7 =>  array(
 				'tabid' => '13',
@@ -2046,6 +2126,7 @@ class testutils extends TestCase {
 				'uitype' => '15',
 				'typeofdata' => 'V~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			8 =>  array(
 				'tabid' => '13',
@@ -2057,6 +2138,7 @@ class testutils extends TestCase {
 				'uitype' => '19',
 				'typeofdata' => 'V~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			9 =>  array(
 				'tabid' => '13',
@@ -2068,6 +2150,7 @@ class testutils extends TestCase {
 				'uitype' => '7',
 				'typeofdata' => 'N~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			10 => array(
 				'tabid' => '13',
@@ -2079,6 +2162,7 @@ class testutils extends TestCase {
 				'uitype' => '1',
 				'typeofdata' => 'I~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			11 => array(
 				'tabid' => '13',
@@ -2090,6 +2174,7 @@ class testutils extends TestCase {
 				'uitype' => '70',
 				'typeofdata' => 'DT~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			12 => array(
 				'tabid' => '13',
@@ -2101,6 +2186,7 @@ class testutils extends TestCase {
 				'uitype' => '70',
 				'typeofdata' => 'DT~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			13 => array(
 				'tabid' => '13',
@@ -2112,6 +2198,7 @@ class testutils extends TestCase {
 				'uitype' => '56',
 				'typeofdata' => 'C~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			14 => array(
 				'tabid' => '13',
@@ -2123,6 +2210,7 @@ class testutils extends TestCase {
 				'uitype' => '52',
 				'typeofdata' => 'V~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			15 => array(
 				'tabid' => '13',
@@ -2134,6 +2222,7 @@ class testutils extends TestCase {
 				'uitype' => '21',
 				'typeofdata' => 'V~M',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			16 => array(
 				'tabid' => '13',
@@ -2145,6 +2234,7 @@ class testutils extends TestCase {
 				'uitype' => '19',
 				'typeofdata' => 'V~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			17 => array(
 				'tabid' => '13',
@@ -2156,6 +2246,7 @@ class testutils extends TestCase {
 				'uitype' => '19',
 				'typeofdata' => 'V~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			18 => array(
 				'tabid' => '13',
@@ -2167,6 +2258,7 @@ class testutils extends TestCase {
 				'uitype' => '19',
 				'typeofdata' => 'V~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			19 => array(
 				'tabid' => '13',
@@ -2178,6 +2270,7 @@ class testutils extends TestCase {
 				'uitype' => '13',
 				'typeofdata' => 'E~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			20 => array(
 				'tabid' => '13',
@@ -2189,6 +2282,7 @@ class testutils extends TestCase {
 				'uitype' => '56',
 				'typeofdata' => 'C~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			21 => array(
 				'tabid' => '13',
@@ -2200,6 +2294,7 @@ class testutils extends TestCase {
 				'uitype' => '56',
 				'typeofdata' => 'C~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 			22 => array(
 				'tabid' => '13',
@@ -2211,6 +2306,7 @@ class testutils extends TestCase {
 				'uitype' => '52',
 				'typeofdata' => 'V~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 		);
 		$pbxfinfo = array(
@@ -2231,6 +2327,7 @@ class testutils extends TestCase {
 				'uitype' => '2',
 				'typeofdata' => 'V~M',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			1 => array(
 				'tabid' => '36',
@@ -2242,6 +2339,7 @@ class testutils extends TestCase {
 				'uitype' => '2',
 				'typeofdata' => 'V~M',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			2 => array(
 				'tabid' => '36',
@@ -2253,6 +2351,7 @@ class testutils extends TestCase {
 				'uitype' => '50',
 				'typeofdata' => 'V~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			3 => array(
 				'tabid' => '36',
@@ -2264,6 +2363,7 @@ class testutils extends TestCase {
 				'uitype' => '16',
 				'typeofdata' => 'V~O',
 				'presence' => '0',
+				'defaultvalue' => '',
 			),
 			4 => array(
 				'tabid' => '36',
@@ -2275,6 +2375,7 @@ class testutils extends TestCase {
 				'uitype' => '1',
 				'typeofdata' => 'V~O',
 				'presence' => '2',
+				'defaultvalue' => '',
 			),
 		);
 		$eoofinfo = array();
