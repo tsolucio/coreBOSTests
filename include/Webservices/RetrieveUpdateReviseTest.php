@@ -562,10 +562,11 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 		$updateCto = $beforeCto;
 		$updateCto['ticketpriorities'] = 'Low';
 		vtws_update($updateCto, $current_user);
-		$date = date('l dS F Y h:i:s A');
+		$date = date('l dS F Y h:i: A');
 		$actual = vtws_retrieve($ctoID.'x2728', $current_user);
 		$this->assertEquals('Low', $actual['ticketpriorities'], 'update ticketpriorities');
-		$this->assertEquals($expected.' Priority Changed to Low\. -- '.$date.' by admin--//--', $actual['update_log']);
+		$updatelog = substr($actual['update_log'], 0, strlen($actual['update_log'])-20).substr($actual['update_log'], strlen($actual['update_log'])-18);
+		$this->assertEquals($expected.' Priority Changed to Low\. -- '.$date.' by admin--//--', $updatelog);
 		$adb->pquery("update vtiger_troubletickets set priority='High', update_log=? where ticketid=2728", array($expected));
 		$actual = vtws_retrieve($ctoID.'x2728', $current_user);
 		unset($beforeCto['modifiedby'], $beforeCto['modifiedtime'], $beforeCto['commentadded'], $actual['commentadded'], $actual['modifiedby'], $actual['modifiedtime']);
