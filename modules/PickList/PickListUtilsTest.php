@@ -3949,9 +3949,71 @@ class PickListUtilsTest extends TestCase {
 	 * @test
 	 */
 	public function testgetPicklistValuesSpecialUitypes1024() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
+		$expected = array(
+			4 => array(
+				0 => 'CEO',
+				1 => 'H2',
+				2 => '',
+			),
+			3 => array(
+				0 => 'NoCreate',
+				1 => 'H6',
+				2 => '',
+			),
+			2 => array(
+				0 => 'Sales Man',
+				1 => 'H5',
+				2 => '',
+			),
+			1 => array(
+				0 => 'Sales Manager',
+				1 => 'H4',
+				2 => '',
+			),
+			0 => array(
+				0 => 'Vice President',
+				1 => 'H3',
+				2 => '',
+			),
 		);
+		$actual = getPicklistValuesSpecialUitypes('1024', '*', '', '*');
+		$this->assertEquals($expected, $actual, 'Test getPicklistValuesSpecialUitypes 1024');
+		$_REQUEST['file'] = 'QuickCreate';
+		$actual = getPicklistValuesSpecialUitypes('1024', '*', '', '*');
+		$this->assertEquals($expected, $actual, 'Test getPicklistValuesSpecialUitypes 1024');
+		$expected[1][2] = 'selected';
+		$actual = getPicklistValuesSpecialUitypes('1024', '*', 'H4', '*');
+		$this->assertEquals($expected, $actual, 'Test getPicklistValuesSpecialUitypes 1024');
+		$actual = getPicklistValuesSpecialUitypes('1024', '*', 'H2', 'DetailView');
+		$this->assertEquals(
+			['<a href="index.php?module=Settings&action=RoleDetailView&parenttab=Settings&roleid=H2">CEO</a>'],
+			$actual,
+			'Test getPicklistValuesSpecialUitypes 1024'
+		);
+		$actual = getPicklistValuesSpecialUitypes('1024', '*', 'H2 |##| H4', 'DetailView');
+		$this->assertEquals(
+			[
+				'<a href="index.php?module=Settings&action=RoleDetailView&parenttab=Settings&roleid=H2">CEO</a>',
+				'<a href="index.php?module=Settings&action=RoleDetailView&parenttab=Settings&roleid=H4">Sales Manager</a>',
+			],
+			$actual,
+			'Test getPicklistValuesSpecialUitypes 1024'
+		);
+		global $current_user;
+		$hold = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11);
+		$current_user = $user;
+		$actual = getPicklistValuesSpecialUitypes('1024', '*', 'H2 |##| H4', 'DetailView');
+		$this->assertEquals(
+			[
+				'CEO',
+				'Sales Manager',
+			],
+			$actual,
+			'Test getPicklistValuesSpecialUitypes 1024'
+		);
+		$current_user = $hold;
 	}
 
 	/**
@@ -3959,9 +4021,7 @@ class PickListUtilsTest extends TestCase {
 	 * @test
 	 */
 	public function testgetPicklistValuesSpecialUitypes1025() {
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$this->assertTrue(true, 'This field is not correctly implemented yet. Fix it and add tests here');
 	}
 }
 ?>
