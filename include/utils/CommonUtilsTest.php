@@ -1697,4 +1697,32 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 		$this->assertEquals([], getDenormalizedModules('DoesNotExist'));
 		$this->assertEquals([], getDenormalizedModules('Accounts'));
 	}
+
+	/**
+	 * Method getSqlForNameInDisplayFormatProvider
+	 * params
+	 */
+	public function getSqlForNameInDisplayFormatProvider() {
+		return array(
+			array('', '', '', 'CONCAT()'),
+			array(array('first_name'=>'vtiger_users.first_name', 'last_name'=>'vtiger_users.last_name'), 'Users', '', 'CONCAT()'), // because fields are not in entityname
+			array(array('first_name'=>'vtiger_users.first_name', 'last_name'=>'vtiger_users.last_name'), 'Contacts', '', "CONCAT(,'',)"), // garbage in > garbage out
+			array(array('firstname'=>'vtiger_users.first_name', 'lastname'=>'vtiger_users.last_name'), 'Contacts', '', "CONCAT(vtiger_users.first_name,'',vtiger_users.last_name)"), // this is WRONG!!
+			array(array('firstname'=>'we can put', 'lastname'=>'anything we want here'), 'Contacts', '', "CONCAT(we can put,'',anything we want here)"), // this is WRONG!!
+			array(array('firstname'=>'vtiger_contacts.firstname', 'lastname'=>'vtiger_contacts.lastname'), 'Contacts', '', "CONCAT(vtiger_contacts.firstname,'',vtiger_contacts.lastname)"),
+			array(array('firstname'=>'vtiger_contacts.firstname', 'lastname'=>'vtiger_contacts.lastname'), 'Contacts', 'glue', "CONCAT(vtiger_contacts.firstname,'glue',vtiger_contacts.lastname)"),
+			array(array('ename'=>'vtiger_users.ename'), 'Users', '', 'CONCAT(vtiger_users.ename)'),
+			array(array('ename'=>'vtiger_users.ename'), 'Users', 'glue', 'CONCAT(vtiger_users.ename)'),
+			array(array('ename'=>'again, anything we want'), 'Users', '', 'CONCAT(again, anything we want)'),
+		);
+	}
+
+	/**
+	 * Method testgetSqlForNameInDisplayFormat
+	 * @test
+	 * @dataProvider getSqlForNameInDisplayFormatProvider
+	 */
+	public function testgetSqlForNameInDisplayFormat($input, $module, $glue, $expected) {
+		$this->assertEquals($expected, getSqlForNameInDisplayFormat($input, $module, $glue));
+	}
 }
