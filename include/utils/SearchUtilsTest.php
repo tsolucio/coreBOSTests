@@ -35,7 +35,7 @@ class testSearchUtils extends TestCase {
 		$expected = "vtiger_account.accountname like '%wo%'";
 		$actual = getAdvancedSearchValue('vtiger_account', 'accountname', 'c', 'wo', 'V');
 		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
-		$expected = "( trim(CONCAT(vtiger_users.first_name,' ',vtiger_users.last_name)) like '%ad%' OR vtiger_groups.groupname like '%ad%')";
+		$expected = "( trim(vtiger_users.ename) like '%ad%' OR vtiger_groups.groupname like '%ad%')";
 		$actual = getAdvancedSearchValue('vtiger_crmentity', 'smownerid', 'c', 'ad', 'V');
 		$this->assertEquals($expected, $actual, 'testgetAdvancedSearchValue');
 		$expected = "vtiger_account.industry IN (select translation_key from vtiger_cbtranslation
