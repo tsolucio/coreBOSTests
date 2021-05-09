@@ -550,7 +550,6 @@ class DataTransformTest extends TestCase {
 		$handler = vtws_getModuleHandlerFromName('InventoryDetails', $current_user);
 		$meta = $handler->getMeta();
 		$actual = DataTransform::sanitizeRetrieveEntityInfo($invalues, $meta);
-		$actual = DataTransform::sanitizeRetrieveEntityInfo($actual, $meta);
 		$this->assertEquals($expected, $actual, 'sanitizeRetrieveEntityInfo InventoryDetails usrcoma3dot');
 		$current_user = $hcu;
 	}
