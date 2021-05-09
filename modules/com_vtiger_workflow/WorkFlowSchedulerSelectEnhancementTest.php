@@ -761,6 +761,34 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 	}
 
 	/**
+	 * Method testgetCRMIDFromWSID
+	 * @test
+	 */
+	public function testgetCRMIDFromWSID() {
+		global $adb;
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Potentials';
+		$wfvals['test'] = '';
+		$wfvals['select_expressions'] = '[{"fieldname":"entitycrmid","operation":"is","value":"getCRMIDFromWSID(id)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT crmid AS entitycrmid FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Potentials';
+		$wfvals['test'] = '[{"fieldname":"potentialname","operation":"greater than","value":"getCRMIDFromWSID(id)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$wfvals['select_expressions'] = '[{"fieldname":"entitycrmid","operation":"is","value":"getCRMIDFromWSID(id)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT crmid AS entitycrmid FROM vtiger_potential  INNER JOIN vtiger_crmentity ON vtiger_potential.potentialid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_potential.potentialname > crmid) )) AND vtiger_potential.potentialid > 0';
+		$this->assertEquals($expected, $actual);
+
+	}
+
+	/**
 	 * Method testgetSetting
 	 * @test
 	 */

@@ -137,5 +137,18 @@ class workflowfunctionsstringsTest extends TestCase {
 		$actual = __cb_hash(array('2017-06-20 11:30:30', 'md5'));
 		$this->assertEquals(md5('2017-06-20 11:30:30'), $actual);
 	}
+
+	/**
+	 * Method testgetCRMIDFromWSID
+	 * @test
+	 */
+	public function testgetCRMIDFromWSID() {
+		$this->assertEquals('', cb_getCRMIDFromWSID(''));
+		$this->assertEquals('', cb_getCRMIDFromWSID('22'));
+		$this->assertEquals('', cb_getCRMIDFromWSID(array()));
+		$this->assertEquals('', cb_getCRMIDFromWSID(array('invalid algo')));
+		$this->assertEquals('', cb_getCRMIDFromWSID('22x33'));
+		$this->assertEquals('33', cb_getCRMIDFromWSID(['22x33']));
+	}
 }
 ?>
