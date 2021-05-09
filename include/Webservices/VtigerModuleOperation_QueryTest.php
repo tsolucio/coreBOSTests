@@ -523,6 +523,11 @@ where projectname like '%o%'  and modifiedtime>'2016-06-30 19:11:59';", $meta, $
 	}
 
 	public function testExtendedConditionQuery() {
+		$actual = self::$vtModuleOperation->wsVTQL2SQL('select servicename from Services where [{"fieldname":"qty_per_unit","operation":"does not equal","value":"","valuetype":"raw","joincondition":"and","groupid":"0"},{"fieldname":"qty_per_unit","operation":"does not equal","value":"0","valuetype":"raw","joincondition":"and","groupid":"0"}]', $meta, $queryRelatedModules);
+		$this->assertEquals(
+			"SELECT vtiger_service.serviceid, vtiger_service.servicename FROM vtiger_service  INNER JOIN vtiger_crmentity ON vtiger_service.serviceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_service.qty_per_unit IS NOT NULL)  and ( vtiger_service.qty_per_unit <> 0) )) AND vtiger_service.serviceid > 0",
+			$actual
+		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id, account_no, accountname, Accounts.accountname from accounts where [{"fieldname":"assigned_user_id","operation":"is","value":"cbTest testtz","valuetype":"raw","joincondition":"and","groupid":"0"}]', $meta, $queryRelatedModules);
 		$this->assertEquals(
 			"SELECT vtiger_account.accountid, vtiger_account.account_no, vtiger_account.accountname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_account.parentid  WHERE vtiger_crmentity.deleted=0 AND   (  (( (trim(vtiger_users.ename) = 'cbTest testtz' or vtiger_groups.groupname = 'cbTest testtz')) )) AND vtiger_account.accountid > 0",
