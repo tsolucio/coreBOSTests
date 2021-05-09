@@ -22,10 +22,10 @@ use PHPUnit\Framework\TestCase;
 class VTUpdateFieldsTaskTest extends TestCase {
 
 	/**
-	 * Method testCorrectUpdate
+	 * Method testCorrectUpdateAll
 	 * @test
 	 */
-	public function testCorrectUpdate() {
+	public function testCorrectUpdateAll() {
 		global $adb, $current_user;
 		$preValues = CRMEntity::getInstance('InventoryDetails');
 		$preValues->retrieve_entity_info(2823, 'InventoryDetails');
