@@ -96,6 +96,7 @@
 			<directory suffix=".php">../../modules/com_vtiger_workflow</directory>
 			<directory suffix=".inc">../../modules/com_vtiger_workflow</directory>
 			<directory suffix=".php">../../modules/Calendar4You</directory>
+			<directory suffix=".php">../../modules/cbMap/generatemap</directory>
 			<directory suffix=".php">../../modules/cbMap/processmap</directory>
 			<directory suffix=".php">../../modules/cbQuestion/actions</directory>
 			<directory suffix=".php">../../modules/evvtgendoc</directory>
@@ -315,23 +316,21 @@
 				<file>../../include/Webservices/SessionManager.php</file>
 				<file>../../include/Webservices/VtigerCRMZendeskMeta.php</file>
 				<file>../../include/Webservices/VtigerZendeskOperation.php</file>
+				<file>../../modules/Reports/index.php</file>
+				<file>../../modules/Reports/ReportsAjax.php</file>
+				<file>../../modules/Tooltip/index.php</file>
+				<file>../../modules/Tooltip/TooltipAjax.php</file>
+				<file>../../modules/Utilities/index.php</file>
+				<file>../../modules/Utilities/ListView.php</file>
+				<file>../../modules/Utilities/UtilitiesAjax.php</file>
+				<file>../../modules/VtigerBackup/VtigerBackupAjax.php</file>
+				<file>../../modules/Webforms/WebformsAjax.php</file>
+				<file>../../modules/WSAPP/WSAPPAjax.php</file>
 				<directory>../../modules/Calendar4You/class</directory>
 				<directory>../../modules/Calendar4You/fullcalendar</directory>
 				<directory>../../modules/PickList/PickListAjax.php</directory>
 				<directory>../../modules/Users/authTypes</directory>
-				<directory>../../modules/Reports/index.php</directory>
-				<directory>../../modules/Reports/ReportsAjax.php</directory>
-				<directory>../../modules/Tooltip/index.php</directory>
-				<directory>../../modules/Tooltip/TooltipAjax.php</directory>
-				<directory>../../modules/Utilities/index.php</directory>
-				<directory>../../modules/Utilities/ListView.php</directory>
-				<directory>../../modules/Utilities/UtilitiesAjax.php</directory>
-				<directory>../../modules/VtigerBackup/VtigerBackupAjax.php</directory>
-				<directory>../../modules/Webforms/WebformsAjax.php</directory>
-				<directory>../../modules/WSAPP/WSAPPAjax.php</directory>
 				<directory>../../modules/**/language</directory>
-				<directory>../../include/integrations/zendesk/vendor</directory>
-				<directory>../../include/integrations/sendgrid/vendor</directory>
 				<directory>../../include/integrations/sendgrid/lib</directory>
 				<directory>../../include/integrations/hubspot/vendor</directory>
 				<directory>../../include/adodb</directory>
@@ -354,8 +353,6 @@
 				<directory>../../include/js</directory>
 				<directory>../../include/language</directory>
 				<directory>../../include/LD</directory>
-				<directory>../../include/log4php</directory>
-				<directory>../../include/log4php.debug</directory>
 				<directory>../../include/nusoap</directory>
 				<directory>../../include/PhpSpreadsheet</directory>
 				<directory>../../include/simplepie</directory>
@@ -369,4 +366,9 @@
 			</exclude>
 		</whitelist>
 	</filter>
+	<logging>
+		<log type="coverage-html" target="coverage/"/>
+		<log type="coverage-clover" target="coverage/coverage-report.xml"/>
+		<log type="junit" target="coverage/tests-report.xml"/>
+	</logging>
 </phpunit>
