@@ -623,6 +623,23 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'UserPermissions');
 	}
 
+	/**
+	 * Method testWfBooleanExpressionFromRelated
+	 * @test
+	 */
+	public function testWfBooleanExpressionFromRelated() {
+		global $adb, $currentModule;
+		$currentModule = 'Contacts';
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Contacts';
+		$wfvals['test'] = '[{"fieldname":"account_id : (Accounts) emailoptout","operation":"is","value":"true:boolean","valuetype":"rawtext","joincondition":"and","groupid":"0","groupjoin":""},{"fieldname":"firstname","operation":"is","value":"Lina","valuetype":"rawtext","joincondition":"and","groupid":"0","groupjoin":""},{"fieldname":"notify_owner","operation":"is","value":"false:boolean","valuetype":"rawtext","joincondition":"and","groupid":"0","groupjoin":""}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_contactdetails.contactid FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_accountaccount_id.emailoptout = '1')  and ( vtiger_contactdetails.firstname = 'Lina')  and ( vtiger_contactdetails.notify_owner = '0') )) AND vtiger_contactdetails.contactid > 0";
+		$this->assertEquals($expected, $actual);
+	}
 	// /**
 	//  * Method testgetWorkflowQueryFieldType
 	//  * @test
