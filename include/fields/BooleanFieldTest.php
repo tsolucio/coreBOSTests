@@ -28,6 +28,8 @@ class testBooleanField extends TestCase {
 	public function testgetBooleanDisplayValue() {
 		$this->assertEquals('yes', BooleanField::getBooleanDisplayValue(1, 'HelpDesk'));
 		$this->assertEquals('no', BooleanField::getBooleanDisplayValue(0, 'HelpDesk'));
+		$this->assertEquals('yes', BooleanField::getBooleanDisplayValue('1', 'HelpDesk'));
+		$this->assertEquals('no', BooleanField::getBooleanDisplayValue('0', 'HelpDesk'));
 		$this->assertEquals('--', BooleanField::getBooleanDisplayValue(10, 'HelpDesk'));
 		$this->assertEquals('yes', BooleanField::getBooleanDisplayValue(true, 'HelpDesk'));
 		$this->assertEquals('no', BooleanField::getBooleanDisplayValue(false, 'HelpDesk'));
