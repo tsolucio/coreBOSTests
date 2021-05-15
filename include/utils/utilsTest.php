@@ -2559,6 +2559,37 @@ class testutils extends TestCase {
 	}
 
 	/**
+	 * Method strip_selected_tagsProvider
+	 * params
+	 */
+	public function strip_selected_tagsProvider() {
+		return array(
+			array('Assets', '', 'Assets'),
+			array('Assets', 'Assets', 'Assets'),
+			array('Assets', 'someother', 'Assets'),
+			array('<a href="somelink">Assets</a>', 'a', 'Assets'),
+			array('<a href="somelink"><strong>Assets</strong></a>', ['a'], '<strong>Assets</strong>'),
+			array('<a href="somelink"><strong>Assets</strong></a>', ['a', 'strong'], 'Assets'),
+			array('<A href="somelink"><STRONG>Assets</STRONG></A>', ['a', 'strong'], 'Assets'),
+			array('<a href="somelink"><strong>Assets</strong></a>', ['A', 'STRONG'], 'Assets'),
+			array('cbupdater<br/>', 'br', 'cbupdater<br/>'),
+			array('', ['a', 'strong'], ''),
+		);
+	}
+
+	/**
+	 * Method teststrip_selected_tags
+	 * @test
+	 * @dataProvider strip_selected_tagsProvider
+	 */
+	public function teststrip_selected_tags($text, $tags, $expected) {
+		$this->assertEquals($expected, strip_selected_tags($text, $tags), "strip_selected_tags $text");
+		if ($tags == ['a', 'strong']) {
+			$this->assertEquals($expected, strip_selected_tags($text, 'a', 'strong'), "strip_selected_tags multiargs $text");
+		}
+	}
+
+	/**
 	 * Method hasEmailFieldProvider
 	 * params
 	 */
