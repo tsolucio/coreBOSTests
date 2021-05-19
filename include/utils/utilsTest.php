@@ -2616,4 +2616,38 @@ class testutils extends TestCase {
 	public function testhasEmailField($module, $expected) {
 		$this->assertEquals($expected, hasEmailField($module), "hasEmailField $module");
 	}
+
+	/**
+	 * Method getRelationTablesProvider
+	 * params
+	 */
+	public function getRelationTablesProvider() {
+		return array(
+			array('Assets', 'HelpDesk', array('vtiger_crmentityrel' => array('crmid', 'relcrmid'), 'vtiger_assets' => 'assetsid')),
+			array('Assets', 'Documents', array('vtiger_senotesrel' => array('crmid', 'notesid'), 'vtiger_assets' => 'assetsid')),
+			array('Accounts', 'HelpDesk', array('vtiger_troubletickets' => array('parent_id', 'ticketid'), 'vtiger_account' => 'accountid')),
+			array('Accounts', 'Accounts', array('vtiger_account' => array('accountid', 'parentid'))),
+			array('HelpDesk', 'ServiceContracts', array('vtiger_crmentityrel' => array('crmid', 'relcrmid'), 'vtiger_troubletickets' => 'ticketid')),
+			array('Products', 'Contacts', array('vtiger_seproductsrel' => array('productid', 'crmid'), 'vtiger_products' => 'productid')),
+			array('Products', 'Products', array('vtiger_crmentityrel' => array('crmid', 'relcrmid'), 'vtiger_products' => 'productid')),
+			array('Products', 'ProductComponent', array('vtiger_productcomponent' => array('frompdo', 'productcomponentid'), 'vtiger_products' => 'productid')),
+			array('ProductComponent', 'Products', array('vtiger_productcomponent' => array('productcomponentid', 'frompdo'))),
+			array('Contacts', 'Emails', array('vtiger_crmentityrel' => array('crmid', 'relcrmid'), 'vtiger_contactdetails' => 'contactid')),
+			array('Project', 'ProjectMilestone', array('vtiger_projectmilestone' => array('projectid', 'projectmilestoneid'), 'vtiger_project' => 'projectid')),
+			array('cbupdater', 'ProjectMilestone', array('vtiger_crmentityrel' => array('crmid', 'relcrmid'), 'vtiger_cbupdater' => 'cbupdaterid')),
+			array('cbCalendar', 'cbCalendar', array('vtiger_activity' => array('activityid', 'relatedwith'))),
+			array('InexistentModule', 'cbCalendar', ''),
+			array('', '', ''),
+			array('EtiquetasOO', 'cbCalendar', ''),
+		);
+	}
+
+	/**
+	 * Method testgetRelationTables
+	 * @test
+	 * @dataProvider getRelationTablesProvider
+	 */
+	public function testgetRelationTables($module, $secmodule, $expected) {
+		$this->assertEquals($expected, getRelationTables($module, $secmodule), "getRelationTables $module, $secmodule");
+	}
 }
