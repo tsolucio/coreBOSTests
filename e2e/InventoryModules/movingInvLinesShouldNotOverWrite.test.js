@@ -21,7 +21,7 @@ test('Moving inventorylines should not overwrite each other', async () => {
 		await page.type('input#password', 'admin')
 		await page.click('input#Login')
 		await page.goto(
-			url + '/index.php?module=SalesOrder&parenttab=ptab&action=DetailView&record=10720'
+			url + '/index.php?module=SalesOrder&action=DetailView&record=10720'
 		)
 		await page.click('input[name=Edit]')
 		await page.waitForSelector('#row4');

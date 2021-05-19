@@ -3986,15 +3986,15 @@ class PickListUtilsTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'Test getPicklistValuesSpecialUitypes 1024');
 		$actual = getPicklistValuesSpecialUitypes('1024', '*', 'H2', 'DetailView');
 		$this->assertEquals(
-			['<a href="index.php?module=Settings&action=RoleDetailView&parenttab=Settings&roleid=H2">CEO</a>'],
+			['<a href="index.php?module=Settings&action=RoleDetailView&roleid=H2">CEO</a>'],
 			$actual,
 			'Test getPicklistValuesSpecialUitypes 1024'
 		);
 		$actual = getPicklistValuesSpecialUitypes('1024', '*', 'H2 |##| H4', 'DetailView');
 		$this->assertEquals(
 			[
-				'<a href="index.php?module=Settings&action=RoleDetailView&parenttab=Settings&roleid=H2">CEO</a>',
-				'<a href="index.php?module=Settings&action=RoleDetailView&parenttab=Settings&roleid=H4">Sales Manager</a>',
+				'<a href="index.php?module=Settings&action=RoleDetailView&roleid=H2">CEO</a>',
+				'<a href="index.php?module=Settings&action=RoleDetailView&roleid=H4">Sales Manager</a>',
 			],
 			$actual,
 			'Test getPicklistValuesSpecialUitypes 1024'

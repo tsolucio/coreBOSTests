@@ -21,7 +21,7 @@ test('Adding inventorylines should not set deleted lines to deleted = 0', async 
 		await page.type('input#password', 'admin')
 		await page.click('input#Login')
 		await page.goto(
-			url + '/index.php?module=SalesOrder&parenttab=ptab&action=DetailView&record=10616'
+			url + '/index.php?module=SalesOrder&action=DetailView&record=10616'
 		)
 		await page.click('input[name=Edit]')
 		await page.waitForSelector('#row10');
