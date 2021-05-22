@@ -530,7 +530,7 @@ where projectname like '%o%'  and modifiedtime>'2016-06-30 19:11:59';", $meta, $
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select id from ProjectTask where [{"fieldname":"projectid : (Project) id","operation":"contains","value":"33x8417","valuetype":"raw","joincondition":"AND","groupid":"ragroup","groupjoin":"and"}] order by id ASC limit 0,100;', $meta, $queryRelatedModules);
 		$this->assertEquals(
-			"SELECT vtiger_projecttask.projecttaskid FROM vtiger_projecttask  INNER JOIN vtiger_crmentity ON vtiger_projecttask.projecttaskid = vtiger_crmentity.crmid LEFT JOIN vtiger_project AS vtiger_projectprojectid ON vtiger_projectprojectid.projectid=vtiger_projecttask.projectid  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_projectprojectid.projectid = '33x8417') )) AND vtiger_projecttask.projecttaskid > 0 order by vtiger_projecttask.projecttaskid asc  limit 0,100",
+			"SELECT vtiger_projecttask.projecttaskid FROM vtiger_projecttask  INNER JOIN vtiger_crmentity ON vtiger_projecttask.projecttaskid = vtiger_crmentity.crmid LEFT JOIN vtiger_project AS vtiger_projectprojectid ON vtiger_projectprojectid.projectid=vtiger_projecttask.projectid  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_projectprojectid.projectid = '33x8417') )) AND vtiger_projecttask.projecttaskid > 0 order by vtiger_projecttask.projecttaskid asc  limit 0,100;",
 			$actual
 		);
 		$actual = self::$vtModuleOperation->wsVTQL2SQL('select servicename from Services where [{"fieldname":"qty_per_unit","operation":"does not equal","value":"","valuetype":"raw","joincondition":"and","groupid":"0"},{"fieldname":"qty_per_unit","operation":"does not equal","value":"0","valuetype":"raw","joincondition":"and","groupid":"0"}]', $meta, $queryRelatedModules);
