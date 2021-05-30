@@ -28,7 +28,7 @@ class VTWSEntityTypeTest extends TestCase {
 	 * @test
 	 */
 	public function testVTWSEntityType() {
-		global $current_user, $adb;
+		global $current_user;
 		$current_user = Users::getActiveAdminUser();
 		$setype = 'Potentials';
 		$et = new VTWSEntityType($setype, $current_user);
@@ -60,16 +60,17 @@ class VTWSEntityTypeTest extends TestCase {
 			21 => 'id',
 		);
 		$this->assertEquals($fieldnames, $et->getFieldNames(), 'FieldNames');
-		$fieldtypes = array();
 		$ftypes = $et->getFieldTypes();
-		$this->assertInstanceOf(VTWSFieldType::class, $ftypes['potential_no'], 'potential_no');
+		$this->assertInstanceOf(VTWSFieldType::class, $ftypes['potential_no'], 'potential_no VTWSFieldType');
+		$this->assertEquals(array('type' => 'Number', 'format' => 'Decimal'), $ftypes['amount']->toArray(), 'FieldType toArray');
 		$this->assertEquals($ftypes['potential_no']->type, $et->getFieldType('potential_no')->type, 'FieldType potential_no');
 		$this->assertEquals('String', $et->getFieldType('potential_no')->type, 'FieldType potential_no');
 		$this->assertEquals(array('type' => 'String'), (array)$ftypes['potential_no'], 'FieldType ToArray');
 		$this->assertInstanceOf(VTWSFieldType::class, $ftypes['amount'], 'amount');
 		$this->assertEquals($ftypes['amount']->type, $et->getFieldType('amount')->type, 'FieldType amount');
+		$this->assertEquals('String', $et->getFieldType('potential_no')->type, 'FieldType potential_no');
 		$this->assertEquals('Number', $et->getFieldType('amount')->type, 'FieldType amount');
-		$this->assertEquals('Decimal', $et->getFieldType('amount')->format, 'FieldType amount');
+		$this->assertEquals('Decimal', $et->getFieldType('amount')->format, 'FieldFormat amount');
 		$this->assertEquals(array('type' => 'Number','format'=>'Decimal'), (array)$ftypes['amount'], 'FieldType ToArray');
 		$flabels = $et->getFieldLabels();
 		$fieldlabels = array(
@@ -97,39 +98,23 @@ class VTWSEntityTypeTest extends TestCase {
 			'id' => 'potentialid',
 		);
 		$this->assertEquals($fieldlabels, $flabels, 'FieldLabels EN');
+		$et->fieldLabels = null;
 		$this->assertEquals($fieldlabels['amount'], $et->getFieldLabel('amount'), 'FieldLabel amount EN');
 		$this->assertEquals($fieldlabels['leadsource'], $et->getFieldLabel('leadsource'), 'FieldLabel leadsource EN');
-// 		$user = new Users();
-// 		$user->retrieveCurrentUserInfoFromFile(8); // testes ES
-// 		$et = new VTWSEntityType($setype,$user);
-// 		$flabels = $et->getFieldLabels();
-// 		$fieldlabels = array(
-// 			'potentialname' => 'Oportunidad',
-// 			'potential_no' => 'Núm. Oportunidad',
-// 			'amount' => 'Importe',
-// 			'related_to' => 'Relacionado con',
-// 			'closingdate' => 'Fecha estimada de cierre',
-// 			'opportunity_type' => 'Tipo',
-// 			'nextstep' => 'Siguiente Paso',
-// 			'leadsource' => 'Origen del Pre-Contacto',
-// 			'sales_stage' => 'Fase de Venta',
-// 			'assigned_user_id' => 'Asignado a',
-// 			'probability' => 'Probabilidad',
-// 			'campaignid' => 'Campaña Origen',
-// 			'createdtime' => 'Fecha de Creación',
-// 			'modifiedtime' => 'Última Modificación',
-// 			'modifiedby' => 'Last Modified By',
-// 			'forecast_amount' => 'Forecast Amount',
-// 			'email' => 'Email',
-// 			'isconvertedfromlead' => 'Is Converted From Lead',
-// 			'convertedfromlead' => 'Converted From Lead',
-// 			'created_user_id' => 'Created By',
-// 			'description' => 'Descripción',
-// 			'id' => 'potentialid',
-// 		);
-// 		$this->assertEquals($fieldlabels,$flabels,'FieldLabels ES');
-// 		$this->assertEquals($fieldlabels['amount'],$et->getFieldLabel('amount'),'FieldLabel amount ES');
-// 		$this->assertEquals($fieldlabels['leadsource'],$et->getFieldLabel('leadsource'),'FieldLabel leadsource ES');
+		$etacc = VTWSEntityType::forUser('Accounts', $current_user);
+		$this->assertInstanceOf(VTWSEntityType::class, $etacc, 'testConstruct class VTWSEntityType with static');
+		$this->assertEquals('Accounts', $etacc->getModuleName(), 'ModuleName');
+		$this->assertEquals('String', $etacc->getFieldType('account_no')->type, 'FieldType account_no');
+		$this->assertEquals('Number', $etacc->getFieldType('employees')->type, 'FieldType employees');
+		$this->assertEquals('Integer', $etacc->getFieldType('employees')->format, 'FieldFormat employees');
+		$this->assertEquals('Url', $etacc->getFieldType('website')->type, 'FieldType website');
+		$this->assertEquals('Phone', $etacc->getFieldType('phone')->type, 'FieldType Phone');
+		$this->assertEquals('Time', $etacc->getFieldType('cf_728')->type, 'FieldType Time');
+		$this->assertEquals('Select', $etacc->getFieldType('cf_732')->type, 'FieldType Multipicklist');
+		$this->assertEquals('Skype', $etacc->getFieldType('cf_727')->type, 'FieldType Skype');
+		$etusr = VTWSEntityType::usingGlobalCurrentUser('Users');
+		$this->assertInstanceOf(VTWSEntityType::class, $etusr, 'testConstruct class VTWSEntityType with static');
+		$this->assertEquals('Users', $etusr->getModuleName(), 'ModuleName');
 	}
 }
 ?>
