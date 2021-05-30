@@ -35,6 +35,49 @@ class testCommonUtils extends TestCase {
 	);
 
 	/**
+	 * Method isAdminProvider
+	 * params
+	 */
+	public function isAdminProvider() {
+		return array(
+			[1, true],
+			[5, false],
+			[6, false],
+			[7, false],
+			[10, false],
+			[11, false],
+			[12, false],
+			[0, false],
+			[-12, false],
+			['', false],
+		);
+	}
+
+	/**
+	 * Method testisAdmin
+	 * @test
+	 * @dataProvider isAdminProvider
+	 */
+	public function testisAdmin($userid, $expected) {
+		if (!empty($userid) && $userid>0) {
+			$user = new Users();
+			$user->retrieveCurrentUserInfoFromFile($userid);
+		} else {
+			$user = $userid;
+		}
+		$this->assertEquals($expected, is_admin($user), 'isAdmin '.$userid);
+	}
+
+	/**
+	 * Method testisAdminID
+	 * @test
+	 * @dataProvider isAdminProvider
+	 */
+	public function testisAdminID($userid, $expected) {
+		$this->assertEquals($expected, is_adminID($userid), 'is_adminID '.$userid);
+	}
+
+	/**
 	 * Method testgetCurrencyName
 	 * @test
 	 */
