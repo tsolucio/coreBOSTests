@@ -256,10 +256,10 @@ class testListViewUtilsGetValue extends TestCase {
 		if ($mode=='search') {
 			switch ($popuptype) {
 				case 'inventory_prod':
-					$ret = '<a href="javascript:window.close();" id=\'popup_product_2616\' onclick=\'set_return_inventory("2616", "K101high \"Pressure\" Japanese Stainless Steel", "48.61", "","tax1=4.500,tax2=10.000,tax3=12.500","1","","::",0);\' vt_prod_arr=\'{"entityid":"2616","prodname":"K101high \"Pressure\" Japanese Stainless Steel","unitprice":"48.61","qtyinstk":"","taxstring":"tax1=4.500,tax2=10.000,tax3=12.500","rowid":"1","desc":"","subprod_ids":"::","dto":0}\' >K101high "Pressure" Japanese Stainless S...</a>';
+					$ret = '<a href="javascript:window.close();" id=\'popup_product_2616\' onclick=\'set_return_inventory("2616", "K101high \"Pressure\" Japanese Stainless Steel", "48.61", "","tax1=4.500,tax2=10.000,tax3=12.500","1","","::",0);\' vt_prod_arr=\'{"entityid":"2616","prodname":"K101high \"Pressure\" Japanese Stainless Steel","unitprice":48.61,"qtyinstk":"","taxstring":"tax1=4.500,tax2=10.000,tax3=12.500","rowid":"1","desc":"","subprod_ids":"::","dto":0}\' >K101high "Pressure" Japanese Stainless S...</a>';
 					break;
 				case 'inventory_service':
-					$ret = '<a href="javascript:window.close();" id=\'popup_product_2616\' onclick=\'set_return_inventory("2616", "K101high \"Pressure\" Japanese Stainless Steel", "48.61", "tax1=4.500,tax2=10.000,tax3=12.500","1","",0);\' vt_prod_arr=\'{"entityid":"2616","prodname":"K101high \"Pressure\" Japanese Stainless Steel","unitprice":"48.61","taxstring":"tax1=4.500,tax2=10.000,tax3=12.500","rowid":"1","desc":"","dto":0}\' >K101high "Pressure" Japanese Stainless S...</a>';
+					$ret = '<a href="javascript:window.close();" id=\'popup_product_2616\' onclick=\'set_return_inventory("2616", "K101high \"Pressure\" Japanese Stainless Steel", "48.61", "tax1=4.500,tax2=10.000,tax3=12.500","1","",0);\' vt_prod_arr=\'{"entityid":"2616","prodname":"K101high \"Pressure\" Japanese Stainless Steel","unitprice":48.61,"taxstring":"tax1=4.500,tax2=10.000,tax3=12.500","rowid":"1","desc":"","dto":0}\' >K101high "Pressure" Japanese Stainless S...</a>';
 					break;
 				case 'inventory_pb':
 					$ret = '<a href="javascript:window.close();" onclick=\'set_return_inventory_pb("", "productname"); \'id = 6>K101high \"Pressure\" Japanese Stainless...</a>';
