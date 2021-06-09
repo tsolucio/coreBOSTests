@@ -273,6 +273,44 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 	}
 
 	/**
+	 * Method getbr2nlvtProvider
+	 * params
+	 */
+	public function getbr2nlvtProvider() {
+		return array(
+			array('line1','line1','br2nl one line'),
+			array('line1<br>line2','line1<br>line2','br2nl two lines <br>'),
+			array('line1<br/>line2','line1<br/>line2','br2nl two lines <br/>'),
+			array('line1
+line2','line1
+line2','br2nl two lines nl'),
+			array('line1line2','line1line2','br2nl two lines cr'),
+			array('line2
+line2','line2 line2','br2nl two lines crnl'),
+			array('line1
+
+line2','line1
+
+line2','br2nl two lines nlcr'),
+			array("line1\nline2","line1\nline2",'br2nl two lines nl'),
+			array("line1\rline2","line1\rline2",'br2nl two lines cr'),
+			array("line1\r\nline2",'line1 line2','br2nl two lines crnl'),
+			array("line1\n\rline2","line1\n\rline2",'br2nl two lines nlcr'),
+			array("line1'line2","line1'line2",'br2nl two lines singlequote'),
+			array('line1"line2','line1"line2','br2nl two lines doublequote'),
+		);
+	}
+
+	/**
+	 * Method testbr2nl_vt
+	 * @test
+	 * @dataProvider getbr2nlvtProvider
+	 */
+	public function testbr2nl_vt($input, $expected, $msg) {
+		$this->assertEquals($expected, br2nl_vt($input), $msg);
+	}
+
+	/**
 	 * Method testgetUserslist1
 	 * @test
 	 */
