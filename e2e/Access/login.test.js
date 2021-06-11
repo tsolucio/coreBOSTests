@@ -22,10 +22,11 @@ test('Admin login', async () => {
 		//page.waitForNavigation({ waitUntil: 'load' })
 		await page.waitForSelector('#global-header');
 		const ptitle = await page.title()
-		expect(ptitle).toBe('Administrator - Home - coreBOS')
+		await expect(ptitle).toBe('Administrator - Home - coreBOS')
 		const btn = await page.$eval('button[title="CRM Settings"]', el => el)
-		expect(btn).toBeTruthy()
-		browser.close()
+		await expect(btn).toBeTruthy()
+		await page.close();
+		await browser.close()
 	} else {
 		throw 'URL could not be determined from config file'
 	}
@@ -52,10 +53,11 @@ test('Non Admin login', async () => {
 		//page.waitForNavigation({ waitUntil: 'load' })
 		await page.waitForSelector('#global-header');
 		const ptitle = await page.title()
-		expect(ptitle).toBe('cbTest testdmy - Home - coreBOS')
+		await expect(ptitle).toBe('cbTest testdmy - Home - coreBOS');
 		const h1Handle = await page.$('button[title="CRM Settings"]');
-		expect(h1Handle).toBeNull() // it doesn't exist
-		browser.close()
+		await expect(h1Handle).toBeNull() // it doesn't exist
+		await page.close();
+		await browser.close()
 	} else {
 		throw 'URL could not be determined from config file'
 	}
@@ -80,8 +82,10 @@ test('Inactive user login', async () => {
 		await page.click('input#Login')
 		await page.waitForSelector('div.errorMessage');
 		const divcnt = await page.$eval('div.errorMessage', el => el.innerHTML)
-		expect(divcnt).toBe('You must specify a valid username and password.')
+		await page.close();
+		await browser.close()
+		await expect(divcnt).toBe('You must specify a valid username and password.')
 	} else {
-		throw 'URL could not be determined from config file'
+		throw new Error('URL could not be determined from config file');
 	}
 })

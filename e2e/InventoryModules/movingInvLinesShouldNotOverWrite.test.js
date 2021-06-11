@@ -8,13 +8,11 @@ test('Moving inventorylines should not overwrite each other', async () => {
 		// Uncomment this section to actually see the test happening
 		const browser = await puppeteer.launch({
 			// headless: false,
-			// slowMo: 80,
+			slowMo: 40,
 			// args: ['--window-size=1920,1080'],
 			defaultViewport: null
 		})
 
-		// Comment this line when you want to see what's happening
-		// const browser = await puppeteer.launch({headless: true})
 		const page = await browser.newPage()
 		await page.goto(url)
 		await page.type('input#username', 'admin')
@@ -29,9 +27,10 @@ test('Moving inventorylines should not overwrite each other', async () => {
 		await page.click('tr#row3 > td > img')
 		await page.click('tr#row1 > td > a')
 		const firstRowServiceName = await page.$eval('#productName1', el => el.value)
-		browser.close()
-		expect(firstRowServiceName).toBe('Manufacturing Japan Movt Stainless Steel Back For Men Bracelet Brand Watch Wrist Wtach Quartz')
+		await expect(firstRowServiceName).toBe('Manufacturing Japan Movt Stainless Steel Back For Men Bracelet Brand Watch Wrist Wtach Quartz')
+		await page.close();
+		await browser.close()
 	} else {
-		throw 'URL could not be determined from config file'
+		throw new Error('URL could not be determined from config file');
 	}
 })

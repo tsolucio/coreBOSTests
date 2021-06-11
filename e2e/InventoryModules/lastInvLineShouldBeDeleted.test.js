@@ -13,8 +13,6 @@ test('Adding inventorylines should not set deleted lines to deleted = 0', async 
 			defaultViewport: null
 		})
 
-		// Comment this line when you want to see what's happening
-		// const browser = await puppeteer.launch({headless: true})
 		const page = await browser.newPage()
 		await page.goto(url)
 		await page.type('input#username', 'admin')
@@ -23,15 +21,16 @@ test('Adding inventorylines should not set deleted lines to deleted = 0', async 
 		await page.goto(
 			url + '/index.php?module=SalesOrder&action=DetailView&record=10616'
 		)
-		await page.click('input[name=Edit]')
+		await page.click('button[name=Edit]')
 		await page.waitForSelector('#row10');
 		await page.click('tr#row10 > td > img')
 		await page.click('tr#row9 > td > img')
-		await page.click('.create:first-child')
-		const lastRowDeleteStatus = await page.$eval('#deleted10', el => el.value)
-		browser.close()
-		expect(lastRowDeleteStatus).toBe('1')
+		await page.click('.create:first-child');
+		const lastRowDeleteStatus = await page.$eval('#deleted10', el => el.value);
+		await expect(lastRowDeleteStatus).toBe('1');
+		await page.close();
+		await browser.close();
 	} else {
-		throw 'URL could not be determined from config file'
+		throw new Error('URL could not be determined from config file');
 	}
 })
