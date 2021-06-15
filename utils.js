@@ -7,6 +7,9 @@ exports.getUrlFromConfigFile = () => {
 		if (line.match(r) !== null) {
 			url = line.match(r)[0];
 		}
-	})
+	});
+	if (!url) {
+		throw new Error('URL could not be determined from config file');
+	}
 	return url;
 }

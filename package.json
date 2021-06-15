@@ -7,16 +7,19 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "karma start ./karma.conf.js"
+    "test": "karma start ./karma.conf.js",
+    "e2e": "npx playwright test"
   },
   "author": "Joe Bordes <joe@tsolucio.com>",
   "license": "ISC",
   "devDependencies": {
+    "@playwright/test": "^1.12.2",
     "jasmine": "^3.7.0",
     "karma": "^6.3.3",
     "karma-chrome-launcher": "^3.1.0",
     "karma-coverage": "^2.0.3",
     "karma-jasmine": "^4.0.1",
+    "playwright": "^1.12.2",
     "puppeteer": "^10.0.0"
   }
 }
