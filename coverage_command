@@ -1,3 +1,16 @@
-cd /var/www/coreBOSTest
-mkdir coverage
-build/coreBOSTests/phpunit -c build/coreBOSTests/phpunit.xml --prepend build/coreBOSTests/xdebug-filter.php --coverage-html coverage/
+build/coreBOSTests/phpunit -c build/coreBOSTests/phpunit.xml --prepend build/coreBOSTests/xdebug-filter.php
+if [ $? -ne 0 ]
+then
+	echo "PHP errors"
+else
+	cd build/coreBOSTests
+	npm test
+	if [ $? -ne 0 ]
+	then
+		echo "Javascript errors"
+	else
+		sed -i 's/..\/..\///' "coverage/Chrome Headless 92.0.4512.0 (Linux x86_64)/lcov.info"
+		cd ../..
+		/home/joe/bin/sonar-scanner-4.6.1.2450-linux/bin/sonar-scanner -Dproject.settings=build/cbSR/sonar-project.properties
+	fi
+fi

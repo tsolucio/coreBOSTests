@@ -1,25 +1,22 @@
 {
-  "name": "coreBOSTests",
+  "name": "corebostestjs",
   "version": "1.0.0",
-  "description": "coreBOS Tests\r =======",
-  "main": "index.js",
+  "description": "coreBOS Javascript unit and integration tests",
+  "main": "",
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
-    "test": "node_modules/.bin/jest"
+    "test": "karma start ./karma.conf.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/tsolucio/coreBOSTests.git"
-  },
-  "keywords": [],
-  "author": "",
+  "author": "Joe Bordes <joe@tsolucio.com>",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/tsolucio/coreBOSTests/issues"
-  },
-  "homepage": "https://github.com/tsolucio/coreBOSTests#readme",
   "devDependencies": {
-    "jest": "^24.9.0",
-    "jest-cli": "^24.9.0",
-    "puppeteer": "^2.0.0"
+    "jasmine": "^3.7.0",
+    "karma": "^6.3.3",
+    "karma-chrome-launcher": "^3.1.0",
+    "karma-coverage": "^2.0.3",
+    "karma-jasmine": "^4.0.1",
+    "puppeteer": "^10.0.0"
   }
 }
