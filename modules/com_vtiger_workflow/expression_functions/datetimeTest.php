@@ -376,6 +376,15 @@ class workflowfunctionsdatetimeTest extends TestCase {
 	}
 
 	/**
+	 * Method testisHolidayDate
+	 * @test
+	 */
+	public function testisHolidayDate() {
+		$actual = __cb_isHolidayDate(array('2021-06-20', 1, 'testmap'));
+		$this->assertEquals(true, $actual);
+	}
+
+	/**
 	 * Method testformatDate
 	 * @test
 	 */
