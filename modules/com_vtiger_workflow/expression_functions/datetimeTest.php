@@ -275,6 +275,31 @@ class workflowfunctionsdatetimeTest extends TestCase {
 	}
 
 	/**
+	 * Method testisHolidayDate
+	 * @test
+	 */
+	public function testisHolidayDate() {
+		$actual = __cb_isHolidayDate(array('2021-06-20', 0, '2021-06-16, 2021-06-17, 2021-06-18, 2021-06-19, 2021-06-20'));
+		$this->assertEquals(true, $actual);
+		$actual = __cb_isHolidayDate(array('2021-07-24', 1, '2021-06-16, 2021-06-17, 2021-06-18, 2021-06-19, 2021-06-20'));
+		$this->assertEquals(true, $actual);
+		$actual = __cb_isHolidayDate(array('2021-06-16', 0, '2021-06-16, 2021-06-17, 2021-06-18, 2021-06-19, 2021-06-20'));
+		$this->assertEquals(true, $actual);
+		$actual = __cb_isHolidayDate(array('2021-06-15', 0, '2021-06-16, 2021-06-17, 2021-06-18, 2021-06-19, 2021-06-20'));
+		$this->assertEquals(false, $actual);
+		$actual = __cb_isHolidayDate(array('2021-06-11', 1));
+		$this->assertEquals(false, $actual);
+		$actual = __cb_isHolidayDate(array('', 1));
+		$this->assertEquals(false, $actual);
+		$actual = __cb_isHolidayDate(array('2021-06-11', 0));
+		$this->assertEquals(false, $actual);
+		$actual = __cb_isHolidayDate(array('2021-07-26', 1, '2021-06-16, 2021-06-17, 2021-06-18, 2021-06-19, 2021-06-20'));
+		$this->assertEquals(false, $actual);
+		$actual = __cb_isHolidayDate(array('2021-06-27', 0));
+		$this->assertEquals(true, $actual);
+	}
+
+	/**
 	 * Method testaddDays
 	 * @test
 	 */
