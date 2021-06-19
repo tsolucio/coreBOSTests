@@ -383,6 +383,131 @@ class getRelatedModulesTest extends TestCase {
 			)
 		);
 		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get assets');
+		$currentModule = 'HelpDesk';
+		$actual = getRelatedModulesInfomation($currentModule, $current_user);
+		$expected = array(
+			'Activities' => array(
+				'related_tabid' => '63',
+				'related_module' => 'cbCalendar',
+				'label' => 'Activities',
+				'labeli18n' => 'Activities',
+				'actions' => 'add,select',
+				'relationId' => '54',
+				'filterFields' => array(
+					'fields' => array('eventstatus', 'activitytype', 'subject', 'rel_id', 'cto_id', 'dtstart', 'dtend', 'assigned_user_id'),
+					'linkfields' => array('subject'),
+					'pagesize' => 40
+				),
+				'relatedfield' => 'rel_id',
+				'relationtype' => '1:N',
+			),
+			'Documents' => array(
+				'related_tabid' => '8',
+				'related_module' => 'Documents',
+				'label' => 'Documents',
+				'labeli18n' => 'Documents',
+				'actions' => 'add,select',
+				'relationId' => '55',
+				'filterFields' => array(
+					'fields' => array('note_no', 'notes_title', 'filename', 'modifiedtime', 'assigned_user_id'),
+					'linkfields' => array('notes_title'),
+					'pagesize' => 40
+				),
+				'relatedfield' => null,
+				'relationtype' => 'N:N',
+			),
+			'Ticket History' => array(
+				'related_tabid' => '0',
+				'related_module' => '',
+				'label' => 'Ticket History',
+				'labeli18n' => 'Ticket History',
+				'actions' => '',
+				'relationId' => '56',
+				'filterFields' => array(
+					'fields' => array('ticket_no', 'ticket_title', 'parent_id', 'ticketstatus', 'ticketpriorities', 'assigned_user_id'),
+					'linkfields' => array('ticket_title'),
+					'pagesize' => 40
+				),
+				'relatedfield' => null,
+				'relationtype' => 'N:N',
+			),
+			'Service Contracts' => array(
+				'related_tabid' => '37',
+				'related_module' => 'ServiceContracts',
+				'label' => 'Service Contracts',
+				'labeli18n' => 'Service Contracts',
+				'actions' => 'ADD,SELECT',
+				'relationId' => '94',
+				'filterFields' => array(
+					'fields' => array('contract_no', 'subject', 'sc_related_to', 'assigned_user_id', 'start_date', 'due_date', 'progress', 'contract_status'),
+					'linkfields' => array('subject'),
+					'pagesize' => 40
+				),
+				'relatedfield' => null,
+				'relationtype' => 'N:N',
+			),
+			'Services' => array(
+				'related_tabid' => '38',
+				'related_module' => 'Services',
+				'label' => 'Services',
+				'labeli18n' => 'Services',
+				'actions' => 'SELECT',
+				'relationId' => '106',
+				'filterFields' => array(
+					'fields' => array('service_no', 'servicename', 'service_usageunit', 'unit_price', 'qty_per_unit', 'servicecategory', 'assigned_user_id'),
+					'linkfields' => array('servicename'),
+					'pagesize' => 40
+				),
+				'relatedfield' => null,
+				'relationtype' => 'N:N',
+			),
+			'CobroPago' => array(
+				'related_tabid' => '42',
+				'related_module' => 'CobroPago',
+				'label' => 'CobroPago',
+				'labeli18n' => 'Payments',
+				'actions' => 'ADD',
+				'relationId' => '125',
+				'filterFields' => array(
+					'fields' => array('cyp_no', 'reference', 'duedate', 'amount', 'cost', 'benefit', 'paid', 'assigned_user_id'),
+					'linkfields' => array('cyp_no'),
+					'pagesize' => 40
+				),
+				'relatedfield' => 'related_id',
+				'relationtype' => '1:N',
+			),
+			'Projects' => array(
+				'related_tabid' => '50',
+				'related_module' => 'Project',
+				'label' => 'Projects',
+				'labeli18n' => 'Projects',
+				'actions' => 'SELECT',
+				'relationId' => '139',
+				'filterFields' => array(
+					'fields' => array('projectname', 'linktoaccountscontacts', 'startdate', 'targetenddate', 'actualenddate', 'targetbudget', 'progress', 'projectstatus', 'assigned_user_id'),
+					'linkfields' => array('projectname'),
+					'pagesize' => 40
+				),
+				'relatedfield' => null,
+				'relationtype' => 'N:N',
+			),
+			'Emails' => array(
+				'related_tabid' => '10',
+				'related_module' => 'Emails',
+				'label' => 'Emails',
+				'labeli18n' => 'Email',
+				'actions' => 'ADD',
+				'relationId' => '149',
+				'filterFields' => array(
+					'fields' => array('subject', 'saved_toid', 'date_start'),
+					'linkfields' => array('subject'),
+					'pagesize' => 40
+				),
+				'relatedfield' => null,
+				'relationtype' => 'N:N',
+			)
+		);
+		$this->assertEquals($expected, $actual, 'testgetRelatedModulesInfomation get HelpDesk');
 		$currentModule = 'Users';
 		$actual = getRelatedModulesInfomation($currentModule, $current_user);
 		$expected = array();
