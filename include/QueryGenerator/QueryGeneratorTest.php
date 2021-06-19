@@ -1425,6 +1425,52 @@ class QueryGeneratorTest extends TestCase {
 		$this->assertEquals("SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.accountname >= 'aa' AND vtiger_account.accountname <= 'hh')  AND vtiger_account.accountid > 0", $query);
 	}
 
+	public function testSXMDConditions() {
+		global $current_user;
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
+		$queryGenerator->addCondition('accountname', 'che', 'sx', $queryGenerator::$AND);
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( SOUNDEX(vtiger_account.accountname) LIKE SOUNDEX('che'))  AND vtiger_account.accountid > 0", $query);
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
+		$queryGenerator->addCondition('industry', 'bank', 'sx', $queryGenerator::$AND);
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals('SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.industry IN (
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Accounts::industry" and SOUNDEX(i18n) LIKE SOUNDEX("bank")) OR SOUNDEX(vtiger_account.industry) LIKE SOUNDEX(\'bank\'))  AND vtiger_account.accountid > 0', $query);
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
+		$queryGenerator->addCondition('accountname', 'che', 'nsx', $queryGenerator::$AND);
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( SOUNDEX(vtiger_account.accountname) NOT LIKE SOUNDEX('che'))  AND vtiger_account.accountid > 0", $query);
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
+		$queryGenerator->addCondition('industry', 'bank', 'nsx', $queryGenerator::$AND);
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals('SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.industry IN (
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Accounts::industry" and SOUNDEX(i18n) NOT LIKE SOUNDEX("bank")) AND SOUNDEX(vtiger_account.industry) NOT LIKE SOUNDEX(\'bank\'))  AND vtiger_account.accountid > 0', $query);
+		//////////////////////////
+		$queryGenerator = new QueryGenerator('Assets', $current_user);
+		$queryGenerator->setFields(array('id'));
+		$queryGenerator->addCondition('datesold', '2020-03-13', 'monthday', $queryGenerator::$AND);
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_assets.assetsid FROM vtiger_assets  INNER JOIN vtiger_crmentity ON vtiger_assets.assetsid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( DATE_FORMAT(vtiger_assets.datesold,'%m%d') = '0313')  AND vtiger_assets.assetsid > 0", $query);
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($this->usrdota0x);
+		$current_user = $user;
+		$queryGenerator = new QueryGenerator('Assets', $user);
+		$queryGenerator->setFields(array('id'));
+		$queryGenerator->addCondition('datesold', '13-03-2020', 'monthday', $queryGenerator::$AND);
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals("SELECT vtiger_assets.assetsid FROM vtiger_assets  INNER JOIN vtiger_crmentity ON vtiger_assets.assetsid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( DATE_FORMAT(vtiger_assets.datesold,'%m%d') = '0313')  AND vtiger_assets.assetsid > 0", $query);
+		$current_user = $holduser;
+	}
+
 	public function testsetFieldsDups() {
 		global $current_user;
 		$queryGenerator = new QueryGenerator('cbCalendar', $current_user);

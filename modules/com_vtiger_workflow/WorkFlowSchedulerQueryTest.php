@@ -311,6 +311,18 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = "SELECT vtiger_products.productid FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_products.expiry_date = CURDATE()) )) AND vtiger_products.productid > 0";
 		$this->assertEquals($expected, $actual, 'product end today');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"expiry_date","operation":"monthday","value":"2020-04-14","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_products.productid FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( DATE_FORMAT(vtiger_products.expiry_date,'%m%d') = '0414') )) AND vtiger_products.productid > 0";
+		$this->assertEquals($expected, $actual, 'product expiry monthday 0414');
+		//////////////////////
+		$wfvals['test'] = '[{"fieldname":"expiry_date","operation":"monthday","value":"get_date(\'today\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT vtiger_products.productid FROM vtiger_products  INNER JOIN vtiger_crmentity ON vtiger_products.productid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( DATE_FORMAT(vtiger_products.expiry_date,'%m%d') = DATE_FORMAT(CURDATE(),'%m%d') ) )) AND vtiger_products.productid > 0";
+		$this->assertEquals($expected, $actual, 'product expiry monthday today');
 	}
 
 	/**

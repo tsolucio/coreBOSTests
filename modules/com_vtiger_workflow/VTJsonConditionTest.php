@@ -153,7 +153,29 @@ class VTJsonConditionTest extends TestCase {
 		/////////////////////////
 	}
 
-		/**
+	/**
+	 * Method testOperators
+	 * @test
+	 */
+	public function testOperators() {
+		$adminUser = Users::getActiveAdminUser();
+		$entityCache = new VTEntityCache($adminUser);
+		$entityId = '29x4153'; // asset
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$cs = new VTJsonCondition();
+		/////////////////////////
+		$testexpression = '[{"fieldname":"datesold","operation":"monthday","value":"2020-03-13","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertFalse($actual);
+		$testexpression = '[{"fieldname":"datesold","operation":"monthday","value":"2020-04-14","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+		$testexpression = '[{"fieldname":"datesold","operation":"monthday","value":"datesold","valuetype":"fieldname","joincondition":"and","groupid":"0"}]';
+		$actual = $cs->evaluate($testexpression, $entityCache, $entityId);
+		$this->assertTrue($actual);
+	}
+
+	/**
 	 * Method testFunctionExpressions
 	 * @test
 	 */
