@@ -124,6 +124,26 @@ class workflowfunctionsaggregationTest extends TestCase {
 	}
 
 	/**
+	 * Method testaggregationExpressionfunctions
+	 * @test
+	 */
+	public function testaggregationExpressionfunctions() {
+		global $current_user, $currentModule;
+		$holdModule = $currentModule;
+		$currentModule = 'Invoice';
+		$entityCache = new VTEntityCache($current_user);
+		$entityData = $entityCache->forId('11x74');
+		$actual = __cb_aggregation(array('sum','Quotes','hdnSubTotal','[bill_code,n,randomstring(12),or,expression]',$entityData));
+		$this->assertEquals(3854.100000, $actual);
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[amount,l,average(71000, 73000),or,expression]',$entityData));
+		$this->assertEquals(70134.000000, $actual);
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[sales_stage,e,uppercasefirst(\'closed Lost\'),or,expression]',$entityData));
+		$this->assertEquals(72100.000000, $actual);
+		$actual = __cb_aggregation(array('sum','Potentials','amount','[sales_stage,e,concat(\'Closed\',\' \', \'Lost\'),or,expression]',$entityData));
+		$this->assertEquals(72100.000000, $actual);
+	}
+
+	/**
 	 * Method testaggregationQuery
 	 * @test
 	 */
