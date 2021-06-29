@@ -29,6 +29,7 @@ coreBOS_Session::init();
 require_once 'vtlib/Vtiger/Module.php';
 require_once 'vtlib/Vtiger/Package.php';
 require_once 'vtlib/Vtiger/Net/Client.php';
+require_once 'data/VTEntityDelta.php';
 require_once 'modules/com_vtiger_workflow/include.inc';
 require_once 'modules/com_vtiger_workflow/tasks/VTEntityMethodTask.inc';
 require_once 'modules/com_vtiger_workflow/VTEntityMethodManager.inc';

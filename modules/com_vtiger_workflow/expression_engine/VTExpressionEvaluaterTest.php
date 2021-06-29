@@ -4190,5 +4190,89 @@ class VTExpressionEvaluaterTest extends TestCase {
 		$this->assertEquals($expectedresult, $exprEvaluater->debug);
 		$this->assertFalse($exprEvaluation);
 	}
+
+	/**
+	 * Method testPreviousValues
+	 * @test
+	 */
+	public function testPreviousValues() {
+		global $adb;
+		$adminUser = Users::getActiveAdminUser();
+		$entityId = '11x74';
+		$adb->query('update vtiger_account set employees=13, parentid=438 where accountid=74');
+		$entityData = VTEntityData::fromEntityId($adb, '74');
+		$entityData->set('employees', 13);
+		$entityData->set('account_id', 438);
+		$entityDelta = new VTEntityDelta();
+		$entityDelta->handleEvent('vtiger.entity.beforesave', $entityData);
+		$adb->query('update vtiger_account set employees=131, parentid=746 where accountid=74');
+		$entityData->set('employees', 131);
+		$entityData->set('account_id', 746);
+		$entityDelta->handleEvent('vtiger.entity.aftersave', $entityData);
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = 'employees';
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => employees
+    [type] => string
+)
+'
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(131, $exprEvaluation);
+		///////////////
+		$testexpression = 'previousvalue_employees';
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => previousvalue_employees
+    [type] => string
+)
+'
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(13, $exprEvaluation);
+		///////////////
+		$testexpression = 'account_id';
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => account_id
+    [type] => string
+)
+'
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('Rowley Schlimgen Inc', $exprEvaluation);
+		///////////////
+		$testexpression = 'previousvalue_account_id';
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => previousvalue_account_id
+    [type] => string
+)
+'
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('Gibbard, H Frank Iii', $exprEvaluation);
+	}
 }
 ?>
