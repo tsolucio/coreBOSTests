@@ -440,4 +440,26 @@ Android TV BOX
 ', $actual, '__WorkflowMeta__ invdet text productname');
 		$current_user = $holduser;
 	}
+
+	/**
+	 * Method testWorkflowRelatedListMetaVariable
+	 * @test
+	 */
+	public function testWorkflowRelatedListMetaVariable() {
+		global $current_user;
+		$entityId = '33x5989'; // project
+		$holduser = $current_user;
+		$usrcoma3dot = 10; // testtz 5 decimal places
+		$current_user->retrieveCurrentUserInfoFromFile($usrcoma3dot);
+		$entityCache = new VTEntityCache($current_user);
+		$ct = new VTSimpleTemplate('$(general : (__VtigerMeta__) relatedlist_projecttask_table_projecttaskname)');
+		$actual = $ct->render($entityCache, $entityId);
+		$expected = '<table class="relatedlist"><tbody><tr class="relatedlistheaderrow"><td class="relatedlistheaderfield">Task Name</td></tr><tr class="relatedlistrow"><td class="relatedlistfield">Falcona </td></tr><tr class="relatedlistrow"><td class="relatedlistfield">Gordon Phillips </td></tr></tbody></table>';
+		$this->assertEquals($expected, $actual);
+		$ct = new VTSimpleTemplate('$(general : (__VtigerMeta__) relatedlist_projecttask_table_projecttaskprogress)');
+		$actual = $ct->render($entityCache, $entityId);
+		$expected = '<table class="relatedlist"><tbody><tr class="relatedlistheaderrow"><td class="relatedlistheaderfield">Progress</td></tr><tr class="relatedlistrow"><td class="relatedlistfield">80% </td></tr><tr class="relatedlistrow"><td class="relatedlistfield">40% </td></tr></tbody></table>';
+		$this->assertEquals($expected, $actual);
+		$current_user = $holduser;
+	}
 }
