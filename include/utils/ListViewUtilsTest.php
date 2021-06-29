@@ -32,6 +32,7 @@ class testListViewUtils extends TestCase {
 		'usrnocreate' => 11,
 		'usrtestmcurrency' => 12
 	);
+	private $documentcreated = false;
 
 	/**
 	 * Method testgetMergeFields
@@ -170,5 +171,100 @@ class testListViewUtils extends TestCase {
 	 */
 	public function testgetFirstFieldForModule($module, $relmodule, $expected) {
 		$this->assertEquals($expected, getFirstFieldForModule($module, $relmodule), 'getFirstFieldForModule');
+	}
+
+	/**
+	 * Method getRelatedToProvider
+	 * params
+	 */
+	public function getRelatedToProvider() {
+		return array(
+			array('Emails', 'select 26736 as activityid', 0, "<a href='index.php?module=Accounts&action=DetailView&record=74'>Chemex Labs Ltd</a><span type='vtlib_metainfo' vtrecordid='74' vtfieldname='accountname' vtmodule='Accounts' style='display:none;'></span>"),
+			array('Emails', 'select 26784 as activityid', 0, 'Multiple'),
+			array(
+				'Documents',
+				'select vtiger_notes.notesid
+					from vtiger_notes
+					inner join vtiger_crmentity on vtiger_crmentity.crmid=vtiger_notes.notesid
+					inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid
+					where deleted=0 and vtiger_senotesrel.crmid=75 limit 1',
+				0,
+				"<a href='index.php?module=Accounts&action=DetailView&record=75'>Atrium Marketing Inc</a><span type='vtlib_metainfo' vtrecordid='75' vtfieldname='accountname' vtmodule='Accounts' style='display:none;'></span>"
+			),
+			array(
+				'Documents',
+				'select vtiger_notes.notesid
+					from vtiger_notes
+					inner join vtiger_crmentity on vtiger_crmentity.crmid=vtiger_notes.notesid
+					inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid
+					where deleted=0 and vtiger_senotesrel.crmid=74 limit 1',
+				0,
+				'Multiple'
+			),
+			array('Products', 'select 2627 as productid', 0, "<a href='index.php?module=Contacts&action=DetailView&record=1104'>Amber Windell</a><span type='vtlib_metainfo' vtrecordid='1104' vtfieldname='firstname' vtmodule='Contacts' style='display:none;'></span>"),
+			array('cbCalendar', 'select 29396 as activityid', 0, "<a href='index.php?module=Accounts&action=DetailView&record=77'>Sherpa Corp</a><span type='vtlib_metainfo' vtrecordid='77' vtfieldname='accountname' vtmodule='Accounts' style='display:none;'></span>"),
+			array('HelpDesk', 'select 843 as parent_id', 0, "<img src=\"themes/images/Accounts.gif\" alt=\"Organizations\" title=\"Organizations\" border=0 align=center><a href='index.php?module=Accounts&action=DetailView&record=843'>Lynema, Cliff Cpa</a><span type='vtlib_metainfo' vtrecordid='843' vtfieldname='accountname' vtmodule='Accounts' style='display:none;'></span>"),
+			array('Invoice', 'select 1 as activityid', 0, ''),
+			array('Invoice', 'select 1', 0, 'Multiple'),
+			array('HelpDesk', 'select 843 as parent_id', 1, ''),
+		);
+	}
+
+	/**
+	 * Method testgetRelatedTo
+	 * @test
+	 * @dataProvider getRelatedToProvider
+	 */
+	public function testgetRelatedTo($module, $list_query, $rset, $expected) {
+		global $adb, $current_user;
+		if (!$this->documentcreated) {
+			$this->documentcreated = true;
+			$Module = 'Documents';
+			$ObjectValues = array(
+				'assigned_user_id' => '19x1',
+				'created_user_id' => '19x1',
+				'notes_title' => 'create doc for get related to test with account 75',
+				'filename'=>'somewhere in the world',
+				'filetype'=>'',
+				'filesize'=> 0,
+				'fileversion'=>'2',
+				'filelocationtype'=>'E',
+				'filedownloadcount'=> '0',
+				'filestatus'=> '1',
+				'folderid' => '22x1',
+				'notecontent' => 'áçèñtös',
+				'modifiedby' => '19x1',
+				'template' => '0',
+				'template_for' => '',
+				'mergetemplate' => '0',
+				'relations' => array('11x75'),
+			);
+			$_FILES=array();
+			vtws_create($Module, $ObjectValues, $current_user);
+			$ObjectValues = array(
+				'assigned_user_id' => '19x1',
+				'created_user_id' => '19x1',
+				'notes_title' => 'create doc for get related to test with account 74 and contact 1084',
+				'filename'=>'somewhere in the world',
+				'filetype'=>'',
+				'filesize'=> 0,
+				'fileversion'=>'2',
+				'filelocationtype'=>'E',
+				'filedownloadcount'=> '0',
+				'filestatus'=> '1',
+				'folderid' => '22x1',
+				'notecontent' => 'áçèñtös',
+				'modifiedby' => '19x1',
+				'template' => '0',
+				'template_for' => '',
+				'mergetemplate' => '0',
+				'relations' => array('11x74','12x1084'),
+			);
+			$_FILES=array();
+			vtws_create($Module, $ObjectValues, $current_user);
+			$adb->query('insert into vtiger_seproductsrel values (1104, 2627, "Contacts");');
+		}
+		$list_result = $adb->query($list_query);
+		$this->assertEquals($expected, getRelatedTo($module, $list_result, $rset), 'getRelatedTo');
 	}
 }
