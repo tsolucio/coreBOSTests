@@ -101,6 +101,8 @@ class workflowfunctionsaggregationTest extends TestCase {
 		$this->assertEquals('Sean Cassidy,Garth (Other Realm)', $actual);
 		$actual = __cb_aggregation(array('group_concat','Invoice','subject separator ";"','',$entityData));
 		$this->assertEquals('Sean Cassidy;Garth (Other Realm)', $actual);
+		$actual = __cb_aggregation(array('group_concat','Invoice','account_id separator ";"name','',$entityData));
+		$this->assertEquals('Chemex Labs Ltd;Newton Clerk', $actual);
 		////////////////
 		$currentModule = 'Potentials';
 		$entityData = $entityCache->forId('13x5900'); // Egestas Aliquam Fringilla Corp potential
