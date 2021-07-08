@@ -152,6 +152,9 @@ class testCurrencyField extends TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue, 'convertToUserFormat noskip usrdota0x');
 		$formattedCurrencyValue = CurrencyField::convertToUserFormat($testcurrency, $user, true);
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue, 'convertToUserFormat skip usrdota0x');
+		// test as string for coverage
+		$formattedCurrencyValue = CurrencyField::convertToUserFormat((string)$testcurrency, $user, true);
+		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue, 'convertToUserFormat skip usrdota0x but with string input');
 		/////////////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
@@ -181,6 +184,11 @@ class testCurrencyField extends TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue, 'convertToUserFormat skip usrdotd3com');
 		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user);
 		$this->assertEquals('42,654,016.0000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com for value without decimals');
+		// empty currency and decimal separators for coverage
+		$currencyFieldNoDecimals->currencySeparator = '';
+		$currencyFieldNoDecimals->decimalSeparator = '';
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user, true, true);
+		$this->assertEquals('42 654 016 0000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com for value without decimals and no separators');
 		/////////////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
