@@ -573,6 +573,98 @@ class testutils extends TestCase {
 	}
 
 	/**
+	 * Method validateAlphaNumericInputProvider
+	 * params
+	 */
+	public function validateAlphaNumericInputProvider() {
+		return array(
+			array('10', true),
+			array('somestring', true),
+			array('with space', true),
+			array('with slash/', true),
+			array('with-dash', true),
+			array('with_underscore', true),
+			array('', false),
+			array(chr(27), false),
+			array('1
+2', false),
+		);
+	}
+
+	/**
+	 * Method testvalidateAlphaNumericInput
+	 * @test
+	 * @dataProvider validateAlphaNumericInputProvider
+	 */
+	public function testvalidateAlphaNumericInput($string, $expected) {
+		$this->assertEquals($expected, validateAlphaNumericInput($string), 'Test validateAlphaNumericInput');
+	}
+
+	/**
+	 * Method validateServerNameProvider
+	 * params
+	 */
+	public function validateServerNameProvider() {
+		return array(
+			array('10', true),
+			array('somestring', true),
+			array('with space', false),
+			array('withslash/', true),
+			array('with-dash', true),
+			array('with.dot', true),
+			array('with_underscore', true),
+			array('', false),
+			array(chr(27), false),
+			array('1
+2', false),
+		);
+	}
+
+	/**
+	 * Method testvalidateServerName
+	 * @test
+	 * @dataProvider validateServerNameProvider
+	 */
+	public function testvalidateServerName($string, $expected) {
+		$this->assertEquals($expected, validateServerName($string), 'Test validateServerName');
+	}
+
+	/**
+	 * Method validateEmailIdProvider
+	 * params
+	 */
+	public function validateEmailIdProvider() {
+		return array(
+			array('10@10.com', true),
+			array('a@b.c', true),
+			array('x_y@b.c', true),
+			array('x_y-z@b.c', true),
+			array('x+y10@10.com', false),
+			array('10@10,com', false),
+			array('10', false),
+			array('somestring', false),
+			array('with space', false),
+			array('withslash/', false),
+			array('with-dash', false),
+			array('with.dot', false),
+			array('with_underscore', false),
+			array('', false),
+			array(chr(27), false),
+			array('1
+2', false),
+		);
+	}
+
+	/**
+	 * Method testvalidateEmailId
+	 * @test
+	 * @dataProvider validateEmailIdProvider
+	 */
+	public function testvalidateEmailId($string, $expected) {
+		$this->assertEquals($expected, validateEmailId($string), 'Test validateEmailId');
+	}
+
+	/**
 	 * Method getProfile2FieldPermissionListProvider
 	 * params
 	 */
