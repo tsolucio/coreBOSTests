@@ -224,4 +224,23 @@ class UsersTest extends TestCase {
 		}
 		$this->assertEquals($expected, $user->column_fields, 'retrieveCurrentUserInfoFromFile inactive');
 	}
+
+	/**
+	 * Method testverifyPassword
+	 * @test
+	 */
+	public function testverifyPassword() {
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(1);
+		$this->assertFalse($user->verifyPassword('not the right one'), 'verifyPassword 1 wrong');
+		$this->assertTrue($user->verifyPassword('admin'), 'verifyPassword 1 right');
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(8);
+		$this->assertFalse($user->verifyPassword('not the right one'), 'verifyPassword testes wrong');
+		$this->assertTrue($user->verifyPassword('testes'), 'verifyPassword testes right');
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(9);
+		$this->assertFalse($user->verifyPassword('not the right one'), 'verifyPassword testinactive wrong');
+		$this->assertTrue($user->verifyPassword('testinactive'), 'verifyPassword testinactive right');
+	}
 }
