@@ -48,6 +48,8 @@ class testCurrencyField extends TestCase {
 		$this->assertEquals(round(46919417.6248479, 2), $converted, 'convertFromDollar UTILS');
 		$converted = CurrencyField::convertToDollar(46919417.6248479, 1.1);
 		$this->assertEquals(round(42654016.022589, CurrencyField::$maxNumberOfDecimals), round($converted, CurrencyField::$maxNumberOfDecimals), 'convertToDollar CLASS');
+		$converted = CurrencyField::convertToDollar(46919417.6248479, 0);
+		$this->assertEquals(0, $converted, 'convertToDollar 0 conversion');
 		$converted = CurrencyField::convertFromDollar(42654016.022589, 1.1);
 		$this->assertEquals(round(46919417.6248479, CurrencyField::$maxNumberOfDecimals), $converted, 'convertFromDollar CLASS');
 		$dbCurrency = CurrencyField::getDBCurrencyId();
@@ -87,6 +89,11 @@ class testCurrencyField extends TestCase {
 		$this->assertEquals(1, $currencyField->conversionRate, 'conversionRate usrcomd0x');
 		$this->assertEquals('1.0$', $currencyField->currencySymbolPlacement, 'currencySymbolPlacement usrcomd0x');
 		$this->assertEquals(3, $currencyField->numberOfDecimal, 'numberOfDecimal usrcomd0x');
+		$this->assertEquals(2, CurrencyField::getCurrencyDecimalPlaces(), 'getCurrencyDecimalPlaces no user=current user');
+		$current_user = $user;
+		$this->assertEquals(3, CurrencyField::getCurrencyDecimalPlaces(), 'getCurrencyDecimalPlaces no user=current user');
+		unset($user->no_of_currency_decimals);
+		$this->assertEquals(2, CurrencyField::getCurrencyDecimalPlaces($user), 'getCurrencyDecimalPlaces no no_of_currency_decimals');
 
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrdotd3com);
@@ -184,11 +191,42 @@ class testCurrencyField extends TestCase {
 		$this->assertEquals($testcurrencyrounded, $formattedCurrencyValue, 'convertToUserFormat skip usrdotd3com');
 		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user);
 		$this->assertEquals('42,654,016.0000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com for value without decimals');
+		// currency Format pattern
+		$currencyFieldNoDecimals->currencyFormat = '123456,789'; // CURRENCY_PATTERN_SINGLE_GROUPING
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user, true, true);
+		$this->assertEquals('42654,016.0000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com with CURRENCY_PATTERN_SINGLE_GROUPING');
+		$currencyFieldSingleGrouping = new CurrencyField(12);
+		$currencyFieldSingleGrouping->currencyFormat = '123456,789'; // CURRENCY_PATTERN_SINGLE_GROUPING
+		$formattedCurrencyValueNoDecimals = $currencyFieldSingleGrouping->getDisplayValue($user, true, true);
+		$this->assertEquals('12.000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com with CURRENCY_PATTERN_SINGLE_GROUPING');
+		$currencyFieldSingleGrouping = new CurrencyField(-1212);
+		$currencyFieldSingleGrouping->currencyFormat = '123456,789'; // CURRENCY_PATTERN_SINGLE_GROUPING
+		$formattedCurrencyValueNoDecimals = $currencyFieldSingleGrouping->getDisplayValue($user, true, true);
+		$this->assertEquals('-1,212.000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com with CURRENCY_PATTERN_SINGLE_GROUPING');
+		///
+		$currencyFieldNoDecimals->currencyFormat = '12,34,56,789'; // CURRENCY_PATTERN_MIXED_GROUPING
+		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user, true, true);
+		$this->assertEquals('4,26,54,016.0000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com with CURRENCY_PATTERN_MIXED_GROUPING');
+		$currencyFieldSingleGrouping = new CurrencyField(12);
+		$currencyFieldSingleGrouping->currencyFormat = '12,34,56,789'; // CURRENCY_PATTERN_MIXED_GROUPING
+		$formattedCurrencyValueNoDecimals = $currencyFieldSingleGrouping->getDisplayValue($user, true, true);
+		$this->assertEquals('12.000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com with CURRENCY_PATTERN_MIXED_GROUPING');
+		$currencyFieldSingleGrouping = new CurrencyField(-1212);
+		$currencyFieldSingleGrouping->currencyFormat = '12,34,56,789'; // CURRENCY_PATTERN_MIXED_GROUPING
+		$formattedCurrencyValueNoDecimals = $currencyFieldSingleGrouping->getDisplayValue($user, true, true);
+		$this->assertEquals('-1,212.000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com with CURRENCY_PATTERN_MIXED_GROUPING');
+		$currencyFieldSingleGrouping = new CurrencyField(0);
+		$currencyFieldSingleGrouping->currencyFormat = '12,34,56,789'; // CURRENCY_PATTERN_MIXED_GROUPING
+		$formattedCurrencyValueNoDecimals = $currencyFieldSingleGrouping->getDisplayValue($user, true, true);
+		$this->assertEquals('0.000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com with CURRENCY_PATTERN_MIXED_GROUPING');
+
 		// empty currency and decimal separators for coverage
+		$currencyFieldNoDecimals->getDisplayValue($user); // initialize the object again
 		$currencyFieldNoDecimals->currencySeparator = '';
 		$currencyFieldNoDecimals->decimalSeparator = '';
 		$formattedCurrencyValueNoDecimals = $currencyFieldNoDecimals->getDisplayValue($user, true, true);
 		$this->assertEquals('42 654 016 0000', $formattedCurrencyValueNoDecimals, 'getDisplayValue usrdotd3com for value without decimals and no separators');
+
 		/////////////////
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcoma3dot);
@@ -572,6 +610,17 @@ class testCurrencyField extends TestCase {
 		$currencyField = new CurrencyField('$46,919,417.624848');
 		$formattedCurrencyValue = @$currencyField->getDBInsertedValue($user, false);
 		$this->assertEquals(0, $formattedCurrencyValue, 'getDBInsertedValue noskip usrdota3comdollar WITH SYMBOL');
+		// empty currency and decimal separators for coverage
+		global $current_user;
+		$hold = $current_user;
+		$user->currency_grouping_separator = '';
+		$user->currency_decimal_separator = '';
+		$user->currency_id = 0;
+		$current_user = $user;
+		$currencyField = new CurrencyField('46919417.624848');
+		$formattedCurrencyValue = @$currencyField->getDBInsertedValue();
+		$this->assertEquals(46919417.624848, $formattedCurrencyValue, 'getDBInsertedValue empty format variables');
+		$current_user = $hold;
 	}
 
 	/**
@@ -906,6 +955,16 @@ class testCurrencyField extends TestCase {
 			'currency_position' => '1.0$',
 		);
 		$this->assertEquals($expected, $actual, "getMultiCurrencyInfoFrom PurchaseOrder");
+		$actual = CurrencyField::getMultiCurrencyInfoFrom('Contacts', 1084);
+		$expected = array(
+			'currency_id' => '1',
+			'conversion_rate' => '1',
+			'currency_name' => 'Euro',
+			'currency_code' => 'EUR',
+			'currency_symbol' => '&euro;',
+			'currency_position' => '1.0$',
+		);
+		$this->assertEquals($expected, $actual, "getMultiCurrencyInfoFrom Contacts > application currency");
 	}
 }
 ?>
