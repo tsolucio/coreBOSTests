@@ -281,6 +281,25 @@ class tstDateTimeField extends TestCase {
 	}
 
 	/**
+	 * Method testdollarsignFilterForEmptyDates
+	 * @test
+	 */
+	public function testdollarsignFilterForEmptyDates() {
+		$dt = new DateTimeField('$');
+		$dt1 = new DateTimeField('--$');
+		// Format yyyy-mm-dd'
+		$actual = $dt->__convertToDBFormat('$', 'yyyy-mm-dd');
+		$this->assertEquals('--$', $actual);
+		$actual = $dt1->__convertToDBFormat('--$', 'yyyy-mm-dd');
+		$this->assertEquals('--$', $actual);
+		// Format dd-mm-yyyy or empty'
+		$actual = $dt->__convertToDBFormat('$', 'dd-mm-yyyy');
+		$this->assertEquals('$--', $actual);
+		$actual = $dt1->__convertToDBFormat('--$', 'dd-mm-yyyy');
+		$this->assertEquals('$--', $actual);
+	}
+
+	/**
 	 * Method testgetDBInsertDateTimeValueComponents
 	 * @test
 	 */
