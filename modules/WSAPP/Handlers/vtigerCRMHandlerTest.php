@@ -94,4 +94,25 @@ class WSAPPvtigerCRMHandlerTest extends TestCase {
 		$expected['13x5142']['sales_stage'] = 'Prospecting';
 		$this->assertEquals($expected, $vt->fillNonExistingMandatoryPicklistValues($update));
 	}
+
+	/**
+	 * Method testtranslateReferenceFieldNamesToIds
+	 * @test
+	 */
+	public function testtranslateReferenceFieldNamesToIds() {
+		global $current_user;
+		$vt = new vtigerCRMHandler('');
+		$vt->setUser($current_user);
+		$expected = array(
+			'74' => array('module'=>'Accounts', 'accountname' => 'Chemex', 'account_id' => '11x80'),
+			'76' => array('module'=>'Accounts', 'accountname' => 'Another', 'account_id' => '11x802'),
+			'1084' => array('module'=>'Contacts', 'firstname' => 'ctofname', 'created_user_id' => '19x5', 'account_id' => '11x80'),
+		);
+		$records = array(
+			'74' => array('module'=>'Accounts', 'accountname' => 'Chemex', 'account_id' => 'Simpson, Fred B Esq'),
+			'76' => array('module'=>'Accounts', 'accountname' => 'Another', 'account_id' => 'Jin Shin Travel Agency'),
+			'1084' => array('module'=>'Contacts', 'firstname' => 'ctofname', 'created_user_id' => 'cbTest testdmy', 'account_id' => 'Simpson, Fred B Esq'),
+		);
+		$this->assertEquals($expected, $vt->translateReferenceFieldNamesToIds($records, $current_user));
+	}
 }
