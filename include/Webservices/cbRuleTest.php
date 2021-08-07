@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/cbRule.php';
 
-class cbRuleTest extends TestCase {
+class WScbRuleTest extends TestCase {
 
 	/**
 	 * Method testrule

@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testRecurringType extends TestCase {
+class RecurringTypeTest extends TestCase {
 
 	private $monday = 1;
 	private $tuesday = 2;

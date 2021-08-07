@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testRequest extends TestCase {
+class RequestTest extends TestCase {
 
 	private $testdata = array();
 	private $requeststrip;
