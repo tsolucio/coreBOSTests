@@ -147,11 +147,11 @@ class MemoryLimitManagerTest extends TestCase {
 		$this->expectExceptionCode(1);
 		//100 MB = 100 * 1024 * 1024 = 104857600
 		//101 MB = 101 * 1024 * 1024 = 105906176
-		if (ini_set('memory_limit', '100M') === false) {
+		if (ini_set('memory_limit', '350M') === false) {
 			$this->fail('could not set ini value memory_limit');
 		} else {
 			$manager = $this->getNewManager();
-			$manager->setLimitInMegaBytes(101);
+			$manager->setLimitInMegaBytes(351);
 		}
 	}
 

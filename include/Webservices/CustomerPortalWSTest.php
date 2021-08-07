@@ -260,7 +260,7 @@ class CustomerPortalWSTest extends TestCase {
 	 */
 	public function testchangePortalUserPassword() {
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
+		$this->expectExceptionCode('INVALID_OLD_PASSWORD');
 		$this->expectException(WebServiceException::class);
 		vtws_changePortalUserPassword("hackit'; select 1;", '$newPass', '5ub1ipv3');
 	}
@@ -271,7 +271,7 @@ class CustomerPortalWSTest extends TestCase {
 	 */
 	public function testchangePortalUserPasswordWrongOldPassword() {
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
+		$this->expectExceptionCode('INVALID_OLD_PASSWORD');
 		$this->expectException(WebServiceException::class);
 		vtws_changePortalUserPassword('julieta@yahoo.com', '$newPass', 'notoldpassword');
 	}

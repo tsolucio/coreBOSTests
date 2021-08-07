@@ -46,7 +46,7 @@ class GetFilterFieldsTest extends TestCase {
 	public function testextension() {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
+		$this->expectExceptionCode('ACCESS_DENIED');
 		$this->assertEquals('', vtws_getfilterfields('evvtMenu', $current_user), 'GetFilterFields on extension');
 	}
 }

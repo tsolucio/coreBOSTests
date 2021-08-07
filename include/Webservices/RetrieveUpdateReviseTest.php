@@ -667,7 +667,7 @@ class RetrieveUpdateReviseTest extends TestCase {
 	public function testUpdateExceptionInvalidImage() {
 		global $current_user, $adb;
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
+		$this->expectExceptionCode('VALIDATION_FAILED');
 		$current_user = Users::getActiveAdminUser();
 		$ctoID = vtws_getEntityId('Contacts');
 		$beforeCto = vtws_retrieve($ctoID.'x1561', $current_user);

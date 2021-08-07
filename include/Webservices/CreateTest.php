@@ -726,7 +726,7 @@ class CreateTest extends TestCase {
 	public function testCreateDocumentWithAttachment() {
 		global $current_user, $site_URL;
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
+		$this->expectExceptionCode('ACCESS_DENIED');
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
@@ -771,11 +771,10 @@ class CreateTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$ObjectValues['filename'] = 'Cron.png';
-		$ObjectValues['relations'] = array();
 		$ObjectValues['_downloadurl'] = $actual['_downloadurl']; // 'http://localhost/coreBOSTest/storage/2020/June/week3/44181_Cron.png';
 		$filelocation = substr($actual['_downloadurl'], strpos($actual['_downloadurl'], 'storage'));
 		$docid = $actual['id'];
-		$this->assertRegExp('/^'.str_replace('/', '\\/', $site_URL).'\/storage.+\/week[0-5]?\/[0-9]+_Cron.png$/', $actual['_downloadurl']);
+		$this->assertMatchesRegularExpression('/^'.str_replace('/', '\\/', $site_URL).'\/storage.+\/week[0-5]?\/[0-9]+_Cron.png$/', $actual['_downloadurl']);
 		$this->assertEquals($ObjectValues, $actual, 'Create Documents');
 		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
 		$this->assertEquals($model_filename['content'], $sdoc[$actual['id']]['attachment'], 'Document Attachment');
@@ -1120,7 +1119,7 @@ class CreateTest extends TestCase {
 	public function testCreateExceptionMissingMandatory() {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
+		$this->expectExceptionCode('MANDATORY_FIELDS_MISSING');
 		$holduser = $current_user;
 		$user = new Users();
 		///  missing mandatory field

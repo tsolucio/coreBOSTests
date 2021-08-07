@@ -30,7 +30,7 @@ class AuthTokenTest extends TestCase {
 	 */
 	public function testchallengewrong() {
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
+		$this->expectExceptionCode('AUTHENTICATION_REQUIRED');
 		vtws_getchallenge('user_does_not_exist');
 	}
 
@@ -40,7 +40,7 @@ class AuthTokenTest extends TestCase {
 	 */
 	public function testchallengeempty() {
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
+		$this->expectExceptionCode('AUTHENTICATION_REQUIRED');
 		vtws_getchallenge('');
 	}
 

@@ -59,7 +59,6 @@ class RetrieveDocAttachmentTest extends TestCase {
 		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
 		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
 		$ObjectValues['filename'] = 'https://some external place';
-		$ObjectValues['relations'] = array();
 		$this->assertEquals($ObjectValues, $actual, 'Create Document E');
 		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
 		list($wsid, $crmid) = explode('x', $actual['id']);
