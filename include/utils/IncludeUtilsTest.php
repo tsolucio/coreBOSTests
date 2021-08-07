@@ -2711,8 +2711,33 @@ class IncludeUtilsTest extends TestCase {
 	}
 
 	/**
+	 * Method getTabModuleNameProvider
+	 */
+	public function getTabModuleNameProvider() {
+		return array(
+			array(1, 'Dashboard'),
+			array(4, 'Contacts'),
+			array(41, 'cbupdater'),
+			array(76, 'EtiquetasOO'),
+			array(21, 'PurchaseOrder'),
+			array(36, 'PBXManager'),
+			array(52, 'SMSNotifier'),
+			array(-100, ''),
+			array(null, ''),
+		);
+	}
+
+	/**
+	 * Method testgetTabModuleName
+	 * @test
+	 * @dataProvider getTabModuleNameProvider
+	 */
+	public function testgetTabModuleName($tabid, $expected) {
+		$this->assertEquals($expected, getTabModuleName($tabid), "getTabModuleName $tabid");
+	}
+
+	/**
 	 * Method getRelationTablesProvider
-	 * params
 	 */
 	public function getRelationTablesProvider() {
 		return array(
