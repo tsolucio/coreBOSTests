@@ -21,7 +21,7 @@ include_once 'modules/Mobile/api/ws/Utils.php';
 
 use PHPUnit\Framework\TestCase;
 
-class MobileWSUtilstest extends TestCase {
+class MobileWSUtilsTest extends TestCase {
 
 	/**
 	 * Method getModuleColumnTableByFieldNamesProvider

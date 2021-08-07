@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class InclideUtilsTest extends TestCase {
+class IncludeUtilsTest extends TestCase {
 
 	/**
 	 * Method to_htmlProvider
@@ -2578,7 +2578,7 @@ class InclideUtilsTest extends TestCase {
 			array('Accounts', $accfinfo, $accfinfoc),
 			array('Assets', $astfinfo, $astfinfoc),
 			array('HelpDesk', $hdfinfo, $hdfinfoc),
-			array('PBXmanager', $pbxfinfo, $pbxfinfoc),
+			array('PBXManager', $pbxfinfo, $pbxfinfoc),
 			array('EtiquetasOO', $eoofinfo, $eoofinfoc),
 		);
 	}
