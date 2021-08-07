@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/ExecuteWorkflow.php';
 
-class testExecuteWorkflow extends TestCase {
+class ExecuteWorkflowTest extends TestCase {
 
 	/**
 	 * Method testcbwsExecuteWorkflow

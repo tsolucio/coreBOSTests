@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/upsert.php';
 
-class testWSUpsert extends TestCase {
+class UpsertTest extends TestCase {
 
 	/**
 	 * Method testupsert
@@ -84,7 +84,6 @@ class testWSUpsert extends TestCase {
 	/**
 	 * Method testupsertcreateexception
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testupsertcreateexception() {
 		global $current_user;
@@ -100,7 +99,6 @@ class testWSUpsert extends TestCase {
 	/**
 	 * Method testgetOwnerTypeException
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testgetOwnerTypeException() {
 		global $current_user;

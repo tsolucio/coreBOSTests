@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/Delete.php';
 
-class testWSDelete extends TestCase {
+class DeleteTest extends TestCase {
 
 	/**
 	 * Method testvtws_delete
@@ -52,10 +52,11 @@ class testWSDelete extends TestCase {
 	/**
 	 * Method testDeleteUser
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testDeleteUser() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		vtws_delete('19x5', $current_user);
@@ -64,9 +65,10 @@ class testWSDelete extends TestCase {
 	/**
 	 * Method testDeleteExceptionNoModuleAccess
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testDeleteExceptionNoModuleAccess() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$user = new Users();
 		///  nocreate
 		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
@@ -78,9 +80,10 @@ class testWSDelete extends TestCase {
 	/**
 	 * Method testDeleteExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testDeleteExceptionNoPermission() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$user = new Users();
 		///  nocreate
 		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
@@ -92,9 +95,10 @@ class testWSDelete extends TestCase {
 	/**
 	 * Method testDeleteExceptionWrongID
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testDeleteExceptionWrongID() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$user = new Users();
 		///  nocreate
 		$user->retrieveCurrentUserInfoFromFile(11); // nocreate

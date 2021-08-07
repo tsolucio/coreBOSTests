@@ -20,7 +20,7 @@
 require_once 'modules/WSAPP/Handlers/vtigerCRMHandler.php';
 use PHPUnit\Framework\TestCase;
 
-class WSAPPvtigerCRMHandlerTest extends TestCase {
+class vtigerCRMHandlerTest extends TestCase {
 
 	/**
 	 * Method testfillNonExistingMandatoryPicklistValues

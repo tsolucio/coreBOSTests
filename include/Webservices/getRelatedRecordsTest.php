@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 include_once 'include/Webservices/GetRelatedRecords.php';
 include_once 'include/Webservices/upsert.php';
 
-class testWSgetRelatedRecords extends TestCase {
+class getRelatedRecordsTest extends TestCase {
 
 	/**
 	 * Method getRelatedRecordsProvider
@@ -1386,7 +1386,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testInvalidModuleGRR
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidModuleGRR() {
 		global $current_user;
@@ -1398,7 +1397,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testActorModuleGRR
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testActorModuleGRR() {
 		global $current_user;
@@ -1410,7 +1408,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testActorRelatedModuleGRR
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testActorRelatedModuleGRR() {
 		global $current_user;
@@ -1422,7 +1419,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testNonEntityModuleGRR
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testNonEntityModuleGRR() {
 		global $current_user;
@@ -1434,7 +1430,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testNonEntityRelatedModuleGRR
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testNonEntityRelatedModuleGRR() {
 		global $current_user;
@@ -1446,7 +1441,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testInvalidModuleGRQ
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidModuleGRQ() {
 		global $current_user;
@@ -1458,7 +1452,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testActorModuleGRQ
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testActorModuleGRQ() {
 		global $current_user;
@@ -1470,7 +1463,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testActorRelatedModuleGRQ
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testActorRelatedModuleGRQ() {
 		global $current_user;
@@ -1482,7 +1474,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testNonEntityModuleGRQ
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testNonEntityModuleGRQ() {
 		global $current_user;
@@ -1494,7 +1485,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testNonEntityRelatedModuleGRQ
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testNonEntityRelatedModuleGRQ() {
 		global $current_user;
@@ -1506,7 +1496,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testNoPermissionModule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testNoPermissionModule() {
 		global $current_user;
@@ -1529,7 +1518,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testNoPermissionRelatedModule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testNoPermissionRelatedModule() {
 		global $current_user;
@@ -1552,7 +1540,6 @@ class testWSgetRelatedRecords extends TestCase {
 	/**
 	 * Method testInvalidID
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidID() {
 		global $current_user;

@@ -26,7 +26,7 @@ class testRequest extends TestCase {
 	private $requeststrip;
 	private $requestnotstrip;
 
-	public function setup() {
+	public function setup(): void {
 		$this->testdata = array(
 			'usrtestdmy' => 5,
 			'RETURN_MODULE' => 'Accounts',

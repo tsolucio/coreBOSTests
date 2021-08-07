@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/addTicketFaqComment.php';
 
-class testWSaddTicketFaqComment extends TestCase {
+class addTicketFaqCommentTest extends TestCase {
 
 	/**
 	 * Method testaddHDcomment
@@ -97,10 +97,11 @@ class testWSaddTicketFaqComment extends TestCase {
 	/**
 	 * Method testinvalidmoduleexception
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidmoduleexception() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
 		$values = array(
@@ -114,10 +115,11 @@ class testWSaddTicketFaqComment extends TestCase {
 	/**
 	 * Method testReadExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReadExceptionNoPermission() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
@@ -140,10 +142,11 @@ class testWSaddTicketFaqComment extends TestCase {
 	/**
 	 * Method testInvalidIDExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidIDExceptionNoPermission() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$values = array(
 			'from_portal' => 0,
 			'parent_id' => '12x1084',
@@ -161,10 +164,11 @@ class testWSaddTicketFaqComment extends TestCase {
 	/**
 	 * Method testRecordNotFoundExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	// public function testRecordNotFoundExceptionNoPermission() {
 	// 	global $current_user, $adb;
+	// 	$this->expectException(WebServiceException::class);
+	// 	$this->expectExceptionCode('INVALID_MODULE');
 	// 	$rs = $adb->query('select crmid from vtiger_crmentity where setype="HelpDesk" and deleted=1');
 	// 	if ($rs && $adb->num_rows($rs)>0) {
 	// 		$deletedHD = $rs->fields['crmid'];
@@ -188,10 +192,11 @@ class testWSaddTicketFaqComment extends TestCase {
 	/**
 	 * Method testmissingcommentexception
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testmissingcommentexception() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$values = array(
 			'from_portal' => 0,
 			'parent_id' => '12x1084',

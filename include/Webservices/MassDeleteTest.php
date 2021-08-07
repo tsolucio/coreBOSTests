@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/MassDelete.php';
 
-class testWSMassDelete extends TestCase {
+class MassDeleteTest extends TestCase {
 
 	/**
 	 * Method testMassDelete

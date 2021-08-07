@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testcbSettings extends TestCase {
+class cbSettingsTest extends TestCase {
 
 	/**
 	 * Method testcbSettingsAll

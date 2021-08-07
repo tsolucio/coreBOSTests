@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testDetailViewUtils extends TestCase {
+class DetailViewUtilsTest extends TestCase {
 
 	/**
 	 * Method testgetRelatedLists

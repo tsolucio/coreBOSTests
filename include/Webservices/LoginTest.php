@@ -24,12 +24,11 @@ include_once 'include/Webservices/AuthToken.php';
 include_once 'include/Webservices/Login.php';
 require_once 'include/Webservices/WebServiceErrorCode.php';
 
-class testWSLogin extends TestCase {
+class LoginTest extends TestCase {
 
 	/**
 	 * Method testwronguser
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testwronguser() {
 		$this->expectException(WebServiceException::class);
@@ -40,7 +39,6 @@ class testWSLogin extends TestCase {
 	/**
 	 * Method testnotoken
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnotoken() {
 		global $adb;
@@ -53,7 +51,6 @@ class testWSLogin extends TestCase {
 	/**
 	 * Method testwrongtoken
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testwrongtoken() {
 		vtws_getchallenge('admin');
@@ -65,7 +62,6 @@ class testWSLogin extends TestCase {
 	/**
 	 * Method testnokey
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnokey() {
 		global $adb;
@@ -87,7 +83,6 @@ class testWSLogin extends TestCase {
 	/**
 	 * Method testinactiveuser
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinactiveuser() {
 		$token = vtws_getchallenge('testinactive');

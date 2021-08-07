@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/getLoginPage.php';
 
-class getLoginPageTest extends TestCase {
+class GetLoginPageTest extends TestCase {
 
 	/**
 	 * Method getLoginPageProvider

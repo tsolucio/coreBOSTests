@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class WSCreateTest extends TestCase {
+class CreateTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
@@ -373,10 +373,11 @@ class WSCreateTest extends TestCase {
 	/**
 	 * Method testCreateWithDatesWrong
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testCreateWithDatesWrong() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$DATABASEQUERYERROR);
 		$Module = 'Assets';
@@ -721,10 +722,11 @@ class WSCreateTest extends TestCase {
 	/**
 	 * Method testCreateDocumentWithAttachment
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testCreateDocumentWithAttachment() {
 		global $current_user, $site_URL;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
@@ -1035,10 +1037,11 @@ class WSCreateTest extends TestCase {
 	/**
 	 * Method testCreateExceptionNoWrite
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testCreateExceptionNoWrite() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		///  nocreate
@@ -1077,10 +1080,11 @@ class WSCreateTest extends TestCase {
 	/**
 	 * Method testCreateExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testCreateExceptionNoPermission() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		///  nocreate
@@ -1112,10 +1116,11 @@ class WSCreateTest extends TestCase {
 	/**
 	 * Method testCreateExceptionMissingMandatory
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testCreateExceptionMissingMandatory() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		///  missing mandatory field
@@ -1149,10 +1154,11 @@ class WSCreateTest extends TestCase {
 	/**
 	 * Method testCreateExceptionWrongAsignedUserId
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testCreateExceptionWrongAsignedUserId() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$Module = 'Project';
 		$cbUserID = '11x1084';
 		$ObjectValues = array(

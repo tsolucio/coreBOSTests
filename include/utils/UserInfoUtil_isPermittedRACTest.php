@@ -23,7 +23,7 @@
  */
 use PHPUnit\Framework\TestCase;
 
-class testUserInfoUtil_isPermittedRACTest extends TestCase {
+class UserInfoUtil_isPermittedRACTest extends TestCase {
 
 	/****
 	 * TEST Users
@@ -89,7 +89,7 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 		'PriceBooks' => array(16829)
 	);
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		global $adb;
 		// activate RAC workflow
 		$adb->pquery('update com_vtiger_workflows
@@ -97,7 +97,7 @@ class testUserInfoUtil_isPermittedRACTest extends TestCase {
 			where module_name=? and summary=?', array('HelpDesk','RAC Tickets'));
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass(): void {
 		global $adb;
 		// deactivate RAC workflow
 		$adb->pquery('update com_vtiger_workflows

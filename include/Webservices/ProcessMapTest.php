@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/ProcessMap.php';
 
-class testWSProcessMap extends TestCase {
+class ProcessMapTest extends TestCase {
 
 	/**
 	 * Method testInstance
@@ -151,7 +151,6 @@ class testWSProcessMap extends TestCase {
 	/**
 	 * Method testnonsupportedmap
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnonsupportedmap() {
 		global $current_user;
@@ -163,7 +162,6 @@ class testWSProcessMap extends TestCase {
 	/**
 	 * Method testinvalidmoduleexception
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidmoduleexception() {
 		global $current_user;
@@ -175,7 +173,6 @@ class testWSProcessMap extends TestCase {
 	/**
 	 * Method testReadExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReadExceptionNoPermission() {
 		global $current_user;
@@ -196,7 +193,6 @@ class testWSProcessMap extends TestCase {
 	/**
 	 * Method testInvalidIDExceptionMissinginfields
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidIDExceptionMissinginfields() {
 		global $current_user;
@@ -212,7 +208,6 @@ class testWSProcessMap extends TestCase {
 	/**
 	 * Method testInvalidIDExceptionMissingrecord
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidIDExceptionMissingrecord() {
 		global $current_user;

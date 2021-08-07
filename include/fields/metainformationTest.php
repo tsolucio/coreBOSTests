@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testField_Metadata extends TestCase {
+class metainformationTest extends TestCase {
 
 	/**
 	 * Method testisReferenceUIType

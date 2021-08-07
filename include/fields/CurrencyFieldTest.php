@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testCurrencyField extends TestCase {
+class CurrencyFieldTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

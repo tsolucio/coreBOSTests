@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/GetFilterFields.php';
 
-class testWSGetFilterFields extends TestCase {
+class GetFilterFieldsTest extends TestCase {
 
 	/**
 	 * Method testGetFilterFields
@@ -42,10 +42,11 @@ class testWSGetFilterFields extends TestCase {
 	/**
 	 * Method testextension
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testextension() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->assertEquals('', vtws_getfilterfields('evvtMenu', $current_user), 'GetFilterFields on extension');
 	}
 }

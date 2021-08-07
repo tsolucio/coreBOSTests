@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testutils extends TestCase {
+class InclideUtilsTest extends TestCase {
 
 	/**
 	 * Method to_htmlProvider
@@ -292,10 +292,11 @@ class testutils extends TestCase {
 	/**
 	 * Method testgetEmailFieldIdExceptionNoModule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testgetEmailFieldIdExceptionNoModule() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('ACCESS_DENIED');
 		$referenceHandler = vtws_getModuleHandlerFromId('290000x4062', $current_user);
 		$referenceHandler->getMeta();
 	}

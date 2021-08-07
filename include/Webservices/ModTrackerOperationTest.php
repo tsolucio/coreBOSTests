@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/ModTrackerOperation.php';
 
-class testWSModTrackerOperation extends TestCase {
+class ModTrackerOperationTest extends TestCase {
 
 	/**
 	 * Method testInstance
@@ -97,7 +97,6 @@ class testWSModTrackerOperation extends TestCase {
 	/**
 	 * Method testRetrieveNotFound
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testRetrieveNotFound() {
 		global $current_user, $adb, $log;
@@ -194,7 +193,6 @@ class testWSModTrackerOperation extends TestCase {
 	/**
 	 * Method testIncorrectQuerySyntax
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testIncorrectQuerySyntax() {
 		global $current_user, $adb, $log;
@@ -208,7 +206,6 @@ class testWSModTrackerOperation extends TestCase {
 	/**
 	 * Method testIncorrectQueryID
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testIncorrectQueryID() {
 		global $current_user, $adb, $log;
@@ -400,7 +397,6 @@ class testWSModTrackerOperation extends TestCase {
 	/**
 	 * Method testCreateException
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testCreateException() {
 		global $current_user, $adb, $log;
@@ -414,7 +410,6 @@ class testWSModTrackerOperation extends TestCase {
 	/**
 	 * Method testUpdateException
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testUpdateException() {
 		global $current_user, $adb, $log;
@@ -428,7 +423,6 @@ class testWSModTrackerOperation extends TestCase {
 	/**
 	 * Method testReviseException
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReviseException() {
 		global $current_user, $adb, $log;
@@ -442,7 +436,6 @@ class testWSModTrackerOperation extends TestCase {
 	/**
 	 * Method testDeleteException
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testDeleteException() {
 		global $current_user, $adb, $log;

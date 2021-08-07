@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testWSQuery extends TestCase {
+class QueryTest extends TestCase {
 
 	/**
 	 * Method testQuery
@@ -137,7 +137,6 @@ class testWSQuery extends TestCase {
 	/**
 	 * Method testMissingSemicolon
 	 * @test
-	 * @expectedException Exception
 	 */
 	public function testCreateWithDatesWrong() {
 		global $current_user;
@@ -149,7 +148,6 @@ class testWSQuery extends TestCase {
 	/**
 	 * Method testWrongModule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testWrongModule() {
 		global $current_user;
@@ -161,7 +159,6 @@ class testWSQuery extends TestCase {
 	/**
 	 * Method testWrongSyntax
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testWrongSyntax() {
 		global $current_user;
@@ -174,7 +171,6 @@ class testWSQuery extends TestCase {
 	/**
 	 * Method testWrongSyntax
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testNoPermissionOnModule() {
 		global $current_user;

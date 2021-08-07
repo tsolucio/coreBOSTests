@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testDatabaseUtil extends TestCase {
+class DatabaseUtilTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

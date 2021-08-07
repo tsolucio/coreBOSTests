@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/doJSLog.php';
 
-class testWSdoJSLog extends TestCase {
+class doJSLogTest extends TestCase {
 
 	/**
 	 * Method doJSLogProvider

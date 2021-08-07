@@ -22,16 +22,16 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/GetRelatedRecords.php';
 
-class testWSgetRelatedRecordsCP extends TestCase {
+class getRelatedRecordsCPTest extends TestCase {
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		global $current_user;
 		$current_user = Users::getActiveAdminUser();
 		coreBOS_Session::set('authenticatedUserIsPortalUser', 1);
 		coreBOS_Session::set('authenticatedUserPortalContact', 1162);
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass(): void {
 		global $current_user;
 		$current_user = Users::getActiveAdminUser();
 		coreBOS_Session::delete('authenticatedUserIsPortalUser');

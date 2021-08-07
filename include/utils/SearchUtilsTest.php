@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testSearchUtils extends TestCase {
+class SearchUtilsTest extends TestCase {
 
 	/**
 	 * Method testgetAdvancedSearchValue

@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/getmaxloadsize.php';
 
-class testgetmaxloadsize extends TestCase {
+class getmaxloadsizeTest extends TestCase {
 
 	/**
 	 * Method testget_maxloadsize

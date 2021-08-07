@@ -19,11 +19,11 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class VtigerModuleOperation_QueryCustomerPortalTest extends TestCase {
+class VtigerModuleOperation_QueryCPTest extends TestCase {
 
 	public static $vtModuleOperation = null;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		global $adb, $current_user, $log;
 		$current_user = Users::getActiveAdminUser();
 		$webserviceObject = VtigerWebserviceObject::fromName($adb, 'Accounts');
@@ -32,7 +32,7 @@ class VtigerModuleOperation_QueryCustomerPortalTest extends TestCase {
 		coreBOS_Session::set('authenticatedUserPortalContact', 1084);
 	}
 
-	public static function tearDownAfterClass() {
+	public static function tearDownAfterClass(): void {
 		global $current_user;
 		$current_user = Users::getActiveAdminUser();
 		coreBOS_Session::delete('authenticatedUserIsPortalUser');

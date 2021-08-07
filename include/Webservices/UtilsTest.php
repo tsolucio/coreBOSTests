@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testWebservicesUtils extends TestCase {
+class WSUtilsTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
@@ -298,7 +298,6 @@ class testWebservicesUtils extends TestCase {
 	/**
 	 * Method testgetOwnerTypeException
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testgetOwnerTypeException() {
 		$this->expectException(WebServiceException::class);

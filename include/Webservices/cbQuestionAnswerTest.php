@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/cbQuestion.php';
 
-class testWScoreBOSQuestion extends TestCase {
+class cbQuestionAnswerTest extends TestCase {
 
 	/**
 	 * Method testquestion
@@ -88,10 +88,11 @@ class testWScoreBOSQuestion extends TestCase {
 	/**
 	 * Method testinvalidmoduleexception
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidmoduleexception() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		cbwsGetAnswer('11x74', array(), $current_user);
@@ -100,10 +101,11 @@ class testWScoreBOSQuestion extends TestCase {
 	/**
 	 * Method testReadExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReadExceptionNoPermission() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy

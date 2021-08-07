@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/GetViewsByModule.php';
 
-class testWSGetViewsByModule extends TestCase {
+class GetViewsByModuleTest extends TestCase {
 
 	/**
 	 * Method getViewsByModuleProvider
@@ -234,7 +234,6 @@ class testWSGetViewsByModule extends TestCase {
 	/**
 	 * Method testactormodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testactormodule() {
 		global $current_user;
@@ -246,7 +245,6 @@ class testWSGetViewsByModule extends TestCase {
 	/**
 	 * Method testnonentitymodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnonentitymodule() {
 		global $current_user;
@@ -258,7 +256,6 @@ class testWSGetViewsByModule extends TestCase {
 	/**
 	 * Method testemptymodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testemptymodule() {
 		global $current_user;
@@ -270,7 +267,6 @@ class testWSGetViewsByModule extends TestCase {
 	/**
 	 * Method testinexistentmodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinexistentmodule() {
 		global $current_user;
@@ -282,7 +278,6 @@ class testWSGetViewsByModule extends TestCase {
 	/**
 	 * Method testnopermissionmodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnopermissionmodule() {
 		$user = new Users();

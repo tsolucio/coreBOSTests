@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class workflowfunctionsaggregationTest extends TestCase {
+class aggregationTest extends TestCase {
 
 	/**
 	 * Method testaggregationfunctions

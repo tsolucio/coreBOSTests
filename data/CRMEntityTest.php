@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testCRMEntity extends TestCase {
+class CRMEntityTest extends TestCase {
 
 	/****
 	 * TEST Users
@@ -413,9 +413,10 @@ class testCRMEntity extends TestCase {
 	/**
 	 * Method testsanitizeOwnerFieldInvalid
 	 * @test
-	 * @expectedException UnexpectedValueException
 	 */
 	public function testsanitizeOwnerFieldInvalid() {
+		$this->expectException(UnexpectedValueException::class);
+		$this->expectExceptionCode(1);
 		$crmentity = CRMEntity::getInstance('Accounts');
 		TerminateExecution::setThrowException(true);
 		$this->assertEquals(false, $crmentity->sanitizeOwnerField('11x74', true));

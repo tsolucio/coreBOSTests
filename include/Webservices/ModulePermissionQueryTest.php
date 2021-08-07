@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once 'include/Webservices/ModulePermissionQuery.php';
 
-class testModulePermissionQuery extends TestCase {
+class ModulePermissionQueryTest extends TestCase {
 
 	/****
 	 * TEST Users
@@ -123,10 +123,11 @@ class testModulePermissionQuery extends TestCase {
 	 * Method testgetModulePermissionQueryException
 	 * @test
 	 * @dataProvider getModulePermissionQueryExceptionProvider
-	 * @expectedException WebServiceException
 	 */
 	public function testgetModulePermissionQueryException($module, $userid) {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('ACCESS_DENIED');
 		$hold_user = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($userid);

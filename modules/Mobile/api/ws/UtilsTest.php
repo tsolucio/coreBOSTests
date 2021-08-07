@@ -21,7 +21,7 @@ include_once 'modules/Mobile/api/ws/Utils.php';
 
 use PHPUnit\Framework\TestCase;
 
-class crmtogo_WS_Utilstest extends TestCase {
+class MobileWSUtilstest extends TestCase {
 
 	/**
 	 * Method getModuleColumnTableByFieldNamesProvider

@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/RetrieveDocAttachment.php';
 
-class testWSRetrieveDocAttachment extends TestCase {
+class RetrieveDocAttachmentTest extends TestCase {
 
 	/**
 	 * Method testretrievedoc

@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/CustomerPortalWS.php';
 
-class testgetReferenceValue extends TestCase {
+class getReferenceValueTest extends TestCase {
 
 	/**
 	 * Method testvtws_getReferenceValue

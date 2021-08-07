@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class workflowfunctionslogicalopsTest extends TestCase {
+class logicalopsTest extends TestCase {
 
 	/**
 	 * Method testisnumfunction

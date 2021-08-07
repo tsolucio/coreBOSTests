@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 
 class ReportRunTest extends TestCase {
 
-	protected function setUp() {
+	protected function setUp(): void {
 		global $adb;
 		$adb->pquery(
 			'insert into vtiger_reportsortcol (sortcolid,reportid,columnname,sortorder) values (?,?,?,?);',
@@ -35,7 +35,7 @@ class ReportRunTest extends TestCase {
 		);
 	}
 
-	protected function tearDown() {
+	protected function tearDown(): void {
 		global $adb;
 		$adb->pquery(
 			'delete from vtiger_reportsortcol where sortcolid=? and reportid=? and columnname=? and sortorder=?;',

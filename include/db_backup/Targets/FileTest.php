@@ -20,7 +20,7 @@
 require_once 'include/db_backup/Targets/File.php';
 use PHPUnit\Framework\TestCase;
 
-class testdbBackupTargetFile extends TestCase {
+class dbBackupTargetFileTest extends TestCase {
 
 	/**
 	 * Method testconstruct

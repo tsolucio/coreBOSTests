@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/ValidateCUR.php';
 
-class testWSValidateCUR extends TestCase {
+class ValidateCURTest extends TestCase {
 
 	/**
 	 * Method testCreateWithValidation

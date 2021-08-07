@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class workflowfunctionsmathTest extends TestCase {
+class mathTest extends TestCase {
 
 	/**
 	 * Method testmathfunctions

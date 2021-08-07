@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testListViewUtilsGetValue extends TestCase {
+class ListViewUtilsGetValueTest extends TestCase {
 
 	/**
 	 * Method getValueExpectedForAccounts

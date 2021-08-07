@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/UnsetRelation.php';
 
-class testUnsetRelation extends TestCase {
+class UnsetRelationTest extends TestCase {
 
 	public $usrcoma3dot = 10; // testtz
 
@@ -37,7 +37,6 @@ class testUnsetRelation extends TestCase {
 	/**
 	 * Method testExceptionNoAccessModule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testExceptionNoAccessModule() {
 		global $current_user;
@@ -59,7 +58,6 @@ class testUnsetRelation extends TestCase {
 	/**
 	 * Method testInvalidID
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidID() {
 		global $current_user;
@@ -72,7 +70,6 @@ class testUnsetRelation extends TestCase {
 	/**
 	 * Method testExceptionNoAccessRecord
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testExceptionNoAccessRecord() {
 		global $current_user;

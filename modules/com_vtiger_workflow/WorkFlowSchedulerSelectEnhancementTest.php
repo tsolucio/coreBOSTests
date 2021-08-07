@@ -658,10 +658,11 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 	/**
 	 * Method testWorkFlowAggregationsExceptions
 	 * @test
-	 * @expectedException Exception
 	 */
 	public function testWorkFlowAggregationsExceptions() {
 		global $adb;
+		$this->expectException(Exception::class);
+		//$this->expectExceptionCode('INVALID_MODULE');
 		$workflowScheduler = new WorkFlowScheduler($adb);
 		$workflow = new Workflow();
 		$wfvals = $this->defaultWF;
@@ -669,7 +670,7 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		//////////////////////
 		$wfvals['select_expressions'] = '[{"fieldname":"concatres","operation":"is","value":"group_concat(subject separator \';\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
 		$workflow->setup($wfvals);
-		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$workflowScheduler->getWorkflowQuery($workflow);
 	}
 
 	/**

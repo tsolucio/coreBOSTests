@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/CustomerPortalWS.php';
 
-class testCustomerPortalWS extends TestCase {
+class CustomerPortalWSTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
@@ -257,9 +257,10 @@ class testCustomerPortalWS extends TestCase {
 	/**
 	 * Method testchangePortalUserPassword
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testchangePortalUserPassword() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		vtws_changePortalUserPassword("hackit'; select 1;", '$newPass', '5ub1ipv3');
 	}
@@ -267,9 +268,10 @@ class testCustomerPortalWS extends TestCase {
 	/**
 	 * Method testchangePortalUserPasswordWrongOldPassword
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testchangePortalUserPasswordWrongOldPassword() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		vtws_changePortalUserPassword('julieta@yahoo.com', '$newPass', 'notoldpassword');
 	}

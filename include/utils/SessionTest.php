@@ -23,7 +23,7 @@
  */
 use PHPUnit\Framework\TestCase;
 
-class testSession extends TestCase {
+class SessionTest extends TestCase {
 
 	/**
 	 * Method testSessionExists

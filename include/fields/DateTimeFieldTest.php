@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class tstDateTimeField extends TestCase {
+class DateTimeFieldTest extends TestCase {
 
 	/**
 	 * Method testconvertToUserFormat

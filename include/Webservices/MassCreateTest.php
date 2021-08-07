@@ -24,7 +24,7 @@ include_once 'include/Webservices/MassCreate.php';
 include_once 'include/Webservices/Delete.php';
 require_once 'include/Webservices/WebServiceErrorCode.php';
 
-class testWSMassCreate extends TestCase {
+class MassCreateTest extends TestCase {
 	/**
 	 * Method testMassCreateCorrect
 	 * @test

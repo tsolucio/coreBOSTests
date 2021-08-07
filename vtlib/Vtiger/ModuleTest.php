@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class vtlibModuleTest extends TestCase {
+class ModuleTest extends TestCase {
 
 	/**
 	 * Method testInstantiate

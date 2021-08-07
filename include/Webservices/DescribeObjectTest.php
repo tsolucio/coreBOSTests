@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testWSDescribe extends TestCase {
+class DescribeObjectTest extends TestCase {
 
 	private $asset = array(
 		'label' => 'Assets',
@@ -1094,10 +1094,11 @@ class testWSDescribe extends TestCase {
 	/**
 	 * Method testemptymodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testemptymodule() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		vtws_describe('', $current_user);
@@ -1106,9 +1107,10 @@ class testWSDescribe extends TestCase {
 	/**
 	 * Method testnopermissiononemodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnopermissiononemodule() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
 		$this->expectException(WebServiceException::class);

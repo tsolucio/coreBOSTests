@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/validation/Validations.php';
 
-class testCustomValidations extends TestCase {
+class ValidationsTest extends TestCase {
 
 	/**
 	 * Method validateRelatedModuleExistsProvider

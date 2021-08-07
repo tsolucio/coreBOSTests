@@ -20,7 +20,7 @@
 include_once 'modules/com_vtiger_workflow/expression_functions/cbexpSQL.php';
 use PHPUnit\Framework\TestCase;
 
-class workflowfunctionsdatetimeTest extends TestCase {
+class datetimeTest extends TestCase {
 	/****
 	 * TEST Users decimal configuration
 	 * name format is: {decimal_separator}{symbol_position}{grouping}{grouping_symbol}{currency}

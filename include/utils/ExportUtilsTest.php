@@ -21,7 +21,7 @@
 include_once 'include/utils/ExportUtils.php';
 use PHPUnit\Framework\TestCase;
 
-class testExportUtils extends TestCase {
+class ExportUtilsTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

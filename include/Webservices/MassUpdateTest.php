@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/MassUpdate.php';
 
-class testWSMassUpdate extends TestCase {
+class MassUpdateTest extends TestCase {
 
 	/**
 	 * Method testMassUpdate

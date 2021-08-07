@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/getBusinessActions.php';
 
-class testWSgetBusinessActions extends TestCase {
+class getBusinessActionsTest extends TestCase {
 
 	private function stripLinkID($array) {
 		foreach ($array as $types => $tinfo) {
@@ -333,7 +333,6 @@ class testWSgetBusinessActions extends TestCase {
 	/**
 	 * Method testactormodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testactormodule() {
 		global $current_user;
@@ -345,7 +344,6 @@ class testWSgetBusinessActions extends TestCase {
 	/**
 	 * Method testnonentitymodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnonentitymodule() {
 		global $current_user;
@@ -357,7 +355,6 @@ class testWSgetBusinessActions extends TestCase {
 	/**
 	 * Method testemptymodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testemptymodule() {
 		global $current_user;
@@ -369,7 +366,6 @@ class testWSgetBusinessActions extends TestCase {
 	/**
 	 * Method testinexistentmodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinexistentmodule() {
 		global $current_user;
@@ -381,7 +377,6 @@ class testWSgetBusinessActions extends TestCase {
 	/**
 	 * Method testnopermissionmodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnopermissionmodule() {
 		$user = new Users();
@@ -394,7 +389,6 @@ class testWSgetBusinessActions extends TestCase {
 	/**
 	 * Method testnotpermittedmoduledetail
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnotpermittedmoduledetail() {
 		global $current_user;

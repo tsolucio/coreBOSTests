@@ -19,10 +19,10 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testVtlibNetClient extends TestCase {
+class NetClientTest extends TestCase {
 	private static $netURL = '';
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		global $site_URL;
 		self::$netURL = $site_URL.'/webservice.php';
 	}

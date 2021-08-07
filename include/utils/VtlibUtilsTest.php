@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testVtlibUtils extends TestCase {
+class VtlibUtilsTest extends TestCase {
 
 	/**
 	 * Method vtlib_purifyProvider

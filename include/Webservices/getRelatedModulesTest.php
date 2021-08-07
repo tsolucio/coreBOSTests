@@ -517,7 +517,6 @@ class getRelatedModulesTest extends TestCase {
 	/**
 	 * Method testactormodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testactormodule() {
 		global $current_user;
@@ -529,7 +528,6 @@ class getRelatedModulesTest extends TestCase {
 	/**
 	 * Method testnonentitymodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnonentitymodule() {
 		global $current_user;
@@ -541,7 +539,6 @@ class getRelatedModulesTest extends TestCase {
 	/**
 	 * Method testemptymodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testemptymodule() {
 		global $current_user;
@@ -553,7 +550,6 @@ class getRelatedModulesTest extends TestCase {
 	/**
 	 * Method testinexistentmodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinexistentmodule() {
 		global $current_user;
@@ -565,7 +561,6 @@ class getRelatedModulesTest extends TestCase {
 	/**
 	 * Method testnopermissionmodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnopermissionmodule() {
 		$user = new Users();

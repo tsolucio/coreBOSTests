@@ -500,10 +500,11 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 	/**
 	 * Method testgetWorkflowQueryMathExceptionOnEqual
 	 * @test
-	 * @expectedException Exception
 	 */
 	public function testgetWorkflowQueryMathExceptionOnEqual() {
 		global $adb, $currentModule;
+		$this->expectException(Exception::class);
+		//$this->expectExceptionCode('INVALID_MODULE');
 		$currentModule = 'Invoice';
 		$workflowScheduler = new WorkFlowScheduler($adb);
 		$workflow = new Workflow();

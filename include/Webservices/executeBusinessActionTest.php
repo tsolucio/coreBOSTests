@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/executeBusinessAction.php';
 
-class testWSexecuteBusinessAction extends TestCase {
+class executeBusinessActionTest extends TestCase {
 
 	/**
 	 * Method testBusinessAction
@@ -53,10 +53,11 @@ class testWSexecuteBusinessAction extends TestCase {
 	/**
 	 * Method testinvalidjsoncontext
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidjsoncontext() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
 		executeBusinessAction('41x43061', '{wrong:json', $current_user);
@@ -65,10 +66,11 @@ class testWSexecuteBusinessAction extends TestCase {
 	/**
 	 * Method testinvalidjsoncontextid
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidjsoncontextid() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
 		executeBusinessAction('41x43061', '{"wrong":"json"}', $current_user);
@@ -77,10 +79,11 @@ class testWSexecuteBusinessAction extends TestCase {
 	/**
 	 * Method testinvalidjsoncontextidinside
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidjsoncontextidinside() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
 		executeBusinessAction('41x43061', '{"RECORD":"json"}', $current_user);
@@ -89,10 +92,11 @@ class testWSexecuteBusinessAction extends TestCase {
 	/**
 	 * Method testinvalidID
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidID() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
 		executeBusinessAction('41x43044', '{"RECORD":"notnumeric","MODE":"DETAILVIEW"}', $current_user);
@@ -101,10 +105,11 @@ class testWSexecuteBusinessAction extends TestCase {
 	/**
 	 * Method testinvalidactiontype
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidactiontype() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALID_PARAMETER);
 		executeBusinessAction('41x43044', '{"RECORD":"11x74","MODE":"DETAILVIEW"}', $current_user);

@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 global$Vtiger_Utils_Log;
 $Vtiger_Utils_Log = false;
 
-class vtlibLinkTest extends TestCase {
+class LinkTest extends TestCase {
 
 	/**
 	 * Method testgetAllByType
@@ -79,7 +79,7 @@ class vtlibLinkTest extends TestCase {
 		$module_contacts = Vtiger_Module::getInstance('Contacts');
 		$expectedLinks = $module_contacts->getLinks();
 		usort($expectedLinks, function ($a, $b) {
-			return $a->linkid > $b->linkid;
+			return ($a->linkid > $b->linkid ? 1 : ($a->linkid == $b->linkid ? 0 : -1));
 		});
 		// Link attributes
 		$tabid = getTabid('Contacts');
@@ -97,7 +97,7 @@ class vtlibLinkTest extends TestCase {
 		$module_contacts->addLink($linktype, $linklabel, $linkurl);
 		$actualLinks = $module_contacts->getLinks();
 		usort($actualLinks, function ($a, $b) {
-			return $a->linkid > $b->linkid;
+			return ($a->linkid > $b->linkid ? 1 : ($a->linkid == $b->linkid ? 0 : -1));
 		});
 
 		// Getting linkid

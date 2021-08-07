@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class workflowfunctionsstringsTest extends TestCase {
+class stringsTest extends TestCase {
 
 	/**
 	 * Method teststringfunctions

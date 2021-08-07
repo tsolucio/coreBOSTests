@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testcbmqtm_dbdistributor extends TestCase {
+class cbmqtm_dbdistributorTest extends TestCase {
 
 	/**
 	 * Method testgetInstance

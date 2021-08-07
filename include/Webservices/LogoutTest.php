@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 include_once 'include/Webservices/Logout.php';
 require_once 'include/Webservices/WebServiceErrorCode.php';
 
-class testWSLogout extends TestCase {
+class LogoutTest extends TestCase {
 
 	/**
 	 * Method testlogoutValid

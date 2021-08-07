@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class workflowfunctionsapplicationTest extends TestCase {
+class applicationTest extends TestCase {
 
 	/**
 	 * Method testevaluateRule

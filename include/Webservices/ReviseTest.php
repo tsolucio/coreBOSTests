@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/Delete.php';
 
-class WSReviseTest extends TestCase {
+class ReviseTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration

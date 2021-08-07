@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/MassRetrieve.php';
 
-class testWSMassRetrieve extends TestCase {
+class MassRetrieveTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
@@ -562,7 +562,6 @@ class testWSMassRetrieve extends TestCase {
 	/**
 	 * Method testMixedWithActor
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testMixedWithActor() {
 		global $current_user;

@@ -19,11 +19,11 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testOperationManagerEnDecode extends TestCase {
+class OperationManagerEnDecodeTest extends TestCase {
 
 	protected static $omEDjson;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		self::$omEDjson = new OperationManagerEnDecode();
 	}
 

@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testInventoryUtils extends TestCase {
+class InventoryUtilsTest extends TestCase {
 
 	/**
 	 * Method testgetPricesForProducts

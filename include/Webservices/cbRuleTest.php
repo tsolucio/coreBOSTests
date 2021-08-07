@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/cbRule.php';
 
-class testWScoreBOSRule extends TestCase {
+class cbRuleTest extends TestCase {
 
 	/**
 	 * Method testrule
@@ -42,10 +42,11 @@ class testWScoreBOSRule extends TestCase {
 	/**
 	 * Method testinvalidmoduleexception
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidmoduleexception() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		cbws_cbRule('11x74', array(), $current_user);
@@ -54,10 +55,11 @@ class testWScoreBOSRule extends TestCase {
 	/**
 	 * Method testinvalidmapnameexceptionnotexist
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidmapnameexceptionnotexist() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		cbws_cbRule('map does not exist', array(), $current_user);
@@ -66,10 +68,11 @@ class testWScoreBOSRule extends TestCase {
 	/**
 	 * Method testinvalidcbuuidmapnameexception
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinvalidcbuuidmapnameexception() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		cbws_cbRule('0123456789012345678901234567890123456789', array(), $current_user);
@@ -78,10 +81,11 @@ class testWScoreBOSRule extends TestCase {
 	/**
 	 * Method testReadExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReadExceptionNoPermission() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
@@ -99,10 +103,11 @@ class testWScoreBOSRule extends TestCase {
 	/**
 	 * Method testInvalidContextException
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidContextException() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
 		try {
@@ -115,10 +120,11 @@ class testWScoreBOSRule extends TestCase {
 	/**
 	 * Method testInvalidIDExceptionMissingrecord
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testInvalidIDExceptionMissingrecord() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
 		try {

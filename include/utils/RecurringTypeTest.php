@@ -46,7 +46,7 @@ class testRecurringType extends TestCase {
 					'repeat_frequency' => '1',
 				);
 
-	public function setup() {
+	public function setup(): void {
 		$darr = array('day' => 1, 'month' => 1, 'year' => 2016);
 		$this->dateObj[1] = new vt_DateTime($darr, true);
 		$darr = array('day' => 15, 'month' => 1, 'year' => 2016);

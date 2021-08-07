@@ -25,7 +25,7 @@ The only difference is that REVISE does not require the presence of mandatory fi
 
 use PHPUnit\Framework\TestCase;
 
-class WSRetrieveUpdateReviseTest extends TestCase {
+class RetrieveUpdateReviseTest extends TestCase {
 
 	/****
 	 * TEST Users decimal configuration
@@ -170,7 +170,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testRetrieveExceptionNoAccessRecord
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testRetrieveExceptionNoAccessRecord() {
 		global $current_user;
@@ -192,7 +191,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testRetrieveExceptionNoAccessModule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testRetrieveExceptionNoAccessModule() {
 		global $current_user;
@@ -214,7 +212,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testRetrieveExceptionEmptyID
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testRetrieveExceptionEmptyID() {
 		global $current_user;
@@ -666,10 +663,11 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testUpdateExceptionInvalidImage
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testUpdateExceptionInvalidImage() {
 		global $current_user, $adb;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$current_user = Users::getActiveAdminUser();
 		$ctoID = vtws_getEntityId('Contacts');
 		$beforeCto = vtws_retrieve($ctoID.'x1561', $current_user);
@@ -692,7 +690,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testUpdateExceptionMissingFields
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testUpdateExceptionMissingFields() {
 		global $current_user;
@@ -722,7 +719,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testUpdateExceptionNoAccessRecord
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testUpdateExceptionNoAccessRecord() {
 		global $current_user;
@@ -744,7 +740,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testUpdateExceptionNoAccessModule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testUpdateExceptionNoAccessModule() {
 		global $current_user;
@@ -766,7 +761,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testUpdateExceptionEmptyID
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testUpdateExceptionEmptyID() {
 		global $current_user;
@@ -1105,7 +1099,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testReviseExceptionNoAccessRecord
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReviseExceptionNoAccessRecord() {
 		global $current_user;
@@ -1127,7 +1120,6 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testReviseExceptionNoAccessModule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReviseExceptionNoAccessModule() {
 		global $current_user;
@@ -1149,10 +1141,11 @@ class WSRetrieveUpdateReviseTest extends TestCase {
 	/**
 	 * Method testReviseExceptionEmptyID
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testReviseExceptionEmptyID() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$this->expectException(WebServiceException::class);
 		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
 		vtws_revise(array('f1'=>'v1', 'f2'=>'v2', 'f3'=>'v3'), $current_user);

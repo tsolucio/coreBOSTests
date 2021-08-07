@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/getentitynum.php';
 
-class testgetentitynumwsmethod extends TestCase {
+class getentitynumTest extends TestCase {
 
 	/**
 	 * Method testgetentitynum

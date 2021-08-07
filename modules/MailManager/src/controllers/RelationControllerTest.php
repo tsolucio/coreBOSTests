@@ -22,7 +22,7 @@ include_once 'modules/MailManager/src/controllers/RelationController.php';
 
 use PHPUnit\Framework\TestCase;
 
-class testMailManager_RelationController extends TestCase {
+class MailManagerRelationControllerTest extends TestCase {
 
 	/**
 	 * Method getbuildSearchQueryProvider

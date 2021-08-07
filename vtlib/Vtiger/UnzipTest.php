@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testVtlibUnzip extends TestCase {
+class UnzipTest extends TestCase {
 	private static $zipFile = __DIR__ . '/cbLoginHistory.zip';
 
 	/**

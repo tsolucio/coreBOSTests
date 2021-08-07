@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class WSCreateEditTest extends TestCase {
+class CreateEditTest extends TestCase {
 
 	public $usrnocreate = 11; // nocreate > special profile
 
@@ -56,10 +56,11 @@ class WSCreateEditTest extends TestCase {
 	 * Method testEditExceptionNoPermission
 	 * @test
 	 * @depends testCreateWithNoEditPermission
-	 * @expectedException WebServiceException
 	 */
 	public function testEditExceptionNoPermission() {
 		global $current_user, $adb;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrnocreate);
@@ -82,10 +83,11 @@ class WSCreateEditTest extends TestCase {
 	/**
 	 * Method testCreateExceptionNoPermission
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testCreateExceptionNoPermission() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$holduser = $current_user;
 		$user = new Users();
 		///  nocreate

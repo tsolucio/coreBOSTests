@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testBooleanField extends TestCase {
+class BooleanFieldTest extends TestCase {
 
 	/**
 	 * Method testgetBooleanDisplayValue

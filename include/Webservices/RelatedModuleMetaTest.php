@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/RelatedModuleMeta.php';
 
-class testWSRelatedModuleMeta extends TestCase {
+class RelatedModuleMetaTest extends TestCase {
 
 	/**
 	 * Method testState

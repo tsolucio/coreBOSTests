@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/getRelatedRecordsThroughModule.php';
 
-class testWSgetRelatedRecordsThroughModule extends TestCase {
+class getRelatedRecordsThroughModuleTest extends TestCase {
 
 	/**
 	 * Method testProductsInventory

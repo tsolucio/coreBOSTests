@@ -43,47 +43,47 @@ class cbRuleTest extends TestCase {
 	/**
 	 * Method testExceptionAccessDeniedInvalidID
 	 * @test
-	 * @expectedException WebServiceException
-	 * @expectedExceptionCode ACCESS_DENIED
 	 */
 	public function testExceptionAccessDeniedInvalidID() {
-		$rule = coreBOS_Rule::evaluate(27078, 'aaa1x1bbb');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('ACCESS_DENIED');
+		coreBOS_Rule::evaluate(27078, 'aaa1x1bbb');
 	}
 
 	/**
 	 * Method testExceptionAccessDenied
 	 * @test
-	 * @expectedException WebServiceException
-	 * @expectedExceptionCode ACCESS_DENIED
 	 */
 	public function testExceptionAccessDenied() {
 		global $current_user;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('ACCESS_DENIED');
 		$holduser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(7); // testymd
 		$current_user = $user;
-		$rule = coreBOS_Rule::evaluate(27078, '14x2616');
+		coreBOS_Rule::evaluate(27078, '14x2616');
 		$current_user = $holduser;
 	}
 
 	/**
 	 * Method testExceptionInvalidBMNonExistent
 	 * @test
-	 * @expectedException WebServiceException
-	 * @expectedExceptionCode INVALID_BUSINESSMAP
 	 */
 	public function testExceptionInvalidBMNonExistent() {
-		$rule = coreBOS_Rule::evaluate(1, '11x74');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_BUSINESSMAP');
+		coreBOS_Rule::evaluate(1, '11x74');
 	}
 
 	/**
 	 * Method testExceptionInvalidBMIncorrectType
 	 * @test
-	 * @expectedException WebServiceException
-	 * @expectedExceptionCode INVALID_BUSINESSMAP
 	 */
 	public function testExceptionInvalidBMIncorrectType() {
-		$rule = coreBOS_Rule::evaluate(34030, '11x74');
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_BUSINESSMAP');
+		coreBOS_Rule::evaluate(34030, '11x74');
 	}
 
 	/**

@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testduplicate extends TestCase {
+class duplicateTest extends TestCase {
 
 	/**
 	 * Method getUIType10DependentModulesProvider

@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testCommonUtilsgetRAC extends TestCase {
+class CommonUtilsgetRACTest extends TestCase {
 
 	private $Accountsresults = array(
 		'74' => '74',

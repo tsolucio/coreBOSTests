@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/State.php';
 
-class testWSState extends TestCase {
+class StateTest extends TestCase {
 
 	/**
 	 * Method testState

@@ -23,7 +23,7 @@
  */
 use PHPUnit\Framework\TestCase;
 
-class testUserInfoUtil_isPermittedTest extends TestCase {
+class UserInfoUtil_isPermittedTest extends TestCase {
 
 	/****
 	 * TEST Users

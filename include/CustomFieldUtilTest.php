@@ -20,7 +20,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class testCustomFieldUtil extends TestCase {
+class CustomFieldUtilTest extends TestCase {
 
 	/**
 	 * Method getCustomFieldTypeNameProvider

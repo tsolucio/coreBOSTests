@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class vtlibMenuTest extends TestCase {
+class MenuTest extends TestCase {
 
 	/**
 	 * Method testInitialize

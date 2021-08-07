@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testVTCacheUtils extends TestCase {
+class VTCacheUtilsTest extends TestCase {
 
 	/**
 	 * Method testlookupFieldInfo_Module

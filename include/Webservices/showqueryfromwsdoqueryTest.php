@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/showqueryfromwsdoquery.php';
 
-class testWSshowqueryfromwsdoquery extends TestCase {
+class showqueryfromwsdoqueryTest extends TestCase {
 
 	/**
 	 * Method testshowquery
@@ -43,7 +43,6 @@ class testWSshowqueryfromwsdoquery extends TestCase {
 	/**
 	 * Method testinexistentfield
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinexistentfield() {
 		global $current_user;
@@ -55,7 +54,6 @@ class testWSshowqueryfromwsdoquery extends TestCase {
 	/**
 	 * Method testinexistentmodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testinexistentmodule() {
 		global $current_user;
@@ -67,7 +65,6 @@ class testWSshowqueryfromwsdoquery extends TestCase {
 	/**
 	 * Method testnopermissionmodule
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testnopermissionmodule() {
 		$user = new Users();

@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'modules/com_vtiger_workflow/VTSimpleTemplateOnData.inc';
 
-class VTSimpleTemplateOnDataOnDataTest extends TestCase {
+class VTSimpleTemplateOnDataTest extends TestCase {
 
 	/**
 	 * Method testRender
@@ -102,9 +102,10 @@ class VTSimpleTemplateOnDataOnDataTest extends TestCase {
 	/**
 	 * Method testMetaExceptionOnRelated
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testMetaExceptionOnRelated() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('ACCESS_DENIED');
 		$entityId = '12x1607';
 		$userId = '19x6'; // testmdy
 		$data = array(

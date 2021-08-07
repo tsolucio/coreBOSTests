@@ -32,7 +32,7 @@ class VtigerModuleOperation_QueryTest extends TestCase {
 		return substr($query, 0, 6).' '.$cols.substr($query, stripos($query, ' from '));
 	}
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass(): void {
 		global $adb, $current_user, $log;
 		$current_user = Users::getActiveAdminUser();
 		$webserviceObject = VtigerWebserviceObject::fromName($adb, 'Accounts');

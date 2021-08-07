@@ -22,7 +22,7 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/GetTranslation.php';
 
-class getTranslationTest extends TestCase {
+class GetTranslationTest extends TestCase {
 
 	/**
 	 * Method gettranslationProvider

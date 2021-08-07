@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class testListViewUtils extends TestCase {
+class ListViewUtilsTest extends TestCase {
 
 	/****
 	 * TEST Users

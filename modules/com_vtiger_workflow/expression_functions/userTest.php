@@ -19,7 +19,7 @@
  *************************************************************************************************/
 use PHPUnit\Framework\TestCase;
 
-class workflowfunctionsuserTest extends TestCase {
+class userTest extends TestCase {
 
 	/**
 	 * Method testGetUserIDandName

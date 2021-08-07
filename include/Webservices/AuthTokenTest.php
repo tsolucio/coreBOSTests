@@ -22,23 +22,25 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/AuthToken.php';
 
-class testWSAuthToken extends TestCase {
+class AuthTokenTest extends TestCase {
 
 	/**
 	 * Method testchallengewrong
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testchallengewrong() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		vtws_getchallenge('user_does_not_exist');
 	}
 
 	/**
 	 * Method testchallengeempty
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testchallengeempty() {
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		vtws_getchallenge('');
 	}
 

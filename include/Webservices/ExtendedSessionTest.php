@@ -22,15 +22,16 @@ use PHPUnit\Framework\TestCase;
 
 include_once 'include/Webservices/ExtendSession.php';
 
-class testWSExtendSession extends TestCase {
+class ExtendedSessionTest extends TestCase {
 
 	/**
 	 * Method testNoSession
 	 * @test
-	 * @expectedException WebServiceException
 	 */
 	public function testNoSession() {
 		global $application_unique_key;
+		$this->expectException(WebServiceException::class);
+		$this->expectExceptionCode('INVALID_MODULE');
 		$hid = isset($_SESSION['authenticated_user_id']) ? $_SESSION['authenticated_user_id'] : null;
 		unset($_SESSION['app_unique_key'], $_SESSION['authenticated_user_id']);
 		$this->expectException(WebServiceException::class);
