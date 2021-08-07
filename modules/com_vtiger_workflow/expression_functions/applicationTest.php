@@ -107,5 +107,30 @@ class applicationTest extends TestCase {
 		$this->assertEquals(1094, __cb_getidof(array('Contacts', 'mobile', '561-951-9734')), 'contacts');
 		$this->assertEquals(0, __cb_getidof(array('Contacts', 'mobile', 'does not exist')), 'contacts');
 	}
+
+	/**
+	 * Method testgetrelatedids
+	 * @test
+	 */
+	public function testgetrelatedids() {
+		global $current_user;
+		$entityCache = new VTEntityCache($current_user);
+		$entityData = $entityCache->forId('11x74');
+		$params = array('Contacts', $entityData);
+		$expected = array('12x1084', '12x1086', '12x1088', '12x1090', '12x1092', '12x1094');
+		$this->assertEquals($expected, __cb_getrelatedids($params), 'accounts > contacts');
+		$params = array('SalesOrder', $entityData);
+		$expected = array('6x10746');
+		$this->assertEquals($expected, __cb_getrelatedids($params), 'accounts > SalesOrder');
+		$params = array('cbCalendar', $entityData);
+		$expected = array();
+		$this->assertEquals($expected, __cb_getrelatedids($params), 'accounts > cbCalendar');
+		$params = array('NonExistent', $entityData);
+		$expected = array();
+		$this->assertEquals($expected, __cb_getrelatedids($params), 'accounts > NonExistent');
+		$params = array('', $entityData);
+		$expected = array();
+		$this->assertEquals($expected, __cb_getrelatedids($params), 'accounts > empty');
+	}
 }
 ?>
