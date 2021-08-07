@@ -3,3 +3,4 @@
 /xhgui/tags
 /xhgui/cache
 node_modules
+.phpunit.result.cache

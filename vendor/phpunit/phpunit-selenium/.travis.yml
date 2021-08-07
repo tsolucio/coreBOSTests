@@ -1,8 +1,8 @@
 language: php
-dist: trusty
+dist: xenial
 php:
-  - 7
-  - 7.1
+  - 7.3
+  - 7.4
 
 matrix:
     allow_failures:

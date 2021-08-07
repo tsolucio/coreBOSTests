@@ -1,4 +1,7 @@
 <?php
+
+namespace Tests\Selenium2TestCase;
+
 /**
  * PHPUnit
  *
@@ -40,6 +43,8 @@
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  */
+
+use PHPUnit\Extensions\Selenium2TestCase\URL;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -49,7 +54,7 @@ use PHPUnit\Framework\TestCase;
  * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
  * @link       http://www.phpunit.de/
  */
-class Extensions_Selenium2TestCase_URLTest extends TestCase
+class URLTest extends TestCase
 {
     public function testDescendsAnURLWithAnAdditionalFolder()
     {
@@ -92,13 +97,13 @@ class Extensions_Selenium2TestCase_URLTest extends TestCase
 
     private function assertURLEquals($expected, $actual)
     {
-        $this->assertInstanceOf('PHPUnit_Extensions_Selenium2TestCase_URL', $expected);
-        $this->assertInstanceOf('PHPUnit_Extensions_Selenium2TestCase_URL', $actual);
+        $this->assertInstanceOf(URL::class, $expected);
+        $this->assertInstanceOf(URL::class, $actual);
         $this->assertEquals($expected, $actual);
     }
 
     private function url($value)
     {
-        return new PHPUnit_Extensions_Selenium2TestCase_URL($value);
+        return new URL($value);
     }
 }

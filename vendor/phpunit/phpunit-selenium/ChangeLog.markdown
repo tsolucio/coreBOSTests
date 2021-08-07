@@ -3,6 +3,23 @@ PHPUnit_Selenium
 
 This is the list of changes made to PHPUnit_Selenium.
 
+PHPUnit_Selenium 9.0.0
+----------------------
+
+* Add support for PHPUnit 9 (and drop support for 8.x)
+
+
+PHPUnit_Selenium 8.0.0
+----------------------
+
+* Add support for PHPUnit 8 (and drop support for 7.x)
+* Change all classes to use PSR-4
+
+PHPUnit_Selenium 7.0.1
+----------------------
+
+* #435 Change version number
+
 PHPUnit_Selenium 7.0.0
 ----------------------
 
