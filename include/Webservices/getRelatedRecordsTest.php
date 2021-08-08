@@ -621,8 +621,8 @@ class getRelatedRecordsTest extends TestCase {
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($userid);
 		$current_user = $user;
-		$actual = getRelatedRecords($id, $module, $relatedModule, $queryParameters, $current_user);
-		$this->assertEqualsCanonicalizing($expected, $actual, $msg);
+		$actual = array_multisort(getRelatedRecords($id, $module, $relatedModule, $queryParameters, $current_user));
+		$this->assertEquals(array_multisort($expected), $actual, $msg);
 		$current_user = $holduser;
 	}
 

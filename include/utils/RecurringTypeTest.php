@@ -281,7 +281,7 @@ class RecurringTypeTest extends TestCase {
 		$recurring_data['starttime'] = $startTime;
 		$recurring_data['enddate'] = $endDate;
 		$recurring_data['endtime'] = $endTime;
-
+		$recurring_data['dayofweek_to_repeat'] = array();
 		$recurring_data['type'] = $rtsetup['recurringtype'];
 		if ($rtsetup['recurringtype'] == 'Weekly') {
 			if (isset($rtsetup['sun_flag']) && $rtsetup['sun_flag'] != null) {
@@ -317,7 +317,7 @@ class RecurringTypeTest extends TestCase {
 				}
 			} elseif ($recurring_data['repeatmonth_type'] == 'day') {
 				$recurring_data['repeatmonth_daytype'] = vtlib_purify($rtsetup['repeatMonth_daytype']);
-				$rdm = (isset($rtsetup['repeatMonth_day']) ? $rtsetup['repeatMonth_day'] : '');
+				$rdm = (isset($rtsetup['repeatMonth_day']) ? $rtsetup['repeatMonth_day'] : 0);
 				switch ($rdm) {
 					case 0:
 						$recurring_data['sun_flag'] = true;
@@ -338,6 +338,7 @@ class RecurringTypeTest extends TestCase {
 						$recurring_data['fri_flag'] = true;
 						break;
 					case 6:
+					default:
 						$recurring_data['sat_flag'] = true;
 						break;
 				}
@@ -346,7 +347,6 @@ class RecurringTypeTest extends TestCase {
 		if (isset($rtsetup['repeat_frequency']) && $rtsetup['repeat_frequency'] != null) {
 			$recurring_data['repeat_frequency'] = $rtsetup['repeat_frequency'];
 		}
-		$recurObj = RecurringType::fromUserRequest($recurring_data);
-		return $recurObj;
+		return RecurringType::fromUserRequest($recurring_data);
 	}
 }

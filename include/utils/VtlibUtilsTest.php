@@ -134,6 +134,10 @@ class VtlibUtilsTest extends TestCase {
 			array('EtiquetasOO', true),
 			array('SMSNotifier', false),
 			array('cbAuditTrail', true),
+			array('InexistentModule', false),
+			array('', false),
+			array(0, false),
+			array(6, false),
 		);
 	}
 
