@@ -287,16 +287,28 @@ class tstDateTimeField extends TestCase {
 	public function testdollarsignFilterForEmptyDates() {
 		$dt = new DateTimeField('$');
 		$dt1 = new DateTimeField('--$');
+		$dt2 = new DateTimeField('$--');
 		// Format yyyy-mm-dd'
 		$actual = $dt->__convertToDBFormat('$', 'yyyy-mm-dd');
 		$this->assertEquals('--$', $actual);
 		$actual = $dt1->__convertToDBFormat('--$', 'yyyy-mm-dd');
 		$this->assertEquals('--$', $actual);
-		// Format dd-mm-yyyy or empty'
+		$actual = $dt2->__convertToDBFormat('$--', 'yyyy-mm-dd');
+		$this->assertEquals('$--', $actual);
+		//Format dd-mm-yyyy
 		$actual = $dt->__convertToDBFormat('$', 'dd-mm-yyyy');
 		$this->assertEquals('$--', $actual);
 		$actual = $dt1->__convertToDBFormat('--$', 'dd-mm-yyyy');
 		$this->assertEquals('$--', $actual);
+		$actual = $dt2->__convertToDBFormat('$--', 'dd-mm-yyyy');
+		$this->assertEquals('--$', $actual);
+		// Format mm-dd-yyyy
+		$actual = $dt->__convertToDBFormat('$', 'mm-dd-yyyy');
+		$this->assertEquals('$--', $actual);
+		$actual = $dt1->__convertToDBFormat('--$', 'mm-dd-yyyy');
+		$this->assertEquals('$--', $actual);
+		$actual = $dt2->__convertToDBFormat('$--', 'mm-dd-yyyy');
+		$this->assertEquals('-$-', $actual);
 	}
 
 	/**
