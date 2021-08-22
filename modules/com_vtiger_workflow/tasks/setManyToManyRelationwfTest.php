@@ -63,4 +63,57 @@ class setManyToManyRelationwfTest extends TestCase {
 		// Teardown
 		$util->revertUser();
 	}
+
+	/**
+	 * Method testsetMMwithContextRecord
+	 * @test
+	 */
+	public function testsetMMwithContextRecord() {
+		global $adb, $current_user;
+		$entityId = '12x2021';
+		$crmId = 2021;
+		$crmId2 = 2022;
+		// we make sure there are no related products
+		$adb->pquery('delete from vtiger_seproductsrel where crmid=?', array($crmId));
+		$adb->pquery('delete from vtiger_seproductsrel where crmid=?', array($crmId2));
+		// now we launch the task
+		$util = new VTWorkflowUtils();
+		$adminUser = $util->adminUser();
+		$current_user = $adminUser;
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$task = new setManyToManyRelationwf();
+		$task->relAction = 'addrel';
+		$task->idlist = '2619,2620';
+		$entity->WorkflowContext['SetManyToManyRelation_Record'] = $crmId2;
+		$task->doTask($entity);
+		$rs = $adb->pquery('select 1 from vtiger_seproductsrel where crmid=?', array($crmId));
+		$this->assertEquals(0, $adb->num_rows($rs), 'Task set related');
+		$rs = $adb->pquery('select 1 from vtiger_seproductsrel where crmid=?', array($crmId2));
+		$this->assertEquals(2, $adb->num_rows($rs), 'Task set related');
+		$task->relAction = 'delrel';
+		$entity->WorkflowContext['SetManyToManyRelation_Record'] = $crmId2;
+		$task->doTask($entity);
+		$rs = $adb->pquery('select 1 from vtiger_seproductsrel where crmid=?', array($crmId));
+		$this->assertEquals(0, $adb->num_rows($rs), 'Task del related');
+		$rs = $adb->pquery('select 1 from vtiger_seproductsrel where crmid=?', array($crmId2));
+		$this->assertEquals(0, $adb->num_rows($rs), 'Task del related');
+		$task->relAction = 'addrel';
+		$entity->WorkflowContext['SetManyToManyRelation_Records'] = '2619,2620,2621';
+		$entity->WorkflowContext['SetManyToManyRelation_Record'] = $crmId2;
+		$task->doTask($entity);
+		$rs = $adb->pquery('select 1 from vtiger_seproductsrel where crmid=?', array($crmId));
+		$this->assertEquals(0, $adb->num_rows($rs), 'Task del related');
+		$rs = $adb->pquery('select 1 from vtiger_seproductsrel where crmid=?', array($crmId2));
+		$this->assertEquals(3, $adb->num_rows($rs), 'Task set related');
+		$task->relAction = 'delAllrel';
+		unset($entity->WorkflowContext['SetManyToManyRelation_Records']);
+		$task->idlist = '2619';
+		$task->doTask($entity);
+		$rs = $adb->pquery('select 1 from vtiger_seproductsrel where crmid=?', array($crmId));
+		$this->assertEquals(0, $adb->num_rows($rs), 'Task del all related');
+		$rs = $adb->pquery('select 1 from vtiger_seproductsrel where crmid=?', array($crmId2));
+		$this->assertEquals(0, $adb->num_rows($rs), 'Task set related');
+		// Teardown
+		$util->revertUser();
+	}
 }
