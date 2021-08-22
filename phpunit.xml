@@ -183,7 +183,6 @@
 			<file>../../modules/CustomView/Delete.php</file>
 			<file>../../modules/CustomView/EditView.php</file>
 			<file>../../modules/CustomView/ListViewTop.php</file>
-			<file>../../modules/CustomView/PopulateCustomView.php</file>
 			<file>../../modules/CustomView/Save.php</file>
 			<file>../../modules/Documents/BasicSettings.php</file>
 			<file>../../modules/Documents/DeleteFolder.php</file>
@@ -317,6 +316,7 @@
 			<file>../../include/Webservices/SessionManager.php</file>
 			<file>../../include/Webservices/VtigerCRMZendeskMeta.php</file>
 			<file>../../include/Webservices/VtigerZendeskOperation.php</file>
+			<file>../../modules/CustomView/PopulateCustomView.php</file>
 			<file>../../modules/Reports/index.php</file>
 			<file>../../modules/Reports/ReportsAjax.php</file>
 			<file>../../modules/Tooltip/index.php</file>
