@@ -410,6 +410,9 @@ class PearDatabaseTest extends TestCase {
 	 */
 	public function test_getAffectedRowCount($adb, $result) {
 		$this->assertEquals(5, $adb->getAffectedRowCount($result));
+		$result = $adb->query('select 1 from vtiger_crmentity limit 10');
+		$this->assertEquals(10, $adb->getAffectedRowCount($result));
+		//$this->assertFalse($adb->getAffectedRowCount($result));
 	}
 
 	/**
