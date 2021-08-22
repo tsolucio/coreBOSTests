@@ -226,6 +226,18 @@ class PearDatabaseTest extends TestCase {
 	}
 
 	/**
+	 * @depends testObjectType
+	 * @depends test_pquery
+	 */
+	public function testrowGenerator() {
+		global $adb;
+		$rs = $adb->pquery('select accountid from vtiger_account where accountid in (?,?);', array(74, 75));
+		$this->assertEquals([74, 'accountid' => 74], $adb->rowGenerator($rs)->current());
+		$this->assertEquals([75, 'accountid' => 75], $adb->rowGenerator($rs)->current());
+		$this->assertNull($adb->rowGenerator($rs)->current());
+	}
+
+	/**
 	 * @dataProvider recordProvider
 	 * @depends testObjectType
 	 * @depends testConvert2Sql
