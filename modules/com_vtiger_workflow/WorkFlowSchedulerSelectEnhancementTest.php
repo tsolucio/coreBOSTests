@@ -780,6 +780,24 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 	}
 
 	/**
+	 * Method testexecuteSQL
+	 * @test
+	 */
+	public function testexecuteSQL() {
+		global $adb;
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Accounts';
+		$wfvals['test'] = '';
+		$wfvals['select_expressions'] = '[{"fieldname":"acc","operation":"is","value":"executeSQL(\'select accountname from vtiger_account where otherphone=?\',\'248-697-7722\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT (select accountname from vtiger_account where otherphone='248-697-7722') AS acc FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0";
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
 	 * Method testgetCRMIDFromWSID
 	 * @test
 	 */

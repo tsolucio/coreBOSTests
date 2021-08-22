@@ -131,6 +131,34 @@ class applicationTest extends TestCase {
 		$params = array('', $entityData);
 		$expected = array();
 		$this->assertEquals($expected, __cb_getrelatedids($params), 'accounts > empty');
+		///// any record relations
+		$params = array('HelpDesk', 943, $entityData);
+		$expected = array('17x2645');
+		$this->assertEquals($expected, __cb_getrelatedids($params), 'accounts > helpdesk');
+		$params = array('HelpDesk', 2105, $entityData);
+		$expected = array('17x2640');
+		$this->assertEquals($expected, __cb_getrelatedids($params), 'contacts > helpdesk');
+	}
+
+	/**
+	 * Method testexecuteSQL
+	 * @test
+	 */
+	public function testexecuteSQL() {
+		$params = array('select accountname from vtiger_account where otherphone=?', '248-697-7722');
+		$expected = array(['accountname' => 'Sebring & Co']);
+		$this->assertEquals($expected, __cb_executesql($params), 'accountname');
+		$params = array('select accountname,siccode from vtiger_account where accountname like "%Sebring%"');
+		$expected = array(
+			['accountname' => 'Sebring & Co', 'siccode' => ''],
+			['accountname' => 'Sebring & Co', 'siccode' => ''],
+		);
+		$this->assertEquals($expected, __cb_executesql($params), 'accountname');
+		$params = array('select accountname,siccode from vtiger_account where accountname like ? and email1=?', '%Sebring%', 'cherry@lietz.com');
+		$expected = array(
+			['accountname' => 'Sebring & Co', 'siccode' => ''],
+		);
+		$this->assertEquals($expected, __cb_executesql($params), 'accountname');
 	}
 }
 ?>
