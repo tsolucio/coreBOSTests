@@ -58,7 +58,61 @@ class applicationTest extends TestCase {
 	 * @test
 	 */
 	public function testgetfromcontextsearching() {
-		$this->assertTrue(true, 'tested in wfExecExpressionTest.php');
+		$this->assertTrue(true, 'tested also in wfExecExpressionTest.php');
+		global $current_user;
+		$entity = new VTWorkflowEntity($current_user, '11x74');
+		$values = array(
+			'one' => 1,
+			'two' => array(
+				['one' => 1, 'two' => 1, 'three' => 1,],
+				['one' => 2, 'two' => 2, 'three' => 2,],
+				['one' => 3, 'two' => 3, 'three' => 3,],
+			),
+			'three' => array(
+				['one' => 2, 'two' => 2, 'three' => 2,],
+			),
+		);
+		$entity->WorkflowContext = $values;
+		$param = array(
+			'notthere',
+			'',
+			'',
+			'',
+			$entity,
+		);
+		$this->assertEquals('', __cb_getfromcontextsearching($param));
+		$param = array(
+			'two',
+			'two',
+			3,
+			'three',
+			$entity,
+		);
+		$this->assertEquals(3, __cb_getfromcontextsearching($param));
+		$param = array(
+			'two',
+			'two',
+			1,
+			'three',
+			$entity,
+		);
+		$this->assertEquals(1, __cb_getfromcontextsearching($param));
+		$param = array(
+			'two',
+			'two',
+			4,
+			'three',
+			$entity,
+		);
+		$this->assertEquals('', __cb_getfromcontextsearching($param));
+		$param = array(
+			'two,three',
+			'two',
+			2,
+			'three',
+			$entity,
+		);
+		$this->assertEquals('{"two":2,"three":2}', __cb_getfromcontextsearching($param));
 	}
 
 	/**
