@@ -190,6 +190,12 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT SUBSTRING(HEX(CONCAT(NOW(), RAND(), UUID())), 1, 12) AS randomstringres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
+		//////////////////////
+		$wfvals['select_expressions'] = '[{"fieldname":"regexreplaceres","operation":"is","value":"regexreplace(\'[A-Z]+\', \'x\', \'subject\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT REGEXP_REPLACE(vtiger_invoice.subject,\'[A-Z]+\',\'x\') AS regexreplaceres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0';
+		$this->assertEquals($expected, $actual);
 	}
 
 	/**
