@@ -348,7 +348,7 @@ class ModTrackerOperationTest extends TestCase {
 					'label_raw' => 'fieldname',
 					'mandatory' => false,
 					'type' => array('name' => 'string'),
-					'nullable' => true,
+					'nullable' => false,
 					'editable' => true,
 				),
 				array(
