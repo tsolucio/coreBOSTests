@@ -584,6 +584,15 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 									from vtiger_cbtranslation
 									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
+		//////////////////////
+		$wfvals['select_expressions'] = '[{"fieldname":"subtimeres","operation":"is","value":"add_time(duedate , time_diff(get_date(\'time\'), modifiedtime ))","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT DATE_ADD(vtiger_invoice.duedate,INTERVAL timediff(CURTIME(),vtiger_crmentity.modifiedtime) MINUTE) AS subtimeres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_invoice.invoicestatus IN (
+									select translation_key
+									from vtiger_cbtranslation
+									where locale="en_us" and forpicklist="Invoice::invoicestatus" and i18n = \'Created\') OR vtiger_invoice.invoicestatus = \'Created\') )) AND vtiger_invoice.invoiceid > 0';
+		$this->assertEquals($expected, $actual);
 	}
 
 	/**
