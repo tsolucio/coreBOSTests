@@ -145,6 +145,20 @@ class aggregationTest extends TestCase {
 		$this->assertEquals(72100.000000, $actual);
 		$actual = __cb_aggregation(array('sum','Potentials','amount','[sales_stage,e,concat(\'Closed\',\' \', \'Lost\'),or,expression]',$entityData));
 		$this->assertEquals(72100.000000, $actual);
+		$entityData = $entityCache->forId('10x4196');
+		$actual = __cb_aggregation(array('sum','Leads','annualrevenue','[annualrevenue,e,annualrevenue]',$entityData));
+		$this->assertEquals(16379925.000000, $actual);
+		$actual = __cb_aggregation(array('sum','Leads','annualrevenue','[id,n,id]',$entityData));
+		$this->assertEquals(7902796955.000000, $actual);
+		$actual = __cb_aggregation(array('sum','Leads','annualrevenue','[id,e,id]',$entityData));
+		$this->assertEquals(16379925.000000, $actual);
+		$entityData = $entityCache->forId('11x74');
+		$actual = __cb_aggregation(array('sum','Accounts','employees','[id,e,id]',$entityData));
+		$this->assertEquals(131, $actual);
+		$actual = __cb_aggregation(array('sum','Accounts','employees','[id,n,id]',$entityData));
+		$this->assertEquals(113710, $actual);
+		$actual = __cb_aggregation(array('sum','Accounts','employees','[id,n,74]',$entityData));
+		$this->assertEquals(113710, $actual);
 	}
 
 	/**
