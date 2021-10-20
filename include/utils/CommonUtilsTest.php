@@ -249,11 +249,13 @@ class CommonUtilsTest extends TestCase {
 			array('line1<br/>line2','line1<br/>line2','br2nl two lines <br/>'),
 			array('line1
 line2','line1\nline2','br2nl two lines nl'),
-			array('line1line2','line1\rline2','br2nl two lines cr'),
+			array('line1
+line2','line1\rline2','br2nl two lines cr'),
 			array('line2
 line2','line2\r\nline2','br2nl two lines crnl'),
 			array('line1
-line2','line1\n\rline2','br2nl two lines nlcr'),
+
+line2','line1\n\rline2','br2nl two lines nlcr'),
 			array("line1\nline2",'line1\nline2','br2nl two lines nl'),
 			array("line1\rline2",'line1\rline2','br2nl two lines cr'),
 			array("line1\r\nline2",'line1\r\nline2','br2nl two lines crnl'),
@@ -284,7 +286,9 @@ line2','line2\r\nline2','br2nl two lines crnl'),
 			array('line1
 line2','line1
 line2','br2nl two lines nl'),
-			array('line1line2','line1line2','br2nl two lines cr'),
+			array('line1
+line2','line1
+line2','br2nl two lines cr'),
 			array('line2
 line2','line2 line2','br2nl two lines crnl'),
 			array('line1
@@ -381,6 +385,23 @@ Mulqueen  Last Name
 timothy_mulqueen@mulqueen.org
 
 Email','Multiple vars and lines'),
+			array('$leads-salutationtype$  Salutation
+
+$leads-firstname$  Firstname
+
+$leads-lastname$  Last Name
+
+$leads-email$
+
+Email',4662,'Leads','Mr. Salutation
+
+Janey  Firstname
+
+Gabisi  Last Name
+
+jgabisi@hotmail.com
+
+Email','Testing both salutation type and first name fields on Leads'),
 			array('Dear 
 
 Thank you for your confidence in our ability to serve you. 
@@ -426,6 +447,11 @@ Contact Image: $contacts-imagename$
 Contact Image Field: $contacts-imagename_fullpath$',1086,'Contacts','Contact name: Hirpara
 Contact Image: 
 Contact Image Field: $contacts-imagename_fullpath$','Contact Image'),
+			array('Salutation: $contacts-salutationtype$
+First Name: $contacts-firstname$
+Last Name: $contacts-lastname$',1086,'Contacts','Salutation: Dr.
+First Name: Felix
+Last Name: Hirpara','Testing both salutation type and first name fields on Contacts'),
 			array('Contact name: $contacts-lastname$
 Current Date: $custom-currentdate$',1086,'Contacts','Contact name: Hirpara
 Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
