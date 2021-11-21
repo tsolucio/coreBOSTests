@@ -138,7 +138,7 @@ class ChangePasswordTest extends TestCase {
 		);
 		$this->assertEquals($expected, $actual);
 		$this->assertTrue($user->verifyPassword('newPa$$wo4d'));
-		$user->change_password('newPa$$wo4d', 'testdmy', false);
+		$user->change_password('newPa$$wo4d', 'testdmy');
 		$this->assertTrue($user->verifyPassword('testdmy'));
 		// restore accesskey
 		$adb->pquery('update vtiger_users set accesskey=? where id=5', array($accesskey));
