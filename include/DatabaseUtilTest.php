@@ -360,6 +360,12 @@ class DatabaseUtilTest extends TestCase {
 	public function appendFromClauseToQueryProvider() {
 		return array(
 			array(
+				'SELECT vtiger_cbdeliverytask.task_no FROM vtiger_cbdeliverytask INNER JOIN vtiger_crmentity ON vtiger_cbdeliverytask.cbdeliverytaskid=vtiger_crmentity.crmid LEFT JOIN vtiger_account ON vtiger_cbdeliverytask.customer_name=vtiger_account.accountid WHERE vtiger_crmentity.deleted=0 AND vtiger_cbdeliverytask.cbdeliverytaskid > 0 order by vtiger_cbdeliverytask.cbdeliverytaskid asc limit 0,20',
+				'INNER JOIN vtiger_account ON vtiger_cbdeliverytask.task_account_name=vtiger_account.accountid and vtiger_cbdeliverytask.task_account_name=33140',
+				'INNER JOIN vtiger_account ON vtiger_cbdeliverytask.task_account_name=vtiger_account.accountid',
+				'SELECT vtiger_cbdeliverytask.task_no FROM vtiger_cbdeliverytask INNER JOIN vtiger_crmentity ON vtiger_cbdeliverytask.cbdeliverytaskid=vtiger_crmentity.crmid INNER JOIN vtiger_account ON vtiger_cbdeliverytask.task_account_name=vtiger_account.accountid and vtiger_cbdeliverytask.task_account_name=33140 WHERE vtiger_crmentity.deleted=0 AND vtiger_cbdeliverytask.cbdeliverytaskid > 0 order by vtiger_cbdeliverytask.cbdeliverytaskid asc limit 0,20',
+			),
+			array(
 				'select vtiger_notes.title from vtiger_notes inner join vtiger_senotesrel on vtiger_senotesrel.notesid= vtiger_notes.notesid left join vtiger_notescf ON vtiger_notescf.notesid= vtiger_notes.notesid inner join vtiger_crmentity on vtiger_crmentity.crmid= vtiger_notes.notesid and vtiger_crmentity.deleted=0 left join vtiger_users on vtiger_crmentity.smownerid= vtiger_users.id where crm2.crmid=75',
 				'inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid and vtiger_senotesrel.crmid IN (74,1084)',
 				'inner join vtiger_senotesrel on vtiger_senotesrel.notesid=vtiger_notes.notesid',
