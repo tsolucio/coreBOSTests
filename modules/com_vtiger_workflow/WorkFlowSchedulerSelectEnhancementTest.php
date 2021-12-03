@@ -884,4 +884,32 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$expected = 'SELECT COUNT(vtiger_account.accountname) AS countres FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_account.accountid > 0';
 		$this->assertEquals($expected, $actual);
 	}
+
+	/**
+	 * Method testConditionsWithCommas
+	 * @test
+	 */
+	public function testConditionsWithCommas() {
+		global $adb;
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'Contacts';
+		$wfvals['test'] = '[{"fieldname":"mailingstreet","operation":"contains","value":"Via Filippo Turati, 46, Milano, MI, Italia", "valuetype":"raw","joincondition":"AND","groupid":"ragroup","groupjoin":"and"}]';
+		$wfvals['select_expressions'] = '[{"fieldname":"mailingstreet","operation":"is","value":"mailingstreet","valuetype":"rawtext","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT mailingstreet FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_contactaddress.mailingstreet LIKE '%Via Filippo Turati%' OR vtiger_contactaddress.mailingstreet LIKE '% 46%' OR vtiger_contactaddress.mailingstreet LIKE '% Milano%' OR vtiger_contactaddress.mailingstreet LIKE '% MI%' OR vtiger_contactaddress.mailingstreet LIKE '% Italia%') )) AND vtiger_contactdetails.contactid > 0";
+		$this->assertEquals($expected, $actual);
+		$wfvals['test'] = '[{"fieldname":"mailingstreet","operation":"is","value":"Via Filippo Turati, 46, Milano, MI, Italia", "valuetype":"raw","joincondition":"AND","groupid":"ragroup","groupjoin":"and"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT mailingstreet FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_contactaddress.mailingstreet = 'Via Filippo Turati, 46, Milano, MI, Italia') )) AND vtiger_contactdetails.contactid > 0";
+		$this->assertEquals($expected, $actual);
+		$wfvals['test'] = '[{"fieldname":"mailingstreet","operation":"containsnc","value":"Via Filippo Turati, 46, Milano, MI, Italia", "valuetype":"raw","joincondition":"AND","groupid":"ragroup","groupjoin":"and"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT mailingstreet FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid INNER JOIN vtiger_contactaddress ON vtiger_contactdetails.contactid = vtiger_contactaddress.contactaddressid  WHERE vtiger_crmentity.deleted=0 AND   (  (( vtiger_contactaddress.mailingstreet LIKE '%Via Filippo Turati, 46, Milano, MI, Italia%') )) AND vtiger_contactdetails.contactid > 0";
+		$this->assertEquals($expected, $actual);
+	}
 }
