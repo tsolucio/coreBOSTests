@@ -127,6 +127,7 @@ class ChangePasswordTest extends TestCase {
 	 */
 	public function testchangepassword() {
 		global $adb;
+		$adb->query("DELETE FROM password_history WHERE crmid=5 and crmtype='U'");
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile(5); // testdmy
 		$accesskey = vtws_getUserAccessKey(5);

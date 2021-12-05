@@ -75,7 +75,7 @@ class BusinessActionsTest extends TestCase {
 		$expectedLink->linkid = $actual[0]->linkid;
 		$expectedLink->linktype = 'DETAILVIEWBASIC';
 		$expectedLink->linklabel = 'Test';
-		$expectedLink->linkurl = "javascript:gotourl('index.php?module=GlobalVariable&action=TestGlobalVar&parenttab=Tools')";
+		$expectedLink->linkurl = "javascript:gotourl('index.php?module=GlobalVariable&action=TestGlobalVar&gvname=\$gvname')";
 		$expectedLink->linkicon = '';
 		$expectedLink->sequence = '0';
 		$expectedLink->status = false;

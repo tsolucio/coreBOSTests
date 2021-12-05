@@ -1,4 +1,4 @@
-build/coreBOSTests/phpunit -c build/coreBOSTests/phpunit.xml --prepend build/coreBOSTests/xdebug-filter.php
+XDEBUG_MODE=coverage build/coreBOSTests/phpunit -c build/coreBOSTests/phpunit.xml --prepend build/coreBOSTests/xdebug-filter.php
 if [ $? -ne 0 ]
 then
 	echo "PHP errors"

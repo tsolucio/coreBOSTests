@@ -134,6 +134,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'consumer' => 'phpunitlog',
 			'callback' => serialize('1,2'),
 		);
+		$expected['wfLaunchNowChannel'][] = array(
+			'producer' => 'malaunchnow',
+			'consumer' => 'malaunchnow',
+			'callback' => 'a:3:{s:4:"file";s:50:"modules/com_vtiger_workflow/cbmqtm_malaunchnow.php";s:5:"class";s:18:"cbmqtm_malaunchnow";s:6:"method";s:11:"MALaunchNow";}',
+		);
 		$this->assertEquals($expected, $actual, 'testSubscribe subscribe');
 
 		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Data', 'P:S', 1, 30, 0, 1, 'information');
@@ -154,15 +159,15 @@ class cbmqtm_dbdistributorTest extends TestCase {
 		$nummsg = $adb->query_result($rs, 0, 0);
 		$rs = $adb->query('select count(*) from cb_mqsubscriptions');
 		$nummsg = $adb->query_result($rs, 0, 0);
-		$this->assertEquals(2, $nummsg, 'testSubscribe unsubscribe1');
+		$this->assertEquals(3, $nummsg, 'testSubscribe unsubscribe1');
 		$cbmq->unsubscribeToChannel('cbTestChannel', 'phpunit', 'phpunit', array(2,2));
 		$rs = $adb->query('select count(*) from cb_mqsubscriptions');
 		$nummsg = $adb->query_result($rs, 0, 0);
-		$this->assertEquals(1, $nummsg, 'testSubscribe unsubscribe2');
+		$this->assertEquals(2, $nummsg, 'testSubscribe unsubscribe2');
 		$cbmq->unsubscribeToChannel('cbTestChannel', 'phpunit', 'phpunitlog', '1,2');
 		$rs = $adb->query('select count(*) from cb_mqsubscriptions');
 		$nummsg = $adb->query_result($rs, 0, 0);
-		$this->assertEquals(0, $nummsg, 'testSubscribe unsubscribe3');
+		$this->assertEquals(1, $nummsg, 'testSubscribe unsubscribe3');
 		$adb->query('TRUNCATE cb_messagequeue');
 	}
 

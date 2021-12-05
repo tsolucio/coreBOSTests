@@ -63,7 +63,7 @@ class AuthTokenTest extends TestCase {
 		$this->assertEquals($get_token->fields['expiretime'], $actualupd['expireTime']);
 		$this->assertEquals($actual['token'], $actualupd['token']);
 		$this->assertEquals($actual['expireTime'], $actualupd['expireTime']);
-		$this->assertEquals($actual['serverTime'], $actualupd['serverTime']);
+		$this->assertEqualsWithDelta($actual['serverTime'], $actualupd['serverTime'], 4);
 		sleep(1);
 		$new_expire_time = time()-(60*120); // simulate passing of time
 		$adb->pquery('UPDATE vtiger_ws_userauthtoken SET expiretime=? WHERE userid=?', array($new_expire_time, 1));

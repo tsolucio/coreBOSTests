@@ -87,7 +87,7 @@ class VtlibUtilsTest extends TestCase {
 			array('http://localhost',false,'http://localhost','url'),
 			array('https://corebos.org',false,'https://corebos.org','urls'),
 			array("<a href=\"javascript:display('javascript:alert(document.domain)','feedlist_1')\">test</a>",false,'<a>test</a>','javascript'),
-			array('&forrecord=xss%22%20autofocus/onfocus=%22alert(5)%22%20id=%27xxx', false, '&forrecord=xss', 'javascript'),
+			array('&forrecord=xss%22%20autofocus/onfocus=%22alert(5)%22%20id=%27xxx', false, '&forrecord=xss%22%20autofocus/onfocus=%22alert(5)%22%20id=%27xxx', 'javascript'),
 		);
 	}
 
