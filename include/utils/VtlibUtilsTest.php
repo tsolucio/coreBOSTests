@@ -88,6 +88,15 @@ class VtlibUtilsTest extends TestCase {
 			array('https://corebos.org',false,'https://corebos.org','urls'),
 			array("<a href=\"javascript:display('javascript:alert(document.domain)','feedlist_1')\">test</a>",false,'<a>test</a>','javascript'),
 			array('&forrecord=xss%22%20autofocus/onfocus=%22alert(5)%22%20id=%27xxx', false, '&forrecord=xss%22%20autofocus/onfocus=%22alert(5)%22%20id=%27xxx', 'javascript'),
+			array(
+				'<p><svg onmouseover="alert(1)">.svg &lt;<script>alert(\'xss\')<!--a-->a.png
+				<noscript><p title="</noscript><img src=x onerror=alert(document.domain)>">.jpg
+				<img src=\'1\' onerror=\'alert(1)\' <
+				</svg></p></svg></p></svg></p></svg></p></svg></p></svg></p></svg></p>',
+				false,
+				'<p>.svg &lt;</p>',
+				'XSS'
+			)
 		);
 	}
 
