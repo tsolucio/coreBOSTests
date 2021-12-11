@@ -84,13 +84,14 @@ class ListViewUtilsTest extends TestCase {
 	public function textlength_checkProvider() {
 		return array(
 			array('smaller40', 0, 'smaller40'),
-			array('line1<br>line2', 0, 'line1line2'),
+			array('line1<br>line2', 0, 'line1&lt;br&gt;line2'),
 			array('this one is a little bigger than the 40 default cut size', 0, 'this one is a little bigger than the 40 ...'),
 			array('smaller40', 20, 'smaller40'),
-			array('line1<br>line2', 20, 'line1line2'),
+			array('line1<br>line2', 20, 'line1&lt;br&gt;line2'),
 			array('this one is a little bigger than the 40 default cut size', 20, 'this one is a little...'),
 			array('word on cut size', 10, 'word on cu...'),
-			array('word <strong>on</strong> cut size', 10, 'word on cu...'),
+			array('word <strong>on</strong> cut size', 10, 'word &lt;stro...'),
+			array('word <strong>on</strong> cut size', 100, 'word &lt;strong&gt;on&lt;/strong&gt; cut size'),
 			array('probability>50', 10, 'probabilit...'),
 			array('probability>50', 20, 'probability&gt;50'),
 			array('probability>50', 12, 'probability&gt;...'),
@@ -99,6 +100,7 @@ class ListViewUtilsTest extends TestCase {
 			array('probability<50', 12, 'probability&lt;...'),
 			array('probability&gt;50', 0, 'probability&gt;50'),
 			array('probability&lt;50', 0, 'probability&lt;50'),
+			array('<SvG/onLoad=confirm(document.cookie)', 0, '&lt;SvG/onLoad=confirm(document.cookie)'),
 		);
 	}
 
