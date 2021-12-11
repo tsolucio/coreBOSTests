@@ -298,7 +298,7 @@ class PickListUtilsTest extends TestCase {
 	'multii18n' => '1',
 	'columnname' => 'salutation',
 	'fieldname' => 'salutationtype',
-	'uitype' => '55',
+	'uitype' => '15',
 	'value' =>
 	array (
 		'--None--' => '--None--',
@@ -666,7 +666,7 @@ class PickListUtilsTest extends TestCase {
 	'multii18n' => '1',
 	'columnname' => 'salutation',
 	'fieldname' => 'salutationtype',
-	'uitype' => '55',
+	'uitype' => '15',
 	'value' =>
 	array (
 		'--None--' => '--None--',

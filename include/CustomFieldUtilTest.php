@@ -29,8 +29,8 @@ class CustomFieldUtilTest extends TestCase {
 		return array(
 			array(1, 'Text'),
 			array(2, 'Text'),
-			array(55, 'Text'),
-			array(255, 'Text'),
+			array(55, ''),
+			array(255, ''),
 			array(7, 'Number'),
 			array(9, 'Percent'),
 			array(5, 'Date'),
