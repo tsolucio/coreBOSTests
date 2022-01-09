@@ -168,7 +168,7 @@ class getBusinessActionsTest extends TestCase {
 					'businessactionsid' => '44116',
 					'elementtype_action' => 'DETAILVIEWBASIC',
 					'linklabel' => 'LBL_SHOW_CONTACT_HIERARCHY',
-					'linkurl' => 'index.php?module=Contacts&action=ContactHierarchy&contactid=1494',
+					'linkurl' => 'index.php?module=Contacts&action=Hierarchy&recordid=1494',
 					'linkicon' => 'themes/images/hierarchy_color16.png',
 					'sequence' => '0',
 					'status' => false,
