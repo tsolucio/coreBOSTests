@@ -40,7 +40,10 @@ class ValidateCURTest extends TestCase {
 			'wsresult' => array(
 				'subject' => array('Subject is required'),
 				'quotestage' => array('Quote Stage is required', 'Quote Stage must not exceed 200 characters'),
-				'account_id' => array('Organization Name is required'),
+				'account_id' => array(
+					'Organization Name must be an integer',
+					'Organization Name is required'
+				),
 				'bill_street' => array(
 					'Billing Address is required',
 					'Billing Address must not exceed 250 characters',
@@ -71,7 +74,10 @@ class ValidateCURTest extends TestCase {
 			'wsresult' => array(
 				'subject' => array('Subject is required'),
 				'quotestage' => array('Quote Stage is required', 'Quote Stage must not exceed 200 characters'),
-				'account_id' => array('Organization Name is required'),
+				'account_id' => array(
+					'Organization Name must be an integer',
+					'Organization Name is required'
+				),
 				'bill_street' => array(
 					'Billing Address is required',
 					'Billing Address must not exceed 250 characters',
@@ -102,7 +108,10 @@ class ValidateCURTest extends TestCase {
 			'wsresult' => array(
 				'subject' => array('Subject is required'),
 				'quotestage' => array('Quote Stage is required', 'Quote Stage must not exceed 200 characters'),
-				'account_id' => array('Organization Name is required'),
+				'account_id' => array(
+					'Organization Name must be an integer',
+					'Organization Name is required'
+				),
 				'bill_street' => array(
 					'Billing Address is required',
 					'Billing Address must not exceed 250 characters',

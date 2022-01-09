@@ -140,7 +140,10 @@ class ValidateInformationTest extends TestCase {
 			'wsresult' => array(
 				'subject' => array('Subject is required'),
 				'quotestage' => array('Quote Stage is required', 'Quote Stage must not exceed 200 characters'),
-				'account_id' => array('Organization Name is required'),
+				'account_id' => array(
+					'Organization Name must be an integer',
+					'Organization Name is required'
+				),
 				'assigned_user_id' => array('Assigned To is required'),
 				'bill_street' => array(
 					'Billing Address is required',
