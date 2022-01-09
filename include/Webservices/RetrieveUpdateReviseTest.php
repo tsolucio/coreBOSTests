@@ -110,7 +110,6 @@ class RetrieveUpdateReviseTest extends TestCase {
 		///////////////
 		$pdoID = vtws_getEntityId('Products');
 		$user = new Users();
-		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($this->usrcomd0x);
 		$current_user = $user;
 		$actual = vtws_retrieve($pdoID.'x2633', $user);
