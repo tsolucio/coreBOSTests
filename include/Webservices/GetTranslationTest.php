@@ -32,9 +32,9 @@ class GetTranslationTest extends TestCase {
 		return array(
 			array(array('LBL_TOP_AMOUNT', 'LBL_LIST_ACCOUNT_NAME'), 'en_us', 'Accounts', array('Amount', 'Organization Name')),
 			array(array('LBL_NAME', 'LBL_CONTACT_NAME'), 'es_es', 'Contacts', array('Nombre:', 'Contacto:')),
-			array(array('LBL_DIFFERENT_MACHINE', 'CustomScriptLabel'), 'en_us', 'Migration', array('Different Machine', 'Translation From Custom Strings for Unit Testing')),
-			array(array('LBL_DIFFERENT_MACHINE' => 'DoesNotExist'), 'en_us', 'Migration', array('LBL_DIFFERENT_MACHINE' => 'Different Machine')),
-			array(array('LBL_DIFFERENT_MACHINE' => 'LBL_NOTE_TITLE'), 'en_us', 'Migration', array('LBL_DIFFERENT_MACHINE' => 'Note:')),
+			array(array('LBL_DIFFERENT_MACHINE', 'CustomScriptLabel'), 'en_us', 'VtigerBackup', array('Different Machine', 'Translation From Custom Strings for Unit Testing')),
+			array(array('LBL_DIFFERENT_MACHINE' => 'DoesNotExist'), 'en_us', 'VtigerBackup', array('LBL_DIFFERENT_MACHINE' => 'Different Machine')),
+			array(array('LBL_DIFFERENT_MACHINE' => 'LBL_FTP_LOGIN_FAILED'), 'en_us', 'VtigerBackup', array('LBL_DIFFERENT_MACHINE' => 'FTP login failed')),
 			array(array('EtiquetasOO' => ''), 'en_us', 'EtiquetasOO', array('EtiquetasOO' => 'Merge Labels')),
 			array(array('EtiquetasOO'), 'en_us', 'EtiquetasOO', array('Merge Labels')),
 			array(array('LBL_NAME', 'LBL_CONTACT_NAME'), 'es_es', 'DoesNotExist', array('LBL_NAME', 'Contacto')),
