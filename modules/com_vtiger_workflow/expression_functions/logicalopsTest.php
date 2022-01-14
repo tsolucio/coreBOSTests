@@ -121,7 +121,7 @@ class logicalopsTest extends TestCase {
 		$params = array('Contacts', 'notify_owner', '0', $entityData);
 		$this->assertTrue(__cb_allrelatedare($params), 'all related are true');
 		$params = array('Assets', 'assetname', 'No asset related', $entityData);
-		$this->assertTrue(__cb_allrelatedare($params), 'all related are false');
+		$this->assertTrue(__cb_allrelatedare($params), 'all related are true');
 		////////////////
 		$params = array('Contacts', 'title', 'VP Supply Chain', $entityData);
 		$this->assertFalse(__cb_allrelatedare($params), 'all related are VP Supply Chain');
@@ -129,6 +129,35 @@ class logicalopsTest extends TestCase {
 		$this->assertTrue(__cb_allrelatedare($params), 'all related are VP Supply Chain with lastname contains w true');
 		$params = array('Contacts', 'title', 'VP Supply Chain', '[firstname,c,a,and],[firstname,k,nar,and]', $entityData);
 		$this->assertTrue(__cb_allrelatedare($params), 'all related are VP Supply Chain with firstname false');
+	}
+
+	/**
+	 * Method testallrelatedarethesamefunction
+	 * @test
+	 */
+	public function testallrelatedarethesamefunction() {
+		global $current_user;
+		$entityCache = new VTEntityCache($current_user);
+		$entityData = $entityCache->forId('11x74');
+		$params = array('Contacts', 'title', '', $entityData);
+		$this->assertFalse(__cb_allrelatedarethesame($params), 'all related aresame empty false');
+		$params = array('Contacts', 'title', 'Owner', $entityData);
+		$this->assertFalse(__cb_allrelatedarethesame($params), 'all related aresame owner false');
+		$params = array('Contacts', 'notify_owner', '', $entityData);
+		$this->assertTrue(__cb_allrelatedarethesame($params), 'all related aresame empty true');
+		$params = array('Contacts', 'notify_owner', '0', $entityData);
+		$this->assertTrue(__cb_allrelatedarethesame($params), 'all related aresame 0 true');
+		$params = array('Contacts', 'notify_owner', '1', $entityData);
+		$this->assertFalse(__cb_allrelatedarethesame($params), 'all related aresame 1 false');
+		$params = array('Assets', 'assetname', 'No asset related', $entityData);
+		$this->assertTrue(__cb_allrelatedarethesame($params), 'all related aresame true (there are none so they are all the same)');
+		////////////////
+		$params = array('Contacts', 'title', 'VP Supply Chain', '[lastname,c,w222,or]', $entityData);
+		$this->assertTrue(__cb_allrelatedarethesame($params), 'all related aresame VP Supply Chain with lastname contains w true');
+		$params = array('Contacts', 'title', 'VP Supply Chain', '[lastname,c,w,or]', $entityData);
+		$this->assertTrue(__cb_allrelatedarethesame($params), 'all related aresame VP Supply Chain with lastname contains w true');
+		$params = array('Contacts', 'title', 'VP Supply Chain', '[firstname,c,a,and],[firstname,k,nar,and]', $entityData);
+		$this->assertTrue(__cb_allrelatedarethesame($params), 'all related aresame VP Supply Chain with firstname false');
 	}
 
 	/**
