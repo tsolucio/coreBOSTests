@@ -94,7 +94,7 @@ class DataTransformTest extends TestCase {
 		$expected['modifiedby'] = '19x1';
 		$expected['created_user_id'] = '19x1';
 		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
-		$this->assertEquals($expected, $actual, 'sanitizeReferences PriceBooks');
+		$this->assertEquals($expected, $actual, 'sanitizeReferences Potentials');
 		///////////////
 		$testrecord = 5322;
 		$testmodule = 'Potentials';
@@ -114,7 +114,7 @@ class DataTransformTest extends TestCase {
 		$expected['modifiedby'] = '19x1';
 		$expected['created_user_id'] = '19x1';
 		$actual = DataTransform::sanitizeReferences($focus->column_fields, $meta);
-		$this->assertEquals($expected, $actual, 'sanitizeReferences PriceBooks');
+		$this->assertEquals($expected, $actual, 'sanitizeReferences Potentials');
 		///////////////
 		$testrecord = 26784;
 		$testmodule = 'Emails';
@@ -552,6 +552,126 @@ class DataTransformTest extends TestCase {
 		$actual = DataTransform::sanitizeRetrieveEntityInfo($invalues, $meta);
 		$this->assertEquals($expected, $actual, 'sanitizeRetrieveEntityInfo InventoryDetails usrcoma3dot');
 		$current_user = $hcu;
+	}
+
+	/**
+	 * Method testsanitizeReferencesForDB
+	 * @test
+	 */
+	public function testsanitizeReferencesForDB() {
+		global $current_user, $adb,$log;
+		$current_user = Users::getActiveAdminUser();
+		$testrecord = 4062;
+		$testmodule = 'Assets';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$expected = $record = vtws_retrieve($testrecord, $current_user);
+		$expected['product'] = '2622';
+		$expected['invoiceid'] = '3882';
+		$expected['account'] = '142';
+		$expected['modifiedby'] = '1';
+		$expected['assigned_user_id'] = '7';
+		$expected['created_user_id'] = '1';
+		$actual = DataTransform::sanitizeReferencesForDB($record, $meta);
+		$actual = DataTransform::sanitizeOwnerFieldsForDB($actual, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferencesForDB Assets');
+		///////////////
+		$testrecord = 16829;
+		$testmodule = 'PriceBooks';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$expected = $record = vtws_retrieve($testrecord, $current_user);
+		$expected['currency_id'] = '1';
+		$expected['modifiedby'] = '1';
+		$expected['created_user_id'] = '1';
+		$actual = DataTransform::sanitizeReferencesForDB($record, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferencesForDB PriceBooks');
+		///////////////
+		$testrecord = 5321;
+		$testmodule = 'Potentials';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$expected = $record = vtws_retrieve($testrecord, $current_user);
+		$expected['related_to'] = '658';
+		$expected['campaignid'] = '4972';
+		$expected['convertedfromlead'] = null;
+		$expected['assigned_user_id'] = '12';
+		$expected['modifiedby'] = '1';
+		$expected['created_user_id'] = '1';
+		$actual = DataTransform::sanitizeReferencesForDB($record, $meta);
+		$actual = DataTransform::sanitizeOwnerFieldsForDB($actual, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferencesForDB Potentials');
+		///////////////
+		$testrecord = 5322;
+		$testmodule = 'Potentials';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$expected = $record = vtws_retrieve($testrecord, $current_user);
+		$expected['related_to'] = '1614';
+		$expected['campaignid'] = null;
+		$expected['convertedfromlead'] = null;
+		$expected['assigned_user_id'] = '9';
+		$expected['modifiedby'] = '1';
+		$expected['created_user_id'] = '1';
+		$actual = DataTransform::sanitizeReferencesForDB($record, $meta);
+		$actual = DataTransform::sanitizeOwnerFieldsForDB($actual, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferencesForDB Potentials');
+		///////////////
+		$testrecord = 26784;
+		$testmodule = 'Emails';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$expected = $record = vtws_retrieve($testrecord, $current_user);
+		$expected['parent_id'] = '1084|74';
+		$expected['assigned_user_id'] = '10';
+		$expected['modifiedby'] = '1';
+		$actual = DataTransform::sanitizeReferencesForDB($record, $meta);
+		$actual = DataTransform::sanitizeOwnerFieldsForDB($actual, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferencesForDB Emails');
+		///////////////
+		$testrecord = 14340;
+		$testmodule = 'CobroPago';
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, $testmodule);
+		$handlerPath = $webserviceObject->getHandlerPath();
+		$handlerClass = $webserviceObject->getHandlerClass();
+		require_once $handlerPath;
+		$handler = new $handlerClass($webserviceObject, $current_user, $adb, $log);
+		$meta = $handler->getMeta();
+		$expected = $record = vtws_retrieve($testrecord, $current_user);
+		$expected['parent_id'] = '87';
+		$expected['related_id'] = '3349';
+		$expected['reports_to_id'] = '';
+		$expected['assigned_user_id'] = '12';
+		$expected['created_user_id'] = '1';
+		$actual = DataTransform::sanitizeReferencesForDB($record, $meta);
+		$actual = DataTransform::sanitizeOwnerFieldsForDB($actual, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferencesForDB CobroPago');
+		// test empty uitype 101
+		$record['reports_to_id'] = '';
+		$expected['reports_to_id'] = '';
+		$actual = DataTransform::sanitizeReferencesForDB($record, $meta);
+		$actual = DataTransform::sanitizeOwnerFieldsForDB($actual, $meta);
+		$this->assertEquals($expected, $actual, 'sanitizeReferencesForDB CobroPago');
 	}
 }
 ?>
