@@ -145,7 +145,7 @@ class CommonUtilsTest extends TestCase {
 		  'search' => 'true',
 		);
 		$actual = getBasic_Advance_SearchURL();
-		$expected = '&query=true&searchtype=BasicSearch&search_field=firstname&search_text=lina';
+		$expected = '&query=true&searchtype=BasicSearch&search_field=firstname&search_text=lina&type=';
 		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 2');
 		$_REQUEST = array(
 		  'search_field' => 'account_id',
@@ -160,7 +160,7 @@ class CommonUtilsTest extends TestCase {
 		  'search' => 'true',
 		);
 		$actual = getBasic_Advance_SearchURL();
-		$expected = '&query=true&searchtype=BasicSearch&search_field=account_id&search_text=&amp;';
+		$expected = '&query=true&searchtype=BasicSearch&search_field=account_id&search_text=&amp;&type=';
 		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 3');
 		$_REQUEST = array(
 		  'advft_criteria' => '[{"groupid":"1","columnname":"vtiger_contactdetails:firstname:firstname:Contacts_First_Name:V","comparator":"c","value":"lina","columncondition":"and"},{"groupid":"1","columnname":"vtiger_contactdetails:accountid:account_id:Contacts_Account_Name:V","comparator":"c","value":"&","columncondition":""}]',
@@ -203,7 +203,7 @@ class CommonUtilsTest extends TestCase {
 		  'search' => 'true',
 		);
 		$actual = getBasic_Advance_SearchURL();
-		$expected = '&query=true&searchtype=BasicSearch&search_field=account_id&search_text=&amp; li';
+		$expected = '&query=true&searchtype=BasicSearch&search_field=account_id&search_text=&amp; li&type=';
 		$this->assertEquals($expected, $actual, 'getBasic_Advance_SearchURL 6');
 		$_REQUEST = $actualRequest;
 	}
