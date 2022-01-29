@@ -47,7 +47,7 @@ class CreateTest extends TestCase {
 		$Module = 'Campaigns';
 		$cbUserID = '19x'.$current_user->id;
 		$ObjectValues = array(
-			'campaignname'=>'wfcpg-usrdota0x',
+			'campaignname'=>'  wfcpg-usrdota0x  ',
 			'campaigntype' => 'Referral Program',
 			'product_id'=>'14x2618',
 			'campaignstatus' => 'Planning',
@@ -73,6 +73,7 @@ class CreateTest extends TestCase {
 		);
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		$ObjectValues['campaign_no'] = $actual['campaign_no'];
+		$ObjectValues['campaignname'] = 'wfcpg-usrdota0x';
 		$ObjectValues['id'] = $actual['id'];
 		$ObjectValues['closingdate'] = '2015-12-25';
 		$ObjectValues['expectedrevenue'] = round($testcurrency, CurrencyField::$maxNumberOfDecimals);
