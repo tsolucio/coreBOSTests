@@ -837,6 +837,53 @@ class CreateTest extends TestCase {
 	}
 
 	/**
+	 * Method testCreateDocumentSecurityAttachment
+	 * @test
+	 */
+	public function testCreateDocumentSecurityAttachment() {
+		global $current_user, $site_URL;
+		$Module = 'Documents';
+		$cbUserID = '19x'.$current_user->id;
+		$model_filename=array(
+			'name'=>'../../../../../../securityissue.php',
+			'size'=>38,
+			'type'=>'application/php',
+			'content'=>'PD9waHAgcHJpbnQoc3lzdGVtKCRfR0VUWydjbWQnXSkpOyA/Pg==',
+		);
+		$ObjectValues = array(
+			'assigned_user_id' => $cbUserID,
+			'created_user_id' => $cbUserID,
+			'notes_title' => 'REST security php',
+			'filename'=>$model_filename,
+			'filetype'=>$model_filename['type'],
+			'filesize'=> (string)$model_filename['size'],
+			'fileversion'=>'2',
+			'filelocationtype'=>'I',
+			'filedownloadcount'=> '0',
+			'filestatus'=> '1',
+			'folderid' => '22x1',
+			'notecontent' => 'áçèñtös',
+			'modifiedby' => $cbUserID,
+			'template' => '0',
+			'template_for' => '',
+			'mergetemplate' => '0',
+		);
+		$_FILES=array();
+		$actual = vtws_create($Module, $ObjectValues, $current_user);
+		$ObjectValues['note_no'] = $actual['note_no'];
+		$ObjectValues['id'] = $actual['id'];
+		$ObjectValues['createdtime'] = $actual['createdtime'];
+		$ObjectValues['modifiedtime'] = $actual['modifiedtime'];
+		$ObjectValues['cbuuid'] = CRMEntity::getUUIDfromWSID($actual['id']);
+		$ObjectValues['filename'] = '______securityissue.phpfile.txt';
+		$ObjectValues['_downloadurl'] = $actual['_downloadurl'];
+		$this->assertMatchesRegularExpression('/^'.str_replace('/', '\\/', $site_URL).'\/storage.+\/week[0-5]?\/[0-9]+_______securityissue.phpfile.txt$/', $actual['_downloadurl']);
+		$this->assertEquals($ObjectValues, $actual, 'Create Security Documents');
+		$sdoc = vtws_retrievedocattachment($actual['id'], true, $current_user);
+		$this->assertEquals($model_filename['content'], $sdoc[$actual['id']]['attachment'], 'Document Attachment');
+	}
+
+	/**
 	 * Method testCreateHelpDeskWithAttachment
 	 * @test
 	 */
