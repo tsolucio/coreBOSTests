@@ -232,6 +232,15 @@ class DatabaseUtilTest extends TestCase {
 		$this->assertEquals($expected['cnt'], $mksql, $msg);
 		$rs = $adb->query($mksql);
 		$this->assertTrue($rs !== false);
+		/////////
+		$mksql = mkCountQuery($query, false);
+		if (stripos($query, ' group by ')) {
+			$this->assertEquals($expected['cnt'].' group by account_type', $mksql, $msg);
+		} else {
+			$this->assertEquals($expected['cnt'], $mksql, $msg);
+		}
+		$rs = $adb->query($mksql);
+		$this->assertTrue($rs !== false);
 	}
 
 	/**
