@@ -216,14 +216,12 @@ class applicationTest extends TestCase {
 	}
 
 	/**
-	 * Method testgetRelatedMassCreateArray
+	 * Method testgetRelatedMassCreateArrayNotConverting
 	 * @test
 	 */
-	public function testgetRelatedMassCreateArray() {
-		global $current_user,$log;
-		$entityCache = new VTEntityCache($current_user);
-		$entityData = $entityCache->forId('11x74');
-		$params = array('Potentials',74);
+	public function testgetRelatedMassCreateArrayNotConverting() {
+		global $current_user;
+		$params = array('Potentials', 74);
 		$expected =array(
 			[
 			  "elementType" => "Accounts",
@@ -236,7 +234,7 @@ class applicationTest extends TestCase {
 				"fax" =>"",
 				"tickersymbol"=> "",
 				"otherphone"=> "0487-835-113",
-				"account_id"=> "746",
+				"account_id"=> "11x746",
 				"email1" => "lina@yahoo.com",
 				"employees" => "131",
 				"email2" => "",
@@ -248,10 +246,10 @@ class applicationTest extends TestCase {
 				"annual_revenue" => "3045164.000000",
 				"emailoptout" => "1",
 				"notify_owner" => "0",
-				"assigned_user_id" => "10",
+				"assigned_user_id" => "19x10",
 				"createdtime" => "2015-03-13 18:24:30",
 				"modifiedtime" => "2016-04-02 18:21:14",
-				"modifiedby" => "1",
+				"modifiedby" => "19x1",
 				"bill_street" => "C/ Joan Fuster 12",
 				"ship_street" => "C/ Joan Fuster 12",
 				"bill_city" => "Els Poblets",
@@ -265,7 +263,6 @@ class applicationTest extends TestCase {
 				"bill_pobox" => "",
 				"ship_pobox" => "",
 				"description" => "Aut unde est hoc contritum vetustate proverbium: quicum in tenebris? Nec vero alia sunt quaerenda contra Carneadeam illam sententiam. Nemo igitur esse beatus potest. Nummus in Croesi divitiis obscuratur, pars est tamen divitiarum.",
-				"campaignrelstatus" => "",
 				"cf_718" => "",
 				"cf_719" => "2.00",
 				"cf_720" => "0.00",
@@ -283,9 +280,8 @@ class applicationTest extends TestCase {
 				"cf_732" => "Adipose 3 |##| Chronos |##| Earth",
 				"isconvertedfromlead" => "",
 				"convertedfromlead" => "",
-				"created_user_id" => "1",
-				"record_id" => 74,
-				"record_module" => "Accounts",
+				"created_user_id" => "19x1",
+				"id" => '11x74',
 				"cbuuid" => "b0857db0c1dee95300a10982853f5fb1d4e981c1"
 			)
 			],
@@ -293,35 +289,6 @@ class applicationTest extends TestCase {
 			  "elementType" => "Potentials",
 			  "referenceId" => "13x5660",
 			  "element" => array(
-				"0" => "Sollicitudin A Consulting",
-				"1" => "POT523",
-				"2" => "74",
-				"3" => "70134.000000",
-				"4" => "Up Sell",
-				"5" => "2017-02-24",
-				"6" => "--None--",
-				"7" => "Contact",
-				"8" => "10",
-				"9" => "10",
-				"10" => "cbTest",
-				"11" => "testtz",
-				"12" => "Proposal/Price Quote",
-				"13" => "0",
-				"14" => "96.000",
-				"15" => "2015-07-23 05:59:14",
-				"16" => "2015-05-06 07:59:40",
-				"17" => "1",
-				"18" => "67328.640000",
-				"19" => "lina@yahoo.com",
-				"20" => "0",
-				"21" => "",
-				"22" => "1",
-				"23" => "1",
-				"24" => "cbTest",
-				"25" => "testtz",
-				"26" => "sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor, velit eget laoreet posuere, enim nisl elementum purus, accumsan interdum",
-				"27" => "5660",
-				"28" => "fdc6762d518a617b0f27b05c974743b2dfe806e9",
 				"potentialname" => "Sollicitudin A Consulting",
 				"potential_no" => "POT523",
 				"related_to" => "@{74}",
@@ -331,7 +298,7 @@ class applicationTest extends TestCase {
 				"leadsource" => "--None--",
 				"nextstep" => "Contact",
 				"assigned_user_id" => "19x10",
-				"smownerid" => "10",
+				'smownerid' => '10',
 				"owner_firstname" => "cbTest",
 				"owner_lastname" => "testtz",
 				"sales_stage" => "Proposal/Price Quote",
@@ -352,9 +319,45 @@ class applicationTest extends TestCase {
 				"potentialid" => "5660",
 				"cbuuid" => "fdc6762d518a617b0f27b05c974743b2dfe806e9",
 				"id" => "13x5660"
-			  )
-			]
-			);
+			  ),
+			],
+			[
+				"elementType" => "Potentials",
+				"referenceId" => "13x5900",
+				"element" => array(
+					'potentialname' => 'Egestas Aliquam Fringilla Corp.',
+					'potential_no' => 'POT763',
+					'related_to' => '@{74}',
+					'amount' => '72100.000000',
+					'potentialtype' => 'Cross Sale',
+					'closingdate' => '2016-03-14',
+					'leadsource' => 'Trade Show',
+					'nextstep' => 'Reactivate',
+					'assigned_user_id' => '19x5',
+					'smownerid' => '5',
+					'owner_firstname' => 'cbTest',
+					'owner_lastname' => 'testdmy',
+					'sales_stage' => 'Closed Lost',
+					'campaignid' => '1x5012',
+					'probability' => '97.000',
+					'modifiedtime' => '2016-06-07 19:17:45',
+					'createdtime' => '2015-05-08 14:08:17',
+					'modifiedby' => '19x1',
+					'forecast_amount' => '69937.000000',
+					'email' => 'lina@yahoo.com',
+					'isconvertedfromlead' => '0',
+					'convertedfromlead' => '',
+					'creator' => '1',
+					'smcreatorid' => '1',
+					'creator_firstname' => 'cbTest',
+					'creator_lastname' => 'testdmy',
+					'description' => 'ante dictum mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate, posuere vulputate, lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi',
+					'potentialid' => '5900',
+					'cbuuid' => '8d8d585a318dbdfe1116d0686115de16fb342bb6',
+					'id' => '13x5900',
+				  ),
+			  ]
+		  );
 		$this->assertEquals($expected, __cb_getRelatedMassCreateArray($params), 'product > Potentials');
 	}
 
@@ -363,203 +366,253 @@ class applicationTest extends TestCase {
 	 * @test
 	 */
 	public function testgetRelatedMassCreateArrayConverting() {
-		global $current_user,$log;
-		$entityCache = new VTEntityCache($current_user);
-		$entityData = $entityCache->forId('11x74');
-		$params = array('Potentials', 'Projects', 'ProjectTasks',74);
+		global $current_user, $adb;
+		$exists = $adb->pquery(
+			'select cbmapid
+			from vtiger_cbmap
+			inner join vtiger_crmentity on crmid=cbmapid
+			where mapname=? and deleted=0',
+			array('Workflow_Accounts2Project')
+		);
+		if ($adb->num_rows($exists)>0) {
+			vtws_delete(vtws_getEntityId('cbMap').'x'.$adb->query_result($exists, 0, 'cbmapid'), $current_user);
+		}
+		$exists = $adb->pquery(
+			'select cbmapid
+			from vtiger_cbmap
+			inner join vtiger_crmentity on crmid=cbmapid
+			where mapname=? and deleted=0',
+			array('Workflow_Potentials2ProjectTask')
+		);
+		if ($adb->num_rows($exists)>0) {
+			vtws_delete(vtws_getEntityId('cbMap').'x'.$adb->query_result($exists, 0, 'cbmapid'), $current_user);
+		}
+		$params = array('Potentials', 'Project', 'ProjectTask',74);
 		$expected =array(
 			[
-			  "elementType" => "Accounts",
+			  "elementType" => "Project",
 			  "referenceId" => 74,
 			  "element" => array(
-				"accountname" => "Chemex Labs Ltd",
-				"account_no" => "ACC1",
-				"phone" => "03-3608-5660",
-				"website" =>"http://www.chemexlabsltd.com.au",
-				"fax" =>"",
-				"tickersymbol"=> "",
-				"otherphone"=> "0487-835-113",
-				"account_id"=> "746",
-				"email1" => "lina@yahoo.com",
-				"employees" => "131",
-				"email2" => "",
-				"ownership" =>"",
-				"rating" => "Active",
-				"industry" => "Engineering",
-				"siccode" => "",
-				"accounttype" => "Press",
-				"annual_revenue" => "3045164.000000",
-				"emailoptout" => "1",
-				"notify_owner" => "0",
-				"assigned_user_id" => "10",
-				"createdtime" => "2015-03-13 18:24:30",
-				"modifiedtime" => "2016-04-02 18:21:14",
-				"modifiedby" => "1",
-				"bill_street" => "C/ Joan Fuster 12",
-				"ship_street" => "C/ Joan Fuster 12",
-				"bill_city" => "Els Poblets",
-				"ship_city" => "Els Poblets",
-				"bill_state" => "Alicante",
-				"ship_state" => "Alicante",
-				"bill_code" => "03779",
-				"ship_code" => "03779",
-				"bill_country" => "Spain",
-				"ship_country" => "Spain",
-				"bill_pobox" => "",
-				"ship_pobox" => "",
-				"description" => "Aut unde est hoc contritum vetustate proverbium: quicum in tenebris? Nec vero alia sunt quaerenda contra Carneadeam illam sententiam. Nemo igitur esse beatus potest. Nummus in Croesi divitiis obscuratur, pars est tamen divitiarum.",
-				"campaignrelstatus" => "",
-				"cf_718" => "",
-				"cf_719" => "2.00",
-				"cf_720" => "0.00",
-				"cf_721" => "0.000000",
-				"cf_722" => "2016-02-15",
-				"cf_723" => "",
-				"cf_724" => "",
-				"cf_725" => "",
-				"cf_726" => "0",
-				"cf_727" => "",
-				"cf_728" => "00:00:00",
-				"cf_729" => "one",
-				"cf_730" => "oneone",
-				"cf_731" => "oneoneone",
-				"cf_732" => "Adipose 3 |##| Chronos |##| Earth",
-				"isconvertedfromlead" => "",
-				"convertedfromlead" => "",
-				"created_user_id" => "1",
-				"record_id" => 74,
-				"record_module" => "Accounts",
-				"cbuuid" => "b0857db0c1dee95300a10982853f5fb1d4e981c1"
-			)
+				'assigned_user_id' => '',
+				'createdtime' => '',
+				'modifiedtime' => '',
+				'modifiedby' => '',
+				'description' => '',
+				'created_user_id' => '',
+				'projectname' => '',
+				'startdate' => '',
+				'targetenddate' => '',
+				'actualenddate' => '',
+				'projectstatus' => '',
+				'projecttype' => '',
+				'linktoaccountscontacts' => '',
+				'project_no' => '',
+				'targetbudget' => '',
+				'projecturl' => '',
+				'projectpriority' => '',
+				'progress' => '',
+				'email' => '',
+				)
 			],
 			[
-			  "elementType" => "Potentials",
+			  "elementType" => "ProjectTask",
 			  "referenceId" => "13x5660",
 			  "element" => array(
-				"0" => "Sollicitudin A Consulting",
-				"1" => "POT523",
-				"2" => "74",
-				"3" => "70134.000000",
-				"4" => "Up Sell",
-				"5" => "2017-02-24",
-				"6" => "--None--",
-				"7" => "Contact",
-				"8" => "10",
-				"9" => "10",
-				"10" => "cbTest",
-				"11" => "testtz",
-				"12" => "Proposal/Price Quote",
-				"13" => "0",
-				"14" => "96.000",
-				"15" => "2015-07-23 05:59:14",
-				"16" => "2015-05-06 07:59:40",
-				"17" => "1",
-				"18" => "67328.640000",
-				"19" => "lina@yahoo.com",
-				"20" => "0",
-				"21" => "",
-				"22" => "1",
-				"23" => "1",
-				"24" => "cbTest",
-				"25" => "testtz",
-				"26" => "sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor, velit eget laoreet posuere, enim nisl elementum purus, accumsan interdum",
-				"27" => "5660",
-				"28" => "fdc6762d518a617b0f27b05c974743b2dfe806e9",
-				"potentialname" => "Sollicitudin A Consulting",
-				"potential_no" => "POT523",
-				"related_to" => "@{74}",
-				"amount" => "70134.000000",
-				"potentialtype" => "Up Sell",
-				"closingdate" => "2017-02-24",
-				"leadsource" => "--None--",
-				"nextstep" => "Contact",
-				"assigned_user_id" => "19x10",
-				"smownerid" => "10",
-				"owner_firstname" => "cbTest",
-				"owner_lastname" => "testtz",
-				"sales_stage" => "Proposal/Price Quote",
-				"campaignid" => "",
-				"probability" => "96.000",
-				"modifiedtime" => "2015-07-23 05:59:14",
-				"createdtime" => "2015-05-06 07:59:40",
-				"modifiedby" => "19x1",
-				"forecast_amount" => "67328.640000",
-				"email" => "lina@yahoo.com",
-				"isconvertedfromlead" => "0",
-				"convertedfromlead" => "",
-				"creator" => "1",
-				"smcreatorid" => "1",
-				"creator_firstname" => "cbTest",
-				"creator_lastname" => "testtz",
-				"description" => "sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque tellus, imperdiet non, vestibulum nec, euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor, velit eget laoreet posuere, enim nisl elementum purus, accumsan interdum",
-				"potentialid" => "5660",
-				"cbuuid" => "fdc6762d518a617b0f27b05c974743b2dfe806e9",
-				"id" => "13x5660"
+				'assigned_user_id' => '',
+				'modifiedtime' => '',
+				'createdtime' => '',
+				'modifiedby' => '',
+				'email' => '',
+				'description' => '',
+				'projecttaskname' => '',
+				'projecttasktype' => '',
+				'projecttaskpriority' => '',
+				'projectid' => '',
+				'projecttasknumber' => '',
+				'projecttask_no' => '',
+				'projecttaskprogress' => '',
+				'projecttaskhours' => '',
+				'startdate' => '',
+				'enddate' => '',
+				'projecttaskstatus' => '',
+				'created_user_id' => '',
+				'related_to' => '@{74}',
 			  )
 			],
 			[
-			  "elementType" => "Potentials",
+			  "elementType" => "ProjectTask",
 			  "referenceId" => "13x5900",
 			  "element" => array(
-				"0" => "Egestas Aliquam Fringilla Corp.",
-				"1" => "POT763",
-				"2" => "74",
-				"3" => "72100.000000",
-				"4" => "Cross Sale",
-				"5" => "2016-03-14",
-				"6" => "Trade Show",
-				"7" => "Reactivate",
-				"8" => "5",
-				"9" => "5",
-				"10"=> "cbTest",
-				"11"=> "testdmy",
-				"12"=> "Closed Lost",
-				"13"=> "5012",
-				"14"=> "97.000",
-				"15"=> "2016-06-07 19:17:45",
-				"16"=> "2015-05-08 14:08:17",
-				"17"=> "1",
-				"18"=> "69937.000000",
-				"19"=> "lina@yahoo.com",
-				"20"=> "0",
-				"21"=> "",
-				"22"=> "1",
-				"23"=> "1",
-				"24"=> "cbTest",
-				"25"=> "testdmy",
-				"26"=> "ante dictum mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate, posuere vulputate, lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi",
-				"27"=> "5900",
-				"28"=> "8d8d585a318dbdfe1116d0686115de16fb342bb6",
-				"potentialname" => "Egestas Aliquam Fringilla Corp.",
-				"potential_no" => "POT763",
-				"related_to" => "@{74}",
-				"amount" => "72100.000000",
-				"potentialtype" => "Cross Sale",
-				"closingdate" => "2016-03-14",
-				"leadsource" => "Trade Show",
-				"nextstep" => "Reactivate",
-				"assigned_user_id" => "19x5",
-				"smownerid" => "5",
-				"owner_firstname" => "cbTest",
-				"owner_lastname" => "testdmy",
-				"sales_stage" => "Closed Lost",
-				"campaignid" => "1x5012",
-				"probability" => "97.000",
-				"modifiedtime" => "2016-06-07 19:17:45",
-				"createdtime" => "2015-05-08 14:08:17",
-				"modifiedby" => "19x1",
-				"forecast_amount" => "69937.000000",
-				"email" => "lina@yahoo.com",
-				"isconvertedfromlead" => "0",
-				"convertedfromlead" => "",
-				"creator" => "1",
-				"smcreatorid" => "1",
-				"creator_firstname" => "cbTest",
-				"creator_lastname" => "testdmy",
-				"description" => "ante dictum mi, ac mattis velit justo nec ante. Maecenas mi felis, adipiscing fringilla, porttitor vulputate, posuere vulputate, lacus. Cras interdum. Nunc sollicitudin commodo ipsum. Suspendisse non leo. Vivamus nibh dolor, nonummy ac, feugiat non, lobortis quis, pede. Suspendisse dui. Fusce diam nunc, ullamcorper eu, euismod ac, fermentum vel, mauris. Integer sem elit, pharetra ut, pharetra sed, hendrerit a, arcu. Sed et libero. Proin mi. Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi",
-				"potentialid" => "5900",
-				"cbuuid" => "8d8d585a318dbdfe1116d0686115de16fb342bb6",
-				"id" => "13x5900"
+				'assigned_user_id' => '',
+				'modifiedtime' => '',
+				'createdtime' => '',
+				'modifiedby' => '',
+				'email' => '',
+				'description' => '',
+				'projecttaskname' => '',
+				'projecttasktype' => '',
+				'projecttaskpriority' => '',
+				'projectid' => '',
+				'projecttasknumber' => '',
+				'projecttask_no' => '',
+				'projecttaskprogress' => '',
+				'projecttaskhours' => '',
+				'startdate' => '',
+				'enddate' => '',
+				'projecttaskstatus' => '',
+				'created_user_id' => '',
+				'related_to' => '@{74}',
+			  )
+			]
+			);
+		$this->assertEquals($expected, __cb_getRelatedMassCreateArrayConverting($params), 'product > Potentials');
+		/////////////
+		// create mapping
+		$mapping = array(
+			'mapname' => 'Workflow_Accounts2Project',
+			'maptype' => 'Mapping',
+			'targetname' => 'Accounts',
+			'content' => '<map>
+			<originmodule>
+			<originname>Project</originname>
+			</originmodule>
+			<targetmodule>
+			<targetname>Acounts</targetname>
+			</targetmodule>
+			<fields>
+			<field>
+				<fieldname>projectname</fieldname>
+				<Orgfields>
+				<Orgfield>
+					<OrgfieldName>accountname</OrgfieldName>
+				</Orgfield>
+				</Orgfields>
+			</field>
+			<field>
+				<fieldname>assigned_user_id</fieldname>
+				<Orgfields>
+				<Orgfield>
+					<OrgfieldName>assigned_user_id</OrgfieldName>
+					<OrgfieldID>field</OrgfieldID>
+				</Orgfield>
+				</Orgfields>
+			</field>
+			</fields>
+		</map>',
+			'decription' => '',
+			'assigned_user_id' => '19x1',
+		);
+		vtws_create('cbMap', $mapping, $current_user);
+		$mapping = array(
+			'mapname' => 'Workflow_Potentials2ProjectTask',
+			'maptype' => 'Mapping',
+			'targetname' => 'Potentials',
+			'content' => '<map>
+			<originmodule>
+			<originname>ProjectTask</originname>
+			</originmodule>
+			<targetmodule>
+			<targetname>Potentials</targetname>
+			</targetmodule>
+			<fields>
+			<field>
+				<fieldname>projecttaskname</fieldname>
+				<Orgfields>
+				<Orgfield>
+					<OrgfieldName>potentialname</OrgfieldName>
+				</Orgfield>
+				</Orgfields>
+			</field>
+			<field>
+				<fieldname>assigned_user_id</fieldname>
+				<Orgfields>
+				<Orgfield>
+					<OrgfieldName>assigned_user_id</OrgfieldName>
+					<OrgfieldID>field</OrgfieldID>
+				</Orgfield>
+				</Orgfields>
+			</field>
+			</fields>
+		</map>',
+			'decription' => '',
+			'assigned_user_id' => '19x1',
+		);
+		vtws_create('cbMap', $mapping, $current_user);
+		$params = array('Potentials', 'Project', 'ProjectTask',74);
+		$expected =array(
+			[
+			  "elementType" => "Project",
+			  "referenceId" => 74,
+			  "element" => array(
+				'assigned_user_id' => '19x10',
+				'createdtime' => '',
+				'modifiedtime' => '',
+				'modifiedby' => '',
+				'description' => '',
+				'created_user_id' => '',
+				'projectname' => 'Chemex Labs Ltd',
+				'startdate' => '',
+				'targetenddate' => '',
+				'actualenddate' => '',
+				'projectstatus' => '',
+				'projecttype' => '',
+				'linktoaccountscontacts' => '',
+				'project_no' => '',
+				'targetbudget' => '',
+				'projecturl' => '',
+				'projectpriority' => '',
+				'progress' => '',
+				'email' => '',
+				)
+			],
+			[
+			  "elementType" => "ProjectTask",
+			  "referenceId" => "13x5660",
+			  "element" => array(
+				'assigned_user_id' => '19x10',
+				'modifiedtime' => '',
+				'createdtime' => '',
+				'modifiedby' => '',
+				'email' => '',
+				'description' => '',
+				'projecttaskname' => 'Sollicitudin A Consulting',
+				'projecttasktype' => '',
+				'projecttaskpriority' => '',
+				'projectid' => '',
+				'projecttasknumber' => '',
+				'projecttask_no' => '',
+				'projecttaskprogress' => '',
+				'projecttaskhours' => '',
+				'startdate' => '',
+				'enddate' => '',
+				'projecttaskstatus' => '',
+				'created_user_id' => '',
+				'related_to' => '@{74}',
+			  )
+			],
+			[
+			  "elementType" => "ProjectTask",
+			  "referenceId" => "13x5900",
+			  "element" => array(
+				'assigned_user_id' => '19x5',
+				'modifiedtime' => '',
+				'createdtime' => '',
+				'modifiedby' => '',
+				'email' => '',
+				'description' => '',
+				'projecttaskname' => 'Egestas Aliquam Fringilla Corp.',
+				'projecttasktype' => '',
+				'projecttaskpriority' => '',
+				'projectid' => '',
+				'projecttasknumber' => '',
+				'projecttask_no' => '',
+				'projecttaskprogress' => '',
+				'projecttaskhours' => '',
+				'startdate' => '',
+				'enddate' => '',
+				'projecttaskstatus' => '',
+				'created_user_id' => '',
+				'related_to' => '@{74}',
 			  )
 			]
 			);
