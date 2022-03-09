@@ -40,6 +40,14 @@ class cbMapMappingTest extends TestCase {
 					),
 				'master' => false,
 				),
+				'reference' => array(
+					'merge' => array (
+						0 => array (
+							'EXPRESSION' => "concat($(account_id : (Accounts) rating) ,' ---')",
+						),
+					),
+				'master' => false,
+				),
 			),
 		);
 		$this->assertEquals($expected, $actual, 'convert Map to Array');
@@ -49,6 +57,7 @@ class cbMapMappingTest extends TestCase {
 		$expected = array(
 			'sentin' => 'notmodified',
 			'amount' => '1890.930000',
+			'reference' => 'Shutdown ---',
 		);
 		$this->assertEquals($expected, $actual, 'Mapping: process Map');
 	}
