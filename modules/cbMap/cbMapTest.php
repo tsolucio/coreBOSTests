@@ -86,6 +86,14 @@ class cbMapTest extends TestCase {
 					),
 				'master' => false,
 				),
+				'reference' => array (
+					'merge' => array (
+						0 => array (
+							'EXPRESSION' => "concat($(account_id : (Accounts) rating) ,' ---')"
+						),
+					),
+				'master' => false,
+				),
 			),
 		);
 		$this->assertEquals($expected, $actual, 'getMapArray');

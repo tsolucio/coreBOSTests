@@ -1713,6 +1713,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			'cbPulse' => 'cbPulse',
 			'MsgTemplate' => 'MsgTemplate',
 			'cbCredentials' => 'cbCredentials',
+			'DocumentFolders' => 'DocumentFolders',
 		);
 		return array(
 			array(array(), $e1),

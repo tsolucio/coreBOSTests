@@ -70,6 +70,7 @@ class CustomerPortalWSTest extends TestCase {
 			'currency_symbol_placement' => '$1.0',
 			'roleid' => 'H2',
 			'rolename' => 'CEO',
+			'profileid' => array(1=>'Administrator'),
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo admin');
 		$user = new Users();
@@ -88,6 +89,7 @@ class CustomerPortalWSTest extends TestCase {
 			'currency_symbol_placement' => '$1.0',
 			'roleid' => 'H3',
 			'rolename' => 'Vice President',
+			'profileid' => array(6 => 'TestUserDefaultProfile'),
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo testdmy');
 		$user = new Users();
@@ -106,6 +108,7 @@ class CustomerPortalWSTest extends TestCase {
 			'currency_symbol_placement' => '$1.0',
 			'roleid' => 'H3',
 			'rolename' => 'Vice President',
+			'profileid' => array(6 => 'TestUserDefaultProfile'),
 		);
 		$this->assertEquals($expected, vtws_getPortalUserInfo($user), 'vtws_getPortalUserInfo testdmy');
 	}

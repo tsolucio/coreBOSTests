@@ -44,7 +44,7 @@ class RetrieveDocAttachmentTest extends TestCase {
 			'filelocationtype'=>'E',
 			'filedownloadcount'=> '',
 			'filestatus'=> '1',
-			'folderid' => '22x1',
+			'folderid' => '',
 			'notecontent' => 'áçèñtös',
 			'modifiedby' => $cbUserID,
 			'template' => '0',

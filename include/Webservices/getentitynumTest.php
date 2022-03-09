@@ -154,6 +154,9 @@ class getentitynumTest extends TestCase {
 			'cbCredentials' => array(
 				'CRED-'
 			),
+			'DocumentFolders' => array(
+				'folder-'
+			),
 		));
 		$this->assertEquals($expected, vtws_get_entitynum($current_user));
 		$ruser = new Users();

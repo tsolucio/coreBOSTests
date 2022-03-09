@@ -171,7 +171,7 @@ class CRMEntityTest extends TestCase {
 		$actual = CRMEntity::getUUIDfromWSID('20x3');
 		$this->assertEquals('', $actual, 'getUUIDfromWSID Group');
 		$actual = CRMEntity::getUUIDfromWSID('22x2');
-		$this->assertEquals('', $actual, 'getUUIDfromWSID Document Folder');
+		$this->assertEquals('efb97a8a13696e0b54cb2d8ff52337987bdbc06d', $actual, 'getUUIDfromWSID Document Folder');
 		$actual = CRMEntity::getUUIDfromWSID('');
 		$this->assertEquals('', $actual, 'getUUIDfromWSID Empty');
 		$actual = CRMEntity::getWSIDfromUUID('');

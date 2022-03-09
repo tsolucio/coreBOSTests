@@ -346,11 +346,10 @@ class WSUtilsTest extends TestCase {
 		$expected = array(
 			0 => 'Groups',
 			1 => 'Currency',
-			2 => 'DocumentFolders',
-			3 => 'Workflow',
-			4 => 'AuditTrail',
-			5 => 'LoginHistory',
-			6 => 'ModTracker',
+			2 => 'Workflow',
+			3 => 'AuditTrail',
+			4 => 'LoginHistory',
+			5 => 'ModTracker',
 		);
 		$this->assertEquals($expected, vtws_getActorModules(), 'vtws_getActorModules');
 	}
@@ -420,6 +419,7 @@ class WSUtilsTest extends TestCase {
 				'Emails',
 				'HelpDesk',
 				'Users',
+				'DocumentFolders',
 				'PBXManager',
 				'ServiceContracts',
 				'Services',
@@ -454,13 +454,12 @@ class WSUtilsTest extends TestCase {
 			'entity'=>array(
 				0 => 'Groups',
 				1 => 'Currency',
-				2 => 'DocumentFolders',
-				3 => 'CompanyDetails',
-				4 => 'Workflow',
-				5 => 'AuditTrail',
-				6 => 'LoginHistory',
-				7 => 'Zendesk',
-				8 => 'ModTracker',
+				2 => 'CompanyDetails',
+				3 => 'Workflow',
+				4 => 'AuditTrail',
+				5 => 'LoginHistory',
+				6 => 'Zendesk',
+				7 => 'ModTracker',
 			),
 		);
 		$this->assertEquals($expected, vtws_getWebserviceEntities());

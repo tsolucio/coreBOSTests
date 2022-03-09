@@ -60,6 +60,7 @@ class ModuleTypesTest extends TestCase {
 			'Emails',
 			'HelpDesk',
 			'Users',
+			'DocumentFolders',
 			'PBXManager',
 			'ServiceContracts',
 			'Services',
@@ -91,7 +92,6 @@ class ModuleTypesTest extends TestCase {
 			'cbCredentials',
 			'Groups',
 			'Currency',
-			'DocumentFolders',
 			'CompanyDetails',
 			'Workflow',
 			'AuditTrail',
@@ -335,9 +335,9 @@ class ModuleTypesTest extends TestCase {
 				'singular' => 'Currency',
 			),
 			'DocumentFolders' => array(
-				'isEntity' => false,
-				'label' => 'DocumentFolders',
-				'singular' => 'DocumentFolders',
+				'isEntity' => true,
+				'label' => 'Document Folders',
+				'singular' => 'Document Folder',
 			),
 			'CompanyDetails' => array(
 				'isEntity' => false,

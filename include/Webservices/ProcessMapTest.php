@@ -49,7 +49,7 @@ class ProcessMapTest extends TestCase {
 			'outfields' => array(),
 		);
 		$actual = cbwsProcessMap(vtws_getEntityId('cbMap').'x34030', $params, $current_user);
-		$expected = array('amount' => '4572.810000');
+		$expected = array('amount' => '4572.810000', 'reference' => 'Acquired ---');
 		$this->assertEquals($expected, $actual, 'cbwsProcessMap');
 		///////////////
 		$params = array(
@@ -65,7 +65,7 @@ class ProcessMapTest extends TestCase {
 			'amount' => '4572.810000',
 			'assigned_user_id' => '8',
 			'cyp_no' => 'PAY-0000008',
-			'reference' => 'Grace Darling',
+			'reference' => 'Acquired ---',
 			'parent_id' => '152',
 			'related_id' => '3250',
 			'register' => '2015-07-22',
@@ -101,7 +101,7 @@ class ProcessMapTest extends TestCase {
 			'amount' => '4572.810000',
 			'assigned_user_id' => '8',
 			'cyp_no' => 'PAY-0000008',
-			'reference' => 'Grace Darling',
+			'reference' => 'Acquired ---',
 			'parent_id' => '152',
 			'related_id' => '3250',
 			'register' => '2015-07-22',
@@ -140,7 +140,7 @@ class ProcessMapTest extends TestCase {
 		$expected = array(
 			'assigned_user_id' => '8',
 			'cyp_no' => 'PAY-0000008',
-			'reference' => 'Grace Darling',
+			'reference' => 'Acquired ---',
 			'parent_id' => '152',
 			'record_id' => vtws_getEntityId('CobroPago').'x14301',
 			'amount' => '4572.810000',

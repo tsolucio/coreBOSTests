@@ -743,7 +743,7 @@ class IncludeUtilsTest extends TestCase {
 			array('Created By', '0', '52', '0', '764', '2', 'V~O'),
 		);
 		$expected_contacts_module_fields = array(
-			array('Salutation', '0', '15', '0', '66', '3', 'V~O'),
+			array('Salutation', '0', '15', '0', '66', '1', 'V~O'),
 			array('First Name', '0', '1', '0', '67', '1', 'V~O'),
 			array('Contact Id', '0', '4', '0', '68', '1', 'V~O'),
 			array('Office Phone', '0', '11', '0', '69', '1', 'V~O'),
@@ -906,7 +906,7 @@ class IncludeUtilsTest extends TestCase {
 			54 => array(0 => 'Created By', 1 => '0', 2 => '52', 3 => '0', 4 => '764', 5 => '2', 6 => 'V~O', 7 => 'B',),
 		);
 		$expected_contacts_module_fields = array(
-			0 => array(0 => 'Salutation', 1 => '0', 2 => '15', 3 => '0', 4 => '66', 5 => '3', 6 => 'V~O', 7 => 'B',),
+			0 => array(0 => 'Salutation', 1 => '0', 2 => '15', 3 => '0', 4 => '66', 5 => '1', 6 => 'V~O', 7 => 'B',),
 			1 => array(0 => 'First Name', 1 => '0', 2 => '1', 3 => '0', 4 => '67', 5 => '1', 6 => 'V~O', 7 => 'B',),
 			2 => array(0 => 'Contact Id', 1 => '0', 2 => '4', 3 => '0', 4 => '68', 5 => '1', 6 => 'V~O', 7 => 'B',),
 			3 => array(0 => 'Office Phone', 1 => '0', 2 => '11', 3 => '0', 4 => '69', 5 => '1', 6 => 'V~O', 7 => 'B',),

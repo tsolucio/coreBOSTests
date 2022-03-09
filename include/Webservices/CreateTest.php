@@ -756,7 +756,7 @@ class CreateTest extends TestCase {
 			'filelocationtype'=>'I',
 			'filedownloadcount'=> '0',
 			'filestatus'=> '1',
-			'folderid' => '22x1',
+			'folderid' => '',
 			'notecontent' => 'áçèñtös',
 			'modifiedby' => $cbUserID,
 			'template' => '0',
@@ -783,7 +783,7 @@ class CreateTest extends TestCase {
 		unset($sdoc['note_no'], $sdoc['modifiedtime'], $sdoc['_downloadurl']);
 		$expected = array(
 			'notes_title' => 'REST Test create doc',
-			'folderid' => '22x1',
+			'folderid' => '',
 			'assigned_user_id' => '19x7',
 			'createdtime' => $actual['createdtime'],
 			'modifiedby' => '19x7',
@@ -802,11 +802,6 @@ class CreateTest extends TestCase {
 			'cbuuid' => $actual['cbuuid'],
 			'relations' => array(),
 			'filename' => 'Cron.png',
-			'folderidename' => array(
-				'module' => 'DocumentFolders',
-				'reference' => 'Default',
-				'cbuuid' => '',
-			),
 			'modifiedbyename' => array(
 				'module' => 'Users',
 				'reference' => 'cbTest testymd',
@@ -861,7 +856,7 @@ class CreateTest extends TestCase {
 			'filelocationtype'=>'I',
 			'filedownloadcount'=> '0',
 			'filestatus'=> '1',
-			'folderid' => '22x1',
+			'folderid' => '',
 			'notecontent' => 'áçèñtös',
 			'modifiedby' => $cbUserID,
 			'template' => '0',
