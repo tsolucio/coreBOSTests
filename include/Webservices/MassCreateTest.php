@@ -195,10 +195,10 @@ class MassCreateTest extends TestCase {
 	}
 
 	/**
-	 * Method testMassUpsert
+	 * Method testMassUpsertSearchOn
 	 * @test
 	 */
-	public function testMassUpsert() {
+	public function testMassUpsertSearchOn() {
 		global $current_user, $adb;
 		$elements = array (
 			array (
@@ -302,6 +302,121 @@ class MassCreateTest extends TestCase {
 				vtws_delete('17x'.$row['ticketid'], $current_user);
 			}
 		}
+	}
+
+	/**
+	 * Method testMassUpsertCondition
+	 * @test
+	 */
+	public function testMassUpsertCondition() {
+		global $current_user, $adb;
+		$elements = array (
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'searchon' => 'ticket_title,product_id',
+				'condition' => 'getWhatToDoForMassCreate',
+				'element' => array (
+					'ticket_title' => 'ST MassUpsert Test Condition Skip',
+					'whattodo' => 'skip',
+					'parent_id' => '11x74',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Low',
+					'ticketstatus' => 'Open',
+					'ticketseverities' => 'Minor',
+					'hours' => '1.1',
+					'ticketcategories' => 'Small Problem',
+					'days' => '1',
+					'description' => 'ST mass upsert test condition',
+					'solution' => '',
+				),
+			),
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'searchon' => 'ticket_title,product_id',
+				'condition' => 'getWhatToDoForMassCreate',
+				'element' => array (
+					'ticket_title' => 'ST MassUpsert Test Condition Create',
+					'whattodo' => 'create',
+					'parent_id' => '11x74',
+					'assigned_user_id' => '19x5',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Normal',
+					'ticketstatus' => 'Closed',
+					'ticketseverities' => 'Major',
+					'hours' => '2.2',
+					'ticketcategories' => 'Big Problem',
+					'days' => '2',
+					'description' => 'ST mass upsert test condition',
+					'solution' => '2',
+				),
+			),
+		);
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%ST MassUpsert Test Condition%\'',
+			array()
+		);
+		$this->assertEquals(0, $adb->num_rows($helpdesk_res));
+
+		$r = MassCreate($elements, $current_user);
+		$this->assertEquals(2, count($r));
+		$this->assertEquals(2, count($r['success_creates']));
+		$this->assertEquals(1, count($r['success_creates'][0]));
+		$this->assertEquals(0, $r['success_creates'][0]['id']);
+		$this->assertEquals(0, count($r['failed_creates']));
+
+		$helpdesk_res = $adb->pquery(
+			'select ticketid from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where deleted=0 and title like \'%ST MassUpsert Test Condition%\'',
+			array()
+		);
+		$row = $adb->fetch_array($helpdesk_res);
+
+		// test have been created
+		$this->assertEquals(1, $adb->num_rows($helpdesk_res));
+
+		// test Update
+		$elements = array (
+			array (
+				'elementType' => 'HelpDesk',
+				'referenceId' => '',
+				'searchon' => 'ticket_title',
+				'condition' => 'getWhatToDoForMassCreate',
+				'element' => array (
+					'ticket_title' => 'ST MassUpsert Test Condition Update',
+					'whattodo' => 'update',
+					'id' => $row['ticketid'],
+					'parent_id' => '11x74',
+					'assigned_user_id' => '19x8',
+					'product_id' => '14x2617',
+					'ticketpriorities' => 'Normal',
+					'ticketstatus' => 'Closed',
+					'ticketseverities' => 'Major',
+					'hours' => '4.4',
+					'ticketcategories' => 'Big Problem',
+					'days' => '2',
+					'description' => 'ST mass upsert test condition',
+					'solution' => '2',
+				),
+			),
+		);
+		$r = MassCreate($elements, $current_user);
+		$this->assertEquals(2, count($r));
+		$this->assertEquals(1, count($r['success_creates']));
+		$this->assertEquals('ST MassUpsert Test Condition Update', $r['success_creates'][0]['ticket_title']);
+		$this->assertEquals(0, count($r['failed_creates']));
+		$hdres = $adb->pquery(
+			'select smownerid,hours,title from vtiger_troubletickets inner join vtiger_crmentity on crmid=ticketid where ticketid=?',
+			array($row['ticketid'])
+		);
+		$hd = $adb->fetch_array($hdres);
+		$this->assertEquals(8, $hd['smownerid']);
+		$this->assertEquals('4.400000', $hd['hours']);
+		$this->assertEquals('ST MassUpsert Test Condition Update', $hd['title']);
+
+		// Cleaning
+		vtws_delete('17x'.$row['ticketid'], $current_user);
 	}
 
 	/**

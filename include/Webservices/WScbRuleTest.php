@@ -116,22 +116,5 @@ class WScbRuleTest extends TestCase {
 			throw $th;
 		}
 	}
-
-	/**
-	 * Method testInvalidIDExceptionMissingrecord
-	 * @test
-	 */
-	public function testInvalidIDExceptionMissingrecord() {
-		global $current_user;
-		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode('INVALID_MODULE');
-		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDID);
-		try {
-			cbws_cbRule(vtws_getEntityId('cbMap').'x34033', '{}', $current_user);
-		} catch (\Throwable $th) {
-			throw $th;
-		}
-	}
 }
 ?>
