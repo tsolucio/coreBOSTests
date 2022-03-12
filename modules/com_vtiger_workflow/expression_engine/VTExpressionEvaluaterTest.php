@@ -4039,6 +4039,40 @@ class VTExpressionEvaluaterTest extends TestCase {
 	}
 
 	/**
+	 * Method testAggregtionFunction
+	 * @test
+	 */
+	public function testAggregtionFunction() {
+		global $current_user;
+		$adminUser = Users::getActiveAdminUser();
+		$entityCache = new VTEntityCache($current_user);
+		$entityId = '11x74';
+		$entity = new VTWorkflowEntity($adminUser, $entityId);
+		$testexpression = "aggregation('sum', 'Potentials', 'amount', '[probability,e,format_date(get_date(\"today\"),\"W\"),and,expression]')";
+		$expectedresult = array(
+			0 => 'sum',
+			1 => 'Potentials',
+			2 => 'amount',
+			3 => '[probability,e,format_date(get_date("today"),"W"),and,expression]',
+			4 => 'Array
+(
+    [0] => sum
+    [1] => Potentials
+    [2] => amount
+    [3] => [probability,e,format_date(get_date("today"),"W"),and,expression]
+    [4] => context is added
+)
+',
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals(0, $exprEvaluation);
+	}
+
+	/**
 	 * Method testLogicalOperators
 	 * @test
 	 */
