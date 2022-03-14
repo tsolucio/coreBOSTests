@@ -162,6 +162,20 @@ class mathTest extends TestCase {
 		$this->assertEquals(1, $actual);
 	}
 
+	//test log
+	public function testlogfunction() {
+		$actual = __cb_logarithm(array());
+		$this->assertEquals(0, $actual);
+		$actual = __cb_logarithm(0);
+		$this->assertEquals(0, $actual);
+		$actual = __cb_logarithm(array(2, 10));
+		$this->assertEquals(0.3010299956639812, $actual);
+		$actual = __cb_logarithm(array(10, 10));
+		$this->assertEquals(1, $actual);
+		$actual = __cb_logarithm(array(2));
+		$this->assertEquals(0.6931471805599453, $actual);
+	}
+
 	//test average
 	public function testaveragefunction() {
 		$actual = cb_average(array());
