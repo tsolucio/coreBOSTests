@@ -28,15 +28,13 @@ class PearDatabaseTest extends TestCase {
 	}
 
 	/**
-	 *	This function returns a samle query and an aray of parametersfor further testing
+	 * This function returns a sample query and an array of parameters for further testing
 	 */
 	public function testqueryProvider() {
-
 		$query = "SELECT * FROM vtiger_contactdetails WHERE contactid>? AND department=? LIMIT 5";
 		$id= 1084;
 		$department = 'Marketing';
 		$array = array($query,array($id,$department));
-
 		$this->assertTrue(true);
 		return $array;
 	}
@@ -46,7 +44,6 @@ class PearDatabaseTest extends TestCase {
 	 * @depends testqueryProvider
 	 */
 	public function testConvert2Sql($adb, $array) {
-
 		$convertedSql = $adb->convert2Sql($array[0], $array[1]);
 		$expectedSql = "SELECT * FROM vtiger_contactdetails WHERE contactid>1084 AND department='Marketing' LIMIT 5";
 		$this->assertEquals($expectedSql, $convertedSql);
@@ -148,7 +145,7 @@ class PearDatabaseTest extends TestCase {
 		LONGTEXT: 252
 	 */
 	public function test_getFieldsDefinition($adb) {
-		$sql = "SELECT * FROM marvel";
+		$sql = 'SELECT * FROM marvel';
 		$result = $adb->pquery($sql, array());
 		$filed_defs = $adb->getFieldsDefinition($result);
 		$expected = array(
@@ -468,7 +465,7 @@ class PearDatabaseTest extends TestCase {
 	/**
 	 * @depends testObjectType
 	 */
-	public function test_CreteTable($adb) {
+	public function test_CreateTable($adb) {
 		$adb->query('DROP TABLE vtiger_tmp;');
 		if (empty($adb->getColumnNames('vtiger_tmp'))) {
 			$this->assertEquals(2, $adb->CreateTable('vtiger_tmp', 'id INTEGER, name VARCHAR(100), email VARCHAR(100), type VARCHAR(7)'));
@@ -488,8 +485,8 @@ class PearDatabaseTest extends TestCase {
 	 * @depends testObjectType
 	 */
 	public function test_escapeDbName($adb) {
-		$expected = "`database1`";
-		$dbname = $adb->escapeDbName("database1");
+		$expected = '`database1`';
+		$dbname = $adb->escapeDbName('database1');
 		$this->assertEquals($expected, $dbname);
 	}
 
