@@ -476,9 +476,12 @@ class PearDatabaseTest extends TestCase {
 	 * @depends testObjectType
 	 */
 	public function test_alterTable($adb) {
-		$adb->alterTable("vtiger_tmp", "surname VARCHAR(100)", "Add_Column");
-		$expected_fields = array("id","name","email","type","surname");
-		$this->assertEquals($expected_fields, $adb->getColumnNames("vtiger_tmp"));
+		$adb->alterTable('vtiger_tmp', 'surname VARCHAR(100)', 'Add_Column');
+		$expected_fields = array('id','name','email','type','surname');
+		$this->assertEquals($expected_fields, $adb->getColumnNames('vtiger_tmp'));
+		$adb->alterTable('vtiger_tmp', 'surname', 'Delete_Column');
+		$expected_fields = array('id','name','email','type');
+		$this->assertEquals($expected_fields, $adb->getColumnNames('vtiger_tmp'));
 	}
 
 	/**
