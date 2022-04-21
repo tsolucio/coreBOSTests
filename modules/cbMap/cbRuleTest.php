@@ -41,6 +41,102 @@ class cbRuleTest extends TestCase {
 	}
 
 	/**
+	 * Method testInsecureContext
+	 * @test
+	 */
+	public function testInsecureContext() {
+		global $current_user;
+		$this->assertEquals(
+			'yes',
+			coreBOS_Rule::evaluate(
+				'isPermitted_ConditionExpression',
+				array(
+					'record_id' => '11x74',
+					'permitted_module' => 'Accounts',
+					'permitted_action' => 'EditView',
+					'permitted_record' => '11x74',
+				)
+			)
+		);
+		$this->assertEquals(
+			'yes',
+			coreBOS_Rule::evaluate(
+				'isPermitted_ConditionExpression',
+				array(
+					'record_id' => '11x74',
+					'permitted_module' => "Accounts'.system('cat /etc/passwd').'",
+					'permitted_action' => 'EditView',
+					'permitted_record' => '11x74',
+				)
+			)
+		);
+		$this->assertEquals(
+			'yes',
+			coreBOS_Rule::evaluate(
+				'isPermitted_ConditionExpression',
+				array(
+					'record_id' => '11x74',
+					'permitted_module' => "\'.system(\"cat /etc/passwd\").",
+					'permitted_action' => ");//EditView",
+					'permitted_record' => '11x74',
+				)
+			)
+		);
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(11); // nocreate
+		$current_user = $user;
+		$this->assertEquals(
+			'no',
+			coreBOS_Rule::evaluate(
+				'isPermitted_ConditionExpression',
+				array(
+					'record_id' => '11x74',
+					'permitted_module' => 'Accounts',
+					'permitted_action' => 'EditView',
+					'permitted_record' => '11x74',
+				)
+			)
+		);
+		$this->assertEquals(
+			'yes',
+			coreBOS_Rule::evaluate(
+				'isPermitted_ConditionExpression',
+				array(
+					'record_id' => '11x74',
+					'permitted_module' => "Accounts'.system('cat /etc/passwd').'",
+					'permitted_action' => 'EditView',
+					'permitted_record' => '11x74',
+				)
+			)
+		);
+		$this->assertEquals(
+			'no',
+			coreBOS_Rule::evaluate(
+				'isPermitted_ConditionExpression',
+				array(
+					'record_id' => '11x74',
+					'permitted_module' => "\'.system(\"cat /etc/passwd\").",
+					'permitted_action' => ");//EditView",
+					'permitted_record' => '11x74',
+				)
+			)
+		);
+		$this->assertEquals(
+			'no',
+			coreBOS_Rule::evaluate(
+				'isPermitted_ConditionExpression',
+				array(
+					'record_id' => '4062',
+					'permitted_module' => 'SMSNOtifier',
+					'permitted_action' => 'EditView',
+					'permitted_record' => '4062',
+				)
+			)
+		);
+		$current_user = Users::getActiveAdminUser();
+	}
+
+	/**
 	 * Method testExceptionAccessDeniedInvalidID
 	 * @test
 	 */
