@@ -887,5 +887,115 @@ class MassCreateTest extends TestCase {
 		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
 		MassCreate($elements, $user);
 	}
+
+	/**
+	 * Method testMassCreateWithMoreThen2RefFields
+	 * @test
+	 */
+	public function testMassCreateWithMoreThen2RefFields() {
+		global $current_user, $adb;
+		$elements = array (
+			array(
+				"elementType"=>"Contacts",
+				"referenceId"=> "rel_entity_contact_id_0",
+				"searchon"=> "firstname,lastname",
+				"element"=> array(
+					"firstname"=>"Helga",
+					"lastname"=>"Adams",
+					"assigned_user_id"=> "19x1"
+				)
+			),
+			array(
+				"elementType"=>"Accounts",
+				"referenceId"=>"rel_entity_account_id_1",
+				"searchon"=>"accountname",
+				"element"=> array(
+					"accountname"=>"Helga",
+					"assigned_user_id"=>"19x1",
+				)
+			),
+			array(
+				"elementType"=>"Invoice",
+				"referenceId"=>"",
+				"searchon"=>"",
+				"element"=> array(
+					"subject"=>"Invoice Helga 2022",
+					"contact_id"=>"@{rel_entity_contact_id_0}",
+					"account_id"=>"@{rel_entity_account_id_1}",
+					"assigned_user_id"=>"19x1",
+					"bill_street"=>"New York",
+					"ship_street"=>"New York",
+				)
+			),
+			array(
+				"elementType"=>"Contacts",
+				"referenceId"=>"rel_entity_contact_id_2",
+				"searchon"=>"firstname,lastname",
+				"element"=> array(
+					"firstname"=>"John",
+					"lastname"=>"Doe",
+					"assigned_user_id"=>"19x1",
+				)
+			),
+			array(
+				"elementType"=>"Accounts",
+				"referenceId"=>"rel_entity_account_id_3",
+				"searchon"=>"accountname",
+				"element"=> array(
+					"accountname"=>"Doe",
+					"assigned_user_id"=>"19x1",
+				)
+			),
+			array(
+				"elementType"=>"Invoice",
+				"referenceId"=>"",
+				"searchon"=>"",
+				"element"=> array(
+					"subject"=>"Invoice Doe 2022",
+					"contact_id"=>"@{rel_entity_contact_id_2}",
+					"account_id"=>"@{rel_entity_account_id_3}",
+					"assigned_user_id"=>"19x1",
+					"bill_street"=>"London",
+					"ship_street"=>"London",
+				)
+			),
+			array(
+				"elementType"=>"Contacts",
+				"referenceId"=>"rel_entity_contact_id_4",
+				"searchon"=>"firstname,lastname",
+				"element"=> array(
+					"firstname"=>"Molli",
+					"lastname"=>"Williams",
+					"assigned_user_id"=>"19x1",
+				)
+			),
+			array(
+				"elementType"=>"Accounts",
+				"referenceId"=>"rel_entity_account_id_5",
+				"searchon"=>"accountname",
+				"element"=> array(
+					"accountname"=>"Molli",
+					"assigned_user_id"=>"19x1",
+				)
+			),
+			array(
+				"elementType"=>"Invoice",
+				"referenceId"=>"",
+				"searchon"=>"",
+				"element"=> array(
+					"subject"=>"Invoice Molli 2022",
+					"contact_id"=>"@{rel_entity_contact_id_4}",
+					"account_id"=>"@{rel_entity_account_id_5}",
+					"assigned_user_id"=>"19x1",
+					"bill_street"=>"Paris",
+					"ship_street"=>"Paris",
+				)
+			)
+		);
+		$r = MassCreate($elements, $current_user);
+		$this->assertEquals(2, count($r));
+		$this->assertEquals(9, count($r['success_creates']));
+		$this->assertEquals(0, count($r['failed_creates']));
+	}
 }
 ?>
