@@ -20,6 +20,8 @@
 
 use PHPUnit\Framework\TestCase;
 
+$Vtiger_Utils_Log = false;
+
 class QueryTest extends TestCase {
 
 	/**
@@ -46,7 +48,8 @@ class QueryTest extends TestCase {
 	 * @test
 	 */
 	public function testQueryCache() {
-		global $current_user;
+		global $current_user,$Vtiger_Utils_Log;
+		$Vtiger_Utils_Log = false;
 		$Module = 'HelpDesk';
 		$modhd = Vtiger_Module::getInstance($Module);
 		$blkhd = Vtiger_Block::getInstance('LBL_TICKET_INFORMATION', $modhd);

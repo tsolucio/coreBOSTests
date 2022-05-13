@@ -450,6 +450,7 @@ class WSUtilsTest extends TestCase {
 				'cbPulse',
 				'MsgTemplate',
 				'cbCredentials',
+				'pricebookproductrel',
 			),
 			'entity'=>array(
 				0 => 'Groups',

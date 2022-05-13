@@ -157,6 +157,9 @@ class getentitynumTest extends TestCase {
 			'DocumentFolders' => array(
 				'folder-'
 			),
+			'pricebookproductrel' => array(
+				'PriceList-'
+			),
 		));
 		$this->assertEquals($expected, vtws_get_entitynum($current_user));
 		$ruser = new Users();

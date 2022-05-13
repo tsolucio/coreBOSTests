@@ -90,6 +90,7 @@ class ModuleTypesTest extends TestCase {
 			'cbPulse',
 			'MsgTemplate',
 			'cbCredentials',
+			'pricebookproductrel',
 			'Groups',
 			'Currency',
 			'CompanyDetails',
@@ -368,6 +369,11 @@ class ModuleTypesTest extends TestCase {
 				'isEntity' => true,
 				'label' => 'Credentials',
 				'singular' => 'Credential',
+			),
+			'pricebookproductrel' => array(
+				'isEntity' => true,
+				'label' => 'Price Lists',
+				'singular' => 'Price List',
 			),
 			),
 		);

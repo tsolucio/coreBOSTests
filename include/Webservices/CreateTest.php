@@ -20,6 +20,8 @@
 
 use PHPUnit\Framework\TestCase;
 
+$Vtiger_Utils_Log = false;
+
 class CreateTest extends TestCase {
 
 	/****
@@ -883,7 +885,8 @@ class CreateTest extends TestCase {
 	 * @test
 	 */
 	public function testCreateHelpDeskWithAttachment() {
-		global $current_user,$adb, $log;
+		global $current_user,$adb, $log, $Vtiger_Utils_Log;
+		$Vtiger_Utils_Log = false;
 		$current_user = Users::getActiveAdminUser();
 		$Module = 'HelpDesk';
 		$cbUserID = '19x'.$current_user->id;

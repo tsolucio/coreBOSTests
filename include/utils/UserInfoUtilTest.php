@@ -119,6 +119,7 @@ class UserInfoUtilTest extends TestCase {
 			78 => '0',
 			79 => '0',
 			80 => '0',
+			81 => '0',
 		);
 		$profilenocreate = $profiles;
 		$profilenocreate['62'] = '1';
@@ -224,6 +225,7 @@ class UserInfoUtilTest extends TestCase {
 			78 => '0',
 			79 => '0',
 			80 => '0',
+			81 => '0',
 		);
 		$prof4 = $profiles;
 		$prof4[45] = $prof4[52] = '1';
@@ -310,6 +312,7 @@ class UserInfoUtilTest extends TestCase {
 			78 => '3',
 			79 => '3',
 			80 => '2',
+			81 => '2',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingEditAction");
 	}
@@ -368,6 +371,7 @@ class UserInfoUtilTest extends TestCase {
 			78 => '3',
 			79 => '3',
 			80 => '2',
+			81 => '2',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingAction");
 	}
@@ -969,6 +973,7 @@ class UserInfoUtilTest extends TestCase {
 			'MsgTemplate',
 			'cbCredentials',
 			'DocumentFolders',
+			'pricebookproductrel',
 		);
 		$exp2 = array(
 			'Dashboard',
@@ -1039,6 +1044,7 @@ class UserInfoUtilTest extends TestCase {
 			'MsgTemplate',
 			'cbCredentials',
 			'DocumentFolders',
+			'pricebookproductrel',
 		);
 		$exp11 = $exp2;
 		unset($exp11[49]);
@@ -1142,6 +1148,7 @@ class UserInfoUtilTest extends TestCase {
 			66 => 78,
 			67 => 79,
 			68 => 80,
+			69 => 81,
 		);
 		$exp2 = array(
 			0 => 1,
@@ -1212,6 +1219,7 @@ class UserInfoUtilTest extends TestCase {
 			65 => 78,
 			66 => 79,
 			67 => 80,
+			68 => 81,
 		);
 		$exp11 = $exp2;
 		unset($exp11[49]);

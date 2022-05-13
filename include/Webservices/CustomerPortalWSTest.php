@@ -284,11 +284,12 @@ class CustomerPortalWSTest extends TestCase {
 	 * params
 	 */
 	public function vtws_getReferenceValueProvider() {
+		$docfldwsid = vtws_getEntityId('DocumentFolders');
 		return array(
 			array(serialize(array('12x1084','11x74')), 'a:2:{s:7:"12x1084";a:3:{s:6:"module";s:8:"Contacts";s:9:"reference";s:15:"Lina Schwiebert";s:6:"cbuuid";s:40:"a609725772dc91ad733b19e4100cf68bb30195d1";}s:5:"11x74";a:3:{s:6:"module";s:8:"Accounts";s:9:"reference";s:15:"Chemex Labs Ltd";s:6:"cbuuid";s:40:"b0857db0c1dee95300a10982853f5fb1d4e981c1";}}'),
-			array(serialize(array('22x2','20x3','21x1')), 'a:3:{s:4:"22x2";a:3:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";s:6:"cbuuid";s:0:"";}s:4:"20x3";a:3:{s:6:"module";s:6:"Groups";s:9:"reference";s:15:"Marketing Group";s:6:"cbuuid";s:0:"";}s:4:"21x1";a:3:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";s:6:"cbuuid";s:0:"";}}'),
-			array(serialize(array('22x2|20x3','21x1')), 'a:3:{s:4:"22x2";a:3:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";s:6:"cbuuid";s:0:"";}s:4:"20x3";a:3:{s:6:"module";s:6:"Groups";s:9:"reference";s:15:"Marketing Group";s:6:"cbuuid";s:0:"";}s:4:"21x1";a:3:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";s:6:"cbuuid";s:0:"";}}'),
-			array(serialize(array('22x2','20x3|21x1')), 'a:3:{s:4:"22x2";a:3:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";s:6:"cbuuid";s:0:"";}s:4:"20x3";a:3:{s:6:"module";s:6:"Groups";s:9:"reference";s:15:"Marketing Group";s:6:"cbuuid";s:0:"";}s:4:"21x1";a:3:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";s:6:"cbuuid";s:0:"";}}'),
+			array(serialize(array($docfldwsid.'x44190','20x3','21x1')), 'a:3:{s:8:"'.$docfldwsid.'x44190";a:3:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";s:6:"cbuuid";s:0:"";}s:4:"20x3";a:3:{s:6:"module";s:6:"Groups";s:9:"reference";s:15:"Marketing Group";s:6:"cbuuid";s:0:"";}s:4:"21x1";a:3:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";s:6:"cbuuid";s:0:"";}}'),
+			array(serialize(array($docfldwsid.'x44190|20x3','21x1')), 'a:3:{s:8:"'.$docfldwsid.'x44190";a:3:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";s:6:"cbuuid";s:0:"";}s:4:"20x3";a:3:{s:6:"module";s:6:"Groups";s:9:"reference";s:15:"Marketing Group";s:6:"cbuuid";s:0:"";}s:4:"21x1";a:3:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";s:6:"cbuuid";s:0:"";}}'),
+			array(serialize(array($docfldwsid.'x44190','20x3|21x1')), 'a:3:{s:8:"'.$docfldwsid.'x44190";a:3:{s:6:"module";s:15:"DocumentFolders";s:9:"reference";s:8:"Avengers";s:6:"cbuuid";s:0:"";}s:4:"20x3";a:3:{s:6:"module";s:6:"Groups";s:9:"reference";s:15:"Marketing Group";s:6:"cbuuid";s:0:"";}s:4:"21x1";a:3:{s:6:"module";s:8:"Currency";s:9:"reference";s:13:"Euro : &euro;";s:6:"cbuuid";s:0:"";}}'),
 			array(serialize(array('11x1084','12x74')), 'a:2:{s:7:"11x1084";a:3:{s:6:"module";s:8:"Accounts";s:9:"reference";s:0:"";s:6:"cbuuid";s:0:"";}s:5:"12x74";a:3:{s:6:"module";s:8:"Contacts";s:9:"reference";s:0:"";s:6:"cbuuid";s:0:"";}}'),
 			array(serialize(array()), 'a:0:{}'),
 			array('', 'a:0:{}'),
