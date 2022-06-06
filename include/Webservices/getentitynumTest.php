@@ -160,6 +160,9 @@ class getentitynumTest extends TestCase {
 			'pricebookproductrel' => array(
 				'PriceList-'
 			),
+			'AutoNumberPrefix' => array(
+				'ANPx-'
+			),
 		));
 		$this->assertEquals($expected, vtws_get_entitynum($current_user));
 		$ruser = new Users();

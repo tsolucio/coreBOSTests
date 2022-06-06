@@ -120,6 +120,7 @@ class UserInfoUtilTest extends TestCase {
 			79 => '0',
 			80 => '0',
 			81 => '0',
+			82 => '0',
 		);
 		$profilenocreate = $profiles;
 		$profilenocreate['62'] = '1';
@@ -226,6 +227,7 @@ class UserInfoUtilTest extends TestCase {
 			79 => '0',
 			80 => '0',
 			81 => '0',
+			82 => '0',
 		);
 		$prof4 = $profiles;
 		$prof4[45] = $prof4[52] = '1';
@@ -313,6 +315,7 @@ class UserInfoUtilTest extends TestCase {
 			79 => '3',
 			80 => '2',
 			81 => '2',
+			82 => '2',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingEditAction");
 	}
@@ -372,6 +375,7 @@ class UserInfoUtilTest extends TestCase {
 			79 => '3',
 			80 => '2',
 			81 => '2',
+			82 => '2',
 		);
 		$this->assertEquals($expected, $actual, "DefaultSharingAction");
 	}
@@ -568,16 +572,16 @@ class UserInfoUtilTest extends TestCase {
 	 */
 	public function getRoleAndSubordinateUserIdsProvider() {
 		$expected_H1_role_users_ids = array(
-			0 => "1",
-			1 => "5",
-			2 => "6",
-			3 => "7",
-			4 => "8",
-			5 => "9",
-			6 => "10",
-			7 => "12",
-			8 => "13",
-			9 => "11",
+			0 => '1',
+			1 => '5',
+			2 => '6',
+			3 => '7',
+			4 => '8',
+			5 => '9',
+			6 => '10',
+			7 => '12',
+			8 => '13',
+			9 => '11',
 		);
 		$expected_H2_role_users_ids = array(
 			0 => '1',
@@ -974,6 +978,7 @@ class UserInfoUtilTest extends TestCase {
 			'cbCredentials',
 			'DocumentFolders',
 			'pricebookproductrel',
+			'AutoNumberPrefix',
 		);
 		$exp2 = array(
 			'Dashboard',
@@ -1045,6 +1050,7 @@ class UserInfoUtilTest extends TestCase {
 			'cbCredentials',
 			'DocumentFolders',
 			'pricebookproductrel',
+			'AutoNumberPrefix',
 		);
 		$exp11 = $exp2;
 		unset($exp11[49]);
@@ -1149,6 +1155,7 @@ class UserInfoUtilTest extends TestCase {
 			67 => 79,
 			68 => 80,
 			69 => 81,
+			70 => 82,
 		);
 		$exp2 = array(
 			0 => 1,
@@ -1220,6 +1227,7 @@ class UserInfoUtilTest extends TestCase {
 			66 => 79,
 			67 => 80,
 			68 => 81,
+			69 => 82,
 		);
 		$exp11 = $exp2;
 		unset($exp11[49]);

@@ -451,6 +451,7 @@ class WSUtilsTest extends TestCase {
 				'MsgTemplate',
 				'cbCredentials',
 				'pricebookproductrel',
+				'AutoNumberPrefix',
 			),
 			'entity'=>array(
 				0 => 'Groups',
@@ -464,6 +465,29 @@ class WSUtilsTest extends TestCase {
 			),
 		);
 		$this->assertEquals($expected, vtws_getWebserviceEntities());
+	}
+
+	/**
+	 * Method testgetQueableCommands
+	 * @test
+	 */
+	public function testgetQueableCommands() {
+		$expected = array(
+			'create',
+			'update',
+			'describe',
+			'convertlead',
+			'revise',
+			'getRelatedModulesInfomation',
+			'ExecuteWorkflow',
+			'MassDelete',
+			'upsert',
+			'ExecuteWorkflowWithContext',
+			'gendoc_convert',
+			'MassUpdate',
+			'MassCreate',
+		);
+		$this->assertEquals($expected, vtws_getQueableCommands());
 	}
 }
 ?>

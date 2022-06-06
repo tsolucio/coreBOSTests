@@ -1715,6 +1715,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			'cbCredentials' => 'cbCredentials',
 			'DocumentFolders' => 'DocumentFolders',
 			'pricebookproductrel' => 'pricebookproductrel',
+			'AutoNumberPrefix' => 'AutoNumberPrefix',
 		);
 		return array(
 			array(array(), $e1),

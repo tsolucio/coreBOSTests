@@ -183,7 +183,7 @@ class ModTrackerTest extends TestCase {
 	 */
 	public function getRecordFieldChangesProvider() {
 		$esrv = array(
-			'2020-06-14 01:33:48' => array(
+			'2020-06-14 01:33:48.000000' => array(
 			'website' => array(
 				'postvalue' => 'Website',
 				'prevalue' => '',
@@ -194,7 +194,7 @@ class ModTrackerTest extends TestCase {
 			),
 		));
 		$epdo = array(
-			'2019-03-04 07:30:47' => array(
+			'2019-03-04 07:30:47.000000' => array(
 			'mfr_part_no' => array(
 				'postvalue' => 'Mfr Part No',
 				'prevalue' => '',
@@ -213,7 +213,7 @@ class ModTrackerTest extends TestCase {
 
 ',
 			)),
-			'2020-03-19 15:15:03' => array(
+			'2020-03-19 15:15:03.000000' => array(
 				'mfr_part_no' => array(
 					'postvalue' => 'testme',
 					'prevalue' => 'Mfr Part No',
@@ -221,7 +221,7 @@ class ModTrackerTest extends TestCase {
 			)
 		);
 		$epdooffset = array(
-			'2020-03-19 15:15:03' => array(
+			'2020-03-19 15:15:03.000000' => array(
 				'mfr_part_no' => array(
 					'postvalue' => 'testme',
 					'prevalue' => 'Mfr Part No',
@@ -231,7 +231,7 @@ class ModTrackerTest extends TestCase {
 		return array(
 			array(9758, 0, $esrv),
 			array(2617, 0, $epdo),
-			array(2617, '2020-02-19 15:15:03', $epdooffset),
+			array(2617, '2020-02-19 15:15:03.000000', $epdooffset),
 			array(0, 0, array()),
 		);
 	}

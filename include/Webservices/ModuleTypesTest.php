@@ -91,6 +91,7 @@ class ModuleTypesTest extends TestCase {
 			'MsgTemplate',
 			'cbCredentials',
 			'pricebookproductrel',
+			'AutoNumberPrefix',
 			'Groups',
 			'Currency',
 			'CompanyDetails',
@@ -374,6 +375,11 @@ class ModuleTypesTest extends TestCase {
 				'isEntity' => true,
 				'label' => 'Price Lists',
 				'singular' => 'Price List',
+			),
+			'AutoNumberPrefix' => array(
+				'isEntity' => true,
+				'label' => 'Auto Number Prefix',
+				'singular' => 'Auto Number Prefix',
 			),
 			),
 		);
