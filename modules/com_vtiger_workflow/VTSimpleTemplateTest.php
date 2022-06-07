@@ -41,6 +41,10 @@ class VTSimpleTemplateTest extends TestCase {
 		$expected = 'AccountId:ACC1 - AccountName:Chemex Labs Ltd';
 		$actual = $ct->render($entityCache, $entityId);
 		$this->assertEquals($expected, $actual, 'Account variables');
+		$ct = new VTSimpleTemplate('<a href="index.php?module=Accounts&action=DetailView&record=$recordid">$account_no - $accountname</a>');
+		$expected = '<a href="index.php?module=Accounts&action=DetailView&record=74">ACC1 - Chemex Labs Ltd</a>';
+		$actual = $ct->render($entityCache, $entityId);
+		$this->assertEquals($expected, $actual, 'Account variables');
 		// User variables
 		$ct = new VTSimpleTemplate('$(assigned_user_id : (Users) email1)');
 		$expected = 'noreply@tsolucio.com';
