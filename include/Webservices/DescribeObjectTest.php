@@ -269,7 +269,7 @@ class DescribeObjectTest extends TestCase {
 					'blocklabel' => 'LBL_ASSET_INFORMATION',
 					'blockname' => 'Asset Information',
 				),
-				'default' => '',
+				'default' => 'In Service',
 			),
 			7 => array(
 				'name' => 'tagnumber',

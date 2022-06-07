@@ -2012,7 +2012,7 @@ class IncludeUtilsTest extends TestCase {
 			  'uitype' => '15',
 			  'typeofdata' => 'V~M',
 			  'presence' => '2',
-			  'defaultvalue' => '',
+			  'defaultvalue' => 'In Service',
 			  'generatedtype' => '1',
 			),
 			6 => array(
