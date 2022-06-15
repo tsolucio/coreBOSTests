@@ -32,7 +32,7 @@ class VtlibUtilsTest extends TestCase {
 			array('Special character string áçèñtös ÑÇ',false,'Special character string áçèñtös ÑÇ','Special character string with áçèñtös'),
 			array('!"·$%&/();,:.=?¿*_-|@#€',false,'!"·$%&/();,:.=?¿*_-|@#€','special string with symbols'),
 			array('Greater > Lesser < ',false,'Greater &gt; Lesser &lt; ','Greater > Lesser <(space)'),
-			array('Greater > Lesser <',false,'Greater &gt; Lesser &lt;','Greater > Lesser <'),
+			array('Greater > Lesser <',false,'Greater &gt; Lesser ','Greater > Lesser <'),
 			array('> Greater > Lesser < ',false,'&gt; Greater &gt; Lesser &lt; ','> Greater Lesser <(space)'),
 			array('"\'',false,'"\'','special string with quotes'),
 			array('<b>Bold HTML</b>',false,'<b>Bold HTML</b>','Bold HTML'),

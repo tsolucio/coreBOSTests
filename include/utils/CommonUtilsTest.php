@@ -1454,6 +1454,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			'presence' => '0',
 			'defaultvalue' => '',
 			'generatedtype' => '1',
+			'displaytype' => '1',
 		);
 		$astname = array(
 			'tabid' => '43',
@@ -1467,6 +1468,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			'presence' => '0',
 			'defaultvalue' => '',
 			'generatedtype' => '1',
+			'displaytype' => '1',
 		);
 		$hdname = array(
 			'tabid' => '13',
@@ -1480,6 +1482,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			'presence' => '0',
 			'defaultvalue' => '',
 			'generatedtype' => '1',
+			'displaytype' => '1',
 		);
 		$pbxname = array(
 			'tabid' => '36',
@@ -1493,6 +1496,7 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 			'presence' => '0',
 			'defaultvalue' => '',
 			'generatedtype' => '1',
+			'displaytype' => '1',
 		);
 		$eooname = false;
 		return array(

@@ -671,129 +671,129 @@ class IncludeUtilsTest extends TestCase {
 	 */
 	public function getProfile2FieldPermissionListProvider() {
 		$expected_cbtranslation_module_fields = array(
-			array('cbtranslation No', '0', '4', '0', '833', '1', 'V~M'),
-			array('Locale', '0', '32', '0', '834', '1', 'V~M'),
-			array('Module', '0', '1614', '0', '835', '1', 'V~M'),
-			array('Key', '0', '1', '0', '836', '1', 'V~M'),
-			array('i18n', '0', '19', '0', '837', '1', 'V~0'),
-			array('Translates', '0', '10', '0', '838', '1', 'V~0'),
-			array('Picklist', '0', '1615', '0', '839', '1', 'V~0'),
-			array('Field', '0', '1', '0', '840', '1', 'V~0'),
-			array('Proof Read', '0', '56', '0', '841', '1', 'C~0'),
-			array('Assigned To', '0', '53', '0', '842', '1', 'V~M'),
-			array('Created Time', '0', '70', '0', '843', '2', 'DT~O'),
-			array('Modified Time', '0', '70', '0', '844', '2', 'DT~O'),
-			array('Created By', '0', '52', '0', '845', '2', 'V~O'),
+			array('cbtranslation No', '0', '4', '0', '833', '1', 'V~M', 'autonum'),
+			array('Locale', '0', '32', '0', '834', '1', 'V~M', 'locale'),
+			array('Module', '0', '1614', '0', '835', '1', 'V~M', 'translation_module'),
+			array('Key', '0', '1', '0', '836', '1', 'V~M', 'translation_key'),
+			array('i18n', '0', '19', '0', '837', '1', 'V~0', 'i18n'),
+			array('Translates', '0', '10', '0', '838', '1', 'V~0', 'translates'),
+			array('Picklist', '0', '1615', '0', '839', '1', 'V~0', 'forpicklist'),
+			array('Field', '0', '1', '0', '840', '1', 'V~0', 'forfield'),
+			array('Proof Read', '0', '56', '0', '841', '1', 'C~0', 'proofread'),
+			array('Assigned To', '0', '53', '0', '842', '1', 'V~M', 'assigned_user_id'),
+			array('Created Time', '0', '70', '0', '843', '2', 'DT~O', 'createdtime'),
+			array('Modified Time', '0', '70', '0', '844', '2', 'DT~O', 'modifiedtime'),
+			array('Created By', '0', '52', '0', '845', '2', 'V~O', 'created_user_id'),
 		);
 		$expected_accounts_module_fields = array(
-			array('Account Name', '0', '2', '0', '1', '1', 'V~M'),
-			array('Account No', '0', '4', '0', '2', '1', 'V~O'),
-			array('Phone', '0', '11', '0', '3', '1', 'V~O'),
-			array('Website', '0', '17', '0', '4', '1', 'V~O'),
-			array('Fax', '0', '11', '0', '5', '1', 'V~O'),
-			array('Ticker Symbol', '0', '1', '0', '6', '1', 'V~O' ),
-			array('Other Phone', '0', '11', '0', '7', '1', 'V~O'),
-			array('Member Of', '0', '10', '0', '8', '1', 'I~O'),
-			array('Email', '0', '13', '0', '9', '1', 'E~O'),
-			array('Employees', '0', '7', '0', '10', '1', 'I~O'),
-			array('Other Email', '0', '13', '0', '11', '1', 'E~O'),
-			array('Ownership', '0', '1', '0', '12', '1', 'V~O'),
-			array('Rating', '0', '15', '0', '13', '1', 'V~O'),
-			array('industry', '0', '15', '0', '14', '1', 'V~O'),
-			array('SIC Code', '0', '1', '0', '15', '1', 'V~O'),
-			array('Type', '0', '15', '0', '16', '1', 'V~O'),
-			array('Annual Revenue', '0', '71', '0', '17', '1', 'N~O'),
-			array('Email Opt Out', '0', '56', '0', '18', '1','C~O'),
-			array('Notify Owner', '0', '56', '0', '19', '1', 'C~O'),
-			array('Assigned To', '0', '53', '0', '20', '1', 'V~M'),
-			array('Created Time', '0', '70', '0', '21', '2', 'DT~O'),
-			array('Modified Time', '0', '70', '0', '22', '2', 'DT~O'),
-			array('Last Modified By', '0', '52', '0', '23', '3', 'V~O'),
-			array('Billing Address','0', '21', '0', '24', '1', 'V~O'),
-			array('Shipping Address', '0', '21', '0', '25', '1', 'V~O'),
-			array('Billing City', '0', '1', '0', '26', '1', 'V~O'),
-			array('Shipping City', '0', '1', '0', '27', '1', 'V~O'),
-			array('Billing State', '0', '1', '0', '28', '1', 'V~O'),
-			array('Shipping State', '0', '1', '0', '29', '1', 'V~O'),
-			array('Billing Code', '0', '1', '0', '30', '1', 'V~O'),
-			array('Shipping Code', '0', '1', '0', '31', '1', 'V~O'),
-			array('Billing Country', '0', '1', '0', '32', '1', 'V~O'),
-			array('Shipping Country', '0', '1', '0', '33', '1', 'V~O'),
-			array('Billing Po Box', '0', '1', '0', '34', '1', 'V~O'),
-			array('Shipping Po Box', '0', '1', '0', '35', '1', 'V~O'),
-			array('Description', '0', '19', '0', '36', '1', 'V~O'),
-			array('Status', '0', '16', '0', '152', '1', 'V~O'),
-			array('Text', '0', '1', '0', '718', '1', 'V~O~LE~50'),
-			array('Number', '0', '7', '0', '719', '1', 'NN~O~8,2'),
-			array('Percent', '0', '9', '0', '720', '1', 'N~O~2~2'),
-			array('Currency', '0', '71', '0', '721', '1', 'N~O~8,2'),
-			array('Date', '0', '5', '0', '722', '1', 'D~O'),
-			array('Emailcf', '0', '13', '0', '723', '1', 'E~O'),
-			array('Phonecf', '0', '11', '0', '724', '1', 'V~O'),
-			array('URL', '0', '17', '0', '725', '1', 'V~O'),
-			array('Checkbox', '0', '56', '0', '726', '1', 'C~O'),
-			array('skypecf', '0', '85', '0', '727', '1', 'V~O'),
-			array('Time', '0', '14', '0', '728', '1', 'T~O'),
-			array('PLMain', '0', '15', '0', '729', '1', 'V~O'),
-			array('PLDep1', '0', '15', '0', '730', '1', 'V~O'),
-			array('PLDep2', '0', '15', '0', '731', '1', 'V~O'),
-			array('Planets', '0', '33', '0', '732', '1', 'V~O'),
-			array('Is Converted From Lead', '0', '56', '0', '752', '2', 'C~O'),
-			array('Converted From Lead', '0', '10', '0', '753', '3', 'V~O'),
-			array('Created By', '0', '52', '0', '764', '2', 'V~O'),
+			array('Account Name', '0', '2', '0', '1', '1', 'V~M', 'accountname'),
+			array('Account No', '0', '4', '0', '2', '1', 'V~O', 'account_no'),
+			array('Phone', '0', '11', '0', '3', '1', 'V~O', 'phone'),
+			array('Website', '0', '17', '0', '4', '1', 'V~O', 'website'),
+			array('Fax', '0', '11', '0', '5', '1', 'V~O', 'fax'),
+			array('Ticker Symbol', '0', '1', '0', '6', '1', 'V~O' , 'tickersymbol'),
+			array('Other Phone', '0', '11', '0', '7', '1', 'V~O', 'otherphone'),
+			array('Member Of', '0', '10', '0', '8', '1', 'I~O', 'account_id'),
+			array('Email', '0', '13', '0', '9', '1', 'E~O', 'email1'),
+			array('Employees', '0', '7', '0', '10', '1', 'I~O', 'employees'),
+			array('Other Email', '0', '13', '0', '11', '1', 'E~O', 'email2'),
+			array('Ownership', '0', '1', '0', '12', '1', 'V~O', 'ownership'),
+			array('Rating', '0', '15', '0', '13', '1', 'V~O', 'rating'),
+			array('industry', '0', '15', '0', '14', '1', 'V~O', 'industry'),
+			array('SIC Code', '0', '1', '0', '15', '1', 'V~O', 'siccode'),
+			array('Type', '0', '15', '0', '16', '1', 'V~O', 'accounttype'),
+			array('Annual Revenue', '0', '71', '0', '17', '1', 'N~O', 'annual_revenue'),
+			array('Email Opt Out', '0', '56', '0', '18', '1','C~O', 'emailoptout'),
+			array('Notify Owner', '0', '56', '0', '19', '1', 'C~O', 'notify_owner'),
+			array('Assigned To', '0', '53', '0', '20', '1', 'V~M', 'assigned_user_id'),
+			array('Created Time', '0', '70', '0', '21', '2', 'DT~O', 'createdtime'),
+			array('Modified Time', '0', '70', '0', '22', '2', 'DT~O', 'modifiedtime'),
+			array('Last Modified By', '0', '52', '0', '23', '3', 'V~O', 'modifiedby'),
+			array('Billing Address','0', '21', '0', '24', '1', 'V~O', 'bill_street'),
+			array('Shipping Address', '0', '21', '0', '25', '1', 'V~O', 'ship_street'),
+			array('Billing City', '0', '1', '0', '26', '1', 'V~O', 'bill_city'),
+			array('Shipping City', '0', '1', '0', '27', '1', 'V~O', 'ship_city'),
+			array('Billing State', '0', '1', '0', '28', '1', 'V~O', 'bill_state'),
+			array('Shipping State', '0', '1', '0', '29', '1', 'V~O', 'ship_state'),
+			array('Billing Code', '0', '1', '0', '30', '1', 'V~O', 'bill_code'),
+			array('Shipping Code', '0', '1', '0', '31', '1', 'V~O', 'ship_code'),
+			array('Billing Country', '0', '1', '0', '32', '1', 'V~O', 'bill_country'),
+			array('Shipping Country', '0', '1', '0', '33', '1', 'V~O', 'ship_country'),
+			array('Billing Po Box', '0', '1', '0', '34', '1', 'V~O', 'bill_pobox'),
+			array('Shipping Po Box', '0', '1', '0', '35', '1', 'V~O', 'ship_pobox'),
+			array('Description', '0', '19', '0', '36', '1', 'V~O', 'description'),
+			array('Status', '0', '16', '0', '152', '1', 'V~O', 'campaignrelstatus'),
+			array('Text', '0', '1', '0', '718', '1', 'V~O~LE~50', 'cf_718'),
+			array('Number', '0', '7', '0', '719', '1', 'NN~O~8,2', 'cf_719'),
+			array('Percent', '0', '9', '0', '720', '1', 'N~O~2~2', 'cf_720'),
+			array('Currency', '0', '71', '0', '721', '1', 'N~O~8,2', 'cf_721'),
+			array('Date', '0', '5', '0', '722', '1', 'D~O', 'cf_722'),
+			array('Emailcf', '0', '13', '0', '723', '1', 'E~O', 'cf_723'),
+			array('Phonecf', '0', '11', '0', '724', '1', 'V~O', 'cf_724'),
+			array('URL', '0', '17', '0', '725', '1', 'V~O', 'cf_725'),
+			array('Checkbox', '0', '56', '0', '726', '1', 'C~O', 'cf_726'),
+			array('skypecf', '0', '85', '0', '727', '1', 'V~O', 'cf_727'),
+			array('Time', '0', '14', '0', '728', '1', 'T~O', 'cf_728'),
+			array('PLMain', '0', '15', '0', '729', '1', 'V~O', 'cf_729'),
+			array('PLDep1', '0', '15', '0', '730', '1', 'V~O', 'cf_730'),
+			array('PLDep2', '0', '15', '0', '731', '1', 'V~O', 'cf_731'),
+			array('Planets', '0', '33', '0', '732', '1', 'V~O', 'cf_732'),
+			array('Is Converted From Lead', '0', '56', '0', '752', '2', 'C~O', 'isconvertedfromlead'),
+			array('Converted From Lead', '0', '10', '0', '753', '3', 'V~O', 'convertedfromlead'),
+			array('Created By', '0', '52', '0', '764', '2', 'V~O', 'created_user_id'),
 		);
 		$expected_contacts_module_fields = array(
-			array('Salutation', '0', '15', '0', '66', '1', 'V~O'),
-			array('First Name', '0', '1', '0', '67', '1', 'V~O'),
-			array('Contact Id', '0', '4', '0', '68', '1', 'V~O'),
-			array('Office Phone', '0', '11', '0', '69', '1', 'V~O'),
-			array('Last Name', '0', '1', '0', '70', '1', 'V~M'),
-			array('Mobile', '0', '11', '0', '71', '1', 'V~O'),
-			array('Account Name', '0', '10', '0', '72', '1', 'I~O'),
-			array('Home Phone', '0', '11', '0', '73', '1', 'V~O'),
-			array('Lead Source', '0', '15', '0', '74', '1', 'V~O'),
-			array('Other Phone', '0', '11', '0', '75', '1', 'V~O'),
-			array('Title', '0', '1', '0', '76', '1', 'V~O'),
-			array('Fax', '0', '11', '0', '77', '1', 'V~O'),
-			array('Department', '0', '1', '0', '78', '1', 'V~O'),
-			array('Birthdate', '0', '5', '0', '79', '1', 'D~O'),
-			array('Email', '0', '13', '0', '80', '1', 'E~O'),
-			array('Reports To', '0', '10', '0', '81', '1', 'V~O'),
-			array('Assistant', '0', '1', '0', '82', '1', 'V~O'),
-			array('Secondary Email', '0', '13', '0', '83', '1', 'E~O'),
-			array('Assistant Phone', '0', '11', '0', '84', '1', 'V~O'),
-			array('Do Not Call', '0', '56', '0', '85', '1', 'C~O'),
-			array('Email Opt Out', '0', '56', '0', '86', '1', 'C~O'),
-			array('Assigned To', '0', '53', '0', '87', '1', 'V~M'),
-			array('Reference', '0', '56', '0', '88', '1', 'C~O'),
-			array('Notify Owner', '0', '56', '0', '89', '1', 'C~O'),
-			array('Created Time', '0', '70', '0', '90', '2', 'DT~O'),
-			array('Modified Time', '0', '70', '0', '91', '2', 'DT~O'),
-			array('Last Modified By', '0', '52', '0', '92', '3', 'V~O'),
-			array('Portal User', '0', '56', '0', '93', '1', 'C~O'),
-			array('Support Start Date', '0', '5', '0', '94', '1', 'D~O'),
-			array('Support End Date', '0', '5', '0', '95', '1', 'D~O~OTH~GE~support_start_date~Support Start Date'),
-			array('Mailing Street', '0', '21', '0', '96', '1', 'V~O'),
-			array('Other Street', '0', '21', '0', '97', '1', 'V~O'),
-			array('Mailing City', '0', '1', '0', '98', '1', 'V~O'),
-			array('Other City', '0', '1', '0', '99', '1', 'V~O'),
-			array('Mailing State', '0', '1', '0', '100', '1', 'V~O'),
-			array('Other State', '0', '1', '0', '101', '1', 'V~O'),
-			array('Mailing Zip', '0', '1', '0', '102', '1', 'V~O'),
-			array('Other Zip', '0', '1', '0', '103', '1', 'V~O'),
-			array('Mailing Country', '0', '1', '0', '104', '1', 'V~O'),
-			array('Other Country', '0', '1', '0', '105', '1', 'V~O'),
-			array('Mailing Po Box', '0', '1', '0', '106', '1', 'V~O'),
-			array('Other Po Box', '0', '1', '0', '107', '1', 'V~O'),
-			array('Contact Image', '0', '69', '0', '108', '1', 'V~O'),
-			array('Description', '0', '19', '0', '109', '1', 'V~O'),
-			array('Status', '0', '16', '0', '151', '1', 'V~O'),
-			array('Is Converted From Lead', '0', '56', '0', '754', '2', 'C~O'),
-			array('Converted From Lead', '0', '10', '0', '755', '3', 'V~O'),
-			array('Created By', '0', '52', '0', '763', '2', 'V~O'),
-			array('Template Language', '0', '15', '0', '1135', '1', 'V~O'),
-			array('portalpasswordtype', '0', '16', '0', '1150', '1', 'V~O'),
-			array('portalloginuser', '0', '77', '0', '1151', '1', 'I~O'),
+			array('Salutation', '0', '15', '0', '66', '1', 'V~O', 'salutationtype'),
+			array('First Name', '0', '1', '0', '67', '1', 'V~O', 'firstname'),
+			array('Contact Id', '0', '4', '0', '68', '1', 'V~O', 'contact_no'),
+			array('Office Phone', '0', '11', '0', '69', '1', 'V~O', 'phone'),
+			array('Last Name', '0', '1', '0', '70', '1', 'V~M', 'lastname'),
+			array('Mobile', '0', '11', '0', '71', '1', 'V~O', 'mobile'),
+			array('Account Name', '0', '10', '0', '72', '1', 'I~O', 'account_id'),
+			array('Home Phone', '0', '11', '0', '73', '1', 'V~O', 'homephone'),
+			array('Lead Source', '0', '15', '0', '74', '1', 'V~O', 'leadsource'),
+			array('Other Phone', '0', '11', '0', '75', '1', 'V~O', 'otherphone'),
+			array('Title', '0', '1', '0', '76', '1', 'V~O', 'title'),
+			array('Fax', '0', '11', '0', '77', '1', 'V~O', 'fax'),
+			array('Department', '0', '1', '0', '78', '1', 'V~O', 'department'),
+			array('Birthdate', '0', '5', '0', '79', '1', 'D~O', 'birthday'),
+			array('Email', '0', '13', '0', '80', '1', 'E~O', 'email'),
+			array('Reports To', '0', '10', '0', '81', '1', 'V~O', 'contact_id'),
+			array('Assistant', '0', '1', '0', '82', '1', 'V~O', 'assistant'),
+			array('Secondary Email', '0', '13', '0', '83', '1', 'E~O', 'secondaryemail'),
+			array('Assistant Phone', '0', '11', '0', '84', '1', 'V~O', 'assistantphone'),
+			array('Do Not Call', '0', '56', '0', '85', '1', 'C~O', 'donotcall'),
+			array('Email Opt Out', '0', '56', '0', '86', '1', 'C~O', 'emailoptout'),
+			array('Assigned To', '0', '53', '0', '87', '1', 'V~M', 'assigned_user_id'),
+			array('Reference', '0', '56', '0', '88', '1', 'C~O', 'reference'),
+			array('Notify Owner', '0', '56', '0', '89', '1', 'C~O', 'notify_owner'),
+			array('Created Time', '0', '70', '0', '90', '2', 'DT~O', 'createdtime'),
+			array('Modified Time', '0', '70', '0', '91', '2', 'DT~O', 'modifiedtime'),
+			array('Last Modified By', '0', '52', '0', '92', '3', 'V~O', 'modifiedby'),
+			array('Portal User', '0', '56', '0', '93', '1', 'C~O', 'portal'),
+			array('Support Start Date', '0', '5', '0', '94', '1', 'D~O', 'support_start_date'),
+			array('Support End Date', '0', '5', '0', '95', '1', 'D~O~OTH~GE~support_start_date~Support Start Date', 'support_end_date'),
+			array('Mailing Street', '0', '21', '0', '96', '1', 'V~O', 'mailingstreet'),
+			array('Other Street', '0', '21', '0', '97', '1', 'V~O', 'otherstreet'),
+			array('Mailing City', '0', '1', '0', '98', '1', 'V~O', 'mailingcity'),
+			array('Other City', '0', '1', '0', '99', '1', 'V~O', 'othercity'),
+			array('Mailing State', '0', '1', '0', '100', '1', 'V~O', 'mailingstate'),
+			array('Other State', '0', '1', '0', '101', '1', 'V~O', 'otherstate'),
+			array('Mailing Zip', '0', '1', '0', '102', '1', 'V~O', 'mailingzip'),
+			array('Other Zip', '0', '1', '0', '103', '1', 'V~O', 'otherzip'),
+			array('Mailing Country', '0', '1', '0', '104', '1', 'V~O', 'mailingcountry'),
+			array('Other Country', '0', '1', '0', '105', '1', 'V~O', 'othercountry'),
+			array('Mailing Po Box', '0', '1', '0', '106', '1', 'V~O', 'mailingpobox'),
+			array('Other Po Box', '0', '1', '0', '107', '1', 'V~O', 'otherpobox'),
+			array('Contact Image', '0', '69', '0', '108', '1', 'V~O', 'imagename'),
+			array('Description', '0', '19', '0', '109', '1', 'V~O', 'description'),
+			array('Status', '0', '16', '0', '151', '1', 'V~O', 'campaignrelstatus'),
+			array('Is Converted From Lead', '0', '56', '0', '754', '2', 'C~O', 'isconvertedfromlead'),
+			array('Converted From Lead', '0', '10', '0', '755', '3', 'V~O', 'convertedfromlead'),
+			array('Created By', '0', '52', '0', '763', '2', 'V~O', 'created_user_id'),
+			array('Template Language', '0', '15', '0', '1135', '1', 'V~O', 'template_language'),
+			array('portalpasswordtype', '0', '16', '0', '1150', '1', 'V~O', 'portalpasswordtype'),
+			array('portalloginuser', '0', '77', '0', '1151', '1', 'I~O', 'portalloginuser'),
 		);
 		return array(
 			array('cbtranslation', '1', $expected_cbtranslation_module_fields),
@@ -1212,6 +1212,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			1 => array(
 			  'tabid' => '6',
@@ -1225,6 +1226,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			2 => array(
 			  'tabid' => '6',
@@ -1238,6 +1240,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			3 => array(
 			  'tabid' => '6',
@@ -1251,6 +1254,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			4 => array(
 			  'tabid' => '6',
@@ -1264,6 +1268,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			5 => array(
 			  'tabid' => '6',
@@ -1277,6 +1282,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			6 => array(
 			  'tabid' => '6',
@@ -1290,6 +1296,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			7 => array(
 			  'tabid' => '6',
@@ -1303,6 +1310,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			8 => array(
 			  'tabid' => '6',
@@ -1316,6 +1324,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			9 => array(
 			  'tabid' => '6',
@@ -1329,6 +1338,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			10 => array(
 			  'tabid' => '6',
@@ -1342,6 +1352,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			11 => array(
 			  'tabid' => '6',
@@ -1355,6 +1366,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			12 => array(
 			  'tabid' => '6',
@@ -1368,6 +1380,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			13 => array(
 			  'tabid' => '6',
@@ -1381,6 +1394,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			14 => array(
 			  'tabid' => '6',
@@ -1394,6 +1408,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			15 => array(
 			  'tabid' => '6',
@@ -1407,6 +1422,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			16 => array(
 			  'tabid' => '6',
@@ -1420,6 +1436,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			17 => array(
 			  'tabid' => '6',
@@ -1433,6 +1450,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			18 => array(
 			  'tabid' => '6',
@@ -1446,6 +1464,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			19 => array(
 			  'tabid' => '6',
@@ -1459,6 +1478,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			20 => array(
 			  'tabid' => '6',
@@ -1472,6 +1492,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '2',
 			),
 			21 => array(
 			  'tabid' => '6',
@@ -1485,6 +1506,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '2',
 			),
 			22 => array(
 			  'tabid' => '6',
@@ -1498,6 +1520,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '3',
 			),
 			23 => array(
 			  'tabid' => '6',
@@ -1511,6 +1534,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			24 => array(
 			  'tabid' => '6',
@@ -1524,6 +1548,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			25 => array(
 			  'tabid' => '6',
@@ -1537,6 +1562,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			26 => array(
 			  'tabid' => '6',
@@ -1550,6 +1576,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			27 => array(
 			  'tabid' => '6',
@@ -1563,6 +1590,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			28 => array(
 			  'tabid' => '6',
@@ -1576,6 +1604,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			29 => array(
 			  'tabid' => '6',
@@ -1589,6 +1618,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			30 => array(
 			  'tabid' => '6',
@@ -1602,6 +1632,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			31 => array(
 			  'tabid' => '6',
@@ -1615,6 +1646,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			32 => array(
 			  'tabid' => '6',
@@ -1628,6 +1660,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			33 => array(
 			  'tabid' => '6',
@@ -1641,6 +1674,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			34 => array(
 			  'tabid' => '6',
@@ -1654,6 +1688,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			35 => array(
 			  'tabid' => '6',
@@ -1667,6 +1702,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			36 => array(
 			  'tabid' => '6',
@@ -1680,6 +1716,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '0',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			37 => array(
 			  'tabid' => '6',
@@ -1693,6 +1730,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			38 => array(
 			  'tabid' => '6',
@@ -1706,6 +1744,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			39 => array(
 			  'tabid' => '6',
@@ -1719,6 +1758,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			40 => array(
 			  'tabid' => '6',
@@ -1732,6 +1772,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			41 => array(
 			  'tabid' => '6',
@@ -1745,6 +1786,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			42 => array(
 			  'tabid' => '6',
@@ -1758,6 +1800,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			43 => array(
 			  'tabid' => '6',
@@ -1771,6 +1814,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			44 => array(
 			  'tabid' => '6',
@@ -1784,6 +1828,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			45 => array(
 			  'tabid' => '6',
@@ -1797,6 +1842,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			46 => array(
 			  'tabid' => '6',
@@ -1810,6 +1856,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			47 => array(
 			  'tabid' => '6',
@@ -1823,6 +1870,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			48 => array(
 			  'tabid' => '6',
@@ -1836,6 +1884,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			49 => array(
 			  'tabid' => '6',
@@ -1849,6 +1898,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			50 => array(
 			  'tabid' => '6',
@@ -1862,6 +1912,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			51 => array(
 			  'tabid' => '6',
@@ -1875,6 +1926,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '2',
+			  'displaytype' => '1',
 			),
 			52 => array(
 			  'tabid' => '6',
@@ -1888,6 +1940,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '2',
 			),
 			53 => array(
 			  'tabid' => '6',
@@ -1901,6 +1954,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '3',
 			),
 			54 => array(
 			  'tabid' => '6',
@@ -1914,6 +1968,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '2',
 			),
 		);
 		$astfinfo = array(
@@ -1949,6 +2004,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			1 => array(
 			  'tabid' => '43',
@@ -1962,6 +2018,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			2 => array(
 			  'tabid' => '43',
@@ -1975,6 +2032,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			3 => array(
 			  'tabid' => '43',
@@ -1988,6 +2046,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			4 => array(
 			  'tabid' => '43',
@@ -2001,6 +2060,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			5 => array(
 			  'tabid' => '43',
@@ -2014,6 +2074,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => 'In Service',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			6 => array(
 			  'tabid' => '43',
@@ -2027,6 +2088,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			7 => array(
 			  'tabid' => '43',
@@ -2040,6 +2102,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			8 => array(
 			  'tabid' => '43',
@@ -2053,6 +2116,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			9 => array(
 			  'tabid' => '43',
@@ -2066,6 +2130,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			10 => array(
 			  'tabid' => '43',
@@ -2079,6 +2144,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			11 => array(
 			  'tabid' => '43',
@@ -2092,6 +2158,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			12 => array(
 			  'tabid' => '43',
@@ -2105,6 +2172,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			13 => array(
 			  'tabid' => '43',
@@ -2118,6 +2186,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '2',
 			),
 			14 => array(
 			  'tabid' => '43',
@@ -2131,6 +2200,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '2',
 			),
 			15 => array(
 			  'tabid' => '43',
@@ -2144,6 +2214,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '0',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '3',
 			),
 			16 => array(
 			  'tabid' => '43',
@@ -2157,6 +2228,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '1',
 			),
 			17 => array(
 			  'tabid' => '43',
@@ -2170,6 +2242,7 @@ class IncludeUtilsTest extends TestCase {
 			  'presence' => '2',
 			  'defaultvalue' => '',
 			  'generatedtype' => '1',
+			  'displaytype' => '2',
 			),
 		);
 		$hdfinfo = array(
@@ -2210,6 +2283,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			1 =>  array(
 				'tabid' => '13',
@@ -2223,6 +2297,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			2 =>  array(
 				'tabid' => '13',
@@ -2236,6 +2311,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			3 =>  array(
 				'tabid' => '13',
@@ -2249,6 +2325,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			4 =>  array(
 				'tabid' => '13',
@@ -2262,6 +2339,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			5 =>  array(
 				'tabid' => '13',
@@ -2275,6 +2353,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			6 =>  array(
 				'tabid' => '13',
@@ -2288,6 +2367,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			7 =>  array(
 				'tabid' => '13',
@@ -2301,6 +2381,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			8 =>  array(
 				'tabid' => '13',
@@ -2314,6 +2395,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '3',
 			),
 			9 =>  array(
 				'tabid' => '13',
@@ -2327,6 +2409,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			10 => array(
 				'tabid' => '13',
@@ -2340,6 +2423,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			11 => array(
 				'tabid' => '13',
@@ -2353,6 +2437,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '2',
 			),
 			12 => array(
 				'tabid' => '13',
@@ -2366,6 +2451,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '2',
 			),
 			13 => array(
 				'tabid' => '13',
@@ -2379,6 +2465,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '3',
 			),
 			14 => array(
 				'tabid' => '13',
@@ -2392,6 +2479,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '3',
 			),
 			15 => array(
 				'tabid' => '13',
@@ -2405,6 +2493,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			16 => array(
 				'tabid' => '13',
@@ -2418,6 +2507,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			17 => array(
 				'tabid' => '13',
@@ -2431,6 +2521,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			18 => array(
 				'tabid' => '13',
@@ -2444,6 +2535,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			19 => array(
 				'tabid' => '13',
@@ -2457,6 +2549,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '4',
 			),
 			20 => array(
 				'tabid' => '13',
@@ -2470,6 +2563,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '3',
 			),
 			21 => array(
 				'tabid' => '13',
@@ -2483,6 +2577,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '3',
 			),
 			22 => array(
 				'tabid' => '13',
@@ -2496,6 +2591,8 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
+				'displaytype' => '2',
 			),
 		);
 		$pbxfinfo = array(
@@ -2518,6 +2615,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			1 => array(
 				'tabid' => '36',
@@ -2531,6 +2629,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			2 => array(
 				'tabid' => '36',
@@ -2544,6 +2643,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			3 => array(
 				'tabid' => '36',
@@ -2557,6 +2657,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '0',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 			4 => array(
 				'tabid' => '36',
@@ -2570,6 +2671,7 @@ class IncludeUtilsTest extends TestCase {
 				'presence' => '2',
 				'defaultvalue' => '',
 				'generatedtype' => '1',
+				'displaytype' => '1',
 			),
 		);
 		$eoofinfo = array();

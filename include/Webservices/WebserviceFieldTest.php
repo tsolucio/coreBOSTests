@@ -58,26 +58,32 @@ class WebserviceFieldTest extends TestCase {
 			0 => array(
 				'label' => '--None--',
 				'value' => '--None--',
+				'tooltip' => '',
 			),
 			1 => array(
 				'label' => 'Acquired',
 				'value' => 'Acquired',
+				'tooltip' => '',
 			),
 			2 => array(
 				'label' => 'Active',
 				'value' => 'Active',
+				'tooltip' => '',
 			),
 			3 => array(
 				'label' => 'Market Failed',
 				'value' => 'Market Failed',
+				'tooltip' => '',
 			),
 			4 => array(
 				'label' => 'Project Cancelled',
 				'value' => 'Project Cancelled',
+				'tooltip' => '',
 			),
 			5 => array(
 				'label' => 'Shutdown',
 				'value' => 'Shutdown',
+				'tooltip' => '',
 			),
 		);
 		$this->assertEquals($expected, $wsfield->getPickListOptions(), 'account: rating values');
@@ -87,26 +93,32 @@ class WebserviceFieldTest extends TestCase {
 			0 => array(
 				'label' => '--None--',
 				'value' => '--None--',
+				'tooltip' => '',
 			),
 			1 => array(
 				'label' => 'Planning',
 				'value' => 'Planning',
+				'tooltip' => '',
 			),
 			2 => array(
 				'label' => 'Active',
 				'value' => 'Active',
+				'tooltip' => '',
 			),
 			3 => array(
 				'label' => 'Inactive',
 				'value' => 'Inactive',
+				'tooltip' => '',
 			),
 			4 => array(
 				'label' => 'Completed',
 				'value' => 'Completed',
+				'tooltip' => '',
 			),
 			5 => array(
 				'label' => 'Cancelled',
 				'value' => 'Cancelled',
+				'tooltip' => '',
 			),
 		);
 		$this->assertEquals($expected, $wsfield->getPickListOptions(), 'campaign: status values');
@@ -116,18 +128,22 @@ class WebserviceFieldTest extends TestCase {
 			0 => array(
 				'label' => '--None--',
 				'value' => '--None--',
+				'tooltip' => '',
 			),
 			1 => array(
 				'label' => 'Contacted - Successful',
 				'value' => 'Contacted - Successful',
+				'tooltip' => '',
 			),
 			2 => array(
 				'label' => 'Contacted - Unsuccessful',
 				'value' => 'Contacted - Unsuccessful',
+				'tooltip' => '',
 			),
 			3 => array(
 				'label' => 'Contacted - Never Contact Again',
 				'value' => 'Contacted - Never Contact Again',
+				'tooltip' => '',
 			),
 		);
 		$this->assertEquals($expected, $wsfield->getPickListOptions(), 'campaignrelstatus uitype 16');
@@ -137,14 +153,17 @@ class WebserviceFieldTest extends TestCase {
 			0 => array(
 				'label' => 'Net 30 days',
 				'value' => 'Net 30 days',
+				'tooltip' => '',
 			),
 			1 => array(
 				'label' => 'Net 45 days',
 				'value' => 'Net 45 days',
+				'tooltip' => '',
 			),
 			2 => array(
 				'label' => 'Net 60 days',
 				'value' => 'Net 60 days',
+				'tooltip' => '',
 			),
 		);
 		$this->assertEquals($expected, $wsfield->getPickListOptions(), 'payment_duration uitype 16');

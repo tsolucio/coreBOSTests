@@ -52,6 +52,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			1 => array(
 				'name' => 'product',
@@ -77,6 +78,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			2 => array(
 				'name' => 'serialnumber',
@@ -99,6 +101,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			3 => array(
 				'name' => 'assigned_user_id',
@@ -185,6 +188,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			4 => array(
 				'name' => 'datesold',
@@ -210,6 +214,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			5 => array(
 				'name' => 'dateinservice',
@@ -235,6 +240,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			6 => array(
 				'name' => 'assetstatus',
@@ -246,10 +252,12 @@ class DescribeObjectTest extends TestCase {
 						0 => array(
 							'label' => 'In Service',
 							'value' => 'In Service',
+							'tooltip' => '',
 						),
 						1 => array(
 							'label' => 'Out-of-service',
 							'value' => 'Out-of-service',
+							'tooltip' => '',
 						),
 					),
 					'defaultValue' => 'In Service',
@@ -270,6 +278,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => 'In Service',
+				'helpinfo' => '',
 			),
 			7 => array(
 				'name' => 'tagnumber',
@@ -292,6 +301,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			8 => array(
 				'name' => 'invoiceid',
@@ -317,6 +327,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			9 => array(
 				'name' => 'shippingmethod',
@@ -339,6 +350,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			10 => array(
 				'name' => 'shippingtrackingnumber',
@@ -361,6 +373,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			11 => array(
 				'name' => 'assetname',
@@ -383,6 +396,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			12 => array(
 				'name' => 'account',
@@ -408,6 +422,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			13 => array(
 				'name' => 'createdtime',
@@ -430,6 +445,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			14 => array(
 				'name' => 'modifiedtime',
@@ -452,6 +468,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			15 => array(
 				'name' => 'modifiedby',
@@ -477,6 +494,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			16 => array(
 				'name' => 'created_user_id',
@@ -502,6 +520,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Asset Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			17 => array(
 				'name' => 'description',
@@ -524,6 +543,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Notes',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			18 => array(
 				'name' => 'id',
@@ -629,6 +649,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			1 => array(
 				'name' => 'faq_no',
@@ -653,6 +674,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			2 => array(
 				'name' => 'faqstatus',
@@ -664,18 +686,22 @@ class DescribeObjectTest extends TestCase {
 						0 => array(
 							'label' => 'Draft',
 							'value' => 'Draft',
+							'tooltip' => '',
 						),
 						1 => array(
 							'label' => 'Reviewed',
 							'value' => 'Reviewed',
+							'tooltip' => '',
 						),
 						2 => array(
 							'label' => 'Published',
 							'value' => 'Published',
+							'tooltip' => '',
 						),
 						3 => array(
 							'label' => 'Obsolete',
 							'value' => 'Obsolete',
+							'tooltip' => '',
 						),
 					),
 					'defaultValue' => 'Draft',
@@ -696,6 +722,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			3 => array(
 				'name' => 'faqcategories',
@@ -707,18 +734,22 @@ class DescribeObjectTest extends TestCase {
 						array(
 							'label' => 'General',
 							'value' => 'General',
+							'tooltip' => '',
 						),
 						array(
 							'label' => 'Website',
 							'value' => 'Website',
+							'tooltip' => '',
 						),
 						array(
 							'label' => 'Testing',
 							'value' => 'Testing',
+							'tooltip' => '',
 						),
 						array(
 							'label' => 'Others',
 							'value' => 'Others',
+							'tooltip' => '',
 						),
 					),
 					'defaultValue' => 'General',
@@ -739,6 +770,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			4 => array(
 				'name' => 'createdtime',
@@ -761,6 +793,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			5 => array(
 				'name' => 'modifiedtime',
@@ -783,6 +816,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			6 => array(
 				'name' => 'question',
@@ -807,6 +841,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			7 => array(
 				'name' => 'modifiedby',
@@ -832,6 +867,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			8 => array(
 				'name' => 'faq_answer',
@@ -854,6 +890,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			9 => array(
 				'name' => 'created_user_id',
@@ -879,6 +916,7 @@ class DescribeObjectTest extends TestCase {
 					'blockname' => 'Faq Information',
 				),
 				'default' => '',
+				'helpinfo' => '',
 			),
 			10 => array(
 				'name' => 'id',
