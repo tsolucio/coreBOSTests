@@ -257,14 +257,9 @@
 			<file>../../modules/ProductComponent/ProductComponent.php</file>
 			<file>../../modules/ProductComponent/Delete.php</file>
 			<file>../../modules/ProductComponent/handlers/prodsubprodhandlerevent.php</file>
-			<file>../../modules/Products/addPbProductRelToDB.php</file>
-			<file>../../modules/Products/AddProductsToPriceBook.php</file>
-			<file>../../modules/Products/AddProductToPriceBooks.php</file>
 			<file>../../modules/Products/CallRelatedList.php</file>
 			<file>../../modules/Products/Delete.php</file>
-			<file>../../modules/Products/DeletePriceBookProductRel.php</file>
 			<file>../../modules/Products/DetailView.php</file>
-			<file>../../modules/Products/EditListPrice.php</file>
 			<file>../../modules/Products/EditView.php</file>
 			<file>../../modules/Products/InventoryGroupTaxAjax.php</file>
 			<file>../../modules/Products/InventoryPriceAjax.php</file>
@@ -272,7 +267,6 @@
 			<file>../../modules/Products/MassUploadImage.php</file>
 			<file>../../modules/Products/Products.php</file>
 			<file>../../modules/Products/QuickCreate.php</file>
-			<file>../../modules/Products/UpdateListPrice.php</file>
 			<file>../../modules/Products/UploadImage.php</file>
 			<file>../../modules/PurchaseOrder/DetailView.php</file>
 			<file>../../modules/PurchaseOrder/EditView.php</file>
