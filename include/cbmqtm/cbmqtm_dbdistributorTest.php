@@ -99,6 +99,598 @@ class cbmqtm_dbdistributorTest extends TestCase {
 	}
 
 	/**
+	 * Method testMSQDeliveryRangeNoRestriction
+	 * @test
+	 */
+	function testMSQDeliveryRangeNoRestriction() {
+		global $adb;
+		$cbmq = coreBOS_MQTM::getInstance();
+		$adb->query('TRUNCATE cb_messagequeue');
+
+		$deliverRange = array();
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'06:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction2');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'06:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction3');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'06:00:00');
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction4');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverEndTime'=>'23:59:00');
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction5');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction6');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('canSendOnSaturday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction7');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction8');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'06:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction9');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction10');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'06:00:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction11');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction12');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'06:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction13');
+		//////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'06:00:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoRestriction14');
+	}
+
+	/**
+	 * Method testMSQDeliveryRangeNoDelivery
+	 * @test
+	 */
+	function testMSQDeliveryRangeNoDelivery() {
+		global $adb;
+		$cbmq = coreBOS_MQTM::getInstance();
+		$adb->query('TRUNCATE cb_messagequeue');
+
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverEndTime'=>'06:00:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverEndTime'=>'06:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverEndTime'=>'06:00:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverEndTime'=>'06:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+	}
+
+	/**
 	 * Method testSubscribe
 	 * @test
 	 */
