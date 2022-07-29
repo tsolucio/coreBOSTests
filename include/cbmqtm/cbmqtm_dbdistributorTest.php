@@ -99,6 +99,45 @@ class cbmqtm_dbdistributorTest extends TestCase {
 	}
 
 	/**
+	 * Method testMSQDeliveryRange
+	 * @test
+	 */
+	function testMSQDeliveryRange() {
+		global $adb;
+		$cbmq = coreBOS_MQTM::getInstance();
+		$adb->query('TRUNCATE cb_messagequeue');
+
+		$now = time();
+		$one_min = $now + (1 * 60);
+		$two_min = $now + (2 * 60);
+		$startDate = date('H:i:s', $one_min);
+		$endDate = date('H:i:s', $two_min);
+		$deliverRange = array('deliverStartTime'=>$startDate, 'deliverEndTime'=>$endDate, 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$this->assertFalse($actual, 'Please wait after 1 minute and run again');
+		sleep(70);
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRange');
+	}
+
+	/**
 	 * Method testMSQDeliveryRangeNoRestriction
 	 * @test
 	 */
@@ -447,11 +486,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Saturday' || $check_date != 'Sunday') && ($cur_time >= '21:00:00' && $cur_time <= '23:59:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Saturday' || $check_date == 'Sunday') || ($cur_time < '21:00:00' || $cur_time > '23:59:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
@@ -474,11 +513,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if ($cur_time >= '21:00:00' && $cur_time <= '23:59:00') {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Saturday' || $check_date == 'Sunday') || ($cur_time > '21:00:00' || $cur_time < '23:59:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>0);
@@ -501,11 +540,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Sunday') && ($cur_time >= '21:00:00' && $cur_time <= '23:59:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Sunday') || ($cur_time < '21:00:00' || $cur_time > '23:59:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>1);
@@ -528,11 +567,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Saturday') && ($cur_time >= '21:00:00' && $cur_time <= '23:59:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Saturday') || ($cur_time < '21:00:00' || $cur_time > '23:59:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverStartTime'=>'21:00:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
@@ -555,11 +594,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Saturday' || $check_date != 'Sunday') && ($cur_time >= '21:00:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Saturday' || $check_date == 'Sunday') || ($cur_time < '21:00:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverStartTime'=>'21:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
@@ -585,7 +624,7 @@ class cbmqtm_dbdistributorTest extends TestCase {
 		if ($cur_time >= '21:00:00') {
 			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		} else {
-			$this->assertNull($actual, 'This message is out of range');
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
@@ -609,11 +648,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Sunday') && ($cur_time >= '21:00:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Sunday') || ($cur_time < '21:00:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverStartTime'=>'21:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>0);
@@ -636,11 +675,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Sunday') && ($cur_time >= '21:00:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Sunday') || ($cur_time < '21:00:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverEndTime'=>'06:00:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
@@ -663,11 +702,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Saturday' || $check_date != 'Sunday') && ($cur_time <= '06:00:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Saturday' || $check_date == 'Sunday') || ($cur_time > '06:00:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverEndTime'=>'06:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
@@ -693,7 +732,7 @@ class cbmqtm_dbdistributorTest extends TestCase {
 		if ($cur_time <= '06:00:00') {
 			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		} else {
-			$this->assertNull($actual, 'This message is out of range');
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
@@ -717,11 +756,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Saturday') && ($cur_time <= '06:00:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Saturday') || ($cur_time > '06:00:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 		////////////////////////////////////////////////////////////////////////////////////
 		$deliverRange = array('deliverEndTime'=>'06:00:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>0);
@@ -744,11 +783,11 @@ class cbmqtm_dbdistributorTest extends TestCase {
 			'userid' => '0',
 			'information' => 'sample information to test'
 		);
-		if (($check_date != 'Sunday') && ($cur_time <= '06:00:00')) {
-			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
-		} else {
-			$this->assertNull($actual, 'This message is out of range');
+		if (($check_date == 'Sunday') || ($cur_time > '06:00:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
 			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
 		}
 	}
 
