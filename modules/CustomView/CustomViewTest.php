@@ -375,12 +375,12 @@ class CustomViewTest extends TestCase {
 	public function getCustomViewComboProvider() {
 		$expected_leads_admin_combo = '<option selected value="1">All</option><option value="2">Hot Leads</option><option value="3">This Month Leads</option>';
 		$expected_contacts_admin_combo = '<option selected value="7">All</option><option value="8">Contacts Address</option><option value="9">Todays Birthday</option>';
-		$expected_accounts_admin_combo = '<option selected value="4">All</option><option value="82">current_user</option><option value="92">Group Condition</option><option value="6">New This Week</option><option value="5">Prospect Accounts</option>';
+		$expected_accounts_admin_combo = '<option selected value="4">All</option><option value="5">Prospect Accounts</option><option value="6">New This Week</option><option value="82">current_user</option><option value="92">Group Condition</option>';
 		$expected_potentials_admin_combo = '<option selected value="10">All</option><option value="11">Potentials Won</option><option value="12">Prospecting</option>';
 		$expected_salesorder_admin_combo = '<option selected value="26">All</option><option value="37">Pending Sales Orders</option>';
 		$expected_leads_testmdy_combo = '<option selected value="1">All</option><option disabled>--- Public ---</option><option value="2">Hot Leads [ Administrator] </option><option value="3">This Month Leads [ Administrator] </option>';
 		$expected_contacts_testmdy_combo = '<option selected value="7">All</option><option disabled>--- Public ---</option><option value="8">Contacts Address [ Administrator] </option><option value="9">Todays Birthday [ Administrator] </option>';
-		$expected_accounts_testmdy_combo = '<option selected value="4">All</option><option disabled>--- Public ---</option><option value="6">New This Week [ Administrator] </option><option value="5">Prospect Accounts [ Administrator] </option>';
+		$expected_accounts_testmdy_combo = '<option selected value="4">All</option><option disabled>--- Public ---</option><option value="5">Prospect Accounts [ Administrator] </option><option value="6">New This Week [ Administrator] </option><option disabled>--- Others ---</option><option value="92">Group Condition [ Administrator] </option><option value="82">current_user [ Administrator] </option>';
 		$expected_potentials_testmdy_combo = '<option selected value="10">All</option><option disabled>--- Public ---</option><option value="11">Potentials Won [ Administrator] </option><option value="12">Prospecting [ Administrator] </option>';
 		$expected_salesorder_testmdy_combo = '<option selected value="26">All</option><option disabled>--- Public ---</option><option value="37">Pending Sales Orders [ Administrator] </option>';
 		return array(
