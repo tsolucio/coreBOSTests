@@ -286,7 +286,7 @@ class GetViewsByModuleTest extends TestCase {
 	public function testnonentitymodule() {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDMODULE);
 		getViewsByModule('evvtMenu', $current_user);
 	}
 
@@ -297,7 +297,7 @@ class GetViewsByModuleTest extends TestCase {
 	public function testemptymodule() {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDMODULE);
 		getViewsByModule('', $current_user);
 	}
 
@@ -308,7 +308,7 @@ class GetViewsByModuleTest extends TestCase {
 	public function testinexistentmodule() {
 		global $current_user;
 		$this->expectException(WebServiceException::class);
-		$this->expectExceptionCode(WebServiceErrorCode::$ACCESSDENIED);
+		$this->expectExceptionCode(WebServiceErrorCode::$INVALIDMODULE);
 		getViewsByModule('DoesNotExist', $current_user);
 	}
 
