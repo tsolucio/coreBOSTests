@@ -210,6 +210,9 @@ class GetViewsByModuleTest extends TestCase {
 			array('Assets', $east, 'Assets'),
 			array('Contacts', $ecto, 'Contacts'),
 			array('Accounts', $eacc, 'Accounts'),
+			array('Accounts,Contacts', ['Accounts' => $eacc, 'Contacts' => $ecto], 'Accounts'),
+			array('Accounts,Contacts,Users', ['Accounts' => $eacc, 'Contacts' => $ecto, 'Users' => $eusr], 'Accounts'),
+			array('Accounts,Contacts,DoesNotExist', ['Accounts' => $eacc, 'Contacts' => $ecto], 'Accounts'),
 		);
 	}
 
@@ -221,19 +224,39 @@ class GetViewsByModuleTest extends TestCase {
 	public function testgetViewsByModule($module, $expected, $message) {
 		global $current_user;
 		$actual = getViewsByModule($module, $current_user);
-		if ($module == 'Contacts') {
-			$aEVQL = json_decode($actual['filters'][9]['stdcriteriaEVQL'], true);
-			$eEVQL = json_decode($expected['filters'][9]['stdcriteriaEVQL'], true);
-			$eEVQL['groupid'] = $aEVQL['groupid'];
-			$expected['filters'][9]['stdcriteriaEVQL'] = json_encode($eEVQL);
-		}
-		if ($module == 'Accounts') {
-			$aEVQL = json_decode($actual['filters'][92]['advcriteriaEVQL'], true);
-			$eEVQL = json_decode($expected['filters'][92]['advcriteriaEVQL'], true);
-			foreach ($aEVQL as $gidx => $cond) {
-				$eEVQL[$gidx]['groupid'] = $cond['groupid'];
+		$modules = explode(',', $module);
+		$isMoreThanOne = count($modules)>1;
+		foreach ($modules as $module) {
+			if ($module == 'Contacts') {
+				if ($isMoreThanOne) {
+					$aEVQL = json_decode($actual[$module]['filters'][9]['stdcriteriaEVQL'], true);
+					$eEVQL = json_decode($expected[$module]['filters'][9]['stdcriteriaEVQL'], true);
+					$eEVQL['groupid'] = $aEVQL['groupid'];
+					$expected[$module]['filters'][9]['stdcriteriaEVQL'] = json_encode($eEVQL);
+				} else {
+					$aEVQL = json_decode($actual['filters'][9]['stdcriteriaEVQL'], true);
+					$eEVQL = json_decode($expected['filters'][9]['stdcriteriaEVQL'], true);
+					$eEVQL['groupid'] = $aEVQL['groupid'];
+					$expected['filters'][9]['stdcriteriaEVQL'] = json_encode($eEVQL);
+				}
 			}
-			$expected['filters'][92]['advcriteriaEVQL'] = json_encode($eEVQL);
+			if ($module == 'Accounts') {
+				if ($isMoreThanOne) {
+					$aEVQL = json_decode($actual[$module]['filters'][92]['advcriteriaEVQL'], true);
+					$eEVQL = json_decode($expected[$module]['filters'][92]['advcriteriaEVQL'], true);
+					foreach ($aEVQL as $gidx => $cond) {
+						$eEVQL[$gidx]['groupid'] = $cond['groupid'];
+					}
+					$expected[$module]['filters'][92]['advcriteriaEVQL'] = json_encode($eEVQL);
+				} else {
+					$aEVQL = json_decode($actual['filters'][92]['advcriteriaEVQL'], true);
+					$eEVQL = json_decode($expected['filters'][92]['advcriteriaEVQL'], true);
+					foreach ($aEVQL as $gidx => $cond) {
+						$eEVQL[$gidx]['groupid'] = $cond['groupid'];
+					}
+					$expected['filters'][92]['advcriteriaEVQL'] = json_encode($eEVQL);
+				}
+			}
 		}
 		$this->assertEquals($expected, $actual, "getViewsByModule $message");
 	}
