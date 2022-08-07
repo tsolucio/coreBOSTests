@@ -478,14 +478,14 @@ class WSUtilsTest extends TestCase {
 			'describe',
 			'convertlead',
 			'revise',
-			'getRelatedModulesInfomation',
-			'ExecuteWorkflow',
-			'MassDelete',
+			'getrelatedmodulesinfomation',
+			'executeworkflow',
+			'massdelete',
 			'upsert',
-			'ExecuteWorkflowWithContext',
+			'executeworkflowwithcontext',
 			'gendoc_convert',
-			'MassUpdate',
-			'MassCreate',
+			'massupdate',
+			'masscreate',
 		);
 		$this->assertEquals($expected, vtws_getQueableCommands());
 	}
