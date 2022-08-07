@@ -119,6 +119,8 @@ class CustomerPortalWSTest extends TestCase {
 	 */
 	public function getAssignedUserListProvider() {
 		$usersadmin = '[{"userid":"19x1","username":"Administrator"},{"userid":"19x11","username":"nocreate cbTest"},{"userid":"19x5","username":"cbTest testdmy"},{"userid":"19x8","username":"cbTest testes"},{"userid":"19x12","username":"cbTest testmcurrency"},{"userid":"19x6","username":"cbTest testmdy"},{"userid":"19x10","username":"cbTest testtz"},{"userid":"19x13","username":"cbTest testtz-3"},{"userid":"19x7","username":"cbTest testymd"}]';
+		$usersHDAC = '{"HelpDesk":'.$usersadmin.',"Accounts":'.$usersadmin.'}';
+		$usersHDACCT = '{"HelpDesk":'.$usersadmin.',"Accounts":'.$usersadmin.',"Contacts":'.$usersadmin.'}';
 		return array(
 			array('HelpDesk', 1, $usersadmin),
 			array('DoesNotExist', 1, '[]'),
@@ -133,6 +135,11 @@ class CustomerPortalWSTest extends TestCase {
 			array('cbTermConditions', $this->usrnocreate, '[]'),
 			array('DoesNotExist', $this->usrnocreate, '[]'),
 			array('', $this->usrnocreate, '[]'),
+			array('HelpDesk,Accounts', $this->usrdota0x, $usersHDAC),
+			array('HelpDesk,Accounts,Contacts', $this->usrdota0x, $usersHDACCT),
+			array('HelpDesk,Accounts', $this->usrnocreate, $usersHDAC),
+			array('HelpDesk,Accounts,cbTermConditions', $this->usrnocreate, $usersHDAC),
+			array('HelpDesk,Accounts,DoesNotExist', $this->usrnocreate, $usersHDAC),
 		);
 	}
 
