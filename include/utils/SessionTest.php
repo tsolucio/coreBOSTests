@@ -31,8 +31,10 @@ class SessionTest extends TestCase {
 	 */
 	public function testSessionExists() {
 		global $site_URL;
-		$purl = parse_url($site_URL);
-		$expsiteurl = preg_replace('/[^A-Za-z0-9\-]/', '', $purl['host'].$purl['path'].(isset($purl['port'])?$purl['port']:''));
+		$purl = parse_url("http://localhostbuild/coreBOSTests/phpunit");
+		$expsiteurl = preg_replace('/[^A-Za-z0-9]/', '', $purl['host'].dirname($purl['path']).(isset($purl['port'])?$purl['port']:''));
+		$section = '';
+		$expsiteurl = 'cb'.md5($expsiteurl.$section);
 		$this->assertEquals($expsiteurl, session_name(), 'testSessionExists');
 	}
 
@@ -162,17 +164,14 @@ class SessionTest extends TestCase {
 	 * params
 	 */
 	public function getSessionNameProvider() {
-		global $site_URL;
-		$purl = parse_url($site_URL);
-		$expsiteurl = preg_replace('/[^A-Za-z0-9\-]/', '', $purl['host'].$purl['path'].(isset($purl['port'])?$purl['port']:''));
 		return array(
-			array('Normal string', 'Normalstring', 'normal string'),
-			array('Numbers 012-345,678.9', 'Numbers0123456789', 'Numbers 012-345,678.9'),
-			array('012-345,678.9', 'cb0123456789', 'Only Numbers 012-345,678.9'),
-			array('192.168.0.2:8080', 'cb192168028080', 'IP Address'),
-			array('Special character string áçèñtös ÑÇ', 'Specialcharacterstringts', 'Special character string with áçèñtös'),
-			array('!"·$%&/();,:.=?¿*_-|@#€', '', 'special string with only symbols'),
-			array('',$expsiteurl, 'empty string'),
+			array('Normal string', 'cbd41d8cd98f00b204e9800998ecf8427e', 'normal string'),
+			array('Numbers 012-345,678.9', 'cbd41d8cd98f00b204e9800998ecf8427e', 'Numbers 012-345,678.9'),
+			array('012-345,678.9', 'cbd41d8cd98f00b204e9800998ecf8427e', 'Only Numbers 012-345,678.9'),
+			array('192.168.0.2:8080', 'cbcd8246531508f06d9214f8e366005ebd', 'IP Address'),
+			array('Special character string áçèñtös ÑÇ', 'cbd41d8cd98f00b204e9800998ecf8427e', 'Special character string with áçèñtös'),
+			array('!"·$%&/();,:.=?¿*_-|@#€', 'cbd41d8cd98f00b204e9800998ecf8427e', 'special string with only symbols'),
+			array('','cb533eb8d78498762f08194737058cd041', 'empty string'),
 		);
 	}
 
