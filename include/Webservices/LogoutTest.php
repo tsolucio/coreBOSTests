@@ -31,9 +31,7 @@ class LogoutTest extends TestCase {
 	 */
 	public function testlogoutValid() {
 		global $current_user;
-		$SessionManagerStub = $this->createMock(SessionManager::class);
-		$SessionManagerStub->method('isValid')->willReturn(true);
-		$actual = vtws_logout('should be a session id', $current_user, $SessionManagerStub);
+		$actual = vtws_logout('should be a session id', $current_user, 'SessionManagerStub');
 		$this->assertEquals(array('message' => 'successfull'), $actual);
 	}
 
@@ -43,26 +41,8 @@ class LogoutTest extends TestCase {
 	 */
 	public function testlogoutEmptySession() {
 		global $current_user;
-		$SessionManagerStub = $this->createMock(SessionManager::class);
-		$SessionManagerStub->method('isValid')->willReturn(true);
-		$SessionManagerStub->method('getError')->willReturn('getError called');
-		$SessionManagerStub->expects($this->once())->method('getError');
-		$actual = vtws_logout('', $current_user, $SessionManagerStub);
-		$this->assertEquals('getError called', $actual);
-	}
-
-	/**
-	 * Method testlogoutNotValid
-	 * @test
-	 */
-	public function testlogoutNotValid() {
-		global $current_user;
-		$SessionManagerStub = $this->createMock(SessionManager::class);
-		$SessionManagerStub->method('isValid')->willReturn(false);
-		$SessionManagerStub->method('getError')->willReturn('getError called');
-		$SessionManagerStub->expects($this->once())->method('getError');
-		$actual = vtws_logout('should be a session id', $current_user, $SessionManagerStub);
-		$this->assertEquals('getError called', $actual);
+		$actual = vtws_logout('', $current_user);
+		$this->assertEquals(['message' => 'session error'], $actual);
 	}
 }
 ?>

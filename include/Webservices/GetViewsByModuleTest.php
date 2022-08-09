@@ -207,6 +207,63 @@ class GetViewsByModuleTest extends TestCase {
 					'userid' => '1',
 					'raw_name' => 'All',
 				),
+				5 => array(
+					'name' => 'Prospect Accounts',
+					'status' => '3',
+					'advcriteria' => '[{"columnname":"account_type","comparator":"e","value":"Prospect","column_condition":""}]',
+					'stdcriteria' => '[]',
+					'advcriteriaWQL' => "( accounttype = 'Prospect' ) ",
+					'advcriteriaEVQL' => '[{"fieldname":"accounttype","operation":"equal to","value":"Prospect","valuetype":"rawtext","joincondition":"","groupid":"1997296128","groupjoin":""}]',
+					'stdcriteriaWQL' => '',
+					'stdcriteriaEVQL' => '',
+					'fields' => array(
+						0 => 'accountname',
+						1 => 'phone',
+						2 => 'website',
+						3 => 'rating',
+						4 => 'assigned_user_id',
+					),
+					'default' => false,
+					'userid' => '1',
+					'raw_name' => 'Prospect Accounts',
+				),
+				6 => array(
+					'name' => 'New This Week',
+					'status' => '3',
+					'advcriteria' => '[]',
+					'stdcriteria' => '[{"columnname":"createdtime","comparator":"bw","value":"2022-08-07,2022-08-13","column_condition":""}]',
+					'advcriteriaWQL' => '',
+					'advcriteriaEVQL' => '',
+					'stdcriteriaWQL' => "createdtime >= '2022-08-07 00:00:00' and createdtime <= '2022-08-13 23:59:00'",
+					'stdcriteriaEVQL' => '{"fieldname":"createdtime","operation":"between","value":"2022-08-07,2022-08-13","valuetype":"rawtext","joincondition":"and","groupid":101919851}',
+					'fields' => array(
+						0 => 'accountname',
+						1 => 'phone',
+						2 => 'website',
+						3 => 'bill_city',
+						4 => 'assigned_user_id',
+					),
+					'default' => false,
+					'userid' => '1',
+					'raw_name' => 'New This Week',
+				),
+				82 => array(
+					'name' => 'current_user',
+					'status' => '1',
+					'advcriteria' => '[{"columnname":"smownerid","comparator":"e","value":"Administrator","column_condition":""}]',
+					'stdcriteria' => '[]',
+					'advcriteriaWQL' => "( assigned_user_id = 'Administrator' ) ",
+					'advcriteriaEVQL' => '[{"fieldname":"assigned_user_id","operation":"equal to","value":"Administrator","valuetype":"rawtext","joincondition":"","groupid":"11310726892","groupjoin":""}]',
+					'stdcriteriaWQL' => '',
+					'stdcriteriaEVQL' => '',
+					'fields' => array(
+						0 => 'accountname',
+						1 => 'assigned_user_id',
+					),
+					'default' => false,
+					'userid' => '1',
+					'raw_name' => 'current_user',
+				),
 			),
 			'linkfields' => array('accountname'),
 			'pagesize' => 40
@@ -248,20 +305,38 @@ class GetViewsByModuleTest extends TestCase {
 				}
 			}
 			if ($module == 'Accounts') {
-				if ($isMoreThanOne) {
-					$aEVQL = json_decode($actual[$module]['filters'][92]['advcriteriaEVQL'], true);
-					$eEVQL = json_decode($expected[$module]['filters'][92]['advcriteriaEVQL'], true);
-					foreach ($aEVQL as $gidx => $cond) {
-						$eEVQL[$gidx]['groupid'] = $cond['groupid'];
+				foreach (array(5, 92, 6, 82) as $cvid) {
+					if ($isMoreThanOne) {
+						if (!empty($expected[$module]['filters'][$cvid]['advcriteriaEVQL'])) {
+							$aEVQL = json_decode($actual[$module]['filters'][$cvid]['advcriteriaEVQL'], true);
+							$eEVQL = json_decode($expected[$module]['filters'][$cvid]['advcriteriaEVQL'], true);
+							foreach ($aEVQL as $gidx => $cond) {
+								$eEVQL[$gidx]['groupid'] = $cond['groupid'];
+							}
+							$expected[$module]['filters'][$cvid]['advcriteriaEVQL'] = json_encode($eEVQL);
+						}
+						if (!empty($expected[$module]['filters'][$cvid]['stdcriteriaEVQL'])) {
+							$aEVQL = json_decode($actual[$module]['filters'][$cvid]['stdcriteriaEVQL'], true);
+							$eEVQL = json_decode($expected[$module]['filters'][$cvid]['stdcriteriaEVQL'], true);
+							$eEVQL['groupid'] = $aEVQL['groupid'];
+							$expected[$module]['filters'][$cvid]['stdcriteriaEVQL'] = json_encode($eEVQL);
+						}
+					} else {
+						if (!empty($expected['filters'][$cvid]['advcriteriaEVQL'])) {
+							$aEVQL = json_decode($actual['filters'][$cvid]['advcriteriaEVQL'], true);
+							$eEVQL = json_decode($expected['filters'][$cvid]['advcriteriaEVQL'], true);
+							foreach ($aEVQL as $gidx => $cond) {
+								$eEVQL[$gidx]['groupid'] = $cond['groupid'];
+							}
+							$expected['filters'][$cvid]['advcriteriaEVQL'] = json_encode($eEVQL);
+						}
+						if (!empty($expected['filters'][$cvid]['stdcriteriaEVQL'])) {
+							$aEVQL = json_decode($actual['filters'][$cvid]['stdcriteriaEVQL'], true);
+							$eEVQL = json_decode($expected['filters'][$cvid]['stdcriteriaEVQL'], true);
+							$eEVQL['groupid'] = $aEVQL['groupid'];
+							$expected['filters'][$cvid]['stdcriteriaEVQL'] = json_encode($eEVQL);
+						}
 					}
-					$expected[$module]['filters'][92]['advcriteriaEVQL'] = json_encode($eEVQL);
-				} else {
-					$aEVQL = json_decode($actual['filters'][92]['advcriteriaEVQL'], true);
-					$eEVQL = json_decode($expected['filters'][92]['advcriteriaEVQL'], true);
-					foreach ($aEVQL as $gidx => $cond) {
-						$eEVQL[$gidx]['groupid'] = $cond['groupid'];
-					}
-					$expected['filters'][92]['advcriteriaEVQL'] = json_encode($eEVQL);
 				}
 			}
 		}

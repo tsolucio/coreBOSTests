@@ -51,13 +51,8 @@ class ExtendedSessionTest extends TestCase {
 		$_SESSION['authenticated_user_id'] = $current_user->id;
 		$_SESSION['app_unique_key'] = $application_unique_key;
 		$vtigerVersion = vtws_getVtigerVersion();
-		$SessionManagerStub = $this->createMock(SessionManager::class);
-		$SessionManagerStub->method('getSessionId')->willReturn('SmgrStubSessionID');
-		$SessionManagerStub->expects($this->once())
-			->method('set')
-			->with($this->equalTo('authenticatedUserId'), $this->equalTo($current_user->id));
-
-		$actual = vtws_extendSession($SessionManagerStub);
+		$actual = vtws_extendSession('SessionManagerStub');
+		$this->assertEquals(1, SessionManagerStub::$set_count);
 		$this->assertEquals(
 			array(
 				'sessionName' => 'SmgrStubSessionID',

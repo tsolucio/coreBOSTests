@@ -388,7 +388,7 @@ class DescribeObjectTest extends TestCase {
 				'sequence' => '12',
 				'quickcreate' => false,
 				'displaytype' => '1',
-				'summary' => 'T',
+				'summary' => 'B',
 				'block' => array(
 					'blockid' => '103',
 					'blocksequence' => '1',
@@ -554,6 +554,13 @@ class DescribeObjectTest extends TestCase {
 				'nullable' => false,
 				'editable' => false,
 				'default' => '',
+				'uitype' => 7,
+				'helpinfo' => '',
+				'typeofdata' => 'V~O',
+				'sequence' => 0,
+				'quickcreate' => true,
+				'displaytype' => 0,
+				'summary' => 'N',
 			),
 		),
 		'idPrefix' => '29',
@@ -737,8 +744,8 @@ class DescribeObjectTest extends TestCase {
 							'tooltip' => '',
 						),
 						array(
-							'label' => 'Website',
-							'value' => 'Website',
+							'label' => 'Others',
+							'value' => 'Others',
 							'tooltip' => '',
 						),
 						array(
@@ -747,8 +754,8 @@ class DescribeObjectTest extends TestCase {
 							'tooltip' => '',
 						),
 						array(
-							'label' => 'Others',
-							'value' => 'Others',
+							'label' => 'Website',
+							'value' => 'Website',
 							'tooltip' => '',
 						),
 					),
@@ -833,7 +840,7 @@ class DescribeObjectTest extends TestCase {
 				'sequence' => '7',
 				'quickcreate' => false,
 				'displaytype' => '1',
-				'summary' => 'T',
+				'summary' => 'B',
 				'block' => array(
 					'blockid' => '37',
 					'blocksequence' => '1',
@@ -927,6 +934,13 @@ class DescribeObjectTest extends TestCase {
 				'nullable' => false,
 				'editable' => false,
 				'default' => '',
+				'uitype' => 7,
+				'helpinfo' => '',
+				'typeofdata' => 'V~O',
+				'sequence' => 0,
+				'quickcreate' => true,
+				'displaytype' => 0,
+				'summary' => 'N',
 			),
 		),
 		'idPrefix' => '3',
@@ -996,7 +1010,7 @@ class DescribeObjectTest extends TestCase {
 			'Assets' => $this->asset,
 			'Faq' => $this->faq,
 		);
-		$this->assertEqualsCanonicalizing($expected, $actual);
+		$this->assertEquals($expected, $actual);
 	}
 
 	/**
@@ -1189,7 +1203,7 @@ class DescribeObjectTest extends TestCase {
 			'Assets' => $expa,
 			'Faq' => $expf,
 		);
-		$this->assertEqualsCanonicalizing($expected, $actual);
+		$this->assertEquals($expected, $actual);
 	}
 }
 ?>
