@@ -66,6 +66,7 @@ require_once 'modules/com_vtiger_workflow/VTWorkflowUtils.php';
 require_once 'modules/com_vtiger_workflow/expression_engine/include.inc';
 require_once 'modules/com_vtiger_workflow/WorkFlowScheduler.php';
 require_once 'include/utils/duplicate.php';
+require_once 'build/coreBOSTests/include/utils/SessionManagerStub.php';
 global $current_user,$adb,$app_strings,$theme;
 
 $current_user = Users::getActiveAdminUser();
