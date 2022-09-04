@@ -51,6 +51,8 @@ class cbMapMappingTest extends TestCase {
 			),
 		);
 		$this->assertEquals($expected, $actual, 'convert Map to Array');
+		$destFields = array('amount', 'reference');
+		$this->assertEquals($destFields, $cbmap->mapObject->getDestinationFields(), 'getDestinationFields');
 		$ifocus = CRMEntity::getInstance('Invoice');
 		$ifocus->retrieve_entity_info(2816, 'Invoice');
 		$actual = $cbmap->Mapping($ifocus->column_fields, array('sentin'=>'notmodified', 'amount'=>'will be modified'));
@@ -60,5 +62,6 @@ class cbMapMappingTest extends TestCase {
 			'reference' => 'Shutdown ---',
 		);
 		$this->assertEquals($expected, $actual, 'Mapping: process Map');
+		$this->assertEquals($destFields, $cbmap->mapObject->getDestinationFields(), 'getDestinationFields');
 	}
 }
