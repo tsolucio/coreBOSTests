@@ -64,4 +64,38 @@ class cbMapMappingTest extends TestCase {
 		$this->assertEquals($expected, $actual, 'Mapping: process Map');
 		$this->assertEquals($destFields, $cbmap->mapObject->getDestinationFields(), 'getDestinationFields');
 	}
+
+	/**
+	 * Method testcbMapDotNotation
+	 * @test
+	 */
+	public function testcbMapDotNotation() {
+		$cbmap = cbMap::getMapByName('ExtendedDotNotation');
+		$shopify = [
+			'orderid' => 'shorderid field',
+			'subject' => 'shsubject field',
+			'shopifyno' => 'shsome num',
+			'someotherfield' => 'should be capped',
+			'itemlines' => [
+				'itemid' => 12,
+				'units' => 34,
+			],
+		];
+		$targetvalues = [
+		];
+		$actual = $cbmap->Mapping($shopify, $targetvalues);
+		$expected = array(
+			'elementType' => 'SalesOrder',
+			'referenceId' => 'shorderid field',
+			'element' => [
+				'subject' => 'shsubject field',
+				'customerno' => 'shsome num',
+				'pdoinfo' => [
+					'productid' => '12',
+					'units' => '34',
+				],
+			],
+		);
+		$this->assertEquals($expected, $actual, 'Mapping: ExtendedDotNotation');
+	}
 }
