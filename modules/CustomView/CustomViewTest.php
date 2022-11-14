@@ -565,4 +565,457 @@ class CustomViewTest extends TestCase {
 		$this->assertEquals($ed, $customView->data_type, $msg);
 		$current_user = $holduser;
 	}
+
+	/**
+	 * Method getModuleColumnsListProvider
+	 * params
+	 */
+	public function getModuleColumnsListProvider() {
+		$expected_gv = array(
+			'GlobalVariable' => array(
+				'Global Variable Information' => array(
+					'gvname' => array(
+						'label' => 'Name',
+						'value' => 'vtiger_globalvariable:gvname:gvname:GlobalVariable_Name:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'default_check' => array(
+						'label' => 'Default',
+						'value' => 'vtiger_globalvariable:default_check:default_check:GlobalVariable_Default:C',
+						'selected' => '',
+						'typeofdata' => 'C',
+					),
+					'value' => array(
+						'label' => 'Value',
+						'value' => 'vtiger_globalvariable:value:value:GlobalVariable_Value:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'mandatory' => array(
+						'label' => 'Mandatory',
+						'value' => 'vtiger_globalvariable:mandatory:mandatory:GlobalVariable_Mandatory:C',
+						'selected' => '',
+						'typeofdata' => 'C',
+					),
+					'assigned_user_id' => array(
+						'label' => 'User',
+						'value' => 'vtiger_crmentity:smownerid:assigned_user_id:GlobalVariable_User:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'blocked' => array(
+						'label' => 'Blocked',
+						'value' => 'vtiger_globalvariable:blocked:blocked:GlobalVariable_Blocked:C',
+						'selected' => '',
+						'typeofdata' => 'C',
+					),
+					'module_list' => array(
+						'label' => 'Module List',
+						'value' => 'vtiger_globalvariable:module_list:module_list:GlobalVariable_Module_List:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'category' => array(
+						'label' => 'Category',
+						'value' => 'vtiger_globalvariable:category:category:GlobalVariable_Category:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'in_module_list' => array(
+						'label' => 'In Module List',
+						'value' => 'vtiger_globalvariable:in_module_list:in_module_list:GlobalVariable_In_Module_List:C',
+						'selected' => '',
+						'typeofdata' => 'C',
+					),
+					'globalno' => array(
+						'label' => 'Global No',
+						'value' => 'vtiger_globalvariable:globalno:globalno:GlobalVariable_Globalno:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'createdtime' => array(
+						'label' => 'Created Time',
+						'value' => 'vtiger_crmentity:createdtime:createdtime:GlobalVariable_Created_Time:DT',
+						'selected' => '',
+						'typeofdata' => 'DT',
+					),
+					'modifiedtime' => array(
+						'label' => 'Modified Time',
+						'value' => 'vtiger_crmentity:modifiedtime:modifiedtime:GlobalVariable_Modified_Time:DT',
+						'selected' => '',
+						'typeofdata' => 'DT',
+					),
+					'bmapid' => array(
+						'label' => 'Business Map',
+						'value' => 'vtiger_globalvariable:bmapid:bmapid:GlobalVariable_cbMap:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'created_user_id' => array(
+						'label' => 'Created By',
+						'value' => 'vtiger_crmentity:smcreatorid:created_user_id:GlobalVariable_Created_By:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'rolegv' => array(
+						'label' => 'Role',
+						'value' => 'vtiger_globalvariable:rolegv:rolegv:GlobalVariable_Role:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+				),
+				'Description' => array(
+					'description' => array(
+						'label' => 'Description',
+						'value' => 'vtiger_crmentity:description:description:GlobalVariable_Description:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+				),
+			),
+			'cbMap' => array(
+				'Business Map Information' => array(
+					'mapname' => array(
+						'label' => 'Map Name',
+						'value' => 'vtiger_cbmap:mapname:mapname:cbMap_Map_Name:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'mapnumber' => array(
+						'label' => 'Map Number',
+						'value' => 'vtiger_cbmap:mapnumber:mapnumber:cbMap_Map_Number:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'maptype' => array(
+						'label' => 'Map Type',
+						'value' => 'vtiger_cbmap:maptype:maptype:cbMap_Map_Type:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'targetname' => array(
+						'label' => 'Target Module',
+						'value' => 'vtiger_cbmap:targetname:targetname:cbMap_Target_Module:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'content' => array(
+						'label' => 'Content',
+						'value' => 'vtiger_cbmap:content:content:cbMap_Content:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'assigned_user_id' => array(
+						'label' => 'Assigned To',
+						'value' => 'vtiger_crmentity:smownerid:assigned_user_id:cbMap_Assigned_To:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'createdtime' => array(
+						'label' => 'Created Time',
+						'value' => 'vtiger_crmentity:createdtime:createdtime:cbMap_Created_Time:DT',
+						'selected' => '',
+						'typeofdata' => 'DT',
+					),
+					'modifiedtime' => array(
+						'label' => 'Modified Time',
+						'value' => 'vtiger_crmentity:modifiedtime:modifiedtime:cbMap_Modified_Time:DT',
+						'selected' => '',
+						'typeofdata' => 'DT',
+					),
+					'created_user_id' => array(
+						'label' => 'Created By',
+						'value' => 'vtiger_crmentity:smcreatorid:created_user_id:cbMap_Created_By:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'contentjson' => array(
+						'label' => 'ContentJson',
+						'value' => 'vtiger_cbmap:contentjson:contentjson:cbMap_ContentJson:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+				),
+				'Description' => array(
+					'description' => array(
+						'label' => 'Description',
+						'value' => 'vtiger_crmentity:description:description:cbMap_Description:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+				),
+			),
+		);
+		$expected_tc = array(
+			'cbTermConditions' => array(
+				'Terms and Conditions Information' => array(
+					'cbtandcno' => array(
+						'label' => 'Terms and Conditions No',
+						'value' => 'vtiger_cbtandc:cbtandcno:cbtandcno:cbTermConditions_TandC_No:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'reference' => array(
+						'label' => 'Reference',
+						'value' => 'vtiger_cbtandc:reference:reference:cbTermConditions_Reference:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'isdefault' => array(
+						'label' => 'Is Default',
+						'value' => 'vtiger_cbtandc:isdefault:isdefault:cbTermConditions_Is_Default:C',
+						'selected' => '',
+						'typeofdata' => 'C',
+					),
+					'formodule' => array(
+						'label' => 'For Module',
+						'value' => 'vtiger_cbtandc:formodule:formodule:cbTermConditions_formodule:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'srvcto' => array(
+						'label' => 'ServiceContracts',
+						'value' => 'vtiger_cbtandc:srvcto:srvcto:cbTermConditions_ServiceContracts:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'copyfrom' => array(
+						'label' => 'Copy From',
+						'value' => 'vtiger_cbtandc:copyfrom:copyfrom:cbTermConditions_Copy_From:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'assigned_user_id' => array(
+						'label' => 'Assigned To',
+						'value' => 'vtiger_crmentity:smownerid:assigned_user_id:cbTermConditions_Assigned_To:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'createdtime' => array(
+						'label' => 'Created Time',
+						'value' => 'vtiger_crmentity:createdtime:createdtime:cbTermConditions_Created_Time:DT',
+						'selected' => '',
+						'typeofdata' => 'DT',
+					),
+					'modifiedtime' => array(
+						'label' => 'Modified Time',
+						'value' => 'vtiger_crmentity:modifiedtime:modifiedtime:cbTermConditions_Modified_Time:DT',
+						'selected' => '',
+						'typeofdata' => 'DT',
+					),
+				),
+				'Terms and Conditions' => array(
+					'tandc' => array(
+						'label' => 'Terms and Conditions',
+						'value' => 'vtiger_cbtandc:tandc:tandc:cbTermConditions_Terms_and_Conditions:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+				),
+				'Description' => array(
+					'description' => array(
+						'label' => 'Description',
+						'value' => 'vtiger_crmentity:description:description:cbTermConditions_Description:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+				),
+			),
+			'ServiceContracts' => array(
+				'Service Contract Information' => array(
+					'subject' => array(
+						'label' => 'Subject',
+						'value' => 'vtiger_servicecontracts:subject:subject:ServiceContracts_Subject:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'contract_no' => array(
+						'label' => 'Contract No',
+						'value' => 'vtiger_servicecontracts:contract_no:contract_no:ServiceContracts_Contract_No:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'sc_related_to' => array(
+						'label' => 'Related to',
+						'value' => 'vtiger_servicecontracts:sc_related_to:sc_related_to:ServiceContracts_Related_to:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'assigned_user_id' => array(
+						'label' => 'Assigned To',
+						'value' => 'vtiger_crmentity:smownerid:assigned_user_id:ServiceContracts_Assigned_To:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'contract_type' => array(
+						'label' => 'Type',
+						'value' => 'vtiger_servicecontracts:contract_type:contract_type:ServiceContracts_Type:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'tracking_unit' => array(
+						'label' => 'Tracking Unit',
+						'value' => 'vtiger_servicecontracts:tracking_unit:tracking_unit:ServiceContracts_Tracking_Unit:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'start_date' => array(
+						'label' => 'Start Date',
+						'value' => 'vtiger_servicecontracts:start_date:start_date:ServiceContracts_Start_Date:D',
+						'selected' => '',
+						'typeofdata' => 'D',
+					),
+					'total_units' => array(
+						'label' => 'Total Units',
+						'value' => 'vtiger_servicecontracts:total_units:total_units:ServiceContracts_Total_Units:N',
+						'selected' => '',
+						'typeofdata' => 'N',
+					),
+					'due_date' => array(
+						'label' => 'Due Date',
+						'value' => 'vtiger_servicecontracts:due_date:due_date:ServiceContracts_Due_date:D',
+						'selected' => '',
+						'typeofdata' => 'D',
+					),
+					'used_units' => array(
+						'label' => 'Used Units',
+						'value' => 'vtiger_servicecontracts:used_units:used_units:ServiceContracts_Used_Units:N',
+						'selected' => '',
+						'typeofdata' => 'N',
+					),
+					'end_date' => array(
+						'label' => 'End Date',
+						'value' => 'vtiger_servicecontracts:end_date:end_date:ServiceContracts_End_Date:D',
+						'selected' => '',
+						'typeofdata' => 'D',
+					),
+					'contract_status' => array(
+						'label' => 'Status',
+						'value' => 'vtiger_servicecontracts:contract_status:contract_status:ServiceContracts_Status:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'planned_duration' => array(
+						'label' => 'Planned Duration (in Days)',
+						'value' => 'vtiger_servicecontracts:planned_duration:planned_duration:ServiceContracts_Planned_Duration:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'contract_priority' => array(
+						'label' => 'Priority',
+						'value' => 'vtiger_servicecontracts:priority:contract_priority:ServiceContracts_Priority:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'actual_duration' => array(
+						'label' => 'Actual Duration (in Days)',
+						'value' => 'vtiger_servicecontracts:actual_duration:actual_duration:ServiceContracts_Actual_Duration:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'progress' => array(
+						'label' => 'Progress',
+						'value' => 'vtiger_servicecontracts:progress:progress:ServiceContracts_Progress:N',
+						'selected' => '',
+						'typeofdata' => 'N',
+					),
+					'createdtime' => array(
+						'label' => 'Created Time',
+						'value' => 'vtiger_crmentity:createdtime:createdtime:ServiceContracts_Created_Time:DT',
+						'selected' => '',
+						'typeofdata' => 'DT',
+					),
+					'modifiedtime' => array(
+						'label' => 'Modified Time',
+						'value' => 'vtiger_crmentity:modifiedtime:modifiedtime:ServiceContracts_Modified_Time:DT',
+						'selected' => '',
+						'typeofdata' => 'DT',
+					),
+					'created_user_id' => array(
+						'label' => 'Created By',
+						'value' => 'vtiger_crmentity:smcreatorid:created_user_id:ServiceContracts_Created_By:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'modifiedby' => array(
+						'label' => 'Last Modified By',
+						'value' => 'vtiger_crmentity:modifiedby:modifiedby:ServiceContracts_Last_Modified_By:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+				),
+			),
+		);
+		$expected_tcflat = array(
+			'cbTermConditions' => array(
+				'Terms and Conditions Information' => array(
+					'vtiger_cbtandc:cbtandcno:cbtandcno:cbTermConditions_TandC_No:V' => 'Terms and Conditions No',
+					'vtiger_cbtandc:reference:reference:cbTermConditions_Reference:V' => 'Reference',
+					'vtiger_cbtandc:isdefault:isdefault:cbTermConditions_Is_Default:C' => 'Is Default',
+					'vtiger_cbtandc:formodule:formodule:cbTermConditions_formodule:V' => 'For Module',
+					'vtiger_cbtandc:srvcto:srvcto:cbTermConditions_ServiceContracts:V' => 'ServiceContracts',
+					'vtiger_cbtandc:copyfrom:copyfrom:cbTermConditions_Copy_From:V' => 'Copy From',
+					'vtiger_crmentity:smownerid:assigned_user_id:cbTermConditions_Assigned_To:V' => 'Assigned To',
+					'vtiger_crmentity:createdtime:createdtime:cbTermConditions_Created_Time:DT' => 'Created Time',
+					'vtiger_crmentity:modifiedtime:modifiedtime:cbTermConditions_Modified_Time:DT' => 'Modified Time',
+				),
+				'Terms and Conditions' => array(
+					'vtiger_cbtandc:tandc:tandc:cbTermConditions_Terms_and_Conditions:V' => 'Terms and Conditions',
+				),
+				'Description' => array(
+					'vtiger_crmentity:description:description:cbTermConditions_Description:V' => 'Description',
+				),
+			),
+			'ServiceContracts' => array(
+				'Service Contract Information' => array(
+					'vtiger_servicecontracts:subject:subject:ServiceContracts_Subject:V' => 'Subject',
+					'vtiger_servicecontracts:contract_no:contract_no:ServiceContracts_Contract_No:V' => 'Contract No',
+					'vtiger_servicecontracts:sc_related_to:sc_related_to:ServiceContracts_Related_to:V' => 'Related to',
+					'vtiger_crmentity:smownerid:assigned_user_id:ServiceContracts_Assigned_To:V' => 'Assigned To',
+					'vtiger_servicecontracts:contract_type:contract_type:ServiceContracts_Type:V' => 'Type',
+					'vtiger_servicecontracts:tracking_unit:tracking_unit:ServiceContracts_Tracking_Unit:V' => 'Tracking Unit',
+					'vtiger_servicecontracts:start_date:start_date:ServiceContracts_Start_Date:D' => 'Start Date',
+					'vtiger_servicecontracts:total_units:total_units:ServiceContracts_Total_Units:N' => 'Total Units',
+					'vtiger_servicecontracts:due_date:due_date:ServiceContracts_Due_date:D' => 'Due Date',
+					'vtiger_servicecontracts:used_units:used_units:ServiceContracts_Used_Units:N' => 'Used Units',
+					'vtiger_servicecontracts:end_date:end_date:ServiceContracts_End_Date:D' => 'End Date',
+					'vtiger_servicecontracts:contract_status:contract_status:ServiceContracts_Status:V' => 'Status',
+					'vtiger_servicecontracts:planned_duration:planned_duration:ServiceContracts_Planned_Duration:V' => 'Planned Duration (in Days)',
+					'vtiger_servicecontracts:priority:contract_priority:ServiceContracts_Priority:V' => 'Priority',
+					'vtiger_servicecontracts:actual_duration:actual_duration:ServiceContracts_Actual_Duration:V' => 'Actual Duration (in Days)',
+					'vtiger_servicecontracts:progress:progress:ServiceContracts_Progress:N' => 'Progress',
+					'vtiger_crmentity:createdtime:createdtime:ServiceContracts_Created_Time:DT' => 'Created Time',
+					'vtiger_crmentity:modifiedtime:modifiedtime:ServiceContracts_Modified_Time:DT' => 'Modified Time',
+					'vtiger_crmentity:smcreatorid:created_user_id:ServiceContracts_Created_By:V' => 'Created By',
+					'vtiger_crmentity:modifiedby:modifiedby:ServiceContracts_Last_Modified_By:V' => 'Last Modified By',
+				),
+			),
+		);
+		return array(
+			array('GlobalVariable', true, 1, $expected_gv, 'GlobalVariable admin'),
+			array('GlobalVariable', true, 5, $expected_gv, 'GlobalVariable normal user'),
+			array('GlobalVariable', true, 11, $expected_gv, 'GlobalVariable restricted user'),
+			array('cbTermConditions', true, 1, $expected_tc, 'cbTermConditions admin'),
+			array('cbTermConditions', true, 5, $expected_tc, 'cbTermConditions normal user'),
+			array('cbTermConditions', true, 11, $expected_tc, 'cbTermConditions restricted user'),
+			array('cbTermConditions', false, 5, $expected_tcflat, 'cbTermConditions normal user assocarray'),
+		);
+	}
+
+	/**
+	 * Method testgetModuleColumnsList
+	 * @test
+	 * @dataProvider getModuleColumnsListProvider
+	 */
+	public function testgetModuleColumnsList($module, $assocArray, $userid, $expected, $msg) {
+		global $current_user;
+		$holduser = $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
+		$customView = new CustomView($module);
+		$this->assertEquals($expected, $customView->getModuleColumnsList($module, $assocArray), $msg);
+		$current_user = $holduser;
+	}
 }
