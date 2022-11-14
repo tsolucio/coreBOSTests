@@ -637,6 +637,28 @@ class WorkFlowSchedulerQueryTest extends TestCase {
 	}
 
 	/**
+	 * Method testgetGroupID
+	 * @test
+	 */
+	public function testgetGroupID() {
+		global $adb, $currentModule;
+		$currentModule = 'HelpDesk';
+		$workflowScheduler = new WorkFlowScheduler($adb);
+		$workflow = new Workflow();
+		$wfvals = $this->defaultWF;
+		$wfvals['module_name'] = 'HelpDesk';
+		//////////////////////
+		$wfvals['select_expressions'] = 'id';
+		$wfvals['test'] = '[{"fieldname":"assigned_user_id : (Users) id","operation":"is","value":"getGroupID(\'Marketing\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(7); // testymd HelpDesk is private
+		$actual = $workflowScheduler->getWorkflowQuery($workflow, array(), true, $user);
+		$expected = "SELECT vtiger_troubletickets.ticketid FROM vtiger_troubletickets  INNER JOIN vtiger_crmentity ON vtiger_troubletickets.ticketid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_users.id = vtiger_crmentity.smownerid  LEFT JOIN vtiger_groups ON vtiger_groups.groupid = vtiger_crmentity.smownerid  INNER JOIN vt_tmp_u7 vt_tmp_u7 ON vt_tmp_u7.id = vtiger_crmentity.smownerid  WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_users.id = (select groupid from vtiger_groups where groupname='Marketing') or vtiger_groups.groupid = (select groupid from vtiger_groups where groupname='Marketing')) )) AND vtiger_troubletickets.ticketid > 0";
+		$this->assertEquals($expected, $actual, 'UserPermissions');
+	}
+
+	/**
 	 * Method testWfBooleanExpressionFromRelated
 	 * @test
 	 */
