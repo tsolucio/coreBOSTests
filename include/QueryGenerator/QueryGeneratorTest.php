@@ -365,6 +365,12 @@ class QueryGeneratorTest extends TestCase {
 
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
 		$queryGenerator->setFields(array('id','accountname'));
+		$queryGenerator->addCondition('employees', '__IGNORE__', 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query, "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.employees IS NULL OR vtiger_account.employees = '')  AND vtiger_account.accountid > 0");
+
+		$queryGenerator = new QueryGenerator('Accounts', $current_user);
+		$queryGenerator->setFields(array('id','accountname'));
 		$queryGenerator->addCondition('employees', '', 'ny');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query, "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.employees IS NOT NULL AND vtiger_account.employees != '')  AND vtiger_account.accountid > 0");
