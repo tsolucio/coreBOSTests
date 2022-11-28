@@ -381,6 +381,18 @@ class QueryGeneratorTest extends TestCase {
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query, "SELECT vtiger_invoice.invoiceid, vtiger_invoice.accountid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_invoice.invoiceid = '22')  AND vtiger_invoice.invoiceid > 0");
 
+		$queryGenerator = new QueryGenerator('Invoice', $current_user);
+		$queryGenerator->setFields(array('id','account_id'));
+		$queryGenerator->addCondition('id', 22, 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query, "SELECT vtiger_invoice.invoiceid, vtiger_invoice.accountid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_invoice.invoiceid = '22')  AND vtiger_invoice.invoiceid > 0");
+
+		$queryGenerator = new QueryGenerator('Invoice', $current_user);
+		$queryGenerator->setFields(array('id','account_id'));
+		$queryGenerator->addCondition('id', 'textstring', 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query, "SELECT vtiger_invoice.invoiceid, vtiger_invoice.accountid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_invoice.invoiceid = 'textstring')  AND vtiger_invoice.invoiceid > 0");
+
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
 		$queryGenerator->setFields(array('id','accountname'));
 		$queryGenerator->addCondition('id', array('22','55'), 'i');
@@ -407,6 +419,18 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'account_id', 'id', '1047', 'e');
 		$query = $queryGenerator->getQuery();
 		$this->assertEquals($query, "SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountaccount_id.accountid = '1047')  AND vtiger_contactdetails.contactid > 0");
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('id','firstname','Accounts.accountname','Accounts.id'));
+		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'account_id', 'id', 1047, 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query, "SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountaccount_id.accountid = '1047')  AND vtiger_contactdetails.contactid > 0");
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('id','firstname','Accounts.accountname','Accounts.id'));
+		$queryGenerator->addReferenceModuleFieldCondition('Accounts', 'account_id', 'id', 'textstring', 'e');
+		$query = $queryGenerator->getQuery();
+		$this->assertEquals($query, "SELECT vtiger_contactdetails.contactid, vtiger_contactdetails.firstname, vtiger_accountaccount_id.accountname as accountsaccountname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid  WHERE vtiger_crmentity.deleted=0 AND (vtiger_accountaccount_id.accountid = 'textstring')  AND vtiger_contactdetails.contactid > 0");
 
 		$queryGenerator = new QueryGenerator('Contacts', $current_user);
 		$queryGenerator->setFields(array('id','firstname','Accounts.phone'));
@@ -1628,6 +1652,23 @@ class QueryGeneratorTest extends TestCase {
 									select translation_key
 									from vtiger_cbtranslation
 									where locale=\"en_us\" and forpicklist=\"Quotes::quotestage\" and i18n <> 'anyval') AND vtiger_quotes.quotestage <> 'anyval') )) AND vtiger_quotes.quoteid > 0",
+			$condsafter
+		);
+		//////////////////////////
+		$queryGenerator = new QueryGenerator('cbTermConditions', $current_user);
+		$conds = array(
+			array(),
+		);
+		$advSearch = array(
+			'query' => 'true',
+			'searchtype' => 'advance',
+			'advft_criteria' => '[{"groupid":"1","columnname":"vtiger_servicecontracts:subject:subject:ServiceContracts_Subject:V","comparator":"c","value":"fri","columncondition":""}]',
+			'advft_criteria_groups' => '[null,{"groupcondition":""}]',
+		);
+		$queryGenerator->addUserSearchConditions($advSearch);
+		$condsafter = $queryGenerator->getWhereClause();
+		$this->assertEquals(
+			" WHERE vtiger_crmentity.deleted=0 AND   (  ((vtiger_servicecontractssrvcto.subject LIKE '%fri%') )) AND vtiger_cbtandc.cbtandcid > 0",
 			$condsafter
 		);
 	}
