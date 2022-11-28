@@ -865,6 +865,87 @@ class VTExpressionEvaluaterTest extends TestCase {
 	}
 
 	/**
+	 * Method testIFFieldUsers
+	 * @test
+	 */
+	public function testIFFieldUsers() {
+		global $current_user;
+		$user = new Users();
+		$user->retrieveCurrentUserInfoFromFile(10); // testtz
+		$current_user = $user;
+		$entityId = '11x74';
+		$entity = new VTWorkflowEntity($user, $entityId);
+		$testexpression = "if $(assigned_user_id : (Users) id) == getCurrentUserID() then 'then' else 'else' end";
+		$expectedresult = array(
+			0 => 'VTExpressionSymbol Object
+(
+    [value] => $(assigned_user_id : (Users) id)
+    [type] => string
+)
+',
+			1 => 'Array
+(
+)
+',
+			2 => 'Array
+(
+    [0] => 19x10
+    [1] => 19x10
+)
+',
+			3 => 'Array
+(
+    [0] => VTExpressionTreeNode Object
+        (
+            [arr] => Array
+                (
+                    [0] => VTExpressionSymbol Object
+                        (
+                            [value] => ==
+                            [type] => string
+                        )
+
+                    [1] => VTExpressionSymbol Object
+                        (
+                            [value] => $(assigned_user_id : (Users) id)
+                            [type] => string
+                        )
+
+                    [2] => VTExpressionTreeNode Object
+                        (
+                            [arr] => Array
+                                (
+                                    [0] => VTExpressionSymbol Object
+                                        (
+                                            [value] => getCurrentUserID
+                                            [type] => string
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [1] => then
+    [2] => else
+)
+',
+			4 => true,
+			5 => 'then'
+		);
+		$parser = new VTExpressionParser(new VTExpressionSpaceFilter(new VTExpressionTokenizer($testexpression)));
+		$expression = $parser->expression();
+		$exprEvaluater = new VTFieldExpressionEvaluater($expression);
+		$exprEvaluation = $exprEvaluater->evaluate($entity);
+		$this->assertEquals($expectedresult, $exprEvaluater->debug);
+		$this->assertEquals('then', $exprEvaluation);
+		$current_user = Users::getActiveAdminUser();
+	}
+
+	/**
 	 * Method testIFFieldvsValue
 	 * @test
 	 */
