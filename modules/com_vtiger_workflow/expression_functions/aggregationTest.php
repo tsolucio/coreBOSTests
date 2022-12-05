@@ -111,6 +111,11 @@ class aggregationTest extends TestCase {
 		$this->assertEquals("1610\n1291", $actual);
 		$actual = __cb_aggregation(array('group_concat','Invoice','contact_id separator "\r"','',$entityData));
 		$this->assertEquals("1610\r1291", $actual);
+
+		$actual = __cb_aggregation(array('group_concat','Invoice','contact_id separator "newline"','',$entityData));
+		$this->assertEquals("1610\r\n1291", $actual);
+		$actual = __cb_aggregation(array('group_concat','Invoice','account_id separator "newline"','',$entityData));
+		$this->assertEquals("74\r\n141", $actual);
 		////////////////
 		$currentModule = 'Potentials';
 		$entityData = $entityCache->forId('13x5900'); // Egestas Aliquam Fringilla Corp potential
