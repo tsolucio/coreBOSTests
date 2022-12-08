@@ -339,6 +339,20 @@ class WSUtilsTest extends TestCase {
 	}
 
 	/**
+	 * Method testvtws_getModuleHandlerFromName
+	 * @test
+	 */
+	public function testvtws_getModuleHandlerFromName() {
+		// tested in VtigerWebserviceObjectTest > here just check it returns the object
+		global $adb, $current_user, $log;
+		$webserviceObject = VtigerWebserviceObject::fromName($adb, 'Accounts');
+		require_once 'include/Webservices/VtigerModuleOperation.php';
+		$expected = new VtigerModuleOperation($webserviceObject, $current_user, $adb, $log);
+		$handler = vtws_getModuleHandlerFromName('Accounts', $current_user, false);
+		$this->assertEquals($expected, $handler, 'vtws_getModuleHandlerFromName Accounts');
+	}
+
+	/**
 	 * Method testgetActorModules
 	 * @test
 	 */
