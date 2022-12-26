@@ -1018,4 +1018,172 @@ class CustomViewTest extends TestCase {
 		$this->assertEquals($expected, $customView->getModuleColumnsList($module, $assocArray), $msg);
 		$current_user = $holduser;
 	}
+
+	/**
+	 * Method testgetConditionsFromSQL2CV
+	 * @test
+	 */
+	public function testgetConditionsFromSQL2CV() {
+		$module = 'Accounts';
+		$customView = new CustomView($module);
+		$query = 'select * from vtiger_accounts where deleted=0;';
+		$moreconds = [];
+		$expected = [];
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'no conditions');
+		/////////////
+		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid WHERE vtiger_crmentity.deleted=0 AND ( ( (( vtiger_account.account_type IN ( select translation_key from vtiger_cbtranslation where locale='en_us' and forpicklist='Accounts::accounttype' and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') ))) AND vtiger_account.accountid > 0";
+		$moreconds = [];
+		$expected = array(
+			'columnname' => 'vtiger_account:account_type:accounttype:Accounts_Type:V~O',
+			'comparator' => 'e',
+			'value' => 'Prospect',
+			'groupid' => 4,
+			'columncondition' => '',
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), '1 conditions');
+		/////////////
+		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid WHERE vtiger_crmentity.deleted=0 AND ( ( (( vtiger_account.account_type IN ( select translation_key from vtiger_cbtranslation where locale='en_us' and forpicklist='Accounts::accounttype' and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') and ( vtiger_account.website LIKE 'w%') ))) AND vtiger_account.accountid > 0";
+		$moreconds = [];
+		$expected = array(
+			0 => array(
+				'columnname' => 'vtiger_account:account_type:accounttype:Accounts_Type:V~O',
+				'comparator' => 'e',
+				'value' => 'Prospect',
+				'groupid' => 4,
+				'columncondition' => 'and',
+			),
+			1 => array(
+				'columnname' => 'vtiger_account:website:website:Accounts_Website:V~O',
+				'comparator' => 'c',
+				'value' => 'w%',
+				'groupid' => 5,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), '2 conditions');
+		////////////
+		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid WHERE vtiger_crmentity.deleted=0 AND ( ( (( vtiger_account.account_type IN ( select translation_key from vtiger_cbtranslation where locale='en_us' and forpicklist='Accounts::accounttype' and i18n <> 'Prospect') AND vtiger_account.account_type <> 'Prospect') and ( vtiger_account.website LIKE 'w%') ))) AND vtiger_account.accountid > 0";
+		$moreconds = [];
+		$expected = array(
+			0 => array(
+				'columnname' => 'vtiger_account:account_type:accounttype:Accounts_Type:V~O',
+				'comparator' => 'n',
+				'value' => 'Prospect',
+				'groupid' => 4,
+				'columncondition' => 'and',
+			),
+			1 => array(
+				'columnname' => 'vtiger_account:website:website:Accounts_Website:V~O',
+				'comparator' => 'c',
+				'value' => 'w%',
+				'groupid' => 5,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), '2 conditions one negative');
+		////////////
+		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid WHERE vtiger_crmentity.deleted=0 AND ( ( (( vtiger_account.account_type IN ( select translation_key from vtiger_cbtranslation where locale='en_us' and forpicklist='Accounts::accounttype' and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') and ( vtiger_account.website LIKE 'w%') ))) AND vtiger_account.accountid > 0";
+		$moreconds = ['columnname' => 'rating', 'comparator' => 'e', 'value' => 'Active', 'columncondition' => ''];
+		$expected = array(
+			0 => array(
+				'columnname' => 'vtiger_account:account_type:accounttype:Accounts_Type:V~O',
+				'comparator' => 'e',
+				'value' => 'Prospect',
+				'groupid' => 4,
+				'columncondition' => 'and',
+			),
+			1 => array(
+				'columnname' => 'vtiger_account:website:website:Accounts_Website:V~O',
+				'comparator' => 'c',
+				'value' => 'w%',
+				'groupid' => 5,
+				'columncondition' => 'and',
+			),
+			2 => array(
+				'columnname' => 'vtiger_account:rating:rating:Accounts_Rating:V~O',
+				'comparator' => 'e',
+				'value' => 'Active',
+				'groupid' => 1,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), '2 conditions + forced one');
+		////////////
+		$query = "SELECT * FROM vtiger_account WHERE vtiger_crmentity.deleted=0";
+		$moreconds = ['columnname' => 'rating', 'comparator' => 'e', 'value' => 'Active', 'columncondition' => ''];
+		$expected = array(
+			0 => array(
+				'columnname' => 'vtiger_account:rating:rating:Accounts_Rating:V~O',
+				'comparator' => 'e',
+				'value' => 'Active',
+				'groupid' => 1,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'no conditions + forced one');
+		////////////
+		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid WHERE vtiger_crmentity.deleted=0 AND ( ( (( vtiger_account.website LIKE '%m') ) and (( vtiger_account.accountname NOT LIKE 'c%') ))) AND vtiger_account.accountid > 0";
+		$moreconds = [];
+		$expected = array(
+			0 => array(
+				'columnname' => 'vtiger_account:website:website:Accounts_Website:V~O',
+				'comparator' => 'c',
+				'value' => '%m',
+				'groupid' => 4,
+				'columncondition' => 'and',
+			),
+			1 => array(
+				'columnname' => 'vtiger_account:accountname:accountname:Accounts_Account_Name:V~M',
+				'comparator' => 'k',
+				'value' => 'c%',
+				'groupid' => 5,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'and grouping');
+		////////////
+		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid WHERE vtiger_crmentity.deleted=0 AND ( ( (( vtiger_account.website LIKE '%m') ) or (( vtiger_account.accountname NOT LIKE 'c%') ))) AND vtiger_account.accountid > 0";
+		$moreconds = [];
+		$expected = array(
+			0 => array(
+				'columnname' => 'vtiger_account:website:website:Accounts_Website:V~O',
+				'comparator' => 'c',
+				'value' => '%m',
+				'groupid' => 4,
+				'columncondition' => 'or',
+			),
+			1 => array(
+				'columnname' => 'vtiger_account:accountname:accountname:Accounts_Account_Name:V~M',
+				'comparator' => 'k',
+				'value' => 'c%',
+				'groupid' => 5,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'or grouping');
+		////////////
+		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid WHERE vtiger_crmentity.deleted=0 AND (( vtiger_accountscf.cf_722 BETWEEN '2023-01-01' AND '2023-12-31') ) AND vtiger_account.accountid > 0";
+		$moreconds = [];
+		$expected = array(
+			'columnname' => 'vtiger_accountscf:cf_722:cf_722:Accounts_Date:D~O',
+			'comparator' => 'bw',
+			'value' => "2023-01-01,'2023-12-31'",
+			'groupid' => 2,
+			'columncondition' => '',
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'standard data between');
+		////////////
+		$query = "SELECT * FROM vtiger_account WHERE vtiger_crmentity.deleted=0";
+		$moreconds = ['columnname' => 'PLACEFIELD', 'comparator' => 'e', 'value' => 'PLACEVALUE', 'columncondition' => ''];
+		$expected = array(
+			0 => array(
+				'columnname' => '',
+				'comparator' => 'e',
+				'value' => 'PLACEVALUE',
+				'groupid' => 1,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'no conditions + false forced one');
+	}
 }
