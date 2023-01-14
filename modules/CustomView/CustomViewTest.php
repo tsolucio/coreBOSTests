@@ -1034,11 +1034,13 @@ class CustomViewTest extends TestCase {
 		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid WHERE vtiger_crmentity.deleted=0 AND ( ( (( vtiger_account.account_type IN ( select translation_key from vtiger_cbtranslation where locale='en_us' and forpicklist='Accounts::accounttype' and i18n = 'Prospect') OR vtiger_account.account_type = 'Prospect') ))) AND vtiger_account.accountid > 0";
 		$moreconds = [];
 		$expected = array(
-			'columnname' => 'vtiger_account:account_type:accounttype:Accounts_Type:V~O',
-			'comparator' => 'e',
-			'value' => 'Prospect',
-			'groupid' => 4,
-			'columncondition' => '',
+			0 => array(
+				'columnname' => 'vtiger_account:account_type:accounttype:Accounts_Type:V~O',
+				'comparator' => 'e',
+				'value' => 'Prospect',
+				'groupid' => 4,
+				'columncondition' => '',
+			),
 		);
 		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), '1 conditions');
 		/////////////
@@ -1165,11 +1167,13 @@ class CustomViewTest extends TestCase {
 		$query = "SELECT vtiger_account.accountname, vtiger_account.phone, vtiger_account.website, vtiger_account.rating, vtiger_crmentity.smownerid, vtiger_account.accountid FROM vtiger_account INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid INNER JOIN vtiger_accountscf ON vtiger_account.accountid = vtiger_accountscf.accountid WHERE vtiger_crmentity.deleted=0 AND (( vtiger_accountscf.cf_722 BETWEEN '2023-01-01' AND '2023-12-31') ) AND vtiger_account.accountid > 0";
 		$moreconds = [];
 		$expected = array(
-			'columnname' => 'vtiger_accountscf:cf_722:cf_722:Accounts_Date:D~O',
-			'comparator' => 'bw',
-			'value' => "2023-01-01,'2023-12-31'",
-			'groupid' => 2,
-			'columncondition' => '',
+			0 => array(
+				'columnname' => 'vtiger_accountscf:cf_722:cf_722:Accounts_Date:D~O',
+				'comparator' => 'bw',
+				'value' => "2023-01-01,'2023-12-31'",
+				'groupid' => 2,
+				'columncondition' => '',
+			),
 		);
 		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'standard data between');
 		////////////
@@ -1185,5 +1189,54 @@ class CustomViewTest extends TestCase {
 			),
 		);
 		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'no conditions + false forced one');
+		////////////
+		$query = 'SELECT vtiger_contactdetails.lastname, vtiger_crmentity.smownerid, vtiger_accountaccount_id.accountname as accountsaccountname, vtiger_accountaccount_id.phone as accountsphone, vtiger_contactdetails.contactid FROM vtiger_contactdetails INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid ';
+		$query.= "WHERE vtiger_crmentity.deleted=0 AND ( ( ((vtiger_accountaccount_id.siccode LIKE '%6%') ))) AND vtiger_contactdetails.contactid > 0 GROUP BY vtiger_contactdetails.lastname";
+		$moreconds = ['columnname' => 'PLACEFIELD', 'comparator' => 'e', 'value' => 'PLACEVALUE', 'columncondition' => ''];
+		$expected = array(
+			0 => array(
+				'columnname' => 'vtiger_account:siccode:siccode:Accounts_SIC_Code:V~O',
+				'comparator' => 'c',
+				'value' => '%6%',
+				'groupid' => 4,
+				'columncondition' => 'and',
+			),
+			1 => array(
+				'columnname' => '',
+				'comparator' => 'e',
+				'value' => 'PLACEVALUE',
+				'groupid' => 1,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'tisg conditions + false forced one');
+		////////////
+		$query = 'SELECT vtiger_contactdetails.lastname, vtiger_crmentity.smownerid, vtiger_accountaccount_id.accountname as accountsaccountname, vtiger_accountaccount_id.phone as accountsphone, vtiger_contactdetails.contactid FROM vtiger_contactdetails INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid LEFT JOIN vtiger_users ON vtiger_crmentity.smownerid = vtiger_users.id LEFT JOIN vtiger_groups ON vtiger_crmentity.smownerid = vtiger_groups.groupid LEFT JOIN vtiger_account AS vtiger_accountaccount_id ON vtiger_accountaccount_id.accountid=vtiger_contactdetails.accountid ';
+		$query.= "WHERE crme.deleted=0 AND vtiger_accountaccount_id.siccode LIKE '%6%' AND vtiger_contactdetails.lastname LIKE '%A%' GROUP BY vtiger_contactdetails.lastname";
+		$moreconds = ['columnname' => 'PLACEFIELD', 'comparator' => 'e', 'value' => 'PLACEVALUE', 'columncondition' => ''];
+		$expected = array(
+			0 => array(
+				'columnname' => 'vtiger_account:siccode:siccode:Accounts_SIC_Code:V~O',
+				'comparator' => 'c',
+				'value' => '%6%',
+				'groupid' => 1,
+				'columncondition' => 'AND',
+			),
+			1 => array(
+				'columnname' => 'vtiger_contactdetails:lastname:lastname:Contacts_Last_Name:V~M',
+				'comparator' => 'c',
+				'value' => '%A%',
+				'groupid' => 1,
+				'columncondition' => 'and',
+			),
+			2 => array(
+				'columnname' => '',
+				'comparator' => 'e',
+				'value' => 'PLACEVALUE',
+				'groupid' => 1,
+				'columncondition' => '',
+			),
+		);
+		$this->assertEquals($expected, $customView->getConditionsFromSQL2CV($query, $moreconds), 'tisg conditions + false forced one');
 	}
 }
