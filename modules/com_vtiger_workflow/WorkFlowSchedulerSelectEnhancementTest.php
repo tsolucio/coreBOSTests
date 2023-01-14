@@ -196,6 +196,18 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = 'SELECT REGEXP_REPLACE(vtiger_invoice.subject,\'[A-Z]+\',\'x\') AS regexreplaceres FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0';
 		$this->assertEquals($expected, $actual);
+		//////////////////////
+		$wfvals['select_expressions'] = '[{"fieldname":"uniqid","operation":"is","value":"uniqid(\'AZ\')","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT concat('AZ',uuid_short()) AS uniqid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0";
+		$this->assertEquals($expected, $actual);
+		//////////////////////
+		$wfvals['select_expressions'] = '[{"fieldname":"uniqid","operation":"is","value":"uniqid()","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT uuid_short() AS uniqid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0";
+		$this->assertEquals($expected, $actual);
 	}
 
 	/**
