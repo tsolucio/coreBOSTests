@@ -24,7 +24,7 @@ class NetClientTest extends TestCase {
 
 	public static function setUpBeforeClass(): void {
 		global $site_URL;
-		self::$netURL = $site_URL.'/webservice.php';
+		self::$netURL = 'http://localhost/coreBOSTest/webservice.php';
 	}
 
 	/**
