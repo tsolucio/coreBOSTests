@@ -118,6 +118,11 @@ class LinkTest extends TestCase {
 		$link->handler_class = $handler_class;
 		$link->handler = $handler;
 		$link->onlyonmymodule = $onlyonmymodule;
+		$link->widget_header = '0';
+		$link->widget_width = '';
+		$link->widget_height = '';
+		$link->errormsg = '';
+		$link->successmsg = '';
 
 		// Adding link object to expectedLinks
 		$expectedLinks[] = $link;

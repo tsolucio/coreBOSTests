@@ -83,6 +83,11 @@ class BusinessActionsTest extends TestCase {
 		$expectedLink->handler_class = '';
 		$expectedLink->handler = '';
 		$expectedLink->onlyonmymodule = '0';
+		$expectedLink->widget_header = '';
+		$expectedLink->widget_width = '';
+		$expectedLink->widget_height = '';
+		$expectedLink->errormsg = '';
+		$expectedLink->successmsg = '';
 		$expected[] = $expectedLink;
 		$expectedLink = new Vtiger_Link();
 		$expectedLink->tabid = '56';
@@ -97,6 +102,11 @@ class BusinessActionsTest extends TestCase {
 		$expectedLink->handler_class = '';
 		$expectedLink->handler = '';
 		$expectedLink->onlyonmymodule = '0';
+		$expectedLink->widget_header = '';
+		$expectedLink->widget_width = '';
+		$expectedLink->widget_height = '';
+		$expectedLink->errormsg = '';
+		$expectedLink->successmsg = '';
 		$expected[] = $expectedLink;
 		$expectedLink = new Vtiger_Link();
 		$expectedLink->tabid = '56';
@@ -111,6 +121,11 @@ class BusinessActionsTest extends TestCase {
 		$expectedLink->handler_class = '';
 		$expectedLink->handler = '';
 		$expectedLink->onlyonmymodule = '0';
+		$expectedLink->widget_header = '';
+		$expectedLink->widget_width = '';
+		$expectedLink->widget_height = '';
+		$expectedLink->errormsg = '';
+		$expectedLink->successmsg = '';
 		$expected[] = $expectedLink;
 		$this->assertEquals($expected, $actual);
 	}
@@ -159,6 +174,11 @@ class BusinessActionsTest extends TestCase {
 		$link->handler_class = $handler_class;
 		$link->handler = $handler;
 		$link->onlyonmymodule = $onlyonmymodule;
+		$link->widget_header = '0';
+		$link->widget_width = '';
+		$link->widget_height = '';
+		$link->errormsg = '';
+		$link->successmsg = '';
 
 		// Adding link object to expectedLinks
 		$expectedLinks[] = $link;
