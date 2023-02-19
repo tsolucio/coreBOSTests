@@ -812,6 +812,7 @@ class PickListUtilsTest extends TestCase {
 			'Messages' => 'Messages',
 			'cbPulse' => 'cbPulse',
 			'MsgTemplate' => 'MsgTemplate',
+			'cbSurveyQuestion' => 'cbSurveyQuestion',
 		);
 		$this->assertEquals($expected, $actual);
 	}
@@ -3072,6 +3073,7 @@ class PickListUtilsTest extends TestCase {
 				3 => array(
 					'gvname' => 'Name',
 					'category' => 'Category',
+					'viewtype' => 'View Type',
 				),
 			),
 			24 => array(
@@ -3119,6 +3121,7 @@ class PickListUtilsTest extends TestCase {
 				3 => array(
 					'qtype' => 'qtype',
 					'qstatus' => 'qstatus',
+					'querytype' => 'querytype',
 				),
 			),
 			29 => array(
@@ -3166,6 +3169,14 @@ class PickListUtilsTest extends TestCase {
 				2 => '',
 				3 => array(
 					'adapter' => 'Adapter',
+				),
+			),
+			34 => array(
+				0 => 'Survey Questions',
+				1 => 'cbSurveyQuestion',
+				2 => '',
+				3 => array(
+					'question_type' => 'Type of Question',
 				),
 			),
 		);
