@@ -575,6 +575,7 @@ class DescribeObjectTest extends TestCase {
 			),
 			'linkfields' => array( 0 => 'assetname'),
 			'pagesize' => 40,
+			'relatedfields' => array(),
 		),
 		'relatedModules' => array(
 			'HelpDesk' => array(
@@ -597,6 +598,7 @@ class DescribeObjectTest extends TestCase {
 					),
 					'linkfields' => array( 0 => 'ticket_title'),
 					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 			),
 			'Documents' => array(
@@ -618,6 +620,7 @@ class DescribeObjectTest extends TestCase {
 					),
 					'linkfields' => array( 0 => 'notes_title'),
 					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 			),
 		),
@@ -957,6 +960,7 @@ class DescribeObjectTest extends TestCase {
 			),
 			'linkfields' => array( 0 => 'question'),
 			'pagesize' => 40,
+			'relatedfields' => array(),
 		),
 		'relatedModules' => array(
 			'Documents' => array(
@@ -978,6 +982,7 @@ class DescribeObjectTest extends TestCase {
 					),
 					'linkfields' => array( 0 => 'notes_title'),
 					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 			),
 		),

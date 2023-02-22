@@ -62,16 +62,16 @@ class VTWSEntityTypeTest extends TestCase {
 		$this->assertEquals($fieldnames, $et->getFieldNames(), 'FieldNames');
 		$ftypes = $et->getFieldTypes();
 		$this->assertInstanceOf(VTWSFieldType::class, $ftypes['potential_no'], 'potential_no VTWSFieldType');
-		$this->assertEquals(array('type' => 'Number', 'format' => 'Decimal'), $ftypes['amount']->toArray(), 'FieldType toArray');
+		$this->assertEquals(array('type' => 'Number', 'format' => 'Decimal', 'values' => null, 'relatedTo' => null), $ftypes['amount']->toArray(), 'FieldType toArray');
 		$this->assertEquals($ftypes['potential_no']->type, $et->getFieldType('potential_no')->type, 'FieldType potential_no');
 		$this->assertEquals('String', $et->getFieldType('potential_no')->type, 'FieldType potential_no');
-		$this->assertEquals(array('type' => 'String'), (array)$ftypes['potential_no'], 'FieldType ToArray');
+		$this->assertEquals(array('type' => 'String', 'values' => null, 'relatedTo' => null, 'format' => null), (array)$ftypes['potential_no'], 'FieldType ToArray');
 		$this->assertInstanceOf(VTWSFieldType::class, $ftypes['amount'], 'amount');
 		$this->assertEquals($ftypes['amount']->type, $et->getFieldType('amount')->type, 'FieldType amount');
 		$this->assertEquals('String', $et->getFieldType('potential_no')->type, 'FieldType potential_no');
 		$this->assertEquals('Number', $et->getFieldType('amount')->type, 'FieldType amount');
 		$this->assertEquals('Decimal', $et->getFieldType('amount')->format, 'FieldFormat amount');
-		$this->assertEquals(array('type' => 'Number','format'=>'Decimal'), (array)$ftypes['amount'], 'FieldType ToArray');
+		$this->assertEquals(array('type' => 'Number','format'=>'Decimal', 'values' => null, 'relatedTo' => null), (array)$ftypes['amount'], 'FieldType ToArray');
 		$flabels = $et->getFieldLabels();
 		$fieldlabels = array(
 			'potentialname' => 'Opportunity Name',

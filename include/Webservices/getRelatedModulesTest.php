@@ -42,7 +42,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('contact_no', 'firstname', 'lastname', 'title', 'account_id', 'email', 'phone', 'assigned_user_id'),
 					'linkfields' => array('firstname', 'lastname'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -57,7 +58,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('potential_no', 'potentialname', 'related_to', 'sales_stage', 'leadsource', 'closingdate', 'assigned_user_id'),
 					'linkfields' => array('potentialname'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -72,7 +74,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('quote_no', 'subject', 'quotestage', 'potential_id', 'account_id', 'hdnGrandTotal', 'assigned_user_id'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -87,7 +90,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('salesorder_no', 'subject', 'account_id', 'quote_id', 'hdnGrandTotal', 'assigned_user_id'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -102,7 +106,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('invoice_no', 'subject', 'salesorder_id', 'invoicestatus', 'hdnGrandTotal', 'assigned_user_id'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -117,7 +122,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('eventstatus', 'activitytype', 'subject', 'rel_id', 'cto_id', 'dtstart', 'dtend', 'assigned_user_id'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -132,7 +138,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('subject', 'saved_toid', 'date_start'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => 'N:N',
 			),
@@ -147,7 +154,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('note_no', 'notes_title', 'filename', 'modifiedtime', 'assigned_user_id'),
 					'linkfields' => array('notes_title'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => 'N:N',
 			),
@@ -162,7 +170,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('ticket_no', 'ticket_title', 'parent_id', 'ticketstatus', 'ticketpriorities', 'assigned_user_id'),
 					'linkfields' => array('ticket_title'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -177,7 +186,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('product_no', 'productname', 'productcode', 'commissionrate', 'qtyinstock', 'qty_per_unit', 'unit_price'),
 					'linkfields' => array('productname'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => 'N:N',
 			),
@@ -192,7 +202,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('campaign_no', 'campaignname', 'campaigntype', 'campaignstatus', 'expectedrevenue', 'closingdate', 'assigned_user_id'),
 					'linkfields' => array('campaignname'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => 'N:N',
 			),
@@ -207,7 +218,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('contract_no', 'subject', 'sc_related_to', 'assigned_user_id', 'start_date', 'due_date', 'progress', 'contract_status'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -222,7 +234,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('service_no', 'servicename', 'service_usageunit', 'unit_price', 'qty_per_unit', 'servicecategory', 'assigned_user_id'),
 					'linkfields' => array('servicename'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => 'N:N',
 			),
@@ -237,7 +250,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('cyp_no', 'reference', 'duedate', 'amount', 'cost', 'benefit', 'paid', 'assigned_user_id'),
 					'linkfields' => array('cyp_no'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -252,7 +266,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('asset_no', 'assetname', 'account', 'product'),
 					'linkfields' => array('assetname'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -267,7 +282,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('projectname', 'linktoaccountscontacts', 'startdate', 'targetenddate', 'actualenddate', 'targetbudget', 'progress', 'projectstatus', 'assigned_user_id'),
 					'linkfields' => array('projectname'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -282,7 +298,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('inventorydetails_no', 'productid', 'related_to', 'account_id', 'contact_id', 'vendor_id', 'quantity', 'listprice', 'linetotal'),
 					'linkfields' => array('inventorydetails_no'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -297,7 +314,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('cbsurveydone_no', 'relatewith', 'cbsurvey', 'surveydonedate', 'assigned_user_id'),
 					'linkfields' => array('cbsurveydone_no'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -312,7 +330,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('cbsurveyanswer_no', 'relatedwith', 'cbsurvey', 'cbsurveydone', 'cbsurveyq', 'positive', 'assigned_user_id'),
 					'linkfields' => array('cbsurveyanswer_no'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -327,7 +346,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('companyname', 'siccode', 'comercialname', 'assigned_user_id'),
 					'linkfields' => array('companyname'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -342,7 +362,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('messageno', 'assigned_user_id', 'createdtime', 'messagename', 'account_message', 'contact_message', 'campaign_message'),
 					'linkfields' => array('messageno'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relationtype' => '1:N',
 			),
@@ -361,7 +382,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('ticket_no', 'ticket_title', 'parent_id', 'ticketstatus', 'ticketpriorities', 'assigned_user_id'),
 					'linkfields' => array('ticket_title'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => null,
 				'relationtype' => 'N:N',
@@ -376,7 +398,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('note_no', 'notes_title', 'filename', 'modifiedtime', 'assigned_user_id'),
 					'linkfields' => array('notes_title'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => null,
 				'relationtype' => 'N:N',
@@ -396,7 +419,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('eventstatus', 'activitytype', 'subject', 'rel_id', 'cto_id', 'dtstart', 'dtend', 'assigned_user_id'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => 'rel_id',
 				'relationtype' => '1:N',
@@ -411,7 +435,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('note_no', 'notes_title', 'filename', 'modifiedtime', 'assigned_user_id'),
 					'linkfields' => array('notes_title'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => null,
 				'relationtype' => 'N:N',
@@ -426,7 +451,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('ticket_no', 'ticket_title', 'parent_id', 'ticketstatus', 'ticketpriorities', 'assigned_user_id'),
 					'linkfields' => array('ticket_title'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => null,
 				'relationtype' => 'N:N',
@@ -441,7 +467,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('contract_no', 'subject', 'sc_related_to', 'assigned_user_id', 'start_date', 'due_date', 'progress', 'contract_status'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => null,
 				'relationtype' => 'N:N',
@@ -456,7 +483,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('service_no', 'servicename', 'service_usageunit', 'unit_price', 'qty_per_unit', 'servicecategory', 'assigned_user_id'),
 					'linkfields' => array('servicename'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => null,
 				'relationtype' => 'N:N',
@@ -471,7 +499,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('cyp_no', 'reference', 'duedate', 'amount', 'cost', 'benefit', 'paid', 'assigned_user_id'),
 					'linkfields' => array('cyp_no'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => 'related_id',
 				'relationtype' => '1:N',
@@ -486,7 +515,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('projectname', 'linktoaccountscontacts', 'startdate', 'targetenddate', 'actualenddate', 'targetbudget', 'progress', 'projectstatus', 'assigned_user_id'),
 					'linkfields' => array('projectname'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => null,
 				'relationtype' => 'N:N',
@@ -501,7 +531,8 @@ class getRelatedModulesTest extends TestCase {
 				'filterFields' => array(
 					'fields' => array('subject', 'saved_toid', 'date_start'),
 					'linkfields' => array('subject'),
-					'pagesize' => 40
+					'pagesize' => 40,
+					'relatedfields' => array(),
 				),
 				'relatedfield' => null,
 				'relationtype' => 'N:N',

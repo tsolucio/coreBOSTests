@@ -289,70 +289,100 @@ class CustomViewTest extends TestCase {
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_contacts_admin_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_accounts_admin_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_potentials_admin_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_salesorder_admin_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_leads_testmdy_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_contacts_testmdy_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_accounts_testmdy_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_potentials_testmdy_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		$expected_salesorder_testmdy_value = array(
 			'viewname' => 'All',
 			'setdefault' => '1',
 			'setmetrics' => '0',
 			'userid' => '1',
-			'status' => "0"
+			'status' => '0',
+			'setPrivate' => null,
+			'sortfieldbyfirst' => null,
+			'sortfieldbysecond' => null,
 		);
 		return array(
 			array('Leads', 1, $expected_leads_admin_value),
@@ -661,6 +691,12 @@ class CustomViewTest extends TestCase {
 					'rolegv' => array(
 						'label' => 'Role',
 						'value' => 'vtiger_globalvariable:rolegv:rolegv:GlobalVariable_Role:V',
+						'selected' => '',
+						'typeofdata' => 'V',
+					),
+					'viewtype' => array(
+						'label' => 'View Type',
+						'value' => 'vtiger_globalvariable:viewtype:viewtype:GlobalVariable_View_Type:V',
 						'selected' => '',
 						'typeofdata' => 'V',
 					),
