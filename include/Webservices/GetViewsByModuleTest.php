@@ -97,6 +97,8 @@ class GetViewsByModuleTest extends TestCase {
 			'pagesize' => 40
 		);
 		$today = date('Y-m-d');
+		$startWeek = date('Y-m-d', strtotime('-1 week Sunday'));
+		$endWeek = date('Y-m-d', strtotime('this Saturday'));
 		$ecto = array(
 			'filters' => array(
 				7 => array(
@@ -231,11 +233,11 @@ class GetViewsByModuleTest extends TestCase {
 					'name' => 'New This Week',
 					'status' => '3',
 					'advcriteria' => '[]',
-					'stdcriteria' => '[{"columnname":"createdtime","comparator":"bw","value":"2022-08-07,2022-08-13","column_condition":""}]',
+					'stdcriteria' => '[{"columnname":"createdtime","comparator":"bw","value":"'.$startWeek.','.$endWeek.'","column_condition":""}]',
 					'advcriteriaWQL' => '',
 					'advcriteriaEVQL' => '',
-					'stdcriteriaWQL' => "createdtime >= '2022-08-07 00:00:00' and createdtime <= '2022-08-13 23:59:00'",
-					'stdcriteriaEVQL' => '{"fieldname":"createdtime","operation":"between","value":"2022-08-07,2022-08-13","valuetype":"rawtext","joincondition":"and","groupid":101919851}',
+					'stdcriteriaWQL' => "createdtime >= '".$startWeek." 00:00:00' and createdtime <= '".$endWeek." 23:59:00'",
+					'stdcriteriaEVQL' => '{"fieldname":"createdtime","operation":"between","value":"'.$startWeek.','.$endWeek.'","valuetype":"rawtext","joincondition":"and","groupid":101919851}',
 					'fields' => array(
 						0 => 'accountname',
 						1 => 'phone',
