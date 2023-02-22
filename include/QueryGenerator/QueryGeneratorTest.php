@@ -886,7 +886,7 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->addCondition('employees', '133,144', 'e', $queryGenerator::$AND); // THIS IS AN INCORRECT CONDITION
 		$query = $queryGenerator->getQuery();
 		// THIS IS INCORRECT SQL DUE TO AN INCORRECT CONDITION
-		$this->assertEquals($query, "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.employees = 133,144)  AND vtiger_account.accountid > 0");
+		$this->assertEquals($query, "SELECT vtiger_account.accountid, vtiger_account.accountname FROM vtiger_account  INNER JOIN vtiger_crmentity ON vtiger_account.accountid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_account.employees = '133,144')  AND vtiger_account.accountid > 0");
 
 		$queryGenerator = new QueryGenerator('Accounts', $current_user);
 		$queryGenerator->setFields(array('id','accountname'));
