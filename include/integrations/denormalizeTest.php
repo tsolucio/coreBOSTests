@@ -96,6 +96,9 @@ class denormalizeTest extends TestCase {
 			'assigned_user_id' => $cbUserID,
 			'created_user_id' => $cbUserID,
 			'description' => 'áçèñtös',
+			'cbauthtoken' => '',
+			'cbauthstart' => '2023-02-19 15:56:02',
+			'cbauthend' => '2023-02-19 15:56:02',
 		);
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		$ObjectValues['cbcredentialsno'] = $actual['cbcredentialsno'];
