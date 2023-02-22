@@ -119,27 +119,29 @@ class CustomerPortalWSTest extends TestCase {
 	 */
 	public function getAssignedUserListProvider() {
 		$usersadmin = '[{"userid":"19x1","username":"Administrator"},{"userid":"19x11","username":"nocreate cbTest"},{"userid":"19x5","username":"cbTest testdmy"},{"userid":"19x8","username":"cbTest testes"},{"userid":"19x12","username":"cbTest testmcurrency"},{"userid":"19x6","username":"cbTest testmdy"},{"userid":"19x10","username":"cbTest testtz"},{"userid":"19x13","username":"cbTest testtz-3"},{"userid":"19x7","username":"cbTest testymd"}]';
-		$usersHDAC = '{"HelpDesk":'.$usersadmin.',"Accounts":'.$usersadmin.'}';
-		$usersHDACCT = '{"HelpDesk":'.$usersadmin.',"Accounts":'.$usersadmin.',"Contacts":'.$usersadmin.'}';
+		$usrdota0x = '[{"userid":"19x11","username":"nocreate cbTest"},{"userid":"19x5","username":"cbTest testdmy"}]';
+		$usersHDAC = '{"HelpDesk":'.$usrdota0x.',"Accounts":'.$usersadmin.'}';
+		$usersHDACNoC = '{"HelpDesk":[{"userid":"19x11","username":"nocreate cbTest"}],"Accounts":'.$usersadmin.'}';
+		$usersHDACCT = '{"HelpDesk":'.$usrdota0x.',"Accounts":'.$usersadmin.',"Contacts":'.$usersadmin.'}';
 		return array(
 			array('HelpDesk', 1, $usersadmin),
 			array('DoesNotExist', 1, '[]'),
 			array('', 1, '[]'),
-			array('HelpDesk', $this->usrdota0x, $usersadmin),
+			array('HelpDesk', $this->usrdota0x, $usrdota0x),
 			array('DoesNotExist', $this->usrdota0x, '[]'),
 			array('', $this->usrdota0x, '[]'),
-			array('HelpDesk', $this->usrinactive, $usersadmin),
+			array('HelpDesk', $this->usrinactive, '[{"userid":"19x11","username":"nocreate cbTest"}]'),
 			array('DoesNotExist', $this->usrinactive, '[]'),
 			array('', $this->usrinactive, '[]'),
-			array('HelpDesk', $this->usrnocreate, $usersadmin),
+			array('HelpDesk', $this->usrnocreate, '[{"userid":"19x11","username":"nocreate cbTest"}]'),
 			array('cbTermConditions', $this->usrnocreate, '[]'),
 			array('DoesNotExist', $this->usrnocreate, '[]'),
 			array('', $this->usrnocreate, '[]'),
 			array('HelpDesk,Accounts', $this->usrdota0x, $usersHDAC),
 			array('HelpDesk,Accounts,Contacts', $this->usrdota0x, $usersHDACCT),
-			array('HelpDesk,Accounts', $this->usrnocreate, $usersHDAC),
-			array('HelpDesk,Accounts,cbTermConditions', $this->usrnocreate, $usersHDAC),
-			array('HelpDesk,Accounts,DoesNotExist', $this->usrnocreate, $usersHDAC),
+			array('HelpDesk,Accounts', $this->usrnocreate, $usersHDACNoC),
+			array('HelpDesk,Accounts,cbTermConditions', $this->usrnocreate, $usersHDACNoC),
+			array('HelpDesk,Accounts,DoesNotExist', $this->usrnocreate, $usersHDACNoC),
 		);
 	}
 
@@ -149,9 +151,13 @@ class CustomerPortalWSTest extends TestCase {
 	 * @dataProvider getAssignedUserListProvider
 	 */
 	public function testgetAssignedUserList($module, $userid, $expected) {
+		global $current_user;
+		$holdUser = $current_user;
 		$user = new Users();
 		$user->retrieveCurrentUserInfoFromFile($userid);
+		$current_user = $user;
 		$this->assertEquals($expected, vtws_getAssignedUserList($module, $user), 'getAssignedUserList');
+		$current_user = $holdUser;
 	}
 
 	/**
