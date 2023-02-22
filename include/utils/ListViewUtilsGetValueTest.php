@@ -39,10 +39,10 @@ class ListViewUtilsGetValueTest extends TestCase {
 						$ret = '<a href="javascript:window.close();" id=\'popup_product_92\' onclick=\'set_return_inventory_po("92", "Rose &amp; Co Management Cnslnts", "", "tax1=4.500,tax2=10.000,tax3=12.500","1","","::"); \' vt_prod_arr=\'{"entityid":"92","prodname":"Rose &amp; Co Management Cnslnts","unitprice":"","qtyinstk":"0","taxstring":"tax1=4.500,tax2=10.000,tax3=12.500","rowid":"1","desc":"","subprod_ids":"::"}\' >Rose & Co Management Cnslnts</a>';
 						break;
 					case 'specific_account_address':
-						$ret = '<a href="javascript:void(0);" onclick=\'set_return_shipbilladdress("92", "Rose & Co Management Cnslnts", "41 Augusta Hwy", "41 Augusta Hwy", "Richmond", "Richmond", "BC", "BC", "V6X 3S2", "V6X 3S2", "Canada", "Canada","", "");\'id = '.$id.'>Rose & Co Management Cnslnts</a>';
+						$ret = '<a href="javascript:void(0);" onclick=\'set_return_shipbilladdress("92", "Rose & Co Management Cnslnts", "41 Augusta Hwy", "41 Augusta Hwy", "Richmond", "Richmond", "BC", "BC", "V6X 3S2", "V6X 3S2", "Canada", "Canada","", "");\'id='.$id.'>Rose & Co Management Cnslnts</a>';
 						break;
 					case 'specific_contact_account_address':
-						$ret = '<a href="javascript:window.close();" onclick=\'set_return_contact_address("92", "Rose & Co Management Cnslnts", "41 Augusta Hwy", "41 Augusta Hwy", "Richmond", "Richmond", "BC", "BC", "V6X 3S2", "V6X 3S2", "Canada", "Canada","", "");\'id = '.$id.'>Rose & Co Management Cnslnts</a>';
+						$ret = '<a href="javascript:window.close();" onclick=\'set_return_contact_address("92", "Rose & Co Management Cnslnts", "41 Augusta Hwy", "41 Augusta Hwy", "Richmond", "Richmond", "BC", "BC", "V6X 3S2", "V6X 3S2", "Canada", "Canada","", "");\'id='.$id.'>Rose & Co Management Cnslnts</a>';
 						break;
 					case 'specific_potential_account_address':
 						$ret = 'Rose & Co Management Cnslnts';
