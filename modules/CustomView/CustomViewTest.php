@@ -563,10 +563,10 @@ class CustomViewTest extends TestCase {
 			'vtiger_crmentity:modifiedby:modifiedby:cbCalendar_Last_Modified_By:V' => 'Last Modified By',
 		);
 		return array(
-			array('Assets', 102, true, 1, null, null, null, null, 'asset admin incorrect block'),
-			array('Assets', 102, true, 5, null, null, null, null, 'asset user incorrect block'),
-			array('Assets', 1000002, true, 1, null, null, null, null, 'asset admin inexistent block'),
-			array('Assets', 1000002, true, 5, null, null, null, null, 'asset user  inexistent block'),
+			array('Assets', 102, true, 1, [], null, null, null, 'asset admin incorrect block'),
+			array('Assets', 102, true, 5, [], null, null, null, 'asset user incorrect block'),
+			array('Assets', 1000002, true, 1, [], null, null, null, 'asset admin inexistent block'),
+			array('Assets', 1000002, true, 5, [], null, null, null, 'asset user  inexistent block'),
 			array('Assets', 103, true, 1, $expected_blck_asset, $expected_blck_assetM, $expected_blck_assetS, $expected_blck_assetD, 'asset admin mandatory'),
 			array('Assets', 103, true, 5, $expected_blck_asset, $expected_blck_assetM, $expected_blck_assetS, $expected_blck_assetD, 'asset user mandatory'),
 			array('Assets', 103, false, 1, $expected_blck_asset, null, null, null, 'asset admin not mandatory'),
