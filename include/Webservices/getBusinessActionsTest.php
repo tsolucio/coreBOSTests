@@ -118,6 +118,22 @@ class getBusinessActionsTest extends TestCase {
 					'widget_header' => '0',
 					'widget_width' => '',
 					'widget_height' => '',
+				)),
+				BusinessActions::convertToObject(4, array(
+					'businessactionsid' => '44124',
+					'elementtype_action' => 'LISTVIEWBASIC',
+					'linklabel' => 'Mass Tag',
+					'linkurl' => "javascript:showMassTag();",
+					'linkicon' => '',
+					'sequence' => '0',
+					'status' => false,
+					'handler_path' => '',
+					'handler_class' => '',
+					'handler' => '',
+					'onlyonmymodule' => '0',
+					'widget_header' => '0',
+					'widget_width' => '',
+					'widget_height' => '',
 				))
 			),
 			'HEADERSCRIPT' => array(BusinessActions::convertToObject(4, array(
