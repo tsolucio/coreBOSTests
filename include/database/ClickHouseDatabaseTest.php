@@ -427,6 +427,15 @@ class ClickHouseDatabaseTest extends TestCase {
 
 	/**
 	 * @test
+	 * @dataProvider metaProvider
+	 */
+	public function test_getMetaColumns($table_name, $table_cols) {
+		global $cdb;
+		$this->assertEquals($table_cols, $cdb->getMetaColumns($table_name));
+	}
+
+	/**
+	 * @test
 	 */
 	public function test_sql_escape_string() {
 		global $cdb;
@@ -800,6 +809,160 @@ class ClickHouseDatabaseTest extends TestCase {
 					3 => 'presence',
 				)
 			),
+		);
+	}
+
+	public function metaProvider() {
+		$at = array();
+		$af = new ADOFieldObject();
+		$af->name = 'activitytypeid';
+		$af->max_length = -1;
+		$af->type = 'Int32';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$af->default_type = '';
+		$af->default_expression = '';
+		$af->comment = '';
+		$af->codec_expression = '';
+		$af->ttl_expression = '';
+		$at['activitytypeid'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'activitytype';
+		$af->max_length = 200;
+		$af->type = 'String';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$af->default_type = '';
+		$af->default_expression = '';
+		$af->comment = '';
+		$af->codec_expression = '';
+		$af->ttl_expression = '';
+		$at['activitytype'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'presence';
+		$af->max_length = -1;
+		$af->type = 'Int32';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$af->default_type = '';
+		$af->default_expression = '';
+		$af->comment = '';
+		$af->codec_expression = '';
+		$af->ttl_expression = '';
+		$at['presence'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'picklist_valueid';
+		$af->max_length = -1;
+		$af->type = 'Int32';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$af->default_type = '';
+		$af->default_expression = '';
+		$af->comment = '';
+		$af->codec_expression = '';
+		$af->ttl_expression = '';
+		$at['picklist_valueid'] = $af;
+		$af = new ADOFieldObject();
+		$av = array();
+		$af->name = 'activity_viewid';
+		$af->max_length = -1;
+		$af->type = 'Int32';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$af->default_type = '';
+		$af->default_expression = '';
+		$af->comment = '';
+		$af->codec_expression = '';
+		$af->ttl_expression = '';
+		$av['activity_viewid'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'activity_view';
+		$af->max_length = 200;
+		$af->type = 'String';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$af->default_type = '';
+		$af->default_expression = '';
+		$af->comment = '';
+		$af->codec_expression = '';
+		$af->ttl_expression = '';
+		$av['activity_view'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'presence';
+		$af->max_length = -1;
+		$af->type = 'Int32';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$af->default_type = '';
+		$af->default_expression = '';
+		$af->comment = '';
+		$af->codec_expression = '';
+		$af->ttl_expression = '';
+		$av['presence'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'sortorderid';
+		$af->max_length = -1;
+		$af->type = 'Int32';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$af->default_type = '';
+		$af->default_expression = '';
+		$af->comment = '';
+		$af->codec_expression = '';
+		$af->ttl_expression = '';
+		$av['sortorderid'] = $af;
+
+		return array(
+			array('vtiger_activitytype', $at),
+			array('vtiger_activity_view', $av),
 		);
 	}
 }

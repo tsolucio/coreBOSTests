@@ -434,6 +434,14 @@ class PearDatabaseTest extends TestCase {
 	}
 
 	/**
+	 * @dataProvider metaProvider
+	 * @depends testObjectType
+	 */
+	public function test_getMetaColumns($table_name, $table_cols, $adb) {
+		$this->assertEquals($table_cols, $adb->getMetaColumns($table_name));
+	}
+
+	/**
 	 * @dataProvider tablesProvider
 	 * @depends testObjectType
 	 */
@@ -879,6 +887,124 @@ class PearDatabaseTest extends TestCase {
 					3 => 'presence',
 				)
 			),
+		);
+	}
+
+	public function metaProvider() {
+		$at = array();
+		$af = new ADOFieldObject();
+		$af->name = 'activitytypeid';
+		$af->max_length = -1;
+		$af->type = 'int';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = true;
+		$af->auto_increment = true;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$at['ACTIVITYTYPEID'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'activitytype';
+		$af->max_length = 200;
+		$af->type = 'varchar';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$at['ACTIVITYTYPE'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'presence';
+		$af->max_length = -1;
+		$af->type = 'int';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = true;
+		$af->default_value = 1;
+		$at['PRESENCE'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'picklist_valueid';
+		$af->max_length = -1;
+		$af->type = 'int';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = true;
+		$af->default_value = '0';
+		$at['PICKLIST_VALUEID'] = $af;
+		$af = new ADOFieldObject();
+		$av = array();
+		$af->name = 'activity_viewid';
+		$af->max_length = -1;
+		$af->type = 'int';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = true;
+		$af->auto_increment = true;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$av['ACTIVITY_VIEWID'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'activity_view';
+		$af->max_length = 200;
+		$af->type = 'varchar';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = false;
+		$av['ACTIVITY_VIEW'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'presence';
+		$af->max_length = -1;
+		$af->type = 'int';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = true;
+		$af->default_value = 1;
+		$av['PRESENCE'] = $af;
+		$af = new ADOFieldObject();
+		$af->name = 'sortorderid';
+		$af->max_length = -1;
+		$af->type = 'int';
+		$af->scale = null;
+		$af->not_null = true;
+		$af->primary_key = false;
+		$af->auto_increment = false;
+		$af->binary = false;
+		$af->unsigned = false;
+		$af->zerofill = false;
+		$af->has_default = true;
+		$af->default_value = '0';
+		$av['SORTORDERID'] = $af;
+
+		return array(
+			array('vtiger_activitytype', $at),
+			array('vtiger_activity_view', $av),
 		);
 	}
 }
