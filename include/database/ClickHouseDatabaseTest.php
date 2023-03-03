@@ -29,6 +29,7 @@ Tables used by test that need to be added to clickhouse
 	vtiger_contactdetails
 	vtiger_account
 	marvel
+	contactinfo
 */
 
 class ClickHouseDatabaseTest extends TestCase {
@@ -71,6 +72,22 @@ class ClickHouseDatabaseTest extends TestCase {
 		$sql = "SELECT * FROM vtiger_contactdetails WHERE firstname='Felix' AND lastname='Hirpara'";
 		$result = $cdb->query($sql);
 		$this->assertEquals($result->fields, $expected);
+	}
+
+	/**
+	 * @test
+	 * @dataProvider chRecordProvider
+	 */
+	public function test_chquery($expected) {
+		global $cdb;
+		$sql = 'SELECT * FROM contactinfo order by ctoid';
+		$result = $cdb->query($sql);
+		$rdo = [];
+		$idx = 0;
+		while ($row = $cdb->fetch_array($result)) {
+			$rdo[$idx++] = $row;
+		}
+		$this->assertEquals($expected, $rdo);
 	}
 
 	/**
@@ -499,6 +516,16 @@ class ClickHouseDatabaseTest extends TestCase {
 	/*********************************************************************
 		DATA PROVIDERS
 	**********************************************************************/
+
+	public function chRecordProvider() {
+		return array(
+			array(array(
+				array('ctoid' => 1, 'age' => 23, 'firstn' => 'M', 'lastn' => 'S'),
+				array('ctoid' => 2, 'age' => 32, 'firstn' => 'S', 'lastn' => 'M'),
+				array('ctoid' => 3, 'age' => 33, 'firstn' => 'A', 'lastn' => 'S'),
+			)),
+		);
+	}
 
 	public function recordProvider() {
 		return array(

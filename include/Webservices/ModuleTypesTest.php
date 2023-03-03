@@ -98,7 +98,8 @@ class ModuleTypesTest extends TestCase {
 			'Workflow',
 			'AuditTrail',
 			'LoginHistory',
-			'ModTracker'
+			'ModTracker',
+			'contactinfo',
 			),
 			'information' => array(
 			'Campaigns' => array(
@@ -380,6 +381,11 @@ class ModuleTypesTest extends TestCase {
 				'isEntity' => true,
 				'label' => 'Auto Number Prefix',
 				'singular' => 'Auto Number Prefix',
+			),
+			'contactinfo' => array(
+				'isEntity' => false,
+				'label' => 'contactinfo',
+				'singular' => 'contactinfo',
 			),
 			),
 		);

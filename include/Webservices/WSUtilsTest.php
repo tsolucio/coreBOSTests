@@ -476,6 +476,7 @@ class WSUtilsTest extends TestCase {
 				5 => 'LoginHistory',
 				6 => 'Zendesk',
 				7 => 'ModTracker',
+				8 => 'contactinfo',
 			),
 		);
 		$this->assertEquals($expected, vtws_getWebserviceEntities());
