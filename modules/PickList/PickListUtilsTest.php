@@ -813,6 +813,7 @@ class PickListUtilsTest extends TestCase {
 			'cbPulse' => 'cbPulse',
 			'MsgTemplate' => 'MsgTemplate',
 			'cbSurveyQuestion' => 'cbSurveyQuestion',
+			'Credentials' => 'cbCredentials',
 		);
 		$this->assertEquals($expected, $actual);
 	}
@@ -3173,6 +3174,7 @@ class PickListUtilsTest extends TestCase {
 				2 => '',
 				3 => array(
 					'adapter' => 'Adapter',
+					'emauth' => 'LBL_REQUIRES_AUTHENT',
 				),
 			),
 			34 => array(

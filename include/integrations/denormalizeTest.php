@@ -99,6 +99,12 @@ class denormalizeTest extends TestCase {
 			'cbauthtoken' => '',
 			'cbauthstart' => '2023-02-19 15:56:02',
 			'cbauthend' => '2023-02-19 15:56:02',
+			'certificate' => '',
+			'server' => '',
+			'emusername' => '',
+			'empassword' => '',
+			'emfrom' => '',
+			'emauth' => '',
 		);
 		$actual = vtws_create($Module, $ObjectValues, $current_user);
 		$ObjectValues['cbcredentialsno'] = $actual['cbcredentialsno'];
