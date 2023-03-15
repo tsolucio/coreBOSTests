@@ -208,6 +208,18 @@ class WorkFlowSchedulerSelectEnhancementTest extends TestCase {
 		$actual = $workflowScheduler->getWorkflowQuery($workflow);
 		$expected = "SELECT uuid_short() AS uniqid FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0";
 		$this->assertEquals($expected, $actual);
+		//////////////////////
+		$wfvals['select_expressions'] = '[{"fieldname":"chr","operation":"is","value":"char()","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = 'SELECT "" AS chr FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0';
+		$this->assertEquals($expected, $actual);
+		//////////////////////
+		$wfvals['select_expressions'] = '[{"fieldname":"chr","operation":"is","value":"char(39)","valuetype":"expression","joincondition":"and","groupid":"0"}]';
+		$workflow->setup($wfvals);
+		$actual = $workflowScheduler->getWorkflowQuery($workflow);
+		$expected = "SELECT char(39) AS chr FROM vtiger_invoice  INNER JOIN vtiger_crmentity ON vtiger_invoice.invoiceid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND vtiger_invoice.invoiceid > 0";
+		$this->assertEquals($expected, $actual);
 	}
 
 	/**
