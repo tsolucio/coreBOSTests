@@ -362,19 +362,21 @@ line2','br2nl two lines nlcr'),
 		$lang = return_module_language('en_us', 'Reports');
 		$mes = date('m')-1;
 		return array(
-			array('Description $leads-firstname$',4260,'Leads','Description Timothy','Lead name alone'),
-			array('Description $users-user_name$',5,'Users','Description testdmy','User name alone'),
-			array('Description $leads-firstname$ $users-user_name$',4260,'Leads','Description Timothy $users-user_name$','Lead name + user name'),
-			array('Description $leads-firstname$ $users-user_name$',5,'Users','Description $leads-firstname$ testdmy','User name + lead name'),
-			array('Description $leads-firstname$ $users-user_name$',0,'Leads','Description $leads-firstname$ $users-user_name$','Empty ID'),
-			array('Description $leads-firstname$ $users-user_name$',5,'','Description $leads-firstname$ $users-user_name$','Empty Entity'),
+			array('Description $leads-firstname$',4260,'Leads', [], 'Description Timothy','Lead name alone'),
+			array('Description $leads-firstname$',4260,'Leads', ['Email_AutomaticMerge'=>0], 'Description $leads-firstname$','Lead name alone'),
+			array('Description $leads-firstname$',4260,'Leads', ['Email_AutomaticMerge'=>1], 'Description Timothy','Lead name alone'),
+			array('Description $users-user_name$',5,'Users', [],'Description testdmy','User name alone'),
+			array('Description $leads-firstname$ $users-user_name$',4260,'Leads', [],'Description Timothy $users-user_name$','Lead name + user name'),
+			array('Description $leads-firstname$ $users-user_name$',5,'Users', [],'Description $leads-firstname$ testdmy','User name + lead name'),
+			array('Description $leads-firstname$ $users-user_name$',0,'Leads', [],'Description $leads-firstname$ $users-user_name$','Empty ID'),
+			array('Description $leads-firstname$ $users-user_name$',5,'', [],'Description $leads-firstname$ $users-user_name$','Empty Entity'),
 			array('$leads-firstname$  Firstname
 
 $leads-lastname$  Last Name
 
 $leads-email$
 
-Email',4260,'Leads','Timothy  Firstname
+Email',4260,'Leads', [],'Timothy  Firstname
 
 Mulqueen  Last Name
 
@@ -384,7 +386,7 @@ Email','Multiple vars and lines'),
 			array('Dear 
 
 Thank you for your confidence in our ability to serve you. 
-We are glad to be given the chance to serve you.I look ',5,'Users','Dear 
+We are glad to be given the chance to serve you.I look ',5,'Users', [],'Dear 
 
 Thank you for your confidence in our ability to serve you. 
 We are glad to be given the chance to serve you.I look ','Just text'),
@@ -404,7 +406,7 @@ We are glad to be given the chance to serve you.I look ','Just text'),
 				<tr>
 					<td align="center"><strong>$URL$</strong></td>
 				</tr>
-			</table>',1086,'Contacts','<table align="center" border="0" cellpadding="0" cellspacing="0" style="font-family: Arial,Helvetica,sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; background-color: rgb(122, 122, 254);" width="700">
+			</table>',1086,'Contacts', [],'<table align="center" border="0" cellpadding="0" cellspacing="0" style="font-family: Arial,Helvetica,sans-serif; font-size: 12px; font-weight: normal; text-decoration: none; background-color: rgb(122, 122, 254);" width="700">
 				<tr>
 					<td align="center" rowspan="4">$logo$</td>
 					<td align="center">&nbsp;</td>
@@ -423,25 +425,25 @@ We are glad to be given the chance to serve you.I look ','Just text'),
 			</table>','HTML and inexistent variables'),
 			array('Contact name: $contacts-lastname$
 Contact Image: $contacts-imagename$
-Contact Image Field: $contacts-imagename_fullpath$',1086,'Contacts','Contact name: Hirpara
+Contact Image Field: $contacts-imagename_fullpath$',1086,'Contacts', [],'Contact name: Hirpara
 Contact Image: 
 Contact Image Field: $contacts-imagename_fullpath$','Contact Image'),
 			array('Contact name: $contacts-lastname$
-Current Date: $custom-currentdate$',1086,'Contacts','Contact name: Hirpara
+Current Date: $custom-currentdate$',1086,'Contacts', [],'Contact name: Hirpara
 Current Date: '.$lang['MONTH_STRINGS'][$mes].date(" j, Y"),'General variables'),
 			array('Contact name: $contacts-lastname$
 Current Date: $custom-currentdate$
 Contact WF name: $firstname $lastname
 Account Name: $(account_id : (Accounts) accountname)
-Site URL: $URL$',1086,'Contacts','Contact name: Hirpara
+Site URL: $URL$',1086,'Contacts', [],'Contact name: Hirpara
 Current Date: '.$lang['MONTH_STRINGS'][$mes].date(' j, Y').'
 Contact WF name: Felix Hirpara
 Account Name: Chemex Labs Ltd
 Site URL: $URL$','WF vars variables'),
-			array('Description $(general : (__VtigerMeta__) scanQRCode->firstname)', 4260, 'Leads','/^Description <img src="cid:qrcode[a-zA-Z0-9]+" \/>$/', 'Lead QRCode name'),
+			array('Description $(general : (__VtigerMeta__) scanQRCode->firstname)', 4260, 'Leads', [],'/^Description <img src="cid:qrcode[a-zA-Z0-9]+" \/>$/', 'Lead QRCode name'),
 			array('
 Description $(general : (__VtigerMeta__) scanQRCode->firstname)
-', 4260, 'Leads','/^
+', 4260, 'Leads', [],'/^
 Description <img src="cid:qrcode[a-zA-Z0-9]+" \/>
 $/', 'Lead QRCode name multiline'),
 			array('first line
@@ -449,7 +451,7 @@ Description $(general : (__VtigerMeta__) scanQRCode->firstname)
 WF name: $firstname $lastname
 $leads-firstname$ $users-user_name$
 $leads-lastname$ last line
-', 4260, 'Leads','/^first line
+', 4260, 'Leads', [],'/^first line
 Description <img src="cid:qrcode[a-zA-Z0-9]+" \/>
 WF name: Timothy Mulqueen
 Timothy \$users-user_name\$
@@ -463,11 +465,11 @@ $/', 'Lead QRCode name multiline mixed with legacy and workflow field references
 	 * @test
 	 * @dataProvider getMergedDescriptionProvider
 	 */
-	public function testgetMergedDescription($description, $id, $parent_type, $expected, $msg) {
+	public function testgetMergedDescription($description, $id, $parent_type, $context, $expected, $msg) {
 		if (strpos($description, 'scanQRCode->')) {
-			$this->assertMatchesRegularExpression($expected, getMergedDescription($description, $id, $parent_type), $msg);
+			$this->assertMatchesRegularExpression($expected, getMergedDescription($description, $id, $parent_type, $context), $msg);
 		} else {
-			$this->assertEquals($expected, getMergedDescription($description, $id, $parent_type), $msg);
+			$this->assertEquals($expected, getMergedDescription($description, $id, $parent_type, $context), $msg);
 		}
 	}
 
