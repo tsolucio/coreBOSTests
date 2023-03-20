@@ -86,6 +86,9 @@ class VtlibUtilsTest extends TestCase {
 			// test url
 			array('http://localhost',false,'http://localhost','url'),
 			array('https://corebos.org',false,'https://corebos.org','urls'),
+			array('<a href="https://corebos.org"></a>',false,'<a href="https://corebos.org"></a>','a href'),
+			array('<a href="javascript:alert(document.domain)">XSShref1</a>',false,'<a>XSShref1</a>','JS XSS a href'),
+			array('<a href="javascript&colon;alert(document.domain)">XSShref2</a>',false,'<a>XSShref2</a>','JS XSS a href'),
 			array("<a href=\"javascript:display('javascript:alert(document.domain)','feedlist_1')\">test</a>",false,'<a>test</a>','javascript'),
 			array('&forrecord=xss%22%20autofocus/onfocus=%22alert(5)%22%20id=%27xxx', false, '&forrecord=xss%22%20autofocus/onfocus=%22alert(5)%22%20id=%27xxx', 'javascript'),
 			array(
