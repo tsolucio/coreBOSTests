@@ -99,6 +99,109 @@ class cbmqtm_dbdistributorTest extends TestCase {
 	}
 
 	/**
+	 * Method testMSQDeliveryRange
+	 * @test
+	 */
+	public function testMSQDeliveryRange() {
+		global $adb;
+		$cbmq = coreBOS_MQTM::getInstance();
+		$adb->query('TRUNCATE cb_messagequeue');
+
+		$now = time();
+		$one_min = $now + (1 * 60);
+		$two_min = $now + (2 * 60);
+		$startDate = date('H:i:s', $one_min);
+		$endDate = date('H:i:s', $two_min);
+		$deliverRange = array('deliverStartTime'=>$startDate, 'deliverEndTime'=>$endDate, 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test will read', $deliverRange);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test will not read', $deliverRange);
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$this->assertFalse($actual, 'Please wait after 1 minute and run again');
+		sleep(65);
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test will read'
+		);
+		$this->assertEquals($expected, $actual, 'testMSQDeliveryRange');
+		sleep(65); // now it is out of range so we should not get it
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$this->assertFalse($actual, 'Message has expired');
+		$rs = $adb->pquery('select count(*) from cb_messagequeue where channel=?', ['cbTestChannel']);
+		$nummsg = $adb->query_result($rs, 0, 0);
+		$this->assertEquals(1, $nummsg, 'testMessageQueue count after get expired');
+		$adb->query('TRUNCATE cb_messagequeue');
+
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>0, 'canSendOnSunday'=>0);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$cur_time = date('H:i:s', time());
+		$check_date = date('l');
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		if (($check_date == 'Saturday' || $check_date == 'Sunday') || ($cur_time < '21:00:00' || $cur_time > '23:59:00')) {
+			$this->assertFalse($actual, 'This message is out of range');
+			$adb->query('TRUNCATE cb_messagequeue');
+		} else {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		}
+		////////////////////////////////////////////////////////////////////////////////////
+		$deliverRange = array('deliverStartTime'=>'21:00:00', 'deliverEndTime'=>'23:59:00', 'canSendOnSaturday'=>1, 'canSendOnSunday'=>1);
+		$cbmq->sendMessage('cbTestChannel', 'phpunit', 'phpunit', 'Message', '1:M', 1, 0, 0, 0, 'sample information to test', $deliverRange);
+
+		$actual = $cbmq->getMessage('cbTestChannel', 'phpunit', 'phpunit');
+		$expected = array(
+			'channel' => 'cbTestChannel',
+			'producer' => 'phpunit',
+			'consumer' => 'phpunit',
+			'type' => 'Message',
+			'share' => '1:M',
+			'sequence' => '1',
+			'senton' => $actual['senton'], // we trust this is working correctly :-(
+			'deliverafter' => $actual['deliverafter'],
+			'expires' => $actual['expires'],
+			'version' => $actual['version'],
+			'invalid' => 0,
+			'invalidreason' => '',
+			'userid' => '0',
+			'information' => 'sample information to test'
+		);
+		if ('21:00:00' < $cur_time && $cur_time < '23:59:00') {
+			$this->assertEquals($expected, $actual, 'testMSQDeliveryRangeNoDelivery');
+		} else {
+			$this->assertFalse($actual, 'This message is out of range');
+			$adb->query('TRUNCATE cb_messagequeue');
+		}
+	}
+
+	/**
 	 * Method testSubscribe
 	 * @test
 	 */
