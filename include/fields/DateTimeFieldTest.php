@@ -281,6 +281,28 @@ class DateTimeFieldTest extends TestCase {
 	}
 
 	/**
+	 * Method testdollarsignFilterForEmptyDates
+	 * @test
+	 */
+	public function testdollarsignFilterForEmptyDates() {
+		$dt = new DateTimeField('$');
+		$dt1 = new DateTimeField('--$');
+		$dt2 = new DateTimeField('$--');
+		// Format yyyy-mm-dd'
+		$this->assertEquals('$--', $dt->__convertToDBFormat('$', 'yyyy-mm-dd'));
+		$this->assertEquals('--$', $dt1->__convertToDBFormat('--$', 'yyyy-mm-dd'));
+		$this->assertEquals('$--', $dt2->__convertToDBFormat('$--', 'yyyy-mm-dd'));
+		//Format dd-mm-yyyy
+		$this->assertEquals('--$', $dt->__convertToDBFormat('$', 'dd-mm-yyyy'));
+		$this->assertEquals('$--', $dt1->__convertToDBFormat('--$', 'dd-mm-yyyy'));
+		$this->assertEquals('--$', $dt2->__convertToDBFormat('$--', 'dd-mm-yyyy'));
+		// Format mm-dd-yyyy
+		$this->assertEquals('-$-', $dt->__convertToDBFormat('$', 'mm-dd-yyyy'));
+		$this->assertEquals('$--', $dt1->__convertToDBFormat('--$', 'mm-dd-yyyy'));
+		$this->assertEquals('-$-', $dt2->__convertToDBFormat('$--', 'mm-dd-yyyy'));
+	}
+
+	/**
 	 * Method testgetDBInsertDateTimeValueComponents
 	 * @test
 	 */
