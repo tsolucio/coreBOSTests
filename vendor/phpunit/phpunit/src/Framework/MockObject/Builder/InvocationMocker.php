@@ -194,6 +194,8 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
      * @throws MethodParametersAlreadyConfiguredException
      *
      * @return $this
+     *
+     * @deprecated
      */
     public function withConsecutive(...$arguments): self
     {
@@ -235,7 +237,8 @@ final class InvocationMocker implements InvocationStubber, MethodNameMatch
         }
 
         $configurableMethodNames = array_map(
-            static function (ConfigurableMethod $configurable) {
+            static function (ConfigurableMethod $configurable)
+            {
                 return strtolower($configurable->getName());
             },
             $this->configurableMethods
