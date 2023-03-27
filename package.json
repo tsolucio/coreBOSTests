@@ -20,6 +20,6 @@
     "karma-coverage": "^2.0.3",
     "karma-jasmine": "^4.0.1",
     "playwright": "^1.12.2",
-    "puppeteer": "^10.0.0"
+    "puppeteer": "^19.8.0"
   }
 }
