@@ -3762,16 +3762,16 @@ class PickListUtilsTest extends TestCase {
 			),
 		);
 		usort($expected, function ($a, $b) {
-			return $a[1] > $b[1];
+			return $a[1] > $b[1] ? 1 : ($a[1] < $b[1] ? -1 : 0);
 		});
 		$actual = getPicklistValuesSpecialUitypes('1616', '*', '', '*');
 		usort($actual, function ($a, $b) {
-			return $a[1] > $b[1];
+			return $a[1] > $b[1] ? 1 : ($a[1] < $b[1] ? -1 : 0);
 		});
 		$this->assertEquals($expected, $actual, 'Test getPicklistValuesSpecialUitypes 1616');
 		$actual = getPicklistValuesSpecialUitypes('1616', '*', '87', '*');
 		usort($actual, function ($a, $b) {
-			return $a[1] > $b[1];
+			return $a[1] > $b[1] ? 1 : ($a[1] < $b[1] ? -1 : 0);
 		});
 		$idx = array_search('87', array_column($expected, 1));
 		$expected[$idx][3]='selected';

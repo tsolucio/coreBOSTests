@@ -26,6 +26,10 @@ class GetRelatedModsTest extends TestCase {
 	 * @test
 	 */
 	public function testScriptGetRelatedMods() {
+		global $current_user;
+		if (empty($current_user)) {
+			$current_user = Users::getActiveAdminUser();
+		}
 		/////////////////////////
 		unset($_REQUEST['currentmodule']);
 		ob_start();

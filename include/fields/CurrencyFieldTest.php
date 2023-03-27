@@ -693,16 +693,16 @@ class CurrencyFieldTest extends TestCase {
 		$numdec = pow(10, CurrencyField::$maxNumberOfDecimals);
 		$truncexpected = floor($testcurrencyrounded * $numdec) / $numdec;
 		$truncactual = floor($formattedCurrencyValue * $numdec) / $numdec;
-		$this->assertEquals("$truncexpected", $formattedCurrencyValue, 'getDBInsertedValue noskip zero usrdota3comdollar');
+		$this->assertEquals($truncexpected, $formattedCurrencyValue, 'getDBInsertedValue noskip zero usrdota3comdollar');
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
 		$formattedCurrencyValuerounded = round($formattedCurrencyValue, CurrencyField::$maxNumberOfDecimals);
-		$this->assertEquals("$converted2DollarRounded", $formattedCurrencyValuerounded, 'getDBInsertedValue skip zero usrdota3comdollar');
+		$this->assertEquals($converted2DollarRounded, $formattedCurrencyValuerounded, 'getDBInsertedValue skip zero usrdota3comdollar');
 		$formattedCurrencyValue = CurrencyField::convertToDBFormat($converted2Dollar, $user, false);
 		$truncexpected = floor($testcurrencyrounded * $numdec) / $numdec;
 		$truncactual = floor($formattedCurrencyValue * $numdec) / $numdec;
-		$this->assertEquals("$truncexpected", $formattedCurrencyValue, 'convertToDBFormat noskip zero usrdota3comdollar');
+		$this->assertEquals($truncexpected, $formattedCurrencyValue, 'convertToDBFormat noskip zero usrdota3comdollar');
 		$formattedCurrencyValue = CurrencyField::convertToDBFormat($converted2Dollar, $user, true);
-		$this->assertEquals("$converted2DollarRounded", $formattedCurrencyValuerounded, 'convertToDBFormat skip zero usrdota3comdollar');
+		$this->assertEquals($converted2DollarRounded, $formattedCurrencyValuerounded, 'convertToDBFormat skip zero usrdota3comdollar');
 	}
 
 	/**
@@ -773,13 +773,13 @@ class CurrencyFieldTest extends TestCase {
 		$converted2DollarRounded = round($converted2Dollar, CurrencyField::$maxNumberOfDecimals);
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, false);
 		$numdec = pow(10, CurrencyField::$maxNumberOfDecimals);
-		$truncexpected = -42654016.02259; // floor($testcurrencyrounded * $numdec) / $numdec;
+		$truncexpected = floor($testcurrencyrounded * $numdec) / $numdec;
 		$truncactual = floor($formattedCurrencyValue * $numdec) / $numdec;
 		$this->assertEquals($truncexpected, $truncactual, 'getDBInsertedValue noskip Negative usrdota3comdollar');
 		$formattedCurrencyValue = $currencyField->getDBInsertedValue($user, true);
 		$this->assertEquals($converted2DollarRounded, $formattedCurrencyValue, 'getDBInsertedValue skip Negative usrdota3comdollar');
 		$formattedCurrencyValue = CurrencyField::convertToDBFormat($converted2Dollar, $user, false);
-		$truncexpected = -42654016.02259; // floor($testcurrencyrounded * $numdec) / $numdec;
+		$truncexpected = floor($testcurrencyrounded * $numdec) / $numdec;
 		$truncactual = floor($formattedCurrencyValue * $numdec) / $numdec;
 		$this->assertEquals($truncexpected, $truncactual, 'convertToDBFormat noskip Negative usrdota3comdollar');
 		$formattedCurrencyValue = CurrencyField::convertToDBFormat($converted2Dollar, $user, true);

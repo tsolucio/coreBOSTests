@@ -103,6 +103,21 @@ class PearDatabaseTest extends TestCase {
 
 	/**
 	 * @depends testObjectType
+	 */
+	public function test_showtables() {
+		global $adb;
+		$result = $adb->query("show tables like 'vtiger_language'");
+		$this->assertEquals(1, $adb->num_rows($result), 'found one vtiger_language table query');
+		$array_result = (array)$result;
+		$this->assertFalse(empty($array_result), 'Result object should not be empty query');
+		$result = $adb->pquery('show tables like ?', array('vtiger_language'));
+		$this->assertEquals(1, $adb->num_rows($result), 'found one vtiger_language table pquery');
+		$array_result = (array)$result;
+		$this->assertFalse(empty($array_result), 'Result object should not be empty pquery');
+	}
+
+	/**
+	 * @depends testObjectType
 	 * here are the data types that correspond to the TYPE number returned by fetch_field.
 		numerics
 		-------------
@@ -152,7 +167,7 @@ class PearDatabaseTest extends TestCase {
 			'name' => 'name',
 			'table' => 'marvel',
 			'def' => '',
-			'max_length' => 54,
+			'max_length' => 0,
 			'not_null' => 1,
 			'primary_key' => 0,
 			'type' => 253,
@@ -367,7 +382,7 @@ class PearDatabaseTest extends TestCase {
 			'name' => 'contact_no',
 			'table' => 'vtiger_contactdetails',
 			'def' => '',
-			'max_length' => 5,
+			'max_length' => 0,
 			'type' => 253,
 			'unsigned' => 0,
 			'not_null' => 1,
