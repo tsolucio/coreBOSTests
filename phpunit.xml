@@ -341,15 +341,12 @@
 			<directory>../../include/fpdi</directory>
 			<directory>../../include/fpdi_protection</directory>
 			<directory>../../include/freetag</directory>
-			<directory>../../include/htmlpurifier</directory>
-			<directory>../../include/HTTP_Session2</directory>
 			<directory>../../include/install</directory>
 			<directory>../../include/jquery</directory>
 			<directory>../../include/js</directory>
 			<directory>../../include/language</directory>
 			<directory>../../include/LD</directory>
 			<directory>../../include/nusoap</directory>
-			<directory>../../include/PhpSpreadsheet</directory>
 			<directory>../../include/simplepie</directory>
 			<directory>../../include/tcpdf</directory>
 			<directory>../../include/wsClient</directory>
