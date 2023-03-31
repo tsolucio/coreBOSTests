@@ -182,6 +182,15 @@ class PearDatabaseTest extends TestCase {
 			'flags' => 4097,
 			'decimals' => 0,
 			'auto_increment' => 0,
+			'default_value' => '',
+			'has_default' => '',
+			'zerofill' => '',
+			'scale' => '',
+			'ttl_expression' => '',
+			'codec_expression' => '',
+			'default_expression' => '',
+			'comment' => '',
+			'default_type' => '',
 		);
 		$this->assertEquals($expected, (array)$filed_defs[0]);
 	}
@@ -397,6 +406,15 @@ class PearDatabaseTest extends TestCase {
 			'flags' => 4097,
 			'decimals' => 0,
 			'auto_increment' => 0,
+			'default_value' => '',
+			'has_default' => '',
+			'zerofill' => '',
+			'scale' => '',
+			'ttl_expression' => '',
+			'codec_expression' => '',
+			'default_expression' => '',
+			'comment' => '',
+			'default_type' => '',
 		);
 		$this->assertEquals($expected, (array)$field);
 	}
@@ -436,7 +454,15 @@ class PearDatabaseTest extends TestCase {
 		$this->assertEquals(5, $adb->getAffectedRowCount($result));
 		$result = $adb->query('select 1 from vtiger_crmentity limit 10');
 		$this->assertEquals(10, $adb->getAffectedRowCount($result));
-		//$this->assertFalse($adb->getAffectedRowCount($result));
+		$result = $adb->query("SELECT name FROM `marvel` WHERE `name`='Hypernova'");
+		$this->assertEquals(1, $adb->getAffectedRowCount($result));
+		$result = $adb->query("UPDATE `marvel` SET name='notthere' WHERE `name`='Hypernova'");
+		$this->assertEquals(1, $adb->getAffectedRowCount($result));
+		// IT DOES NOT!!! WORK WITH PQUERY
+		$result = $adb->pquery('UPDATE `marvel` SET name=? WHERE `name`=?', ['Hypernova', 'notthere']);
+		$this->assertEquals(-1, $adb->getAffectedRowCount($result)); // -1 although the update worked!!
+		$result = $adb->query("SELECT name FROM `marvel` WHERE `name`='Hypernova'");
+		$this->assertEquals(1, $adb->getAffectedRowCount($result));
 	}
 
 	/**
