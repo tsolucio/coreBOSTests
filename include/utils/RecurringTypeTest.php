@@ -34,17 +34,19 @@ class RecurringTypeTest extends TestCase {
 	private $third = 3;
 	private $last = 4;
 	private $stubRT = array(
-					'date_start' => '2016-05-05',
-					'due_date' => '2016-09-09',
-					'time_start' => '15:00',
-					'time_end' => '16:00',
-					'recurringtype' => 'Monthly',
-					'wed_flag' => 'on',
-					'repeatMonth' => 'day',
-					'repeatMonth_date' => '',
-					'repeatMonth_daytype' => 'first',
-					'repeat_frequency' => '1',
-				);
+		'date_start' => '2016-05-05',
+		'due_date' => '2016-09-09',
+		'time_start' => '15:00',
+		'time_end' => '16:00',
+		'recurringtype' => 'Monthly',
+		'wed_flag' => 'on',
+		'repeatMonth' => 'day',
+		'repeatMonth_date' => '',
+		'repeatMonth_daytype' => 'first',
+		'repeat_frequency' => '1',
+	);
+	public $dateObj;
+	public $rtobj;
 
 	public function setup(): void {
 		$darr = array('day' => 1, 'month' => 1, 'year' => 2016);
