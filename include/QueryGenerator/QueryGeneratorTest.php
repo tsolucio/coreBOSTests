@@ -1690,15 +1690,19 @@ class QueryGeneratorTest extends TestCase {
 		$queryGenerator->setFields(array('firstname'));
 		$queryGenerator->addCondition('firstname', 'Lino_Bernardine', 'c');
 		$query = $queryGenerator->getQuery();
+		$sqlexpected = "SELECT vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_contactdetails.firstname LIKE '%Lino\_Bernardine%')  AND vtiger_contactdetails.contactid > 0";
+		$this->assertEquals($sqlexpected, $query);
 		$res = $adb->query($query);
-		$this->assertEquals("Lino_Bernardine", $res->fields['firstname']);
+		$this->assertEquals('Lino_Bernardine', $res->fields['firstname']);
 
 		$queryGenerator = new QueryGenerator('Contacts', $current_user);
 		$queryGenerator->setFields(array('firstname'));
 		$queryGenerator->addCondition('firstname', 'Lino Bernardine ', 'c');
 		$query = $queryGenerator->getQuery();
+		$sqlexpected = "SELECT vtiger_contactdetails.firstname FROM vtiger_contactdetails  INNER JOIN vtiger_crmentity ON vtiger_contactdetails.contactid = vtiger_crmentity.crmid  WHERE vtiger_crmentity.deleted=0 AND ( vtiger_contactdetails.firstname LIKE '%Lino Bernardine%')  AND vtiger_contactdetails.contactid > 0";
+		$this->assertEquals($sqlexpected, $query);
 		$res = $adb->query($query);
-		$this->assertEquals("Lino Bernardine", $res->fields['firstname']);
+		$this->assertEquals('Lino Bernardine', $res->fields['firstname']);
 
 		// revert to the previous state of the record
 		$adb->query('update vtiger_contactdetails set firstname="Lino" where contactid=1087');
