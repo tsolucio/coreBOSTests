@@ -248,7 +248,7 @@ class getRelatedModulesTest extends TestCase {
 				'relationId' => '116',
 				'relatedfield' => 'parent_id',
 				'filterFields' => array(
-					'fields' => array('cyp_no', 'reference', 'duedate', 'parent_id', 'related_id', 'amount', 'assigned_user_id'),
+					'fields' => array('cyp_no', 'reference', 'duedate', 'amount', 'cost', 'benefit', 'paid', 'assigned_user_id'),
 					'linkfields' => array('cyp_no'),
 					'pagesize' => 40,
 					'relatedfields' => array(),
@@ -497,7 +497,7 @@ class getRelatedModulesTest extends TestCase {
 				'actions' => 'ADD',
 				'relationId' => '125',
 				'filterFields' => array(
-					'fields' => array('cyp_no', 'reference', 'duedate', 'parent_id', 'related_id', 'amount', 'assigned_user_id'),
+					'fields' => array('cyp_no', 'reference', 'duedate', 'amount', 'cost', 'benefit', 'paid', 'assigned_user_id'),
 					'linkfields' => array('cyp_no'),
 					'pagesize' => 40,
 					'relatedfields' => array(),
