@@ -1678,5 +1678,31 @@ class QueryGeneratorTest extends TestCase {
 			$condsafter
 		);
 	}
+
+	public function testEscapingUnderscoreForLikeQueries() {
+		global $current_user, $adb;
+
+		// updating a record for the test
+		$adb->query('update vtiger_contactdetails set firstname="Lino_Bernardine" where contactid=1087');
+		$adb->query('update vtiger_contactdetails set firstname="Lino Bernardine" where contactid=1088');
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('firstname'));
+		$queryGenerator->addCondition('firstname', 'Lino_Bernardine', 'c');
+		$query = $queryGenerator->getQuery();
+		$res = $adb->query($query);
+		$this->assertEquals("Lino_Bernardine", $res->fields['firstname']);
+
+		$queryGenerator = new QueryGenerator('Contacts', $current_user);
+		$queryGenerator->setFields(array('firstname'));
+		$queryGenerator->addCondition('firstname', 'Lino Bernardine ', 'c');
+		$query = $queryGenerator->getQuery();
+		$res = $adb->query($query);
+		$this->assertEquals("Lino Bernardine", $res->fields['firstname']);
+
+		// revert to the previous state of the record
+		$adb->query('update vtiger_contactdetails set firstname="Lino" where contactid=1087');
+		$adb->query('update vtiger_contactdetails set firstname="Bernardine" where contactid=1088');
+	}
 }
 ?>
