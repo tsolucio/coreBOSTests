@@ -328,8 +328,6 @@
 			<directory>../../modules/**/language</directory>
 			<directory>../../include/integrations/sendgrid/lib</directory>
 			<directory>../../include/integrations/hubspot/vendor</directory>
-			<directory>../../include/adodb</directory>
-			<directory>../../include/antlr</directory>
 			<directory>../../include/bunnyjs</directory>
 			<directory>../../include/calculator</directory>
 			<directory>../../include/chart.js</directory>
@@ -347,7 +345,6 @@
 			<directory>../../include/language</directory>
 			<directory>../../include/LD</directory>
 			<directory>../../include/nusoap</directory>
-			<directory>../../include/simplepie</directory>
 			<directory>../../include/tcpdf</directory>
 			<directory>../../include/wsClient</directory>
 			<directory>../../include/MemoryLimitManager/example</directory>
